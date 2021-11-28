@@ -1,0 +1,4 @@
+#Sat Nov 27 22:13:59 BRT 2021
+base.0=/Users/alesonalves/Documents/git/E-RACING-APP/e_racing_app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

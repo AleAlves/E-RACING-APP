@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/br/e/e_racing_app/BuildConfig.java
+ com.br.e.e_racing_app.BuildConfig
