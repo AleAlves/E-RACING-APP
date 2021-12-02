@@ -40,6 +40,7 @@ abstract class _LoginViewModel with Store {
   }
 
   void getPublickey() async {
+    state = ViewState.loading;
     await _interactor.getPublicKey((key) {
       Session.instance.setRSAKey(key);
       state = ViewState.ready;
@@ -59,7 +60,7 @@ abstract class _LoginViewModel with Store {
         state = ViewState.ready;
         flow = LoginFlow.login2fa;
       } else {
-        status = StatusModel("Logged successfuly", "2FA", LoginFlow.toogle2fa);
+        status = StatusModel("Logged successfuly", "2FA", next: LoginFlow.toogle2fa);
         state = ViewState.ready;
         flow = LoginFlow.status;
       }
@@ -78,7 +79,7 @@ abstract class _LoginViewModel with Store {
         message = "2FA desabilitado";
       }
       otpQR = success;
-      status = StatusModel(message, "Ok", LoginFlow.otpQr);
+      status = StatusModel(message, "Ok", next: LoginFlow.otpQr);
       flow = LoginFlow.status;
     }, onError);
   }
@@ -89,18 +90,18 @@ abstract class _LoginViewModel with Store {
 
     await _interactor.login2FA(code, (success) {
 
-      status = StatusModel("2FA Logged successfuly", "ok", LoginFlow.initial);
+      status = StatusModel("2FA Logged successfuly", "ok", next: LoginFlow.initial);
       state = ViewState.ready;
       flow = LoginFlow.status;
     }, onError);
   }
 
-  void signin(String name, String mail, String password) async {
+  void signin(String name, String surname, String mail, String password) async {
     state = ViewState.loading;
 
-    await _interactor.signIn(name, mail, password, (success) {
+    await _interactor.signIn(name, surname, mail, password, (){
       state = ViewState.ready;
-      status = StatusModel("Conta criada com sucesso", "Ok", LoginFlow.login);
+      status = StatusModel("Conta criada com sucesso", "Ok", next: LoginFlow.login);
       flow = LoginFlow.status;
     }, onError);
   }
@@ -112,7 +113,7 @@ abstract class _LoginViewModel with Store {
       status = StatusModel(
           "Enviamos um código de verificação para o seu email ",
           "Ok",
-          LoginFlow.reset);
+          next: LoginFlow.reset);
       flow = LoginFlow.status;
     }, onError);
   }
@@ -121,7 +122,7 @@ abstract class _LoginViewModel with Store {
     state = ViewState.loading;
     await _interactor.reset(mail, password, code, () {
       state = ViewState.ready;
-      status = StatusModel("Senha resetada", "Ok", LoginFlow.login);
+      status = StatusModel("Senha resetada", "Ok", next: LoginFlow.login);
       flow = LoginFlow.status;
     }, onError);
   }
@@ -146,10 +147,20 @@ abstract class _LoginViewModel with Store {
   }
 
   void onError(ApiException error) {
-    state = ViewState.error;
+
+    status = StatusModel(error.message(), "Ok", next: LoginFlow.initial, previous: flow);
+
+    if(error.isBusiness()){
+      state = ViewState.ready;
+      flow = LoginFlow.status;
+    }
+    else{
+      state = ViewState.error;
+    }
   }
 
   void retry() {
-    getPublickey();
+    state = ViewState.ready;
+    flow =  status?.previous ?? LoginFlow.initial;
   }
 }

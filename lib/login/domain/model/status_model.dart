@@ -8,8 +8,9 @@ class StatusModel {
   final String? message;
   final String? action;
   final LoginFlow? next;
+  final LoginFlow? previous;
 
-  StatusModel(this.message, this.action, this.next);
+  StatusModel(this.message, this.action, {this.next, this.previous});
 
   factory StatusModel.fromJson(Map<String, dynamic> json) => _$StatusModelFromJson(json);
 

@@ -61,6 +61,7 @@ class LoginRepository extends LoginDataSource {
                 data: LoginRequest(
                     email, password, Session.instance.getKeyChain()!),
                 safe: true,
+                jsonEncoded: true,
                 cypherSchema: CypherSchema.rsa)),
         success,
         error);
@@ -76,19 +77,20 @@ class LoginRepository extends LoginDataSource {
             params: HTTPRequesParams(
                 data: Login2FaRequest(code, token),
                 safe: true,
+                jsonEncoded: true,
                 cypherSchema: CypherSchema.rsa)),
         success,
         error);
   }
 
   @override
-  Future toogle2fa(Function(HTTPResponse) success,
-      Function(HTTPResponse) error) async {
+  Future toogle2fa(
+      Function(HTTPResponse) success, Function(HTTPResponse) error) async {
     await _service.getResponse(
         HTTPRequest(
             endpoint: "api/v1/auth/2fa/toogle",
             verb: HTTPVerb.get,
-            params: HTTPRequesParams(safe: true)),
+            params: HTTPRequesParams(safe: true, jsonEncoded: true)),
         success,
         error);
   }
@@ -103,6 +105,7 @@ class LoginRepository extends LoginDataSource {
             params: HTTPRequesParams(
                 data: SigninRequest(userModel),
                 safe: true,
+                jsonEncoded: true,
                 cypherSchema: CypherSchema.rsa)),
         success,
         error);
@@ -128,7 +131,11 @@ class LoginRepository extends LoginDataSource {
         HTTPRequest(
             endpoint: "api/v1/auth/password/reset",
             verb: HTTPVerb.post,
-            params: HTTPRequesParams(data: ResetRequest(email, password, code), safe: true, cypherSchema: CypherSchema.rsa)),
+            params: HTTPRequesParams(
+                data: ResetRequest(email, password, code),
+                safe: true,
+                jsonEncoded: true,
+                cypherSchema: CypherSchema.rsa)),
         success,
         error);
   }

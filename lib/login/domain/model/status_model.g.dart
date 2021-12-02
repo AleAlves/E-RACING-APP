@@ -9,7 +9,8 @@ part of 'status_model.dart';
 StatusModel _$StatusModelFromJson(Map<String, dynamic> json) => StatusModel(
       json['message'] as String?,
       json['action'] as String?,
-      $enumDecodeNullable(_$LoginFlowEnumMap, json['next']),
+      next: $enumDecodeNullable(_$LoginFlowEnumMap, json['next']),
+      previous: $enumDecodeNullable(_$LoginFlowEnumMap, json['previous']),
     );
 
 Map<String, dynamic> _$StatusModelToJson(StatusModel instance) =>
@@ -17,6 +18,7 @@ Map<String, dynamic> _$StatusModelToJson(StatusModel instance) =>
       'message': instance.message,
       'action': instance.action,
       'next': _$LoginFlowEnumMap[instance.next],
+      'previous': _$LoginFlowEnumMap[instance.previous],
     };
 
 const _$LoginFlowEnumMap = {

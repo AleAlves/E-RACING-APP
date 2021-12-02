@@ -8,12 +8,13 @@ enum Style {
 }
 
 class TextWidget extends StatelessWidget {
-
   final String text;
   final Style style;
   final TextAlign align;
 
-  const TextWidget(this.text, this.style, {this.align = TextAlign.center, Key? key}) : super(key: key);
+  const TextWidget(this.text, this.style,
+      {this.align = TextAlign.center, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +28,8 @@ class TextWidget extends StatelessWidget {
     );
   }
 
-  TextStyle _getStyle(){
-    switch(style){
+  TextStyle _getStyle() {
+    switch (style) {
       case Style.title:
         return const TextStyle(
           fontFamily: 'Roboto',

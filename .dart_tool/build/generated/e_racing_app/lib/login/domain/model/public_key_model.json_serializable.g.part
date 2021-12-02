@@ -1,0 +1,13 @@
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+PublicKeyModel _$PublicKeyModelFromJson(Map<String, dynamic> json) =>
+    PublicKeyModel(
+      publicKey: json['publicKey'] as String?,
+    );
+
+Map<String, dynamic> _$PublicKeyModelToJson(PublicKeyModel instance) =>
+    <String, dynamic>{
+      'publicKey': instance.publicKey,
+    };

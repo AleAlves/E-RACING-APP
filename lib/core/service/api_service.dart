@@ -18,8 +18,13 @@ class ApiService extends BaseService {
       Function(HTTPResponse) error) {
     switch (response.statusCode) {
       case 200:
+      case 201:
+      case 202:
+      case 203:
+      case 204:
         success(handleResponse(jsonDecode(response.body)));
         return;
+      case 422:
       case 400:
       case 401:
       case 403:

@@ -19,6 +19,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget> {
   final _passwordController = TextEditingController();
   final _mailController = TextEditingController();
   final _nameController = TextEditingController();
+  final _surnameController = TextEditingController();
   late bool _passwordVisible;
   late String password = "";
 
@@ -28,6 +29,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget> {
     _nameController.text = '';
     _mailController.text = '';
     _passwordController.text = '';
+    _surnameController.text = '';
     super.initState();
   }
 
@@ -68,6 +70,25 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget> {
             },
             decoration: const InputDecoration(
               labelText: 'Name',
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.person,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          TextFormField(
+            controller: _surnameController,
+            validator: (value) {
+              if (value == null || value.isEmpty == true) {
+                return 'valid surname needed';
+              }
+              return null;
+            },
+            decoration: const InputDecoration(
+              labelText: 'Surname',
               border: OutlineInputBorder(),
               suffixIcon: Icon(
                 Icons.person,
@@ -150,6 +171,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget> {
                 if (_formKey.currentState?.validate() == true) {
                   widget.viewModel.signin(
                       _nameController.text,
+                      _surnameController.text,
                       _mailController.text,
                       _passwordController.text);
                 }

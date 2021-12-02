@@ -1,3 +1,4 @@
+import 'package:e_racing_app/core/service/http_response.dart';
 import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
@@ -8,6 +9,7 @@ import 'model/auth_model.dart';
 import 'model/profile_model.dart';
 import 'model/public_key_model.dart';
 import 'model/user_model.dart';
+
 abstract class LoginInteractor {
   Future getPublicKey(
       Function(PublicKeyModel) success, Function(ApiException) error);
@@ -15,13 +17,13 @@ abstract class LoginInteractor {
   Future login(String email, String password, Function(LoginResponse) success,
       Function(ApiException) error);
 
-  Future login2FA(String otp, Function(UserModel) success,
-      Function(ApiException) error);
+  Future login2FA(
+      String otp, Function(UserModel) success, Function(ApiException) error);
 
   Future toogle2FA(Function(String) success, Function(ApiException) error);
 
-  Future signIn(String name, String email, String password,
-      Function(LoginResponse) success, Function(ApiException) error);
+  Future signIn(String name, String surname, String email, String password,
+      Function() success, Function(ApiException) error);
 
   Future forgot(String email, Function() success, Function(ApiException) error);
 
@@ -43,7 +45,7 @@ class LoginInteractorImpl extends LoginInteractor {
     await repository.getPublicKey((response) {
       success(PublicKeyModel.fromJson(response.data));
     }, (responseError) {
-      error(ApiException("", ""));
+      onError(error, responseError);
     });
   }
 
@@ -54,40 +56,42 @@ class LoginInteractorImpl extends LoginInteractor {
         (response) {
       success(LoginResponse.fromJson(response.data));
     }, (responseError) {
-      error(ApiException("", ""));
+      onError(error, responseError);
     });
   }
 
   @override
   Future login2FA(String otp, Function(UserModel) success,
       Function(ApiException) error) async {
-    await repository.login2fa(otp, Session.instance.getBearerToken()?.token ?? '', (response) {
+    await repository.login2fa(
+        otp, Session.instance.getBearerToken()?.token ?? '', (response) {
       success(UserModel.fromJson(response.data));
     }, (responseError) {
-      error(ApiException("", ""));
+      onError(error, responseError);
     });
   }
 
   @override
-  Future toogle2FA(Function(String) success, Function(ApiException) error) async {
+  Future toogle2FA(
+      Function(String) success, Function(ApiException) error) async {
     await repository.toogle2fa((response) {
       success(response.data);
     }, (responseError) {
-      error(ApiException("", ""));
+      onError(error, responseError);
     });
   }
 
   @override
-  Future signIn(String name, String email, String password,
-      Function(LoginResponse) success, Function(ApiException) error) async {
+  Future signIn(String name, String surname, String email, String password,
+      Function() success, Function(ApiException) error) async {
     var user = UserModel(
         auth: AuthModel(password: CryptoService.instance.sha256(password)),
-        profile: ProfileModel(name: name, email: email));
+        profile: ProfileModel(name: name, surname: surname, email: email));
 
     await repository.signIn(user, (response) async {
-      success(LoginResponse.fromJson(response.data));
+      success();
     }, (responseError) {
-      error(ApiException("", ""));
+      onError(error, responseError);
     });
   }
 
@@ -97,7 +101,7 @@ class LoginInteractorImpl extends LoginInteractor {
     await repository.forgot(email, (response) async {
       success();
     }, (responseError) {
-      error(ApiException("", ""));
+      onError(error, responseError);
     });
   }
 
@@ -108,7 +112,7 @@ class LoginInteractorImpl extends LoginInteractor {
         (response) async {
       success();
     }, (responseError) {
-      error(ApiException("", ""));
+      onError(error, responseError);
     });
   }
 
@@ -127,5 +131,15 @@ class LoginInteractorImpl extends LoginInteractor {
     repository.saveUser(UserModel(
         profile: ProfileModel(email: email),
         auth: AuthModel(password: password)));
+  }
+
+  void onError(
+      Function(ApiException) error, HTTPResponse<dynamic> responseError) {
+    bool businessError = false;
+    if (responseError.response?.code == 422) {
+      businessError = true;
+    }
+    error(ApiException(responseError.response?.status,
+        isBusinessError: businessError));
   }
 }

@@ -19,10 +19,10 @@ class HTTPRequest {
 class HTTPRequesParams {
   late dynamic data;
   late bool safe;
-  late bool? jsonEncoded = true;
+  bool jsonEncoded = true;
   CypherSchema? cypherSchema = CypherSchema.aes;
 
-  HTTPRequesParams({this.data, required this.safe, this.cypherSchema, this.jsonEncoded}) {
+  HTTPRequesParams({this.data, required this.safe, this.cypherSchema, required this.jsonEncoded}) {
     if (safe) {
       dynamic safeData;
       switch (cypherSchema) {

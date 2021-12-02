@@ -1,7 +1,8 @@
+import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:e_racing_app/core/ui/component/custom_brackground.dart';
-import 'package:e_racing_app/core/ui/component/custom_error_widget.dart';
+import 'package:e_racing_app/login/presentation/widget/login_error_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/presentation/widget/login_2fa_otp_qr_widget.dart';
 import 'package:e_racing_app/login/presentation/widget/login_2fa_otp_widget.dart';
@@ -30,8 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    viewModel.getPublickey();
     super.initState();
+    viewModel.getPublickey();
   }
 
   @override
@@ -62,10 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget navigation() {
     switch (viewModel.state) {
       case ViewState.loading:
-        return const Align(
-          alignment: Alignment.center,
-          child: CircularProgressIndicator(),
-        );
+        return const LoadingRipple();
       case ViewState.ready:
         switch (viewModel.flow) {
           case LoginFlow.initial:
@@ -92,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
             return LoginOtpQRWidget(viewModel);
         }
       case ViewState.error:
-        return CustomErrorWidget(viewModel.retry);
+        return LoginErrorWidget(viewModel);
     }
   }
 }

@@ -7,9 +7,10 @@ part 'profile_model.g.dart';
 class ProfileModel {
   final String? email;
   final String? name;
+  final String? surname;
   final String? picture;
 
-  ProfileModel({this.email, this.name, this.picture});
+  ProfileModel({this.email, this.name, this.surname, this.picture});
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) => _$ProfileModelFromJson(json);
 
