@@ -1,6 +1,6 @@
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:e_racing_app/core/ui/component/text/text_widget.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 
 import '../login_view_model.dart';

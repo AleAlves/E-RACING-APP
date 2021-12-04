@@ -1,3 +1,5 @@
+import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -15,7 +17,6 @@ class LoginInitialWidget extends StatefulWidget {
 }
 
 class _LoginInitialWidgetState extends State<LoginInitialWidget> {
-  int _quit = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,24 +27,13 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 2,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      widget.viewModel.flow = LoginFlow.login;
-                    },
-                    child: const Text("Já tenho uma conta"),
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 2,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      widget.viewModel.flow = LoginFlow.signin;
-                    },
-                    child: const Text("Cria uma conta"),
-                  ),
-                ),
+                ButtonWidget("Já tenho uma conta", ButtonType.normal, () {
+                  widget.viewModel.flow = LoginFlow.login;
+                }),
+                const BoundWidget(BoundType.huge),
+                ButtonWidget("Criar uma conta", ButtonType.normal, () {
+                  widget.viewModel.flow = LoginFlow.signin;
+                }),
               ],
             ),
           );
@@ -52,21 +42,6 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
   }
 
   Future<bool> _onBackPressed() async {
-    if (_quit == 0) {
-      _toast();
-      return false;
-    } else if (_quit == 2) {
-      return true;
-    }
-    _quit++;
     return false;
-  }
-
-  void _toast() {
-    Fluttertoast.showToast(
-        msg: "Press againt to leave",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        fontSize: 16.0);
   }
 }

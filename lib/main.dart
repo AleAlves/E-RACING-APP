@@ -10,12 +10,13 @@ void main() {
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
-    runApp(ERcaingApp());
+    runApp(const ERcaingApp());
   });
 }
 
 class ERcaingApp extends StatelessWidget {
   static const MaterialColor color = MaterialColor(0xFF391B76, <int, Color>{
+    10: Color(0xBAF6F6F6),
     50: Color(0xFFF3E5F5),
     100: Color(0xFFE1BEE7),
     200: Color(0xFFCE93D8),

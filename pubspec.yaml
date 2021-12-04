@@ -43,6 +43,7 @@ dependencies:
   kotlin_flavor:
   fluttertoast: ^8.0.8
   lottie: ^1.2.1
+  image_picker: ^0.8.4+4
 
 dev_dependencies:
   flutter_test:

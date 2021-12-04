@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/alesonalves/Documents/git/E-RACING-APP/build/image_picker/intermediates/incremental/mergeDebugResources/merged.dir/values-ur/values-ur.xml",
+            "map": [
+                {
+                    "source": "/Users/alesonalves/.gradle/caches/transforms-2/files-2.1/fdaa1192764eab6ea9cb59f6a77dd214/core-1.1.0/res/values-ur/values-ur.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/alesonalves/Documents/git/E-RACING-APP/build/image_picker/intermediates/res/merged/debug/values-ur/values-ur.xml",
+            "map": [
+                {
+                    "source": "/Users/alesonalves/.gradle/caches/transforms-2/files-2.1/fdaa1192764eab6ea9cb59f6a77dd214/core-1.1.0/res/values-ur/values-ur.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

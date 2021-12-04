@@ -1,4 +1,5 @@
-import 'package:e_racing_app/core/ui/component/text/text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/login/presentation/login_view_model.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,7 @@ import '../../../main.dart';
 class LoginErrorWidget extends StatefulWidget {
   final LoginViewModel viewModel;
 
-  const LoginErrorWidget(this.viewModel, {Key? key})
-      : super(key: key);
+  const LoginErrorWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
   _LoginErrorWidgetState createState() => _LoginErrorWidgetState();
@@ -27,8 +27,8 @@ class _LoginErrorWidgetState extends State<LoginErrorWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const   TextWidget("Tente Novamente", Style.subtitle),
-                const SizedBox(height: 16),
+                const TextWidget("Tente Novamente", Style.subtitle),
+                const BoundWidget(BoundType.medium),
                 Material(
                   color: Colors.transparent,
                   child: Center(

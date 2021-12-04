@@ -1,3 +1,6 @@
+import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
@@ -50,74 +53,36 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       padding: const EdgeInsets.all(24.0),
       child: Column(
         children: [
-          TextFormField(
-            controller: _emailController,
-            validator: (value) {
-              if (value == null ||
-                  value.isEmpty == true ||
-                  !value.contains("@")) {
-                return 'valid email needed';
-              }
-              return null;
-            },
-            decoration: const InputDecoration(
-              labelText: 'Email',
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(
-                Icons.mail,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          TextFormField(
-            controller: _passwordController,
-            obscureText: true,
-            validator: (value) {
-              if (value == null || value.isEmpty == true) {
-                return 'Password needed';
-              }
-              if (value.length < 8) {
-                return 'Password too short';
-              }
-              return null;
-            },
-            decoration: const InputDecoration(
-              labelText: 'Senha',
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(
-                Icons.vpn_key,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          SizedBox(
-            width: MediaQuery
-                .of(context)
-                .size
-                .width / 2,
-            child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState?.validate() == true) {
-                  widget.viewModel
-                      .login(_emailController.text, _passwordController.text);
-                }
-              },
-              child: const Text("Entrar"),
-            ),
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          TextButton(
-            onPressed: () {
-              widget.viewModel.flow = LoginFlow.resetCode;
-            },
-            child: const Text("Esqueci a senha"),
-          )
+          TextFormWidget('Email', Icons.mail, _emailController, (value) {
+            if (value == null ||
+                value.isEmpty == true ||
+                !value.contains("@")) {
+              return 'valid email needed';
+            }
+            return null;
+          }),
+          const BoundWidget(BoundType.medium),
+          TextFormWidget('Password', Icons.vpn_key, _passwordController,
+              (value) {
+            if (value == null || value.isEmpty == true) {
+              return 'Password needed';
+            }
+            if (value.length < 8) {
+              return 'Password too short';
+            }
+            return null;
+          }),
+          const BoundWidget(BoundType.medium),
+          ButtonWidget("Entrar", ButtonType.normal, () {
+            if (_formKey.currentState?.validate() == true) {
+              widget.viewModel
+                  .login(_emailController.text, _passwordController.text);
+            }
+          }),
+          const BoundWidget(BoundType.big),
+          ButtonWidget("Esqueci a senha", ButtonType.borderless, () {
+            widget.viewModel.flow = LoginFlow.resetCode;
+          }),
         ],
       ),
     );

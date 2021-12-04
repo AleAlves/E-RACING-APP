@@ -1,3 +1,6 @@
+import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:e_racing_app/login/presentation/login_view_model.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -16,6 +19,7 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget> {
   final _formKey = GlobalKey<FormState>();
   final _mailController = TextEditingController();
   final _codeController = TextEditingController();
+
   @override
   void initState() {
     _mailController.text = '';
@@ -46,55 +50,25 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget> {
       padding: const EdgeInsets.all(24.0),
       child: Column(
         children: [
-          TextFormField(
-            controller: _mailController,
-            validator: (value) {
-              if (value == null || value.isEmpty == true) {
-                return 'Email needed';
-              }
-              return null;
-            },
-            decoration: const InputDecoration(
-              labelText: 'Email',
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(
-                Icons.vpn_key,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          TextFormField(
-            controller: _codeController,
-            validator: (value) {
-              if (value == null || value.isEmpty == true) {
-                return 'code needed';
-              }
-              return null;
-            },
-            decoration: const InputDecoration(
-              labelText: 'Code',
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(
-                Icons.security,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width / 2,
-            child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState?.validate() == true) {
-                  widget.viewModel.forgot(_mailController.text);
-                }
-              },
-              child: const Text("Receber código de validação"),
-            ),
-          )
+          TextFormWidget('Email', Icons.vpn_key, _mailController, (value) {
+            if (value == null || value.isEmpty == true) {
+              return 'Email needed';
+            }
+            return null;
+          }),
+          const BoundWidget(BoundType.medium),
+          TextFormWidget('Code', Icons.security, _codeController, (value) {
+            if (value == null || value.isEmpty == true) {
+              return 'code needed';
+            }
+            return null;
+          }),
+          const BoundWidget(BoundType.medium),
+          ButtonWidget("Generate reset code", ButtonType.normal, () {
+            if (_formKey.currentState?.validate() == true) {
+              widget.viewModel.forgot(_mailController.text);
+            }
+          })
         ],
       ),
     );

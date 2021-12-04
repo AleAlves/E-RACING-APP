@@ -1,6 +1,7 @@
+import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/main.dart';
 import 'package:flutter/material.dart';
-import 'package:e_racing_app/core/ui/component/text/text_widget.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
@@ -23,9 +24,7 @@ class _Login2FAWidgetState extends State<Login2FAWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const TextWidget("Second Step Verification", Style.description),
-            const SizedBox(
-              height: 24,
-            ),
+            const BoundWidget(BoundType.medium),
             OtpTextField(
               autoFocus: true,
               numberOfFields: 6,
@@ -37,18 +36,16 @@ class _Login2FAWidgetState extends State<Login2FAWidget> {
                 //handle validation or checks here
               },
               //runs when every textfield is filled
-              onSubmit: (String code){
+              onSubmit: (String code) {
                 widget.viewModel.login2fa(code);
               }, // end onSubmit
             ),
-            const SizedBox(
-              height: 48,
-            ),
+            const BoundWidget(BoundType.huge),
             TextButton(
               onPressed: () {
                 widget.viewModel.flow = LoginFlow.resetCode;
               },
-              child: const Text("Não consigo acessar"),
+              child: const TextWidget("I can't access", Style.label),
             )
           ],
         ),

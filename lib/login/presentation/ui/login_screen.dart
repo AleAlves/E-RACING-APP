@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
+import 'package:e_racing_app/league/presentation/ui/league_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:e_racing_app/core/ui/component/custom_brackground.dart';
@@ -91,6 +92,13 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       case ViewState.error:
         return LoginErrorWidget(viewModel);
+      case ViewState.navigation:
+        _navigateToNextScreen(context);
+        return Container();
     }
+  }
+
+  void _navigateToNextScreen(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LeagueScreen()));
   }
 }

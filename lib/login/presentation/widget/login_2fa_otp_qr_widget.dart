@@ -1,6 +1,7 @@
+import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:e_racing_app/core/ui/component/text/text_widget.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -26,7 +27,7 @@ class _LoginOtpQRWidgetState extends State<LoginOtpQRWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const TextWidget("Scaneie o QR", Style.description),
-            const SizedBox(height: 24,),
+            const BoundWidget(BoundType.small),
             QrImage(
               data: widget.viewModel.otpQR ?? '',
               version: QrVersions.auto,

@@ -18,7 +18,7 @@ abstract class _LoginViewModel with Store {
   ViewState state = ViewState.loading;
 
   @observable
-  LoginFlow flow = LoginFlow.initial ;
+  LoginFlow flow = LoginFlow.initial;
 
   @observable
   UserModel? user;
@@ -52,7 +52,6 @@ abstract class _LoginViewModel with Store {
     state = ViewState.loading;
 
     await _interactor.login(email, password, (login) {
-
       Session.instance.setBearerToken(login.bearerToken);
       saveUser(email, password);
 
@@ -60,9 +59,7 @@ abstract class _LoginViewModel with Store {
         state = ViewState.ready;
         flow = LoginFlow.login2fa;
       } else {
-        status = StatusModel("Logged successfuly", "2FA", next: LoginFlow.toogle2fa);
-        state = ViewState.ready;
-        flow = LoginFlow.status;
+        state = ViewState.navigation;
       }
     }, onError);
   }
@@ -85,23 +82,22 @@ abstract class _LoginViewModel with Store {
   }
 
   void login2fa(String code) async {
-
     state = ViewState.loading;
 
     await _interactor.login2FA(code, (success) {
-
-      status = StatusModel("2FA Logged successfuly", "ok", next: LoginFlow.initial);
-      state = ViewState.ready;
-      flow = LoginFlow.status;
+      status =
+          StatusModel("2FA Logged successfuly", "ok", next: LoginFlow.initial);
+      state = ViewState.navigation;
     }, onError);
   }
 
   void signin(String name, String surname, String mail, String password) async {
     state = ViewState.loading;
 
-    await _interactor.signIn(name, surname, mail, password, (){
+    await _interactor.signIn(name, surname, mail, password, () {
       state = ViewState.ready;
-      status = StatusModel("Conta criada com sucesso", "Ok", next: LoginFlow.login);
+      status =
+          StatusModel("Conta criada com sucesso", "Ok", next: LoginFlow.login);
       flow = LoginFlow.status;
     }, onError);
   }
@@ -111,8 +107,7 @@ abstract class _LoginViewModel with Store {
     await _interactor.forgot(mail, () {
       state = ViewState.ready;
       status = StatusModel(
-          "Enviamos um código de verificação para o seu email ",
-          "Ok",
+          "Enviamos um código de verificação para o seu email ", "Ok",
           next: LoginFlow.reset);
       flow = LoginFlow.status;
     }, onError);
@@ -136,7 +131,7 @@ abstract class _LoginViewModel with Store {
     if (userModel != null) {
       flow = LoginFlow.login;
       user = userModel;
-      if(loginAutomatically){
+      if (loginAutomatically) {
         login(userModel.profile?.email ?? '', userModel.auth?.password ?? '');
       }
     }
@@ -147,20 +142,19 @@ abstract class _LoginViewModel with Store {
   }
 
   void onError(ApiException error) {
+    status = StatusModel(error.message(), "Ok",
+        next: LoginFlow.initial, previous: flow);
 
-    status = StatusModel(error.message(), "Ok", next: LoginFlow.initial, previous: flow);
-
-    if(error.isBusiness()){
+    if (error.isBusiness()) {
       state = ViewState.ready;
       flow = LoginFlow.status;
-    }
-    else{
+    } else {
       state = ViewState.error;
     }
   }
 
   void retry() {
     state = ViewState.ready;
-    flow =  status?.previous ?? LoginFlow.initial;
+    flow = status?.previous ?? LoginFlow.initial;
   }
 }

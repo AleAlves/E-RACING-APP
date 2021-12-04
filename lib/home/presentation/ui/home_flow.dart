@@ -1,0 +1,4 @@
+enum HomeFlow {
+  home,
+  error,
+}

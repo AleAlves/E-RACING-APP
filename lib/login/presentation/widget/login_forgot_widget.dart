@@ -1,6 +1,9 @@
+import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:e_racing_app/core/ui/component/text/text_widget.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 
 import '../login_view_model.dart';
@@ -47,49 +50,25 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget> {
       child: Column(
         children: [
           const TextWidget("Recuperação de senha", Style.description),
-          const SizedBox(
-            height: 24,
-          ),
-          TextFormField(
-            controller: _emailController,
-            validator: (value) {
-              if (value == null ||
-                  value.isEmpty == true ||
-                  !value.contains("@")) {
-                return 'valid email needed';
-              }
-              return null;
-            },
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(
-                Icons.mail,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width / 2,
-            child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState?.validate() == true) {
-                  widget.viewModel.forgot(_emailController.text);
-                }
-              },
-              child: const Text("Recuperar"),
-            ),
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          TextButton(
-            onPressed: () {
-              widget.viewModel.flow = LoginFlow.reset;
-            },
-            child: const Text("Já tenho o código"),
-          )
+          const BoundWidget(BoundType.big),
+          TextFormWidget("Email", Icons.mail, _emailController, (value) {
+            if (value == null ||
+                value.isEmpty == true ||
+                !value.contains("@")) {
+              return 'valid email needed';
+            }
+            return null;
+          }),
+          const BoundWidget(BoundType.big),
+          ButtonWidget("Recuperar", ButtonType.normal, () {
+            if (_formKey.currentState?.validate() == true) {
+              widget.viewModel.forgot(_emailController.text);
+            }
+          }),
+          const BoundWidget(BoundType.big),
+          ButtonWidget("Já tenho o código", ButtonType.borderless, () {
+            widget.viewModel.flow = LoginFlow.reset;
+          }),
         ],
       ),
     );
