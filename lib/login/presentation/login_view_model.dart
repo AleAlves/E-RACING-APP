@@ -1,8 +1,8 @@
+import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/domain/login_interactor.dart';
-import 'package:e_racing_app/login/domain/model/status_model.dart';
 import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 import 'package:mobx/mobx.dart';

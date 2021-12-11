@@ -1,0 +1,20 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'media_model.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+MediaModel _$MediaModelFromJson(Map<String, dynamic> json) => MediaModel(
+      json['image'] as String,
+      url: json['url'] as String?,
+      origin: json['origin'] as String?,
+    );
+
+Map<String, dynamic> _$MediaModelToJson(MediaModel instance) =>
+    <String, dynamic>{
+      'image': instance.image,
+      'url': instance.url,
+      'origin': instance.origin,
+    };

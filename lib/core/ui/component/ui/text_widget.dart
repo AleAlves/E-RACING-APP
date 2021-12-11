@@ -34,13 +34,13 @@ class TextWidget extends StatelessWidget {
         return const TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w300,
-          fontSize: 48.0,
+          fontSize: 32.0,
         );
       case Style.subtitle:
         return const TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w300,
-          fontSize: 28.0,
+          fontSize: 24.0,
         );
       case Style.description:
         return const TextStyle(
@@ -52,7 +52,7 @@ class TextWidget extends StatelessWidget {
         return const TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w300,
-          fontSize: 14.0,
+          fontSize: 12.0,
         );
     }
   }

@@ -5,4 +5,5 @@ enum LeagueFlow {
   delete,
   join,
   error,
+  status
 }

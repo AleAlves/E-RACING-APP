@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/main.dart';
 import 'package:flutter/material.dart';
@@ -41,12 +42,9 @@ class _Login2FAWidgetState extends State<Login2FAWidget> {
               }, // end onSubmit
             ),
             const BoundWidget(BoundType.huge),
-            TextButton(
-              onPressed: () {
-                widget.viewModel.flow = LoginFlow.resetCode;
-              },
-              child: const TextWidget("I can't access", Style.label),
-            )
+            ButtonWidget("I can't access", ButtonType.borderless, (){
+              widget.viewModel.flow = LoginFlow.resetCode;
+            }),
           ],
         ),
         onWillPop: _onBackPressed);

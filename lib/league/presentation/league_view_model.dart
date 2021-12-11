@@ -1,7 +1,10 @@
+import 'package:e_racing_app/core/model/media_model.dart';
+import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
+import 'package:e_racing_app/league/domain/league_interactor.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
-import 'package:e_racing_app/login/domain/model/status_model.dart';
+import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:mobx/mobx.dart';
 
 part 'league_view_model.g.dart';
@@ -18,7 +21,10 @@ abstract class _LeagueViewModel with Store {
   ViewState state = ViewState.ready;
 
   @observable
-  List<_LeagueViewModel>? leagues;
+  ObservableList<LeagueModel>? leagues = ObservableList();
+
+  @observable
+  ObservableList<MediaModel>? medias = ObservableList();
 
   @observable
   LeagueModel? league;
@@ -26,9 +32,40 @@ abstract class _LeagueViewModel with Store {
   @observable
   StatusModel? status;
 
+  final LeagueInteractor _interactor = LeagueInteractorImpl();
+
   @action
   init() async {
     state = ViewState.ready;
+  }
+
+  void fetch() async {
+    state = ViewState.loading;
+    await _interactor.fetch((list) {
+      state = ViewState.ready;
+      for (var i = 0; i <= list.length; i++) {
+        getMedia(list[i].id, i);
+      }
+      leagues = ObservableList.of(list);
+    }, (error) {
+      state = ViewState.error;
+    });
+  }
+
+  void create(String name, String description, String banner64) {
+    state = ViewState.loading;
+    _interactor.create(name, description, banner64, () {
+      status = StatusModel("League Created", "Ok", next: LeagueFlow.list);
+      state = ViewState.ready;
+      flow = LeagueFlow.status;
+    }, (error) {
+      state = ViewState.error;
+    });
+  }
+
+  void getMedia(String? id, int index) async {
+    var media = await GetMediaUseCase().invoke(id ?? '');
+    medias?.insert(index, media);
   }
 
   void retry() {

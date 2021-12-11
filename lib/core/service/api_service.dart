@@ -38,7 +38,7 @@ class ApiService extends BaseService {
   }
 
   @override
-  Future getResponse(HTTPRequest request, Function(HTTPResponse) success,
+  Future call(HTTPRequest request, Function(HTTPResponse) success,
       Function(HTTPResponse) error) async {
     try {
       http.Response response;
@@ -59,6 +59,10 @@ class ApiService extends BaseService {
               body: request.params);
           break;
       }
+      print("Response URL: ${response.request?.url.path}");
+      print("Response Head: ${response.request?.headers}");
+      print("Response Status: ${response.statusCode}");
+      print("Response body: ${response.body}");
       returnResponse(response, success, error);
     } on SocketException {
       error(HTTPResponse());
@@ -67,7 +71,7 @@ class ApiService extends BaseService {
 
   Uri parseRequestParams(String endpoint, String? param) {
     if(param != null){
-      endpoint += '/$param';
+      endpoint += '?id=$param';
     }
     return parseRequest(endpoint);
   }
@@ -79,7 +83,7 @@ class ApiService extends BaseService {
   Map<String, String> headers() {
     Map<String, String> headers = {
       'Content-Type': 'application/json; charset=UTF-8',
-      'bearer_token': Session.instance.getBearerToken()?.token ?? ''
+      'authorization': Session.instance.getBearerToken()?.token ?? ''
     };
     return headers;
   }
@@ -93,5 +97,58 @@ class ApiService extends BaseService {
 
     return HTTPResponse.onResponse(
         data, Response.fromJson(response['response']), isSafe);
+  }
+
+  @override
+  Future<HTTPResponse> call2(HTTPRequest request) async {
+    http.Response response;
+    try {
+      switch (request.verb) {
+        case HTTPVerb.get:
+          response = await http.get(
+              parseRequestParams(request.endpoint, request.params?.data),
+              headers: headers());
+          break;
+        case HTTPVerb.post:
+          response = await http.post(parseRequest(request.endpoint),
+              headers: headers(), body: jsonEncode(request.params));
+          break;
+        case HTTPVerb.delete:
+          response = await http.delete(parseRequest(request.endpoint));
+          break;
+        case HTTPVerb.put:
+          response = await http.put(parseRequest(request.endpoint),
+              body: request.params);
+          break;
+      }
+      print("Response URL: ${response.request?.url.path}");
+      print("Response Head: ${response.request?.headers}");
+      print("Response Status: ${response.statusCode}");
+      print("Response body: ${response.body}");
+    } on SocketException {
+      return HTTPResponse();
+    }
+    return returnResponses(response);
+  }
+
+  returnResponses(http.Response response) {
+    switch (response.statusCode) {
+      case 200:
+      case 201:
+      case 202:
+      case 203:
+      case 204:
+        return handleResponse(jsonDecode(response.body));
+      case 422:
+      case 400:
+      case 401:
+      case 403:
+      case 500:
+      default:
+        dynamic responseJson = jsonDecode(response.body);
+        return HTTPResponse.onResponse(responseJson['data'],
+            Response.fromJson(responseJson['response']),
+            responseJson['safe']);
+    }
   }
 }

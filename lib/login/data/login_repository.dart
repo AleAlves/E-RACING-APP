@@ -44,7 +44,7 @@ class LoginRepository extends LoginDataSource {
   @override
   Future getPublicKey(
       Function(HTTPResponse) success, Function(HTTPResponse) error) async {
-    await _service.getResponse(
+    await _service.call(
         HTTPRequest(endpoint: "api/v1/auth/rsa/public-key", verb: HTTPVerb.get),
         success,
         error);
@@ -53,15 +53,12 @@ class LoginRepository extends LoginDataSource {
   @override
   Future login(String email, String password, Function(HTTPResponse) success,
       Function(HTTPResponse) error) async {
-    await _service.getResponse(
+    await _service.call(
         HTTPRequest(
             endpoint: "api/v1/auth/login",
             verb: HTTPVerb.post,
             params: HTTPRequesParams(
-                data: LoginRequest(
-                    email, password, Session.instance.getKeyChain()!),
-                safe: true,
-                jsonEncoded: true,
+                data: LoginRequest(email, password, Session.instance.getKeyChain()!),
                 cypherSchema: CypherSchema.rsa)),
         success,
         error);
@@ -70,14 +67,12 @@ class LoginRepository extends LoginDataSource {
   @override
   Future login2fa(String code, String token, Function(HTTPResponse) success,
       Function(HTTPResponse) error) async {
-    await _service.getResponse(
+    await _service.call(
         HTTPRequest(
             endpoint: "api/v1/auth/2fa/validate",
             verb: HTTPVerb.post,
             params: HTTPRequesParams(
                 data: Login2FaRequest(code, token),
-                safe: true,
-                jsonEncoded: true,
                 cypherSchema: CypherSchema.rsa)),
         success,
         error);
@@ -86,11 +81,11 @@ class LoginRepository extends LoginDataSource {
   @override
   Future toogle2fa(
       Function(HTTPResponse) success, Function(HTTPResponse) error) async {
-    await _service.getResponse(
+    await _service.call(
         HTTPRequest(
             endpoint: "api/v1/auth/2fa/toogle",
             verb: HTTPVerb.get,
-            params: HTTPRequesParams(safe: true, jsonEncoded: true)),
+            params: HTTPRequesParams()),
         success,
         error);
   }
@@ -98,14 +93,12 @@ class LoginRepository extends LoginDataSource {
   @override
   Future signIn(UserModel userModel, Function(HTTPResponse) success,
       Function(HTTPResponse) error) async {
-    await _service.getResponse(
+    await _service.call(
         HTTPRequest(
             endpoint: "api/v1/auth/signin",
             verb: HTTPVerb.post,
             params: HTTPRequesParams(
                 data: SigninRequest(userModel),
-                safe: true,
-                jsonEncoded: true,
                 cypherSchema: CypherSchema.rsa)),
         success,
         error);
@@ -114,12 +107,11 @@ class LoginRepository extends LoginDataSource {
   @override
   Future forgot(String email, Function(HTTPResponse) success,
       Function(HTTPResponse) error) async {
-    await _service.getResponse(
+    await _service.call(
         HTTPRequest(
             endpoint: "api/v1/auth/password/forgot",
             verb: HTTPVerb.get,
-            params:
-                HTTPRequesParams(data: email, safe: false, jsonEncoded: false)),
+            params: HTTPRequesParams(data: email)),
         success,
         error);
   }
@@ -127,14 +119,12 @@ class LoginRepository extends LoginDataSource {
   @override
   Future reset(String email, String password, String code,
       Function(HTTPResponse) success, Function(HTTPResponse) error) async {
-    await _service.getResponse(
+    await _service.call(
         HTTPRequest(
             endpoint: "api/v1/auth/password/reset",
             verb: HTTPVerb.post,
             params: HTTPRequesParams(
                 data: ResetRequest(email, password, code),
-                safe: true,
-                jsonEncoded: true,
                 cypherSchema: CypherSchema.rsa)),
         success,
         error);

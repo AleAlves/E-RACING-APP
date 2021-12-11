@@ -1,4 +1,4 @@
-enum LoginFlow {
+enum LoginFlow{
   initial,
   login,
   signin,

@@ -3,12 +3,10 @@ import 'dart:convert';
 import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 
-
 enum HTTPVerb { get, post, delete, put }
 enum CypherSchema { rsa, aes }
 
 class HTTPRequest {
-
   late HTTPRequesParams? params;
   late String endpoint;
   late HTTPVerb verb;
@@ -18,29 +16,34 @@ class HTTPRequest {
 
 class HTTPRequesParams {
   late dynamic data;
-  late bool safe;
-  bool jsonEncoded = true;
+  bool safe;
+  bool jsonEncoded;
   CypherSchema? cypherSchema = CypherSchema.aes;
 
-  HTTPRequesParams({this.data, required this.safe, this.cypherSchema, required this.jsonEncoded}) {
-    if (safe) {
-      dynamic safeData;
-      switch (cypherSchema) {
-        case CypherSchema.rsa:
-          safeData = CryptoService.instance.rsaEncrypt(Session.instance.getRSAKey()!.publicKey, jsonEncode(data));
-          break;
-        case CypherSchema.aes:
-          safeData =
-          CryptoService.instance.aesEncrypt(jsonEncode(data));
-          break;
-        default:
-          break;
-      }
-      data = safeData;
-    }
-    else{
-      if(jsonEncoded == true){
-        data = jsonEncode(data);
+  HTTPRequesParams({
+    this.safe = true,
+    this.data,
+    this.cypherSchema,
+    this.jsonEncoded = true,
+  }) {
+    if (data != null) {
+      if (safe) {
+        dynamic safeData;
+        switch (cypherSchema) {
+          case CypherSchema.rsa:
+            safeData = CryptoService.instance.rsaEncrypt(
+                Session.instance.getRSAKey()?.publicKey, jsonEncode(data));
+            break;
+          case CypherSchema.aes:
+          default:
+            safeData = CryptoService.instance.aesEncrypt(jsonEncode(data));
+            break;
+        }
+        data = safeData;
+      } else {
+        if (jsonEncoded) {
+          data = jsonEncode(data);
+        }
       }
     }
   }
