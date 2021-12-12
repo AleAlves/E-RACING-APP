@@ -7,7 +7,7 @@ part of 'league_model.dart';
 // **************************************************************************
 
 LeagueModel _$LeagueModelFromJson(Map<String, dynamic> json) => LeagueModel(
-      id: json['id'] as String?,
+      id: json['_id'] as String?,
       owner: json['owner'] as String?,
       name: json['name'] as String?,
       description: json['description'] as String?,
@@ -18,7 +18,7 @@ LeagueModel _$LeagueModelFromJson(Map<String, dynamic> json) => LeagueModel(
 
 Map<String, dynamic> _$LeagueModelToJson(LeagueModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'owner': instance.owner,
       'name': instance.name,
       'description': instance.description,

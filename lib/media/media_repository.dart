@@ -13,8 +13,8 @@ class MediaRepositoryImpl extends MediaRepository {
   @override
   Future<HTTPResponse> get(String id) {
     return _service.call2(HTTPRequest(
-        endpoint: "api/v1/media/get",
-        verb: HTTPVerb.post,
-        params: HTTPRequesParams(data: id)));
+        endpoint: "api/v1/media",
+        verb: HTTPVerb.get,
+        params: HTTPRequesParams(query: id)));
   }
 }

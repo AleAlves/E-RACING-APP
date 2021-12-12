@@ -42,13 +42,13 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
   final _$leaguesAtom = Atom(name: '_LeagueViewModel.leagues');
 
   @override
-  ObservableList<LeagueModel>? get leagues {
+  ObservableList<LeagueModel?>? get leagues {
     _$leaguesAtom.reportRead();
     return super.leagues;
   }
 
   @override
-  set leagues(ObservableList<LeagueModel>? value) {
+  set leagues(ObservableList<LeagueModel?>? value) {
     _$leaguesAtom.reportWrite(value, super.leagues, () {
       super.leagues = value;
     });
@@ -57,13 +57,13 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
   final _$mediasAtom = Atom(name: '_LeagueViewModel.medias');
 
   @override
-  ObservableList<MediaModel>? get medias {
+  ObservableList<MediaModel?>? get medias {
     _$mediasAtom.reportRead();
     return super.medias;
   }
 
   @override
-  set medias(ObservableList<MediaModel>? value) {
+  set medias(ObservableList<MediaModel?>? value) {
     _$mediasAtom.reportWrite(value, super.medias, () {
       super.medias = value;
     });

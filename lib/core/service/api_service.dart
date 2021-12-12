@@ -44,7 +44,7 @@ class ApiService extends BaseService {
       http.Response response;
       switch (request.verb) {
         case HTTPVerb.get:
-          response = await http.get(parseRequestParams(request.endpoint, request.params?.data),
+          response = await http.get(parseRequestParams(request.endpoint, request.params?.query),
               headers: headers());
           break;
         case HTTPVerb.post:
@@ -69,9 +69,10 @@ class ApiService extends BaseService {
     }
   }
 
-  Uri parseRequestParams(String endpoint, String? param) {
-    if(param != null){
-      endpoint += '?id=$param';
+  Uri parseRequestParams(String endpoint, String? query) {
+    if(query != null){
+      var encoded = base64Encode(utf8.encode(query));
+      endpoint += '?id=$encoded';
     }
     return parseRequest(endpoint);
   }
@@ -106,7 +107,7 @@ class ApiService extends BaseService {
       switch (request.verb) {
         case HTTPVerb.get:
           response = await http.get(
-              parseRequestParams(request.endpoint, request.params?.data),
+              parseRequestParams(request.endpoint, request.params?.query),
               headers: headers());
           break;
         case HTTPVerb.post:

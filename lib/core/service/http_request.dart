@@ -16,33 +16,46 @@ class HTTPRequest {
 
 class HTTPRequesParams {
   late dynamic data;
+  late dynamic query;
   bool safe;
   bool jsonEncoded;
   CypherSchema? cypherSchema = CypherSchema.aes;
 
-  HTTPRequesParams({
-    this.safe = true,
-    this.data,
-    this.cypherSchema,
-    this.jsonEncoded = true,
-  }) {
+  HTTPRequesParams(
+      {this.data,
+      this.query,
+      this.safe = true,
+      this.jsonEncoded = true,
+      this.cypherSchema = CypherSchema.aes}) {
     if (data != null) {
       if (safe) {
-        dynamic safeData;
         switch (cypherSchema) {
           case CypherSchema.rsa:
-            safeData = CryptoService.instance.rsaEncrypt(
+            data = CryptoService.instance.rsaEncrypt(
                 Session.instance.getRSAKey()?.publicKey, jsonEncode(data));
             break;
           case CypherSchema.aes:
           default:
-            safeData = CryptoService.instance.aesEncrypt(jsonEncode(data));
+            data = CryptoService.instance.aesEncrypt(jsonEncode(data));
             break;
         }
-        data = safeData;
       } else {
         if (jsonEncoded) {
           data = jsonEncode(data);
+        }
+      }
+    }
+    if (query != null) {
+      if (safe) {
+        switch (cypherSchema) {
+          case CypherSchema.rsa:
+            query = CryptoService.instance
+                .rsaEncrypt(Session.instance.getRSAKey()?.publicKey, query);
+            break;
+          case CypherSchema.aes:
+          default:
+            query = CryptoService.instance.aesEncrypt(query);
+            break;
         }
       }
     }

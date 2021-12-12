@@ -21,10 +21,10 @@ abstract class _LeagueViewModel with Store {
   ViewState state = ViewState.ready;
 
   @observable
-  ObservableList<LeagueModel>? leagues = ObservableList();
+  ObservableList<LeagueModel?>? leagues = ObservableList();
 
   @observable
-  ObservableList<MediaModel>? medias = ObservableList();
+  ObservableList<MediaModel?>? medias = ObservableList();
 
   @observable
   LeagueModel? league;
@@ -41,10 +41,11 @@ abstract class _LeagueViewModel with Store {
 
   void fetch() async {
     state = ViewState.loading;
-    await _interactor.fetch((list) {
+    await _interactor.fetch((list) async {
       state = ViewState.ready;
-      for (var i = 0; i <= list.length; i++) {
-        getMedia(list[i].id, i);
+      for (var i = 0; i < list.length; i++) {
+        var media = await getMedia(list[i].id, i);
+        medias?.insert(i, media);
       }
       leagues = ObservableList.of(list);
     }, (error) {
@@ -63,9 +64,8 @@ abstract class _LeagueViewModel with Store {
     });
   }
 
-  void getMedia(String? id, int index) async {
-    var media = await GetMediaUseCase().invoke(id ?? '');
-    medias?.insert(index, media);
+  Future<MediaModel> getMedia(String? id, int index) async {
+    return await GetMediaUseCase().invoke(id ?? '');
   }
 
   void retry() {

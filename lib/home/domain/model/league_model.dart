@@ -4,6 +4,7 @@ part 'league_model.g.dart';
 
 @JsonSerializable()
 class LeagueModel{
+  @JsonKey(name: '_id')
   final String? id;
   final String? owner;
   final String? name;
