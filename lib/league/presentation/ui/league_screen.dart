@@ -3,7 +3,7 @@ import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/widget/league_create_widget.dart';
-import 'package:e_racing_app/league/presentation/widget/league_list_widget.dart';
+import 'package:e_racing_app/league/presentation/widget/league_fetch_widget.dart';
 import 'package:e_racing_app/league/presentation/widget/league_status_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class _LeagueScreenState extends State<LeagueScreen> {
 
   @override
   void initState() {
-    viewModel.fetch();
+    viewModel.fetchLeagues();
     super.initState();
   }
 

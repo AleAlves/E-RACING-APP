@@ -42,7 +42,7 @@ class _LeagueStatusWidgetState extends State<LeagueStatusWidget> {
           const BoundWidget(BoundType.medium),
           ButtonWidget(widget.viewModel.status?.action ?? '', ButtonType.normal,
               () {
-            widget.viewModel.flow = LeagueFlow.list;
+            widget.viewModel.setFlow(LeagueFlow.list);
           })
         ],
       ),
@@ -50,7 +50,7 @@ class _LeagueStatusWidgetState extends State<LeagueStatusWidget> {
   }
 
   Future<bool> _onBackPressed() async {
-    widget.viewModel.flow = LeagueFlow.list;
+    widget.viewModel.setFlow(LeagueFlow.list);
     return false;
   }
 }

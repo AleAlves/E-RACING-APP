@@ -69,6 +69,21 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
+  final _$tagsAtom = Atom(name: '_LeagueViewModel.tags');
+
+  @override
+  ObservableList<TagModel?>? get tags {
+    _$tagsAtom.reportRead();
+    return super.tags;
+  }
+
+  @override
+  set tags(ObservableList<TagModel?>? value) {
+    _$tagsAtom.reportWrite(value, super.tags, () {
+      super.tags = value;
+    });
+  }
+
   final _$leagueAtom = Atom(name: '_LeagueViewModel.league');
 
   @override
@@ -113,6 +128,7 @@ flow: ${flow},
 state: ${state},
 leagues: ${leagues},
 medias: ${medias},
+tags: ${tags},
 league: ${league},
 status: ${status}
     ''';

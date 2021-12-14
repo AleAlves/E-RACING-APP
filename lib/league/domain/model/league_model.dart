@@ -8,6 +8,7 @@ class LeagueModel {
   final String? id;
   final String? owner;
   final String? name;
+  final String? emblem;
   final String? description;
   final List<String>? members;
   final int? capacity;
@@ -16,6 +17,7 @@ class LeagueModel {
       {this.id,
       this.owner,
       this.name,
+      this.emblem,
       this.description,
       this.capacity,
       this.members});

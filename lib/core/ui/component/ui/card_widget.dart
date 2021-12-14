@@ -8,10 +8,10 @@ import '../../../../main.dart';
 
 class CardWidget extends StatelessWidget {
   final String? label;
-  final String? image;
+  final String? emblem;
   final TextAlign align;
 
-  const CardWidget(this.label, this.image,
+  const CardWidget(this.label, this.emblem,
       {this.align = TextAlign.center, Key? key})
       : super(key: key);
 
@@ -25,30 +25,26 @@ class CardWidget extends StatelessWidget {
           onTap: () {
             debugPrint('Card tapped.');
           },
-          child: Stack(
+          child: Column(
             children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: SizedBox(
+                  width: 100,
+                  height:  100,
+                  child: Image.memory(
+                    base64Decode(emblem ?? ''),
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(0.0),
                 child: TextWidget(
                   label ?? 'No description',
                   Style.subtitle,
                 ),
               ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 148,
-                      child: Image.memory(
-                        base64Decode(image ?? ''),
-                        fit: BoxFit.fitWidth,
-                      ),
-                    ),
-                  ),
-                ],
-              )
             ],
           ),
         ),

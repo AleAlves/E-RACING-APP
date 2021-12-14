@@ -5,6 +5,7 @@ enum Style {
   title,
   subtitle,
   label,
+  note
 }
 
 class TextWidget extends StatelessWidget {
@@ -53,6 +54,12 @@ class TextWidget extends StatelessWidget {
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w300,
           fontSize: 12.0,
+        );
+      case Style.note:
+        return const TextStyle(
+          fontFamily: 'Roboto',
+          fontWeight: FontWeight.w200,
+          fontSize: 10.0,
         );
     }
   }

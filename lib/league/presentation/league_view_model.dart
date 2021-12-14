@@ -1,10 +1,12 @@
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
+import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
 import 'package:e_racing_app/league/domain/league_interactor.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
+import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:mobx/mobx.dart';
 
 part 'league_view_model.g.dart';
@@ -27,6 +29,9 @@ abstract class _LeagueViewModel with Store {
   ObservableList<MediaModel?>? medias = ObservableList();
 
   @observable
+  ObservableList<TagModel?>? tags = ObservableList();
+
+  @observable
   LeagueModel? league;
 
   @observable
@@ -39,26 +44,23 @@ abstract class _LeagueViewModel with Store {
     state = ViewState.ready;
   }
 
-  void fetch() async {
+  void fetchLeagues() async {
     state = ViewState.loading;
     await _interactor.fetch((list) async {
       state = ViewState.ready;
-      for (var i = 0; i < list.length; i++) {
-        var media = await getMedia(list[i].id, i);
-        medias?.insert(i, media);
-      }
       leagues = ObservableList.of(list);
     }, (error) {
       state = ViewState.error;
     });
   }
 
-  void create(String name, String description, String banner64) {
+  void create(String name, String description, String banner, String emblem,
+      List<String?> tags) {
     state = ViewState.loading;
-    _interactor.create(name, description, banner64, () {
+    _interactor.create(name, description, banner, emblem, tags, () {
       status = StatusModel("League Created", "Ok", next: LeagueFlow.list);
       state = ViewState.ready;
-      flow = LeagueFlow.status;
+      setFlow(LeagueFlow.status);
     }, (error) {
       state = ViewState.error;
     });
@@ -68,7 +70,15 @@ abstract class _LeagueViewModel with Store {
     return await GetMediaUseCase().invoke(id ?? '');
   }
 
+  void fetchTags() async {
+    tags = ObservableList.of(await GetTagUseCase().invoke());
+  }
+
   void retry() {
     state = ViewState.ready;
+  }
+
+  void setFlow(LeagueFlow flow) {
+    this.flow = flow;
   }
 }

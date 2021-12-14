@@ -45,6 +45,7 @@ dependencies:
   lottie: ^1.2.1
   image_picker: ^0.8.4+4
   shimmer: ^2.0.0
+  flutter_tags: 1.0.0-nullsafety.0
 
 dev_dependencies:
   flutter_test:

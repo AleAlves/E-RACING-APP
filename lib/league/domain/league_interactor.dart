@@ -5,8 +5,8 @@ import 'package:e_racing_app/league/data/league_repository.dart';
 import 'package:e_racing_app/league/data/model/league_create_model.dart';
 
 abstract class LeagueInteractor {
-  Future create(String name, String description, String banner64,
-      Function() success, Function(ApiException) error);
+  Future create(String name, String description, String banner, String emblem,
+      List<String?> tags, Function() success, Function(ApiException) error);
 
   Future fetch(
       Function(List<LeagueModel>) success, Function(ApiException) error);
@@ -16,10 +16,17 @@ class LeagueInteractorImpl extends LeagueInteractor {
   final repository = LeagueRepositoryIml();
 
   @override
-  Future create(String name, String description, String banner64,
-      Function() success, Function(ApiException) error) async {
-    var request = LeagueCreateModel(MediaModel(banner64),
-        LeagueModel(name: name, description: description));
+  Future create(
+      String name,
+      String description,
+      String banner,
+      String emblem,
+      List<String?> tags,
+      Function() success,
+      Function(ApiException) error) async {
+    var request = LeagueCreateModel(
+        MediaModel(banner),
+        LeagueModel(name: name, description: description, tags: tags, emblem: emblem));
     await repository.create(request, (response) {
       success();
     }, (err) {
