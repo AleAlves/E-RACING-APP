@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/model/media_model.dart';
+import 'package:e_racing_app/core/model/social_media_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -6,6 +7,7 @@ import 'package:e_racing_app/home/domain/model/league_model.dart';
 import 'package:e_racing_app/league/domain/league_interactor.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
+import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:mobx/mobx.dart';
 
@@ -30,6 +32,9 @@ abstract class _LeagueViewModel with Store {
 
   @observable
   ObservableList<TagModel?>? tags = ObservableList();
+
+  @observable
+  ObservableList<SocialMediaModel?>? socialMedias = ObservableList();
 
   @observable
   LeagueModel? league;
@@ -57,7 +62,7 @@ abstract class _LeagueViewModel with Store {
   void create(String name, String description, String banner, String emblem,
       List<String?> tags) {
     state = ViewState.loading;
-    _interactor.create(name, description, banner, emblem, tags, () {
+    _interactor.create(name, description, banner, emblem, tags, [],  () {
       status = StatusModel("League Created", "Ok", next: LeagueFlow.list);
       state = ViewState.ready;
       setFlow(LeagueFlow.status);
@@ -72,6 +77,10 @@ abstract class _LeagueViewModel with Store {
 
   void fetchTags() async {
     tags = ObservableList.of(await GetTagUseCase().invoke());
+  }
+
+  void fetchSocialMedias() async {
+    socialMedias = ObservableList.of(await GetSocialMediaUseCase().invoke());
   }
 
   void retry() {

@@ -31,25 +31,15 @@ class _LeagueScreenState extends State<LeagueScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: Stack(
-        children: [
-          SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: CustomPaint(
-              painter: CustomBackground(),
-            ),
-          ),
-          Observer(builder: (_) {
-            return navigation();
-          })
-        ],
-      ),
+    return DropdownButton(
+      value: "dropdownvalue",
+      icon: const Icon(Icons.keyboard_arrow_down),
+      items: ['dropdownvalue', 'wow'].map((String items) {
+        return DropdownMenuItem(value: items, child: Text(items));
+      }).toList(),
+      onChanged: (value) {
+        setState(() {});
+      },
     );
   }
 

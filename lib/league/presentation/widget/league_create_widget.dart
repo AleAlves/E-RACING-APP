@@ -4,11 +4,11 @@ import 'dart:io';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/scroll_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
-import 'package:flutter_tags/flutter_tags.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -33,14 +33,23 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
   File bannerFile = File('');
   File emblemFile = File('');
   List<String?> tags = [];
+  String dropdownvalue = 'Apple';
+
+  var items = [
+    'Apple',
+    'Banana',
+    'Grapes',
+    'Orange',
+    'watermelon',
+    'Pineapple'
+  ];
 
   @override
   void initState() {
     _nameController.text = '';
     _descriptionController.text = '';
-    if (widget.viewModel.tags?.isEmpty == true) {
-      widget.viewModel.fetchTags();
-    }
+    widget.viewModel.fetchTags();
+    widget.viewModel.fetchSocialMedias();
     super.initState();
   }
 
@@ -48,16 +57,19 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Observer(builder: (_) {
-          return Form(child: create(), key: _formKey);
+          return ScrollWidget('Creating', createForm());
         }),
         onWillPop: _onBackPressed);
   }
 
-  Widget create() {
+  Widget createForm() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const BoundWidget(BoundType.huge),
           Stack(
             alignment: Alignment.center,
             children: [
@@ -68,17 +80,17 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
                   width: 100,
                   child: emblemFile.path == ''
                       ? Container(
-                    color: ERcaingApp.color[20],
-                  )
+                          color: ERcaingApp.color[10],
+                        )
                       : Image.file(
-                    emblemFile,
-                    fit: BoxFit.fill,
-                  ),
+                          emblemFile,
+                          fit: BoxFit.fill,
+                        ),
                 ),
               ),
               IconButtonWidget(Icons.image_search, () async {
                 var image =
-                await _picker.pickImage(source: ImageSource.gallery);
+                    await _picker.pickImage(source: ImageSource.gallery);
                 setState(() {
                   emblemFile = File(image?.path ?? '');
                 });
@@ -99,23 +111,20 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
                 borderRadius: BorderRadius.circular(4.0),
                 child: SizedBox(
                   height: 100,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .height,
+                  width: MediaQuery.of(context).size.height,
                   child: bannerFile.path == ''
                       ? Container(
-                    color: ERcaingApp.color[20],
-                  )
+                          color: ERcaingApp.color[10],
+                        )
                       : Image.file(
-                    bannerFile,
-                    fit: BoxFit.fill,
-                  ),
+                          bannerFile,
+                          fit: BoxFit.fill,
+                        ),
                 ),
               ),
               IconButtonWidget(Icons.image_search, () async {
                 var image =
-                await _picker.pickImage(source: ImageSource.gallery);
+                    await _picker.pickImage(source: ImageSource.gallery);
                 setState(() {
                   bannerFile = File(image?.path ?? '');
                 });
@@ -137,61 +146,79 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
           }),
           const BoundWidget(BoundType.medium),
           TextFormWidget("Descrição", Icons.title, _descriptionController,
-                  (value) {
-                if (value == null || value.isEmpty == true) {
-                  return 'Name needed';
-                }
-                return null;
-              }),
+              (value) {
+            if (value == null || value.isEmpty == true) {
+              return 'Name needed';
+            }
+            return null;
+          }),
           const BoundWidget(BoundType.medium),
           ConstrainedBox(
-            constraints: const BoxConstraints(
-              minHeight: 35.0,
-              maxHeight: 160.0,
-            ),
-            child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: widget.viewModel.tags?.length,
-              itemBuilder: (context, index) {
-                final selected = tags.contains(
-                    widget.viewModel.tags?[index]?.id);
-                return Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: ActionChip(
-                      avatar: CircleAvatar(
-                        backgroundColor: ERcaingApp.color,
-                        child:
-                        selected
-                            ? const Text('-')
-                            : const Text('+'),
-                      ),
-                      label: Text(widget.viewModel.tags?[index]?.name ?? ''),
-                      onPressed: () {
-                        setState(() {
-                          selected ?
-                          tags.remove(widget.viewModel.tags?[index]?.id):
-                          tags.add(widget.viewModel.tags?[index]?.id);
-                        });
-                      })
-                  ,
-                );
+              constraints: const BoxConstraints(
+                minHeight: 45.0,
+                maxHeight: 100.0,
+              ),
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.viewModel.tags?.length,
+                itemBuilder: (context, index) {
+                  final selected =
+                      tags.contains(widget.viewModel.tags?[index]?.id);
+                  return Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: ActionChip(
+                        avatar: CircleAvatar(
+                          backgroundColor: ERcaingApp.color,
+                          child: selected ? const Text('-') : const Text('+'),
+                        ),
+                        label: Text(widget.viewModel.tags?[index]?.name ?? ''),
+                        onPressed: () {
+                          setState(() {
+                            selected
+                                ? tags.remove(widget.viewModel.tags?[index]?.id)
+                                : tags.add(widget.viewModel.tags?[index]?.id);
+                          });
+                        }),
+                  );
+                },
+              )),
+          const TextWidget(
+            "Social medias",
+            Style.label,
+            align: TextAlign.start,
+          ),
+          Flexible(
+            child: DropdownButton(
+              value: dropdownvalue,
+              icon: const Icon(Icons.keyboard_arrow_down),
+              items: items.map((String items) {
+                return DropdownMenuItem(value: items, child: Text(items));
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  dropdownvalue = value.toString();
+                });
               },
-            )
+            ),
           ),
           const BoundWidget(BoundType.huge),
           ButtonWidget("Concluir", ButtonType.normal, () {
             if (_formKey.currentState?.validate() == true) {
               List<int> imageBytes = [];
-              List<int> emblemBytes= [];
-              try{
+              List<int> emblemBytes = [];
+              try {
                 imageBytes = bannerFile.readAsBytesSync();
                 emblemBytes = emblemFile.readAsBytesSync();
-              }catch(e){}
+              } catch (e) {}
               String bannerImage = base64Encode(imageBytes);
               String emblem64Image = base64Encode(emblemBytes);
-              widget.viewModel.create(_nameController.text,
-                  _descriptionController.text, bannerImage, emblem64Image, tags);
+              widget.viewModel.create(
+                  _nameController.text,
+                  _descriptionController.text,
+                  bannerImage,
+                  emblem64Image,
+                  tags);
             }
           }),
         ],

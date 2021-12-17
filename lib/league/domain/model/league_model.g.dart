@@ -10,6 +10,7 @@ LeagueModel _$LeagueModelFromJson(Map<String, dynamic> json) => LeagueModel(
       id: json['_id'] as String?,
       owner: json['owner'] as String?,
       name: json['name'] as String?,
+      emblem: json['emblem'] as String?,
       description: json['description'] as String?,
       capacity: json['capacity'] as int?,
       members:
@@ -21,6 +22,7 @@ Map<String, dynamic> _$LeagueModelToJson(LeagueModel instance) =>
       '_id': instance.id,
       'owner': instance.owner,
       'name': instance.name,
+      'emblem': instance.emblem,
       'description': instance.description,
       'members': instance.members,
       'capacity': instance.capacity,

@@ -84,6 +84,21 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
+  final _$socialMediasAtom = Atom(name: '_LeagueViewModel.socialMedias');
+
+  @override
+  ObservableList<SocialMediaModel?>? get socialMedias {
+    _$socialMediasAtom.reportRead();
+    return super.socialMedias;
+  }
+
+  @override
+  set socialMedias(ObservableList<SocialMediaModel?>? value) {
+    _$socialMediasAtom.reportWrite(value, super.socialMedias, () {
+      super.socialMedias = value;
+    });
+  }
+
   final _$leagueAtom = Atom(name: '_LeagueViewModel.league');
 
   @override
@@ -129,6 +144,7 @@ state: ${state},
 leagues: ${leagues},
 medias: ${medias},
 tags: ${tags},
+socialMedias: ${socialMedias},
 league: ${league},
 status: ${status}
     ''';
