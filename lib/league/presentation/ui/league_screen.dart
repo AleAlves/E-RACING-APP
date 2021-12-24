@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/ui/component/custom_brackground.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
+import 'package:e_racing_app/core/ui/component/ui/scroll_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/widget/league_create_widget.dart';
@@ -25,21 +26,30 @@ class _LeagueScreenState extends State<LeagueScreen> {
 
   @override
   void initState() {
-    viewModel.fetchLeagues();
     super.initState();
+    viewModel.fetchLeagues();
   }
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton(
-      value: "dropdownvalue",
-      icon: const Icon(Icons.keyboard_arrow_down),
-      items: ['dropdownvalue', 'wow'].map((String items) {
-        return DropdownMenuItem(value: items, child: Text(items));
-      }).toList(),
-      onChanged: (value) {
-        setState(() {});
-      },
+    return Scaffold(
+      key: _scaffoldKey,
+      body: ScrollWidget('Leagues', Expanded(
+        child: Stack(
+          children: [
+            SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: CustomPaint(
+                painter: CustomBackground(),
+              ),
+            ),
+            Observer(builder: (_) {
+              return navigation();
+            })
+          ],
+        ),
+      )),
     );
   }
 

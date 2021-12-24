@@ -16,7 +16,6 @@ class ScrollWidget extends StatelessWidget {
             pinned: true,
             snap: false,
             floating: false,
-            expandedHeight: 100.0,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(title)
             ),

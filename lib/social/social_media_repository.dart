@@ -12,6 +12,6 @@ class SocialMediaRepositoryImpl extends SocialMediaRepository {
 
   @override
   Future<HTTPResponse> get() {
-    return _service.call2(HTTPRequest(endpoint: "api/v1/social-medias", verb: HTTPVerb.get));
+    return _service.call2(HTTPRequest(endpoint: "api/v1/social-platforms", verb: HTTPVerb.get));
   }
 }

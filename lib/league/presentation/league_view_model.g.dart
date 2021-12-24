@@ -87,13 +87,13 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
   final _$socialMediasAtom = Atom(name: '_LeagueViewModel.socialMedias');
 
   @override
-  ObservableList<SocialMediaModel?>? get socialMedias {
+  ObservableList<SocialPlatformModel?>? get socialMedias {
     _$socialMediasAtom.reportRead();
     return super.socialMedias;
   }
 
   @override
-  set socialMedias(ObservableList<SocialMediaModel?>? value) {
+  set socialMedias(ObservableList<SocialPlatformModel?>? value) {
     _$socialMediasAtom.reportWrite(value, super.socialMedias, () {
       super.socialMedias = value;
     });

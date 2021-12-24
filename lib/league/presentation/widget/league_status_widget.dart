@@ -40,10 +40,13 @@ class _LeagueStatusWidgetState extends State<LeagueStatusWidget> {
         children: [
           TextWidget(widget.viewModel.status?.message ?? '', Style.description),
           const BoundWidget(BoundType.medium),
-          ButtonWidget(widget.viewModel.status?.action ?? '', ButtonType.normal,
-              () {
-            widget.viewModel.setFlow(LeagueFlow.list);
-          })
+          ButtonWidget(
+            ButtonType.normal,
+            () {
+              widget.viewModel.setFlow(LeagueFlow.list);
+            },
+            label: widget.viewModel.status?.action ?? '',
+          )
         ],
       ),
     );

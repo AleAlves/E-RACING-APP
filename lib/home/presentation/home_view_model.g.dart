@@ -69,13 +69,6 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
     });
   }
 
-  final _$initAsyncAction = AsyncAction('_HomeViewModel.init');
-
-  @override
-  Future init() {
-    return _$initAsyncAction.run(() => super.init());
-  }
-
   @override
   String toString() {
     return '''

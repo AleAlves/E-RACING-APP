@@ -76,14 +76,16 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget> {
           }),
           const BoundWidget(BoundType.medium),
           TextFormWidget('Email', Icons.mail, _mailController, (value) {
-            if (value == null || value.isEmpty == true ||
+            if (value == null ||
+                value.isEmpty == true ||
                 !value.contains("@")) {
               return 'valid email needed';
             }
             return null;
           }),
           const BoundWidget(BoundType.medium),
-          TextFormWidget('Password', Icons.vpn_key, _passwordController, (value) {
+          TextFormWidget('Password', Icons.vpn_key, _passwordController,
+              (value) {
             if (value == null || value.isEmpty == true) {
               return 'Password needed';
             }
@@ -95,7 +97,8 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget> {
             return null;
           }, obscure: _passwordVisible),
           const BoundWidget(BoundType.medium),
-          TextFormWidget('Confirm password', Icons.vpn_key, _passwordController, (value) {
+          TextFormWidget('Confirm password', Icons.vpn_key, _passwordController,
+              (value) {
             if (value == null || value.isEmpty == true) {
               return 'Password needed';
             } else if (value != password) {
@@ -104,15 +107,19 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget> {
             return null;
           }, obscure: _passwordVisible),
           const BoundWidget(BoundType.medium),
-          ButtonWidget("Create account", ButtonType.normal, () {
-            if (_formKey.currentState?.validate() == true) {
-              widget.viewModel.signin(
-                  _nameController.text,
-                  _surnameController.text,
-                  _mailController.text,
-                  _passwordController.text);
-            }
-          })
+          ButtonWidget(
+            ButtonType.normal,
+            () {
+              if (_formKey.currentState?.validate() == true) {
+                widget.viewModel.signin(
+                    _nameController.text,
+                    _surnameController.text,
+                    _mailController.text,
+                    _passwordController.text);
+              }
+            },
+            label: "Create account",
+          )
         ],
       ),
     );

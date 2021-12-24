@@ -23,11 +23,6 @@ abstract class _HomeViewModel with Store {
   @observable
   StatusModel? status;
 
-  @action
-  init() async {
-    state = ViewState.loading;
-  }
-
   void retry() {
     state = ViewState.ready;
   }

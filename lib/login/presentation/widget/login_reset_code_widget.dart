@@ -37,7 +37,8 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget> {
               key: _formKey,
             ),
             Observer(builder: (_) {
-              _mailController.text = widget.viewModel.user?.profile?.email ?? '';
+              _mailController.text =
+                  widget.viewModel.user?.profile?.email ?? '';
               return Container();
             })
           ],
@@ -64,11 +65,15 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget> {
             return null;
           }),
           const BoundWidget(BoundType.medium),
-          ButtonWidget("Generate reset code", ButtonType.normal, () {
-            if (_formKey.currentState?.validate() == true) {
-              widget.viewModel.forgot(_mailController.text);
-            }
-          })
+          ButtonWidget(
+            ButtonType.normal,
+            () {
+              if (_formKey.currentState?.validate() == true) {
+                widget.viewModel.forgot(_mailController.text);
+              }
+            },
+            label: "Generate reset code",
+          )
         ],
       ),
     );

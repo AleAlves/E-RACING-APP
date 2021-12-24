@@ -60,15 +60,15 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget> {
             return null;
           }),
           const BoundWidget(BoundType.big),
-          ButtonWidget("Recuperar", ButtonType.normal, () {
+          ButtonWidget(ButtonType.normal, () {
             if (_formKey.currentState?.validate() == true) {
               widget.viewModel.forgot(_emailController.text);
             }
-          }),
+          }, label: "Recuperar",),
           const BoundWidget(BoundType.big),
-          ButtonWidget("Já tenho o código", ButtonType.borderless, () {
+          ButtonWidget(ButtonType.borderless, () {
             widget.viewModel.flow = LoginFlow.reset;
-          }),
+          }, label: "Já tenho o código",),
         ],
       ),
     );

@@ -26,15 +26,13 @@ class CryptoService {
   }
 
   String aesEncrypt(String data) {
-    return encrypt(data, Session.instance.getKeyChain()!.key,
-        Session.instance.getKeyChain()!.iv);
+    return encrypt(data, Session.instance.getKeyChain().key, Session.instance.getKeyChain().iv);
   }
 
   dynamic aesDecrypt(String data) {
-    print(Session.instance.getKeyChain()!.key);
-    print(Session.instance.getKeyChain()!.iv);
-    var decodedString = decrypt(data, Session.instance.getKeyChain()!.key,
-        Session.instance.getKeyChain()!.iv);
+    print(Session.instance.getKeyChain().key);
+    print(Session.instance.getKeyChain().iv);
+    var decodedString = decrypt(data, Session.instance.getKeyChain().key, Session.instance.getKeyChain().iv);
     return jsonDecode(decodedString);
   }
 

@@ -1,18 +1,8 @@
+import 'package:e_racing_app/login/presentation/ui/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'league/presentation/ui/league_screen.dart';
 
-import 'core/tools/crypto/crypto_service.dart';
-import 'core/tools/session.dart';
-import 'login/presentation/ui/login_screen.dart';
-
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
-    runApp(const ERcaingApp());
-  });
-}
+void main() => runApp(const ERcaingApp());
 
 class ERcaingApp extends StatelessWidget {
   static const MaterialColor color = MaterialColor(0xFF391B76, <int, Color>{
@@ -36,10 +26,7 @@ class ERcaingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Session.instance.setKeyChain(CryptoService.instance.generateAESKeys());
-
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'E-Racing',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(),
@@ -48,7 +35,8 @@ class ERcaingApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const LoginScreen(),
+        '/': (context) =>  const LoginScreen(),
+        '/leagues': (context) =>  const LeagueScreen(),
       },
     );
   }

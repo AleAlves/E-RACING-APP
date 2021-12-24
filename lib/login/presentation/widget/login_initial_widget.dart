@@ -17,28 +17,31 @@ class LoginInitialWidget extends StatefulWidget {
 }
 
 class _LoginInitialWidgetState extends State<LoginInitialWidget> {
-
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        child: Observer(builder: (_) {
-          return Align(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ButtonWidget("Já tenho uma conta", ButtonType.normal, () {
-                  widget.viewModel.flow = LoginFlow.login;
-                }),
-                const BoundWidget(BoundType.huge),
-                ButtonWidget("Criar uma conta", ButtonType.normal, () {
-                  widget.viewModel.flow = LoginFlow.signin;
-                }),
-              ],
-            ),
-          );
-        }),
-        onWillPop: _onBackPressed);
+    return Align(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ButtonWidget(
+            ButtonType.normal,
+            () {
+              widget.viewModel.flow = LoginFlow.login;
+            },
+            label: "Já tenho uma conta",
+          ),
+          const BoundWidget(BoundType.huge),
+          ButtonWidget(
+            ButtonType.normal,
+            () {
+              widget.viewModel.flow = LoginFlow.signin;
+            },
+            label: "Criar uma conta",
+          ),
+        ],
+      ),
+    );
   }
 
   Future<bool> _onBackPressed() async {

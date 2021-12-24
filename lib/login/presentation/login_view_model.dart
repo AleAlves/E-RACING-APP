@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
+import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/domain/login_interactor.dart';
@@ -34,15 +35,11 @@ abstract class _LoginViewModel with Store {
 
   final LoginInteractor _interactor = LoginInteractorImpl();
 
-  @action
-  init() async {
-    state = ViewState.loading;
-  }
-
   void getPublickey() async {
     state = ViewState.loading;
     await _interactor.getPublicKey((key) {
       Session.instance.setRSAKey(key);
+      Session.instance.setKeyChain(CryptoService.instance.generateAESKeys());
       state = ViewState.ready;
       getUser();
     }, onError);

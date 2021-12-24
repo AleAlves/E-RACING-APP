@@ -1,5 +1,6 @@
+import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
-import 'package:e_racing_app/core/model/social_media_model.dart';
+import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -34,7 +35,7 @@ abstract class _LeagueViewModel with Store {
   ObservableList<TagModel?>? tags = ObservableList();
 
   @observable
-  ObservableList<SocialMediaModel?>? socialMedias = ObservableList();
+  ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
 
   @observable
   LeagueModel? league;
@@ -60,9 +61,9 @@ abstract class _LeagueViewModel with Store {
   }
 
   void create(String name, String description, String banner, String emblem,
-      List<String?> tags) {
+      List<String?> tags, List<LinkModel?> links) {
     state = ViewState.loading;
-    _interactor.create(name, description, banner, emblem, tags, [],  () {
+    _interactor.create(name, description, banner, emblem, tags, links, () {
       status = StatusModel("League Created", "Ok", next: LeagueFlow.list);
       state = ViewState.ready;
       setFlow(LeagueFlow.status);

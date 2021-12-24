@@ -40,11 +40,14 @@ class _LoginStatusWidgetState extends State<LoginStatusWidget> {
         children: [
           TextWidget(widget.viewModel.status?.message ?? '', Style.description),
           const BoundWidget(BoundType.medium),
-          ButtonWidget(widget.viewModel.status?.action ?? '', ButtonType.normal,
-              () {
-            widget.viewModel.flow =
-                widget.viewModel.status?.next ?? LoginFlow.initial;
-          })
+          ButtonWidget(
+            ButtonType.normal,
+            () {
+              widget.viewModel.flow =
+                  widget.viewModel.status?.next ?? LoginFlow.initial;
+            },
+            label: widget.viewModel.status?.action ?? '',
+          )
         ],
       ),
     );

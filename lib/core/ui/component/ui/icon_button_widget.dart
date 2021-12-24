@@ -18,17 +18,15 @@ class IconButtonWidget extends StatelessWidget {
   Widget normal(BuildContext context) {
     return  Material(
       color: Colors.transparent,
-      child: Center(
-        child: Ink(
-          decoration: const ShapeDecoration(
-            color: ERcaingApp.color,
-            shape: CircleBorder(),
-          ),
-          child: IconButton(
-            icon: Icon(icon),
-            color: Colors.white,
-            onPressed: onPressed,
-          ),
+      child: Ink(
+        decoration: const ShapeDecoration(
+          color: ERcaingApp.color,
+          shape: CircleBorder(),
+        ),
+        child: IconButton(
+          icon: Icon(icon),
+          color: Colors.white,
+          onPressed: onPressed,
         ),
       ),
     );

@@ -42,9 +42,13 @@ class _Login2FAWidgetState extends State<Login2FAWidget> {
               }, // end onSubmit
             ),
             const BoundWidget(BoundType.huge),
-            ButtonWidget("I can't access", ButtonType.borderless, (){
-              widget.viewModel.flow = LoginFlow.resetCode;
-            }),
+            ButtonWidget(
+              ButtonType.borderless,
+              () {
+                widget.viewModel.flow = LoginFlow.resetCode;
+              },
+              label: "I can't access",
+            ),
           ],
         ),
         onWillPop: _onBackPressed);

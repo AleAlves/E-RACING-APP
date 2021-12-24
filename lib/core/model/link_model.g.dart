@@ -7,14 +7,11 @@ part of 'link_model.dart';
 // **************************************************************************
 
 LinkModel _$LinkModelFromJson(Map<String, dynamic> json) => LinkModel(
-      json['_id'] as String?,
-      json['link'] as String,
-      SocialMediaModel.fromJson(
-          json['socialMediaModel'] as Map<String, dynamic>),
+      json['platformId'] as String?,
+      json['link'] as String?,
     );
 
 Map<String, dynamic> _$LinkModelToJson(LinkModel instance) => <String, dynamic>{
-      '_id': instance.id,
+      'platformId': instance.platformId,
       'link': instance.link,
-      'socialMediaModel': instance.socialMediaModel,
     };

@@ -19,13 +19,10 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: Text(
-        text,
-        textAlign: align,
-        style: _getStyle(),
-      ),
+    return Text(
+      text,
+      textAlign: align,
+      style: _getStyle(),
     );
   }
 

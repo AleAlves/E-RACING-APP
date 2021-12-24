@@ -25,7 +25,6 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   void initState() {
     _emailController.text = '';
     _passwordController.text = '';
-    widget.viewModel.getUser();
     super.initState();
   }
 
@@ -73,16 +72,24 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             return null;
           }),
           const BoundWidget(BoundType.medium),
-          ButtonWidget("Entrar", ButtonType.normal, () {
-            if (_formKey.currentState?.validate() == true) {
-              widget.viewModel
-                  .login(_emailController.text, _passwordController.text);
-            }
-          }),
+          ButtonWidget(
+            ButtonType.normal,
+            () {
+              if (_formKey.currentState?.validate() == true) {
+                widget.viewModel
+                    .login(_emailController.text, _passwordController.text);
+              }
+            },
+            label: "Entrar",
+          ),
           const BoundWidget(BoundType.big),
-          ButtonWidget("Esqueci a senha", ButtonType.borderless, () {
-            widget.viewModel.flow = LoginFlow.resetCode;
-          }),
+          ButtonWidget(
+            ButtonType.borderless,
+            () {
+              widget.viewModel.flow = LoginFlow.resetCode;
+            },
+            label: "Esqueci a senha",
+          ),
         ],
       ),
     );

@@ -58,7 +58,7 @@ class LoginRepository extends LoginDataSource {
             endpoint: "api/v1/auth/login",
             verb: HTTPVerb.post,
             params: HTTPRequesParams(
-                data: LoginRequest(email, password, Session.instance.getKeyChain()!),
+                data: LoginRequest(email, password, Session.instance.getKeyChain()),
                 cypherSchema: CypherSchema.rsa)),
         success,
         error);

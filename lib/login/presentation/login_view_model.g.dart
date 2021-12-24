@@ -100,13 +100,6 @@ mixin _$LoginViewModel on _LoginViewModel, Store {
     });
   }
 
-  final _$initAsyncAction = AsyncAction('_LoginViewModel.init');
-
-  @override
-  Future init() {
-    return _$initAsyncAction.run(() => super.init());
-  }
-
   @override
   String toString() {
     return '''

@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/league/presentation/ui/league_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -38,7 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -54,14 +54,14 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           Observer(builder: (_) {
-            return navigation();
+            return navigation(_);
           })
         ],
       ),
     );
   }
 
-  Widget navigation() {
+  Widget navigation(_) {
     switch (viewModel.state) {
       case ViewState.loading:
         return const LoadingRipple();
@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
           case LoginFlow.resetCode:
             return LoginForgotWidget(viewModel);
           case LoginFlow.status:
-            return  LoginStatusWidget(viewModel);
+            return LoginStatusWidget(viewModel);
           case LoginFlow.toogle2fa:
             return LoginToogle2FAWidget(viewModel);
           case LoginFlow.otpQr:
@@ -93,12 +93,18 @@ class _LoginScreenState extends State<LoginScreen> {
       case ViewState.error:
         return LoginErrorWidget(viewModel);
       case ViewState.navigation:
-        _navigateToNextScreen(context);
-        return Container();
+        return test(_);
     }
   }
 
-  void _navigateToNextScreen(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LeagueScreen()));
+  Widget test(BuildContext context) {
+    return ButtonWidget(
+      ButtonType.normal,
+      () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const LeagueScreen()));
+      },
+      label: "next",
+    );
   }
 }
