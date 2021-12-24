@@ -10,6 +10,10 @@ abstract class LeagueRepository {
 
   Future create(LeagueCreateModel request, Function(HTTPResponse) success,
       Function(HTTPResponse) error);
+
+  Future get(String id);
+
+  Future update(LeagueCreateModel request);
 }
 
 class LeagueRepositoryIml extends LeagueRepository {
@@ -20,7 +24,7 @@ class LeagueRepositoryIml extends LeagueRepository {
       Function(HTTPResponse) success, Function(HTTPResponse) error) async {
     await _service.call(
         HTTPRequest(
-            endpoint: "api/v1/league",
+            endpoint: "api/v1/leagues",
             verb: HTTPVerb.get,
             params: HTTPRequesParams()),
         success,
@@ -28,7 +32,7 @@ class LeagueRepositoryIml extends LeagueRepository {
   }
 
   @override
-  Future create(LeagueCreateModel request, Function(HTTPResponse p1) success,
+  Future create(LeagueCreateModel request, Function(HTTPResponse) success,
       Function(HTTPResponse) error) async {
     await _service.call(
         HTTPRequest(
@@ -37,5 +41,21 @@ class LeagueRepositoryIml extends LeagueRepository {
             params: HTTPRequesParams(data: request)),
         success,
         error);
+  }
+
+  @override
+  Future update(LeagueCreateModel request) async {
+    return await _service.callAsync(HTTPRequest(
+        endpoint: "api/v1/league",
+        verb: HTTPVerb.put,
+        params: HTTPRequesParams(data: request)));
+  }
+
+  @override
+  Future get(String id) async {
+    return await _service.callAsync(HTTPRequest(
+        endpoint: "api/v1/league",
+        verb: HTTPVerb.get,
+        params: HTTPRequesParams(query: id)));
   }
 }

@@ -16,12 +16,17 @@ abstract class LeagueInteractor {
       Function() success,
       Function(ApiException) error);
 
+  Future update(MediaModel media, LeagueModel league, Function() success,
+      Function(ApiException) error);
+
   Future fetch(
       Function(List<LeagueModel>) success, Function(ApiException) error);
+
+  Future<LeagueModel> get(String id);
 }
 
 class LeagueInteractorImpl extends LeagueInteractor {
-  final repository = LeagueRepositoryIml();
+  final _repository = LeagueRepositoryIml();
 
   @override
   Future create(
@@ -41,7 +46,7 @@ class LeagueInteractorImpl extends LeagueInteractor {
             tags: tags,
             emblem: emblem,
             links: links));
-    await repository.create(request, (response) {
+    await _repository.create(request, (response) {
       success();
     }, (err) {
       error(ApiException("_message"));
@@ -51,7 +56,7 @@ class LeagueInteractorImpl extends LeagueInteractor {
   @override
   Future fetch(
       Function(List<LeagueModel>) success, Function(ApiException) error) async {
-    await repository.fetch((response) {
+    await _repository.fetch((response) {
       var items = (response.data as List)
           .map<LeagueModel>((_feed) => LeagueModel.fromJson(_feed))
           .toList();
@@ -59,5 +64,16 @@ class LeagueInteractorImpl extends LeagueInteractor {
     }, (err) {
       error(ApiException("_message"));
     });
+  }
+
+  @override
+  Future update(MediaModel media, LeagueModel league, Function() success,
+      Function(ApiException) error) async {
+    return await _repository.update(LeagueCreateModel(media, league));
+  }
+
+  @override
+  Future<LeagueModel> get(String id) async {
+    return LeagueModel.fromJson((await _repository.get(id)).data);
   }
 }

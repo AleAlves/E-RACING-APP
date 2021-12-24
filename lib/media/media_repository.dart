@@ -12,7 +12,7 @@ class MediaRepositoryImpl extends MediaRepository {
 
   @override
   Future<HTTPResponse> get(String id) {
-    return _service.call2(HTTPRequest(
+    return _service.callAsync(HTTPRequest(
         endpoint: "api/v1/media",
         verb: HTTPVerb.get,
         params: HTTPRequesParams(query: id)));

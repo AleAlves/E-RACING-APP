@@ -101,7 +101,7 @@ class ApiService extends BaseService {
   }
 
   @override
-  Future<HTTPResponse> call2(HTTPRequest request) async {
+  Future<HTTPResponse> callAsync(HTTPRequest request) async {
     http.Response response;
     try {
       switch (request.verb) {
@@ -152,4 +152,5 @@ class ApiService extends BaseService {
             responseJson['safe']);
     }
   }
+
 }

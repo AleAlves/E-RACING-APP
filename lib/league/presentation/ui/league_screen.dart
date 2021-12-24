@@ -6,6 +6,7 @@ import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/widget/league_create_widget.dart';
 import 'package:e_racing_app/league/presentation/widget/league_fetch_widget.dart';
 import 'package:e_racing_app/league/presentation/widget/league_status_widget.dart';
+import 'package:e_racing_app/league/presentation/widget/league_update_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -66,7 +67,7 @@ class _LeagueScreenState extends State<LeagueScreen> {
           case LeagueFlow.delete:
             return LeagueCreateWidget(viewModel);
           case LeagueFlow.edit:
-            return LeagueCreateWidget(viewModel);
+            return LeagueUpdateWidget(viewModel);
           case LeagueFlow.join:
             return LeagueCreateWidget(viewModel);
           case LeagueFlow.error:

@@ -18,6 +18,7 @@ class LeagueListWidget extends StatefulWidget {
 class _LeagueListWidgetState extends State<LeagueListWidget> {
   @override
   void initState() {
+    widget.viewModel.fetchTags();
     super.initState();
   }
 
@@ -41,8 +42,16 @@ class _LeagueListWidgetState extends State<LeagueListWidget> {
               shrinkWrap: true,
               itemCount: widget.viewModel.leagues?.length,
               itemBuilder: (context, index) {
-                return CardWidget(widget.viewModel.leagues?[index]?.name,
-                    widget.viewModel.leagues?[index]?.emblem);
+                return Expanded(
+                  child: CardWidget(
+                      widget.viewModel.leagues?[index]?.name,
+                      widget.viewModel.leagues?[index]?.emblem,
+                      widget.viewModel.tags,
+                      widget.viewModel.leagues?[index]?.tags, () {
+                    widget.viewModel.id = widget.viewModel.leagues?[index]?.id;
+                    widget.viewModel.setFlow(LeagueFlow.edit);
+                  }),
+                );
               },
             ),
           ],

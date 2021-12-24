@@ -35,10 +35,16 @@ abstract class _LeagueViewModel with Store {
   ObservableList<TagModel?>? tags = ObservableList();
 
   @observable
+  ObservableList<Map<String, TagModel?>>? leaguesTags = ObservableList();
+
+  @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
 
   @observable
   LeagueModel? league;
+
+  @observable
+  String? id;
 
   @observable
   StatusModel? status;
@@ -72,16 +78,33 @@ abstract class _LeagueViewModel with Store {
     });
   }
 
+  void update(String name, String description, String banner, String emblem,
+      List<String?> tags, List<LinkModel?> links) {
+    state = ViewState.loading;
+    _interactor.create(name, description, banner, emblem, tags, links, () {
+      status = StatusModel("League Created", "Ok", next: LeagueFlow.list);
+      state = ViewState.ready;
+      setFlow(LeagueFlow.status);
+    }, (error) {
+      state = ViewState.error;
+    });
+  }
+
   Future<MediaModel> getMedia(String? id, int index) async {
     return await GetMediaUseCase().invoke(id ?? '');
   }
 
   void fetchTags() async {
     tags = ObservableList.of(await GetTagUseCase().invoke());
+    state = ViewState.ready;
   }
 
   void fetchSocialMedias() async {
     socialMedias = ObservableList.of(await GetSocialMediaUseCase().invoke());
+  }
+
+  Future<void> getLeague() async {
+    league = await _interactor.get(id ?? '');
   }
 
   void retry() {

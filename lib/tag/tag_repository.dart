@@ -13,6 +13,6 @@ class TagRepositoryImpl extends TagRepository {
   @override
   Future<HTTPResponse> get() {
     return _service
-        .call2(HTTPRequest(endpoint: "api/v1/tags", verb: HTTPVerb.get));
+        .callAsync(HTTPRequest(endpoint: "api/v1/tags", verb: HTTPVerb.get));
   }
 }

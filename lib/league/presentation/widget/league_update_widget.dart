@@ -18,16 +18,16 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../main.dart';
 import '../league_view_model.dart';
 
-class LeagueCreateWidget extends StatefulWidget {
+class LeagueUpdateWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
 
-  const LeagueCreateWidget(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueUpdateWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _LeagueCreateWidgetState createState() => _LeagueCreateWidgetState();
+  _LeagueUpdateWidgetState createState() => _LeagueUpdateWidgetState();
 }
 
-class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
+class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -43,6 +43,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
   void initState() {
     _nameController.text = '';
     _descriptionController.text = '';
+    widget.viewModel.getLeague();
     widget.viewModel.fetchSocialMedias();
     super.initState();
   }
@@ -51,15 +52,17 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Observer(builder: (_) {
+          _nameController.text = widget.viewModel.league?.name ?? '';
+          _descriptionController.text = widget.viewModel.league?.description ?? '';
           return Form(
-            child: createForm(),
+            child: updateForm(),
             key: _formKey,
           );
         }),
         onWillPop: _onBackPressed);
   }
 
-  Widget createForm() {
+  Widget updateForm() {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -103,10 +106,6 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
                   Step(
                     title: const Text('Social'),
                     content: social(),
-                  ),
-                  Step(
-                    title: const Text('Terms'),
-                    content: terms(),
                   ),
                 ],
               ),
@@ -322,7 +321,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
           } catch (e) {}
           String bannerImage = base64Encode(imageBytes);
           String emblem64Image = base64Encode(emblemBytes);
-          widget.viewModel.create(
+          widget.viewModel.update(
               _nameController.text,
               _descriptionController.text,
               bannerImage,
@@ -331,7 +330,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
               socialPlatforms);
         }
       },
-      label: "Concluir",
+      label: "Update",
     );
   }
 
