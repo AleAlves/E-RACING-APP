@@ -1,5 +1,5 @@
 enum ViewState {
-  loading,
   ready,
-  navigation,
-  error }
+  loading,
+  error
+}

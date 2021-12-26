@@ -1,3 +1,4 @@
+import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
@@ -27,7 +28,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget> {
     return WillPopScope(
         child: Observer(
           builder: (_) {
-            return getContent();
+            return ViewStateWidget(getContent(), widget.viewModel.state);
           },
         ),
         onWillPop: _onBackPressed);

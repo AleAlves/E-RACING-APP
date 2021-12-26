@@ -9,5 +9,6 @@ enum LoginFlow{
   mailRegistration,
   reset,
   resetCode,
-  status
+  status,
+  next
 }

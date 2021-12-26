@@ -84,6 +84,21 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
+  final _$leaguesTagsAtom = Atom(name: '_LeagueViewModel.leaguesTags');
+
+  @override
+  ObservableList<Map<String, TagModel?>>? get leaguesTags {
+    _$leaguesTagsAtom.reportRead();
+    return super.leaguesTags;
+  }
+
+  @override
+  set leaguesTags(ObservableList<Map<String, TagModel?>>? value) {
+    _$leaguesTagsAtom.reportWrite(value, super.leaguesTags, () {
+      super.leaguesTags = value;
+    });
+  }
+
   final _$socialMediasAtom = Atom(name: '_LeagueViewModel.socialMedias');
 
   @override
@@ -111,6 +126,36 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
   set league(LeagueModel? value) {
     _$leagueAtom.reportWrite(value, super.league, () {
       super.league = value;
+    });
+  }
+
+  final _$mediaAtom = Atom(name: '_LeagueViewModel.media');
+
+  @override
+  MediaModel? get media {
+    _$mediaAtom.reportRead();
+    return super.media;
+  }
+
+  @override
+  set media(MediaModel? value) {
+    _$mediaAtom.reportWrite(value, super.media, () {
+      super.media = value;
+    });
+  }
+
+  final _$idAtom = Atom(name: '_LeagueViewModel.id');
+
+  @override
+  String? get id {
+    _$idAtom.reportRead();
+    return super.id;
+  }
+
+  @override
+  set id(String? value) {
+    _$idAtom.reportWrite(value, super.id, () {
+      super.id = value;
     });
   }
 
@@ -144,8 +189,11 @@ state: ${state},
 leagues: ${leagues},
 medias: ${medias},
 tags: ${tags},
+leaguesTags: ${leaguesTags},
 socialMedias: ${socialMedias},
 league: ${league},
+media: ${media},
+id: ${id},
 status: ${status}
     ''';
   }

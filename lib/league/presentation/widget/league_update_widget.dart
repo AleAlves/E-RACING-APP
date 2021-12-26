@@ -2,14 +2,16 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:e_racing_app/core/model/link_model.dart';
+import 'package:e_racing_app/core/model/media_model.dart';
+import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/dropdown_menu_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
+import 'package:e_racing_app/home/domain/model/league_model.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
-import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -36,13 +38,15 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
   File bannerFile = File('');
   File emblemFile = File('');
   List<String?> tags = [];
-  List<TextEditingController> socialStuffControllers = [];
+  List<TextEditingController> socialPlatformsControllers = [];
   List<LinkModel?> socialPlatforms = [];
+  bool isEditingTags = false;
+  bool isEditingEmblem = false;
+  bool isEditingBanner = false;
+  bool isEditingSocialPlatform = false;
 
   @override
   void initState() {
-    _nameController.text = '';
-    _descriptionController.text = '';
     widget.viewModel.getLeague();
     widget.viewModel.fetchSocialMedias();
     super.initState();
@@ -50,68 +54,77 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        child: Observer(builder: (_) {
-          _nameController.text = widget.viewModel.league?.name ?? '';
-          _descriptionController.text = widget.viewModel.league?.description ?? '';
-          return Form(
-            child: updateForm(),
-            key: _formKey,
-          );
-        }),
-        onWillPop: _onBackPressed);
+    return Observer(builder: (_) {
+      return ViewStateWidget(content(), widget.viewModel.state);
+    });
+  }
+
+  Widget content() {
+    if (_nameController.text.isEmpty) {
+      _nameController.text = widget.viewModel.league?.name ?? '';
+    }
+    if (_descriptionController.text.isEmpty) {
+      _descriptionController.text = widget.viewModel.league?.description ?? '';
+    }
+    if (tags.isEmpty && !isEditingTags) {
+      widget.viewModel.league?.tags?.forEach((element) {
+        tags.add(element);
+      });
+    }
+
+    return Form(
+      child: updateForm(),
+      key: _formKey,
+    );
   }
 
   Widget updateForm() {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SizedBox(
-          child: Column(
-            children: [
-              Stepper(
-                currentStep: _index,
-                onStepTapped: (int index) {
-                  setState(() {
-                    _index = index;
-                  });
-                },
-                controlsBuilder: (BuildContext context,
-                    {VoidCallback? onStepContinue,
-                    VoidCallback? onStepCancel}) {
-                  return Row(
-                    children: <Widget>[
-                      Container(),
-                      Container(),
-                    ],
-                  );
-                },
-                steps: <Step>[
-                  Step(
-                    title: const Text('Basic Info'),
-                    content: basic(),
-                  ),
-                  Step(
-                    title: const Text('Emblem'),
-                    content: emblem(),
-                  ),
-                  Step(
-                    title: const Text('Banner'),
-                    content: banner(),
-                  ),
-                  Step(
-                    title: const Text('Tags'),
-                    content: tag(),
-                  ),
-                  Step(
-                    title: const Text('Social'),
-                    content: social(),
-                  ),
-                ],
-              ),
-              finish()
-            ],
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SizedBox(
+        child: Column(
+          children: [
+            Stepper(
+              currentStep: _index,
+              onStepTapped: (int index) {
+                setState(() {
+                  _index = index;
+                });
+              },
+              controlsBuilder: (BuildContext context,
+                  {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
+                return Row(
+                  children: <Widget>[
+                    Container(),
+                    Container(),
+                  ],
+                );
+              },
+              steps: <Step>[
+                Step(
+                  title: const Text('Basic Info'),
+                  content: basic(),
+                ),
+                Step(
+                  title: const Text('Emblem'),
+                  content: emblem(),
+                ),
+                Step(
+                  title: const Text('Banner'),
+                  content: banner(),
+                ),
+                Step(
+                  title: const Text('Tags'),
+                  content: tag(),
+                ),
+                Step(
+                  title: const Text('Social'),
+                  content: social(),
+                ),
+              ],
+            ),
+            finish()
+          ],
         ),
       ),
     );
@@ -154,6 +167,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
                       ),
                       label: Text(item?.name ?? ''),
                       onPressed: () {
+                        isEditingTags = true;
                         setState(() {
                           selected ? tags.remove(item?.id) : tags.add(item?.id);
                         });
@@ -180,8 +194,9 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
                     height: 100,
                     width: 100,
                     child: emblemFile.path == ''
-                        ? Container(
-                            color: ERcaingApp.color[10],
+                        ? Image.memory(
+                            base64Decode(widget.viewModel.league?.emblem ?? ''),
+                            fit: BoxFit.fill,
                           )
                         : Image.file(
                             emblemFile,
@@ -221,8 +236,9 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
                 height: 100,
                 width: MediaQuery.of(context).size.height,
                 child: bannerFile.path == ''
-                    ? Container(
-                        color: ERcaingApp.color[10],
+                    ? Image.memory(
+                        base64Decode(widget.viewModel.media?.image ?? ''),
+                        fit: BoxFit.fill,
                       )
                     : Image.file(
                         bannerFile,
@@ -254,7 +270,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
           shrinkWrap: true,
           itemCount: socialPlatforms.length,
           itemBuilder: (context, index) {
-            socialStuffControllers.add(TextEditingController());
+            socialPlatformsControllers.add(TextEditingController());
             return Column(
               children: [
                 Row(
@@ -262,26 +278,25 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
                     DropdownMenuWidget(
                         widget.viewModel.socialMedias, "Platform", (item) {
                       socialPlatforms[index] = LinkModel(
-                          item?.id, socialStuffControllers[index].text);
+                          item?.id, socialPlatformsControllers[index].text);
                     }),
                   ],
                 ),
                 Row(
                   children: [
                     Expanded(
-                      child: TextFormWidget(
-                          "Link", Icons.add_link, socialStuffControllers[index],
-                          (value) {
+                      child: TextFormWidget("Link", Icons.add_link,
+                          socialPlatformsControllers[index], (value) {
                         socialPlatforms[index] = LinkModel(
                             widget.viewModel.socialMedias?[index]?.id ?? '',
-                            socialStuffControllers[index].text);
+                            socialPlatformsControllers[index].text);
                         return null;
                       }),
                     ),
                     const BoundWidget(BoundType.small),
                     ButtonWidget(ButtonType.icon, () async {
                       Clipboard.getData(Clipboard.kTextPlain).then((value) {
-                        socialStuffControllers[index].text =
+                        socialPlatformsControllers[index].text =
                             value?.text?.trim().replaceAll(' ', '') ?? '';
                       });
                     }, label: 'paste', icon: Icons.paste),
@@ -289,7 +304,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
                     ButtonWidget(ButtonType.icon, () async {
                       setState(() {
                         socialPlatforms.removeAt(index);
-                        socialStuffControllers.removeAt(index);
+                        socialPlatformsControllers.removeAt(index);
                       });
                     }, label: 'delete', icon: Icons.delete),
                   ],
@@ -308,32 +323,6 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
     );
   }
 
-  Widget finish() {
-    return ButtonWidget(
-      ButtonType.normal,
-      () {
-        if (_formKey.currentState?.validate() == true) {
-          List<int> imageBytes = [];
-          List<int> emblemBytes = [];
-          try {
-            imageBytes = bannerFile.readAsBytesSync();
-            emblemBytes = emblemFile.readAsBytesSync();
-          } catch (e) {}
-          String bannerImage = base64Encode(imageBytes);
-          String emblem64Image = base64Encode(emblemBytes);
-          widget.viewModel.update(
-              _nameController.text,
-              _descriptionController.text,
-              bannerImage,
-              emblem64Image,
-              tags,
-              socialPlatforms);
-        }
-      },
-      label: "Update",
-    );
-  }
-
   Widget terms() {
     return Row(
       children: [
@@ -349,8 +338,33 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
     );
   }
 
-  Future<bool> _onBackPressed() async {
-    widget.viewModel.setFlow(LeagueFlow.list);
-    return false;
+  Widget finish() {
+    return ButtonWidget(
+      ButtonType.normal,
+      () {
+        if (_formKey.currentState?.validate() == true) {
+          List<int> imageBytes = [];
+          List<int> emblemBytes = [];
+          try {
+            imageBytes = bannerFile.readAsBytesSync();
+            emblemBytes = emblemFile.readAsBytesSync();
+          } catch (e) {}
+          String bannerImage = base64Encode(imageBytes);
+          String emblem64Image = base64Encode(emblemBytes);
+          var league = LeagueModel(
+              id: widget.viewModel.league?.id,
+              owner: widget.viewModel.league?.owner,
+              name: _nameController.text,
+              description: _descriptionController.text,
+              emblem: emblem64Image,
+              capacity: widget.viewModel.league?.capacity,
+              members: widget.viewModel.league?.members,
+              tags: widget.viewModel.league?.tags);
+          var media = MediaModel(bannerImage, origin: league.id);
+          widget.viewModel.update(league, media);
+        }
+      },
+      label: "Update",
+    );
   }
 }

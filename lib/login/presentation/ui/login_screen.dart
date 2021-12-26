@@ -1,11 +1,8 @@
-import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/league/presentation/ui/league_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:e_racing_app/core/ui/component/custom_brackground.dart';
-import 'package:e_racing_app/login/presentation/widget/login_error_widget.dart';
-import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/presentation/widget/login_2fa_otp_qr_widget.dart';
 import 'package:e_racing_app/login/presentation/widget/login_2fa_otp_widget.dart';
 import 'package:e_racing_app/login/presentation/widget/login_2fa_toogle_widget.dart';
@@ -62,49 +59,44 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget navigation(_) {
-    switch (viewModel.state) {
-      case ViewState.loading:
-        return const LoadingRipple();
-      case ViewState.ready:
-        switch (viewModel.flow) {
-          case LoginFlow.initial:
-            return LoginInitialWidget(viewModel);
-          case LoginFlow.login:
-            return LoginFormWidget(viewModel);
-          case LoginFlow.signin:
-            return LoginSigninWidget(viewModel);
-          case LoginFlow.login2fa:
-            return Login2FAWidget(viewModel);
-          case LoginFlow.forgot:
-            return LoginForgotWidget(viewModel);
-          case LoginFlow.mailRegistration:
-            return LoginStatusWidget(viewModel);
-          case LoginFlow.reset:
-            return LoginResetWidget(viewModel);
-          case LoginFlow.resetCode:
-            return LoginForgotWidget(viewModel);
-          case LoginFlow.status:
-            return LoginStatusWidget(viewModel);
-          case LoginFlow.toogle2fa:
-            return LoginToogle2FAWidget(viewModel);
-          case LoginFlow.otpQr:
-            return LoginOtpQRWidget(viewModel);
-        }
-      case ViewState.error:
-        return LoginErrorWidget(viewModel);
-      case ViewState.navigation:
-        return test(_);
+    switch (viewModel.flow) {
+      case LoginFlow.initial:
+        return LoginInitialWidget(viewModel);
+      case LoginFlow.login:
+        return LoginFormWidget(viewModel);
+      case LoginFlow.signin:
+        return LoginSigninWidget(viewModel);
+      case LoginFlow.login2fa:
+        return Login2FAWidget(viewModel);
+      case LoginFlow.forgot:
+        return LoginForgotWidget(viewModel);
+      case LoginFlow.mailRegistration:
+        return LoginStatusWidget(viewModel);
+      case LoginFlow.reset:
+        return LoginResetWidget(viewModel);
+      case LoginFlow.resetCode:
+        return LoginForgotWidget(viewModel);
+      case LoginFlow.status:
+        return LoginStatusWidget(viewModel);
+      case LoginFlow.toogle2fa:
+        return LoginToogle2FAWidget(viewModel);
+      case LoginFlow.otpQr:
+        return LoginOtpQRWidget(viewModel);
+      case LoginFlow.next:
+        return test(context);
     }
   }
 
   Widget test(BuildContext context) {
-    return ButtonWidget(
-      ButtonType.normal,
-      () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const LeagueScreen()));
-      },
-      label: "next",
+    return Center(
+      child: ButtonWidget(
+        ButtonType.normal,
+        () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const LeagueScreen()));
+        },
+        label: "next",
+      ),
     );
   }
 }

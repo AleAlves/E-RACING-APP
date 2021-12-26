@@ -52,12 +52,10 @@ abstract class _LoginViewModel with Store {
       Session.instance.setBearerToken(login.bearerToken);
       saveUser(email, password);
 
+      flow = LoginFlow.next;
       if (login.required2FA) {
-        state = ViewState.ready;
         flow = LoginFlow.login2fa;
-      } else {
-        state = ViewState.navigation;
-      }
+      } else {}
     }, onError);
   }
 
@@ -84,7 +82,6 @@ abstract class _LoginViewModel with Store {
     await _interactor.login2FA(code, (success) {
       status =
           StatusModel("2FA Logged successfuly", "ok", next: LoginFlow.initial);
-      state = ViewState.navigation;
     }, onError);
   }
 

@@ -44,6 +44,9 @@ abstract class _LeagueViewModel with Store {
   LeagueModel? league;
 
   @observable
+  MediaModel? media;
+
+  @observable
   String? id;
 
   @observable
@@ -78,10 +81,9 @@ abstract class _LeagueViewModel with Store {
     });
   }
 
-  void update(String name, String description, String banner, String emblem,
-      List<String?> tags, List<LinkModel?> links) {
+  void update(LeagueModel league, MediaModel media) {
     state = ViewState.loading;
-    _interactor.create(name, description, banner, emblem, tags, links, () {
+    _interactor.update(media, league, () {
       status = StatusModel("League Created", "Ok", next: LeagueFlow.list);
       state = ViewState.ready;
       setFlow(LeagueFlow.status);
@@ -95,6 +97,7 @@ abstract class _LeagueViewModel with Store {
   }
 
   void fetchTags() async {
+    state = ViewState.loading;
     tags = ObservableList.of(await GetTagUseCase().invoke());
     state = ViewState.ready;
   }
@@ -104,7 +107,10 @@ abstract class _LeagueViewModel with Store {
   }
 
   Future<void> getLeague() async {
+    state = ViewState.loading;
     league = await _interactor.get(id ?? '');
+    media = await GetMediaUseCase().invoke(league?.id ?? '');
+    state = ViewState.ready;
   }
 
   void retry() {

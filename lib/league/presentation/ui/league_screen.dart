@@ -1,5 +1,4 @@
 import 'package:e_racing_app/core/ui/component/custom_brackground.dart';
-import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
 import 'package:e_racing_app/core/ui/component/ui/scroll_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
@@ -24,6 +23,7 @@ class _LeagueScreenState extends State<LeagueScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final LeagueViewModel viewModel = LeagueViewModel();
+  ViewState? curentState;
 
   @override
   void initState() {
@@ -55,31 +55,22 @@ class _LeagueScreenState extends State<LeagueScreen> {
   }
 
   Widget navigation() {
-    switch (viewModel.state) {
-      case ViewState.loading:
-        return const LoadingRipple();
-      case ViewState.ready:
-        switch (viewModel.flow) {
-          case LeagueFlow.list:
-            return LeagueListWidget(viewModel);
-          case LeagueFlow.create:
-            return LeagueCreateWidget(viewModel);
-          case LeagueFlow.delete:
-            return LeagueCreateWidget(viewModel);
-          case LeagueFlow.edit:
-            return LeagueUpdateWidget(viewModel);
-          case LeagueFlow.join:
-            return LeagueCreateWidget(viewModel);
-          case LeagueFlow.error:
-            return LeagueCreateWidget(viewModel);
-          case LeagueFlow.status:
-            return LeagueStatusWidget(viewModel);
-          default:
-            return LeagueCreateWidget(viewModel);
-        }
-      case ViewState.error:
+    switch (viewModel.flow) {
+      case LeagueFlow.list:
+        return LeagueListWidget(viewModel);
+      case LeagueFlow.create:
         return LeagueCreateWidget(viewModel);
-      case ViewState.navigation:
+      case LeagueFlow.delete:
+        return LeagueCreateWidget(viewModel);
+      case LeagueFlow.edit:
+        return LeagueUpdateWidget(viewModel);
+      case LeagueFlow.join:
+        return LeagueCreateWidget(viewModel);
+      case LeagueFlow.error:
+        return LeagueCreateWidget(viewModel);
+      case LeagueFlow.status:
+        return LeagueStatusWidget(viewModel);
+      default:
         return LeagueCreateWidget(viewModel);
     }
   }
