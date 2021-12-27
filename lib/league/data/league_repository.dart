@@ -6,45 +6,47 @@ import 'package:e_racing_app/core/service/http_response.dart';
 import 'model/league_create_model.dart';
 
 abstract class LeagueRepository {
-  Future fetch(Function(HTTPResponse) success, Function(HTTPResponse) error);
 
-  Future create(LeagueCreateModel request, Function(HTTPResponse) success,
-      Function(HTTPResponse) error);
+  Future<HTTPResponse?> fetch();
 
-  Future get(String id);
+  Future<HTTPResponse?> get(String id);
 
-  Future update(LeagueCreateModel request);
+  Future<HTTPResponse?> delete(String id);
+
+  Future<HTTPResponse?> create(LeagueCreateModel request);
+
+  Future<HTTPResponse?> update(LeagueCreateModel request);
 }
 
 class LeagueRepositoryIml extends LeagueRepository {
   final BaseService _service = ApiService();
 
   @override
-  Future fetch(
-      Function(HTTPResponse) success, Function(HTTPResponse) error) async {
-    await _service.call(
-        HTTPRequest(
-            endpoint: "api/v1/leagues",
-            verb: HTTPVerb.get,
-            params: HTTPRequesParams()),
-        success,
-        error);
+  Future<HTTPResponse?> fetch() async {
+    return await _service.callAsync(HTTPRequest(
+        endpoint: "api/v1/leagues",
+        verb: HTTPVerb.get,
+        params: HTTPRequesParams()));
   }
 
   @override
-  Future create(LeagueCreateModel request, Function(HTTPResponse) success,
-      Function(HTTPResponse) error) async {
-    await _service.call(
-        HTTPRequest(
-            endpoint: "api/v1/league",
-            verb: HTTPVerb.post,
-            params: HTTPRequesParams(data: request)),
-        success,
-        error);
+  Future<HTTPResponse?> get(String id) async {
+    return await _service.callAsync(HTTPRequest(
+        endpoint: "api/v1/league",
+        verb: HTTPVerb.get,
+        params: HTTPRequesParams(query: id)));
   }
 
   @override
-  Future update(LeagueCreateModel request) async {
+  Future<HTTPResponse?> create(LeagueCreateModel request) async {
+    return await _service.callAsync(HTTPRequest(
+        endpoint: "api/v1/league",
+        verb: HTTPVerb.post,
+        params: HTTPRequesParams(data: request)));
+  }
+
+  @override
+  Future<HTTPResponse?> update(LeagueCreateModel request) async {
     return await _service.callAsync(HTTPRequest(
         endpoint: "api/v1/league",
         verb: HTTPVerb.put,
@@ -52,10 +54,10 @@ class LeagueRepositoryIml extends LeagueRepository {
   }
 
   @override
-  Future get(String id) async {
+  Future<HTTPResponse?> delete(String id) async {
     return await _service.callAsync(HTTPRequest(
         endpoint: "api/v1/league",
-        verb: HTTPVerb.get,
+        verb: HTTPVerb.delete,
         params: HTTPRequesParams(query: id)));
   }
 }

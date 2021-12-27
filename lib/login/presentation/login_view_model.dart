@@ -40,12 +40,12 @@ abstract class _LoginViewModel with Store {
     await _interactor.getPublicKey((key) {
       Session.instance.setRSAKey(key);
       Session.instance.setKeyChain(CryptoService.instance.generateAESKeys());
-      state = ViewState.ready;
       getUser();
     }, onError);
   }
 
   void login(String email, String password) async {
+
     state = ViewState.loading;
 
     await _interactor.login(email, password, (login) {
@@ -60,6 +60,7 @@ abstract class _LoginViewModel with Store {
   }
 
   void toogle2fa(bool value) async {
+
     state = ViewState.loading;
 
     await _interactor.toogle2FA((success) {
@@ -117,8 +118,8 @@ abstract class _LoginViewModel with Store {
   }
 
   void getUser() async {
-    state = ViewState.ready;
     await _interactor.getUser(loadCurrentUser);
+    state = ViewState.ready;
   }
 
   void loadCurrentUser(UserModel? userModel) {

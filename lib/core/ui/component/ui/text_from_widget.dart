@@ -8,7 +8,7 @@ class TextFormWidget extends StatelessWidget {
   final IconData icon;
   final BorderType borderType;
   final FormFieldValidator<String>? validator;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final bool obscure;
 
   const TextFormWidget(this.label, this.icon, this.controller, this.validator,

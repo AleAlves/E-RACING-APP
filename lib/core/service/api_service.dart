@@ -111,15 +111,21 @@ class ApiService extends BaseService {
               headers: headers());
           break;
         case HTTPVerb.post:
-          response = await http.post(parseRequest(request.endpoint),
-              headers: headers(), body: jsonEncode(request.params));
+          response = await http.post(
+              parseRequest(request.endpoint),
+              headers: headers(),
+              body: jsonEncode(request.params));
           break;
         case HTTPVerb.delete:
-          response = await http.delete(parseRequest(request.endpoint));
+          response = await http.delete(
+              parseRequestParams(request.endpoint, request.params?.query),
+              headers: headers());
           break;
         case HTTPVerb.put:
-          response = await http.put(parseRequest(request.endpoint),
-              body: request.params);
+          response = await http.put(
+              parseRequest(request.endpoint),
+              headers: headers(),
+              body: jsonEncode(request.params));
           break;
       }
       print("Response URL: ${response.request?.url.path}");

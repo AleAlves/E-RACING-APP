@@ -3,7 +3,7 @@ part 'link_model.g.dart';
 
 @JsonSerializable()
 class LinkModel {
-  final String? platformId;
+  late String? platformId;
   late String? link;
 
   LinkModel(this.platformId, this.link);

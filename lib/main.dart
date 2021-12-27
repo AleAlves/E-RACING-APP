@@ -6,6 +6,8 @@ void main() => runApp(const ERcaingApp());
 
 class ERcaingApp extends StatelessWidget {
   static const MaterialColor color = MaterialColor(0xFF391B76, <int, Color>{
+    0: Color(0xdfba1111),
+    1: Color(0xdfba1111),
     10: Color(0xffe7e7e7),
     20: Color(0xfffcfcfc),
     50: Color(0xFFF3E5F5),
@@ -30,13 +32,13 @@ class ERcaingApp extends StatelessWidget {
       title: 'E-Racing',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(),
-        primarySwatch: color,
-        accentColor: Colors.deepOrange,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: color)
+            .copyWith(secondary: color[0]),
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) =>  const LoginScreen(),
-        '/leagues': (context) =>  const LeagueScreen(),
+        '/': (context) => const LoginScreen(),
+        '/leagues': (context) => const LeagueScreen(),
       },
     );
   }

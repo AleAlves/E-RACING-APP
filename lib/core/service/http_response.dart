@@ -2,7 +2,6 @@ class HTTPResponse<T> {
   T? data;
   bool? safe;
   Response? response;
-
   HTTPResponse();
 
   HTTPResponse.onResponse(this.data, this.response, this.safe);

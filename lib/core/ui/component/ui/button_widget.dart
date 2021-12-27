@@ -2,7 +2,7 @@ import 'package:e_racing_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-enum ButtonType { normal, borderless, icon }
+enum ButtonType { normal, borderless, icon, important }
 
 class ButtonWidget extends StatelessWidget {
   final String? label;
@@ -23,6 +23,8 @@ class ButtonWidget extends StatelessWidget {
         return borderless(onPressed);
       case ButtonType.icon:
         return iconButton(onPressed);
+      case ButtonType.important:
+        return important(context);
     }
   }
 
@@ -40,6 +42,17 @@ class ButtonWidget extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
+        onPressed: onPressed,
+        child: Text(label ?? ''),
+      ),
+    );
+  }
+
+  Widget important(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width / 2,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(primary: ERcaingApp.color[0]),
         onPressed: onPressed,
         child: Text(label ?? ''),
       ),

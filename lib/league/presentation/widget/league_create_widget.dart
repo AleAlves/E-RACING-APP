@@ -150,7 +150,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
                   return ActionChip(
                       avatar: CircleAvatar(
                         backgroundColor:
-                            selected ? ERcaingApp.color[400] : ERcaingApp.color,
+                            selected ? ERcaingApp.color[0] : ERcaingApp.color,
                         child: selected ? const Text('-') : const Text('+'),
                       ),
                       label: Text(item?.name ?? ''),
@@ -261,10 +261,10 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget> {
                 Row(
                   children: [
                     DropdownMenuWidget(
-                        widget.viewModel.socialMedias, "Platform", (item) {
+                        widget.viewModel.socialMedias, (item) {
                       socialPlatforms[index] = LinkModel(
                           item?.id, socialStuffControllers[index].text);
-                    }),
+                    }, hint:  "Platform",),
                   ],
                 ),
                 Row(

@@ -5,7 +5,11 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
-import 'package:e_racing_app/league/domain/league_interactor.dart';
+import 'package:e_racing_app/league/domain/usecase/create_league_usecase.dart';
+import 'package:e_racing_app/league/domain/usecase/delete_league_usecase.dart';
+import 'package:e_racing_app/league/domain/usecase/fetch_league_usecase.dart';
+import 'package:e_racing_app/league/domain/usecase/get_league_usecase.dart';
+import 'package:e_racing_app/league/domain/usecase/upate_league_usecase.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
@@ -52,7 +56,11 @@ abstract class _LeagueViewModel with Store {
   @observable
   StatusModel? status;
 
-  final LeagueInteractor _interactor = LeagueInteractorImpl();
+  final DeleteLeagueUseCase _delete = DeleteLeagueUseCase();
+  final UpdateLeagueUseCase _update = UpdateLeagueUseCase();
+  final CreateLeagueUseCase _create = CreateLeagueUseCase();
+  final FetchLeagueUseCase _fetch = FetchLeagueUseCase();
+  final GetLeagueUseCase _get = GetLeagueUseCase();
 
   @action
   init() async {
@@ -61,35 +69,35 @@ abstract class _LeagueViewModel with Store {
 
   void fetchLeagues() async {
     state = ViewState.loading;
-    await _interactor.fetch((list) async {
-      state = ViewState.ready;
-      leagues = ObservableList.of(list);
-    }, (error) {
-      state = ViewState.error;
-    });
+    var response = await _fetch.invoke();
+    response.success
+        ? leagues = ObservableList.of(response.data)
+        : state = ViewState.error;
+    state = ViewState.ready;
   }
 
-  void create(String name, String description, String banner, String emblem,
-      List<String?> tags, List<LinkModel?> links) {
+  Future<void> create(String name, String description, String banner,
+      String emblem, List<String?> tags, List<LinkModel?> links) async {
     state = ViewState.loading;
-    _interactor.create(name, description, banner, emblem, tags, links, () {
-      status = StatusModel("League Created", "Ok", next: LeagueFlow.list);
-      state = ViewState.ready;
-      setFlow(LeagueFlow.status);
-    }, (error) {
-      state = ViewState.error;
-    });
+    var response = await _create.invoke(
+        LeagueModel(
+            name: name,
+            description: description,
+            emblem: emblem,
+            tags: tags,
+            links: links),
+        MediaModel(banner));
+    response.success
+        ? status = StatusModel("League Created", "Ok", next: LeagueFlow.list)
+        : state = ViewState.error;
   }
 
-  void update(LeagueModel league, MediaModel media) {
+  void update(LeagueModel league, MediaModel media) async {
     state = ViewState.loading;
-    _interactor.update(media, league, () {
-      status = StatusModel("League Created", "Ok", next: LeagueFlow.list);
-      state = ViewState.ready;
-      setFlow(LeagueFlow.status);
-    }, (error) {
-      state = ViewState.error;
-    });
+    var response = await _update.invoke(league, media);
+    response.success
+        ? status = StatusModel("League Updated", "Ok", next: LeagueFlow.list)
+        : state = ViewState.error;
   }
 
   Future<MediaModel> getMedia(String? id, int index) async {
@@ -98,19 +106,37 @@ abstract class _LeagueViewModel with Store {
 
   void fetchTags() async {
     state = ViewState.loading;
-    tags = ObservableList.of(await GetTagUseCase().invoke());
+    var response = await GetTagUseCase().invoke();
+    tags = ObservableList.of(response);
     state = ViewState.ready;
   }
 
   void fetchSocialMedias() async {
-    socialMedias = ObservableList.of(await GetSocialMediaUseCase().invoke());
+    state = ViewState.loading;
+    var response = await GetSocialMediaUseCase().invoke();
+    socialMedias = ObservableList.of(response);
+    state = ViewState.ready;
   }
 
   Future<void> getLeague() async {
     state = ViewState.loading;
-    league = await _interactor.get(id ?? '');
-    media = await GetMediaUseCase().invoke(league?.id ?? '');
+    fetchTags();
+    fetchSocialMedias();
+    media = await GetMediaUseCase().invoke(id.toString());
+    var response = await _get.invoke(id.toString());
+    response.success
+        ? league = LeagueModel.fromJson(response.data)
+        : state = ViewState.error;
+
     state = ViewState.ready;
+  }
+
+  Future<void> delete() async {
+    state = ViewState.loading;
+    var result = await _delete.invoke(id.toString());
+    result.success
+        ? status = StatusModel("League Deleted", "Ok", next: LeagueFlow.list)
+        : state = ViewState.error;
   }
 
   void retry() {
