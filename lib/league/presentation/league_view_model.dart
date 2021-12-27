@@ -87,17 +87,23 @@ abstract class _LeagueViewModel with Store {
             tags: tags,
             links: links),
         MediaModel(banner));
-    response.success
-        ? status = StatusModel("League Created", "Ok", next: LeagueFlow.list)
-        : state = ViewState.error;
+    if (response.success) {
+      status = StatusModel("League Created", "Ok", next: LeagueFlow.list);
+      setFlow(LeagueFlow.status);
+    } else {
+      state = ViewState.error;
+    }
   }
 
   void update(LeagueModel league, MediaModel media) async {
     state = ViewState.loading;
     var response = await _update.invoke(league, media);
-    response.success
-        ? status = StatusModel("League Updated", "Ok", next: LeagueFlow.list)
-        : state = ViewState.error;
+    if (response.success) {
+      status = StatusModel("League Updated", "Ok", next: LeagueFlow.list);
+      setFlow(LeagueFlow.status);
+    } else {
+      state = ViewState.error;
+    }
   }
 
   Future<MediaModel> getMedia(String? id, int index) async {
@@ -133,10 +139,13 @@ abstract class _LeagueViewModel with Store {
 
   Future<void> delete() async {
     state = ViewState.loading;
-    var result = await _delete.invoke(id.toString());
-    result.success
-        ? status = StatusModel("League Deleted", "Ok", next: LeagueFlow.list)
-        : state = ViewState.error;
+    var response = await _delete.invoke(id.toString());
+    if (response.success) {
+      status = StatusModel("League Deleted", "Ok", next: LeagueFlow.list);
+      setFlow(LeagueFlow.status);
+    } else {
+      state = ViewState.error;
+    }
   }
 
   void retry() {
