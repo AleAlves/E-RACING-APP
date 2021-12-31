@@ -5,9 +5,6 @@ abstract class BaseService {
 
   final String server = "http://192.168.0.15:8084/";
 
-  //TODO remove this
-  Future call(HTTPRequest request, Function(HTTPResponse) success, Function(HTTPResponse) error);
-
-  Future<HTTPResponse> callAsync(HTTPRequest request);
+  Future<HTTPResponse> call(Request request);
 
 }

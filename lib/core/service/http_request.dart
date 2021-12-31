@@ -6,12 +6,12 @@ import 'package:e_racing_app/core/tools/session.dart';
 enum HTTPVerb { get, post, delete, put }
 enum CypherSchema { rsa, aes }
 
-class HTTPRequest {
+class Request {
   late HTTPRequesParams? params;
   late String endpoint;
   late HTTPVerb verb;
 
-  HTTPRequest({required this.endpoint, required this.verb, this.params});
+  Request({required this.endpoint, required this.verb, this.params});
 }
 
 class HTTPRequesParams {

@@ -3,18 +3,15 @@ import 'package:e_racing_app/core/service/base/base_service.dart';
 import 'package:e_racing_app/core/service/http_request.dart';
 import 'package:e_racing_app/core/service/http_response.dart';
 
-abstract class MediaRepository {
-  Future<HTTPResponse> get(String id);
+abstract class RemoteRepository {
+  Future<HTTPResponse> call(Request request);
 }
 
-class MediaRepositoryImpl extends MediaRepository {
+class RemoteRepositoryImpl extends RemoteRepository {
   final BaseService _service = ApiService();
 
   @override
-  Future<HTTPResponse> get(String id) {
-    return _service.callAsync(HTTPRequest(
-        endpoint: "api/v1/media",
-        verb: HTTPVerb.get,
-        params: HTTPRequesParams(query: id)));
+  Future<HTTPResponse> call(Request request) async {
+    return await _service.call(request);
   }
 }

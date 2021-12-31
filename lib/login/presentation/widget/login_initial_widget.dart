@@ -1,8 +1,7 @@
+import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 
 import '../login_view_model.dart';
@@ -19,6 +18,10 @@ class LoginInitialWidget extends StatefulWidget {
 class _LoginInitialWidgetState extends State<LoginInitialWidget> {
   @override
   Widget build(BuildContext context) {
+    return ViewStateWidget(getContent(), widget.viewModel.state);
+  }
+
+  Widget getContent() {
     return Align(
       alignment: Alignment.center,
       child: Column(
@@ -26,7 +29,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
         children: [
           ButtonWidget(
             ButtonType.normal,
-            () {
+                () {
               widget.viewModel.flow = LoginFlow.login;
             },
             label: "Já tenho uma conta",
@@ -34,7 +37,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
           const BoundWidget(BoundType.huge),
           ButtonWidget(
             ButtonType.normal,
-            () {
+                () {
               widget.viewModel.flow = LoginFlow.signin;
             },
             label: "Criar uma conta",
@@ -42,9 +45,5 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
         ],
       ),
     );
-  }
-
-  Future<bool> _onBackPressed() async {
-    return false;
   }
 }
