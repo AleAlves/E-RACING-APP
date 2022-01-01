@@ -5,7 +5,7 @@ import 'package:e_racing_app/core/service/http_request.dart';
 class GetMediaUseCase<T> extends BaseUseCase<T> {
   final String id;
 
-  GetMediaUseCase(this.id);
+  GetMediaUseCase({required this.id});
 
   @override
   Future<void> invoke(

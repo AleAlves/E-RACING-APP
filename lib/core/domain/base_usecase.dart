@@ -10,7 +10,7 @@ abstract class BaseUseCase<T> {
   final _remote =  RemoteRepositoryImpl();
   final _local = LocalRepository();
 
-  void invoke({required Function(T) success, required Function error});
+  void invoke({required Function(T?) success, required Function error});
 
   Future<HTTPResponse> remote(Request request) async {
     return await _remote.call(request);

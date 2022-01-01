@@ -218,7 +218,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
                   child: SizedBox(
                     height: 100,
                     width: 100,
-                    child: emblemFile.path == ''
+                    child: emblemFile.path.isEmpty
                         ? Image.memory(
                             base64Decode(widget.viewModel.league?.emblem ?? ''),
                             fit: BoxFit.fill,

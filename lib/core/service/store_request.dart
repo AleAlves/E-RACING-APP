@@ -6,5 +6,5 @@ class StoreRequest<T> {
   final String key;
   final Operation operation;
 
-  StoreRequest(this.key, this.operation, {data});
+  StoreRequest(this.key, this.operation, {this.data});
 }

@@ -12,6 +12,9 @@ import 'package:e_racing_app/league/domain/usecase/fetch_league_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/get_league_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/upate_league_usecase.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
+import 'package:e_racing_app/media/get_media.usecase.dart';
+import 'package:e_racing_app/social/get_social_media_usecase.dart';
+import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:mobx/mobx.dart';
 
 part 'league_view_model.g.dart';
@@ -54,11 +57,6 @@ abstract class _LeagueViewModel with Store {
   @observable
   StatusModel? status;
 
-  final DeleteLeagueUseCase _delete = DeleteLeagueUseCase();
-  final UpdateLeagueUseCase _update = UpdateLeagueUseCase();
-  final CreateLeagueUseCase _create = CreateLeagueUseCase();
-  final GetLeagueUseCase _get = GetLeagueUseCase();
-
   @action
   init() async {
     state = ViewState.ready;
@@ -66,9 +64,11 @@ abstract class _LeagueViewModel with Store {
 
   void fetchLeagues() async {
     state = ViewState.loading;
+    fetchTags();
+    fetchSocialMedias();
     FetchLeagueUseCase<List<LeagueModel>>().invoke(
         success: (data) {
-          leagues = ObservableList.of(data);
+          leagues = ObservableList.of(data!);
         },
         error: onError);
     state = ViewState.ready;
@@ -76,50 +76,60 @@ abstract class _LeagueViewModel with Store {
 
   Future<void> create(String name, String description, String banner,
       String emblem, List<String?> tags, List<LinkModel?> links) async {
-    // state = ViewState.loading;
-    // var response = await _create.invoke(
-    //     LeagueModel(
-    //         name: name,
-    //         description: description,
-    //         emblem: emblem,
-    //         tags: tags,
-    //         links: links),
-    //     MediaModel(banner));
-    // if (response.isSuccessfully) {
-    //   status = StatusModel("League Created", "Ok", next: LeagueFlow.list);
-    //   setFlow(LeagueFlow.status);
-    // } else {
-    //   state = ViewState.error;
-    // }
+    state = ViewState.loading;
+    await CreateLeagueUseCase<bool>(
+            league: LeagueModel(
+                name: name,
+                description: description,
+                emblem: emblem,
+                tags: tags,
+                links: links),
+            media: MediaModel(banner))
+        .invoke(
+            success: (data) {
+              status =
+                  StatusModel("League Created", "Ok", next: LeagueFlow.list);
+              setFlow(LeagueFlow.status);
+            },
+            error: onError);
   }
 
   void update(LeagueModel league, MediaModel media) async {
     state = ViewState.loading;
-    // var response = await _update.invoke(league, media);
-    // if (response.isSuccessfully) {
-    //   status = StatusModel("League Updated", "Ok", next: LeagueFlow.list);
-    //   setFlow(LeagueFlow.status);
-    // } else {
-    //   state = ViewState.error;
-    // }
+    await UpdateLeagueUseCase(league: league, media: media).invoke(
+        success: (data) {
+          status = StatusModel("League Updated", "Ok", next: LeagueFlow.list);
+          setFlow(LeagueFlow.status);
+        },
+        error: onError);
   }
 
-  Future<MediaModel> getMedia(String? id, int index) async {
-    //return await GetMediaUseCase().invoke(id ?? '');
-    return MediaModel.fromJson({});
+  void getMedia(String id) async {
+    await GetMediaUseCase<MediaModel>(id: id).invoke(
+        success: (data) {
+          media = data;
+        },
+        error: onError);
   }
 
   void fetchTags() async {
     state = ViewState.loading;
-    //var response = await GetTagUseCase().invoke();
-    //tags = ObservableList.of(response);
+    await GetTagUseCase().invoke(
+        success: (data) {
+          tags = ObservableList.of(data);
+        },
+        error: onError);
+    ;
     state = ViewState.ready;
   }
 
   void fetchSocialMedias() async {
     state = ViewState.loading;
-    //var response = await GetSocialMediaUseCase().invoke();
-    //socialMedias = ObservableList.of(response);
+    await GetSocialMediaUseCase().invoke(
+        success: (data) {
+          socialMedias = ObservableList.of(data);
+        },
+        error: onError);
     state = ViewState.ready;
   }
 
@@ -127,24 +137,23 @@ abstract class _LeagueViewModel with Store {
     state = ViewState.loading;
     fetchTags();
     fetchSocialMedias();
-    //media = await GetMediaUseCase().invoke(id.toString());
-    // var response = await _get.invoke(id.toString());
-    // response.isSuccessfully
-    //     ? league = LeagueModel.fromJson(response.data)
-    //     : state = ViewState.error;
-
+    await GetLeagueUseCase<LeagueModel>(id: id.toString()).invoke(
+        success: (data) {
+          getMedia(data?.id ?? '');
+          league = data;
+        },
+        error: onError);
     state = ViewState.ready;
   }
 
   Future<void> delete() async {
     state = ViewState.loading;
-    // var response = await _delete.invoke(id.toString());
-    // if (response.isSuccessfully) {
-    //   status = StatusModel("League Deleted", "Ok", next: LeagueFlow.list);
-    //   setFlow(LeagueFlow.status);
-    // } else {
-    //   state = ViewState.error;
-    // }
+    DeleteLeagueUseCase<bool>(id: id.toString()).invoke(
+        success: (data) {
+          status = StatusModel("League Deleted", "Ok", next: LeagueFlow.list);
+          setFlow(LeagueFlow.status);
+        },
+        error: onError);
   }
 
   void retry() {
