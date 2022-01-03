@@ -1,9 +1,9 @@
+import 'package:e_racing_app/core/data/http_response.dart';
 import 'package:e_racing_app/core/data/local_repository.dart';
 import 'package:e_racing_app/core/data/remote_repository.dart';
-import 'package:e_racing_app/core/service/http_request.dart';
-import 'package:e_racing_app/core/service/http_response.dart';
-import 'package:e_racing_app/core/service/store_request.dart';
-import 'package:e_racing_app/core/service/store_response.dart';
+import 'package:e_racing_app/core/data/http_request.dart';
+import 'package:e_racing_app/core/data/store_request.dart';
+import 'package:e_racing_app/core/data/store_response.dart';
 
 abstract class BaseUseCase<T> {
 

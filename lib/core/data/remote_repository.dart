@@ -1,7 +1,8 @@
 import 'package:e_racing_app/core/service/api_service.dart';
 import 'package:e_racing_app/core/service/base/base_service.dart';
-import 'package:e_racing_app/core/service/http_request.dart';
-import 'package:e_racing_app/core/service/http_response.dart';
+import 'package:e_racing_app/core/data/http_request.dart';
+
+import 'http_response.dart';
 
 abstract class RemoteRepository {
   Future<HTTPResponse> call(Request request);

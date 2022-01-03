@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
-import 'package:e_racing_app/core/service/http_request.dart';
+import 'package:e_racing_app/core/data/http_request.dart';
 
 class DeleteLeagueUseCase<T> extends BaseUseCase {
   final String id;

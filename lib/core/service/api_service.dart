@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:e_racing_app/core/service/http_request.dart';
-import 'package:e_racing_app/core/service/http_response.dart';
+import 'package:e_racing_app/core/data/http_request.dart';
+import 'package:e_racing_app/core/data/http_response.dart';
 import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 

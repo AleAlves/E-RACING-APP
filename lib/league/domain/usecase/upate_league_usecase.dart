@@ -1,6 +1,6 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
-import 'package:e_racing_app/core/service/http_request.dart';
+import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
 import 'package:e_racing_app/league/data/model/league_create_model.dart';
 

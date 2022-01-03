@@ -1,6 +1,6 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
-import 'package:e_racing_app/core/service/http_request.dart';
+import 'package:e_racing_app/core/data/http_request.dart';
 
 class GetTagUseCase<T> extends BaseUseCase<T> {
   @override

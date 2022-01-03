@@ -1,5 +1,5 @@
+import 'package:e_racing_app/core/data/store_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
-import 'package:e_racing_app/core/service/store_request.dart';
 
 
 class DeleteUserUseCase<T> extends BaseUseCase<T> {

@@ -1,10 +1,9 @@
 import 'dart:convert';
 
-import 'package:e_racing_app/core/service/store_request.dart';
-import 'package:e_racing_app/core/service/store_response.dart';
+import 'package:e_racing_app/core/data/store_request.dart';
+import 'package:e_racing_app/core/data/store_response.dart';
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:e_racing_app/login/domain/model/user_model.dart';
 
 abstract class RemoteRepository {
   Future<dynamic> call(StoreRequest query);

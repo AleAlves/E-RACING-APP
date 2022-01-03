@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
-import 'package:e_racing_app/core/service/http_request.dart';
+import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/login/data/model/login_2fa_request.dart';
 
 import 'model/user_model.dart';
