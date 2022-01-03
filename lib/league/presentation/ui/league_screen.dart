@@ -28,7 +28,6 @@ class _LeagueScreenState extends State<LeagueScreen> {
   @override
   void initState() {
     super.initState();
-    viewModel.fetchLeagues();
   }
 
   @override

@@ -384,14 +384,14 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
       ButtonType.normal,
       () {
         if (_formKey.currentState?.validate() == true) {
-          List<int> imageBytes = [];
+          List<int> bannerBytes = [];
           List<int> emblemBytes = [];
           List<LinkModel?> linksList = [];
           try {
-            imageBytes = bannerFile.readAsBytesSync();
+            bannerBytes = bannerFile.readAsBytesSync();
             emblemBytes = emblemFile.readAsBytesSync();
           } catch (e) {}
-          String bannerImage = base64Encode(imageBytes);
+          String bannerImage = base64Encode(bannerBytes);
           String emblem64Image = base64Encode(emblemBytes);
           for (var element in links) {
             element.first?.link = element.second?.text ?? '';
@@ -407,7 +407,9 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
               members: widget.viewModel.league?.members,
               tags: tags,
               links: linksList);
-          var media = MediaModel(bannerImage, origin: league.id);
+          var media = MediaModel(
+              bannerImage.isEmpty ? widget.viewModel.media!.image : bannerImage,
+              origin: league.id);
           widget.viewModel.update(league, media);
         }
       },

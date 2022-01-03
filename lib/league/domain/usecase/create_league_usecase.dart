@@ -18,7 +18,7 @@ class CreateLeagueUseCase<T> extends BaseUseCase<T> {
         verb: HTTPVerb.post,
         params: HTTPRequesParams(data: LeagueCreateModel(media, league))));
     if (response.isSuccessfully) {
-      success.call(response.data);
+      success.call(true as T);
     } else {
       error.call();
     }

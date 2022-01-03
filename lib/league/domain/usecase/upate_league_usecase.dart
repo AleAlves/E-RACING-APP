@@ -11,10 +11,16 @@ class UpdateLeagueUseCase<T> extends BaseUseCase<T?> {
   UpdateLeagueUseCase({required this.league, required this.media});
 
   @override
-  Future<void> invoke({required Function(T?) success, required Function error}) async {
-    await super.remote(Request(
+  Future<void> invoke(
+      {required Function(T?) success, required Function error}) async {
+    var response = await super.remote(Request(
         endpoint: "api/v1/league",
         verb: HTTPVerb.put,
         params: HTTPRequesParams(data: LeagueCreateModel(media, league))));
+    if (response.isSuccessfully) {
+      success.call(true as T);
+    } else {
+      error.call();
+    }
   }
 }

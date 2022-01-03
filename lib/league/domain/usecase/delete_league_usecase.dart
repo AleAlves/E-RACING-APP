@@ -13,7 +13,7 @@ class DeleteLeagueUseCase<T> extends BaseUseCase {
         verb: HTTPVerb.delete,
         params: HTTPRequesParams(query: id)));
     if (response.isSuccessfully) {
-      success.call(response.data);
+      success.call(true as T);
     } else {
       error.call();
     }

@@ -19,6 +19,7 @@ class LeagueListWidget extends StatefulWidget {
 class _LeagueListWidgetState extends State<LeagueListWidget> {
   @override
   void initState() {
+    widget.viewModel.fetchLeagues();
     widget.viewModel.fetchTags();
     super.initState();
   }
