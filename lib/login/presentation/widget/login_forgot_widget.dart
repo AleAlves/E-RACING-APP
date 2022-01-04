@@ -67,7 +67,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget> {
           }, label: "Recuperar",),
           const BoundWidget(BoundType.big),
           ButtonWidget(ButtonType.borderless, () {
-            widget.viewModel.flow = LoginFlow.reset;
+            widget.viewModel.flow = LoginWidgetFlow.reset;
           }, label: "Já tenho o código",),
         ],
       ),
@@ -75,7 +75,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget> {
   }
 
   Future<bool> _onBackPressed() async {
-    widget.viewModel.flow = LoginFlow.initial;
+    widget.viewModel.flow = LoginWidgetFlow.init;
     return false;
   }
 }

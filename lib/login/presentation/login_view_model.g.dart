@@ -27,13 +27,13 @@ mixin _$LoginViewModel on _LoginViewModel, Store {
   final _$flowAtom = Atom(name: '_LoginViewModel.flow');
 
   @override
-  LoginFlow get flow {
+  LoginWidgetFlow get flow {
     _$flowAtom.reportRead();
     return super.flow;
   }
 
   @override
-  set flow(LoginFlow value) {
+  set flow(LoginWidgetFlow value) {
     _$flowAtom.reportWrite(value, super.flow, () {
       super.flow = value;
     });

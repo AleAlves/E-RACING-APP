@@ -30,7 +30,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
           ButtonWidget(
             ButtonType.normal,
                 () {
-              widget.viewModel.flow = LoginFlow.login;
+              widget.viewModel.flow = LoginWidgetFlow.login;
             },
             label: "Já tenho uma conta",
           ),
@@ -38,7 +38,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
           ButtonWidget(
             ButtonType.normal,
                 () {
-              widget.viewModel.flow = LoginFlow.signin;
+              widget.viewModel.flow = LoginWidgetFlow.signin;
             },
             label: "Criar uma conta",
           ),

@@ -45,7 +45,7 @@ class _Login2FAWidgetState extends State<Login2FAWidget> {
             ButtonWidget(
               ButtonType.borderless,
               () {
-                widget.viewModel.flow = LoginFlow.resetCode;
+                widget.viewModel.flow = LoginWidgetFlow.resetCode;
               },
               label: "I can't access",
             ),
@@ -56,7 +56,7 @@ class _Login2FAWidgetState extends State<Login2FAWidget> {
 
   Future<bool> _onBackPressed() async {
     widget.viewModel.loginAutomatically = false;
-    widget.viewModel.flow = LoginFlow.login;
+    widget.viewModel.flow = LoginWidgetFlow.login;
     return false;
   }
 }

@@ -86,7 +86,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           ButtonWidget(
             ButtonType.borderless,
             () {
-              widget.viewModel.flow = LoginFlow.resetCode;
+              widget.viewModel.flow = LoginWidgetFlow.resetCode;
             },
             label: "Esqueci a senha",
           ),
@@ -96,7 +96,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   }
 
   Future<bool> _onBackPressed() async {
-    widget.viewModel.flow = LoginFlow.initial;
+    widget.viewModel.flow = LoginWidgetFlow.init;
     return false;
   }
 }

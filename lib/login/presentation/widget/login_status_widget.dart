@@ -44,7 +44,7 @@ class _LoginStatusWidgetState extends State<LoginStatusWidget> {
             ButtonType.normal,
             () {
               widget.viewModel.flow =
-                  widget.viewModel.status?.next ?? LoginFlow.initial;
+                  widget.viewModel.status?.next ?? LoginWidgetFlow.init;
             },
             label: widget.viewModel.status?.action ?? '',
           )
@@ -54,7 +54,7 @@ class _LoginStatusWidgetState extends State<LoginStatusWidget> {
   }
 
   Future<bool> _onBackPressed() async {
-    widget.viewModel.flow = LoginFlow.initial;
+    widget.viewModel.flow = LoginWidgetFlow.init;
     return false;
   }
 }

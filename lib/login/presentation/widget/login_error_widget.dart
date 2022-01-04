@@ -53,7 +53,7 @@ class _LoginErrorWidgetState extends State<LoginErrorWidget> {
   }
 
   Future<bool> _onBackPressed() async {
-    widget.viewModel.flow = widget.viewModel.status?.next ?? LoginFlow.initial;
+    widget.viewModel.flow = widget.viewModel.status?.next ?? LoginWidgetFlow.init;
     return false;
   }
 }

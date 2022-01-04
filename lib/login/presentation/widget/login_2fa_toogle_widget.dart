@@ -43,7 +43,7 @@ class _LoginToogle2FAWidgetState extends State<LoginToogle2FAWidget> {
   }
 
   Future<bool> _onBackPressed() async {
-    widget.viewModel.flow = LoginFlow.initial;
+    widget.viewModel.flow = LoginWidgetFlow.init;
     return false;
   }
 }

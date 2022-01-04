@@ -29,7 +29,7 @@ abstract class _LoginViewModel with Store {
   ViewState state = ViewState.loading;
 
   @observable
-  LoginFlow flow = LoginFlow.initial;
+  LoginWidgetFlow flow = LoginWidgetFlow.init;
 
   @observable
   UserModel? user;
@@ -61,9 +61,9 @@ abstract class _LoginViewModel with Store {
           Session.instance.setBearerToken(data.bearerToken);
           saveUser(email, password);
           if (data.required2FA) {
-            flow = LoginFlow.login2fa;
+            flow = LoginWidgetFlow.login2fa;
           } else {
-            flow = LoginFlow.next;
+            //flow = LoginWidgetFlow.next;
           }
         },
         error: onError);
@@ -81,8 +81,8 @@ abstract class _LoginViewModel with Store {
             message = "2FA desabilitado";
           }
           otpQR = success;
-          status = StatusModel(message, "Ok", next: LoginFlow.otpQr);
-          flow = LoginFlow.status;
+          status = StatusModel(message, "Ok", next: LoginWidgetFlow.otpQr);
+          flow = LoginWidgetFlow.status;
         },
         error: onError);
   }
@@ -92,8 +92,7 @@ abstract class _LoginViewModel with Store {
     await Login2FAUseCase(code, Session.instance.getBearerToken()?.token ?? '')
         .invoke(
             success: (success) {
-              status = StatusModel("2FA Logged successfuly", "ok",
-                  next: LoginFlow.initial);
+              status = StatusModel("2FA Logged successfuly", "ok", next: LoginWidgetFlow.init);
             },
             error: onError);
   }
@@ -105,8 +104,8 @@ abstract class _LoginViewModel with Store {
         success: (data) {
           state = ViewState.ready;
           status = StatusModel("Conta criada com sucesso", "Ok",
-              next: LoginFlow.login);
-          flow = LoginFlow.status;
+              next: LoginWidgetFlow.login);
+          flow = LoginWidgetFlow.status;
         },
         error: onError);
   }
@@ -118,8 +117,8 @@ abstract class _LoginViewModel with Store {
           state = ViewState.ready;
           status = StatusModel(
               "Enviamos um código de verificação para o seu email ", "Ok",
-              next: LoginFlow.reset);
-          flow = LoginFlow.status;
+              next: LoginWidgetFlow.reset);
+          flow = LoginWidgetFlow.status;
         },
         error: onError);
   }
@@ -129,8 +128,8 @@ abstract class _LoginViewModel with Store {
     await ResetPasswordUseCase(code, mail, password).invoke(
         success: (data) {
           state = ViewState.ready;
-          status = StatusModel("Senha resetada", "Ok", next: LoginFlow.login);
-          flow = LoginFlow.status;
+          status = StatusModel("Senha resetada", "Ok", next: LoginWidgetFlow.login);
+          flow = LoginWidgetFlow.status;
         },
         error: onError);
   }
@@ -145,7 +144,7 @@ abstract class _LoginViewModel with Store {
               login(data.profile?.email ?? '', data.auth?.password ?? '');
             }
           }
-          flow = LoginFlow.login;
+          flow = LoginWidgetFlow.login;
         },
         error: onError);
   }
@@ -156,12 +155,11 @@ abstract class _LoginViewModel with Store {
   }
 
   void onError(ApiException error) {
-    status = StatusModel(error.message(), "Ok",
-        next: LoginFlow.initial, previous: flow);
+    status = StatusModel(error.message(), "Ok", next: LoginWidgetFlow.init, previous: flow);
 
     if (error.isBusiness()) {
       state = ViewState.ready;
-      flow = LoginFlow.status;
+      flow = LoginWidgetFlow.status;
     } else {
       state = ViewState.error;
     }
@@ -169,6 +167,6 @@ abstract class _LoginViewModel with Store {
 
   void retry() {
     state = ViewState.ready;
-    flow = status?.previous ?? LoginFlow.initial;
+    flow = status?.previous ?? LoginWidgetFlow.init;
   }
 }

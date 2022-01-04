@@ -37,7 +37,7 @@ class ERcaingApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const LoginScreen(),
+        '/': (context) => LoginScreen(),
         '/leagues': (context) => const LeagueScreen(),
       },
     );
