@@ -29,9 +29,7 @@ class ViewStateWidget extends StatelessWidget {
 
   Widget _scope(Widget content) {
     return WillPopScope(
-        child: Observer(builder: (_) {
-          return content;
-        }),
+        child: content,
         onWillPop: onBackPressed);
   }
 }

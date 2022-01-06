@@ -90,53 +90,51 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
   Widget updateForm() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: SizedBox(
-        child: Column(
-          children: [
-            header(),
-            Stepper(
-              currentStep: _index,
-              onStepTapped: (int index) {
-                setState(() {
-                  _index = index;
-                });
-              },
-              controlsBuilder: (BuildContext context,
-                  {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
-                return Row(
-                  children: <Widget>[
-                    Container(),
-                    Container(),
-                  ],
-                );
-              },
-              steps: <Step>[
-                Step(
-                  title: const Text('Basic Info'),
-                  content: basic(),
-                ),
-                Step(
-                  title: const Text('Emblem'),
-                  content: emblem(),
-                ),
-                Step(
-                  title: const Text('Banner'),
-                  content: banner(),
-                ),
-                Step(
-                  title: const Text('Tags'),
-                  content: tag(),
-                ),
-                Step(
-                  title: const Text('Social'),
-                  content: social(),
-                ),
-              ],
-            ),
-            finish(),
-            delete()
-          ],
-        ),
+      child: Column(
+        children: [
+          header(),
+          Stepper(
+            currentStep: _index,
+            onStepTapped: (int index) {
+              setState(() {
+                _index = index;
+              });
+            },
+            controlsBuilder: (BuildContext context,
+                {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
+              return Row(
+                children: <Widget>[
+                  Container(),
+                  Container(),
+                ],
+              );
+            },
+            steps: <Step>[
+              Step(
+                title: const Text('Basic Info'),
+                content: basic(),
+              ),
+              Step(
+                title: const Text('Emblem'),
+                content: emblem(),
+              ),
+              Step(
+                title: const Text('Banner'),
+                content: banner(),
+              ),
+              Step(
+                title: const Text('Tags'),
+                content: tag(),
+              ),
+              Step(
+                title: const Text('Social'),
+                content: social(),
+              ),
+            ],
+          ),
+          finish(),
+          delete()
+        ],
       ),
     );
   }

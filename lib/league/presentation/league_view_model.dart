@@ -82,7 +82,7 @@ abstract class _LeagueViewModel with Store {
       String emblem, List<String?> tags, List<LinkModel?> links) async {
     state = ViewState.loading;
     await createUseCase
-        .params(
+        .build(
             league: LeagueModel(
                 name: name,
                 description: description,

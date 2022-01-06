@@ -10,7 +10,7 @@ class CreateLeagueUseCase<T> extends BaseUseCase<T> {
   late final MediaModel _media;
   late final LeagueModel _league;
 
-  CreateLeagueUseCase<T> params(
+  CreateLeagueUseCase<T> build(
       {required LeagueModel league, required MediaModel media}) {
     _media = media;
     _league = league;

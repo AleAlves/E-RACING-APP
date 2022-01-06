@@ -1,5 +1,4 @@
 import 'package:e_racing_app/core/ui/component/custom_brackground.dart';
-import 'package:e_racing_app/core/ui/component/ui/scroll_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_create_widget.dart';
@@ -34,24 +33,23 @@ class _LeagueScreenState extends State<LeagueScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      body: ScrollWidget(
-          'Leagues',
-          Expanded(
-            child: Stack(
-              children: [
-                SizedBox(
-                  height: double.infinity,
-                  width: double.infinity,
-                  child: CustomPaint(
-                    painter: CustomBackground(),
-                  ),
-                ),
-                Observer(builder: (_) {
-                  return navigation();
-                })
-              ],
+      appBar: AppBar(
+        title: const Text('E-racing'),
+      ),
+      body: Stack(
+        children: [
+          SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: CustomPaint(
+              painter: CustomBackground(),
             ),
-          )),
+          ),
+          Observer(builder: (_) {
+            return navigation();
+          })
+        ],
+      ),
     );
   }
 
