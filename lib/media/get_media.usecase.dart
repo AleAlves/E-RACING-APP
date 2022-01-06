@@ -3,9 +3,12 @@ import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
 
 class GetMediaUseCase<T> extends BaseUseCase<T> {
-  final String id;
+  late final String _id;
 
-  GetMediaUseCase({required this.id});
+  GetMediaUseCase<T> params({required String id}) {
+    _id = id;
+    return this;
+  }
 
   @override
   Future<void> invoke(
@@ -13,7 +16,7 @@ class GetMediaUseCase<T> extends BaseUseCase<T> {
     var response = await super.remote(Request(
         endpoint: "api/v1/media",
         verb: HTTPVerb.get,
-        params: HTTPRequesParams(query: id)));
+        params: HTTPRequesParams(query: _id)));
     if (response.isSuccessfully) {
       success(MediaModel.fromJson(response.data) as T);
     } else {

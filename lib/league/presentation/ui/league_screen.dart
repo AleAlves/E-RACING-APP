@@ -9,6 +9,7 @@ import 'package:e_racing_app/league/presentation/ui/widget/league_update_widget.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import 'league_flow.dart';
 
@@ -21,8 +22,7 @@ class LeagueScreen extends StatefulWidget {
 
 class _LeagueScreenState extends State<LeagueScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final LeagueViewModel viewModel = LeagueViewModel();
+  final viewModel = Modular.get<LeagueViewModel>();
   ViewState? curentState;
 
   @override
@@ -34,22 +34,24 @@ class _LeagueScreenState extends State<LeagueScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      body: ScrollWidget('Leagues', Expanded(
-        child: Stack(
-          children: [
-            SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: CustomPaint(
-                painter: CustomBackground(),
-              ),
+      body: ScrollWidget(
+          'Leagues',
+          Expanded(
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: CustomPaint(
+                    painter: CustomBackground(),
+                  ),
+                ),
+                Observer(builder: (_) {
+                  return navigation();
+                })
+              ],
             ),
-            Observer(builder: (_) {
-              return navigation();
-            })
-          ],
-        ),
-      )),
+          )),
     );
   }
 

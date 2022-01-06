@@ -4,16 +4,19 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 
 class DeleteLeagueUseCase<T> extends BaseUseCase {
-  final String id;
+  late final String _id;
 
-  DeleteLeagueUseCase({required this.id});
+  DeleteLeagueUseCase<T> params({required String id}) {
+    _id = id;
+    return this;
+  }
 
   @override
   void invoke({required Function(T) success, required Function error}) async {
     var response = await super.remote(Request(
         endpoint: "api/v1/league",
         verb: HTTPVerb.delete,
-        params: HTTPRequesParams(query: id)));
+        params: HTTPRequesParams(query: _id)));
     if (response.isSuccessfully) {
       success.call(StatusModel(
           message: "League Deleted", action: "Ok", next: LeagueFlow.list) as T);

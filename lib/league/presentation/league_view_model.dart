@@ -15,6 +15,7 @@ import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 part 'league_view_model.g.dart';
@@ -51,6 +52,15 @@ abstract class _LeagueViewModel with Store {
   @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
 
+  final fetchUseCase = Modular.get<FetchLeagueUseCase<List<LeagueModel>>>();
+  final createUseCase = Modular.get<CreateLeagueUseCase<StatusModel>>();
+  final updateUseCase = Modular.get<UpdateLeagueUseCase<StatusModel>>();
+  final getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
+  final getTagUseCase = Modular.get<GetTagUseCase>();
+  final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
+  final getLeagueMediaUseCase = Modular.get<GetLeagueUseCase<LeagueModel>>();
+  final deleteUseCase = Modular.get<DeleteLeagueUseCase<StatusModel>>();
+
   @action
   init() async {
     state = ViewState.ready;
@@ -60,7 +70,7 @@ abstract class _LeagueViewModel with Store {
     state = ViewState.loading;
     fetchTags();
     fetchSocialMedias();
-    FetchLeagueUseCase<List<LeagueModel>>().invoke(
+    fetchUseCase.invoke(
         success: (data) {
           leagues = ObservableList.of(data!);
           state = ViewState.ready;
@@ -71,7 +81,8 @@ abstract class _LeagueViewModel with Store {
   Future<void> create(String name, String description, String banner,
       String emblem, List<String?> tags, List<LinkModel?> links) async {
     state = ViewState.loading;
-    await CreateLeagueUseCase<StatusModel>(
+    await createUseCase
+        .params(
             league: LeagueModel(
                 name: name,
                 description: description,
@@ -89,7 +100,7 @@ abstract class _LeagueViewModel with Store {
 
   void update(LeagueModel league, MediaModel media) async {
     state = ViewState.loading;
-    await UpdateLeagueUseCase<StatusModel>(league: league, media: media).invoke(
+    await updateUseCase.params(league: league, media: media).invoke(
         success: (data) {
           status = data;
           setFlow(LeagueFlow.status);
@@ -98,7 +109,7 @@ abstract class _LeagueViewModel with Store {
   }
 
   void getMedia(String id) async {
-    await GetMediaUseCase<MediaModel>(id: id).invoke(
+    await getMediaUseCase.params(id: id).invoke(
         success: (data) {
           media = data;
         },
@@ -107,7 +118,7 @@ abstract class _LeagueViewModel with Store {
 
   void fetchTags() async {
     state = ViewState.loading;
-    await GetTagUseCase().invoke(
+    await getTagUseCase.invoke(
         success: (data) {
           tags = ObservableList.of(data);
           state = ViewState.ready;
@@ -117,7 +128,7 @@ abstract class _LeagueViewModel with Store {
 
   void fetchSocialMedias() async {
     state = ViewState.loading;
-    await GetSocialMediaUseCase().invoke(
+    await getSocialMediaUseCase.invoke(
         success: (data) {
           socialMedias = ObservableList.of(data);
           state = ViewState.ready;
@@ -129,7 +140,7 @@ abstract class _LeagueViewModel with Store {
     state = ViewState.loading;
     fetchTags();
     fetchSocialMedias();
-    await GetLeagueUseCase<LeagueModel>(id: id.toString()).invoke(
+    await getLeagueMediaUseCase.params(id: id.toString()).invoke(
         success: (data) {
           getMedia(data?.id ?? '');
           league = data;
@@ -140,7 +151,7 @@ abstract class _LeagueViewModel with Store {
 
   Future<void> delete() async {
     state = ViewState.loading;
-    DeleteLeagueUseCase<StatusModel>(id: id.toString()).invoke(
+    deleteUseCase.params(id: id.toString()).invoke(
         success: (data) {
           status = data;
           setFlow(LeagueFlow.status);

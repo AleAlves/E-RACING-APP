@@ -7,10 +7,15 @@ import 'package:e_racing_app/league/data/model/league_create_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 
 class UpdateLeagueUseCase<T> extends BaseUseCase<T?> {
-  final MediaModel media;
-  final LeagueModel league;
+  late final MediaModel _media;
+  late final LeagueModel _league;
 
-  UpdateLeagueUseCase({required this.league, required this.media});
+  UpdateLeagueUseCase<T> params(
+      {required LeagueModel league, required MediaModel media}) {
+    _media = media;
+    _league = league;
+    return this;
+  }
 
   @override
   Future<void> invoke(
@@ -18,7 +23,7 @@ class UpdateLeagueUseCase<T> extends BaseUseCase<T?> {
     var response = await super.remote(Request(
         endpoint: "api/v1/league",
         verb: HTTPVerb.put,
-        params: HTTPRequesParams(data: LeagueCreateModel(media, league))));
+        params: HTTPRequesParams(data: LeagueCreateModel(_media, _league))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
           message: "League Updated", action: "Ok", next: LeagueFlow.list) as T);
