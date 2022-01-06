@@ -6,10 +6,14 @@ import 'package:e_racing_app/login/data/model/login_request.dart';
 import 'package:e_racing_app/login/data/model/login_response.dart';
 
 class LoginUseCase<T> extends BaseUseCase<T> {
-  final String _email;
-  final String _password;
+  late String _email;
+  late String _password;
 
-  LoginUseCase(this._email, this._password);
+  LoginUseCase<T> params({required String email, required String password}) {
+    _email = email;
+    _password = password;
+    return this;
+  }
 
   @override
   Future<void> invoke(

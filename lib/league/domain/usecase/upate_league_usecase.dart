@@ -1,8 +1,10 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
+import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
 import 'package:e_racing_app/league/data/model/league_create_model.dart';
+import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 
 class UpdateLeagueUseCase<T> extends BaseUseCase<T?> {
   final MediaModel media;
@@ -18,7 +20,8 @@ class UpdateLeagueUseCase<T> extends BaseUseCase<T?> {
         verb: HTTPVerb.put,
         params: HTTPRequesParams(data: LeagueCreateModel(media, league))));
     if (response.isSuccessfully) {
-      success.call(true as T);
+      success.call(StatusModel(
+          message: "League Updated", action: "Ok", next: LeagueFlow.list) as T);
     } else {
       error.call();
     }

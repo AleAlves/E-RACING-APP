@@ -18,8 +18,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../main.dart';
-import '../league_view_model.dart';
+import '../../../../main.dart';
+import '../league_flow.dart';
 
 class LeagueUpdateWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
@@ -54,7 +54,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      return ViewStateWidget(content(), widget.viewModel.state);
+      return ViewStateWidget(content(), widget.viewModel.state, _onBackPressed);
     });
   }
 
@@ -144,13 +144,11 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
   Widget header() {
     return Column(
       children: const [
-        BoundWidget(BoundType.huge),
         TextWidget(
           "Editing:",
           Style.subtitle,
           align: TextAlign.start,
         ),
-        BoundWidget(BoundType.huge),
       ],
     );
   }
@@ -415,5 +413,10 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
       },
       label: "Update",
     );
+  }
+
+  Future<bool> _onBackPressed() async {
+    widget.viewModel.setFlow(LeagueFlow.list);
+    return false;
   }
 }

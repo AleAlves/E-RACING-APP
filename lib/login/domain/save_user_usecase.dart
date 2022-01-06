@@ -6,10 +6,14 @@ import 'model/profile_model.dart';
 import 'model/user_model.dart';
 
 class SaveUserUseCase<T> extends BaseUseCase<T> {
-  final String _email;
-  final String _password;
+  late final String _email;
+  late final String _password;
 
-  SaveUserUseCase(this._email, this._password);
+  SaveUserUseCase<T> params({required String email, required String password}) {
+    _email = email;
+    _password = password;
+    return this;
+  }
 
   @override
   Future<void> invoke(

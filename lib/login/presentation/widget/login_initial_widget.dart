@@ -18,7 +18,7 @@ class LoginInitialWidget extends StatefulWidget {
 class _LoginInitialWidgetState extends State<LoginInitialWidget> {
   @override
   Widget build(BuildContext context) {
-    return ViewStateWidget(getContent(), widget.viewModel.state);
+    return ViewStateWidget(getContent(), widget.viewModel.state, _onBackPressed);
   }
 
   Widget getContent() {
@@ -45,5 +45,10 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
         ],
       ),
     );
+  }
+
+  Future<bool> _onBackPressed() async {
+    widget.viewModel.flow = LoginWidgetFlow.init;
+    return false;
   }
 }

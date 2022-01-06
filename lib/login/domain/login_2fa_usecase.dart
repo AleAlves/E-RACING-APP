@@ -1,14 +1,20 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
+import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/login/data/model/login_2fa_request.dart';
+import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 
 import 'model/user_model.dart';
 
 class Login2FAUseCase<T> extends BaseUseCase<T?> {
-  final String _code;
-  final String _token;
+  late String _code;
+  late String _token;
 
-  Login2FAUseCase(this._code, this._token);
+  Login2FAUseCase<T> params({required String code, required String token}) {
+    _code = code;
+    _token = token;
+    return this;
+  }
 
   @override
   Future<void> invoke(
@@ -22,7 +28,11 @@ class Login2FAUseCase<T> extends BaseUseCase<T?> {
     if (response.isSuccessfully) {
       var data =
           response.data == null ? null : UserModel.fromJson(response.data) as T;
-      success.call(data);
+      var wow = StatusModel(
+          message: "2FA Logged successfuly",
+          action: "ok",
+          next: LoginWidgetFlow.init);
+      success.call(wow as T);
     } else {
       error.call();
     }

@@ -2,13 +2,14 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:e_racing_app/core/ui/component/custom_brackground.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../login_view_model.dart';
 import 'login_flow.dart';
 
 class LoginScreen extends StatefulWidget {
 
-  LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -16,7 +17,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> implements BaseView {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final LoginViewModel viewModel = LoginViewModel();
+  final viewModel = Modular.get<LoginViewModel>();
 
   @override
   void initState() {
@@ -47,9 +48,6 @@ class _LoginScreenState extends State<LoginScreen> implements BaseView {
       ),
     );
   }
-
-  @override
-  String get tag => "LoginScreen";
 
   @override
   Widget navigate() {

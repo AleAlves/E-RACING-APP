@@ -1,11 +1,12 @@
+import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../league_view_model.dart';
-import '../ui/league_flow.dart';
+import '../../league_view_model.dart';
+import '../league_flow.dart';
 
 class LeagueStatusWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
@@ -19,20 +20,13 @@ class LeagueStatusWidget extends StatefulWidget {
 class _LeagueStatusWidgetState extends State<LeagueStatusWidget> {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            content(),
-            Observer(builder: (_) {
-              return Container();
-            }),
-          ],
-        ),
-        onWillPop: _onBackPressed);
+    return Observer(builder: (_) {
+      return ViewStateWidget(
+          _content(), widget.viewModel.state, _onBackPressed);
+    });
   }
 
-  Widget content() {
+  Widget _content() {
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(

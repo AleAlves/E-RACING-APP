@@ -1,8 +1,12 @@
-import 'package:e_racing_app/login/presentation/ui/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'league/presentation/ui/league_screen.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'core/tools/routes.dart';
+import 'login/di/login_di.dart';
 
-void main() => runApp(const ERcaingApp());
+void main() => runApp(ModularApp(
+      module: AppModule(),
+      child: const ERcaingApp(),
+    ));
 
 class ERcaingApp extends StatelessWidget {
   static const MaterialColor color = MaterialColor(0xFF391B76, <int, Color>{
@@ -35,11 +39,16 @@ class ERcaingApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: color)
             .copyWith(secondary: color[0]),
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => LoginScreen(),
-        '/leagues': (context) => const LeagueScreen(),
-      },
-    );
+    ).modular();
   }
+}
+
+class AppModule extends Module {
+  @override
+  List<Bind> get binds => [];
+
+  @override
+  List<ModularRoute> get routes => [
+        ModuleRoute("/", module: LoginModule()),
+      ];
 }

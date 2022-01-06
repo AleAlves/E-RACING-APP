@@ -5,8 +5,6 @@ import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../league_view_model.dart';
-
 class LeagueListWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
 
@@ -29,7 +27,8 @@ class _LeagueListWidgetState extends State<LeagueListWidget> {
     return WillPopScope(
         child: Observer(
           builder: (_) {
-            return ViewStateWidget(getContent(), widget.viewModel.state);
+            return ViewStateWidget(
+                getContent(), widget.viewModel.state, _onBackPressed);
           },
         ),
         onWillPop: _onBackPressed);

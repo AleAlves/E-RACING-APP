@@ -1,6 +1,8 @@
+import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
+import 'package:e_racing_app/core/tools/routes.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/data/model/login_response.dart';
@@ -16,6 +18,7 @@ import 'package:e_racing_app/login/domain/save_user_usecase.dart';
 import 'package:e_racing_app/login/domain/sign_in_usecase.dart';
 import 'package:e_racing_app/login/domain/toogle_2fa_usecase.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 part 'login_view_model.g.dart';
@@ -43,9 +46,19 @@ abstract class _LoginViewModel with Store {
   @observable
   bool loginAutomatically = true;
 
+  final publicKeyUseCase = Modular.get<GetPublicKeyUseCase<PublicKeyModel>>();
+  final loginUseCase = Modular.get<LoginUseCase<LoginResponse>>();
+  final toogleUseCase = Modular.get<Toogle2FAUseCase<Pair<StatusModel, String>>>();
+  final login2FAUseCase = Modular.get<Login2FAUseCase<StatusModel>>();
+  final signInUseCase = Modular.get<SignInUseCase<StatusModel>>();
+  final forgotPasswordUseCase = Modular.get<ForgotPasswordUseCase<StatusModel>>();
+  final resetPasswordUseCase = Modular.get<ResetPasswordUseCase<StatusModel>>();
+  final getUserUseCase = Modular.get<GetUserUseCase<UserModel?>>();
+  final saveUserUseCase = Modular.get<SaveUserUseCase>();
+
   void getPublickey() async {
     state = ViewState.loading;
-    await GetPublicKeyUseCase<PublicKeyModel>().invoke(success: (response) {
+    await publicKeyUseCase.invoke(success: (response) {
       Session.instance.setKeyChain(CryptoService.instance.generateAESKeys());
       Session.instance.setRSAKey(response);
       getUser();
@@ -56,14 +69,14 @@ abstract class _LoginViewModel with Store {
 
   void login(String email, String password) async {
     state = ViewState.loading;
-    await LoginUseCase<LoginResponse>(email, password).invoke(
+    await loginUseCase.params(email: email, password: password).invoke(
         success: (data) {
           Session.instance.setBearerToken(data.bearerToken);
           saveUser(email, password);
           if (data.required2FA) {
             flow = LoginWidgetFlow.login2fa;
           } else {
-            //flow = LoginWidgetFlow.next;
+            Modular.to.navigate(Routes.leagues);
           }
         },
         error: onError);
@@ -71,17 +84,11 @@ abstract class _LoginViewModel with Store {
 
   void toogle2fa(bool value) async {
     state = ViewState.loading;
-    Toogle2FAUseCase().invoke(
-        success: (success) {
+    toogleUseCase.invoke(
+        success: (data) {
+          otpQR = data.second;
+          status = data.first;
           state = ViewState.ready;
-          var message = '';
-          if (value) {
-            message = "2FA habilitado";
-          } else {
-            message = "2FA desabilitado";
-          }
-          otpQR = success;
-          status = StatusModel(message, "Ok", next: LoginWidgetFlow.otpQr);
           flow = LoginWidgetFlow.status;
         },
         error: onError);
@@ -89,54 +96,56 @@ abstract class _LoginViewModel with Store {
 
   void login2fa(String code) async {
     state = ViewState.loading;
-    await Login2FAUseCase(code, Session.instance.getBearerToken()?.token ?? '')
+    await login2FAUseCase
+        .params(
+            code: code, token: Session.instance.getBearerToken()?.token ?? '')
         .invoke(
-            success: (success) {
-              status = StatusModel("2FA Logged successfuly", "ok", next: LoginWidgetFlow.init);
+            success: (data) {
+              status = data;
             },
             error: onError);
   }
 
   void signin(String name, String surname, String mail, String password) async {
     state = ViewState.loading;
-
-    await SignInUseCase<bool>(name, surname, mail, password).invoke(
-        success: (data) {
-          state = ViewState.ready;
-          status = StatusModel("Conta criada com sucesso", "Ok",
-              next: LoginWidgetFlow.login);
-          flow = LoginWidgetFlow.status;
-        },
-        error: onError);
+    await signInUseCase
+        .params(name: name, surname: surname, email: mail, password: password)
+        .invoke(
+            success: (data) {
+              status = data;
+              state = ViewState.ready;
+              flow = LoginWidgetFlow.status;
+            },
+            error: onError);
   }
 
   void forgot(String mail) async {
     state = ViewState.loading;
-    await ForgotPasswordUseCase(mail).invoke(
+    await forgotPasswordUseCase.params(email: mail).invoke(
         success: (data) {
-          state = ViewState.ready;
-          status = StatusModel(
-              "Enviamos um código de verificação para o seu email ", "Ok",
-              next: LoginWidgetFlow.reset);
+          status = data;
           flow = LoginWidgetFlow.status;
+          state = ViewState.ready;
         },
         error: onError);
   }
 
   void reset(String mail, String password, String code) async {
     state = ViewState.loading;
-    await ResetPasswordUseCase(code, mail, password).invoke(
-        success: (data) {
-          state = ViewState.ready;
-          status = StatusModel("Senha resetada", "Ok", next: LoginWidgetFlow.login);
-          flow = LoginWidgetFlow.status;
-        },
-        error: onError);
+    await resetPasswordUseCase
+        .params(code: code, email: code, password: password)
+        .invoke(
+            success: (data) {
+              state = ViewState.ready;
+              status = data;
+              flow = LoginWidgetFlow.status;
+            },
+            error: onError);
   }
 
   void getUser() async {
     state = ViewState.loading;
-    await GetUserUseCase<UserModel?>().invoke(
+    await getUserUseCase.invoke(
         success: (data) {
           if (data != null) {
             user = data;
@@ -150,12 +159,17 @@ abstract class _LoginViewModel with Store {
   }
 
   void saveUser(String email, String password) async {
-    await SaveUserUseCase(email, password)
+    await saveUserUseCase
+        .params(email: email, password: password)
         .invoke(success: (data) {}, error: onError);
   }
 
   void onError(ApiException error) {
-    status = StatusModel(error.message(), "Ok", next: LoginWidgetFlow.init, previous: flow);
+    status = StatusModel(
+        message: error.message(),
+        action: "Ok",
+        next: LoginWidgetFlow.init,
+        previous: flow);
 
     if (error.isBusiness()) {
       state = ViewState.ready;
