@@ -5,9 +5,9 @@ import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
 import 'package:e_racing_app/login/data/model/signin_request.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 
-import 'model/auth_model.dart';
-import 'model/profile_model.dart';
-import 'model/user_model.dart';
+import '../model/auth_model.dart';
+import '../model/profile_model.dart';
+import '../model/user_model.dart';
 
 class SignInUseCase<T> extends BaseUseCase<T> {
   late String _name;

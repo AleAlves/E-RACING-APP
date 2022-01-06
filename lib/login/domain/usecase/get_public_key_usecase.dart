@@ -1,7 +1,6 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
-
-import 'model/public_key_model.dart';
+import 'package:e_racing_app/login/domain/model/public_key_model.dart';
 
 class GetPublicKeyUseCase<T> extends BaseUseCase<T> {
   @override

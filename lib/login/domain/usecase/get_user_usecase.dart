@@ -1,7 +1,7 @@
 import 'package:e_racing_app/core/data/store_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 
-import 'model/user_model.dart';
+import '../model/user_model.dart';
 
 class GetUserUseCase<T> extends BaseUseCase<T?> {
   @override

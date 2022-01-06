@@ -4,7 +4,7 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/login/data/model/login_2fa_request.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 
-import 'model/user_model.dart';
+import '../model/user_model.dart';
 
 class Login2FAUseCase<T> extends BaseUseCase<T?> {
   late String _code;

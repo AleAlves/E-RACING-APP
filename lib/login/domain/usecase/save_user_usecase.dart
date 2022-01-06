@@ -1,9 +1,8 @@
 import 'package:e_racing_app/core/data/store_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
-
-import 'model/auth_model.dart';
-import 'model/profile_model.dart';
-import 'model/user_model.dart';
+import 'package:e_racing_app/login/domain/model/auth_model.dart';
+import 'package:e_racing_app/login/domain/model/profile_model.dart';
+import 'package:e_racing_app/login/domain/model/user_model.dart';
 
 class SaveUserUseCase<T> extends BaseUseCase<T> {
   late final String _email;
