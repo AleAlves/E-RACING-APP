@@ -31,30 +31,35 @@ class TextWidget extends StatelessWidget {
       case Style.title:
         return const TextStyle(
           fontFamily: 'Roboto',
+          overflow: TextOverflow.fade,
           fontWeight: FontWeight.w300,
           fontSize: 32.0,
         );
       case Style.subtitle:
         return const TextStyle(
           fontFamily: 'Roboto',
+          overflow: TextOverflow.fade,
           fontWeight: FontWeight.w300,
           fontSize: 24.0,
         );
       case Style.description:
         return const TextStyle(
           fontFamily: 'Roboto',
+          overflow: TextOverflow.fade,
           fontWeight: FontWeight.w300,
           fontSize: 18.0,
         );
       case Style.label:
         return const TextStyle(
           fontFamily: 'Roboto',
+          overflow: TextOverflow.fade,
           fontWeight: FontWeight.w300,
           fontSize: 12.0,
         );
       case Style.note:
         return const TextStyle(
           fontFamily: 'Roboto',
+          overflow: TextOverflow.fade,
           fontWeight: FontWeight.w200,
           fontSize: 10.0,
         );

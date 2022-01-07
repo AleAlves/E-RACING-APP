@@ -1,6 +1,7 @@
 
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_create_widget.dart';
+import 'package:e_racing_app/league/presentation/ui/widget/league_detail_widget.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_fetch_widget.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_status_widget.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_update_widget.dart';
@@ -12,6 +13,7 @@ enum LeagueFlow {
   edit,
   delete,
   join,
+  detail,
   error,
   status
 }
@@ -23,8 +25,8 @@ extension LeagueNavigation on LeagueFlow {
         return LeagueListWidget(vm);
       case LeagueFlow.create:
         return LeagueCreateWidget(vm);
-      case LeagueFlow.delete:
-        return LeagueCreateWidget(vm);
+      case LeagueFlow.detail:
+        return LeagueDetailWidget(vm);
       case LeagueFlow.edit:
         return LeagueUpdateWidget(vm);
       case LeagueFlow.join:

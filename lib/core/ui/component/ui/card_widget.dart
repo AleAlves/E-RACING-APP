@@ -57,7 +57,7 @@ class CardWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextWidget(label ?? '', Style.subtitle),
+                child: TextWidget(label ?? '', Style.subtitle, align: TextAlign.start,),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),

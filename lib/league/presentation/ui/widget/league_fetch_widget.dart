@@ -57,7 +57,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
                     widget.viewModel.tags,
                     widget.viewModel.leagues?[index]?.tags, () {
                   widget.viewModel.id = widget.viewModel.leagues?[index]?.id;
-                  widget.viewModel.setFlow(LeagueFlow.edit);
+                  widget.viewModel.setFlow(LeagueFlow.detail);
                 });
               },
             ),
