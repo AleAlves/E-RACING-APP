@@ -3,7 +3,7 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
 
 class GetLeagueUseCase<T> extends BaseUseCase<T> {
-  late final String _id;
+  late String _id;
 
   GetLeagueUseCase<T> params({required String id}) {
     _id = id;

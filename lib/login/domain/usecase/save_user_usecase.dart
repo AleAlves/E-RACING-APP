@@ -5,8 +5,8 @@ import 'package:e_racing_app/login/domain/model/profile_model.dart';
 import 'package:e_racing_app/login/domain/model/user_model.dart';
 
 class SaveUserUseCase<T> extends BaseUseCase<T> {
-  late final String _email;
-  late final String _password;
+  late String _email;
+  late String _password;
 
   SaveUserUseCase<T> params({required String email, required String password}) {
     _email = email;

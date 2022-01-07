@@ -10,8 +10,11 @@ class ViewStateWidget extends StatelessWidget {
   final ViewState state;
   final WillPopCallback onBackPressed;
 
-  const ViewStateWidget(this.content, this.state, this.onBackPressed,
-      {Key? key})
+  const ViewStateWidget(
+      {required this.content,
+      required this.state,
+      required this.onBackPressed,
+      Key? key})
       : super(key: key);
 
   @override
@@ -28,8 +31,6 @@ class ViewStateWidget extends StatelessWidget {
   }
 
   Widget _scope(Widget content) {
-    return WillPopScope(
-        child: content,
-        onWillPop: onBackPressed);
+    return WillPopScope(child: content, onWillPop: onBackPressed);
   }
 }

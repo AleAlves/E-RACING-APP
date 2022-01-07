@@ -54,7 +54,10 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      return ViewStateWidget(content(), widget.viewModel.state, _onBackPressed);
+      return ViewStateWidget(
+          content: content(),
+          state: widget.viewModel.state,
+          onBackPressed: _onBackPressed);
     });
   }
 

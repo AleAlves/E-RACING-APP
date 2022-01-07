@@ -1,10 +1,11 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
+import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 
-import '../login_view_model.dart';
+import '../../login_view_model.dart';
 
 class LoginInitialWidget extends StatefulWidget {
   final LoginViewModel viewModel;
@@ -15,13 +16,23 @@ class LoginInitialWidget extends StatefulWidget {
   _LoginInitialWidgetState createState() => _LoginInitialWidgetState();
 }
 
-class _LoginInitialWidgetState extends State<LoginInitialWidget> {
+class _LoginInitialWidgetState extends State<LoginInitialWidget>
+    implements BaseSateWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewStateWidget(getContent(), widget.viewModel.state, _onBackPressed);
+    return ViewStateWidget(
+        content: content(),
+        state: widget.viewModel.state,
+        onBackPressed: _onBackPressed);
   }
 
-  Widget getContent() {
+  Future<bool> _onBackPressed() async {
+    widget.viewModel.flow = LoginWidgetFlow.init;
+    return false;
+  }
+
+  @override
+  Widget content() {
     return Align(
       alignment: Alignment.center,
       child: Column(
@@ -29,7 +40,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
         children: [
           ButtonWidget(
             ButtonType.normal,
-                () {
+            () {
               widget.viewModel.flow = LoginWidgetFlow.login;
             },
             label: "Já tenho uma conta",
@@ -37,7 +48,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
           const BoundWidget(BoundType.huge),
           ButtonWidget(
             ButtonType.normal,
-                () {
+            () {
               widget.viewModel.flow = LoginWidgetFlow.signin;
             },
             label: "Criar uma conta",
@@ -45,10 +56,5 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
         ],
       ),
     );
-  }
-
-  Future<bool> _onBackPressed() async {
-    widget.viewModel.flow = LoginWidgetFlow.init;
-    return false;
   }
 }

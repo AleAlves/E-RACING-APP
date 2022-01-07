@@ -3,7 +3,7 @@ import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
 
 class GetMediaUseCase<T> extends BaseUseCase<T> {
-  late final String _id;
+  late String _id;
 
   GetMediaUseCase<T> params({required String id}) {
     _id = id;

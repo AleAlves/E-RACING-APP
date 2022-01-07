@@ -1,12 +1,14 @@
+import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
+import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 
-import '../login_view_model.dart';
+import '../../login_view_model.dart';
 
 class LoginSigninWidget extends StatefulWidget {
   final LoginViewModel viewModel;
@@ -17,7 +19,8 @@ class LoginSigninWidget extends StatefulWidget {
   _LoginSigninWidgetState createState() => _LoginSigninWidgetState();
 }
 
-class _LoginSigninWidgetState extends State<LoginSigninWidget> {
+class _LoginSigninWidgetState extends State<LoginSigninWidget>
+    implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
   final _mailController = TextEditingController();
@@ -38,20 +41,20 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Form(
-              child: signinForm(),
-              key: _formKey,
-            ),
-            Observer(builder: (_) {
-              return Container();
-            })
-          ],
-        ),
-        onWillPop: _onBackPressed);
+    return ViewStateWidget(
+        content: content(),
+        state: widget.viewModel.state,
+        onBackPressed: _onBackPressed);
+  }
+
+  @override
+  Widget content() {
+    return Observer(builder: (_) {
+      return Form(
+        child: signinForm(),
+        key: _formKey,
+      );
+    });
   }
 
   Widget signinForm() {

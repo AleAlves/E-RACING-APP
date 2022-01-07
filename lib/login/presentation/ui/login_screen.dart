@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> implements BaseView {
+class _LoginScreenState extends State<LoginScreen> implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final viewModel = Modular.get<LoginViewModel>();
 

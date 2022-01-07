@@ -1,13 +1,13 @@
 import 'package:e_racing_app/login/presentation/login_view_model.dart';
-import 'package:e_racing_app/login/presentation/widget/login_2fa_otp_qr_widget.dart';
-import 'package:e_racing_app/login/presentation/widget/login_2fa_otp_widget.dart';
-import 'package:e_racing_app/login/presentation/widget/login_2fa_toogle_widget.dart';
-import 'package:e_racing_app/login/presentation/widget/login_forgot_widget.dart';
-import 'package:e_racing_app/login/presentation/widget/login_form_widget.dart';
-import 'package:e_racing_app/login/presentation/widget/login_initial_widget.dart';
-import 'package:e_racing_app/login/presentation/widget/login_reset_widget.dart';
-import 'package:e_racing_app/login/presentation/widget/login_signin_widget.dart';
-import 'package:e_racing_app/login/presentation/widget/login_status_widget.dart';
+import 'package:e_racing_app/login/presentation/ui/widget/login_2fa_otp_qr_widget.dart';
+import 'package:e_racing_app/login/presentation/ui/widget/login_2fa_otp_widget.dart';
+import 'package:e_racing_app/login/presentation/ui/widget/login_2fa_toogle_widget.dart';
+import 'package:e_racing_app/login/presentation/ui/widget/login_forgot_widget.dart';
+import 'package:e_racing_app/login/presentation/ui/widget/login_form_widget.dart';
+import 'package:e_racing_app/login/presentation/ui/widget/login_initial_widget.dart';
+import 'package:e_racing_app/login/presentation/ui/widget/login_reset_widget.dart';
+import 'package:e_racing_app/login/presentation/ui/widget/login_signin_widget.dart';
+import 'package:e_racing_app/login/presentation/ui/widget/login_status_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

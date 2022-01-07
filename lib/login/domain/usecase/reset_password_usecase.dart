@@ -5,9 +5,9 @@ import 'package:e_racing_app/login/data/model/reset_request.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 
 class ResetPasswordUseCase<T> extends BaseUseCase<T> {
-  late final String _code;
-  late final String _email;
-  late final String _password;
+  late String _code;
+  late String _email;
+  late String _password;
 
   ResetPasswordUseCase<T> params(
       {required String code, required String email, required String password}) {

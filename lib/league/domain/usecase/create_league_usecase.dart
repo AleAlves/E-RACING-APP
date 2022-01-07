@@ -7,8 +7,8 @@ import 'package:e_racing_app/league/data/model/league_create_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 
 class CreateLeagueUseCase<T> extends BaseUseCase<T> {
-  late final MediaModel _media;
-  late final LeagueModel _league;
+  late MediaModel _media;
+  late LeagueModel _league;
 
   CreateLeagueUseCase<T> build(
       {required LeagueModel league, required MediaModel media}) {

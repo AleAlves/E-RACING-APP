@@ -1,6 +1,8 @@
+import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
+import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:e_racing_app/login/presentation/login_view_model.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -15,7 +17,8 @@ class LoginResetCodeWidget extends StatefulWidget {
   _LoginResetCodeWidgetState createState() => _LoginResetCodeWidgetState();
 }
 
-class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget> {
+class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
+    implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _mailController = TextEditingController();
   final _codeController = TextEditingController();
@@ -28,22 +31,26 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Form(
-              child: getCode(),
-              key: _formKey,
-            ),
-            Observer(builder: (_) {
-              _mailController.text =
-                  widget.viewModel.user?.profile?.email ?? '';
-              return Container();
-            })
-          ],
-        ),
-        onWillPop: _onBackPressed);
+    return ViewStateWidget(
+        content: content(),
+        state: widget.viewModel.state,
+        onBackPressed: _onBackPressed);
+  }
+
+  @override
+  Widget content() {
+    return Observer(builder: (_) {
+      _mailController.text = widget.viewModel.user?.profile?.email ?? '';
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Form(
+            child: getCode(),
+            key: _formKey,
+          ),
+        ],
+      );
+    });
   }
 
   Widget getCode() {

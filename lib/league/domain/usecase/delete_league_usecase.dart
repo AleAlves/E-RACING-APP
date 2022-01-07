@@ -4,7 +4,7 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 
 class DeleteLeagueUseCase<T> extends BaseUseCase {
-  late final String _id;
+  late String _id;
 
   DeleteLeagueUseCase<T> params({required String id}) {
     _id = id;
