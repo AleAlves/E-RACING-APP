@@ -30,24 +30,21 @@ class _LoginStatusWidgetState extends State<LoginStatusWidget>
 
   Widget content() {
     return Observer(builder: (_) {
-      return Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextWidget(
-                widget.viewModel.status?.message ?? '', Style.description),
-            const BoundWidget(BoundType.medium),
-            ButtonWidget(
-              ButtonType.normal,
-              () {
-                widget.viewModel.flow =
-                    widget.viewModel.status?.next ?? LoginWidgetFlow.init;
-              },
-              label: widget.viewModel.status?.action ?? '',
-            )
-          ],
-        ),
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextWidget(
+              widget.viewModel.status?.message ?? '', Style.description),
+          const BoundWidget(BoundType.medium),
+          ButtonWidget(
+            type: ButtonType.normal,
+            onPressed: () {
+              widget.viewModel.flow =
+                  widget.viewModel.status?.next ?? LoginWidgetFlow.init;
+            },
+            label: widget.viewModel.status?.action ?? '',
+          )
+        ],
       );
     });
   }

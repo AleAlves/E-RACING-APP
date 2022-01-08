@@ -95,8 +95,8 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
           }, obscure: _passwordVisible),
           const BoundWidget(BoundType.medium),
           ButtonWidget(
-            ButtonType.normal,
-            () {
+            type: ButtonType.normal,
+            onPressed: () {
               if (_formKey.currentState?.validate() == true) {
                 widget.viewModel.reset(_mailController.text,
                     _passwordController.text, _codeController.text);

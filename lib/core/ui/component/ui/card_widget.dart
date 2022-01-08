@@ -64,7 +64,7 @@ class CardWidget extends StatelessWidget {
                 child: leagueTags!.isEmpty
                     ? Container()
                     : Wrap(
-                        spacing: 0.0,
+                        spacing: 1.0,
                         runSpacing: 0.0,
                         children: leagueTags
                             !.map((tag) {

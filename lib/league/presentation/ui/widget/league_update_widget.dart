@@ -329,20 +329,28 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
                       }),
                     ),
                     const BoundWidget(BoundType.small),
-                    ButtonWidget(ButtonType.icon, () async {
-                      isEditingSocialPlatform = true;
-                      Clipboard.getData(Clipboard.kTextPlain).then((value) {
-                        links[index].second?.text =
-                            value?.text?.trim().replaceAll(' ', '') ?? '';
-                      });
-                    }, label: 'paste', icon: Icons.paste),
+                    ButtonWidget(
+                        type: ButtonType.icon,
+                        onPressed: () async {
+                          isEditingSocialPlatform = true;
+                          Clipboard.getData(Clipboard.kTextPlain).then((value) {
+                            links[index].second?.text =
+                                value?.text?.trim().replaceAll(' ', '') ?? '';
+                          });
+                        },
+                        label: 'paste',
+                        icon: Icons.paste),
                     const BoundWidget(BoundType.small),
-                    ButtonWidget(ButtonType.icon, () async {
-                      isEditingSocialPlatform = true;
-                      setState(() {
-                        links.removeAt(index);
-                      });
-                    }, label: 'delete', icon: Icons.delete),
+                    ButtonWidget(
+                        type: ButtonType.icon,
+                        onPressed: () async {
+                          isEditingSocialPlatform = true;
+                          setState(() {
+                            links.removeAt(index);
+                          });
+                        },
+                        label: 'delete',
+                        icon: Icons.delete),
                   ],
                 ),
               ],
@@ -350,11 +358,15 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
           },
         ),
         const BoundWidget(BoundType.huge),
-        ButtonWidget(ButtonType.borderless, () async {
-          setState(() {
-            links.add(Pair(LinkModel.fromJson({}), TextEditingController()));
-          });
-        }, label: 'New link'),
+        ButtonWidget(
+            type: ButtonType.borderless,
+            onPressed: () async {
+              setState(() {
+                links
+                    .add(Pair(LinkModel.fromJson({}), TextEditingController()));
+              });
+            },
+            label: 'New link'),
       ],
     );
   }
@@ -369,19 +381,22 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
           align: TextAlign.start,
         ),
         const BoundWidget(BoundType.huge),
-        ButtonWidget(ButtonType.important, () async {
-          setState(() {
-            widget.viewModel.delete();
-          });
-        }, label: 'Delete'),
+        ButtonWidget(
+            type: ButtonType.important,
+            onPressed: () async {
+              setState(() {
+                widget.viewModel.delete();
+              });
+            },
+            label: 'Delete'),
       ],
     );
   }
 
   Widget finish() {
     return ButtonWidget(
-      ButtonType.normal,
-      () {
+      type: ButtonType.normal,
+      onPressed: () {
         if (_formKey.currentState?.validate() == true) {
           List<int> bannerBytes = [];
           List<int> emblemBytes = [];

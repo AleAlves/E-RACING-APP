@@ -39,16 +39,16 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ButtonWidget(
-            ButtonType.normal,
-            () {
+            type: ButtonType.normal,
+            onPressed: () {
               widget.viewModel.flow = LoginWidgetFlow.login;
             },
             label: "Já tenho uma conta",
           ),
           const BoundWidget(BoundType.huge),
           ButtonWidget(
-            ButtonType.normal,
-            () {
+            type: ButtonType.normal,
+            onPressed: () {
               widget.viewModel.flow = LoginWidgetFlow.signin;
             },
             label: "Criar uma conta",

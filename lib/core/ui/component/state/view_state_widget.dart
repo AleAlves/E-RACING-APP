@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/ui/component/ui/default_error_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/scroll_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -9,11 +10,13 @@ class ViewStateWidget extends StatelessWidget {
   final Widget content;
   final ViewState state;
   final WillPopCallback onBackPressed;
+  final bool scrollable;
 
   const ViewStateWidget(
       {required this.content,
       required this.state,
       required this.onBackPressed,
+      this.scrollable = false,
       Key? key})
       : super(key: key);
 
@@ -31,6 +34,9 @@ class ViewStateWidget extends StatelessWidget {
   }
 
   Widget _scope(Widget content) {
+    if(scrollable){
+      return WillPopScope(child: ScrollWidget(content), onWillPop: onBackPressed);
+    }
     return WillPopScope(child: content, onWillPop: onBackPressed);
   }
 }

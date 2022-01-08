@@ -87,7 +87,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                 },
                 controlsBuilder: (BuildContext context,
                     {VoidCallback? onStepContinue,
-                      VoidCallback? onStepCancel}) {
+                    VoidCallback? onStepCancel}) {
                   return Row(
                     children: <Widget>[
                       Container(),
@@ -142,12 +142,12 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
         }),
         const BoundWidget(BoundType.huge),
         TextFormWidget("Descrição", Icons.title, _descriptionController,
-                (value) {
-              if (value == null || value.isEmpty == true) {
-                return 'Name needed';
-              }
-              return null;
-            }),
+            (value) {
+          if (value == null || value.isEmpty == true) {
+            return 'Name needed';
+          }
+          return null;
+        }),
       ],
     );
   }
@@ -156,25 +156,25 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
     return widget.viewModel.tags!.isEmpty
         ? Container()
         : Wrap(
-      children: widget.viewModel.tags!
-          .map((item) {
-        final selected = tags.contains(item?.id);
-        return ActionChip(
-            avatar: CircleAvatar(
-              backgroundColor:
-              selected ? ERcaingApp.color[0] : ERcaingApp.color,
-              child: selected ? const Text('-') : const Text('+'),
-            ),
-            label: Text(item?.name ?? ''),
-            onPressed: () {
-              setState(() {
-                selected ? tags.remove(item?.id) : tags.add(item?.id);
-              });
-            });
-      })
-          .toList()
-          .cast<Widget>(),
-    );
+            children: widget.viewModel.tags!
+                .map((item) {
+                  final selected = tags.contains(item?.id);
+                  return ActionChip(
+                      avatar: CircleAvatar(
+                        backgroundColor:
+                            selected ? ERcaingApp.color[0] : ERcaingApp.color,
+                        child: selected ? const Text('-') : const Text('+'),
+                      ),
+                      label: Text(item?.name ?? ''),
+                      onPressed: () {
+                        setState(() {
+                          selected ? tags.remove(item?.id) : tags.add(item?.id);
+                        });
+                      });
+                })
+                .toList()
+                .cast<Widget>(),
+          );
   }
 
   Widget emblem() {
@@ -194,17 +194,17 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                     width: 100,
                     child: emblemFile.path == ''
                         ? Container(
-                      color: ERcaingApp.color[10],
-                    )
+                            color: ERcaingApp.color[10],
+                          )
                         : Image.file(
-                      emblemFile,
-                      fit: BoxFit.fill,
-                    ),
+                            emblemFile,
+                            fit: BoxFit.fill,
+                          ),
                   ),
                 ),
                 IconButtonWidget(Icons.image_search, () async {
                   var image =
-                  await _picker.pickImage(source: ImageSource.gallery);
+                      await _picker.pickImage(source: ImageSource.gallery);
                   setState(() {
                     emblemFile = File(image?.path ?? '');
                   });
@@ -232,18 +232,15 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
               borderRadius: BorderRadius.circular(4.0),
               child: SizedBox(
                 height: 100,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .height,
+                width: MediaQuery.of(context).size.height,
                 child: bannerFile.path == ''
                     ? Container(
-                  color: ERcaingApp.color[10],
-                )
+                        color: ERcaingApp.color[10],
+                      )
                     : Image.file(
-                  bannerFile,
-                  fit: BoxFit.fill,
-                ),
+                        bannerFile,
+                        fit: BoxFit.fill,
+                      ),
               ),
             ),
             IconButtonWidget(Icons.image_search, () async {
@@ -276,10 +273,13 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                 Row(
                   children: [
                     DropdownMenuWidget(
-                      widget.viewModel.socialMedias, (item) {
-                      socialPlatforms[index] = LinkModel(
-                          item?.id, socialStuffControllers[index].text);
-                    }, hint: "Platform",),
+                      widget.viewModel.socialMedias,
+                      (item) {
+                        socialPlatforms[index] = LinkModel(
+                            item?.id, socialStuffControllers[index].text);
+                      },
+                      hint: "Platform",
+                    ),
                   ],
                 ),
                 Row(
@@ -287,27 +287,35 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                     Expanded(
                       child: TextFormWidget(
                           "Link", Icons.add_link, socialStuffControllers[index],
-                              (value) {
-                            socialPlatforms[index] = LinkModel(
-                                widget.viewModel.socialMedias?[index]?.id ?? '',
-                                socialStuffControllers[index].text);
-                            return null;
-                          }),
+                          (value) {
+                        socialPlatforms[index] = LinkModel(
+                            widget.viewModel.socialMedias?[index]?.id ?? '',
+                            socialStuffControllers[index].text);
+                        return null;
+                      }),
                     ),
                     const BoundWidget(BoundType.small),
-                    ButtonWidget(ButtonType.icon, () async {
-                      Clipboard.getData(Clipboard.kTextPlain).then((value) {
-                        socialStuffControllers[index].text =
-                            value?.text?.trim().replaceAll(' ', '') ?? '';
-                      });
-                    }, label: 'paste', icon: Icons.paste),
+                    ButtonWidget(
+                        type: ButtonType.icon,
+                        onPressed: () async {
+                          Clipboard.getData(Clipboard.kTextPlain).then((value) {
+                            socialStuffControllers[index].text =
+                                value?.text?.trim().replaceAll(' ', '') ?? '';
+                          });
+                        },
+                        label: 'paste',
+                        icon: Icons.paste),
                     const BoundWidget(BoundType.small),
-                    ButtonWidget(ButtonType.icon, () async {
-                      setState(() {
-                        socialPlatforms.removeAt(index);
-                        socialStuffControllers.removeAt(index);
-                      });
-                    }, label: 'delete', icon: Icons.delete),
+                    ButtonWidget(
+                        type: ButtonType.icon,
+                        onPressed: () async {
+                          setState(() {
+                            socialPlatforms.removeAt(index);
+                            socialStuffControllers.removeAt(index);
+                          });
+                        },
+                        label: 'delete',
+                        icon: Icons.delete),
                   ],
                 ),
               ],
@@ -315,19 +323,22 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
           },
         ),
         const BoundWidget(BoundType.huge),
-        ButtonWidget(ButtonType.borderless, () async {
-          setState(() {
-            socialPlatforms.add(LinkModel('', ''));
-          });
-        }, label: 'New link'),
+        ButtonWidget(
+            type: ButtonType.borderless,
+            onPressed: () async {
+              setState(() {
+                socialPlatforms.add(LinkModel('', ''));
+              });
+            },
+            label: 'New link'),
       ],
     );
   }
 
   Widget finish() {
     return ButtonWidget(
-      ButtonType.normal,
-          () {
+      type: ButtonType.normal,
+      onPressed: () {
         if (_formKey.currentState?.validate() == true) {
           List<int> imageBytes = [];
           List<int> emblemBytes = [];

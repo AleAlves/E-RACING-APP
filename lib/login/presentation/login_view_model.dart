@@ -153,6 +153,7 @@ abstract class _LoginViewModel with Store {
               login(data.profile?.email ?? '', data.auth?.password ?? '');
             }
           }
+          state = ViewState.ready;
           flow = LoginWidgetFlow.login;
         },
         error: onError);

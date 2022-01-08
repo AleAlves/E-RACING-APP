@@ -53,7 +53,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
         Form(child: loginForm(), key: _formKey),
         Observer(builder: (_) {
           _emailController.text = widget.viewModel.user?.profile?.email ?? "";
-          _passwordController.text = widget.viewModel.user?.auth?.password ?? "";
+          _passwordController.text =
+              widget.viewModel.user?.auth?.password ?? "";
           return Container();
         }),
       ],
@@ -86,8 +87,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
           }),
           const BoundWidget(BoundType.medium),
           ButtonWidget(
-            ButtonType.normal,
-            () {
+            type: ButtonType.normal,
+            onPressed: () {
               if (_formKey.currentState?.validate() == true) {
                 widget.viewModel
                     .login(_emailController.text, _passwordController.text);
@@ -97,8 +98,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
           ),
           const BoundWidget(BoundType.big),
           ButtonWidget(
-            ButtonType.borderless,
-            () {
+            type: ButtonType.borderless,
+            onPressed: () {
               widget.viewModel.flow = LoginWidgetFlow.resetCode;
             },
             label: "Esqueci a senha",

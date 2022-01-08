@@ -1,3 +1,5 @@
+import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +12,12 @@ class ButtonWidget extends StatelessWidget {
   final ButtonType type;
   final VoidCallback? onPressed;
 
-  const ButtonWidget(this.type, this.onPressed,
-      {this.label, this.icon, Key? key})
+  const ButtonWidget(
+      {required this.type,
+      required this.onPressed,
+      this.label,
+      this.icon,
+      Key? key})
       : super(key: key);
 
   @override
@@ -60,16 +66,22 @@ class ButtonWidget extends StatelessWidget {
   }
 
   Widget iconButton(onPressed) {
-    return Container(
-      decoration: const ShapeDecoration(
-        color: ERcaingApp.color,
-        shape: CircleBorder(),
-      ),
-      child: IconButton(
-          icon: Icon(icon),
-          color: ERcaingApp.color[10],
-          tooltip: label,
-          onPressed: onPressed),
+    return Column(
+      children: [
+        Container(
+          decoration: const ShapeDecoration(
+            color: ERcaingApp.color,
+            shape: CircleBorder(),
+          ),
+          child: IconButton(
+              icon: Icon(icon),
+              color: ERcaingApp.color[10],
+              tooltip: label,
+              onPressed: onPressed),
+        ),
+        const BoundWidget(BoundType.small),
+        TextWidget(label ?? '', Style.label)
+      ],
     );
   }
 }

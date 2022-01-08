@@ -67,8 +67,8 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                   }),
                   const BoundWidget(BoundType.big),
                   ButtonWidget(
-                    ButtonType.normal,
-                    () {
+                    type: ButtonType.normal,
+                    onPressed: () {
                       if (_formKey.currentState?.validate() == true) {
                         widget.viewModel.forgot(_emailController.text);
                       }
@@ -77,8 +77,8 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                   ),
                   const BoundWidget(BoundType.big),
                   ButtonWidget(
-                    ButtonType.borderless,
-                    () {
+                    type: ButtonType.borderless,
+                    onPressed: () {
                       widget.viewModel.flow = LoginWidgetFlow.reset;
                     },
                     label: "Já tenho o código",

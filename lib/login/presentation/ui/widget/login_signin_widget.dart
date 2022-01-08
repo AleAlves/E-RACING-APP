@@ -111,8 +111,8 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
           }, obscure: _passwordVisible),
           const BoundWidget(BoundType.medium),
           ButtonWidget(
-            ButtonType.normal,
-            () {
+            type: ButtonType.normal,
+            onPressed: () {
               if (_formKey.currentState?.validate() == true) {
                 widget.viewModel.signin(
                     _nameController.text,

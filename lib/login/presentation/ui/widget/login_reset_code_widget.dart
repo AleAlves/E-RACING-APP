@@ -73,8 +73,8 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
           }),
           const BoundWidget(BoundType.medium),
           ButtonWidget(
-            ButtonType.normal,
-            () {
+            type: ButtonType.normal,
+            onPressed: () {
               if (_formKey.currentState?.validate() == true) {
                 widget.viewModel.forgot(_mailController.text);
               }

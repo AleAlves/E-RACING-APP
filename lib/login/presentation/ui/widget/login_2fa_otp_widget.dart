@@ -55,8 +55,8 @@ class _Login2FAWidgetState extends State<Login2FAWidget>
         ),
         const BoundWidget(BoundType.huge),
         ButtonWidget(
-          ButtonType.borderless,
-          () {
+          type: ButtonType.borderless,
+          onPressed: () {
             widget.viewModel.flow = LoginWidgetFlow.resetCode;
           },
           label: "I can't access",
