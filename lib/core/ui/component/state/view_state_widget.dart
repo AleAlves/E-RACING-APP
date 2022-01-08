@@ -2,7 +2,6 @@ import 'package:e_racing_app/core/ui/component/ui/default_error_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/scroll_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'loading_ripple.dart';
 

@@ -50,81 +50,82 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) {
-        return ViewStateWidget(
-            content: content(),
-            state: widget.viewModel.state,
-            onBackPressed: _onBackPressed);
-      },
-    );
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  observers() {}
+
+  @override
+  ViewStateWidget viewState() {
+    return ViewStateWidget(
+        content: content(),
+        state: widget.viewModel.state,
+        onBackPressed: onBackPressed);
   }
 
   @override
   Widget content() {
-    return Observer(builder: (_) {
-      return Form(
-        child: createForm(),
-        key: _formKey,
-      );
-    });
+    return Form(
+      child: createForm(),
+      key: _formKey,
+    );
   }
 
   Widget createForm() {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SizedBox(
-          child: Column(
-            children: [
-              Stepper(
-                currentStep: _index,
-                onStepTapped: (int index) {
-                  setState(() {
-                    _index = index;
-                  });
-                },
-                controlsBuilder: (BuildContext context,
-                    {VoidCallback? onStepContinue,
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SizedBox(
+        child: Column(
+          children: [
+            Stepper(
+              currentStep: _index,
+              onStepTapped: (int index) {
+                setState(() {
+                  _index = index;
+                });
+              },
+              controlsBuilder: (BuildContext context,
+                  {VoidCallback? onStepContinue,
                     VoidCallback? onStepCancel}) {
-                  return Row(
-                    children: <Widget>[
-                      Container(),
-                      Container(),
-                    ],
-                  );
-                },
-                steps: <Step>[
-                  Step(
-                    title: const Text('Basic Info'),
-                    content: basic(),
-                  ),
-                  Step(
-                    title: const Text('Emblem'),
-                    content: emblem(),
-                  ),
-                  Step(
-                    title: const Text('Banner'),
-                    content: banner(),
-                  ),
-                  Step(
-                    title: const Text('Tags'),
-                    content: tag(),
-                  ),
-                  Step(
-                    title: const Text('Social'),
-                    content: social(),
-                  ),
-                  Step(
-                    title: const Text('Terms'),
-                    content: terms(),
-                  ),
-                ],
-              ),
-              finish()
-            ],
-          ),
+                return Row(
+                  children: <Widget>[
+                    Container(),
+                    Container(),
+                  ],
+                );
+              },
+              steps: <Step>[
+                Step(
+                  title: const Text('Basic Info'),
+                  content: basic(),
+                ),
+                Step(
+                  title: const Text('Emblem'),
+                  content: emblem(),
+                ),
+                Step(
+                  title: const Text('Banner'),
+                  content: banner(),
+                ),
+                Step(
+                  title: const Text('Tags'),
+                  content: tag(),
+                ),
+                Step(
+                  title: const Text('Social'),
+                  content: social(),
+                ),
+                Step(
+                  title: const Text('Terms'),
+                  content: terms(),
+                ),
+              ],
+            ),
+            finish()
+          ],
         ),
       ),
     );
@@ -376,7 +377,8 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
     );
   }
 
-  Future<bool> _onBackPressed() async {
+  @override
+  Future<bool> onBackPressed() async {
     widget.viewModel.setFlow(LeagueFlow.list);
     return false;
   }

@@ -3,9 +3,11 @@ import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
+import 'package:mobx/mobx.dart';
 
 import '../../login_view_model.dart';
 
@@ -23,6 +25,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final List<ReactionDisposer> _disposers = [];
 
   @override
   void initState() {
@@ -32,17 +35,26 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  ViewStateWidget viewState() {
     return ViewStateWidget(
       content: content(),
-      onBackPressed: _onBackPressed,
+      onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
   }
 
-  Future<bool> _onBackPressed() async {
-    widget.viewModel.flow = LoginWidgetFlow.init;
-    return false;
+  @override
+  observers() {
+    _disposers.add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
+      _emailController.text = widget.viewModel.user?.profile?.email ?? "";
+      _passwordController.text = widget.viewModel.user?.auth?.password ?? "";
+    }));
   }
 
   @override
@@ -51,12 +63,6 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Form(child: loginForm(), key: _formKey),
-        Observer(builder: (_) {
-          _emailController.text = widget.viewModel.user?.profile?.email ?? "";
-          _passwordController.text =
-              widget.viewModel.user?.auth?.password ?? "";
-          return Container();
-        }),
       ],
     );
   }
@@ -107,5 +113,11 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
         ],
       ),
     );
+  }
+
+  @override
+  Future<bool> onBackPressed() async {
+    widget.viewModel.flow = LoginWidgetFlow.init;
+    return false;
   }
 }

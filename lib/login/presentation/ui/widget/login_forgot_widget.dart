@@ -31,18 +31,22 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  ViewStateWidget viewState() {
     return ViewStateWidget(
       content: content(),
-      onBackPressed: _onBackPressed,
+      onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
   }
 
-  Future<bool> _onBackPressed() async {
-    widget.viewModel.flow = LoginWidgetFlow.init;
-    return false;
-  }
+  @override
+  observers() {}
 
   @override
   Widget content() {
@@ -89,5 +93,11 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
         ],
       );
     });
+  }
+
+  @override
+  Future<bool> onBackPressed() async {
+    widget.viewModel.flow = LoginWidgetFlow.init;
+    return false;
   }
 }

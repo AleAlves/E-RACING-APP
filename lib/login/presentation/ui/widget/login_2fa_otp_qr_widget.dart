@@ -4,10 +4,10 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../login_view_model.dart';
+import '../login_flow.dart';
 
 class LoginOtpQRWidget extends StatefulWidget {
   final LoginViewModel viewModel;
@@ -23,17 +23,28 @@ class _LoginOtpQRWidgetState extends State<LoginOtpQRWidget>
   var isSwitched = false;
 
   @override
-  Widget build(BuildContext context) {
-    return ViewStateWidget(
-      content: content(),
-      onBackPressed: _onBackPressed,
-      state: widget.viewModel.state,
-    );
+  void initState() {
+    observers();
+    super.initState();
   }
 
-  Future<bool> _onBackPressed() async {
-    widget.viewModel.flow = LoginWidgetFlow.init;
-    return false;
+  @override
+  Widget build(BuildContext context) {
+    return mainObserver();
+  }
+
+  @override
+  Observer mainObserver() {
+    return Observer(builder: (_) => viewState());
+  }
+
+  @override
+  ViewStateWidget viewState() {
+    return ViewStateWidget(
+      content: content(),
+      onBackPressed: onBackPressed,
+      state: widget.viewModel.state,
+    );
   }
 
   @override
@@ -48,10 +59,16 @@ class _LoginOtpQRWidgetState extends State<LoginOtpQRWidget>
           version: QrVersions.auto,
           size: 200.0,
         ),
-        Observer(builder: (_) {
-          return Container();
-        }),
       ],
     );
+  }
+
+  @override
+  observers() {}
+
+  @override
+  Future<bool> onBackPressed() async {
+    widget.viewModel.flow = LoginWidgetFlow.init;
+    return false;
   }
 }

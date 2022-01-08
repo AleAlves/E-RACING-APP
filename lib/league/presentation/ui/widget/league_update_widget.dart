@@ -11,6 +11,7 @@ import 'package:e_racing_app/core/ui/component/ui/dropdown_menu_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
+import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:flutter/services.dart';
@@ -30,7 +31,8 @@ class LeagueUpdateWidget extends StatefulWidget {
   _LeagueUpdateWidgetState createState() => _LeagueUpdateWidgetState();
 }
 
-class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
+class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
+    implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -52,15 +54,23 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return ViewStateWidget(
-          content: content(),
-          state: widget.viewModel.state,
-          onBackPressed: _onBackPressed);
-    });
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  ViewStateWidget viewState() {
+    return ViewStateWidget(
+        content: content(),
+        state: widget.viewModel.state,
+        onBackPressed: onBackPressed);
   }
 
+  @override
+  observers() {}
+
+  @override
   Widget content() {
     setupProperties();
     return Form(
@@ -431,7 +441,8 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget> {
     );
   }
 
-  Future<bool> _onBackPressed() async {
+  @override
+  Future<bool> onBackPressed() async {
     widget.viewModel.setFlow(LeagueFlow.list);
     return false;
   }

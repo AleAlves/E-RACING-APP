@@ -67,6 +67,8 @@ class ButtonWidget extends StatelessWidget {
 
   Widget iconButton(onPressed) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           decoration: const ShapeDecoration(
@@ -76,7 +78,6 @@ class ButtonWidget extends StatelessWidget {
           child: IconButton(
               icon: Icon(icon),
               color: ERcaingApp.color[10],
-              tooltip: label,
               onPressed: onPressed),
         ),
         const BoundWidget(BoundType.small),

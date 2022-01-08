@@ -4,9 +4,11 @@ import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
+import 'package:mobx/mobx.dart';
 
 import '../../login_view_model.dart';
 
@@ -25,6 +27,7 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
   final _passwordController = TextEditingController();
   final _mailController = TextEditingController();
   final _codeController = TextEditingController();
+  final List<ReactionDisposer> _disposers = [];
   late bool _passwordVisible;
   late String password = "";
 
@@ -37,22 +40,33 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  ViewStateWidget viewState() {
     return ViewStateWidget(
         content: content(),
         state: widget.viewModel.state,
-        onBackPressed: _onBackPressed);
+        onBackPressed: onBackPressed);
+  }
+
+  @override
+  observers() {
+    _disposers
+        .add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
+      _mailController.text = widget.viewModel.user?.profile?.email ?? '';
+    }));
   }
 
   @override
   Widget content() {
-    return Observer(builder: (_) {
-      _mailController.text = widget.viewModel.user?.profile?.email ?? '';
-      return Form(
-        child: resetForm(),
-        key: _formKey,
-      );
-    });
+    return Form(
+      child: resetForm(),
+      key: _formKey,
+    );
   }
 
   Widget resetForm() {
@@ -109,7 +123,8 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
     );
   }
 
-  Future<bool> _onBackPressed() async {
+  @override
+  Future<bool> onBackPressed() async {
     widget.viewModel.flow = LoginWidgetFlow.init;
     return false;
   }

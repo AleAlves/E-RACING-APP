@@ -27,22 +27,27 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   bool _expanded = false;
 
   @override
-  void initState() {
-    widget.viewModel.getLeague();
-    super.initState();
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  observers() {}
+
+  @override
+  ViewStateWidget viewState() {
+    return ViewStateWidget(
+        content: content(),
+        state: widget.viewModel.state,
+        onBackPressed: onBackPressed,
+        scrollable: true);
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) {
-        return ViewStateWidget(
-            content: content(),
-            state: widget.viewModel.state,
-            onBackPressed: _onBackPressed,
-            scrollable: true);
-      },
-    );
+  void initState() {
+    widget.viewModel.getLeague();
+    super.initState();
   }
 
   @override
@@ -70,48 +75,45 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
       child: Row(
         children: [
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  ExpansionTile(
-                      title: TextWidget(
-                        widget.viewModel.league?.name ?? '',
-                        Style.title,
-                        align: TextAlign.start,
-                      ),
-                      children: [
-                        const BoundWidget(BoundType.medium),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextWidget(
-                            widget.viewModel.league?.description ?? '',
-                            Style.description,
-                            align: TextAlign.justify,
-                          ),
+            child: Column(
+              children: [
+                ExpansionTile(
+                    title: TextWidget(
+                      widget.viewModel.league?.name ?? '',
+                      Style.title,
+                      align: TextAlign.left,
+                    ),
+                    children: [
+                      const BoundWidget(BoundType.medium),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextWidget(
+                          widget.viewModel.league?.description ?? '',
+                          Style.description,
+                          align: TextAlign.justify,
                         ),
-                        tags(),
-                      ],
-                      trailing: Ink(
-                        decoration: const ShapeDecoration(
-                          color: ERcaingApp.color,
-                          shape: CircleBorder(),
-                        ),
-                        child: _expanded
-                            ? const Icon(
-                                Icons.keyboard_arrow_up_outlined,
-                                color: Colors.white,
-                              )
-                            : const Icon(
-                                Icons.keyboard_arrow_down,
-                                color: Colors.white,
-                              ),
                       ),
-                      onExpansionChanged: (bool expanded) {
-                        setState(() => _expanded = expanded);
-                      }),
-                ],
-              ),
+                      tags(),
+                    ],
+                    trailing: Ink(
+                      decoration: const ShapeDecoration(
+                        color: ERcaingApp.color,
+                        shape: CircleBorder(),
+                      ),
+                      child: _expanded
+                          ? const Icon(
+                              Icons.keyboard_arrow_up_outlined,
+                              color: Colors.white,
+                            )
+                          : const Icon(
+                              Icons.keyboard_arrow_down,
+                              color: Colors.white,
+                            ),
+                    ),
+                    onExpansionChanged: (bool expanded) {
+                      setState(() => _expanded = expanded);
+                    }),
+              ],
             ),
           )
         ],
@@ -143,31 +145,34 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   Widget social() {
     return CardHolderWidget(
       onPressed: () {},
-      child: Row(
-        children: [
-          Wrap(
-            spacing: 10.0,
-            children: widget.viewModel.league!.links!
-                .map((item) {
-                  return Column(
-                    children: [
-                      ButtonWidget(
-                        type: ButtonType.icon,
-                        onPressed: () {},
-                        icon: _getIcon(item?.platformId),
-                        label: widget.viewModel.socialMedias
-                                ?.firstWhere((element) =>
-                                    element?.id == item?.platformId)
-                                ?.name ??
-                            '',
-                      ),
-                    ],
-                  );
-                })
-                .toList()
-                .cast<Widget>(),
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16.0),
+        child: Row(
+          children: [
+            Wrap(
+              spacing: 10.0,
+              children: widget.viewModel.league!.links!
+                  .map((item) {
+                    return Column(
+                      children: [
+                        ButtonWidget(
+                          type: ButtonType.icon,
+                          onPressed: () {},
+                          icon: _getIcon(item?.platformId),
+                          label: widget.viewModel.socialMedias
+                                  ?.firstWhere((element) =>
+                                      element?.id == item?.platformId)
+                                  ?.name ??
+                              '',
+                        ),
+                      ],
+                    );
+                  })
+                  .toList()
+                  .cast<Widget>(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -188,7 +193,8 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
     }
   }
 
-  Future<bool> _onBackPressed() async {
+  @override
+  Future<bool> onBackPressed() async {
     widget.viewModel.setFlow(LeagueFlow.list);
     return false;
   }

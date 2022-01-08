@@ -25,18 +25,24 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) {
-        return ViewStateWidget(
-            content: content(),
-            state: widget.viewModel.state,
-            onBackPressed: _onBackPressed);
-      },
-    );
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  observers() {}
+
+  @override
+  ViewStateWidget viewState() {
+    return ViewStateWidget(
+        content: content(),
+        state: widget.viewModel.state,
+        onBackPressed: onBackPressed);
   }
 
-  Future<bool> _onBackPressed() async {
+  @override
+  Future<bool> onBackPressed() async {
     widget.viewModel.setFlow(LeagueFlow.list);
     return false;
   }

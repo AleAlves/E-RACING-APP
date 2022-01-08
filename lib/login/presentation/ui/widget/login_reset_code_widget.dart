@@ -3,10 +3,12 @@ import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:e_racing_app/login/presentation/login_view_model.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
+import 'package:mobx/mobx.dart';
 
 class LoginResetCodeWidget extends StatefulWidget {
   final LoginViewModel viewModel;
@@ -22,35 +24,48 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
   final _formKey = GlobalKey<FormState>();
   final _mailController = TextEditingController();
   final _codeController = TextEditingController();
+  final List<ReactionDisposer> _disposers = [];
 
   @override
   void initState() {
     _mailController.text = '';
+    observers();
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  ViewStateWidget viewState() {
     return ViewStateWidget(
         content: content(),
         state: widget.viewModel.state,
-        onBackPressed: _onBackPressed);
+        onBackPressed: onBackPressed);
+  }
+
+  @override
+  observers() {
+    _disposers
+        .add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
+      _mailController.text = widget.viewModel.user?.profile?.email ?? '';
+    }));
   }
 
   @override
   Widget content() {
-    return Observer(builder: (_) {
-      _mailController.text = widget.viewModel.user?.profile?.email ?? '';
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Form(
-            child: getCode(),
-            key: _formKey,
-          ),
-        ],
-      );
-    });
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Form(
+          child: getCode(),
+          key: _formKey,
+        ),
+      ],
+    );
   }
 
   Widget getCode() {
@@ -86,7 +101,8 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
     );
   }
 
-  Future<bool> _onBackPressed() async {
+  @override
+  Future<bool> onBackPressed() async {
     widget.viewModel.flow = LoginWidgetFlow.init;
     return false;
   }

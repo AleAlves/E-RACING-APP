@@ -21,35 +21,43 @@ class LoginStatusWidget extends StatefulWidget {
 class _LoginStatusWidgetState extends State<LoginStatusWidget>
     implements BaseSateWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  observers() {}
+
+  @override
+  ViewStateWidget viewState() {
     return ViewStateWidget(
         content: content(),
         state: widget.viewModel.state,
-        onBackPressed: _onBackPressed);
+        onBackPressed: onBackPressed);
   }
 
+  @override
   Widget content() {
-    return Observer(builder: (_) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextWidget(
-              widget.viewModel.status?.message ?? '', Style.description),
-          const BoundWidget(BoundType.medium),
-          ButtonWidget(
-            type: ButtonType.normal,
-            onPressed: () {
-              widget.viewModel.flow =
-                  widget.viewModel.status?.next ?? LoginWidgetFlow.init;
-            },
-            label: widget.viewModel.status?.action ?? '',
-          )
-        ],
-      );
-    });
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextWidget(widget.viewModel.status?.message ?? '', Style.description),
+        const BoundWidget(BoundType.medium),
+        ButtonWidget(
+          type: ButtonType.normal,
+          onPressed: () {
+            widget.viewModel.flow =
+                widget.viewModel.status?.next ?? LoginWidgetFlow.init;
+          },
+          label: widget.viewModel.status?.action ?? '',
+        )
+      ],
+    );
   }
 
-  Future<bool> _onBackPressed() async {
+  @override
+  Future<bool> onBackPressed() async {
     widget.viewModel.flow = LoginWidgetFlow.init;
     return false;
   }

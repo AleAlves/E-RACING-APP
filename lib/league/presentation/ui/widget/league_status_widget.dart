@@ -21,18 +21,17 @@ class LeagueStatusWidget extends StatefulWidget {
 class _LeagueStatusWidgetState extends State<LeagueStatusWidget>
     implements BaseSateWidget {
   @override
-  Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return ViewStateWidget(
-          content: content(),
-          state: widget.viewModel.state,
-          onBackPressed: _onBackPressed);
-    });
-  }
+  Widget build(BuildContext context) => mainObserver();
 
-  Future<bool> _onBackPressed() async {
-    widget.viewModel.setFlow(LeagueFlow.list);
-    return false;
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  ViewStateWidget viewState() {
+    return ViewStateWidget(
+        content: content(),
+        state: widget.viewModel.state,
+        onBackPressed: onBackPressed);
   }
 
   @override
@@ -51,5 +50,14 @@ class _LeagueStatusWidgetState extends State<LeagueStatusWidget>
         )
       ],
     );
+  }
+
+  @override
+  observers() {}
+
+  @override
+  Future<bool> onBackPressed() async {
+    widget.viewModel.setFlow(LeagueFlow.list);
+    return false;
   }
 }

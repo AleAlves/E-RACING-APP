@@ -40,21 +40,25 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  ViewStateWidget viewState() {
     return ViewStateWidget(
         content: content(),
         state: widget.viewModel.state,
-        onBackPressed: _onBackPressed);
+        onBackPressed: onBackPressed);
   }
 
   @override
   Widget content() {
-    return Observer(builder: (_) {
-      return Form(
-        child: signinForm(),
-        key: _formKey,
-      );
-    });
+    return Form(
+      child: signinForm(),
+      key: _formKey,
+    );
   }
 
   Widget signinForm() {
@@ -128,7 +132,11 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
     );
   }
 
-  Future<bool> _onBackPressed() async {
+  @override
+  observers() {}
+
+  @override
+  Future<bool> onBackPressed() async {
     widget.viewModel.flow = LoginWidgetFlow.init;
     return false;
   }

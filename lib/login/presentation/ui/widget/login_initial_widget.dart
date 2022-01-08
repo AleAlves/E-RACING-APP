@@ -4,6 +4,7 @@ import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../login_view_model.dart';
 
@@ -19,17 +20,21 @@ class LoginInitialWidget extends StatefulWidget {
 class _LoginInitialWidgetState extends State<LoginInitialWidget>
     implements BaseSateWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  ViewStateWidget viewState() {
     return ViewStateWidget(
         content: content(),
         state: widget.viewModel.state,
-        onBackPressed: _onBackPressed);
+        onBackPressed: onBackPressed);
   }
 
-  Future<bool> _onBackPressed() async {
-    widget.viewModel.flow = LoginWidgetFlow.init;
-    return false;
-  }
+  @override
+  observers() {}
 
   @override
   Widget content() {
@@ -56,5 +61,11 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget>
         ],
       ),
     );
+  }
+
+  @override
+  Future<bool> onBackPressed() async {
+    widget.viewModel.flow = LoginWidgetFlow.init;
+    return false;
   }
 }

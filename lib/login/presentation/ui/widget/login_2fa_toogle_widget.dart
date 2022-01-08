@@ -21,19 +21,18 @@ class _LoginToogle2FAWidgetState extends State<LoginToogle2FAWidget>
   var isSwitched = false;
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return ViewStateWidget(
-        content: content(),
-        onBackPressed: _onBackPressed,
-        state: widget.viewModel.state,
-      );
-    });
-  }
+  Widget build(BuildContext context) => mainObserver();
 
-  Future<bool> _onBackPressed() async {
-    widget.viewModel.flow = LoginWidgetFlow.init;
-    return false;
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  ViewStateWidget viewState() {
+    return ViewStateWidget(
+      content: content(),
+      onBackPressed: onBackPressed,
+      state: widget.viewModel.state,
+    );
   }
 
   @override
@@ -53,5 +52,14 @@ class _LoginToogle2FAWidgetState extends State<LoginToogle2FAWidget>
         ),
       ],
     );
+  }
+
+  @override
+  observers() {}
+
+  @override
+  Future<bool> onBackPressed() async {
+    widget.viewModel.flow = LoginWidgetFlow.init;
+    return false;
   }
 }

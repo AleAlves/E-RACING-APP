@@ -5,6 +5,7 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/presentation/login_view_model.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../main.dart';
 
@@ -20,18 +21,18 @@ class LoginErrorWidget extends StatefulWidget {
 class _LoginErrorWidgetState extends State<LoginErrorWidget>
     implements BaseSateWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => viewState());
+
+  @override
+  ViewStateWidget viewState() {
     return ViewStateWidget(
       content: content(),
-      onBackPressed: _onBackPressed,
+      onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
-  }
-
-  Future<bool> _onBackPressed() async {
-    widget.viewModel.flow =
-        widget.viewModel.status?.next ?? LoginWidgetFlow.init;
-    return false;
   }
 
   @override
@@ -60,5 +61,17 @@ class _LoginErrorWidgetState extends State<LoginErrorWidget>
         ),
       ],
     );
+  }
+
+  @override
+  Future<bool> onBackPressed() async {
+    widget.viewModel.flow = widget.viewModel.status?.next ?? LoginWidgetFlow.init;
+    return false;
+  }
+
+  @override
+  observers() {
+    // TODO: implement observers
+    throw UnimplementedError();
   }
 }
