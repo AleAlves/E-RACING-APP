@@ -1,9 +1,13 @@
 import 'dart:convert';
 
+import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/card_holder_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/league_item_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/expanded_card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/shortcut_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
@@ -24,8 +28,6 @@ class LeagueDetailWidget extends StatefulWidget {
 
 class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
     implements BaseSateWidget {
-  bool _expanded = false;
-
   @override
   Widget build(BuildContext context) => mainObserver();
 
@@ -54,71 +56,58 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   Widget content() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
-      children: [banner(), description(), social()],
+      children: [
+        banner(),
+        description(),
+        social(),
+        panel(),
+      ],
     );
   }
 
   Widget banner() {
-    return ClipRRect(
-      child: SizedBox(
-          height: 200,
-          width: MediaQuery.of(context).size.width,
-          child: Image.memory(
-            base64Decode(widget.viewModel.media?.image ?? ''),
-            fit: BoxFit.fill,
-          )),
-    );
+    return widget.viewModel.media == null
+        ? const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: LoadingShimmer(
+              height: 200,
+            ),
+          )
+        : Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: SizedBox(
+                  height: 200,
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.memory(
+                    base64Decode(widget.viewModel.media?.image ?? ''),
+                    fit: BoxFit.fill,
+                  )),
+            ),
+          );
   }
 
   Widget description() {
-    return CardHolderWidget(
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                ExpansionTile(
-                    title: TextWidget(
-                      widget.viewModel.league?.name ?? '',
-                      Style.title,
-                      align: TextAlign.left,
-                    ),
-                    children: [
-                      const BoundWidget(BoundType.medium),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextWidget(
-                          widget.viewModel.league?.description ?? '',
-                          Style.description,
-                          align: TextAlign.justify,
-                        ),
-                      ),
-                      tags(),
-                    ],
-                    trailing: Ink(
-                      decoration: const ShapeDecoration(
-                        color: ERcaingApp.color,
-                        shape: CircleBorder(),
-                      ),
-                      child: _expanded
-                          ? const Icon(
-                              Icons.keyboard_arrow_up_outlined,
-                              color: Colors.white,
-                            )
-                          : const Icon(
-                              Icons.keyboard_arrow_down,
-                              color: Colors.white,
-                            ),
-                    ),
-                    onExpansionChanged: (bool expanded) {
-                      setState(() => _expanded = expanded);
-                    }),
-              ],
-            ),
-          )
-        ],
+    return ClassExpandedCardHolderWidget(
+      ready: widget.viewModel.league != null,
+      header: TextWidget(
+        widget.viewModel.league?.name ?? '',
+        Style.title,
+        align: TextAlign.left,
       ),
-      onPressed: () {},
+      body: [
+        const BoundWidget(BoundType.medium),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextWidget(
+            widget.viewModel.league?.description ?? '',
+            Style.description,
+            align: TextAlign.justify,
+          ),
+        ),
+        tags(),
+      ],
     );
   }
 
@@ -143,38 +132,67 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   }
 
   Widget social() {
-    return CardHolderWidget(
+    return CardWidget(
+      ready: widget.viewModel.league != null,
+      placeholderHeight: 100,
       onPressed: () {},
       child: Padding(
-        padding: const EdgeInsets.only(left: 16.0),
+        padding: const EdgeInsets.only(left: 8.0),
         child: Row(
           children: [
             Wrap(
               spacing: 10.0,
-              children: widget.viewModel.league!.links!
-                  .map((item) {
-                    return Column(
-                      children: [
-                        ButtonWidget(
-                          type: ButtonType.icon,
-                          onPressed: () {},
-                          icon: _getIcon(item?.platformId),
-                          label: widget.viewModel.socialMedias
-                                  ?.firstWhere((element) =>
-                                      element?.id == item?.platformId)
-                                  ?.name ??
-                              '',
-                        ),
-                      ],
-                    );
-                  })
-                  .toList()
-                  .cast<Widget>(),
+              children: widget.viewModel.league == null
+                  ? [Container()]
+                  : widget.viewModel.league!.links!
+                      .map((item) {
+                        return Column(
+                          children: [
+                            ButtonWidget(
+                              type: ButtonType.icon,
+                              onPressed: () {},
+                              icon: _getIcon(item?.platformId),
+                              label: widget.viewModel.socialMedias
+                                      ?.firstWhere((element) =>
+                                          element?.id == item?.platformId)
+                                      ?.name ??
+                                  '',
+                            ),
+                          ],
+                        );
+                      })
+                      .toList()
+                      .cast<Widget>(),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget panel() {
+    return CardWidget(
+        child: Row(
+          children: [
+            ShortcutWidget(
+              onPressed: () {},
+            ),
+            ShortcutWidget(
+              onPressed: () {},
+            ),
+            ShortcutWidget(
+              onPressed: () {},
+            ),
+            ShortcutWidget(
+              onPressed: () {},
+            ),
+            ShortcutWidget(
+              onPressed: () {},
+            ),
+          ],
+        ),
+        onPressed: () {},
+        ready: true);
   }
 
   IconData _getIcon(String? platformId) {

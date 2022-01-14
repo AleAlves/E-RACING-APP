@@ -13,6 +13,7 @@ class ERcaingApp extends StatelessWidget {
     1: Color(0xdfba1111),
     10: Color(0xffe7e7e7),
     20: Color(0xfffcfcfc),
+    30: Color(0xff9a9a9a),
     50: Color(0xFFF3E5F5),
     100: Color(0xFFE1BEE7),
     200: Color(0xFFCE93D8),

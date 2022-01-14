@@ -75,10 +75,12 @@ class ButtonWidget extends StatelessWidget {
             color: ERcaingApp.color,
             shape: CircleBorder(),
           ),
-          child: IconButton(
-              icon: Icon(icon),
-              color: ERcaingApp.color[10],
-              onPressed: onPressed),
+          child: Center(
+            child: IconButton(
+                icon: Icon(icon, size: 16,),
+                color: ERcaingApp.color[10],
+                onPressed: onPressed),
+          ),
         ),
         const BoundWidget(BoundType.small),
         TextWidget(label ?? '', Style.label)
