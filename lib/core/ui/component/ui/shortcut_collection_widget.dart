@@ -4,13 +4,28 @@ import 'package:e_racing_app/core/ui/component/ui/shortcut_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ShortcutCollectionWidget extends StatelessWidget {
+class ShortcutCollectionWidget extends StatefulWidget {
   final Function(ShortcutModel?) onPressed;
   final List<ShortcutModel?>? shortcuts;
 
   const ShortcutCollectionWidget(
       {required this.shortcuts, required this.onPressed, Key? key})
       : super(key: key);
+
+  Widget loading(BuildContext context) {
+    return const Card(child: LoadingShimmer());
+  }
+
+  @override
+  _ShortcutCollectionWidgetState createState() =>
+      _ShortcutCollectionWidgetState();
+}
+
+class _ShortcutCollectionWidgetState extends State<ShortcutCollectionWidget> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +34,7 @@ class ShortcutCollectionWidget extends StatelessWidget {
       children: [
         Expanded(
           child: Card(
-              margin: const EdgeInsets.only(left: 10, top: 10),
+              margin: const EdgeInsets.only(left: 10, top: 8.0),
               child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
@@ -27,13 +42,14 @@ class ShortcutCollectionWidget extends StatelessWidget {
                     child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: shortcuts?.length,
+                        itemCount: widget.shortcuts?.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
+                            padding:
+                                const EdgeInsets.only(right: 8.0, bottom: 4.0),
                             child: ShortcutWidget(
-                              onPressed: onPressed,
-                              shortcut: shortcuts?[index],
+                              onPressed: widget.onPressed,
+                              shortcut: widget.shortcuts?[index],
                             ),
                           );
                         }),
@@ -46,9 +62,5 @@ class ShortcutCollectionWidget extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  Widget loading(BuildContext context) {
-    return const Card(child: LoadingShimmer());
   }
 }

@@ -7,6 +7,8 @@ import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/expanded_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/shortcut_collection_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/social_collection_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
@@ -97,7 +99,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
       body: [
         const BoundWidget(BoundType.medium),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(16.0),
           child: TextWidget(
             widget.viewModel.league?.description ?? '',
             Style.description,
@@ -110,61 +112,16 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   }
 
   Widget tags() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Wrap(
-          spacing: 5.0,
-          children: widget.viewModel.tags!
-              .map((item) {
-                return ActionChip(
-                  label: Text(item?.name ?? ''),
-                  onPressed: () {},
-                );
-              })
-              .toList()
-              .cast<Widget>(),
-        ),
-      ],
+    return TagCollectionWidget(
+      tagIds: widget.viewModel.league?.tags,
+      tags: widget.viewModel.tags,
     );
   }
 
   Widget social() {
-    return CardWidget(
-      ready: widget.viewModel.league != null,
-      placeholderHeight: 100,
-      onPressed: () {},
-      child: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
-        child: Row(
-          children: [
-            Wrap(
-              spacing: 10.0,
-              children: widget.viewModel.league == null
-                  ? [Container()]
-                  : widget.viewModel.league!.links!
-                      .map((item) {
-                        return Column(
-                          children: [
-                            ButtonWidget(
-                              type: ButtonType.icon,
-                              onPressed: () {},
-                              icon: _getIcon(item?.platformId),
-                              label: widget.viewModel.socialMedias
-                                      ?.firstWhere((element) =>
-                                          element?.id == item?.platformId)
-                                      ?.name ??
-                                  '',
-                            ),
-                          ],
-                        );
-                      })
-                      .toList()
-                      .cast<Widget>(),
-            ),
-          ],
-        ),
-      ),
+    return SocialCollectionWidget(
+      links: widget.viewModel.league?.links,
+      socialPlatforms: widget.viewModel.socialMedias,
     );
   }
 
@@ -173,22 +130,6 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
       shortcuts: widget.viewModel.menus?.toList(),
       onPressed: widget.viewModel.deeplink,
     );
-  }
-
-  IconData _getIcon(String? platformId) {
-    var index = widget.viewModel.socialMedias
-        ?.firstWhere((element) => element?.id == platformId)
-        ?.name
-        .toLowerCase();
-    switch (index) {
-      case "whatsapp":
-        return FontAwesomeIcons.whatsapp;
-      case "discord":
-        return FontAwesomeIcons.discord;
-      case "site":
-      default:
-        return FontAwesomeIcons.globe;
-    }
   }
 
   @override

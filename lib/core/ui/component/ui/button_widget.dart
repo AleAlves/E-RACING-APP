@@ -58,7 +58,7 @@ class ButtonWidget extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: ERcaingApp.color[0]),
+        style: ElevatedButton.styleFrom(primary: ERcaingApp.color.shade100),
         onPressed: onPressed,
         child: Text(label ?? ''),
       ),
