@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
+import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
@@ -8,6 +9,7 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
 import 'package:e_racing_app/league/domain/usecase/create_league_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/delete_league_usecase.dart';
+import 'package:e_racing_app/league/domain/usecase/fetch_league_menu_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/fetch_league_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/get_league_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/upate_league_usecase.dart';
@@ -47,6 +49,9 @@ abstract class _LeagueViewModel with Store {
   ObservableList<LeagueModel?>? leagues = ObservableList();
 
   @observable
+  ObservableList<ShortcutModel>? menus = ObservableList();
+
+  @observable
   ObservableList<TagModel?>? tags = ObservableList();
 
   @observable
@@ -60,6 +65,8 @@ abstract class _LeagueViewModel with Store {
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
   final getLeagueMediaUseCase = Modular.get<GetLeagueUseCase<LeagueModel>>();
   final deleteUseCase = Modular.get<DeleteLeagueUseCase<StatusModel>>();
+  final fetchMenuUsecase =
+      Modular.get<FetchLeagueMenuUseCase<List<ShortcutModel>>>();
 
   @action
   init() async {
@@ -68,6 +75,7 @@ abstract class _LeagueViewModel with Store {
 
   void fetchLeagues() async {
     state = ViewState.loading;
+    getMenu();
     fetchTags();
     fetchSocialMedias();
     fetchUseCase.invoke(
@@ -157,6 +165,22 @@ abstract class _LeagueViewModel with Store {
           setFlow(LeagueFlow.status);
         },
         error: onError);
+  }
+
+  void getMenu() {
+    fetchMenuUsecase.invoke(
+        success: (data) {
+          menus = ObservableList.of(data!);
+        },
+        error: onError);
+  }
+
+  void deeplink(ShortcutModel? shortcut) {
+    if (shortcut?.deepLink != null) {
+      Modular.to.navigate(shortcut?.deepLink ?? '');
+    } else if (shortcut?.flow != null) {
+      setFlow(shortcut?.flow);
+    }
   }
 
   void onError(ApiException error) {

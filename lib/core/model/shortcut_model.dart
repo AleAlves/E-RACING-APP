@@ -1,11 +1,11 @@
-
 import 'package:flutter/cupertino.dart';
 
 class ShortcutModel {
-
   final String title;
-  final String deepLink;
   final IconData icon;
+  final dynamic flow;
+  final String? deepLink;
 
-  ShortcutModel(this.title, this.deepLink, this.icon);
+  ShortcutModel(
+      {required this.title, required this.icon, this.flow, this.deepLink});
 }

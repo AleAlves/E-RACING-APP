@@ -35,24 +35,30 @@ class _ClassExpandedCardHolderWidgetState
 
   Widget content() {
     return ExpansionTile(
-        title: widget.header,
+        title: Padding(
+          padding: const EdgeInsets.only(top: 24.0, bottom: 24.0),
+          child: widget.header,
+        ),
         children: widget.body,
-        trailing: Ink(
-            decoration: const ShapeDecoration(
-              color: ERcaingApp.color,
-              shape: CircleBorder(),
-            ),
-            child: _expanded
-                ? const Icon(
-              Icons.keyboard_arrow_up,
-              color: Colors.white,
-              size: 20.0,
-            )
-                : const Icon(
-              Icons.keyboard_arrow_down,
-              color: Colors.white,
-              size: 20.0,
-            ),),
+        trailing: Padding(
+          padding: const EdgeInsets.only(top: 24.0),
+          child: Ink(
+              decoration: const ShapeDecoration(
+                color: ERcaingApp.color,
+                shape: CircleBorder(),
+              ),
+              child: _expanded
+                  ? const Icon(
+                Icons.keyboard_arrow_up,
+                color: Colors.white,
+                size: 20.0,
+              )
+                  : const Icon(
+                Icons.keyboard_arrow_down,
+                color: Colors.white,
+                size: 20.0,
+              ),),
+        ),
         onExpansionChanged: (bool expanded) {
           setState(() {
             _expanded = expanded;

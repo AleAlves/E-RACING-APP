@@ -114,6 +114,21 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
+  final _$menusAtom = Atom(name: '_LeagueViewModel.menus');
+
+  @override
+  ObservableList<ShortcutModel>? get menus {
+    _$menusAtom.reportRead();
+    return super.menus;
+  }
+
+  @override
+  set menus(ObservableList<ShortcutModel>? value) {
+    _$menusAtom.reportWrite(value, super.menus, () {
+      super.menus = value;
+    });
+  }
+
   final _$tagsAtom = Atom(name: '_LeagueViewModel.tags');
 
   @override
@@ -161,6 +176,7 @@ status: ${status},
 flow: ${flow},
 state: ${state},
 leagues: ${leagues},
+menus: ${menus},
 tags: ${tags},
 socialMedias: ${socialMedias}
     ''';

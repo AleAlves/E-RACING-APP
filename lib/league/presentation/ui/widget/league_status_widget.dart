@@ -21,6 +21,12 @@ class LeagueStatusWidget extends StatefulWidget {
 class _LeagueStatusWidgetState extends State<LeagueStatusWidget>
     implements BaseSateWidget {
   @override
+  void initState() {
+    super.initState();
+    widget.viewModel.state = ViewState.ready;
+  }
+
+  @override
   Widget build(BuildContext context) => mainObserver();
 
   @override
@@ -36,19 +42,21 @@ class _LeagueStatusWidgetState extends State<LeagueStatusWidget>
 
   @override
   Widget content() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TextWidget(widget.viewModel.status?.message ?? '', Style.description),
-        const BoundWidget(BoundType.medium),
-        ButtonWidget(
-          type: ButtonType.normal,
-          onPressed: () {
-            widget.viewModel.setFlow(LeagueFlow.list);
-          },
-          label: widget.viewModel.status?.action ?? '',
-        )
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextWidget(widget.viewModel.status?.message ?? '', Style.description),
+          const BoundWidget(BoundType.medium),
+          ButtonWidget(
+            type: ButtonType.normal,
+            onPressed: () {
+              widget.viewModel.setFlow(widget.viewModel.status?.next);
+            },
+            label: widget.viewModel.status?.action ?? '',
+          )
+        ],
+      ),
     );
   }
 

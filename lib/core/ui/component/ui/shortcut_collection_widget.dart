@@ -1,12 +1,15 @@
+import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/shortcut_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ShortcutCollectionWidget extends StatelessWidget {
-  final VoidCallback? onPressed;
+  final Function(ShortcutModel?) onPressed;
+  final List<ShortcutModel?>? shortcuts;
 
-  const ShortcutCollectionWidget({required this.onPressed, Key? key})
+  const ShortcutCollectionWidget(
+      {required this.shortcuts, required this.onPressed, Key? key})
       : super(key: key);
 
   @override
@@ -24,9 +27,15 @@ class ShortcutCollectionWidget extends StatelessWidget {
                     child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: ["a", "b", "c", "a", "b", "c"].length,
+                        itemCount: shortcuts?.length,
                         itemBuilder: (context, index) {
-                          return ShortcutWidget(onPressed: onPressed);
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: ShortcutWidget(
+                              onPressed: onPressed,
+                              shortcut: shortcuts?[index],
+                            ),
+                          );
                         }),
                   )),
               shape: const RoundedRectangleBorder(

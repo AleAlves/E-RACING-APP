@@ -443,7 +443,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(LeagueFlow.list);
+    widget.viewModel.setFlow(LeagueFlow.detail);
     return false;
   }
 }

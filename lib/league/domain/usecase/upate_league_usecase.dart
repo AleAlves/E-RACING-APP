@@ -26,7 +26,7 @@ class UpdateLeagueUseCase<T> extends BaseUseCase<T?> {
         params: HTTPRequesParams(data: LeagueCreateModel(_media, _league))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "League Updated", action: "Ok", next: LeagueFlow.list) as T);
+          message: "League Updated", action: "Ok", next: LeagueFlow.detail) as T);
     } else {
       error.call();
     }

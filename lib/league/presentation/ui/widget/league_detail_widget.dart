@@ -6,7 +6,7 @@ import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/expanded_card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/shortcut_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/shortcut_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
@@ -169,31 +169,9 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   }
 
   Widget panel() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Expanded(
-          child: Card(
-              margin: const EdgeInsets.only(left: 10, top: 10),
-              child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 100,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: ["a", "b", "c", "a", "b", "c"].length,
-                        itemBuilder: (context, index) {
-                          return ShortcutWidget(onPressed: () {});
-                        }),
-                  )),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(5.0),
-                    topLeft: Radius.circular(5.0)),
-              )),
-        ),
-      ],
+    return ShortcutCollectionWidget(
+      shortcuts: widget.viewModel.menus?.toList(),
+      onPressed: widget.viewModel.deeplink,
     );
   }
 

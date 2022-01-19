@@ -1,8 +1,10 @@
 import 'package:e_racing_app/core/model/media_model.dart';
+import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
 import 'package:e_racing_app/league/domain/usecase/create_league_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/delete_league_usecase.dart';
+import 'package:e_racing_app/league/domain/usecase/fetch_league_menu_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/fetch_league_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/get_league_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/upate_league_usecase.dart';
@@ -25,6 +27,7 @@ class LeagueModule extends Module {
         Bind.factory((i) => GetSocialMediaUseCase()),
         Bind.factory((i) => GetLeagueUseCase<LeagueModel>()),
         Bind.factory((i) => DeleteLeagueUseCase<StatusModel>()),
+        Bind.factory((i) => FetchLeagueMenuUseCase<List<ShortcutModel>>()),
       ];
 
   @override
