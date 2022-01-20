@@ -3,24 +3,27 @@ import 'package:flutter/material.dart';
 
 enum BorderType { normal, none }
 
-class TextFormWidget extends StatelessWidget {
+enum InputType { text, number, multilines, password }
+
+class InputTextWidget extends StatelessWidget {
   final String label;
   final IconData icon;
   final BorderType borderType;
+  final InputType inputType;
   final FormFieldValidator<String>? validator;
   final TextEditingController? controller;
-  final bool obscure;
 
-  const TextFormWidget(this.label, this.icon, this.controller, this.validator,
-      {this.borderType = BorderType.normal, this.obscure = false, Key? key})
+  const InputTextWidget(this.label, this.icon, this.controller, this.validator,
+      {this.borderType = BorderType.normal,
+      this.inputType = InputType.text,
+      Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    
     InputDecoration? border;
-    
-    switch(borderType){
+
+    switch (borderType) {
       case BorderType.normal:
         border = InputDecoration(
           labelText: label,
@@ -43,15 +46,48 @@ class TextFormWidget extends StatelessWidget {
         border = null;
         break;
     }
-    
-    return Align(
-      alignment: Alignment.center,
-      child: TextFormField(
-        controller: controller,
-        validator: validator,
-        obscureText: obscure,
-        decoration: border,
-      ),
-    );
+
+    switch (inputType) {
+      case InputType.text:
+        return Align(
+          alignment: Alignment.center,
+          child: TextFormField(
+            controller: controller,
+            validator: validator,
+            decoration: border,
+          ),
+        );
+      case InputType.number:
+        return Align(
+          alignment: Alignment.center,
+          child: TextFormField(
+            keyboardType: TextInputType.number,
+            controller: controller,
+            validator: validator,
+            decoration: border,
+          ),
+        );
+      case InputType.password:
+        return Align(
+          alignment: Alignment.center,
+          child: TextFormField(
+            controller: controller,
+            validator: validator,
+            obscureText: true,
+            decoration: border,
+          ),
+        );
+      case InputType.multilines:
+        return Align(
+          alignment: Alignment.center,
+          child: TextFormField(
+            controller: controller,
+            validator: validator,
+            minLines: 10,
+            maxLines: 10,
+            decoration: border,
+          ),
+        );
+    }
   }
 }

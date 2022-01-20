@@ -49,8 +49,7 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
 
   @override
   observers() {
-    _disposers
-        .add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
+    _disposers.add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
       _mailController.text = widget.viewModel.user?.profile?.email ?? '';
     }));
   }
@@ -73,20 +72,20 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
       padding: const EdgeInsets.all(24.0),
       child: Column(
         children: [
-          TextFormWidget('Email', Icons.vpn_key, _mailController, (value) {
+          InputTextWidget('Email', Icons.vpn_key, _mailController, (value) {
             if (value == null || value.isEmpty == true) {
               return 'Email needed';
             }
             return null;
           }),
           const BoundWidget(BoundType.medium),
-          TextFormWidget('Code', Icons.security, _codeController, (value) {
+          InputTextWidget('Code', Icons.security, _codeController, (value) {
             if (value == null || value.isEmpty == true) {
               return 'code needed';
             }
             return null;
           }),
-          const BoundWidget(BoundType.medium),
+          const BoundWidget(BoundType.xl),
           ButtonWidget(
             type: ButtonType.normal,
             onPressed: () {

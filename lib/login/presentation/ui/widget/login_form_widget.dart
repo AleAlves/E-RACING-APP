@@ -72,7 +72,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
       padding: const EdgeInsets.all(24.0),
       child: Column(
         children: [
-          TextFormWidget('Email', Icons.mail, _emailController, (value) {
+          InputTextWidget('Email', Icons.mail, _emailController, (value) {
             if (value == null ||
                 value.isEmpty == true ||
                 !value.contains("@")) {
@@ -81,7 +81,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
             return null;
           }),
           const BoundWidget(BoundType.medium),
-          TextFormWidget('Password', Icons.vpn_key, _passwordController,
+          InputTextWidget('Password', Icons.vpn_key, _passwordController,
               (value) {
             if (value == null || value.isEmpty == true) {
               return 'Password needed';
@@ -90,8 +90,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
               return 'Password too short';
             }
             return null;
-          }),
-          const BoundWidget(BoundType.medium),
+          },  inputType: InputType.password),
+          const BoundWidget(BoundType.xl),
           ButtonWidget(
             type: ButtonType.normal,
             onPressed: () {
@@ -102,7 +102,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
             },
             label: "Entrar",
           ),
-          const BoundWidget(BoundType.big),
+          const BoundWidget(BoundType.xl),
           ButtonWidget(
             type: ButtonType.borderless,
             onPressed: () {

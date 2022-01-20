@@ -88,8 +88,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                 });
               },
               controlsBuilder: (BuildContext context,
-                  {VoidCallback? onStepContinue,
-                    VoidCallback? onStepCancel}) {
+                  {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
                 return Row(
                   children: <Widget>[
                     Container(),
@@ -135,20 +134,20 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
     return Column(
       children: [
         const BoundWidget(BoundType.huge),
-        TextFormWidget("Nome", Icons.title, _nameController, (value) {
+        InputTextWidget("Nome", Icons.title, _nameController, (value) {
           if (value == null || value.isEmpty == true) {
             return 'Name needed';
           }
           return null;
         }),
         const BoundWidget(BoundType.huge),
-        TextFormWidget("Descrição", Icons.title, _descriptionController,
+        InputTextWidget("Descrição", Icons.title, _descriptionController,
             (value) {
           if (value == null || value.isEmpty == true) {
             return 'Name needed';
           }
           return null;
-        }),
+        }, inputType: InputType.multilines),
       ],
     );
   }
@@ -286,7 +285,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                 Row(
                   children: [
                     Expanded(
-                      child: TextFormWidget(
+                      child: InputTextWidget(
                           "Link", Icons.add_link, socialStuffControllers[index],
                           (value) {
                         socialPlatforms[index] = LinkModel(

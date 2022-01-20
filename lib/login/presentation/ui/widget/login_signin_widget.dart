@@ -26,12 +26,10 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
   final _mailController = TextEditingController();
   final _nameController = TextEditingController();
   final _surnameController = TextEditingController();
-  late bool _passwordVisible;
   late String password = "";
 
   @override
   void initState() {
-    _passwordVisible = true;
     _nameController.text = '';
     _mailController.text = '';
     _passwordController.text = '';
@@ -65,24 +63,25 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const TextWidget("Create Account", Style.description),
           const BoundWidget(BoundType.medium),
-          TextFormWidget('Name', Icons.person, _nameController, (value) {
+          InputTextWidget('Name', Icons.person, _nameController, (value) {
             if (value == null || value.isEmpty == true) {
               return 'valid name needed';
             }
             return null;
           }),
           const BoundWidget(BoundType.medium),
-          TextFormWidget('Surname', Icons.person, _surnameController, (value) {
+          InputTextWidget('Surname', Icons.person, _surnameController, (value) {
             if (value == null || value.isEmpty == true) {
               return 'valid surname needed';
             }
             return null;
           }),
           const BoundWidget(BoundType.medium),
-          TextFormWidget('Email', Icons.mail, _mailController, (value) {
+          InputTextWidget('Email', Icons.mail, _mailController, (value) {
             if (value == null ||
                 value.isEmpty == true ||
                 !value.contains("@")) {
@@ -91,29 +90,39 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
             return null;
           }),
           const BoundWidget(BoundType.medium),
-          TextFormWidget('Password', Icons.vpn_key, _passwordController,
-              (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'Password needed';
-            }
-            if (value.length < 8) {
-              return 'Password too short';
-            } else {
-              password = value;
-            }
-            return null;
-          }, obscure: _passwordVisible),
+          InputTextWidget(
+            'Password',
+            Icons.vpn_key,
+            _passwordController,
+            (value) {
+              if (value == null || value.isEmpty == true) {
+                return 'Password needed';
+              }
+              if (value.length < 8) {
+                return 'Password too short';
+              } else {
+                password = value;
+              }
+              return null;
+            },
+            inputType: InputType.password,
+          ),
           const BoundWidget(BoundType.medium),
-          TextFormWidget('Confirm password', Icons.vpn_key, _passwordController,
-              (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'Password needed';
-            } else if (value != password) {
-              return 'Password not the same';
-            }
-            return null;
-          }, obscure: _passwordVisible),
-          const BoundWidget(BoundType.medium),
+          InputTextWidget(
+            'Confirm password',
+            Icons.vpn_key,
+            _passwordController,
+            (value) {
+              if (value == null || value.isEmpty == true) {
+                return 'Password needed';
+              } else if (value != password) {
+                return 'Password not the same';
+              }
+              return null;
+            },
+            inputType: InputType.password,
+          ),
+          const BoundWidget(BoundType.xl),
           ButtonWidget(
             type: ButtonType.normal,
             onPressed: () {

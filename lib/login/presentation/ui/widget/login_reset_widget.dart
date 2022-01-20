@@ -28,12 +28,10 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
   final _mailController = TextEditingController();
   final _codeController = TextEditingController();
   final List<ReactionDisposer> _disposers = [];
-  late bool _passwordVisible;
   late String password = "";
 
   @override
   void initState() {
-    _passwordVisible = true;
     _mailController.text = '';
     _passwordController.text = '';
     super.initState();
@@ -73,11 +71,12 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const TextWidget(
               "Use the code we've sent you by email", Style.description),
           const BoundWidget(BoundType.medium),
-          TextFormWidget('Validation code', Icons.security, _codeController,
+          InputTextWidget('Validation code', Icons.security, _codeController,
               (value) {
             if (value == null || value.isEmpty == true) {
               return 'Validation code needed';
@@ -85,29 +84,39 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
             return null;
           }),
           const BoundWidget(BoundType.medium),
-          TextFormWidget('Password', Icons.vpn_key, _passwordController,
-              (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'Password needed';
-            }
-            if (value.length < 8) {
-              return 'Password too short';
-            } else {
-              password = value;
-            }
-            return null;
-          }, obscure: _passwordVisible),
+          InputTextWidget(
+            'Password',
+            Icons.vpn_key,
+            _passwordController,
+            (value) {
+              if (value == null || value.isEmpty == true) {
+                return 'Password needed';
+              }
+              if (value.length < 8) {
+                return 'Password too short';
+              } else {
+                password = value;
+              }
+              return null;
+            },
+            inputType: InputType.password,
+          ),
           const BoundWidget(BoundType.medium),
-          TextFormWidget('Confirm password', Icons.vpn_key, _passwordController,
-              (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'Password needed';
-            } else if (value != password) {
-              return 'Password not the same';
-            }
-            return null;
-          }, obscure: _passwordVisible),
-          const BoundWidget(BoundType.medium),
+          InputTextWidget(
+            'Confirm password',
+            Icons.vpn_key,
+            _passwordController,
+            (value) {
+              if (value == null || value.isEmpty == true) {
+                return 'Password needed';
+              } else if (value != password) {
+                return 'Password not the same';
+              }
+              return null;
+            },
+            inputType: InputType.password,
+          ),
+          const BoundWidget(BoundType.xl),
           ButtonWidget(
             type: ButtonType.normal,
             onPressed: () {

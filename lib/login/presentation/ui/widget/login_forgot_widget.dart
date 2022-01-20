@@ -4,9 +4,11 @@ import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
 import '../../login_view_model.dart';
 
@@ -23,6 +25,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
     implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
+  final List<ReactionDisposer> _disposers = [];
 
   @override
   void initState() {
@@ -46,13 +49,18 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
   }
 
   @override
-  observers() {}
+  observers() {
+    _disposers
+        .add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
+      _emailController.text = widget.viewModel.user?.profile?.email ?? "";
+    }));
+  }
 
   @override
   Widget content() {
-    return Observer(builder: (_) {
-      _emailController.text = widget.viewModel.user?.profile?.email ?? "";
-      return Column(
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Form(
@@ -60,16 +68,16 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                 children: [
                   const TextWidget("Recuperação de senha", Style.description),
                   const BoundWidget(BoundType.big),
-                  TextFormWidget("Email", Icons.mail, _emailController,
-                      (value) {
-                    if (value == null ||
-                        value.isEmpty == true ||
-                        !value.contains("@")) {
-                      return 'valid email needed';
-                    }
-                    return null;
-                  }),
-                  const BoundWidget(BoundType.big),
+                  InputTextWidget("Email", Icons.mail, _emailController,
+                          (value) {
+                        if (value == null ||
+                            value.isEmpty == true ||
+                            !value.contains("@")) {
+                          return 'valid email needed';
+                        }
+                        return null;
+                      }),
+                  const BoundWidget(BoundType.xl),
                   ButtonWidget(
                     type: ButtonType.normal,
                     onPressed: () {
@@ -79,7 +87,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                     },
                     label: "Recuperar",
                   ),
-                  const BoundWidget(BoundType.big),
+                  const BoundWidget(BoundType.xl),
                   ButtonWidget(
                     type: ButtonType.borderless,
                     onPressed: () {
@@ -91,8 +99,8 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
               ),
               key: _formKey),
         ],
-      );
-    });
+      ),
+    );
   }
 
   @override
