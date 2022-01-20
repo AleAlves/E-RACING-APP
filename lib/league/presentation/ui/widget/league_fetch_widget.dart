@@ -3,6 +3,7 @@ import 'package:e_racing_app/core/ui/component/ui/league_item_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
+import 'package:e_racing_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -70,10 +71,11 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
           ],
         ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: ERcaingApp.color.shade200,
           onPressed: () {
             widget.viewModel.setFlow(LeagueFlow.create);
           },
-          child: const Icon(Icons.add),
+          child: const Icon(Icons.add, color: Colors.white,),
         ));
   }
 }

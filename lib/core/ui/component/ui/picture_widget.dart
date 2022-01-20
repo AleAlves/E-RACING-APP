@@ -5,20 +5,20 @@ import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BannerWidget extends StatefulWidget {
-  final MediaModel? media;
+class PictureWidget extends StatefulWidget {
+  final String? image;
 
-  const BannerWidget({required this.media, Key? key}) : super(key: key);
+  const PictureWidget({required this.image, Key? key}) : super(key: key);
 
   Widget loading(BuildContext context) {
     return const Card(child: LoadingShimmer());
   }
 
   @override
-  _BannerWidgetState createState() => _BannerWidgetState();
+  _PictureWidgetState createState() => _PictureWidgetState();
 }
 
-class _BannerWidgetState extends State<BannerWidget> {
+class _PictureWidgetState extends State<PictureWidget> {
   bool loaded = false;
   Image? image;
 
@@ -29,11 +29,11 @@ class _BannerWidgetState extends State<BannerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    loaded = widget.media?.image == null;
+    loaded = widget.image == null;
 
     if (!loaded && image == null) {
       image = Image.memory(
-        base64Decode(widget.media?.image ?? ''),
+        base64Decode(widget.image ?? ''),
         fit: BoxFit.fill,
       );
     }
@@ -50,9 +50,13 @@ class _BannerWidgetState extends State<BannerWidget> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: SizedBox(
-                  height: 200,
-                  width: MediaQuery.of(context).size.width,
-                  child: image),
+                width: 100,
+                height: 100,
+                child: Image.memory(
+                  base64Decode(widget.image ?? ''),
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
           );
   }

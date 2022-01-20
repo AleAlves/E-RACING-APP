@@ -44,7 +44,7 @@ class _ClassExpandedCardHolderWidgetState
           padding: const EdgeInsets.only(top: 24.0),
           child: Ink(
               decoration: ShapeDecoration(
-                color: ERcaingApp.color.shade100,
+                color: ERcaingApp.color.shade200,
                 shape: CircleBorder(),
               ),
               child: _expanded

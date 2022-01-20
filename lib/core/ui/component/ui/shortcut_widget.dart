@@ -18,7 +18,7 @@ class ShortcutWidget extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           side: const BorderSide(width: 0.5, color: ERcaingApp.color),
-          primary: ERcaingApp.color[20]),
+          primary: ERcaingApp.color.shade100),
       onPressed: () {
         onPressed.call(shortcut);
       },

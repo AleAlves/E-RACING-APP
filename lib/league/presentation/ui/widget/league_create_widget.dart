@@ -195,7 +195,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                     width: 100,
                     child: emblemFile.path == ''
                         ? Container(
-                            color: ERcaingApp.color[10],
+                            color: ERcaingApp.color.shade100,
                           )
                         : Image.file(
                             emblemFile,
@@ -236,7 +236,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                 width: MediaQuery.of(context).size.height,
                 child: bannerFile.path == ''
                     ? Container(
-                        color: ERcaingApp.color[10],
+                        color: ERcaingApp.color.shade100,
                       )
                     : Image.file(
                         bannerFile,

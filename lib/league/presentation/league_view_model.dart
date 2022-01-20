@@ -146,12 +146,13 @@ abstract class _LeagueViewModel with Store {
 
   Future<void> getLeague() async {
     state = ViewState.loading;
+    league = null;
     fetchTags();
     fetchSocialMedias();
     await getLeagueMediaUseCase.params(id: id.toString()).invoke(
         success: (data) {
-          getMedia(data?.id ?? '');
           league = data;
+          getMedia(data?.id ?? '');
           state = ViewState.ready;
         },
         error: onError);

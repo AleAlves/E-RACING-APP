@@ -9,12 +9,9 @@ void main() => runApp(ModularApp(
 
 class ERcaingApp extends StatelessWidget {
   static const MaterialColor color = MaterialColor(0xFF210063, <int, Color>{
-    10: Color(0xffe7e7e7),
-    20: Color(0xfffcfcfc),
-    30: Color(0xFF391B76),
-    50: Color(0xFFF3E5F5),
-    100: Color(0xffba1111),
-    200: Color(0xffff5e5e),
+    50: Color(0xffe7e7e7),
+    100: Color(0xfffcfcfc),
+    200: Color(0xffba1111),
     300: Color(0xFFBA68C8),
     400: Color(0xFFAB47BC),
     500: Color(0xFF522AA3),

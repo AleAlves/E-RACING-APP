@@ -1,10 +1,7 @@
-import 'dart:convert';
 
-import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/expanded_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/shortcut_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/social_collection_widget.dart';
@@ -15,7 +12,6 @@ import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LeagueDetailWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
@@ -66,26 +62,9 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   }
 
   Widget banner() {
-    return widget.viewModel.media == null
-        ? const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: LoadingShimmer(
-              height: 200,
-            ),
-          )
-        : Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: SizedBox(
-                  height: 200,
-                  width: MediaQuery.of(context).size.width,
-                  child: Image.memory(
-                    base64Decode(widget.viewModel.media?.image ?? ''),
-                    fit: BoxFit.fill,
-                  )),
-            ),
-          );
+    return BannerWidget(
+      media: widget.viewModel.media,
+    );
   }
 
   Widget description() {
