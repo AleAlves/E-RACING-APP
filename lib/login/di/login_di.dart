@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/tools/routes.dart';
+import 'package:e_racing_app/event/di/event_di.dart';
 import 'package:e_racing_app/league/di/league_di.dart';
 import 'package:e_racing_app/login/data/model/login_response.dart';
 import 'package:e_racing_app/login/domain/usecase/forgot_password_usecase.dart';
@@ -37,5 +38,6 @@ class LoginModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (context, args) => const LoginScreen()),
         ModuleRoute(Routes.leagues, module: LeagueModule()),
+        ModuleRoute(Routes.events, module: EventModule()),
       ];
 }

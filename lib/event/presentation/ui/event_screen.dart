@@ -1,23 +1,23 @@
 import 'package:e_racing_app/core/ui/component/custom_brackground.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/league/presentation/league_view_model.dart';
+import 'package:e_racing_app/event/event_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'league_flow.dart';
+import 'event_flow.dart';
 
-class LeagueScreen extends StatefulWidget {
-  const LeagueScreen({Key? key}) : super(key: key);
+class EventScreen extends StatefulWidget {
+  const EventScreen({Key? key}) : super(key: key);
 
   @override
-  _LeagueScreenState createState() => _LeagueScreenState();
+  _EventScreenState createState() => _EventScreenState();
 }
 
-class _LeagueScreenState extends State<LeagueScreen> implements BaseScreen {
+class _EventScreenState extends State<EventScreen> implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final viewModel = Modular.get<LeagueViewModel>();
+  final viewModel = Modular.get<EventViewModel>();
   ViewState? curentState;
 
   @override
@@ -30,7 +30,7 @@ class _LeagueScreenState extends State<LeagueScreen> implements BaseScreen {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Leagues'),
+        title: const Text('Events'),
       ),
       body: Stack(
         children: [
@@ -51,6 +51,6 @@ class _LeagueScreenState extends State<LeagueScreen> implements BaseScreen {
 
   @override
   Widget navigate() {
-    return LeagueNavigation.flow(viewModel);
+    return EventNavigation.flow(viewModel);
   }
 }
