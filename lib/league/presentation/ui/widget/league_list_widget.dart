@@ -1,9 +1,10 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/league_item_widget.dart';
+import 'package:e_racing_app/core/ui/model/float_action_button_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
-import 'package:e_racing_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -18,6 +19,7 @@ class LeagueListWidget extends StatefulWidget {
 
 class _LeagueListWidgetState extends State<LeagueListWidget>
     implements BaseSateWidget {
+
   @override
   void initState() {
     widget.viewModel.fetchLeagues();
@@ -38,6 +40,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         content: content(),
+        scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }
@@ -50,32 +53,30 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
 
   @override
   Widget content() {
-    return Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: widget.viewModel.leagues?.length,
-              itemBuilder: (context, index) {
-                return LeagueItemWidget(
-                    widget.viewModel.leagues?[index]?.name,
-                    widget.viewModel.leagues?[index]?.emblem,
-                    widget.viewModel.tags,
-                    widget.viewModel.leagues?[index]?.tags, () {
-                  widget.viewModel.id = widget.viewModel.leagues?[index]?.id;
-                  widget.viewModel.setFlow(LeagueFlow.detail);
-                });
-              },
-            ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: ERcaingApp.color.shade200,
-          onPressed: () {
-            widget.viewModel.setFlow(LeagueFlow.create);
+    return Stack(
+      children: [
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: widget.viewModel.leagues?.length,
+          itemBuilder: (context, index) {
+            return LeagueItemWidget(
+                widget.viewModel.leagues?[index]?.name,
+                widget.viewModel.leagues?[index]?.emblem,
+                widget.viewModel.tags,
+                widget.viewModel.leagues?[index]?.tags, () {
+              widget.viewModel.id = widget.viewModel.leagues?[index]?.id;
+              widget.viewModel.setFlow(LeagueFlow.detail);
+            });
           },
-          child: const Icon(Icons.add, color: Colors.white,),
-        ));
+        ),
+        FloatActionButtonWidget<LeagueFlow>(
+          flow: LeagueFlow.create,
+          icon: Icons.add,
+          onPressed: (flow){
+            widget.viewModel.setFlow(flow);
+          },
+        ),
+      ],
+    );
   }
 }

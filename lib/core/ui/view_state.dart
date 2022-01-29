@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'component/state/view_state_widget.dart';
+import 'model/float_action_button_model.dart';
 
 enum ViewState { ready, loading, error }
 

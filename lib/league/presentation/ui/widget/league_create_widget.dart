@@ -62,6 +62,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         content: content(),
+        scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }
@@ -296,6 +297,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                     ),
                     const BoundWidget(BoundType.small),
                     ButtonWidget(
+                        enabled: true,
                         type: ButtonType.icon,
                         onPressed: () async {
                           Clipboard.getData(Clipboard.kTextPlain).then((value) {
@@ -307,6 +309,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                         icon: Icons.paste),
                     const BoundWidget(BoundType.small),
                     ButtonWidget(
+                        enabled: true,
                         type: ButtonType.icon,
                         onPressed: () async {
                           setState(() {
@@ -324,6 +327,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
         ),
         const BoundWidget(BoundType.huge),
         ButtonWidget(
+            enabled: true,
             type: ButtonType.borderless,
             onPressed: () async {
               setState(() {
@@ -337,6 +341,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
 
   Widget finish() {
     return ButtonWidget(
+      enabled: _formKey.currentState?.validate() == true,
       type: ButtonType.normal,
       onPressed: () {
         if (_formKey.currentState?.validate() == true) {

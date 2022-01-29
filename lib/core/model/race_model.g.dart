@@ -7,7 +7,7 @@ part of 'race_model.dart';
 // **************************************************************************
 
 RaceModel _$RaceModelFromJson(Map<String, dynamic> json) => RaceModel(
-      id: json['_id'] as int?,
+      id: json['_id'] as String?,
       date: json['date'] as String?,
       notes: json['notes'] as String?,
       title: json['title'] as String?,

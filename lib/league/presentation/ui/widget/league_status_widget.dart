@@ -20,6 +20,7 @@ class LeagueStatusWidget extends StatefulWidget {
 
 class _LeagueStatusWidgetState extends State<LeagueStatusWidget>
     implements BaseSateWidget {
+
   @override
   void initState() {
     super.initState();
@@ -49,6 +50,7 @@ class _LeagueStatusWidgetState extends State<LeagueStatusWidget>
           TextWidget(widget.viewModel.status?.message ?? '', Style.description),
           const BoundWidget(BoundType.medium),
           ButtonWidget(
+            enabled: true,
             type: ButtonType.normal,
             onPressed: () {
               widget.viewModel.setFlow(widget.viewModel.status?.next);

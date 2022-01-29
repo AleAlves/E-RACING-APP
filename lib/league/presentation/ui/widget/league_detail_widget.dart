@@ -1,12 +1,13 @@
-
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/expanded_card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/shortcut_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/social_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
+import 'package:e_racing_app/core/ui/model/float_action_button_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
@@ -24,6 +25,12 @@ class LeagueDetailWidget extends StatefulWidget {
 
 class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
     implements BaseSateWidget {
+  @override
+  void initState() {
+    widget.viewModel.getLeague();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => mainObserver();
 
@@ -43,20 +50,25 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   }
 
   @override
-  void initState() {
-    widget.viewModel.getLeague();
-    super.initState();
-  }
-
-  @override
   Widget content() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+    return Stack(
       children: [
-        banner(),
-        description(),
-        social(),
-        panel(),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            banner(),
+            description(),
+            social(),
+            panel(),
+          ],
+        ),
+        FloatActionButtonWidget<LeagueFlow>(
+          flow: LeagueFlow.edit,
+          icon: Icons.settings,
+          onPressed: (flow) {
+            widget.viewModel.setFlow(flow);
+          },
+        ),
       ],
     );
   }
@@ -99,6 +111,8 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
 
   Widget social() {
     return SocialCollectionWidget(
+      hide: widget.viewModel.league != null &&
+          widget.viewModel.league?.links != null,
       links: widget.viewModel.league?.links,
       socialPlatforms: widget.viewModel.socialMedias,
     );

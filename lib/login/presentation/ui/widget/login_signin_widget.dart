@@ -124,6 +124,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
           ),
           const BoundWidget(BoundType.xl),
           ButtonWidget(
+            enabled: true,
             type: ButtonType.normal,
             onPressed: () {
               if (_formKey.currentState?.validate() == true) {

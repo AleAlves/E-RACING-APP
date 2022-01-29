@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
+import 'package:e_racing_app/core/ui/model/float_action_button_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/presentation/login_view_model.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
@@ -70,8 +71,5 @@ class _LoginErrorWidgetState extends State<LoginErrorWidget>
   }
 
   @override
-  observers() {
-    // TODO: implement observers
-    throw UnimplementedError();
-  }
+  observers() {}
 }

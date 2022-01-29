@@ -46,7 +46,7 @@ class _BannerWidgetState extends State<BannerWidget> {
             ),
           )
         : Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: SizedBox(

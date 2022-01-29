@@ -1,8 +1,9 @@
 
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_create_widget.dart';
+import 'package:e_racing_app/league/presentation/ui/widget/league_delete_widget.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_detail_widget.dart';
-import 'package:e_racing_app/league/presentation/ui/widget/league_fetch_widget.dart';
+import 'package:e_racing_app/league/presentation/ui/widget/league_list_widget.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_status_widget.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_update_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,6 +30,8 @@ extension LeagueNavigation on LeagueFlow {
         return LeagueDetailWidget(vm);
       case LeagueFlow.edit:
         return LeagueUpdateWidget(vm);
+      case LeagueFlow.delete:
+        return LeagueDeleteWidget(vm);
       case LeagueFlow.join:
         return LeagueCreateWidget(vm);
       case LeagueFlow.error:

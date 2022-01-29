@@ -5,6 +5,7 @@ import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
+import 'package:e_racing_app/core/ui/model/float_action_button_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
 import 'package:e_racing_app/league/domain/usecase/create_league_usecase.dart';
@@ -67,11 +68,6 @@ abstract class _LeagueViewModel with Store {
   final deleteUseCase = Modular.get<DeleteLeagueUseCase<StatusModel>>();
   final fetchMenuUsecase =
       Modular.get<FetchLeagueMenuUseCase<List<ShortcutModel>>>();
-
-  @action
-  init() async {
-    state = ViewState.ready;
-  }
 
   void fetchLeagues() async {
     state = ViewState.loading;
@@ -147,6 +143,7 @@ abstract class _LeagueViewModel with Store {
   Future<void> getLeague() async {
     state = ViewState.loading;
     league = null;
+    media = null;
     fetchTags();
     fetchSocialMedias();
     await getLeagueMediaUseCase.params(id: id.toString()).invoke(
@@ -178,7 +175,7 @@ abstract class _LeagueViewModel with Store {
 
   void deeplink(ShortcutModel? shortcut) {
     if (shortcut?.deepLink != null) {
-      Modular.to.navigate(shortcut?.deepLink ?? '');
+      Modular.to.pushNamed(shortcut?.deepLink ?? '');
     } else if (shortcut?.flow != null) {
       setFlow(shortcut?.flow);
     }

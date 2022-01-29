@@ -55,7 +55,7 @@ abstract class _EventViewModel with Store {
   final getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
   final getTagUseCase = Modular.get<GetTagUseCase>();
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
-  final fetchUseCase = Modular.get<FetchEventsUseCase>();
+  final fetchEventsUseCase = Modular.get<FetchEventsUseCase<List<EventModel>>>();
 
   @action
   init() async {
@@ -64,11 +64,9 @@ abstract class _EventViewModel with Store {
 
   void fetchEvents() async {
     state = ViewState.loading;
-    fetchTags();
-    fetchSocialMedias();
-    fetchUseCase.invoke(
+    fetchEventsUseCase.invoke(
         success: (data) {
-          events = ObservableList.of(data!);
+          events = ObservableList.of(data);
           state = ViewState.ready;
         },
         error: onError);
@@ -104,7 +102,7 @@ abstract class _EventViewModel with Store {
 
   void deeplink({String? deepLink, EventFlow? flow}) {
     if (deepLink != null) {
-      Modular.to.navigate(deepLink ?? '');
+      Modular.to.pushNamed(deepLink);
     } else if (flow != null) {
       setFlow(flow);
     }

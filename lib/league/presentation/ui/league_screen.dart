@@ -18,7 +18,6 @@ class LeagueScreen extends StatefulWidget {
 class _LeagueScreenState extends State<LeagueScreen> implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final viewModel = Modular.get<LeagueViewModel>();
-  ViewState? curentState;
 
   @override
   void initState() {

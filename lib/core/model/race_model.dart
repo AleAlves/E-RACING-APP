@@ -7,7 +7,7 @@ part 'race_model.g.dart';
 @JsonSerializable()
 class RaceModel {
   @JsonKey(name: '_id')
-  late int? id;
+  late String? id;
   late String? date;
   late String? hour;
   late String? title;

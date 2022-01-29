@@ -76,7 +76,7 @@ abstract class _LoginViewModel with Store {
           if (data.required2FA) {
             flow = LoginWidgetFlow.login2fa;
           } else {
-            Modular.to.navigate(Routes.leagues);
+            Modular.to.pushNamed(Routes.leagues);
           }
         },
         error: onError);

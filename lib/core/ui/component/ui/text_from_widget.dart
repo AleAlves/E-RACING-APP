@@ -12,10 +12,12 @@ class InputTextWidget extends StatelessWidget {
   final InputType inputType;
   final FormFieldValidator<String>? validator;
   final TextEditingController? controller;
+  final Function(String)? onChange;
 
   const InputTextWidget(this.label, this.icon, this.controller, this.validator,
       {this.borderType = BorderType.normal,
       this.inputType = InputType.text,
+      this.onChange,
       Key? key})
       : super(key: key);
 
@@ -54,6 +56,7 @@ class InputTextWidget extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             validator: validator,
+            onChanged: onChange,
             decoration: border,
           ),
         );
@@ -64,6 +67,7 @@ class InputTextWidget extends StatelessWidget {
             keyboardType: TextInputType.number,
             controller: controller,
             validator: validator,
+            onChanged: onChange,
             decoration: border,
           ),
         );
@@ -73,6 +77,7 @@ class InputTextWidget extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             validator: validator,
+            onChanged: onChange,
             obscureText: true,
             decoration: border,
           ),
@@ -83,6 +88,7 @@ class InputTextWidget extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             validator: validator,
+            onChanged: onChange,
             minLines: 10,
             maxLines: 10,
             decoration: border,

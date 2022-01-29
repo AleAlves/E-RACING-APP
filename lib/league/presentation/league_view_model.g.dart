@@ -159,13 +159,6 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
-  final _$initAsyncAction = AsyncAction('_LeagueViewModel.init');
-
-  @override
-  Future init() {
-    return _$initAsyncAction.run(() => super.init());
-  }
-
   @override
   String toString() {
     return '''

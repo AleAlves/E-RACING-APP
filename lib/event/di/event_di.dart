@@ -14,7 +14,7 @@ class EventModule extends Module {
   List<Bind> get binds => [
         Bind.factory((i) => EventViewModel()),
         Bind.factory((i) => GetMediaUseCase<MediaModel>()),
-        Bind.factory((i) => FetchEventsUseCase<EventModel>()),
+        Bind.factory((i) => FetchEventsUseCase<List<EventModel>>()),
         Bind.factory((i) => GetTagUseCase()),
         Bind.factory((i) => GetSocialMediaUseCase())
       ];

@@ -3,7 +3,6 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
 
 class FetchEventsUseCase<T> extends BaseUseCase<T> {
-
   @override
   Future<void> invoke(
       {required Function(T) success, required Function error}) async {
@@ -12,7 +11,12 @@ class FetchEventsUseCase<T> extends BaseUseCase<T> {
         verb: HTTPVerb.get,
         params: HTTPRequesParams(safe: false)));
     if (response.isSuccessfully) {
-      success(EventModel.fromJson(response.data) as T);
+      var list = response.data == null
+          ? null
+          : response.data
+              .map<EventModel>((event) => EventModel.fromJson(event))
+              .toList() as T;
+      success.call(list as T);
     } else {
       error.call();
     }

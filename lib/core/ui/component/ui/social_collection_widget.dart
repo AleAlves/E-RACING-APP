@@ -9,11 +9,13 @@ import 'button_widget.dart';
 import 'card_widget.dart';
 
 class SocialCollectionWidget extends StatefulWidget {
+  final bool hide;
   final List<LinkModel?>? links;
   final List<SocialPlatformModel?>? socialPlatforms;
 
   const SocialCollectionWidget(
-      {required this.links,
+      {this.hide = false,
+      required this.links,
       required this.socialPlatforms,
       Key? key})
       : super(key: key);
@@ -34,42 +36,45 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return CardWidget(
-      ready: widget.links != null,
-      placeholderHeight: 100,
-      onPressed: () {},
-      child: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
-        child: Row(
-          children: [
-            Wrap(
-              spacing: 10.0,
-              children: widget.links == null
-                  ? [Container()]
-                  : widget.links!
-                      .map((item) {
-                        return Column(
-                          children: [
-                            ButtonWidget(
-                              type: ButtonType.icon,
-                              onPressed: () {},
-                              icon: _getIcon(item?.platformId),
-                              label: widget.socialPlatforms
-                                      ?.firstWhere((element) =>
-                                          element?.id == item?.platformId)
-                                      ?.name ??
-                                  '',
-                            ),
-                          ],
-                        );
-                      })
-                      .toList()
-                      .cast<Widget>(),
+    return widget.hide
+        ? Container()
+        : CardWidget(
+            ready: widget.links != null,
+            placeholderHeight: 100,
+            onPressed: () {},
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                children: [
+                  Wrap(
+                    spacing: 10.0,
+                    children: widget.links == null
+                        ? [Container()]
+                        : widget.links!
+                            .map((item) {
+                              return Column(
+                                children: [
+                                  ButtonWidget(
+                                    enabled: true,
+                                    type: ButtonType.icon,
+                                    onPressed: () {},
+                                    icon: _getIcon(item?.platformId),
+                                    label: widget.socialPlatforms
+                                            ?.firstWhere((element) =>
+                                                element?.id == item?.platformId)
+                                            ?.name ??
+                                        '',
+                                  ),
+                                ],
+                              );
+                            })
+                            .toList()
+                            .cast<Widget>(),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 
   IconData _getIcon(String? platformId) {

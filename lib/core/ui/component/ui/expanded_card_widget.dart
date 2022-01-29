@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
+import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +38,7 @@ class _ClassExpandedCardHolderWidgetState
     return ExpansionTile(
         title: Padding(
           padding: const EdgeInsets.only(top: 24.0, bottom: 24.0),
-          child: widget.header,
+          child: widget.ready ? widget.header : const LoadingShimmer(height: 10,),
         ),
         children: widget.body,
         trailing: Padding(
@@ -45,7 +46,7 @@ class _ClassExpandedCardHolderWidgetState
           child: Ink(
               decoration: ShapeDecoration(
                 color: ERcaingApp.color.shade200,
-                shape: CircleBorder(),
+                shape: const CircleBorder(),
               ),
               child: _expanded
                   ? const Icon(

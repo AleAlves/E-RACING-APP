@@ -12,15 +12,15 @@ enum EventState { idle, ongoing, finished }
 @JsonSerializable()
 class EventModel {
   @JsonKey(name: '_id')
-  late int? id;
+  late String? id;
   late String? hour;
   late String? title;
   late String? rules;
   late bool? finished;
   late bool? joinable;
   late String? hostId;
-  late EventType? type;
-  late EventState? state;
+  late String? type;
+  late String? state;
   late bool? teamsEnabled;
   late bool? broadcasting;
   late List<int?>? scoring;

@@ -1,3 +1,4 @@
+import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/main.dart';
@@ -6,40 +7,56 @@ import 'package:flutter/material.dart';
 
 enum ButtonType { normal, borderless, icon, important }
 
-class ButtonWidget extends StatelessWidget {
+class ButtonWidget extends StatefulWidget {
   final String? label;
   final IconData? icon;
   final ButtonType type;
+  final bool enabled;
   final VoidCallback? onPressed;
 
   const ButtonWidget(
-      {required this.type,
+      {required this.enabled,
+      required this.type,
       required this.onPressed,
       this.label,
       this.icon,
       Key? key})
       : super(key: key);
 
+  Widget loading(BuildContext context) {
+    return const LoadingRipple();
+  }
+
+  @override
+  _ButtonWidgetState createState() => _ButtonWidgetState();
+}
+
+class _ButtonWidgetState extends State<ButtonWidget> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    switch (type) {
+    switch (widget.type) {
       case ButtonType.normal:
         return normal(context);
       case ButtonType.borderless:
-        return borderless(onPressed);
+        return borderless();
       case ButtonType.icon:
-        return iconButton(onPressed);
+        return iconButton();
       case ButtonType.important:
         return important(context);
     }
   }
 
-  Widget borderless(onPressed) {
+  Widget borderless() {
     return Align(
       alignment: Alignment.center,
       child: TextButton(
-        onPressed: onPressed,
-        child: Text(label ?? ''),
+        onPressed: widget.enabled ? widget.onPressed : null,
+        child: Text(widget.label ?? ''),
       ),
     );
   }
@@ -48,8 +65,11 @@ class ButtonWidget extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
-        onPressed: onPressed,
-        child: Text(label ?? ''),
+        style: ElevatedButton.styleFrom(
+            primary:
+                widget.enabled ? ERcaingApp.color : ERcaingApp.color.shade50),
+        onPressed: widget.enabled ? widget.onPressed : null,
+        child: Text(widget.label ?? ''),
       ),
     );
   }
@@ -58,32 +78,38 @@ class ButtonWidget extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: ERcaingApp.color.shade200),
-        onPressed: onPressed,
-        child: Text(label ?? ''),
+        style: ElevatedButton.styleFrom(
+            primary: widget.enabled
+                ? ERcaingApp.color.shade200
+                : ERcaingApp.color.shade50),
+        onPressed: widget.enabled ? widget.onPressed : null,
+        child: Text(widget.label ?? ''),
       ),
     );
   }
 
-  Widget iconButton(onPressed) {
+  Widget iconButton() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          decoration: const ShapeDecoration(
-            color: ERcaingApp.color,
-            shape: CircleBorder(),
+          decoration: ShapeDecoration(
+            color: widget.enabled ? ERcaingApp.color : ERcaingApp.color.shade50,
+            shape: const CircleBorder(),
           ),
           child: Center(
             child: IconButton(
-                icon: Icon(icon, size: 16,),
+                icon: Icon(
+                  widget.icon,
+                  size: 16,
+                ),
                 color: ERcaingApp.color.shade100,
-                onPressed: onPressed),
+                onPressed: widget.enabled ? widget.onPressed : null),
           ),
         ),
         const BoundWidget(BoundType.small),
-        TextWidget(label ?? '', Style.label)
+        TextWidget(widget.label ?? '', Style.label)
       ],
     );
   }

@@ -36,24 +36,19 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.start,
-            alignment: WrapAlignment.start,
-            spacing: 5.0,
-            children: widget.tagIds!
-                .map((item) {
-                  return ActionChip(
-                    label: Text(name(item)),
-                    onPressed: () {},
-                  );
-                })
-                .toList()
-                .cast<Widget>(),
-          ),
-        ],
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.start,
+        alignment: WrapAlignment.start,
+        spacing: 5.0,
+        children: widget.tagIds!
+            .map((item) {
+          return ActionChip(
+            label: Text(name(item)),
+            onPressed: () {},
+          );
+        })
+            .toList()
+            .cast<Widget>(),
       ),
     );
   }

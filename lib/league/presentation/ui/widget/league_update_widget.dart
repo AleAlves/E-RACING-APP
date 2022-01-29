@@ -8,6 +8,7 @@ import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/dropdown_menu_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -63,6 +64,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         content: content(),
+        scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }
@@ -73,9 +75,20 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
   @override
   Widget content() {
     setupProperties();
-    return Form(
-      child: updateForm(),
-      key: _formKey,
+    return Stack(
+      children: [
+        Form(
+          child: updateForm(),
+          key: _formKey,
+        ),
+        FloatActionButtonWidget<LeagueFlow>(
+          flow: LeagueFlow.delete,
+          icon: Icons.delete,
+          onPressed: (flow) {
+            widget.viewModel.setFlow(flow);
+          },
+        ),
+      ],
     );
   }
 
@@ -145,8 +158,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
               ),
             ],
           ),
-          finish(),
-          delete()
+          finish()
         ],
       ),
     );
@@ -175,13 +187,18 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
           return null;
         }),
         const BoundWidget(BoundType.huge),
-        InputTextWidget("Descrição", Icons.title, _descriptionController,
-            (value) {
-          if (value == null || value.isEmpty == true) {
-            return 'Name needed';
-          }
-          return null;
-        }, inputType: InputType.multilines,),
+        InputTextWidget(
+          "Descrição",
+          Icons.title,
+          _descriptionController,
+          (value) {
+            if (value == null || value.isEmpty == true) {
+              return 'Name needed';
+            }
+            return null;
+          },
+          inputType: InputType.multilines,
+        ),
       ],
     );
   }
@@ -195,8 +212,9 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                   final selected = tags.contains(item?.id);
                   return ActionChip(
                       avatar: CircleAvatar(
-                        backgroundColor:
-                            selected ? ERcaingApp.color.shade200 : ERcaingApp.color,
+                        backgroundColor: selected
+                            ? ERcaingApp.color.shade200
+                            : ERcaingApp.color,
                         child: selected ? const Text('-') : const Text('+'),
                       ),
                       label: Text(item?.name ?? ''),
@@ -340,6 +358,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                     ),
                     const BoundWidget(BoundType.small),
                     ButtonWidget(
+                        enabled: true,
                         type: ButtonType.icon,
                         onPressed: () async {
                           isEditingSocialPlatform = true;
@@ -352,6 +371,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                         icon: Icons.paste),
                     const BoundWidget(BoundType.small),
                     ButtonWidget(
+                        enabled: true,
                         type: ButtonType.icon,
                         onPressed: () async {
                           isEditingSocialPlatform = true;
@@ -369,6 +389,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
         ),
         const BoundWidget(BoundType.huge),
         ButtonWidget(
+            enabled: true,
             type: ButtonType.borderless,
             onPressed: () async {
               setState(() {
@@ -381,30 +402,9 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
     );
   }
 
-  Widget delete() {
-    return Column(
-      children: [
-        const BoundWidget(BoundType.huge),
-        const TextWidget(
-          "Exclude league:",
-          Style.subtitle,
-          align: TextAlign.start,
-        ),
-        const BoundWidget(BoundType.huge),
-        ButtonWidget(
-            type: ButtonType.important,
-            onPressed: () async {
-              setState(() {
-                widget.viewModel.delete();
-              });
-            },
-            label: 'Delete'),
-      ],
-    );
-  }
-
   Widget finish() {
     return ButtonWidget(
+      enabled: true,
       type: ButtonType.normal,
       onPressed: () {
         if (_formKey.currentState?.validate() == true) {

@@ -7,12 +7,12 @@ part of 'event_model.dart';
 // **************************************************************************
 
 EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
-      id: json['_id'] as int?,
+      id: json['_id'] as String?,
       teams: (json['teams'] as List<dynamic>?)
           ?.map((e) =>
               e == null ? null : TeamModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      type: $enumDecodeNullable(_$EventTypeEnumMap, json['type']),
+      type: json['type'] as String?,
       hour: json['hour'] as String?,
       races: (json['races'] as List<dynamic>?)
           ?.map((e) =>
@@ -20,7 +20,7 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
           .toList(),
       rules: json['rules'] as String?,
       title: json['title'] as String?,
-      state: $enumDecodeNullable(_$EventStateEnumMap, json['state']),
+      state: json['state'] as String?,
       hostId: json['hostId'] as String?,
       scoring:
           (json['scoring'] as List<dynamic>?)?.map((e) => e as int?).toList(),
@@ -46,8 +46,8 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'finished': instance.finished,
       'joinable': instance.joinable,
       'hostId': instance.hostId,
-      'type': _$EventTypeEnumMap[instance.type],
-      'state': _$EventStateEnumMap[instance.state],
+      'type': instance.type,
+      'state': instance.state,
       'teamsEnabled': instance.teamsEnabled,
       'broadcasting': instance.broadcasting,
       'scoring': instance.scoring,
@@ -56,15 +56,3 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'attenders': instance.attenders,
       'settings': instance.settings,
     };
-
-const _$EventTypeEnumMap = {
-  EventType.race: 'race',
-  EventType.championship: 'championship',
-  EventType.error: 'error',
-};
-
-const _$EventStateEnumMap = {
-  EventState.idle: 'idle',
-  EventState.ongoing: 'ongoing',
-  EventState.finished: 'finished',
-};
