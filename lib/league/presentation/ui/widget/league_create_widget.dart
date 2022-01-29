@@ -213,8 +213,8 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
               ],
             ),
             const TextWidget(
-              "Emblem: 100x100",
-              Style.label,
+              text: "Emblem: 100x100",
+              style: Style.label,
               align: TextAlign.start,
             )
           ],
@@ -253,8 +253,8 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
           ],
         ),
         const TextWidget(
-          "Banner: 700x100",
-          Style.label,
+          text: "Banner: 700x100",
+          style: Style.label,
           align: TextAlign.start,
         ),
       ],
@@ -376,7 +376,8 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
             setState(() {});
           },
         ),
-        const TextWidget("I read and accept the terms", Style.label)
+        const TextWidget(
+            text: "I read and accept the terms", style: Style.label)
       ],
     );
   }

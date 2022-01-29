@@ -29,14 +29,14 @@ class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: DropdownButton<SocialPlatformModel>(
-              hint: TextWidget(widget.hint ?? '', Style.label),
+              hint: TextWidget(text: widget.hint ?? '', style: Style.label),
               value: widget.current,
               underline: Container(height: 0),
               items: widget.socialMedias
                   ?.map<DropdownMenuItem<SocialPlatformModel>>((value) {
                 return DropdownMenuItem<SocialPlatformModel>(
                   value: value,
-                  child: TextWidget(value?.name ?? '', Style.label),
+                  child: TextWidget(text: value?.name ?? '',style: Style.label),
                 );
               }).toList(),
               onChanged: (item) {

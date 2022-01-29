@@ -71,9 +71,10 @@ class _LeagueDeleteWidgetState extends State<LeagueDeleteWidget>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const TextWidget("Excluding League", Style.title),
+            const TextWidget(text: "Excluding League", style: Style.title),
             const BoundWidget(BoundType.xl),
-            const TextWidget("safety verification: 2+2?", Style.subtitle),
+            const TextWidget(
+                text: "safety verification: 2+2?", style: Style.subtitle),
             const BoundWidget(BoundType.xl),
             Padding(
               padding: const EdgeInsets.only(
@@ -86,7 +87,7 @@ class _LeagueDeleteWidgetState extends State<LeagueDeleteWidget>
                   if (value == null || value.isEmpty == true || value != "4") {
                     return 'Wrong answer';
                   }
-                  if(value == "5"){
+                  if (value == "5") {
                     return 'Did you read 1984? nice...wrong answer though';
                   }
                   return null;
@@ -96,8 +97,7 @@ class _LeagueDeleteWidgetState extends State<LeagueDeleteWidget>
                     setState(() {
                       validForm = true;
                     });
-                  }
-                  else if(value.isEmpty){
+                  } else if (value.isEmpty) {
                     setState(() {
                       validForm = false;
                     });

@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../main.dart';
 
 class DefaulErrorWidget extends StatefulWidget {
-
   const DefaulErrorWidget({Key? key}) : super(key: key);
 
   @override
@@ -24,7 +23,8 @@ class _DefaulErrorWidgetState extends State<DefaulErrorWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const TextWidget("Tente Novamente", Style.subtitle),
+                const TextWidget(
+                    text: "Tente Novamente", style: Style.subtitle),
                 const BoundWidget(BoundType.medium),
                 Material(
                   color: Colors.transparent,
@@ -37,7 +37,7 @@ class _DefaulErrorWidgetState extends State<DefaulErrorWidget> {
                       child: IconButton(
                         icon: const Icon(Icons.refresh),
                         color: Colors.white,
-                        onPressed: (){},
+                        onPressed: () {},
                       ),
                     ),
                   ),

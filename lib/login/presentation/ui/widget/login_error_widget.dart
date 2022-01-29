@@ -1,7 +1,6 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/core/ui/model/float_action_button_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/presentation/login_view_model.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
@@ -42,7 +41,7 @@ class _LoginErrorWidgetState extends State<LoginErrorWidget>
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const TextWidget("Tente Novamente", Style.subtitle),
+        const TextWidget(text: "Tente Novamente", style: Style.subtitle),
         const BoundWidget(BoundType.medium),
         Material(
           color: Colors.transparent,
@@ -66,7 +65,8 @@ class _LoginErrorWidgetState extends State<LoginErrorWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.flow = widget.viewModel.status?.next ?? LoginWidgetFlow.init;
+    widget.viewModel.flow =
+        widget.viewModel.status?.next ?? LoginWidgetFlow.init;
     return false;
   }
 

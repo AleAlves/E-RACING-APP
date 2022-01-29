@@ -65,7 +65,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const TextWidget("Create Account", Style.description),
+          const TextWidget(text: "Create Account", style: Style.description),
           const BoundWidget(BoundType.medium),
           InputTextWidget('Name', Icons.person, _nameController, (value) {
             if (value == null || value.isEmpty == true) {

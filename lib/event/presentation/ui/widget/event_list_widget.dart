@@ -62,8 +62,9 @@ class _EventListWidgetState extends State<EventListWidget>
               itemCount: widget.viewModel.events?.length,
               itemBuilder: (context, index) {
                 return TextWidget(
-                    widget.viewModel.events?[index]?.type.toString() ?? '',
-                    Style.description);
+                    text:
+                        widget.viewModel.events?[index]?.type.toString() ?? '',
+                    style: Style.description);
               },
             ),
           ],

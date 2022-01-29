@@ -1,4 +1,3 @@
-
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/picture_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -51,8 +50,8 @@ class LeagueItemWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextWidget(
-                  label ?? '',
-                  Style.subtitle,
+                  text: label ?? '',
+                  style: Style.subtitle,
                   align: TextAlign.start,
                 ),
               ),
@@ -63,7 +62,8 @@ class LeagueItemWidget extends StatelessWidget {
                     : Wrap(
                         spacing: 1.0,
                         runSpacing: 0.0,
-                        children: leagueTags!.map((tag) {
+                        children: leagueTags!
+                            .map((tag) {
                               return Padding(
                                 padding: const EdgeInsets.all(2.0),
                                 child: Container(
@@ -73,12 +73,12 @@ class LeagueItemWidget extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: TextWidget(
-                                        tags
+                                        text: tags
                                                 ?.firstWhere(
                                                     (k) => k?.id == tag)
                                                 ?.name ??
                                             '-',
-                                        Style.label),
+                                        style: Style.label),
                                   ),
                                 ),
                               );

@@ -20,7 +20,6 @@ class LeagueStatusWidget extends StatefulWidget {
 
 class _LeagueStatusWidgetState extends State<LeagueStatusWidget>
     implements BaseSateWidget {
-
   @override
   void initState() {
     super.initState();
@@ -47,7 +46,9 @@ class _LeagueStatusWidgetState extends State<LeagueStatusWidget>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextWidget(widget.viewModel.status?.message ?? '', Style.description),
+          TextWidget(
+              text: widget.viewModel.status?.message ?? '',
+              style: Style.description),
           const BoundWidget(BoundType.medium),
           ButtonWidget(
             enabled: true,

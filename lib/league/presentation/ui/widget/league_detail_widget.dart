@@ -83,8 +83,8 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
     return ClassExpandedCardHolderWidget(
       ready: widget.viewModel.league != null,
       header: TextWidget(
-        widget.viewModel.league?.name ?? '',
-        Style.title,
+        text: widget.viewModel.league?.name ?? '',
+        style: Style.title,
         align: TextAlign.left,
       ),
       body: [
@@ -92,8 +92,8 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextWidget(
-            widget.viewModel.league?.description ?? '',
-            Style.description,
+            text: widget.viewModel.league?.description ?? '',
+            style: Style.description,
             align: TextAlign.justify,
           ),
         ),

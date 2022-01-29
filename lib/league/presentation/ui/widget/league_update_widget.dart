@@ -168,8 +168,8 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
     return Column(
       children: const [
         TextWidget(
-          "Editing:",
-          Style.subtitle,
+          text: "Editing:",
+          style: Style.subtitle,
           align: TextAlign.start,
         ),
       ],
@@ -266,8 +266,8 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
               ],
             ),
             const TextWidget(
-              "Emblem: 100x100",
-              Style.label,
+              text: "Emblem: 100x100",
+              style: Style.label,
               align: TextAlign.start,
             )
           ],
@@ -307,8 +307,8 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
           ],
         ),
         const TextWidget(
-          "Banner: 700x100",
-          Style.label,
+          text: "Banner: 700x100",
+          style: Style.label,
           align: TextAlign.start,
         ),
       ],

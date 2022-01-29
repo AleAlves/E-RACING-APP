@@ -1,6 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/core/ui/model/float_action_button_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -41,7 +40,8 @@ class _LoginToogle2FAWidgetState extends State<LoginToogle2FAWidget>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const TextWidget("Ativar/desativar 2FA", Style.description),
+        const TextWidget(
+            text: "Ativar/desativar 2FA", style: Style.description),
         Switch(
           value: isSwitched,
           onChanged: (value) {

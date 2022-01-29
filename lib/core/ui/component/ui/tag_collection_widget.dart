@@ -2,6 +2,7 @@ import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tags/flutter_tags.dart';
@@ -42,11 +43,14 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
         spacing: 5.0,
         children: widget.tagIds!
             .map((item) {
-          return ActionChip(
-            label: Text(name(item)),
-            onPressed: () {},
-          );
-        })
+              return ActionChip(
+                label: TextWidget(
+                  text: name(item),
+                  style: Style.note,
+                ),
+                onPressed: () {},
+              );
+            })
             .toList()
             .cast<Widget>(),
       ),

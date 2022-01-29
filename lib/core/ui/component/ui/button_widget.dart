@@ -109,7 +109,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
           ),
         ),
         const BoundWidget(BoundType.small),
-        TextWidget(widget.label ?? '', Style.label)
+        TextWidget(text: widget.label ?? '', style: Style.label)
       ],
     );
   }

@@ -39,8 +39,8 @@ class ShortcutWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     TextWidget(
-                      shortcut?.title ?? "",
-                      Style.description,
+                      text: shortcut?.title ?? "",
+                      style: Style.description,
                       textColor: ERcaingApp.color,
                     ),
                   ],

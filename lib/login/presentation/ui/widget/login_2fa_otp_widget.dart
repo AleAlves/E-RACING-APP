@@ -2,7 +2,6 @@ import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/core/ui/model/float_action_button_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/main.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +54,7 @@ class _Login2FAWidgetState extends State<Login2FAWidget>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const TextWidget("Second Step Verification", Style.description),
+        const TextWidget(text: "Second Step Verification", style: Style.description),
         const BoundWidget(BoundType.medium),
         OtpTextField(
           autoFocus: true,

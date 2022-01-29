@@ -1,13 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-enum Style {
-  description,
-  title,
-  subtitle,
-  label,
-  note
-}
+enum Style { description, title, subtitle, label, note }
 
 class TextWidget extends StatelessWidget {
   final String text;
@@ -15,8 +9,12 @@ class TextWidget extends StatelessWidget {
   final TextAlign align;
   final Color textColor;
 
-  const TextWidget(this.text, this.style,
-      {this.align = TextAlign.center, this.textColor = Colors.black87, Key? key})
+  const TextWidget(
+      {required this.text,
+      required this.style,
+      this.align = TextAlign.center,
+      this.textColor = Colors.black87,
+      Key? key})
       : super(key: key);
 
   @override
