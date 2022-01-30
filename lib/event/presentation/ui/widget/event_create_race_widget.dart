@@ -1,5 +1,9 @@
 import 'dart:io';
+import 'dart:convert';
 
+import 'package:e_racing_app/core/model/event_model.dart';
+import 'package:e_racing_app/core/model/media_model.dart';
+import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
@@ -38,8 +42,8 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
   List<SettingsModel?> settingsModel = [];
   final _formKey = GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
-  final _nameController = TextEditingController();
-  final _descriptionController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _notesController = TextEditingController();
   final _broadcastingLinkController = TextEditingController();
   List<TextEditingController> settingsNamesControllers = [];
   List<TextEditingController> settingsValuesControllers = [];
@@ -101,6 +105,7 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
         child: Column(
           children: [
             Stepper(
+              physics: const ClampingScrollPhysics(),
               currentStep: _index,
               onStepTapped: (int index) {
                 setState(() {
@@ -154,14 +159,14 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
     return Column(
       children: [
         const BoundWidget(BoundType.huge),
-        InputTextWidget("Race Title", Icons.title, _nameController, (value) {
+        InputTextWidget("Race Title", Icons.title, _titleController, (value) {
           if (value == null || value.isEmpty == true) {
             return 'Required';
           }
           return null;
         }),
         const BoundWidget(BoundType.huge),
-        InputTextWidget("Notes", Icons.title, _descriptionController, (value) {
+        InputTextWidget("Notes", Icons.title, _notesController, (value) {
           return null;
         }, inputType: InputType.multilines),
         const BoundWidget(BoundType.huge),
@@ -327,9 +332,12 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
             type: ButtonType.borderless,
             onPressed: () async {
               setState(() {
-                settingsModel.add(SettingsModel('', ''));
-                settingsNamesControllers.add(TextEditingController());
-                settingsValuesControllers.add(TextEditingController());
+                var name = TextEditingController();
+                var value = TextEditingController();
+                settingsModel
+                    .add(SettingsModel(name: name.text, value: value.text));
+                settingsNamesControllers.add(name);
+                settingsValuesControllers.add(value);
               });
             },
             label: 'New setting'),
@@ -376,7 +384,7 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
                     type: ButtonType.icon,
                     onPressed: () async {
                       Clipboard.getData(Clipboard.kTextPlain).then((value) {
-                        _broadcastinLinkController.text =
+                        _broadcastingLinkController.text =
                             value?.text?.trim().replaceAll(' ', '') ?? '';
                       });
                     },
@@ -394,7 +402,35 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
     return ButtonWidget(
       enabled: _formKey.currentState?.validate() == true,
       type: ButtonType.normal,
-      onPressed: () {},
+      onPressed: () {
+        for (var i = 0; i < settingsModel.length; i++) {
+          settingsModel[i]?.name = settingsNamesControllers[i].text;
+          settingsModel[i]?.value = settingsValuesControllers[i].text;
+        }
+
+        var race = RaceModel(
+            date: eventDate.toIso8601String(),
+            hour: eventDate.hour.toString(),
+            notes: _notesController.text,
+            title: _titleController.text,
+            broadcasting: hasBroadcasting,
+            settings: settingsModel);
+
+        var event = EventModel(
+          races: [race],
+          teamsEnabled: allowTeams,
+          membersOnly: allowMembersOnly,
+        );
+
+        List<int> bannerBytes = [];
+        try {
+          bannerBytes = bannerFile.readAsBytesSync();
+        } catch (e) {}
+        String bannerImage = base64Encode(bannerBytes);
+        var media = MediaModel(bannerImage);
+
+        widget.viewModel.create(event, media);
+      },
       label: "Create",
     );
   }

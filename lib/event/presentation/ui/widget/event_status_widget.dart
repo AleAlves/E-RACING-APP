@@ -3,27 +3,27 @@ import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../event_view_model.dart';
+import '../event_flow.dart';
 
-class CreateEventWidget extends StatefulWidget {
+class EventStatusWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const CreateEventWidget(this.viewModel, {Key? key}) : super(key: key);
+  const EventStatusWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _CreateEventWidgetState createState() => _CreateEventWidgetState();
+  _EventStatusWidgetState createState() => _EventStatusWidgetState();
 }
 
-class _CreateEventWidgetState extends State<CreateEventWidget>
+class _EventStatusWidgetState extends State<EventStatusWidget>
     implements BaseSateWidget {
   @override
   void initState() {
     super.initState();
+    widget.viewModel.state = ViewState.ready;
   }
 
   @override
@@ -31,9 +31,6 @@ class _CreateEventWidgetState extends State<CreateEventWidget>
 
   @override
   Observer mainObserver() => Observer(builder: (_) => viewState());
-
-  @override
-  observers() {}
 
   @override
   ViewStateWidget viewState() {
@@ -44,42 +41,34 @@ class _CreateEventWidgetState extends State<CreateEventWidget>
   }
 
   @override
-  Future<bool> onBackPressed() async {
-    Modular.to.pop();
-    return false;
-  }
-
-  @override
   Widget content() {
-    return Align(
-      alignment: Alignment.center,
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const TextWidget(text: "Choose a type of event", style: Style.title),
-          const BoundWidget(BoundType.huge),
-          const BoundWidget(BoundType.huge),
+          TextWidget(
+              text: widget.viewModel.status?.message ?? '',
+              style: Style.description),
+          const BoundWidget(BoundType.medium),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,
             onPressed: () {
-              widget.viewModel.flow = EventFlows.createRace;
+              widget.viewModel.setFlow(widget.viewModel.status?.next);
             },
-            label: "Single race",
-          ),
-          const BoundWidget(BoundType.huge),
-          const TextWidget(text: "or", style: Style.subtitle),
-          const BoundWidget(BoundType.huge),
-          ButtonWidget(
-            enabled: true,
-            type: ButtonType.normal,
-            onPressed: () {
-              widget.viewModel.flow = EventFlows.createChampionship;
-            },
-            label: "Championship",
-          ),
+            label: widget.viewModel.status?.action ?? '',
+          )
         ],
       ),
     );
+  }
+
+  @override
+  observers() {}
+
+  @override
+  Future<bool> onBackPressed() async {
+    widget.viewModel.setFlow(EventFlows.list);
+    return false;
   }
 }

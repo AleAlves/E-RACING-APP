@@ -4,16 +4,16 @@ part 'entry_model.g.dart';
 
 @JsonSerializable()
 class EntryModel {
-  late int? number;
-  late int? laps;
-  late int? bonus;
-  late int? points;
-  late int? penalty;
-  late int? position;
-  late String? notes;
-  late String? pilotId;
-  late int? fastesLapTime;
-  late bool? disqualified;
+  final int? number;
+  final int? laps;
+  final int? bonus;
+  final int? points;
+  final int? penalty;
+  final int? position;
+  final String? notes;
+  final String? pilotId;
+  final int? fastesLapTime;
+  final bool? disqualified;
 
   EntryModel({
     required this.number,

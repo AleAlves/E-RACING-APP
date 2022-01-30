@@ -8,8 +8,8 @@ part of 'settings_model.dart';
 
 SettingsModel _$SettingsModelFromJson(Map<String, dynamic> json) =>
     SettingsModel(
-      json['name'] as String?,
-      json['value'] as String?,
+      name: json['name'] as String?,
+      value: json['value'] as String?,
     );
 
 Map<String, dynamic> _$SettingsModelToJson(SettingsModel instance) =>

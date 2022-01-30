@@ -4,10 +4,10 @@ part 'settings_model.g.dart';
 
 @JsonSerializable()
 class SettingsModel {
-  late String? name;
-  late String? value;
+  String? name;
+  String? value;
 
-  SettingsModel(this.name, this.value);
+  SettingsModel({required this.name, required this.value});
 
   factory SettingsModel.fromJson(Map<String, dynamic> json) => _$SettingsModelFromJson(json);
 

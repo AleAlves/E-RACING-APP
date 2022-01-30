@@ -31,17 +31,17 @@ class HTTPRequesParams {
       if (safe) {
         switch (cypherSchema) {
           case CypherSchema.rsa:
-            data = CryptoService.instance.rsaEncrypt(
-                Session.instance.getRSAKey()?.publicKey, jsonEncode(data));
+            data = CryptoService.instance
+                .rsaEncrypt(Session.instance.getRSAKey()?.publicKey, _encode());
             break;
           case CypherSchema.aes:
           default:
-            data = CryptoService.instance.aesEncrypt(jsonEncode(data));
+            data = CryptoService.instance.aesEncrypt(_encode());
             break;
         }
       } else {
         if (jsonEncoded) {
-          data = jsonEncode(data);
+          data = _encode();
         }
       }
     }
@@ -64,5 +64,13 @@ class HTTPRequesParams {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {"data": data, "safe": safe};
     return json;
+  }
+
+  String _encode() {
+    try {
+      return jsonEncode(data);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

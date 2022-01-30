@@ -1,6 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/core/ui/model/float_action_button_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/main.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +62,7 @@ class _EventListWidgetState extends State<EventListWidget>
               itemBuilder: (context, index) {
                 return TextWidget(
                     text:
-                        widget.viewModel.events?[index]?.type.toString() ?? '',
+                        widget.viewModel.events?[index]?.title.toString() ?? '',
                     style: Style.description);
               },
             ),
@@ -72,7 +71,7 @@ class _EventListWidgetState extends State<EventListWidget>
         floatingActionButton: FloatingActionButton(
           backgroundColor: ERcaingApp.color.shade200,
           onPressed: () {
-            widget.viewModel.setFlow(EventFlow.create);
+            widget.viewModel.setFlow(EventFlows.create);
           },
           child: const Icon(
             Icons.add,

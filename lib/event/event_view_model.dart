@@ -13,6 +13,7 @@ import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
+import 'domain/create_event_usecase.dart';
 import 'presentation/ui/event_flow.dart';
 
 part 'event_view_model.g.dart';
@@ -35,7 +36,7 @@ abstract class _EventViewModel with Store {
   StatusModel? status;
 
   @observable
-  EventFlow flow = EventFlow.list;
+  EventFlows flow = EventFlows.list;
 
   @observable
   ViewState state = ViewState.ready;
@@ -55,7 +56,9 @@ abstract class _EventViewModel with Store {
   final getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
   final getTagUseCase = Modular.get<GetTagUseCase>();
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
-  final fetchEventsUseCase = Modular.get<FetchEventsUseCase<List<EventModel>>>();
+  final fetchEventsUseCase =
+      Modular.get<FetchEventsUseCase<List<EventModel>>>();
+  final createEvent = Modular.get<CreateEventUseCase<StatusModel>>();
 
   @action
   init() async {
@@ -100,7 +103,7 @@ abstract class _EventViewModel with Store {
         error: onError);
   }
 
-  void deeplink({String? deepLink, EventFlow? flow}) {
+  void deeplink({String? deepLink, EventFlows? flow}) {
     if (deepLink != null) {
       Modular.to.pushNamed(deepLink);
     } else if (flow != null) {
@@ -108,22 +111,32 @@ abstract class _EventViewModel with Store {
     }
   }
 
+  void create(EventModel event, MediaModel media) async {
+    state = ViewState.loading;
+    await createEvent
+        .build(event: event, media: media)
+        .invoke(success: (data) {
+      status = data;
+      setFlow(EventFlows.status);
+    }, error: onError);
+  }
+
   void onError(ApiException error) {
     status = StatusModel(
       message: error.message(),
       action: "Ok",
-      next: EventFlow.list,
+      next: EventFlows.list,
       previous: flow,
     );
     if (error.isBusiness()) {
       state = ViewState.ready;
-      flow = EventFlow.status;
+      flow = EventFlows.status;
     } else {
       state = ViewState.error;
     }
   }
 
-  void setFlow(EventFlow flow) {
+  void setFlow(EventFlows flow) {
     this.flow = flow;
   }
 }

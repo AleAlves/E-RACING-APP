@@ -7,29 +7,28 @@ part 'race_model.g.dart';
 @JsonSerializable()
 class RaceModel {
   @JsonKey(name: '_id')
-  late String? id;
-  late String? date;
-  late String? hour;
-  late String? title;
-  late String? notes;
-  late int? position;
-  late bool? finished;
-  late String? pilotId;
-  late bool? broadcasting;
-  late List<EntryModel?>? entries;
-  late List<SettingsModel?>? settings;
+  final String? id;
+  final String? date;
+  final String? hour;
+  final String? title;
+  final String? notes;
+  final bool? finished;
+  final bool? broadcasting;
+  final String? broadcastLink;
+  final List<EntryModel?>? entries;
+  final List<SettingsModel?>? settings;
 
   RaceModel({
-    required this.id,
     required this.date,
-    required this.notes,
     required this.title,
-    required this.position,
-    required this.finished,
-    required this.pilotId,
-    required this.broadcasting,
-    required this.entries,
-    required this.settings,
+    required this.hour,
+    this.finished,
+    this.id,
+    this.notes,
+    this.entries,
+    this.settings,
+    this.broadcasting,
+    this.broadcastLink,
   });
 
   factory RaceModel.fromJson(Map<String, dynamic> json) =>

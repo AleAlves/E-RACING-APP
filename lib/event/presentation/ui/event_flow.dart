@@ -2,9 +2,10 @@ import 'package:e_racing_app/event/event_view_model.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_race_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_list_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_status_widget.dart';
 import 'package:flutter/cupertino.dart';
 
-enum EventFlow {
+enum EventFlows {
   list,
   edit,
   delete,
@@ -17,27 +18,27 @@ enum EventFlow {
   createChampionship
 }
 
-extension EventNavigation on EventFlow {
+extension EventNavigation on EventFlows {
   static Widget flow(EventViewModel vm) {
     switch (vm.flow) {
-      case EventFlow.list:
+      case EventFlows.list:
         return EventListWidget(vm);
-      case EventFlow.create:
+      case EventFlows.create:
         return CreateEventWidget(vm);
-      case EventFlow.createRace:
+      case EventFlows.createRace:
         return CreateEventRaceWidget(vm);
-      case EventFlow.createChampionship:
+      case EventFlows.createChampionship:
         return CreateEventRaceWidget(vm);
-      case EventFlow.detail:
+      case EventFlows.detail:
         return Container();
-      case EventFlow.edit:
+      case EventFlows.edit:
         return Container();
-      case EventFlow.join:
+      case EventFlows.join:
         return Container();
-      case EventFlow.error:
+      case EventFlows.error:
         return Container();
-      case EventFlow.status:
-        return Container();
+      case EventFlows.status:
+        return EventStatusWidget(vm);
       default:
         return Container();
     }

@@ -12,41 +12,38 @@ enum EventState { idle, ongoing, finished }
 @JsonSerializable()
 class EventModel {
   @JsonKey(name: '_id')
-  late String? id;
-  late String? hour;
-  late String? title;
-  late String? rules;
-  late bool? finished;
-  late bool? joinable;
-  late String? hostId;
-  late String? type;
-  late String? state;
-  late bool? teamsEnabled;
-  late bool? broadcasting;
-  late bool? membersOnly;
-  late List<int?>? scoring;
-  late List<RaceModel?>? races;
-  late List<TeamModel?>? teams;
-  late List<String?>? attenders;
-  late List<SettingsModel?>? settings;
+  final String? id;
+  final String? title;
+  final String? rules;
+  final bool? finished;
+  final bool? joinable;
+  final String? hostId;
+  final String? type;
+  final String? state;
+  final bool? teamsEnabled;
+  final bool? membersOnly;
+  final List<int?>? scoring;
+  final List<RaceModel?>? races;
+  final List<TeamModel?>? teams;
+  final List<String?>? attenders;
+  final List<SettingsModel?>? settings;
 
   EventModel({
-    required this.id,
-    required this.teams,
-    required this.type,
-    required this.hour,
+    this.id,
+    this.teams,
+    this.type,
+    this.rules,
+    this.title,
+    this.state,
+    this.hostId,
+    this.scoring,
+    this.joinable,
+    this.settings,
+    this.finished,
+    this.attenders,
     required this.races,
-    required this.rules,
-    required this.title,
-    required this.state,
-    required this.hostId,
-    required this.scoring,
-    required this.joinable,
-    required this.settings,
-    required this.finished,
     required this.membersOnly,
     required this.teamsEnabled,
-    required this.broadcasting,
   });
 
   factory EventModel.fromJson(Map<String, dynamic> json) =>

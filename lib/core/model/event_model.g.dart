@@ -13,11 +13,6 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
               e == null ? null : TeamModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       type: json['type'] as String?,
-      hour: json['hour'] as String?,
-      races: (json['races'] as List<dynamic>?)
-          ?.map((e) =>
-              e == null ? null : RaceModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
       rules: json['rules'] as String?,
       title: json['title'] as String?,
       state: json['state'] as String?,
@@ -31,17 +26,20 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
               : SettingsModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       finished: json['finished'] as bool?,
+      attenders: (json['attenders'] as List<dynamic>?)
+          ?.map((e) => e as String?)
+          .toList(),
+      races: (json['races'] as List<dynamic>?)
+          ?.map((e) =>
+              e == null ? null : RaceModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       membersOnly: json['membersOnly'] as bool?,
       teamsEnabled: json['teamsEnabled'] as bool?,
-      broadcasting: json['broadcasting'] as bool?,
-    )..attenders = (json['attenders'] as List<dynamic>?)
-        ?.map((e) => e as String?)
-        .toList();
+    );
 
 Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
-      'hour': instance.hour,
       'title': instance.title,
       'rules': instance.rules,
       'finished': instance.finished,
@@ -50,7 +48,6 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'type': instance.type,
       'state': instance.state,
       'teamsEnabled': instance.teamsEnabled,
-      'broadcasting': instance.broadcasting,
       'membersOnly': instance.membersOnly,
       'scoring': instance.scoring,
       'races': instance.races,
