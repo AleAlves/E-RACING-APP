@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../main.dart';
+
 enum Style { description, title, subtitle, label, note }
 
 class TextWidget extends StatelessWidget {
@@ -13,7 +15,7 @@ class TextWidget extends StatelessWidget {
       {required this.text,
       required this.style,
       this.align = TextAlign.center,
-      this.textColor = Colors.black87,
+      this.textColor = Colors.black,
       Key? key})
       : super(key: key);
 
@@ -64,7 +66,7 @@ class TextWidget extends StatelessWidget {
         return TextStyle(
           fontFamily: 'Roboto',
           overflow: TextOverflow.fade,
-          fontWeight: FontWeight.w200,
+          fontWeight: FontWeight.w300,
           fontSize: 10.0,
           color: textColor,
         );

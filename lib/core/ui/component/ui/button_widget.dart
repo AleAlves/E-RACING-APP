@@ -102,14 +102,16 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             child: IconButton(
                 icon: Icon(
                   widget.icon,
-                  size: 16,
+                  size: 24,
                 ),
                 color: ERcaingApp.color.shade100,
                 onPressed: widget.enabled ? widget.onPressed : null),
           ),
         ),
         const BoundWidget(BoundType.small),
-        TextWidget(text: widget.label ?? '', style: Style.label)
+        widget.label == null
+            ? Container()
+            : TextWidget(text: widget.label ?? '', style: Style.label)
       ],
     );
   }

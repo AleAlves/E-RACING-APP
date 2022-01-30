@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/picture_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,17 +62,17 @@ class LeagueItemWidget extends StatelessWidget {
                     ? Container()
                     : Wrap(
                         spacing: 1.0,
-                        runSpacing: 0.0,
+                        runSpacing: 2.0,
                         children: leagueTags!
                             .map((tag) {
                               return Padding(
-                                padding: const EdgeInsets.all(2.0),
+                                padding: const EdgeInsets.all(4.0),
                                 child: Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: ERcaingApp.color.shade50),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
+                                    padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
                                     child: TextWidget(
                                         text: tags
                                                 ?.firstWhere(
@@ -96,6 +97,13 @@ class LeagueItemWidget extends StatelessWidget {
           children: const [Icon(Icons.chevron_right)],
         )
       ],
+    );
+  }
+
+  Widget tagsWidget() {
+    return TagCollectionWidget(
+      tagIds: leagueTags,
+      tags: tags,
     );
   }
 }

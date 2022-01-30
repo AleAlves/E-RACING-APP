@@ -1,22 +1,25 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/model/float_action_button_model.dart';
+import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../event_view_model.dart';
 
-class CreateListWidget extends StatefulWidget {
+class CreateEventWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const CreateListWidget(this.viewModel, {Key? key}) : super(key: key);
+  const CreateEventWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _CreateListWidgetState createState() => _CreateListWidgetState();
+  _CreateEventWidgetState createState() => _CreateEventWidgetState();
 }
 
-class _CreateListWidgetState extends State<CreateListWidget>
+class _CreateEventWidgetState extends State<CreateEventWidget>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -48,6 +51,35 @@ class _CreateListWidgetState extends State<CreateListWidget>
 
   @override
   Widget content() {
-    return Container();
+    return Align(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const TextWidget(text: "Choose a type of event", style: Style.title),
+          const BoundWidget(BoundType.huge),
+          const BoundWidget(BoundType.huge),
+          ButtonWidget(
+            enabled: true,
+            type: ButtonType.normal,
+            onPressed: () {
+              widget.viewModel.flow = EventFlow.createRace;
+            },
+            label: "Single race",
+          ),
+          const BoundWidget(BoundType.huge),
+          const TextWidget(text: "or", style: Style.subtitle),
+          const BoundWidget(BoundType.huge),
+          ButtonWidget(
+            enabled: true,
+            type: ButtonType.normal,
+            onPressed: () {
+              widget.viewModel.flow = EventFlow.createChampionship;
+            },
+            label: "Championship",
+          ),
+        ],
+      ),
+    );
   }
 }

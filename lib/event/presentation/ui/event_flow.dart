@@ -1,8 +1,21 @@
 import 'package:e_racing_app/event/event_view_model.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_create_race_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_create_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_list_widget.dart';
 import 'package:flutter/cupertino.dart';
 
-enum EventFlow { list, create, edit, delete, join, detail, error, status }
+enum EventFlow {
+  list,
+  edit,
+  delete,
+  join,
+  detail,
+  error,
+  status,
+  create,
+  createRace,
+  createChampionship
+}
 
 extension EventNavigation on EventFlow {
   static Widget flow(EventViewModel vm) {
@@ -10,7 +23,11 @@ extension EventNavigation on EventFlow {
       case EventFlow.list:
         return EventListWidget(vm);
       case EventFlow.create:
-        return Container();
+        return CreateEventWidget(vm);
+      case EventFlow.createRace:
+        return CreateEventRaceWidget(vm);
+      case EventFlow.createChampionship:
+        return CreateEventRaceWidget(vm);
       case EventFlow.detail:
         return Container();
       case EventFlow.edit:

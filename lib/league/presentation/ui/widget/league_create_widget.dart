@@ -349,6 +349,8 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
           List<int> emblemBytes = [];
           try {
             imageBytes = bannerFile.readAsBytesSync();
+          } catch (e) {}
+          try {
             emblemBytes = emblemFile.readAsBytesSync();
           } catch (e) {}
           String bannerImage = base64Encode(imageBytes);

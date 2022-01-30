@@ -111,8 +111,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
 
   Widget social() {
     return SocialCollectionWidget(
-      hide: widget.viewModel.league != null &&
-          widget.viewModel.league?.links != null,
+      hide: widget.viewModel.league?.links == null,
       links: widget.viewModel.league?.links,
       socialPlatforms: widget.viewModel.socialMedias,
     );

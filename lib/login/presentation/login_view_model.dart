@@ -48,10 +48,12 @@ abstract class _LoginViewModel with Store {
 
   final publicKeyUseCase = Modular.get<GetPublicKeyUseCase<PublicKeyModel>>();
   final loginUseCase = Modular.get<LoginUseCase<LoginResponse>>();
-  final toogleUseCase = Modular.get<Toogle2FAUseCase<Pair<StatusModel, String>>>();
+  final toogleUseCase =
+      Modular.get<Toogle2FAUseCase<Pair<StatusModel, String>>>();
   final login2FAUseCase = Modular.get<Login2FAUseCase<StatusModel>>();
   final signInUseCase = Modular.get<SignInUseCase<StatusModel>>();
-  final forgotPasswordUseCase = Modular.get<ForgotPasswordUseCase<StatusModel>>();
+  final forgotPasswordUseCase =
+      Modular.get<ForgotPasswordUseCase<StatusModel>>();
   final resetPasswordUseCase = Modular.get<ResetPasswordUseCase<StatusModel>>();
   final getUserUseCase = Modular.get<GetUserUseCase<UserModel?>>();
   final saveUserUseCase = Modular.get<SaveUserUseCase>();
@@ -147,14 +149,14 @@ abstract class _LoginViewModel with Store {
     state = ViewState.loading;
     await getUserUseCase.invoke(
         success: (data) {
-          if (data != null) {
+          if (data != null && loginAutomatically) {
             user = data;
-            if (loginAutomatically) {
-              login(data.profile?.email ?? '', data.auth?.password ?? '');
-            }
+            state = ViewState.loading;
+            login(data.profile?.email ?? '', data.auth?.password ?? '');
+          } else {
+            state = ViewState.ready;
+            flow = LoginWidgetFlow.login;
           }
-          state = ViewState.ready;
-          flow = LoginWidgetFlow.login;
         },
         error: onError);
   }

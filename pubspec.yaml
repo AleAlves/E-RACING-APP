@@ -48,6 +48,7 @@ dependencies:
   flutter_tags: 1.0.0-nullsafety.1
   font_awesome_flutter: ^9.2.0
   carousel_slider: ^4.0.0
+  flutter_datetime_picker: ^1.5.1
 
 dev_dependencies:
   flutter_test:

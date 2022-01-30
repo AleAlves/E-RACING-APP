@@ -87,7 +87,18 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
         return FontAwesomeIcons.whatsapp;
       case "discord":
         return FontAwesomeIcons.discord;
+      case "telegram":
+        return FontAwesomeIcons.telegram;
+      case "instagram":
+        return FontAwesomeIcons.instagram;
+      case "facebook":
+        return FontAwesomeIcons.facebook;
+      case "youtube":
+        return FontAwesomeIcons.youtube;
+      case "twitch":
+        return FontAwesomeIcons.twitch;
       case "site":
+      case "blog":
       default:
         return FontAwesomeIcons.globe;
     }

@@ -413,6 +413,8 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
           List<LinkModel?> linksList = [];
           try {
             bannerBytes = bannerFile.readAsBytesSync();
+          } catch (e) {}
+          try {
             emblemBytes = emblemFile.readAsBytesSync();
           } catch (e) {}
           String bannerImage = base64Encode(bannerBytes);

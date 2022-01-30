@@ -29,7 +29,13 @@ class InputTextWidget extends StatelessWidget {
       case BorderType.normal:
         border = InputDecoration(
           labelText: label,
-          fillColor: Colors.white,
+          fillColor: Colors.green,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide: const BorderSide(
+              width: 0.5,
+            ),
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
             borderSide: const BorderSide(
@@ -37,6 +43,12 @@ class InputTextWidget extends StatelessWidget {
             ),
           ),
           enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide: const BorderSide(
+              width: 0.5,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
             borderSide: const BorderSide(
               width: 0.5,
@@ -89,7 +101,7 @@ class InputTextWidget extends StatelessWidget {
             controller: controller,
             validator: validator,
             onChanged: onChange,
-            minLines: 10,
+            minLines: 5,
             maxLines: 10,
             decoration: border,
           ),

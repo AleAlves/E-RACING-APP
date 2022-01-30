@@ -23,6 +23,7 @@ class EventModel {
   late String? state;
   late bool? teamsEnabled;
   late bool? broadcasting;
+  late bool? membersOnly;
   late List<int?>? scoring;
   late List<RaceModel?>? races;
   late List<TeamModel?>? teams;
@@ -43,6 +44,7 @@ class EventModel {
     required this.joinable,
     required this.settings,
     required this.finished,
+    required this.membersOnly,
     required this.teamsEnabled,
     required this.broadcasting,
   });
