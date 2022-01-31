@@ -1,3 +1,4 @@
+import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
@@ -22,8 +23,19 @@ class ScoringWidget extends StatefulWidget {
 }
 
 class _ScoringWidgetState extends State<ScoringWidget> {
-  final _scoreController = TextEditingController();
-  var scoring = [25, 18, 16, 14, 12, 10, 8, 6, 4, 3, 2, 1];
+  var scoring = [
+    Pair(25, TextEditingController()),
+    Pair(18, TextEditingController()),
+    Pair(14, TextEditingController()),
+    Pair(12, TextEditingController()),
+    Pair(10, TextEditingController()),
+    Pair(8, TextEditingController()),
+    Pair(6, TextEditingController()),
+    Pair(4, TextEditingController()),
+    Pair(3, TextEditingController()),
+    Pair(2, TextEditingController()),
+    Pair(1, TextEditingController()),
+  ];
 
   @override
   void initState() {
@@ -36,23 +48,17 @@ class _ScoringWidgetState extends State<ScoringWidget> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
+          const TextWidget(text: "Tap to edit", style: Style.description),
+          const BoundWidget(BoundType.xl),
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.start,
             alignment: WrapAlignment.start,
             spacing: 5.0,
             children: scoring
-                .map((item) {
+                .map((score) {
+                  score.second?.text = score.first.toString();
                   return CardWidget(
                     color: ERcaingApp.color.shade50,
-                    onPressed: () {
-                      showMaterialModalBottomSheet(
-                        context: context,
-                        builder: (context) => InputTextWidget(
-                            label: "Score",
-                            controller: _scoreController,
-                            validator: (value) {}),
-                      );
-                    },
                     ready: true,
                     child: SizedBox(
                       height: 20,
@@ -60,11 +66,53 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                       child: Align(
                         alignment: Alignment.center,
                         child: TextWidget(
-                          text: item.toString(),
+                          text: score.first.toString(),
                           style: Style.label,
                         ),
                       ),
                     ),
+                    onPressed: () {
+                      setState(() {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (context) => SizedBox(
+                            height: MediaQuery.of(context).size.height / 5 +
+                              MediaQuery.of(context).viewInsets.bottom,
+                            child: Column(
+                              children: [
+                                const BoundWidget(BoundType.medium),
+                                Padding(
+                                  padding: const EdgeInsets.all(24.0),
+                                  child: InputTextWidget(
+                                      label: "Set Score",
+                                      controller: score.second,
+                                      inputType: InputType.number,
+                                      validator: (value) {
+                                        if (value == null || double.tryParse(value) == null) {
+                                          return "invalid score value";
+                                        }
+                                      }),
+                                ),
+                                const BoundWidget(BoundType.medium),
+                                ButtonWidget(
+                                    enabled: true,
+                                    label: "apply",
+                                    type: ButtonType.important,
+                                    icon: Icons.remove,
+                                    onPressed: () async {
+                                      setState(() {
+                                        score.first = int.parse(
+                                            score.second?.text ?? "0");
+                                        Navigator.of(context).pop();
+                                      });
+                                    }),
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                    },
                   );
                 })
                 .toList()
@@ -91,7 +139,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                   icon: Icons.add,
                   onPressed: () async {
                     setState(() {
-                      scoring.add(0);
+                      scoring.add(Pair(0, TextEditingController()));
                     });
                   }),
             ],

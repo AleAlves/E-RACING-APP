@@ -80,7 +80,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: widget.enabled
-                ? ERcaingApp.color.shade200
+                ? ERcaingApp.ascent
                 : ERcaingApp.color.shade50),
         onPressed: widget.enabled ? widget.onPressed : null,
         child: Text(widget.label ?? ''),
@@ -104,7 +104,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                   widget.icon,
                   size: 24,
                 ),
-                color: ERcaingApp.color.shade100,
+                color: Colors.black87,
                 onPressed: widget.enabled ? widget.onPressed : null),
           ),
         ),

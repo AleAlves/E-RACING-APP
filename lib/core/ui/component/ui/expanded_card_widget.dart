@@ -36,7 +36,6 @@ class _ClassExpandedCardHolderWidgetState
 
   Widget content() {
     return ExpansionTile(
-        backgroundColor: ERcaingApp.color.shade50,
         title: Padding(
           padding: const EdgeInsets.only(top: 24.0, bottom: 24.0),
           child: widget.ready ? widget.header : const LoadingShimmer(height: 10,),
@@ -45,19 +44,16 @@ class _ClassExpandedCardHolderWidgetState
         trailing: Padding(
           padding: const EdgeInsets.only(top: 24.0),
           child: Ink(
-              decoration: ShapeDecoration(
-                color: ERcaingApp.color.shade200,
-                shape: const CircleBorder(),
+              decoration: const ShapeDecoration(
+                shape: CircleBorder(),
               ),
               child: _expanded
                   ? const Icon(
                 Icons.keyboard_arrow_up,
-                color: Colors.white,
                 size: 20.0,
               )
                   : const Icon(
                 Icons.keyboard_arrow_down,
-                color: Colors.white,
                 size: 20.0,
               ),),
         ),

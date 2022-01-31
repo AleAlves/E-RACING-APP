@@ -17,8 +17,7 @@ class ShortcutWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          side: const BorderSide(width: 0.5, color: ERcaingApp.color),
-          primary: ERcaingApp.color.shade100),
+          side: const BorderSide(width: 0.5),),
       onPressed: () {
         onPressed.call(shortcut);
       },
@@ -31,7 +30,7 @@ class ShortcutWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Icon(shortcut?.icon, color: ERcaingApp.color),
+                child: Icon(shortcut?.icon),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -41,7 +40,6 @@ class ShortcutWidget extends StatelessWidget {
                     TextWidget(
                       text: shortcut?.title ?? "",
                       style: Style.description,
-                      textColor: ERcaingApp.color,
                     ),
                   ],
                 ),

@@ -8,20 +8,19 @@ void main() => runApp(ModularApp(
     ));
 
 class ERcaingApp extends StatelessWidget {
-  static const MaterialColor color = MaterialColor(0xFF210063, <int, Color>{
-    50: Color(0xffe7e7e7),
-    100: Color(0xfffcfcfc),
-    200: Color(0xffba1111),
-    300: Color(0xFFBA68C8),
-    400: Color(0xFFAB47BC),
-    500: Color(0xFF522AA3),
-    600: Color(0xFF8E24AA),
-    700: Color(0xFF7B1FA2),
-    800: Color(0xFF6A1B9A),
-    900: Color(0xFF4A148C),
+  static const MaterialColor ascent = MaterialColor(0xffba1111, <int, Color>{});
+  static const MaterialColor color = MaterialColor(0xFFFFBA60, <int, Color>{
+    50: Color(0xFFFFF7EC),
+    100: Color(0xFFFFEACF),
+    200: Color(0xFFFFDDB0),
+    300: Color(0xFFFFCF90),
+    400: Color(0xFFFFC478),
+    500: Color(0xFFFFBA60),
+    600: Color(0xFFFFB358),
+    700: Color(0xFFFFAB4E),
+    800: Color(0xFFFFA344),
+    900: Color(0xFFFF9433),
   });
-  final Color primaryDar = const Color(0x42000000);
-  final Color primary = const Color(0xFF232323);
 
   const ERcaingApp({Key? key}) : super(key: key);
 
@@ -29,10 +28,11 @@ class ERcaingApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'E-Racing',
-      theme: ThemeData(
+      theme: ThemeData.dark().copyWith(
         appBarTheme: const AppBarTheme(),
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: color, accentColor: color.shade100)
-            .copyWith(secondary: color.shade100),
+        colorScheme: ColorScheme.fromSwatch(
+                primarySwatch: color, accentColor: ascent)
+            .copyWith(secondary: ascent),
       ),
     ).modular();
   }

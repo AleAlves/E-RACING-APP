@@ -69,7 +69,7 @@ class _EventListWidgetState extends State<EventListWidget>
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: ERcaingApp.color.shade200,
+          backgroundColor: ERcaingApp.ascent,
           onPressed: () {
             widget.viewModel.setFlow(EventFlows.create);
           },

@@ -41,7 +41,6 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
         : CardWidget(
             ready: widget.links != null,
             placeholderHeight: 100,
-            onPressed: () {},
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Row(

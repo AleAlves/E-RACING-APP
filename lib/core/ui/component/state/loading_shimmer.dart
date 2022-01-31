@@ -23,7 +23,7 @@ class LoadingShimmer extends StatelessWidget {
             height: height ?? 75,
           ),
         ),
-        baseColor: ERcaingApp.color.shade50,
+        baseColor: ERcaingApp.color,
         highlightColor: ERcaingApp.color.shade100);
   }
 }

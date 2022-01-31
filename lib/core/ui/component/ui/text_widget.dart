@@ -9,13 +9,11 @@ class TextWidget extends StatelessWidget {
   final String text;
   final Style style;
   final TextAlign align;
-  final Color textColor;
 
   const TextWidget(
       {required this.text,
       required this.style,
       this.align = TextAlign.center,
-      this.textColor = Colors.black,
       Key? key})
       : super(key: key);
 
@@ -31,44 +29,39 @@ class TextWidget extends StatelessWidget {
   TextStyle _getStyle() {
     switch (style) {
       case Style.title:
-        return TextStyle(
+        return const TextStyle(
           fontFamily: 'Roboto',
           overflow: TextOverflow.fade,
           fontWeight: FontWeight.w300,
-          color: textColor,
           fontSize: 32.0,
         );
       case Style.subtitle:
-        return TextStyle(
+        return const TextStyle(
           fontFamily: 'Roboto',
           overflow: TextOverflow.fade,
           fontWeight: FontWeight.w300,
           fontSize: 24.0,
-          color: textColor,
         );
       case Style.description:
-        return TextStyle(
+        return const TextStyle(
           fontFamily: 'Roboto',
           overflow: TextOverflow.fade,
           fontWeight: FontWeight.w300,
           fontSize: 18.0,
-          color: textColor,
         );
       case Style.label:
-        return TextStyle(
+        return const TextStyle(
           fontFamily: 'Roboto',
           overflow: TextOverflow.fade,
           fontWeight: FontWeight.w300,
           fontSize: 12.0,
-          color: textColor,
         );
       case Style.note:
-        return TextStyle(
+        return const TextStyle(
           fontFamily: 'Roboto',
           overflow: TextOverflow.fade,
           fontWeight: FontWeight.w300,
           fontSize: 10.0,
-          color: textColor,
         );
     }
   }

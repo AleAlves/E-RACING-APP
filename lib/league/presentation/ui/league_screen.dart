@@ -1,4 +1,3 @@
-import 'package:e_racing_app/core/ui/component/custom_brackground.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,13 +32,6 @@ class _LeagueScreenState extends State<LeagueScreen> implements BaseScreen {
       ),
       body: Stack(
         children: [
-          SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: CustomPaint(
-              painter: CustomBackground(),
-            ),
-          ),
           Observer(builder: (_) {
             return navigate();
           })

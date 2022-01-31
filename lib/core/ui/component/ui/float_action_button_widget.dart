@@ -25,7 +25,7 @@ class FloatActionButtonWidget<T> extends StatelessWidget {
         child: Align(
             alignment: Alignment.bottomRight,
             child: FloatingActionButton(
-              backgroundColor: ERcaingApp.color.shade200,
+              backgroundColor: ERcaingApp.ascent,
               onPressed: () {
                 onPressed?.call(flow);
               },

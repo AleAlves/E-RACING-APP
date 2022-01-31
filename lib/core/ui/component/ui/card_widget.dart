@@ -13,7 +13,7 @@ class CardWidget extends StatelessWidget {
 
   const CardWidget(
       {required this.child,
-      required this.onPressed,
+        this.onPressed,
       required this.ready,
       this.color,
       this.placeholderHeight,
@@ -27,10 +27,12 @@ class CardWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: ready
           ? Card(
-              color: color ?? ERcaingApp.color.shade100,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: child,
+              child: InkWell(
+                onTap: onPressed,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: child,
+                ),
               ))
           : loading(context),
     );

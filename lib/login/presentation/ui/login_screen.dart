@@ -1,7 +1,6 @@
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:e_racing_app/core/ui/component/custom_brackground.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../login_view_model.dart';
@@ -34,13 +33,6 @@ class _LoginScreenState extends State<LoginScreen> implements BaseScreen {
       ),
       body: Stack(
         children: [
-          SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: CustomPaint(
-              painter: CustomBackground(),
-            ),
-          ),
           Observer(builder: (_) {
             return navigate();
           })

@@ -1,4 +1,3 @@
-import 'package:e_racing_app/core/ui/component/custom_brackground.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/home/presentation/home_view_model.dart';
@@ -36,13 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Stack(
         children: [
-          SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: CustomPaint(
-              painter: CustomBackground(),
-            ),
-          ),
           Observer(builder: (_) {
             return navigation();
           })

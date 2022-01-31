@@ -236,7 +236,7 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
         Row(
           children: [
             Checkbox(
-              activeColor: ERcaingApp.color.shade200,
+              activeColor: ERcaingApp.ascent,
               value: allowTeams,
               onChanged: (bool? value) {
                 setState(() {
@@ -251,7 +251,7 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
         Row(
           children: [
             Checkbox(
-              activeColor: ERcaingApp.color.shade200,
+              activeColor: ERcaingApp.ascent,
               value: allowMembersOnly,
               onChanged: (bool? value) {
                 setState(() {
@@ -374,7 +374,7 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
         Row(
           children: [
             Checkbox(
-              activeColor: ERcaingApp.color.shade200,
+              activeColor: ERcaingApp.ascent,
               value: hasBroadcasting,
               onChanged: (bool? value) {
                 setState(() {
