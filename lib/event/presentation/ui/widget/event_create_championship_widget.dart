@@ -4,18 +4,17 @@ import 'dart:convert';
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
-import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/scoring_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,17 +22,19 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../main.dart';
 import '../../../event_view_model.dart';
 
-class CreateEventRaceWidget extends StatefulWidget {
+class CreateEventChampionshipWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const CreateEventRaceWidget(this.viewModel, {Key? key}) : super(key: key);
+  const CreateEventChampionshipWidget(this.viewModel, {Key? key})
+      : super(key: key);
 
   @override
-  _CreateEventRaceWidgetState createState() => _CreateEventRaceWidgetState();
+  _CreateEventChampionshipWidgetState createState() =>
+      _CreateEventChampionshipWidgetState();
 }
 
-class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
-    implements BaseSateWidget {
+class _CreateEventChampionshipWidgetState
+    extends State<CreateEventChampionshipWidget> implements BaseSateWidget {
   int _index = 0;
   bool allowTeams = false;
   bool allowMembersOnly = false;
@@ -95,7 +96,7 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const TextWidget(text: "Single race", style: Style.title),
+          const TextWidget(text: "Championship", style: Style.title),
           stepper()
         ],
       ),
@@ -131,8 +132,8 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
                   content: basic(),
                 ),
                 Step(
-                  title: const Text('Date'),
-                  content: date(),
+                  title: const Text('Score'),
+                  content: scoring(),
                 ),
                 Step(
                   title: const Text('Classes'),
@@ -143,16 +144,12 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
                   content: options(),
                 ),
                 Step(
-                  title: const Text('Poster'),
+                  title: const Text('Banner'),
                   content: banner(),
                 ),
                 Step(
                   title: const Text('Settings'),
                   content: settings(),
-                ),
-                Step(
-                  title: const Text('Broadcast'),
-                  content: broadcasting(),
                 ),
               ],
             ),
@@ -168,7 +165,7 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
       children: [
         const BoundWidget(BoundType.huge),
         InputTextWidget(
-            label: "Race Title",
+            label: "Title",
             icon: Icons.title,
             controller: _titleController,
             validator: (value) {
@@ -179,7 +176,7 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
             }),
         const BoundWidget(BoundType.huge),
         InputTextWidget(
-            label: "Notes",
+            label: "Rules",
             icon: Icons.title,
             controller: _notesController,
             validator: (value) {
@@ -267,31 +264,8 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
     );
   }
 
-  Widget date() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        TextWidget(
-            text:
-                "${eventDate.hour}:${eventDate.minute}, ${eventDate.day}/${eventDate.month}/${eventDate.year} ",
-            style: Style.subtitle),
-        const BoundWidget(BoundType.huge),
-        ButtonWidget(
-            icon: Icons.date_range,
-            enabled: true,
-            type: ButtonType.icon,
-            onPressed: () {
-              DatePicker.showDateTimePicker(context,
-                  showTitleActions: false,
-                  minTime: DateTime.now(), onChanged: (date) {
-                setState(() {
-                  eventDate = date;
-                });
-              }, currentTime: DateTime.now());
-            }),
-      ],
-    );
+  Widget scoring() {
+    return const ScoringWidget();
   }
 
   Widget settings() {
@@ -507,35 +481,23 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
           settingsModel[i]?.name = settingsNamesControllers[i].text;
           settingsModel[i]?.value = settingsValuesControllers[i].text;
         }
-
         for (var i = 0; i < classesModel.length; i++) {
           classesModel[i]?.name = classesNameControllers[i].text;
           classesModel[i]?.maxEntries =
               int.parse(classesMaxEntriesControllers[i].text);
         }
-
-        var race = RaceModel(
-            date: eventDate.toIso8601String(),
-            hour: eventDate.hour.toString(),
-            notes: _notesController.text,
-            title: _titleController.text,
-            broadcasting: hasBroadcasting,
-            settings: settingsModel);
-
         var event = EventModel(
-          races: [race],
+          races: [],
           classes: classesModel,
           teamsEnabled: allowTeams,
           membersOnly: allowMembersOnly,
         );
-
         List<int> bannerBytes = [];
         try {
           bannerBytes = bannerFile.readAsBytesSync();
         } catch (e) {}
         String bannerImage = base64Encode(bannerBytes);
         var media = MediaModel(bannerImage);
-
         widget.viewModel.create(event, media);
       },
       label: "Create",

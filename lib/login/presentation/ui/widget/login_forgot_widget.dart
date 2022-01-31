@@ -69,15 +69,18 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                   const TextWidget(
                       text: "Recuperação de senha", style: Style.description),
                   const BoundWidget(BoundType.big),
-                  InputTextWidget("Email", Icons.mail, _emailController,
-                      (value) {
-                    if (value == null ||
-                        value.isEmpty == true ||
-                        !value.contains("@")) {
-                      return 'valid email needed';
-                    }
-                    return null;
-                  }),
+                  InputTextWidget(
+                      label: "Email",
+                      icon: Icons.mail,
+                      controller: _emailController,
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty == true ||
+                            !value.contains("@")) {
+                          return 'valid email needed';
+                        }
+                        return null;
+                      }),
                   const BoundWidget(BoundType.xl),
                   ButtonWidget(
                     enabled: true,

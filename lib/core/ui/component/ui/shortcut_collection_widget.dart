@@ -4,6 +4,8 @@ import 'package:e_racing_app/core/ui/component/ui/shortcut_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../main.dart';
+
 class ShortcutCollectionWidget extends StatefulWidget {
   final Function(ShortcutModel?) onPressed;
   final List<ShortcutModel?>? shortcuts;
@@ -34,6 +36,7 @@ class _ShortcutCollectionWidgetState extends State<ShortcutCollectionWidget> {
       children: [
         Expanded(
           child: Card(
+            color: ERcaingApp.color.shade100,
               margin: const EdgeInsets.only(left: 10, top: 8.0),
               child: Padding(
                   padding: const EdgeInsets.all(8.0),

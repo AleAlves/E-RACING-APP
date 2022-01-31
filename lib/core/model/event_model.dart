@@ -1,3 +1,4 @@
+import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/model/team_model.dart';
@@ -25,7 +26,7 @@ class EventModel {
   final List<int?>? scoring;
   final List<RaceModel?>? races;
   final List<TeamModel?>? teams;
-  final List<String?>? attenders;
+  final List<ClassesModel?>? classes;
   final List<SettingsModel?>? settings;
 
   EventModel({
@@ -36,11 +37,11 @@ class EventModel {
     this.title,
     this.state,
     this.hostId,
+    this.classes,
     this.scoring,
     this.joinable,
     this.settings,
     this.finished,
-    this.attenders,
     required this.races,
     required this.membersOnly,
     required this.teamsEnabled,

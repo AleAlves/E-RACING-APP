@@ -180,18 +180,22 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
     return Column(
       children: [
         const BoundWidget(BoundType.huge),
-        InputTextWidget("Nome", Icons.title, _nameController, (value) {
-          if (value == null || value.isEmpty == true) {
-            return 'Name needed';
-          }
-          return null;
-        }),
+        InputTextWidget(
+            label: "Nome",
+            icon: Icons.title,
+            controller: _nameController,
+            validator: (value) {
+              if (value == null || value.isEmpty == true) {
+                return 'Name needed';
+              }
+              return null;
+            }),
         const BoundWidget(BoundType.huge),
         InputTextWidget(
-          "Descrição",
-          Icons.title,
-          _descriptionController,
-          (value) {
+          label: "Descrição",
+          icon: Icons.title,
+          controller: _descriptionController,
+          validator: (value) {
             if (value == null || value.isEmpty == true) {
               return 'Name needed';
             }
@@ -350,11 +354,14 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                   children: [
                     Expanded(
                       child: InputTextWidget(
-                          "Link", Icons.add_link, links[index].second, (value) {
-                        isEditingSocialPlatform = true;
-                        links[index].second?.text = value ?? '';
-                        return null;
-                      }),
+                          label: "Link",
+                          icon: Icons.add_link,
+                          controller: links[index].second,
+                          validator: (value) {
+                            isEditingSocialPlatform = true;
+                            links[index].second?.text = value ?? '';
+                            return null;
+                          }),
                     ),
                     const BoundWidget(BoundType.small),
                     ButtonWidget(

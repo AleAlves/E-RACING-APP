@@ -67,34 +67,46 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
         children: [
           const TextWidget(text: "Create Account", style: Style.description),
           const BoundWidget(BoundType.medium),
-          InputTextWidget('Name', Icons.person, _nameController, (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'valid name needed';
-            }
-            return null;
-          }),
-          const BoundWidget(BoundType.medium),
-          InputTextWidget('Surname', Icons.person, _surnameController, (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'valid surname needed';
-            }
-            return null;
-          }),
-          const BoundWidget(BoundType.medium),
-          InputTextWidget('Email', Icons.mail, _mailController, (value) {
-            if (value == null ||
-                value.isEmpty == true ||
-                !value.contains("@")) {
-              return 'valid email needed';
-            }
-            return null;
-          }),
+          InputTextWidget(
+              label: 'Name',
+              icon: Icons.person,
+              controller: _nameController,
+              validator: (value) {
+                if (value == null || value.isEmpty == true) {
+                  return 'valid name needed';
+                }
+                return null;
+              }),
           const BoundWidget(BoundType.medium),
           InputTextWidget(
-            'Password',
-            Icons.vpn_key,
-            _passwordController,
-            (value) {
+              label: 'Surname',
+              icon: Icons.person,
+              controller: _surnameController,
+              validator: (value) {
+                if (value == null || value.isEmpty == true) {
+                  return 'valid surname needed';
+                }
+                return null;
+              }),
+          const BoundWidget(BoundType.medium),
+          InputTextWidget(
+              label: 'Email',
+              icon: Icons.mail,
+              controller: _mailController,
+              validator: (value) {
+                if (value == null ||
+                    value.isEmpty == true ||
+                    !value.contains("@")) {
+                  return 'valid email needed';
+                }
+                return null;
+              }),
+          const BoundWidget(BoundType.medium),
+          InputTextWidget(
+            label: 'Password',
+            icon: Icons.vpn_key,
+            controller: _passwordController,
+            validator: (value) {
               if (value == null || value.isEmpty == true) {
                 return 'Password needed';
               }
@@ -109,10 +121,10 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
           ),
           const BoundWidget(BoundType.medium),
           InputTextWidget(
-            'Confirm password',
-            Icons.vpn_key,
-            _passwordController,
-            (value) {
+            label: 'Confirm password',
+            icon: Icons.vpn_key,
+            controller: _passwordController,
+            validator: (value) {
               if (value == null || value.isEmpty == true) {
                 return 'Password needed';
               } else if (value != password) {

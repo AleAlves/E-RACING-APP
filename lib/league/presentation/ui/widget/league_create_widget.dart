@@ -135,20 +135,28 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
     return Column(
       children: [
         const BoundWidget(BoundType.huge),
-        InputTextWidget("Nome", Icons.title, _nameController, (value) {
-          if (value == null || value.isEmpty == true) {
-            return 'Name needed';
-          }
-          return null;
-        }),
+        InputTextWidget(
+            label: "Nome",
+            icon: Icons.title,
+            controller: _nameController,
+            validator: (value) {
+              if (value == null || value.isEmpty == true) {
+                return 'Name needed';
+              }
+              return null;
+            }),
         const BoundWidget(BoundType.huge),
-        InputTextWidget("Descrição", Icons.title, _descriptionController,
-            (value) {
-          if (value == null || value.isEmpty == true) {
-            return 'Name needed';
-          }
-          return null;
-        }, inputType: InputType.multilines),
+        InputTextWidget(
+            label: "Descrição",
+            icon: Icons.title,
+            controller: _descriptionController,
+            validator: (value) {
+              if (value == null || value.isEmpty == true) {
+                return 'Name needed';
+              }
+              return null;
+            },
+            inputType: InputType.multilines),
       ],
     );
   }
@@ -195,7 +203,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                     width: 100,
                     child: emblemFile.path == ''
                         ? Container(
-                            color: ERcaingApp.color.shade100,
+                            color: ERcaingApp.color.shade50,
                           )
                         : Image.file(
                             emblemFile,
@@ -236,7 +244,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                 width: MediaQuery.of(context).size.height,
                 child: bannerFile.path == ''
                     ? Container(
-                        color: ERcaingApp.color.shade100,
+                        color: ERcaingApp.color.shade50,
                       )
                     : Image.file(
                         bannerFile,
@@ -287,13 +295,15 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                   children: [
                     Expanded(
                       child: InputTextWidget(
-                          "Link", Icons.add_link, socialStuffControllers[index],
-                          (value) {
-                        socialPlatforms[index] = LinkModel(
-                            widget.viewModel.socialMedias?[index]?.id ?? '',
-                            socialStuffControllers[index].text);
-                        return null;
-                      }),
+                          label: "Link",
+                          icon: Icons.add_link,
+                          controller: socialStuffControllers[index],
+                          validator: (value) {
+                            socialPlatforms[index] = LinkModel(
+                                widget.viewModel.socialMedias?[index]?.id ?? '',
+                                socialStuffControllers[index].text);
+                            return null;
+                          }),
                     ),
                     const BoundWidget(BoundType.small),
                     ButtonWidget(

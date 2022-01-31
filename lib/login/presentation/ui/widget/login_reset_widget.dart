@@ -77,19 +77,22 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
               text: "Use the code we've sent you by email",
               style: Style.description),
           const BoundWidget(BoundType.medium),
-          InputTextWidget('Validation code', Icons.security, _codeController,
-              (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'Validation code needed';
-            }
-            return null;
-          }),
+          InputTextWidget(
+              label: 'Validation code',
+              icon: Icons.security,
+              controller: _codeController,
+              validator: (value) {
+                if (value == null || value.isEmpty == true) {
+                  return 'Validation code needed';
+                }
+                return null;
+              }),
           const BoundWidget(BoundType.medium),
           InputTextWidget(
-            'Password',
-            Icons.vpn_key,
-            _passwordController,
-            (value) {
+            label: 'Password',
+            icon: Icons.vpn_key,
+            controller: _passwordController,
+            validator: (value) {
               if (value == null || value.isEmpty == true) {
                 return 'Password needed';
               }
@@ -104,10 +107,10 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
           ),
           const BoundWidget(BoundType.medium),
           InputTextWidget(
-            'Confirm password',
-            Icons.vpn_key,
-            _passwordController,
-            (value) {
+            label: 'Confirm password',
+            icon: Icons.vpn_key,
+            controller: _passwordController,
+            validator: (value) {
               if (value == null || value.isEmpty == true) {
                 return 'Password needed';
               } else if (value != password) {

@@ -7,28 +7,16 @@ part of 'entry_model.dart';
 // **************************************************************************
 
 EntryModel _$EntryModelFromJson(Map<String, dynamic> json) => EntryModel(
-      number: json['number'] as int?,
-      laps: json['laps'] as int?,
-      bonus: json['bonus'] as int?,
-      notes: json['notes'] as String?,
-      points: json['points'] as int?,
-      penalty: json['penalty'] as int?,
-      pilotId: json['pilotId'] as String?,
-      position: json['position'] as int?,
-      disqualified: json['disqualified'] as bool?,
-      fastesLapTime: json['fastesLapTime'] as int?,
+      raceId: json['raceId'] as String?,
+      drivers: (json['drivers'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : DriverModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$EntryModelToJson(EntryModel instance) =>
     <String, dynamic>{
-      'number': instance.number,
-      'laps': instance.laps,
-      'bonus': instance.bonus,
-      'points': instance.points,
-      'penalty': instance.penalty,
-      'position': instance.position,
-      'notes': instance.notes,
-      'pilotId': instance.pilotId,
-      'fastesLapTime': instance.fastesLapTime,
-      'disqualified': instance.disqualified,
+      'raceId': instance.raceId,
+      'drivers': instance.drivers,
     };

@@ -26,7 +26,7 @@ class LeagueItemWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
       child: Card(
         child: InkWell(
-          splashColor: ERcaingApp.color.shade100,
+          splashColor: ERcaingApp.color.shade50,
           onTap: onPressed,
           child: Padding(
             padding: const EdgeInsets.all(8.0),

@@ -7,17 +7,21 @@ enum InputType { text, number, multilines, password }
 
 class InputTextWidget extends StatelessWidget {
   final String label;
-  final IconData icon;
+  final IconData? icon;
   final BorderType borderType;
   final InputType inputType;
   final FormFieldValidator<String>? validator;
   final TextEditingController? controller;
   final Function(String)? onChange;
 
-  const InputTextWidget(this.label, this.icon, this.controller, this.validator,
+  const InputTextWidget(
       {this.borderType = BorderType.normal,
       this.inputType = InputType.text,
+      this.icon,
       this.onChange,
+      required this.label,
+      required this.controller,
+      required this.validator,
       Key? key})
       : super(key: key);
 

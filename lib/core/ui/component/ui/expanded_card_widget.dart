@@ -36,6 +36,7 @@ class _ClassExpandedCardHolderWidgetState
 
   Widget content() {
     return ExpansionTile(
+        backgroundColor: ERcaingApp.color.shade50,
         title: Padding(
           padding: const EdgeInsets.only(top: 24.0, bottom: 24.0),
           child: widget.ready ? widget.header : const LoadingShimmer(height: 10,),

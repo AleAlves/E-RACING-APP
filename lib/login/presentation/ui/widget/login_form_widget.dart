@@ -51,7 +51,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
 
   @override
   observers() {
-    _disposers.add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
+    _disposers
+        .add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
       _emailController.text = widget.viewModel.user?.profile?.email ?? "";
       _passwordController.text = widget.viewModel.user?.auth?.password ?? "";
     }));
@@ -72,25 +73,33 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
       padding: const EdgeInsets.all(24.0),
       child: Column(
         children: [
-          InputTextWidget('Email', Icons.mail, _emailController, (value) {
-            if (value == null ||
-                value.isEmpty == true ||
-                !value.contains("@")) {
-              return 'valid email needed';
-            }
-            return null;
-          }),
+          InputTextWidget(
+              label: 'Email',
+              icon: Icons.mail,
+              controller: _emailController,
+              validator: (value) {
+                if (value == null ||
+                    value.isEmpty == true ||
+                    !value.contains("@")) {
+                  return 'valid email needed';
+                }
+                return null;
+              }),
           const BoundWidget(BoundType.medium),
-          InputTextWidget('Password', Icons.vpn_key, _passwordController,
-              (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'Password needed';
-            }
-            if (value.length < 8) {
-              return 'Password too short';
-            }
-            return null;
-          },  inputType: InputType.password),
+          InputTextWidget(
+              label: 'Password',
+              icon: Icons.vpn_key,
+              controller: _passwordController,
+              validator: (value) {
+                if (value == null || value.isEmpty == true) {
+                  return 'Password needed';
+                }
+                if (value.length < 8) {
+                  return 'Password too short';
+                }
+                return null;
+              },
+              inputType: InputType.password),
           const BoundWidget(BoundType.xl),
           ButtonWidget(
             enabled: true,

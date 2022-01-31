@@ -3,7 +3,6 @@ import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/core/ui/model/float_action_button_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -80,10 +79,10 @@ class _LeagueDeleteWidgetState extends State<LeagueDeleteWidget>
               padding: const EdgeInsets.only(
                   left: 16.0, right: 16.0, top: 8.0, bottom: 8.0),
               child: InputTextWidget(
-                "Answer",
-                Icons.title,
-                _safetyController,
-                (value) {
+                label: "Answer",
+                icon: Icons.title,
+                controller: _safetyController,
+                validator: (value) {
                   if (value == null || value.isEmpty == true || value != "4") {
                     return 'Wrong answer';
                   }

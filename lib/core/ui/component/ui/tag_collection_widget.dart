@@ -1,15 +1,8 @@
-import 'package:e_racing_app/core/model/link_model.dart';
-import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tags/flutter_tags.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'button_widget.dart';
-import 'card_widget.dart';
 
 class TagCollectionWidget extends StatefulWidget {
   final List<TagModel?>? tags;
