@@ -159,6 +159,21 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
+  final _$creatingEventAtom = Atom(name: '_EventViewModel.creatingEvent');
+
+  @override
+  EventModel? get creatingEvent {
+    _$creatingEventAtom.reportRead();
+    return super.creatingEvent;
+  }
+
+  @override
+  set creatingEvent(EventModel? value) {
+    _$creatingEventAtom.reportWrite(value, super.creatingEvent, () {
+      super.creatingEvent = value;
+    });
+  }
+
   final _$initAsyncAction = AsyncAction('_EventViewModel.init');
 
   @override
@@ -178,7 +193,8 @@ state: ${state},
 events: ${events},
 menus: ${menus},
 tags: ${tags},
-socialMedias: ${socialMedias}
+socialMedias: ${socialMedias},
+creatingEvent: ${creatingEvent}
     ''';
   }
 }

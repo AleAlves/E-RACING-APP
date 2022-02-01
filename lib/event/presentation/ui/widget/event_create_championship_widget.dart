@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
+import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
@@ -14,11 +15,9 @@ import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../../../main.dart';
 import '../../../event_view_model.dart';
 
@@ -38,23 +37,22 @@ class _CreateEventChampionshipWidgetState
   int _index = 0;
   bool allowTeams = false;
   bool allowMembersOnly = false;
-  bool hasBroadcasting = false;
-  DateTime eventDate = DateTime.now();
   File bannerFile = File('');
+  List<int?> score = [];
   List<ClassesModel?> classesModel = [];
   List<SettingsModel?> settingsModel = [];
   final _formKey = GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
   final _titleController = TextEditingController();
-  final _notesController = TextEditingController();
-  final _broadcastingLinkController = TextEditingController();
-  List<TextEditingController> settingsNamesControllers = [];
-  List<TextEditingController> settingsValuesControllers = [];
-  List<TextEditingController> classesNameControllers = [];
-  List<TextEditingController> classesMaxEntriesControllers = [];
+  final _rulesController = TextEditingController();
+  List<Pair<TextEditingController, TextEditingController>> settingsControllers =
+      [];
+  List<Pair<TextEditingController, TextEditingController>> classesControllers =
+      [];
 
   @override
   void initState() {
+    observers();
     super.initState();
   }
 
@@ -65,7 +63,33 @@ class _CreateEventChampionshipWidgetState
   Observer mainObserver() => Observer(builder: (_) => viewState());
 
   @override
-  observers() {}
+  observers() {
+    settingsModel.clear();
+    classesModel.clear();
+    classesControllers.clear();
+    settingsControllers.clear();
+    _titleController.text = widget.viewModel.creatingEvent?.title ?? '';
+    _rulesController.text = widget.viewModel.creatingEvent?.rules ?? '';
+    allowTeams = widget.viewModel.creatingEvent?.teamsEnabled ?? false;
+    allowMembersOnly = widget.viewModel.creatingEvent?.membersOnly ?? false;
+    widget.viewModel.creatingEvent?.classes?.forEach((element) {
+      var name = TextEditingController();
+      var value = TextEditingController();
+      name.text = element?.name ?? '';
+      value.text = element?.maxEntries.toString() ?? "";
+      classesModel.add(ClassesModel(name: name.text));
+      classesControllers.add(Pair(name, value));
+    });
+    widget.viewModel.creatingEvent?.settings?.forEach((element) {
+      var name = TextEditingController();
+      var value = TextEditingController();
+      name.text = element?.name ?? '';
+      value.text = element?.value ?? '';
+      settingsModel.add(SettingsModel(name: name.text, value: value.text));
+      settingsControllers.add(Pair(name, value));
+    });
+    bannerFile = widget.viewModel.bannerFile ?? File('');
+  }
 
   @override
   ViewStateWidget viewState() {
@@ -178,7 +202,7 @@ class _CreateEventChampionshipWidgetState
         InputTextWidget(
             label: "Rules",
             icon: Icons.title,
-            controller: _notesController,
+            controller: _rulesController,
             validator: (value) {
               return null;
             },
@@ -265,7 +289,11 @@ class _CreateEventChampionshipWidgetState
   }
 
   Widget scoring() {
-    return const ScoringWidget();
+    return ScoringWidget(
+      onScore: (scoring) {
+        score = scoring;
+      },
+    );
   }
 
   Widget settings() {
@@ -283,7 +311,7 @@ class _CreateEventChampionshipWidgetState
                       InputTextWidget(
                           label: "Name",
                           icon: Icons.settings,
-                          controller: settingsNamesControllers[index],
+                          controller: settingsControllers[index].first,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "required";
@@ -294,7 +322,7 @@ class _CreateEventChampionshipWidgetState
                       InputTextWidget(
                           label: "Value",
                           icon: Icons.settings,
-                          controller: settingsValuesControllers[index],
+                          controller: settingsControllers[index].second,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "required";
@@ -314,8 +342,7 @@ class _CreateEventChampionshipWidgetState
                       onPressed: () {
                         setState(() {
                           settingsModel.removeAt(index);
-                          settingsNamesControllers.removeAt(index);
-                          settingsValuesControllers.removeAt(index);
+                          settingsControllers.removeAt(index);
                         });
                       }),
                 )
@@ -333,66 +360,10 @@ class _CreateEventChampionshipWidgetState
                 var value = TextEditingController();
                 settingsModel
                     .add(SettingsModel(name: name.text, value: value.text));
-                settingsNamesControllers.add(name);
-                settingsValuesControllers.add(value);
+                settingsControllers.add(Pair(name, value));
               });
             },
             label: 'New setting'),
-      ],
-    );
-  }
-
-  Widget broadcasting() {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Checkbox(
-              activeColor: ERcaingApp.ascent,
-              value: hasBroadcasting,
-              onChanged: (bool? value) {
-                setState(() {
-                  hasBroadcasting = value ?? false;
-                });
-              },
-            ),
-            const TextWidget(
-                text: "Live broadcasting", style: Style.description),
-          ],
-        ),
-        if (hasBroadcasting)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: InputTextWidget(
-                    label: "link",
-                    icon: Icons.settings,
-                    controller: _broadcastingLinkController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "required";
-                      }
-                      return null;
-                    }),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ButtonWidget(
-                    enabled: true,
-                    type: ButtonType.icon,
-                    onPressed: () async {
-                      Clipboard.getData(Clipboard.kTextPlain).then((value) {
-                        _broadcastingLinkController.text =
-                            value?.text?.trim().replaceAll(' ', '') ?? '';
-                      });
-                    },
-                    icon: Icons.paste),
-              )
-            ],
-          )
-        else
-          Container(),
       ],
     );
   }
@@ -412,7 +383,7 @@ class _CreateEventChampionshipWidgetState
                       InputTextWidget(
                           label: "Name",
                           icon: Icons.settings,
-                          controller: classesNameControllers[index],
+                          controller: classesControllers[index].first,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "required";
@@ -423,7 +394,7 @@ class _CreateEventChampionshipWidgetState
                       InputTextWidget(
                         label: "Max entries",
                         icon: Icons.settings,
-                        controller: classesMaxEntriesControllers[index],
+                        controller: classesControllers[index].second,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "required";
@@ -445,8 +416,7 @@ class _CreateEventChampionshipWidgetState
                       onPressed: () {
                         setState(() {
                           classesModel.removeAt(index);
-                          classesNameControllers.removeAt(index);
-                          classesMaxEntriesControllers.removeAt(index);
+                          classesControllers.removeAt(index);
                         });
                       }),
                 )
@@ -463,8 +433,7 @@ class _CreateEventChampionshipWidgetState
                 var name = TextEditingController();
                 var value = TextEditingController();
                 classesModel.add(ClassesModel(name: name.text));
-                classesNameControllers.add(name);
-                classesMaxEntriesControllers.add(value);
+                classesControllers.add(Pair(name, value));
               });
             },
             label: 'New class'),
@@ -478,27 +447,31 @@ class _CreateEventChampionshipWidgetState
       type: ButtonType.normal,
       onPressed: () {
         for (var i = 0; i < settingsModel.length; i++) {
-          settingsModel[i]?.name = settingsNamesControllers[i].text;
-          settingsModel[i]?.value = settingsValuesControllers[i].text;
+          settingsModel[i]?.name = settingsControllers[i].first?.text;
+          settingsModel[i]?.value = settingsControllers[i].second?.text;
         }
         for (var i = 0; i < classesModel.length; i++) {
-          classesModel[i]?.name = classesNameControllers[i].text;
+          classesModel[i]?.name = classesControllers[i].first?.text;
           classesModel[i]?.maxEntries =
-              int.parse(classesMaxEntriesControllers[i].text);
+              int.parse(classesControllers[i].second?.text ?? '');
         }
+
         var event = EventModel(
-          races: [],
-          classes: classesModel,
-          teamsEnabled: allowTeams,
-          membersOnly: allowMembersOnly,
-        );
+            races: [],
+            settings: settingsModel,
+            classes: classesModel,
+            teamsEnabled: allowTeams,
+            membersOnly: allowMembersOnly,
+            title: _titleController.text,
+            rules: _rulesController.text,
+            scoring: score);
         List<int> bannerBytes = [];
         try {
           bannerBytes = bannerFile.readAsBytesSync();
         } catch (e) {}
         String bannerImage = base64Encode(bannerBytes);
         var media = MediaModel(bannerImage);
-        widget.viewModel.createChampionshipEventStep(event, media);
+        widget.viewModel.createChampionshipEventStep(event, media, bannerFile);
       },
       label: "Next",
     );

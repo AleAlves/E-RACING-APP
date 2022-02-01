@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
@@ -8,6 +11,7 @@ import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/domain/fetch_events_use_case.dart';
+import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
@@ -54,9 +58,12 @@ abstract class _EventViewModel with Store {
   @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
 
+  @observable
   EventModel? creatingEvent;
   List<RaceModel>? creatingRaces;
   List<MediaModel>? creatingMedias;
+  File? bannerFile;
+  List<ChampionshipRacesModel>? racesModel;
 
   final getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
   final getTagUseCase = Modular.get<GetTagUseCase>();
@@ -126,14 +133,58 @@ abstract class _EventViewModel with Store {
         error: onError);
   }
 
-  void createChampionshipEventStep(EventModel event, MediaModel media) async {
+  void createChampionshipEventStep(
+      EventModel event, MediaModel media, File banner) {
+    bannerFile = banner;
     creatingEvent = event;
     creatingMedias?.add(media);
     setFlow(EventFlows.createChampionshipRaces);
   }
 
+  void updateChampionshipRaces(List<ChampionshipRacesModel> races) async {
+    racesModel = races;
+  }
+
   void createChampionshipRacesStep(
-      List<RaceModel?> races, List<MediaModel?> media) async {}
+      List<ChampionshipRacesModel> racesModel) async {
+    List<RaceModel> races = [];
+    for (var element in racesModel) {
+      var poster;
+      try {
+        List<int> posterBytes = element.posterFile.readAsBytesSync();
+        poster = base64Encode(posterBytes);
+      } catch (e) {}
+      races.add(RaceModel(
+          poster: poster,
+          broadcasting: element.hasBroadcasting,
+          date: element.eventDate.toIso8601String(),
+          title: element.titleController.text));
+    }
+    var banner;
+    try {
+      List<int> bannerBytes = bannerFile?.readAsBytesSync() ?? [];
+      banner = base64Encode(bannerBytes);
+    } catch (e) {}
+
+    var media = MediaModel(banner);
+
+    var event = EventModel(
+        races: races,
+        title: creatingEvent?.title,
+        rules: creatingEvent?.rules,
+        scoring: creatingEvent?.scoring,
+        classes: creatingEvent?.classes,
+        settings: creatingEvent?.settings,
+        membersOnly: creatingEvent?.membersOnly,
+        teamsEnabled: creatingEvent?.teamsEnabled);
+
+    await createEventUseCase.build(event: event, media: media).invoke(
+        success: (data) {
+          status = data;
+          setFlow(EventFlows.status);
+        },
+        error: onError);
+  }
 
   void onError(ApiException error) {
     status = StatusModel(

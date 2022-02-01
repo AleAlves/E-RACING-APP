@@ -11,7 +11,10 @@ import 'bound_widget.dart';
 import 'button_widget.dart';
 
 class ScoringWidget extends StatefulWidget {
-  const ScoringWidget({Key? key}) : super(key: key);
+
+  final Function(List<int?>) onScore;
+
+  const ScoringWidget({required this.onScore, Key? key}) : super(key: key);
 
   Widget loading(BuildContext context) {
     return const Card(child: LoadingShimmer());
@@ -38,6 +41,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
 
   @override
   void initState() {
+    updateScore();
     super.initState();
   }
 
@@ -101,8 +105,8 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                                     icon: Icons.remove,
                                     onPressed: () async {
                                       setState(() {
-                                        score.first = int.parse(
-                                            score.second?.text ?? "0");
+                                        score.first = int.parse(score.second?.text ?? "0");
+                                        updateScore();
                                         Navigator.of(context).pop();
                                       });
                                     }),
@@ -129,6 +133,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                   onPressed: () async {
                     setState(() {
                       scoring.removeAt(scoring.length - 1);
+                      updateScore();
                     });
                   }),
               const BoundWidget(BoundType.xl),
@@ -139,6 +144,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                   onPressed: () async {
                     setState(() {
                       scoring.add(Pair(0, TextEditingController()));
+                      updateScore();
                     });
                   }),
             ],
@@ -146,5 +152,10 @@ class _ScoringWidgetState extends State<ScoringWidget> {
         ],
       ),
     );
+  }
+
+  void updateScore(){
+    var wow = scoring.map((e) => e.first);
+    widget.onScore.call(wow.toList());
   }
 }

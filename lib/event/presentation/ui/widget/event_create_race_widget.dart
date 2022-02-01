@@ -516,7 +516,6 @@ class _CreateEventRaceWidgetState extends State<CreateEventRaceWidget>
 
         var race = RaceModel(
             date: eventDate.toIso8601String(),
-            hour: eventDate.hour.toString(),
             notes: _notesController.text,
             title: _titleController.text,
             broadcasting: hasBroadcasting,

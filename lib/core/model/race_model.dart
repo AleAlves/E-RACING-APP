@@ -9,9 +9,9 @@ class RaceModel {
   @JsonKey(name: '_id')
   final String? id;
   final String? date;
-  final String? hour;
   final String? title;
   final String? notes;
+  final String? poster;
   final bool? finished;
   final bool? broadcasting;
   final String? broadcastLink;
@@ -21,13 +21,13 @@ class RaceModel {
   RaceModel({
     required this.date,
     required this.title,
-    required this.hour,
-    this.finished,
+    required this.broadcasting,
     this.id,
     this.notes,
+    this.poster,
     this.entries,
     this.settings,
-    this.broadcasting,
+    this.finished,
     this.broadcastLink,
   });
 
