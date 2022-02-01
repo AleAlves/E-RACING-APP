@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
+import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
@@ -53,12 +54,16 @@ abstract class _EventViewModel with Store {
   @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
 
+  EventModel? creatingEvent;
+  List<RaceModel>? creatingRaces;
+  List<MediaModel>? creatingMedias;
+
   final getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
   final getTagUseCase = Modular.get<GetTagUseCase>();
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
   final fetchEventsUseCase =
       Modular.get<FetchEventsUseCase<List<EventModel>>>();
-  final createEvent = Modular.get<CreateEventUseCase<StatusModel>>();
+  final createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
 
   @action
   init() async {
@@ -113,13 +118,22 @@ abstract class _EventViewModel with Store {
 
   void create(EventModel event, MediaModel media) async {
     state = ViewState.loading;
-    await createEvent
-        .build(event: event, media: media)
-        .invoke(success: (data) {
-      status = data;
-      setFlow(EventFlows.status);
-    }, error: onError);
+    await createEventUseCase.build(event: event, media: media).invoke(
+        success: (data) {
+          status = data;
+          setFlow(EventFlows.status);
+        },
+        error: onError);
   }
+
+  void createChampionshipEventStep(EventModel event, MediaModel media) async {
+    creatingEvent = event;
+    creatingMedias?.add(media);
+    setFlow(EventFlows.createChampionshipRaces);
+  }
+
+  void createChampionshipRacesStep(
+      List<RaceModel?> races, List<MediaModel?> media) async {}
 
   void onError(ApiException error) {
     status = StatusModel(

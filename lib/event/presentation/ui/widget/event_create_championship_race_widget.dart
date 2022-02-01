@@ -1,20 +1,19 @@
 import 'dart:io';
-import 'dart:convert';
 
 import 'package:e_racing_app/core/model/classes_model.dart';
-import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
+import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/scoring_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,27 +21,27 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../main.dart';
 import '../../../event_view_model.dart';
 
-class CreateEventChampionshipWidget extends StatefulWidget {
+class CreateChampionshipRaceWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const CreateEventChampionshipWidget(this.viewModel, {Key? key})
+  const CreateChampionshipRaceWidget(this.viewModel, {Key? key})
       : super(key: key);
 
   @override
-  _CreateEventChampionshipWidgetState createState() =>
-      _CreateEventChampionshipWidgetState();
+  _CreateChampionshipRaceWidgetState createState() =>
+      _CreateChampionshipRaceWidgetState();
 }
 
-class _CreateEventChampionshipWidgetState
-    extends State<CreateEventChampionshipWidget> implements BaseSateWidget {
+class _CreateChampionshipRaceWidgetState
+    extends State<CreateChampionshipRaceWidget> implements BaseSateWidget {
   int _index = 0;
-  bool allowTeams = false;
-  bool allowMembersOnly = false;
   bool hasBroadcasting = false;
   DateTime eventDate = DateTime.now();
-  File bannerFile = File('');
+  File posterFile = File('');
   List<ClassesModel?> classesModel = [];
   List<SettingsModel?> settingsModel = [];
+  List<RaceModel?> raceModels = [];
+  List<MediaModel?> mediaModels = [];
   final _formKey = GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
   final _titleController = TextEditingController();
@@ -84,22 +83,90 @@ class _CreateEventChampionshipWidgetState
 
   @override
   Widget content() {
-    return Form(
-      child: createForm(),
-      key: _formKey,
+    return Expanded(child: races());
+  }
+
+  Widget races() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 24.0),
+      child: Column(
+        children: [
+          const TextWidget(text: "Races", style: Style.title),
+          ListView.builder(
+            physics: const ClampingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: raceModels.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          ExpansionTile(
+                            title: Text("Race #$index"),
+                            children: [
+                              createForm(),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+          const BoundWidget(BoundType.xl),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            ButtonWidget(
+                enabled: true,
+                icon: Icons.add,
+                type: ButtonType.icon,
+                onPressed: () async {
+                  setState(() {
+                    raceModels.add(RaceModel(date: null, title: null, hour: null));
+                  });
+                },
+                label: 'Add'),
+            const BoundWidget(BoundType.xl),
+            ButtonWidget(
+                enabled: true,
+                icon: Icons.remove,
+                type: ButtonType.icon,
+                onPressed: () async {
+                  setState(() {
+                    raceModels.removeLast();
+                  });
+                },
+                label: 'Remove'),
+          ],),
+          const BoundWidget(BoundType.xl),
+          finish()
+        ],
+      ),
     );
   }
 
   Widget createForm() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const TextWidget(text: "Championship", style: Style.title),
-          stepper()
-        ],
+    return Form(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const TextWidget(text: "Race", style: Style.title),
+            stepper()
+          ],
+        ),
       ),
+      key: _formKey,
     );
   }
 
@@ -132,28 +199,23 @@ class _CreateEventChampionshipWidgetState
                   content: basic(),
                 ),
                 Step(
-                  title: const Text('Score'),
-                  content: scoring(),
+                  title: const Text('Date'),
+                  content: date(),
                 ),
                 Step(
-                  title: const Text('Classes'),
-                  content: classes(),
-                ),
-                Step(
-                  title: const Text('Options'),
-                  content: options(),
-                ),
-                Step(
-                  title: const Text('Banner'),
+                  title: const Text('Poster'),
                   content: banner(),
                 ),
                 Step(
                   title: const Text('Settings'),
                   content: settings(),
                 ),
+                Step(
+                  title: const Text('Broadcast'),
+                  content: broadcasting(),
+                ),
               ],
             ),
-            finish()
           ],
         ),
       ),
@@ -165,7 +227,7 @@ class _CreateEventChampionshipWidgetState
       children: [
         const BoundWidget(BoundType.huge),
         InputTextWidget(
-            label: "Title",
+            label: "Race Title",
             icon: Icons.title,
             controller: _titleController,
             validator: (value) {
@@ -176,7 +238,7 @@ class _CreateEventChampionshipWidgetState
             }),
         const BoundWidget(BoundType.huge),
         InputTextWidget(
-            label: "Rules",
+            label: "Notes",
             icon: Icons.title,
             controller: _notesController,
             validator: (value) {
@@ -199,12 +261,12 @@ class _CreateEventChampionshipWidgetState
               child: SizedBox(
                 height: 300,
                 width: MediaQuery.of(context).size.height,
-                child: bannerFile.path == ''
+                child: posterFile.path == ''
                     ? Container(
                         color: ERcaingApp.color.shade100,
                       )
                     : Image.file(
-                        bannerFile,
+                        posterFile,
                         fit: BoxFit.fill,
                       ),
               ),
@@ -212,7 +274,7 @@ class _CreateEventChampionshipWidgetState
             IconButtonWidget(Icons.image_search, () async {
               var image = await _picker.pickImage(source: ImageSource.gallery);
               setState(() {
-                bannerFile = File(image?.path ?? '');
+                posterFile = File(image?.path ?? '');
               });
             })
           ],
@@ -227,45 +289,31 @@ class _CreateEventChampionshipWidgetState
     );
   }
 
-  Widget options() {
-    return Column(
+  Widget date() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Checkbox(
-              activeColor: ERcaingApp.ascent,
-              value: allowTeams,
-              onChanged: (bool? value) {
+        TextWidget(
+            text:
+                "${eventDate.hour}:${eventDate.minute}, ${eventDate.day}/${eventDate.month}/${eventDate.year} ",
+            style: Style.subtitle),
+        const BoundWidget(BoundType.huge),
+        ButtonWidget(
+            icon: Icons.date_range,
+            enabled: true,
+            type: ButtonType.icon,
+            onPressed: () {
+              DatePicker.showDateTimePicker(context,
+                  showTitleActions: false,
+                  minTime: DateTime.now(), onChanged: (date) {
                 setState(() {
-                  allowTeams = value ?? false;
+                  eventDate = date;
                 });
-              },
-            ),
-            const TextWidget(
-                text: "Allow racing teams", style: Style.description)
-          ],
-        ),
-        Row(
-          children: [
-            Checkbox(
-              activeColor: ERcaingApp.ascent,
-              value: allowMembersOnly,
-              onChanged: (bool? value) {
-                setState(() {
-                  allowMembersOnly = value ?? false;
-                });
-              },
-            ),
-            const TextWidget(
-                text: "Allow members only", style: Style.description)
-          ],
-        )
+              }, currentTime: DateTime.now());
+            }),
       ],
     );
-  }
-
-  Widget scoring() {
-    return const ScoringWidget();
   }
 
   Widget settings() {
@@ -397,110 +445,14 @@ class _CreateEventChampionshipWidgetState
     );
   }
 
-  Widget classes() {
-    return Column(
-      children: [
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: classesModel.length,
-          itemBuilder: (context, index) {
-            return Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      InputTextWidget(
-                          label: "Name",
-                          icon: Icons.settings,
-                          controller: classesNameControllers[index],
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "required";
-                            }
-                            return null;
-                          }),
-                      const BoundWidget(BoundType.medium),
-                      InputTextWidget(
-                        label: "Max entries",
-                        icon: Icons.settings,
-                        controller: classesMaxEntriesControllers[index],
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "required";
-                          }
-                          return null;
-                        },
-                        inputType: InputType.number,
-                      ),
-                      const BoundWidget(BoundType.medium),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ButtonWidget(
-                      enabled: true,
-                      type: ButtonType.icon,
-                      icon: Icons.delete,
-                      onPressed: () {
-                        setState(() {
-                          classesModel.removeAt(index);
-                          classesNameControllers.removeAt(index);
-                          classesMaxEntriesControllers.removeAt(index);
-                        });
-                      }),
-                )
-              ],
-            );
-          },
-        ),
-        const BoundWidget(BoundType.xl),
-        ButtonWidget(
-            enabled: true,
-            type: ButtonType.borderless,
-            onPressed: () async {
-              setState(() {
-                var name = TextEditingController();
-                var value = TextEditingController();
-                classesModel.add(ClassesModel(name: name.text));
-                classesNameControllers.add(name);
-                classesMaxEntriesControllers.add(value);
-              });
-            },
-            label: 'New class'),
-      ],
-    );
-  }
-
   Widget finish() {
     return ButtonWidget(
       enabled: _formKey.currentState?.validate() == true,
       type: ButtonType.normal,
       onPressed: () {
-        for (var i = 0; i < settingsModel.length; i++) {
-          settingsModel[i]?.name = settingsNamesControllers[i].text;
-          settingsModel[i]?.value = settingsValuesControllers[i].text;
-        }
-        for (var i = 0; i < classesModel.length; i++) {
-          classesModel[i]?.name = classesNameControllers[i].text;
-          classesModel[i]?.maxEntries =
-              int.parse(classesMaxEntriesControllers[i].text);
-        }
-        var event = EventModel(
-          races: [],
-          classes: classesModel,
-          teamsEnabled: allowTeams,
-          membersOnly: allowMembersOnly,
-        );
-        List<int> bannerBytes = [];
-        try {
-          bannerBytes = bannerFile.readAsBytesSync();
-        } catch (e) {}
-        String bannerImage = base64Encode(bannerBytes);
-        var media = MediaModel(bannerImage);
-        widget.viewModel.createChampionshipEventStep(event, media);
+        widget.viewModel.createChampionshipRacesStep(raceModels, mediaModels);
       },
-      label: "Next",
+      label: "Create",
     );
   }
 }

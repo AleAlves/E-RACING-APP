@@ -74,7 +74,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget>
             enabled: true,
             type: ButtonType.normal,
             onPressed: () {
-              widget.viewModel.flow = EventFlows.createChampionship;
+              widget.viewModel.flow = EventFlows.createChampionshipEvent;
             },
             label: "Championship",
           ),
