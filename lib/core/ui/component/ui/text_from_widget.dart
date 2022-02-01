@@ -1,3 +1,4 @@
+import 'package:e_racing_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -33,29 +34,32 @@ class InputTextWidget extends StatelessWidget {
       case BorderType.normal:
         border = InputDecoration(
           labelText: label,
-          fillColor: Colors.green,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
-            borderSide: const BorderSide(
-              width: 0.5,
+            borderSide: BorderSide(
+              color: ERcaingApp.color.shade900,
+              width: 1.0,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
-            borderSide: const BorderSide(
-              width: 0.5,
+            borderSide: BorderSide(
+              color: ERcaingApp.color.shade900,
+              width: 1.0,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
-            borderSide: const BorderSide(
-              width: 0.5,
+            borderSide: BorderSide(
+              color: ERcaingApp.color.shade900,
+              width: 1.0,
             ),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
-            borderSide: const BorderSide(
-              width: 0.5,
+            borderSide: BorderSide(
+              color: ERcaingApp.color.shade900,
+              width: 1.0,
             ),
           ),
         );

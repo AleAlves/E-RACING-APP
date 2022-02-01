@@ -46,7 +46,7 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
               child: Row(
                 children: [
                   Wrap(
-                    spacing: 10.0,
+                    spacing: 25.0,
                     children: widget.links == null
                         ? [Container()]
                         : widget.links!

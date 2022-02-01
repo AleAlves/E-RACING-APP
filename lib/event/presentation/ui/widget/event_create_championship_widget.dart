@@ -500,7 +500,7 @@ class _CreateEventChampionshipWidgetState
         var media = MediaModel(bannerImage);
         widget.viewModel.create(event, media);
       },
-      label: "Create",
+      label: "Next",
     );
   }
 }

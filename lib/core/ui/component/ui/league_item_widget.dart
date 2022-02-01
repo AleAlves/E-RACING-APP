@@ -74,6 +74,7 @@ class LeagueItemWidget extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
                                     child: TextWidget(
+                                      color: Colors.black87,
                                         text: tags
                                                 ?.firstWhere(
                                                     (k) => k?.id == tag)

@@ -36,7 +36,7 @@ class _ShortcutCollectionWidgetState extends State<ShortcutCollectionWidget> {
       children: [
         Expanded(
           child: Card(
-              margin: const EdgeInsets.only(left: 10, top: 8.0),
+              margin: const EdgeInsets.all(8.0),
               child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(

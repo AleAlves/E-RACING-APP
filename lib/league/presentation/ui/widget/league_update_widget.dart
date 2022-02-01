@@ -217,7 +217,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                   return ActionChip(
                       avatar: CircleAvatar(
                         backgroundColor: selected
-                            ? ERcaingApp.ascent
+                            ? Colors.black87
                             : ERcaingApp.color,
                         child: selected ? const Text('-') : const Text('+'),
                       ),

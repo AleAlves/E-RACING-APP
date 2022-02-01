@@ -6,7 +6,6 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'bound_widget.dart';
 import 'button_widget.dart';
@@ -98,7 +97,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                                 ButtonWidget(
                                     enabled: true,
                                     label: "apply",
-                                    type: ButtonType.important,
+                                    type: ButtonType.normal,
                                     icon: Icons.remove,
                                     onPressed: () async {
                                       setState(() {

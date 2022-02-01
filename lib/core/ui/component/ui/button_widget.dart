@@ -104,7 +104,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                   widget.icon,
                   size: 24,
                 ),
-                color: Colors.black87,
+                color: ERcaingApp.base,
                 onPressed: widget.enabled ? widget.onPressed : null),
           ),
         ),

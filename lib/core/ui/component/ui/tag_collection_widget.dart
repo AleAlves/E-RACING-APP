@@ -39,7 +39,7 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
               return ActionChip(
                 label: TextWidget(
                   text: name(item),
-                  style: Style.note,
+                  style: Style.label,
                 ),
                 onPressed: () {},
               );
