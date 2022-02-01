@@ -1,6 +1,6 @@
 import 'package:e_racing_app/event/event_view_model.dart';
-import 'package:e_racing_app/event/presentation/ui/widget/event_create_championship_race_widget.dart';
-import 'package:e_racing_app/event/presentation/ui/widget/event_create_championship_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_create_races_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_create_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_race_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_list_widget.dart';
@@ -16,8 +16,8 @@ enum EventFlows {
   status,
   create,
   createRace,
-  createChampionshipEvent,
-  createChampionshipRaces
+  createEvent,
+  createRaces
 }
 
 extension EventNavigation on EventFlows {
@@ -26,12 +26,12 @@ extension EventNavigation on EventFlows {
       case EventFlows.list:
         return EventListWidget(vm);
       case EventFlows.create:
-        return CreateEventWidget(vm);
+        return EventCreateWidget(vm);
       case EventFlows.createRace:
-        return CreateEventRaceWidget(vm);
-      case EventFlows.createChampionshipEvent:
+        return EventCreateWidget(vm);
+      case EventFlows.createEvent:
         return CreateEventChampionshipWidget(vm);
-      case EventFlows.createChampionshipRaces:
+      case EventFlows.createRaces:
         return CreateChampionshipRaceWidget(vm);
       case EventFlows.detail:
         return Container();

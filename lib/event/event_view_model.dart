@@ -138,7 +138,7 @@ abstract class _EventViewModel with Store {
     bannerFile = banner;
     creatingEvent = event;
     creatingMedias?.add(media);
-    setFlow(EventFlows.createChampionshipRaces);
+    setFlow(EventFlows.createRaces);
   }
 
   void updateChampionshipRaces(List<ChampionshipRacesModel> races) async {

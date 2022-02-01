@@ -58,7 +58,7 @@ class _CreateChampionshipRaceWidgetState
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(EventFlows.createChampionshipEvent);
+    widget.viewModel.setFlow(EventFlows.createEvent);
     return false;
   }
 
