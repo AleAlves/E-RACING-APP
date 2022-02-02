@@ -3,9 +3,10 @@ import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
-import '../../../../main.dart';
 import 'bound_widget.dart';
+import 'class_collection_widget.dart';
 
 class EventCardWidget extends StatelessWidget {
   final EventModel? event;
@@ -25,98 +26,57 @@ class EventCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
-      child: CardWidget(
-        ready: true,
-        child: InkWell(
-          splashColor: ERcaingApp.color.shade50,
-          onTap: onPressed,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: content(),
-          ),
-        ),
-      ),
+    return CardWidget(
+      child: content(),
+      onPressed: () {},
+      ready: true,
     );
   }
 
   Widget content() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Stack(
+      alignment: Alignment.center,
       children: [
-        Column(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.circle,
-                  color: _getStatusColor(event?.state),
-                ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.circle,
+                color: _getStatusColor(event?.state),
               ),
             ),
             const BoundWidget(BoundType.medium),
-            Align(
-              alignment: Alignment.topCenter,
-              child: SizedBox(
-                child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(icon),
-                    ),
-                    color: color),
-              ),
-            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextWidget(
+                    text: event?.title ?? event?.races?.first?.title ?? '',
+                    style: Style.subtitle,
+                    align: TextAlign.start,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ClassCollectionWidget(
+                    onPressed: (w) {},
+                    classes: event?.classes,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _getType(event?.type),
+                )
+              ],
+            )
           ],
         ),
-        const BoundWidget(BoundType.medium),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextWidget(
-                  text: event?.title ?? event?.races?.first?.title ?? '',
-                  style: Style.subtitle,
-                  align: TextAlign.start,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.start,
-                  alignment: WrapAlignment.start,
-                  spacing: 5.0,
-                  children: event!.classes!
-                      .map((item) {
-                        return Row(
-                          children: [
-                            const Icon(
-                              Icons.drive_eta,
-                              size: 16.0,
-                            ),
-                            const BoundWidget(BoundType.small),
-                            TextWidget(
-                              text: item?.name ?? '',
-                              style: Style.description,
-                              align: TextAlign.start,
-                            ),
-                          ],
-                        );
-                      })
-                      .toList()
-                      .cast<Widget>(),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Column(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: const [Icon(Icons.chevron_right)],
         )
       ],
@@ -132,7 +92,39 @@ class EventCardWidget extends StatelessWidget {
       case EventState.finished:
         return const Color(0xFFA01A1A);
       default:
-        return const Color(0xFFC7C7C7);
+        return const Color(0xFFA01A1A);
+    }
+  }
+
+  Widget _getType(EventType? state) {
+    switch (state) {
+      case EventType.championship:
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon),
+            const BoundWidget(BoundType.small),
+            const TextWidget(
+              text: "Championship",
+              style: Style.description,
+              align: TextAlign.start,
+            )
+          ],
+        );
+      case EventType.race:
+        return Row(
+          children: [
+            Icon(icon),
+            const BoundWidget(BoundType.small),
+            const TextWidget(
+              text: "Race",
+              style: Style.description,
+              align: TextAlign.start,
+            )
+          ],
+        );
+      default:
+        return Container();
     }
   }
 }

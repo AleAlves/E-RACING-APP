@@ -1,6 +1,5 @@
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -11,16 +10,16 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
-class EventListWidget extends StatefulWidget {
+class EventDetailWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const EventListWidget(this.viewModel, {Key? key}) : super(key: key);
+  const EventDetailWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventListWidgetState createState() => _EventListWidgetState();
+  _EventDetailWidgetState createState() => _EventDetailWidgetState();
 }
 
-class _EventListWidgetState extends State<EventListWidget>
+class _EventDetailWidgetState extends State<EventDetailWidget>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -42,7 +41,6 @@ class _EventListWidgetState extends State<EventListWidget>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         content: content(),
-        scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }

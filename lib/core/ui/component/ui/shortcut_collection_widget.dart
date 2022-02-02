@@ -4,8 +4,6 @@ import 'package:e_racing_app/core/ui/component/ui/shortcut_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../main.dart';
-
 class ShortcutCollectionWidget extends StatefulWidget {
   final Function(ShortcutModel?) onPressed;
   final List<ShortcutModel?>? shortcuts;

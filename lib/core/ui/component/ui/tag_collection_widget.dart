@@ -28,25 +28,22 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Wrap(
-        crossAxisAlignment: WrapCrossAlignment.start,
-        alignment: WrapAlignment.start,
-        spacing: 5.0,
-        children: widget.tagIds!
-            .map((item) {
-              return ActionChip(
-                label: TextWidget(
-                  text: name(item),
-                  style: Style.label,
-                ),
-                onPressed: () {},
-              );
-            })
-            .toList()
-            .cast<Widget>(),
-      ),
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.start,
+      alignment: WrapAlignment.start,
+      spacing: 3.0,
+      children: widget.tagIds!
+          .map((item) {
+        return ActionChip(
+          label: TextWidget(
+            text: name(item),
+            style: Style.note,
+          ),
+          onPressed: () {},
+        );
+      })
+          .toList()
+          .cast<Widget>(),
     );
   }
 

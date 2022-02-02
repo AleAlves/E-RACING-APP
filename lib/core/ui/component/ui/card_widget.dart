@@ -28,6 +28,7 @@ class CardWidget extends StatelessWidget {
       child: ready
           ? Card(
               child: InkWell(
+                splashColor: ERcaingApp.ascent,
                 onTap: onPressed,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
