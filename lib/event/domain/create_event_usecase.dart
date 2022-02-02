@@ -7,11 +7,11 @@ import 'package:e_racing_app/event/data/event_create_model.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 
 class CreateEventUseCase<T> extends BaseUseCase<T> {
-  late MediaModel _media;
+  late MediaModel? _media;
   late EventModel _event;
 
   CreateEventUseCase<T> build(
-      {required EventModel event, required MediaModel media}) {
+      {required EventModel event, MediaModel? media}) {
     _media = media;
     _event = event;
     return this;

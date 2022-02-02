@@ -8,7 +8,9 @@ part of 'event_create_model.dart';
 
 EventCreateModel _$EventCreateModelFromJson(Map<String, dynamic> json) =>
     EventCreateModel(
-      MediaModel.fromJson(json['media'] as Map<String, dynamic>),
+      json['media'] == null
+          ? null
+          : MediaModel.fromJson(json['media'] as Map<String, dynamic>),
       EventModel.fromJson(json['event'] as Map<String, dynamic>),
     );
 

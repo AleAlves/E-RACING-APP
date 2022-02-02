@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'event_model.g.dart';
 
-enum EventType { race, championship, error }
+enum EventType { race, championship }
 
 enum EventState { idle, ongoing, finished }
 
@@ -19,8 +19,8 @@ class EventModel {
   final bool? finished;
   final bool? joinable;
   final String? hostId;
-  final String? type;
-  final String? state;
+  final EventType? type;
+  final EventState? state;
   final bool? teamsEnabled;
   final bool? membersOnly;
   final List<int?>? scoring;

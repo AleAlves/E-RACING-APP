@@ -4,6 +4,7 @@ import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_edit_races_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
@@ -12,21 +13,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../event_view_model.dart';
-import '../../../../core/ui/component/ui/event_create_races_widget.dart';
 
-class CreateChampionshipRaceWidget extends StatefulWidget {
+class EventCreateRacesWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const CreateChampionshipRaceWidget(this.viewModel, {Key? key})
+  const EventCreateRacesWidget(this.viewModel, {Key? key})
       : super(key: key);
 
   @override
-  _CreateChampionshipRaceWidgetState createState() =>
-      _CreateChampionshipRaceWidgetState();
+  _EventCreateRacesWidgetState createState() =>
+      _EventCreateRacesWidgetState();
 }
 
-class _CreateChampionshipRaceWidgetState
-    extends State<CreateChampionshipRaceWidget> implements BaseSateWidget {
+class _EventCreateRacesWidgetState
+    extends State<EventCreateRacesWidget> implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   List<ChampionshipRacesModel> racesModel = [];
 
@@ -85,7 +85,7 @@ class _CreateChampionshipRaceWidgetState
                     ready: true,
                     child: ExpansionTile(
                       title: Text("Race #${++index}"),
-                      children: [EventCreateRacesWidget(racesModel[--index])],
+                      children: [EventEditRacesWidget(racesModel[--index])],
                     )),
               );
             },

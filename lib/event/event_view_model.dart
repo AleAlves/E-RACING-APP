@@ -123,9 +123,9 @@ abstract class _EventViewModel with Store {
     }
   }
 
-  void create(EventModel event, MediaModel media) async {
+  void create(EventModel event) async {
     state = ViewState.loading;
-    await createEventUseCase.build(event: event, media: media).invoke(
+    await createEventUseCase.build(event: event).invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);

@@ -1,5 +1,7 @@
+import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_card_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/main.dart';
 import 'package:flutter/material.dart';
@@ -56,14 +58,16 @@ class _EventListWidgetState extends State<EventListWidget>
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const BoundWidget(BoundType.xl),
             ListView.builder(
               shrinkWrap: true,
               itemCount: widget.viewModel.events?.length,
               itemBuilder: (context, index) {
-                return TextWidget(
-                    text:
-                        widget.viewModel.events?[index]?.title.toString() ?? '',
-                    style: Style.description);
+                return EventCardWidget(
+                  icon: _getIcon(widget.viewModel.events?[index]?.type),
+                  color: _getColor(widget.viewModel.events?[index]?.type),
+                  event: widget.viewModel.events?[index],
+                );
               },
             ),
           ],
@@ -78,5 +82,27 @@ class _EventListWidgetState extends State<EventListWidget>
             color: Colors.white,
           ),
         ));
+  }
+
+  IconData? _getIcon(EventType? type) {
+    switch (type) {
+      case EventType.race:
+        return Icons.sports_score;
+      case EventType.championship:
+        return Icons.emoji_events;
+      default:
+        return Icons.sports_score;
+    }
+  }
+
+  Color? _getColor(EventType? type) {
+    switch (type) {
+      case EventType.race:
+        return const Color(0xFF311AA0);
+      case EventType.championship:
+        return const Color(0xFF1AA01C);
+      default:
+        return const Color(0xFFCBCBCB);
+    }
   }
 }

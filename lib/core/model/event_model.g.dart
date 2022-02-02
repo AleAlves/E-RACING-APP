@@ -12,10 +12,10 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
           ?.map((e) =>
               e == null ? null : TeamModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      type: json['type'] as String?,
+      type: $enumDecodeNullable(_$EventTypeEnumMap, json['type']),
       rules: json['rules'] as String?,
       title: json['title'] as String?,
-      state: json['state'] as String?,
+      state: $enumDecodeNullable(_$EventStateEnumMap, json['state']),
       hostId: json['hostId'] as String?,
       classes: (json['classes'] as List<dynamic>?)
           ?.map((e) => e == null
@@ -47,8 +47,8 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'finished': instance.finished,
       'joinable': instance.joinable,
       'hostId': instance.hostId,
-      'type': instance.type,
-      'state': instance.state,
+      'type': _$EventTypeEnumMap[instance.type],
+      'state': _$EventStateEnumMap[instance.state],
       'teamsEnabled': instance.teamsEnabled,
       'membersOnly': instance.membersOnly,
       'scoring': instance.scoring,
@@ -57,3 +57,14 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'classes': instance.classes,
       'settings': instance.settings,
     };
+
+const _$EventTypeEnumMap = {
+  EventType.race: 'race',
+  EventType.championship: 'championship',
+};
+
+const _$EventStateEnumMap = {
+  EventState.idle: 'idle',
+  EventState.ongoing: 'ongoing',
+  EventState.finished: 'finished',
+};

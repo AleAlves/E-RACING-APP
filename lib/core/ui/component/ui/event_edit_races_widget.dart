@@ -15,16 +15,16 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../main.dart';
 
-class EventCreateRacesWidget extends StatefulWidget {
+class EventEditRacesWidget extends StatefulWidget {
   final ChampionshipRacesModel model;
 
-  const EventCreateRacesWidget(this.model, {Key? key}) : super(key: key);
+  const EventEditRacesWidget(this.model, {Key? key}) : super(key: key);
 
   @override
-  _EventCreateRacesWidgetState createState() => _EventCreateRacesWidgetState();
+  _EventEditRacesWidgetState createState() => _EventEditRacesWidgetState();
 }
 
-class _EventCreateRacesWidgetState extends State<EventCreateRacesWidget> {
+class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
   int _index = 0;
   final _formKey = GlobalKey<FormState>();
 

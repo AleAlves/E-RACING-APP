@@ -40,7 +40,7 @@ class TextWidget extends StatelessWidget {
         return TextStyle(
           fontFamily: 'Roboto',
           overflow: TextOverflow.fade,
-          fontWeight: FontWeight.w200,
+          fontWeight: FontWeight.w400,
           fontSize: 24.0,
           color: color,
         );

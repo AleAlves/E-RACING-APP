@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
-import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
@@ -23,16 +22,16 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../main.dart';
 import '../../../event_view_model.dart';
 
-class EventCreateWidget extends StatefulWidget {
+class EventCreateRaceWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const EventCreateWidget(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateRaceWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventCreateWidgetState createState() => _EventCreateWidgetState();
+  _EventCreateRaceWidgetState createState() => _EventCreateRaceWidgetState();
 }
 
-class _EventCreateWidgetState extends State<EventCreateWidget>
+class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
     implements BaseSateWidget {
   int _index = 0;
   bool allowTeams = false;
@@ -514,11 +513,18 @@ class _EventCreateWidgetState extends State<EventCreateWidget>
               int.parse(classesMaxEntriesControllers[i].text);
         }
 
+        List<int> bannerBytes = [];
+        try {
+          bannerBytes = bannerFile.readAsBytesSync();
+        } catch (e) {}
+        String bannerImage = base64Encode(bannerBytes);
+
         var race = RaceModel(
             date: eventDate.toIso8601String(),
             notes: _notesController.text,
             title: _titleController.text,
             broadcasting: hasBroadcasting,
+            poster: bannerImage,
             settings: settingsModel);
 
         var event = EventModel(
@@ -528,14 +534,7 @@ class _EventCreateWidgetState extends State<EventCreateWidget>
           membersOnly: allowMembersOnly,
         );
 
-        List<int> bannerBytes = [];
-        try {
-          bannerBytes = bannerFile.readAsBytesSync();
-        } catch (e) {}
-        String bannerImage = base64Encode(bannerBytes);
-        var media = MediaModel(bannerImage);
-
-        widget.viewModel.create(event, media);
+        widget.viewModel.create(event);
       },
       label: "Create",
     );

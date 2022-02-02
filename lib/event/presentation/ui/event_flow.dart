@@ -16,8 +16,8 @@ enum EventFlows {
   status,
   create,
   createRace,
+  createRaces,
   createEvent,
-  createRaces
 }
 
 extension EventNavigation on EventFlows {
@@ -26,13 +26,13 @@ extension EventNavigation on EventFlows {
       case EventFlows.list:
         return EventListWidget(vm);
       case EventFlows.create:
-        return EventCreateWidget(vm);
+        return EventCreateRacesWidget(vm);
       case EventFlows.createRace:
-        return EventCreateWidget(vm);
-      case EventFlows.createEvent:
-        return CreateEventChampionshipWidget(vm);
+        return EventCreateRaceWidget(vm);
       case EventFlows.createRaces:
-        return CreateChampionshipRaceWidget(vm);
+        return EventCreateRaceWidget(vm);
+      case EventFlows.createEvent:
+        return EventCreateWidget(vm);
       case EventFlows.detail:
         return Container();
       case EventFlows.edit:
