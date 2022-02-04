@@ -19,6 +19,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import 'domain/create_event_usecase.dart';
+import 'domain/get_event_usecase.dart';
 import 'presentation/ui/event_flow.dart';
 
 part 'event_view_model.g.dart';
@@ -71,6 +72,7 @@ abstract class _EventViewModel with Store {
   final fetchEventsUseCase =
       Modular.get<FetchEventsUseCase<List<EventModel>>>();
   final createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
+  final getEventUseCase = Modular.get<GetEventUseCase<EventModel>>();
 
   @action
   init() async {
@@ -82,6 +84,23 @@ abstract class _EventViewModel with Store {
     fetchEventsUseCase.invoke(
         success: (data) {
           events = ObservableList.of(data);
+          state = ViewState.ready;
+        },
+        error: onError);
+  }
+
+  void getEvent() async {
+    state = ViewState.loading;
+    media = null;
+    getEventUseCase.params(id: id.toString()).invoke(
+        success: (data) {
+          event = data;
+          if(data?.type == EventType.race) {
+            setFlow(EventFlows.detailRace);
+          }
+          else{
+            getMedia(data?.id ?? '');
+          }
           state = ViewState.ready;
         },
         error: onError);

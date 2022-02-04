@@ -1,10 +1,9 @@
 import 'package:e_racing_app/event/event_view_model.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_option_widget.dart';
-import 'package:e_racing_app/event/presentation/ui/widget/event_create_races_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_race_widget.dart';
-import 'package:e_racing_app/event/presentation/ui/widget/event_create_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_detail_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_detail_race_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_list_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_status_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +19,7 @@ enum EventFlows {
   createRace,
   createRaces,
   createEvent,
+  detailRace
 }
 
 extension EventNavigation on EventFlows {
@@ -37,6 +37,8 @@ extension EventNavigation on EventFlows {
         return EventCreateWidget(vm);
       case EventFlows.detail:
         return EventDetailWidget(vm);
+      case EventFlows.detailRace:
+        return EventDetailRaceWidget(vm);
       case EventFlows.edit:
         return Container();
       case EventFlows.join:

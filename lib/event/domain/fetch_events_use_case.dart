@@ -8,8 +8,7 @@ class FetchEventsUseCase<T> extends BaseUseCase<T> {
       {required Function(T) success, required Function error}) async {
     var response = await super.remote(Request(
         endpoint: "api/v1/events",
-        verb: HTTPVerb.get,
-        params: HTTPRequesParams(safe: false)));
+        verb: HTTPVerb.get));
     if (response.isSuccessfully) {
       var list = response.data == null
           ? null

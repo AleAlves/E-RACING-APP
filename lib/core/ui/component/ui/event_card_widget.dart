@@ -28,7 +28,7 @@ class EventCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CardWidget(
       child: content(),
-      onPressed: () {},
+      onPressed: onPressed,
       ready: true,
     );
   }
