@@ -1,16 +1,16 @@
-import 'package:e_racing_app/core/model/event_model.dart';
-import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/expanded_card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/scoring_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/settings_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/subscription_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
-import 'package:e_racing_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
@@ -74,11 +74,9 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             const BoundWidget(BoundType.sm),
             status(),
             const BoundWidget(BoundType.sm),
-            rules(),
+            information(),
             const BoundWidget(BoundType.sm),
-            scoring(),
-            const BoundWidget(BoundType.sm),
-            settings()
+            subscription(),
           ],
         ),
         FloatActionButtonWidget<EventFlows>(
@@ -109,65 +107,37 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   }
 
   Widget status() {
-    return CardWidget(
-      child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 20,
-          child: Row(
-            children: [
-              const Icon(Icons.sports_score_outlined),
-              const BoundWidget(BoundType.medium),
-              const TextWidget(
-                text: "Status",
-                style: Style.subtitle,
-                align: TextAlign.left,
-              ),
-              const BoundWidget(BoundType.xl),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.circle,
-                    size: 24,
-                    color: _getStatus(widget.viewModel.event?.state)?.first,
-                  ),
-                  const BoundWidget(BoundType.sm),
-                  Container(
-                      decoration: const BoxDecoration(
-                          color: ERcaingApp.color,
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      width: MediaQuery.of(context).size.width / 10,
-                      height: 5),
-                  const BoundWidget(BoundType.sm),
-                  const Icon(
-                    Icons.radio_button_off,
-                    color: ERcaingApp.color,
-                    size: 18,
-                  ),
-                  const BoundWidget(BoundType.sm),
-                  Container(
-                    decoration: const BoxDecoration(
-                        color: ERcaingApp.color,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    width: MediaQuery.of(context).size.width / 10,
-                    height: 5,
-                  ),
-                  const BoundWidget(BoundType.sm),
-                  const Icon(
-                    Icons.radio_button_off,
-                    color: ERcaingApp.color,
-                    size: 18,
-                  ),
-                ],
-              ),
-            ],
-          )),
-      ready: true,
+    return EventProgressWidget(
+      state: widget.viewModel.event?.state,
     );
   }
 
+  Widget information() {
+    return ExpandedWidget(
+        header: Row(
+          children: const [
+            TextWidget(
+              text: "Informations",
+              style: Style.subtitle,
+              align: TextAlign.left,
+            ),
+          ],
+        ),
+        body: [
+          rules(),
+          const BoundWidget(BoundType.sm),
+          scoring(),
+          const BoundWidget(BoundType.sm),
+          settings(),
+          const BoundWidget(BoundType.sm),
+          teams()
+        ],
+        ready: true);
+  }
+
   Widget rules() {
-    return ClassExpandedCardHolderWidget(
+    return ExpandedWidget(
+      cardless: true,
       ready: widget.viewModel.event != null,
       header: Row(
         children: const [
@@ -196,7 +166,8 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   }
 
   Widget scoring() {
-    return ClassExpandedCardHolderWidget(
+    return ExpandedWidget(
+      cardless: true,
       ready: widget.viewModel.event != null,
       header: Row(
         children: const [
@@ -212,7 +183,6 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
         ],
       ),
       body: [
-        const BoundWidget(BoundType.medium),
         ScoringWidget(
           scoring: widget.viewModel.event?.scoring,
           editing: false,
@@ -224,7 +194,8 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   }
 
   Widget settings() {
-    return ClassExpandedCardHolderWidget(
+    return ExpandedWidget(
+      cardless: true,
       ready: widget.viewModel.event != null,
       header: Row(
         children: const [
@@ -241,6 +212,31 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       ),
       body: [
         const BoundWidget(BoundType.medium),
+        SettingsWidget(settings: widget.viewModel.event?.settings),
+        const BoundWidget(BoundType.medium),
+      ],
+    );
+  }
+
+  Widget teams() {
+    return ExpandedWidget(
+      cardless: true,
+      ready: widget.viewModel.event != null,
+      header: Row(
+        children: const [
+          Icon(
+            Icons.supervised_user_circle,
+          ),
+          BoundWidget(BoundType.medium),
+          TextWidget(
+            text: "Teams",
+            style: Style.subtitle,
+            align: TextAlign.left,
+          ),
+        ],
+      ),
+      body: [
+        const BoundWidget(BoundType.medium),
         ScoringWidget(
           scoring: widget.viewModel.event?.scoring,
           editing: false,
@@ -251,16 +247,15 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
     );
   }
 
-  Pair<Color, String>? _getStatus(EventState? state) {
-    switch (state) {
-      case EventState.idle:
-        return Pair(const Color(0xFFF17F28), "Preparation");
-      case EventState.ongoing:
-        return Pair(const Color(0xFF1AA01C), "On going");
-      case EventState.finished:
-        return Pair(const Color(0xFFA01A1A), "Finished");
-      default:
-        return Pair(const Color(0xFF294CA5), "unknow");
-    }
+  Widget subscription() {
+    return SubscriptionWidget(
+      classes: widget.viewModel.event?.classes,
+      onSubscribe: (id) {
+        widget.viewModel.subscribe(id);
+      },
+      onUnsubscribe: (id) {
+        widget.viewModel.subscribe(id);
+      },
+    );
   }
 }

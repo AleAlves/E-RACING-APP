@@ -19,6 +19,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import 'domain/create_event_usecase.dart';
+import 'domain/subscribe_event_usecase.dart';
 import 'domain/get_event_usecase.dart';
 import 'presentation/ui/event_flow.dart';
 
@@ -72,6 +73,8 @@ abstract class _EventViewModel with Store {
   final fetchEventsUseCase =
       Modular.get<FetchEventsUseCase<List<EventModel>>>();
   final createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
+  final doSubscribeEventUseCase =
+      Modular.get<SubscribeEventUseCase<StatusModel>>();
   final getEventUseCase = Modular.get<GetEventUseCase<EventModel>>();
 
   @action
@@ -95,10 +98,9 @@ abstract class _EventViewModel with Store {
     getEventUseCase.params(id: id.toString()).invoke(
         success: (data) {
           event = data;
-          if(data?.type == EventType.race) {
+          if (data?.type == EventType.race) {
             setFlow(EventFlows.detailRace);
-          }
-          else{
+          } else {
             getMedia(data?.id ?? '');
           }
           state = ViewState.ready;
@@ -145,6 +147,16 @@ abstract class _EventViewModel with Store {
   void create(EventModel event) async {
     state = ViewState.loading;
     await createEventUseCase.build(event: event).invoke(
+        success: (data) {
+          status = data;
+          setFlow(EventFlows.status);
+        },
+        error: onError);
+  }
+
+  void subscribe(String? classId) async {
+    state = ViewState.loading;
+    await doSubscribeEventUseCase.build(classId: classId, eventId: event?.id).invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);

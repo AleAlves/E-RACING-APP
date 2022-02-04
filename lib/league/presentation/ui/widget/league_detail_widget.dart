@@ -1,7 +1,7 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/expanded_card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/shortcut_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/social_collection_widget.dart';
@@ -79,7 +79,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   }
 
   Widget description() {
-    return ClassExpandedCardHolderWidget(
+    return ExpandedWidget(
       ready: widget.viewModel.league != null,
       header: TextWidget(
         text: widget.viewModel.league?.name ?? '',
@@ -96,7 +96,9 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
             align: TextAlign.justify,
           ),
         ),
+        const BoundWidget(BoundType.medium),
         tags(),
+        const BoundWidget(BoundType.medium),
       ],
     );
   }

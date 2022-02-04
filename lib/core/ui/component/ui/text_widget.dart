@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-enum Style { description, title, subtitle, label, note }
+enum Style { description, title, subtitle, label, note, shadow }
 
 class TextWidget extends StatelessWidget {
   final String? text;
@@ -34,20 +34,20 @@ class TextWidget extends StatelessWidget {
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400,
           color: color,
-          fontSize: 32.0,
+          fontSize: 28.0,
         );
       case Style.subtitle:
         return TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400,
-          fontSize: 24.0,
+          fontSize: 20.0,
           color: color,
         );
       case Style.description:
         return TextStyle(
           fontFamily: 'Roboto',
-          fontWeight: FontWeight.w300,
-          fontSize: 18.0,
+          fontWeight: FontWeight.w400,
+          fontSize: 16.0,
           color: color,
         );
       case Style.label:
@@ -64,6 +64,19 @@ class TextWidget extends StatelessWidget {
           fontSize: 10.0,
           color: color,
         );
+      case Style.shadow:
+        return TextStyle(
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.w400,
+            fontSize: 20.0,
+            color: color,
+            shadows: [
+              Shadow(
+                  color: Colors.black.withOpacity(0.1),
+                  offset: const Offset(0, 1),
+                  blurRadius: 0)
+            ]);
+        break;
     }
   }
 }

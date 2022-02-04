@@ -19,7 +19,7 @@ enum EventFlows {
   createRace,
   createRaces,
   createEvent,
-  detailRace
+  detailRace,
 }
 
 extension EventNavigation on EventFlows {

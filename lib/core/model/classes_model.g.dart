@@ -7,6 +7,7 @@ part of 'classes_model.dart';
 // **************************************************************************
 
 ClassesModel _$ClassesModelFromJson(Map<String, dynamic> json) => ClassesModel(
+      id: json['_id'] as String?,
       name: json['name'] as String?,
       maxEntries: json['maxEntries'] as int?,
       attenders: (json['attenders'] as List<dynamic>?)
@@ -20,6 +21,7 @@ ClassesModel _$ClassesModelFromJson(Map<String, dynamic> json) => ClassesModel(
 
 Map<String, dynamic> _$ClassesModelToJson(ClassesModel instance) =>
     <String, dynamic>{
+      '_id': instance.id,
       'name': instance.name,
       'maxEntries': instance.maxEntries,
       'entries': instance.entries,

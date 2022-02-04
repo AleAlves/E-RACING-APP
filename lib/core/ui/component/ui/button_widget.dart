@@ -12,6 +12,8 @@ class ButtonWidget extends StatefulWidget {
   final IconData? icon;
   final ButtonType type;
   final bool enabled;
+  final Color? buttonColor;
+  final Color? labelColor;
   final VoidCallback? onPressed;
 
   const ButtonWidget(
@@ -19,6 +21,8 @@ class ButtonWidget extends StatefulWidget {
       required this.type,
       required this.onPressed,
       this.label,
+      this.buttonColor,
+      this.labelColor,
       this.icon,
       Key? key})
       : super(key: key);
@@ -56,7 +60,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       alignment: Alignment.center,
       child: TextButton(
         onPressed: widget.enabled ? widget.onPressed : null,
-        child: Text(widget.label ?? ''),
+        child:  TextWidget(text: widget.label ?? '', color: widget.labelColor, style: Style.shadow,),
       ),
     );
   }
@@ -67,9 +71,12 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary:
-                widget.enabled ? ERcaingApp.color : ERcaingApp.color.shade50),
+                widget.enabled ? widget.buttonColor : ERcaingApp.color.shade50),
         onPressed: widget.enabled ? widget.onPressed : null,
-        child: Text(widget.label ?? ''),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextWidget(text: widget.label ?? '', color: widget.labelColor, style: Style.subtitle,),
+        ),
       ),
     );
   }
@@ -79,9 +86,8 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: widget.enabled
-                ? ERcaingApp.ascent
-                : ERcaingApp.color.shade50),
+            primary:
+                widget.enabled ? widget.buttonColor  : ERcaingApp.color.shade50),
         onPressed: widget.enabled ? widget.onPressed : null,
         child: Text(widget.label ?? ''),
       ),
@@ -95,7 +101,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       children: [
         Container(
           decoration: ShapeDecoration(
-            color: widget.enabled ? ERcaingApp.color : ERcaingApp.color.shade50,
+            color: widget.buttonColor ?? ERcaingApp.color.shade500,
             shape: const CircleBorder(),
           ),
           child: Center(
