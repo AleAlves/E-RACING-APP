@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-enum BoundType { small, medium, big, huge, xl }
+enum BoundType { small, medium, big, huge, xl, sm }
 
 class BoundWidget extends StatelessWidget {
   final BoundType type;
@@ -10,7 +10,9 @@ class BoundWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (type) {
-      case BoundType.small:
+      case BoundType.sm:
+        return const SizedBox(height: 1, width: 1,);
+        case BoundType.small:
         return const SizedBox(height: 8, width: 8,);
       case BoundType.medium:
         return const SizedBox(height: 16, width: 16);

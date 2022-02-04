@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 enum Style { description, title, subtitle, label, note }
 
 class TextWidget extends StatelessWidget {
-  final String text;
+  final String? text;
   final Style style;
   final TextAlign align;
   final Color? color;
@@ -20,7 +20,7 @@ class TextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text,
+      text ?? '',
       softWrap: true,
       textAlign: align,
       style: _getStyle(),

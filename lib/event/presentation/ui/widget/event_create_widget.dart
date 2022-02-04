@@ -290,6 +290,7 @@ class _EventCreateWidgetState
 
   Widget scoring() {
     return ScoringWidget(
+      editing: true,
       onScore: (scoring) {
         score = scoring;
       },
