@@ -254,7 +254,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
         widget.viewModel.subscribe(id);
       },
       onUnsubscribe: (id) {
-        widget.viewModel.subscribe(id);
+        widget.viewModel.unsubscribe(id);
       },
     );
   }

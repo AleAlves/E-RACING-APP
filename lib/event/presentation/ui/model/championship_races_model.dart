@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:flutter/cupertino.dart';

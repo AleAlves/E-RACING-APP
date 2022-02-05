@@ -21,6 +21,7 @@ import 'package:mobx/mobx.dart';
 import 'domain/create_event_usecase.dart';
 import 'domain/subscribe_event_usecase.dart';
 import 'domain/get_event_usecase.dart';
+import 'domain/unsubscribe_event_usecase.dart';
 import 'presentation/ui/event_flow.dart';
 
 part 'event_view_model.g.dart';
@@ -75,6 +76,8 @@ abstract class _EventViewModel with Store {
   final createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
   final doSubscribeEventUseCase =
       Modular.get<SubscribeEventUseCase<StatusModel>>();
+  final unsubscribeEventUseCase =
+      Modular.get<UnsubscribeEventUseCase<StatusModel>>();
   final getEventUseCase = Modular.get<GetEventUseCase<EventModel>>();
 
   @action
@@ -156,12 +159,26 @@ abstract class _EventViewModel with Store {
 
   void subscribe(String? classId) async {
     state = ViewState.loading;
-    await doSubscribeEventUseCase.build(classId: classId, eventId: event?.id).invoke(
-        success: (data) {
-          status = data;
-          setFlow(EventFlows.status);
-        },
-        error: onError);
+    await doSubscribeEventUseCase
+        .build(classId: classId, eventId: event?.id)
+        .invoke(
+            success: (data) {
+              status = data;
+              setFlow(EventFlows.status);
+            },
+            error: onError);
+  }
+
+  void unsubscribe(String? classId) async {
+    state = ViewState.loading;
+    await unsubscribeEventUseCase
+        .build(classId: classId, eventId: event?.id)
+        .invoke(
+            success: (data) {
+              status = data;
+              setFlow(EventFlows.status);
+            },
+            error: onError);
   }
 
   void createChampionshipEventStep(

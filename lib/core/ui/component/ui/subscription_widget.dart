@@ -35,11 +35,11 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
 
   @override
   void initState() {
-    widget.classes?.map((clazz) {
-      clazz?.attenders?.map((attender) {
-        if (attender == Session.instance.getUser()?.id) {
+    widget.classes?.forEach((clss) {
+      clss?.attenders?.forEach((driver) {
+        if (driver == Session.instance.getUser()?.id) {
           hasSubscription = true;
-          id = clazz.id;
+          id = clss.id;
         }
       });
     });
@@ -54,7 +54,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
           child: ButtonWidget(
             buttonColor: Theme.of(context).colorScheme.secondary,
             labelColor: Theme.of(context).primaryTextTheme.button?.color,
-            label: hasSubscription ? "Subscribe" : "Cancel subscription",
+            label: hasSubscription ? "Cancel subscription" : "Subscribe",
             type: ButtonType.normal,
             onPressed: () {
               hasSubscription
@@ -85,23 +85,21 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
                     shrinkWrap: true,
                     itemCount: widget.classes?.length,
                     itemBuilder: (context, index) {
-                      return CardWidget(
-                        ready: true,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: TextWidget(
-                                text: widget.classes?[index]?.name,
-                                style: Style.subtitle),
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 64, right: 64, bottom: 24),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width / 10,
+                          child: ButtonWidget(
+                            label: widget.classes?[index]?.name,
+                            type: ButtonType.important,
+                            onPressed: () {
+                              setState(() {
+                                Navigator.of(context).pop();
+                                widget.onSubscribe.call(widget.classes?[index]?.id);
+                              });
+                            }, enabled: true,
                           ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            Navigator.of(context).pop();
-                            widget.onSubscribe.call(widget.classes?[index]?.id);
-                          });
-                        },
                       );
                     },
                   ),

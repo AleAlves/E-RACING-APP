@@ -48,8 +48,8 @@ class _EventStatusWidgetState extends State<EventStatusWidget>
         children: [
           TextWidget(
               text: widget.viewModel.status?.message ?? '',
-              style: Style.description),
-          const BoundWidget(BoundType.medium),
+              style: Style.title),
+          const BoundWidget(BoundType.xl),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,

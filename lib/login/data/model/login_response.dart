@@ -1,22 +1,22 @@
 import 'package:e_racing_app/login/domain/model/bearer_token_model.dart';
+import 'package:e_racing_app/login/domain/model/user_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'login_response.g.dart';
+
+@JsonSerializable()
 class LoginResponse {
-  late BearerTokenModel bearerToken;
-  late bool required2FA;
+  BearerTokenModel bearerToken;
+  bool required2FA;
+  UserModel user;
 
-  LoginResponse(this.bearerToken, this.required2FA);
+  LoginResponse(
+      {required this.user,
+      required this.bearerToken,
+      required this.required2FA});
 
-  factory LoginResponse.fromJson(Map<String, dynamic> json) {
-    return LoginResponse(BearerTokenModel.fromJson(json['bearerToken']), json['required2FA']);
-  }
+  factory LoginResponse.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseFromJson(json);
 
-  mockable() {}
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> json = {
-      "bearerToken": bearerToken,
-      "required2FA": required2FA
-    };
-    return json;
-  }
+  Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
 }

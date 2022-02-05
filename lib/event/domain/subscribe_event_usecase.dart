@@ -30,7 +30,7 @@ class SubscribeEventUseCase<T> extends BaseUseCase<T> {
                 classId: _classId ?? '', eventId: _eventId ?? ''))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Subscribed", action: "Ok", next: EventFlows.detail) as T);
+          message: "You've been subscribed to this event", action: "Ok", next: EventFlows.detail) as T);
     } else {
       error.call();
     }

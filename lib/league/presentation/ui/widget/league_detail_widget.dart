@@ -1,8 +1,10 @@
+import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/membership_action_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/shortcut_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/social_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
@@ -57,6 +59,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
           children: [
             banner(),
             description(),
+            membership(),
             social(),
             panel(),
           ],
@@ -81,13 +84,18 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   Widget description() {
     return ExpandedWidget(
       ready: widget.viewModel.league != null,
-      header: TextWidget(
-        text: widget.viewModel.league?.name ?? '',
-        style: Style.title,
-        align: TextAlign.left,
+      header: Row(
+        children: [
+          const Icon(Icons.emoji_events),
+          const BoundWidget(BoundType.medium),
+          TextWidget(
+            text: widget.viewModel.league?.name ?? '',
+            style: Style.title,
+            align: TextAlign.left,
+          ),
+        ],
       ),
       body: [
-        const BoundWidget(BoundType.medium),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextWidget(
@@ -122,6 +130,23 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
     return ShortcutCollectionWidget(
       shortcuts: widget.viewModel.menus?.toList(),
       onPressed: widget.viewModel.deeplink,
+    );
+  }
+
+  Widget membership() {
+    return MembershipActionWidget(
+      leagueModel: widget.viewModel.league,
+      onStartMembership: () {
+        widget.viewModel.startMembership();
+      },
+      onStopMembership: () {
+        widget.viewModel.stopMembership();
+      },
+      isMember: widget.viewModel.league?.members
+              ?.where(
+                  (element) => element == Session.instance.getUser()?.id)
+              .isNotEmpty ??
+          false,
     );
   }
 

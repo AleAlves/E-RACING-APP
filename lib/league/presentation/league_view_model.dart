@@ -7,6 +7,8 @@ import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
+import 'package:e_racing_app/league/domain/start_membership_usecase.dart';
+import 'package:e_racing_app/league/domain/stop_membership_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/create_league_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/delete_league_usecase.dart';
 import 'package:e_racing_app/league/domain/usecase/fetch_league_menu_usecase.dart';
@@ -65,6 +67,10 @@ abstract class _LeagueViewModel with Store {
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
   final getLeagueMediaUseCase = Modular.get<GetLeagueUseCase<LeagueModel>>();
   final deleteUseCase = Modular.get<DeleteLeagueUseCase<StatusModel>>();
+  final startMembershipUseCase =
+      Modular.get<StartMembershipUseCase<StatusModel>>();
+  final stopMembershipUseCase =
+      Modular.get<StopMembershipUseCase<StatusModel>>();
   final fetchMenuUsecase =
       Modular.get<FetchLeagueMenuUseCase<List<ShortcutModel>>>();
 
@@ -154,9 +160,30 @@ abstract class _LeagueViewModel with Store {
         error: onError);
   }
 
+
   Future<void> delete() async {
     state = ViewState.loading;
     deleteUseCase.params(id: id.toString()).invoke(
+        success: (data) {
+          status = data;
+          setFlow(LeagueFlow.status);
+        },
+        error: onError);
+  }
+
+  Future<void> startMembership() async {
+    state = ViewState.loading;
+    startMembershipUseCase.build(leagueId: id.toString()).invoke(
+        success: (data) {
+          status = data;
+          setFlow(LeagueFlow.status);
+        },
+        error: onError);
+  }
+
+  Future<void> stopMembership() async {
+    state = ViewState.loading;
+    stopMembershipUseCase.build(leagueId: id.toString()).invoke(
         success: (data) {
           status = data;
           setFlow(LeagueFlow.status);
@@ -180,19 +207,15 @@ abstract class _LeagueViewModel with Store {
     }
   }
 
-  void onError(ApiException error) {
+  void onError() {
     status = StatusModel(
-      message: error.message(),
+      message: "Something went wrong",
       action: "Ok",
       next: LeagueFlow.list,
       previous: flow,
     );
-    if (error.isBusiness()) {
-      state = ViewState.ready;
-      flow = LeagueFlow.status;
-    } else {
-      state = ViewState.error;
-    }
+    state = ViewState.ready;
+    flow = LeagueFlow.status;
   }
 
   void setFlow(LeagueFlow flow) {

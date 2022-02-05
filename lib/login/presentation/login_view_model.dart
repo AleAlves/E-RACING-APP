@@ -74,6 +74,7 @@ abstract class _LoginViewModel with Store {
     await loginUseCase.params(email: email, password: password).invoke(
         success: (data) {
           Session.instance.setBearerToken(data.bearerToken);
+          Session.instance.setUser(data.user);
           saveUser(email, password);
           if (data.required2FA) {
             flow = LoginWidgetFlow.login2fa;

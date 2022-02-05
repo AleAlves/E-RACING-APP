@@ -97,8 +97,7 @@ class ApiService extends BaseService {
       default:
         dynamic responseJson = jsonDecode(response.body);
         return HTTPResponse.onResponse(responseJson['data'],
-            Response.fromJson(responseJson['response']),
-            responseJson['safe'], false);
+            Response.fromJson(responseJson['response']), responseJson['safe'] ?? false, false);
     }
   }
 }
