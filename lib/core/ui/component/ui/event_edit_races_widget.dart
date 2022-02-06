@@ -108,7 +108,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
   Widget basic() {
     return Column(
       children: [
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
         InputTextWidget(
             label: "Race Title",
             icon: Icons.title,
@@ -119,7 +119,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
               }
               return null;
             }),
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
         InputTextWidget(
             label: "Notes",
             icon: Icons.title,
@@ -128,7 +128,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
               return null;
             },
             inputType: InputType.multilines),
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
       ],
     );
   }
@@ -162,7 +162,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
             })
           ],
         ),
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
         const TextWidget(
           text: "Banner: 1000x1000",
           style: Style.description,
@@ -181,7 +181,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
             text:
                 "${widget.model.eventDate.hour}:${widget.model.eventDate.minute}, ${widget.model.eventDate.day}/${widget.model.eventDate.month}/${widget.model.eventDate.year} ",
             style: Style.subtitle),
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
         ButtonWidget(
             icon: Icons.date_range,
             enabled: true,
@@ -222,7 +222,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.medium),
+                      const BoundWidget(BoundType.size16),
                       InputTextWidget(
                           label: "Value",
                           icon: Icons.settings,
@@ -234,7 +234,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.medium),
+                      const BoundWidget(BoundType.size16),
                     ],
                   ),
                 ),
@@ -255,7 +255,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
             );
           },
         ),
-        const BoundWidget(BoundType.xl),
+        const BoundWidget(BoundType.size48),
         ButtonWidget(
             enabled: true,
             type: ButtonType.borderless,

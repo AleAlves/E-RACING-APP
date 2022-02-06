@@ -51,7 +51,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget>
             },
             label: "Já tenho uma conta",
           ),
-          const BoundWidget(BoundType.huge),
+          const BoundWidget(BoundType.size32),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,

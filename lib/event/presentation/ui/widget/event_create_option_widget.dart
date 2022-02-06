@@ -57,8 +57,8 @@ class _EventCreateOptionWidgetState extends State<EventCreateOptionWidget>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const TextWidget(text: "Choose a type of event", style: Style.title),
-          const BoundWidget(BoundType.huge),
-          const BoundWidget(BoundType.huge),
+          const BoundWidget(BoundType.size32),
+          const BoundWidget(BoundType.size32),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,
@@ -67,9 +67,9 @@ class _EventCreateOptionWidgetState extends State<EventCreateOptionWidget>
             },
             label: "Single race",
           ),
-          const BoundWidget(BoundType.huge),
+          const BoundWidget(BoundType.size32),
           const TextWidget(text: "or", style: Style.subtitle),
-          const BoundWidget(BoundType.huge),
+          const BoundWidget(BoundType.size32),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,

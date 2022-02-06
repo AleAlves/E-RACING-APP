@@ -94,7 +94,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                 .toList()
                 .cast<Widget>(),
           ),
-          const BoundWidget(BoundType.xl),
+          const BoundWidget(BoundType.size48),
           if (widget.editing) actions() else
             Container()
         ],
@@ -105,7 +105,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
   Widget editting() {
     return Column(children: const [
       TextWidget(text: "Tap to edit", style: Style.description),
-      BoundWidget(BoundType.xl)
+      BoundWidget(BoundType.size48)
     ],);
   }
 
@@ -124,7 +124,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                 updateScore();
               });
             }),
-        const BoundWidget(BoundType.xl),
+        const BoundWidget(BoundType.size48),
         ButtonWidget(
             enabled: true,
             type: ButtonType.icon,
@@ -155,7 +155,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                     .bottom,
             child: Column(
               children: [
-                const BoundWidget(BoundType.medium),
+                const BoundWidget(BoundType.size16),
                 Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: InputTextWidget(
@@ -168,7 +168,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                         }
                       }),
                 ),
-                const BoundWidget(BoundType.medium),
+                const BoundWidget(BoundType.size16),
                 ButtonWidget(
                     enabled: true,
                     label: "apply",

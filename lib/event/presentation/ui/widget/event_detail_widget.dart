@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
@@ -8,6 +9,7 @@ import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dar
 import 'package:e_racing_app/core/ui/component/ui/scoring_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/settings_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/subscription_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/teams_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
@@ -67,16 +69,18 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       children: [
         Column(
           children: [
-            const BoundWidget(BoundType.sm),
+            const BoundWidget(BoundType.size2),
             banner(),
-            const BoundWidget(BoundType.sm),
+            const BoundWidget(BoundType.size2),
             title(),
-            const BoundWidget(BoundType.sm),
+            const BoundWidget(BoundType.size2),
             status(),
-            const BoundWidget(BoundType.sm),
+            const BoundWidget(BoundType.size2),
             information(),
-            const BoundWidget(BoundType.sm),
+            const BoundWidget(BoundType.size2),
             subscription(),
+            const BoundWidget(BoundType.size2),
+            teams()
           ],
         ),
         FloatActionButtonWidget<EventFlows>(
@@ -125,12 +129,11 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
         ),
         body: [
           rules(),
-          const BoundWidget(BoundType.sm),
+          const BoundWidget(BoundType.size2),
           scoring(),
-          const BoundWidget(BoundType.sm),
+          const BoundWidget(BoundType.size2),
           settings(),
-          const BoundWidget(BoundType.sm),
-          teams()
+          const BoundWidget(BoundType.size2),
         ],
         ready: true);
   }
@@ -142,7 +145,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       header: Row(
         children: const [
           Icon(Icons.gavel),
-          BoundWidget(BoundType.medium),
+          BoundWidget(BoundType.size16),
           TextWidget(
             text: "Rules",
             style: Style.subtitle,
@@ -151,16 +154,16 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
         ],
       ),
       body: [
-        const BoundWidget(BoundType.medium),
+        const BoundWidget(BoundType.size16),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextWidget(
             text: widget.viewModel.event?.rules ?? '',
             style: Style.description,
-            align: TextAlign.justify,
+            align: TextAlign.start,
           ),
         ),
-        const BoundWidget(BoundType.medium),
+        const BoundWidget(BoundType.size16),
       ],
     );
   }
@@ -174,7 +177,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           Icon(
             Icons.format_list_numbered_outlined,
           ),
-          BoundWidget(BoundType.medium),
+          BoundWidget(BoundType.size16),
           TextWidget(
             text: "Score system",
             style: Style.subtitle,
@@ -188,7 +191,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           editing: false,
           onScore: (wow) {},
         ),
-        const BoundWidget(BoundType.medium),
+        const BoundWidget(BoundType.size16),
       ],
     );
   }
@@ -202,7 +205,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           Icon(
             Icons.settings,
           ),
-          BoundWidget(BoundType.medium),
+          BoundWidget(BoundType.size16),
           TextWidget(
             text: "Settings",
             style: Style.subtitle,
@@ -211,40 +214,49 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
         ],
       ),
       body: [
-        const BoundWidget(BoundType.medium),
+        const BoundWidget(BoundType.size16),
         SettingsWidget(settings: widget.viewModel.event?.settings),
-        const BoundWidget(BoundType.medium),
+        const BoundWidget(BoundType.size16),
       ],
     );
   }
 
   Widget teams() {
-    return ExpandedWidget(
-      cardless: true,
-      ready: widget.viewModel.event != null,
-      header: Row(
-        children: const [
-          Icon(
-            Icons.supervised_user_circle,
-          ),
-          BoundWidget(BoundType.medium),
-          TextWidget(
-            text: "Teams",
-            style: Style.subtitle,
-            align: TextAlign.left,
-          ),
-        ],
-      ),
-      body: [
-        const BoundWidget(BoundType.medium),
-        ScoringWidget(
-          scoring: widget.viewModel.event?.scoring,
-          editing: false,
-          onScore: (wow) {},
-        ),
-        const BoundWidget(BoundType.medium),
-      ],
-    );
+    var teams = widget.viewModel.event?.teamsEnabled ?? false;
+    return teams
+        ? ExpandedWidget(
+            ready: widget.viewModel.event != null,
+            header: Row(
+              children: const [
+                TextWidget(
+                  text: "Teams",
+                  style: Style.subtitle,
+                  align: TextAlign.left,
+                ),
+              ],
+            ),
+            body: [
+              const BoundWidget(BoundType.size16),
+              TeamsWidget(teams: widget.viewModel.event?.teams, maxCrew: 2),
+              Padding(
+                padding: const EdgeInsets.only(left: 24, right: 24),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: ButtonWidget(
+                    label: "New team",
+                    type: ButtonType.icon,
+                    icon: Icons.add,
+                    onPressed: () {
+                      widget.viewModel.setFlow(EventFlows.createTeam);
+                    },
+                    enabled: widget.viewModel.event != null,
+                  ),
+                ),
+              ),
+              const BoundWidget(BoundType.size16),
+            ],
+          )
+        : Container();
   }
 
   Widget subscription() {

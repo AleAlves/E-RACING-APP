@@ -66,7 +66,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const TextWidget(text: "Create Account", style: Style.description),
-          const BoundWidget(BoundType.medium),
+          const BoundWidget(BoundType.size16),
           InputTextWidget(
               label: 'Name',
               icon: Icons.person,
@@ -77,7 +77,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
                 }
                 return null;
               }),
-          const BoundWidget(BoundType.medium),
+          const BoundWidget(BoundType.size16),
           InputTextWidget(
               label: 'Surname',
               icon: Icons.person,
@@ -88,7 +88,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
                 }
                 return null;
               }),
-          const BoundWidget(BoundType.medium),
+          const BoundWidget(BoundType.size16),
           InputTextWidget(
               label: 'Email',
               icon: Icons.mail,
@@ -101,7 +101,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
                 }
                 return null;
               }),
-          const BoundWidget(BoundType.medium),
+          const BoundWidget(BoundType.size16),
           InputTextWidget(
             label: 'Password',
             icon: Icons.vpn_key,
@@ -119,7 +119,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
             },
             inputType: InputType.password,
           ),
-          const BoundWidget(BoundType.medium),
+          const BoundWidget(BoundType.size16),
           InputTextWidget(
             label: 'Confirm password',
             icon: Icons.vpn_key,
@@ -134,7 +134,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
             },
             inputType: InputType.password,
           ),
-          const BoundWidget(BoundType.xl),
+          const BoundWidget(BoundType.size48),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,

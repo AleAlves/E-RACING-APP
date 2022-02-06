@@ -1,5 +1,7 @@
 import 'package:e_racing_app/event/event_view_model.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_option_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_create_races_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_create_team_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_race_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_detail_widget.dart';
@@ -19,6 +21,7 @@ enum EventFlows {
   createRace,
   createRaces,
   createEvent,
+  createTeam,
   detailRace,
 }
 
@@ -32,7 +35,7 @@ extension EventNavigation on EventFlows {
       case EventFlows.createRace:
         return EventCreateRaceWidget(vm);
       case EventFlows.createRaces:
-        return EventCreateRaceWidget(vm);
+        return EventCreateRacesWidget(vm);
       case EventFlows.createEvent:
         return EventCreateWidget(vm);
       case EventFlows.detail:
@@ -41,6 +44,8 @@ extension EventNavigation on EventFlows {
         return EventDetailRaceWidget(vm);
       case EventFlows.edit:
         return Container();
+      case EventFlows.createTeam:
+        return EventCreateTeamWidget(vm);
       case EventFlows.join:
         return Container();
       case EventFlows.status:

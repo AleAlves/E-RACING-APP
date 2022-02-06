@@ -31,17 +31,19 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.start,
       alignment: WrapAlignment.start,
+      direction: Axis.horizontal,
       spacing: 3.0,
       children: widget.tagIds!
           .map((item) {
-        return ActionChip(
-          label: TextWidget(
-            text: name(item),
-            style: Style.note,
-          ),
-          onPressed: () {},
-        );
-      })
+            return ActionChip(
+              backgroundColor: Theme.of(context).backgroundColor,
+              label: TextWidget(
+                text: name(item),
+                style: Style.note,
+              ),
+              onPressed: () {},
+            );
+          })
           .toList()
           .cast<Widget>(),
     );

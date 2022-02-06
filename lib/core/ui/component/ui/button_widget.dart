@@ -114,7 +114,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 onPressed: widget.enabled ? widget.onPressed : null),
           ),
         ),
-        const BoundWidget(BoundType.small),
+        const BoundWidget(BoundType.size8),
         widget.label == null
             ? Container()
             : TextWidget(text: widget.label ?? '', style: Style.label)

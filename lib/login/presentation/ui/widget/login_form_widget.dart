@@ -85,7 +85,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
                 }
                 return null;
               }),
-          const BoundWidget(BoundType.medium),
+          const BoundWidget(BoundType.size16),
           InputTextWidget(
               label: 'Password',
               icon: Icons.vpn_key,
@@ -100,7 +100,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
                 return null;
               },
               inputType: InputType.password),
-          const BoundWidget(BoundType.xl),
+          const BoundWidget(BoundType.size48),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,
@@ -112,7 +112,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
             },
             label: "Entrar",
           ),
-          const BoundWidget(BoundType.xl),
+          const BoundWidget(BoundType.size48),
           ButtonWidget(
             enabled: true,
             type: ButtonType.borderless,

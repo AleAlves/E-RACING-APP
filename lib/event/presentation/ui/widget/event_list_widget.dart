@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -24,7 +25,6 @@ class _EventListWidgetState extends State<EventListWidget>
   @override
   void initState() {
     widget.viewModel.fetchEvents();
-    widget.viewModel.fetchTags();
     super.initState();
   }
 
@@ -56,20 +56,25 @@ class _EventListWidgetState extends State<EventListWidget>
   Widget content() {
     return Stack(
       children: [
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: widget.viewModel.events?.length,
-          itemBuilder: (context, index) {
-            return EventCardWidget(
-              icon: _getIcon(widget.viewModel.events?[index]?.type),
-              color: _getColor(widget.viewModel.events?[index]?.type),
-              event: widget.viewModel.events?[index],
-              onPressed: (){
-                widget.viewModel.id = widget.viewModel.events?[index]?.id;
-                widget.viewModel.setFlow(EventFlows.detail);
+        Column(
+          children: [
+            const BoundWidget(BoundType.size8),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.viewModel.events?.length,
+              itemBuilder: (context, index) {
+                return EventCardWidget(
+                  icon: _getIcon(widget.viewModel.events?[index]?.type),
+                  color: _getColor(widget.viewModel.events?[index]?.type),
+                  event: widget.viewModel.events?[index],
+                  onPressed: (){
+                    widget.viewModel.id = widget.viewModel.events?[index]?.id;
+                    widget.viewModel.setFlow(EventFlows.detail);
+                  },
+                );
               },
-            );
-          },
+            ),
+          ],
         ),
         FloatActionButtonWidget<EventFlows>(
           flow: EventFlows.create,

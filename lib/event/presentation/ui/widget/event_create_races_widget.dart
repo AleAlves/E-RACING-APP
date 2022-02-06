@@ -90,7 +90,7 @@ class _EventCreateRacesWidgetState
               );
             },
           ),
-          const BoundWidget(BoundType.xl),
+          const BoundWidget(BoundType.size48),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +116,7 @@ class _EventCreateRacesWidgetState
                     });
                   },
                   label: 'Add'),
-              const BoundWidget(BoundType.xl),
+              const BoundWidget(BoundType.size48),
               ButtonWidget(
                   enabled: true,
                   icon: Icons.remove,
@@ -130,7 +130,7 @@ class _EventCreateRacesWidgetState
                   label: 'Remove'),
             ],
           ),
-          const BoundWidget(BoundType.xl),
+          const BoundWidget(BoundType.size48),
           finish()
         ],
       ),

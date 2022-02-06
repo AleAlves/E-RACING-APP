@@ -179,7 +179,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
   Widget basic() {
     return Column(
       children: [
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
         InputTextWidget(
             label: "Nome",
             icon: Icons.title,
@@ -190,7 +190,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
               }
               return null;
             }),
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
         InputTextWidget(
           label: "Descrição",
           icon: Icons.title,
@@ -363,7 +363,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                             return null;
                           }),
                     ),
-                    const BoundWidget(BoundType.small),
+                    const BoundWidget(BoundType.size8),
                     ButtonWidget(
                         enabled: true,
                         type: ButtonType.icon,
@@ -376,7 +376,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                         },
                         label: 'paste',
                         icon: Icons.paste),
-                    const BoundWidget(BoundType.small),
+                    const BoundWidget(BoundType.size8),
                     ButtonWidget(
                         enabled: true,
                         type: ButtonType.icon,
@@ -394,7 +394,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
             );
           },
         ),
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
         ButtonWidget(
             enabled: true,
             type: ButtonType.borderless,

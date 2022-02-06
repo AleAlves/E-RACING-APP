@@ -68,7 +68,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                 children: [
                   const TextWidget(
                       text: "Recuperação de senha", style: Style.description),
-                  const BoundWidget(BoundType.big),
+                  const BoundWidget(BoundType.size24),
                   InputTextWidget(
                       label: "Email",
                       icon: Icons.mail,
@@ -81,7 +81,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                         }
                         return null;
                       }),
-                  const BoundWidget(BoundType.xl),
+                  const BoundWidget(BoundType.size48),
                   ButtonWidget(
                     enabled: true,
                     type: ButtonType.normal,
@@ -92,7 +92,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                     },
                     label: "Recuperar",
                   ),
-                  const BoundWidget(BoundType.xl),
+                  const BoundWidget(BoundType.size48),
                   ButtonWidget(
                     enabled: true,
                     type: ButtonType.borderless,

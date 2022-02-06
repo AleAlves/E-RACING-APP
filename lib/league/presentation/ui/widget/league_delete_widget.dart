@@ -71,10 +71,10 @@ class _LeagueDeleteWidgetState extends State<LeagueDeleteWidget>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const TextWidget(text: "Excluding League", style: Style.title),
-            const BoundWidget(BoundType.xl),
+            const BoundWidget(BoundType.size48),
             const TextWidget(
                 text: "safety verification: 2+2?", style: Style.subtitle),
-            const BoundWidget(BoundType.xl),
+            const BoundWidget(BoundType.size48),
             Padding(
               padding: const EdgeInsets.only(
                   left: 16.0, right: 16.0, top: 8.0, bottom: 8.0),
@@ -105,7 +105,7 @@ class _LeagueDeleteWidgetState extends State<LeagueDeleteWidget>
                 inputType: InputType.number,
               ),
             ),
-            const BoundWidget(BoundType.xl),
+            const BoundWidget(BoundType.size48),
             ButtonWidget(
                 enabled: _formKey.currentState?.validate() == true,
                 type: ButtonType.normal,

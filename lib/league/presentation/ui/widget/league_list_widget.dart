@@ -1,7 +1,6 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/league_item_widget.dart';
-import 'package:e_racing_app/core/ui/model/float_action_button_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';

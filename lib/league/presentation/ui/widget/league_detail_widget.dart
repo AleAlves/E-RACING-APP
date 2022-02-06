@@ -87,7 +87,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
       header: Row(
         children: [
           const Icon(Icons.emoji_events),
-          const BoundWidget(BoundType.medium),
+          const BoundWidget(BoundType.size16),
           TextWidget(
             text: widget.viewModel.league?.name ?? '',
             style: Style.title,
@@ -104,9 +104,9 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
             align: TextAlign.justify,
           ),
         ),
-        const BoundWidget(BoundType.medium),
+        const BoundWidget(BoundType.size16),
         tags(),
-        const BoundWidget(BoundType.medium),
+        const BoundWidget(BoundType.size16),
       ],
     );
   }

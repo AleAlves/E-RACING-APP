@@ -55,7 +55,7 @@ class _Login2FAWidgetState extends State<Login2FAWidget>
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const TextWidget(text: "Second Step Verification", style: Style.description),
-        const BoundWidget(BoundType.medium),
+        const BoundWidget(BoundType.size16),
         OtpTextField(
           autoFocus: true,
           numberOfFields: 6,
@@ -66,7 +66,7 @@ class _Login2FAWidgetState extends State<Login2FAWidget>
             widget.viewModel.login2fa(code);
           },
         ),
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
         ButtonWidget(
           enabled: true,
           type: ButtonType.borderless,

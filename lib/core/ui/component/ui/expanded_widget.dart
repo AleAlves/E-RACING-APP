@@ -32,10 +32,9 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
   Widget holder() {
     if (widget.cardless) {
       return Padding(
-        padding:
-            const EdgeInsets.only(left: 8.0, right: 8.0, top: 1.0, bottom: 1.0),
-        child: content()
-      );
+          padding: const EdgeInsets.only(
+              left: 8.0, right: 8.0, top: 1.0, bottom: 1.0),
+          child: content());
     }
     return Padding(
       padding:
@@ -45,38 +44,43 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
   }
 
   Widget content() {
-    return ExpansionTile(
-        title: Padding(
-          padding: const EdgeInsets.only(top: 24.0, bottom: 24.0),
-          child: widget.ready
-              ? widget.header
-              : const LoadingShimmer(
-                  height: 10,
-                ),
-        ),
-        children: widget.body,
-        trailing: Padding(
-          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-          child: Ink(
-            decoration: const ShapeDecoration(
-              shape: CircleBorder(),
+    return widget.ready
+        ? ExpansionTile(
+            title: Padding(
+              padding: const EdgeInsets.only(top: 24.0, bottom: 24.0),
+              child: widget.ready
+                  ? widget.header
+                  : const LoadingShimmer(
+                      height: 10,
+                    ),
             ),
-            child: _expanded
-                ? const Icon(
-                    Icons.keyboard_arrow_up,
-                    size: 20.0,
-                  )
-                : const Icon(
-                    Icons.keyboard_arrow_down,
-                    size: 20.0,
-                  ),
-          ),
-        ),
-        onExpansionChanged: (bool expanded) {
-          setState(() {
-            _expanded = expanded;
-          });
-        });
+            children: widget.body,
+            trailing: Padding(
+              padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+              child: Ink(
+                decoration: const ShapeDecoration(
+                  shape: CircleBorder(),
+                ),
+                child: _expanded
+                    ? const Icon(
+                        Icons.keyboard_arrow_up,
+                        size: 20.0,
+                      )
+                    : const Icon(
+                        Icons.keyboard_arrow_down,
+                        size: 20.0,
+                      ),
+              ),
+            ),
+            onExpansionChanged: (bool expanded) {
+              setState(() {
+                _expanded = expanded;
+              });
+            })
+        : const Padding(
+            padding: EdgeInsets.only(left: 8, right: 8),
+            child: LoadingShimmer(),
+          );
   }
 
   Widget loading(BuildContext context) {

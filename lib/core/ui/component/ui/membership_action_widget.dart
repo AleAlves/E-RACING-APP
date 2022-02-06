@@ -1,5 +1,4 @@
-import 'package:e_racing_app/core/model/classes_model.dart';
-import 'package:e_racing_app/core/tools/session.dart';
+
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
@@ -42,7 +41,10 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.leagueModel == null ? const LoadingShimmer() : content();
+    return widget.leagueModel == null ? const Padding(
+      padding: EdgeInsets.only(left: 12, right: 12),
+      child: LoadingShimmer(),
+    ) : content();
   }
 
   Widget content() {
@@ -72,7 +74,7 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
         header: Row(
           children: const [
             Icon(Icons.military_tech),
-            BoundWidget(BoundType.medium),
+            BoundWidget(BoundType.size16),
             TextWidget(text: "Membership", style: Style.title)
           ],
         ),

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'bound_widget.dart';
 import 'button_widget.dart';
+import 'expanded_widget.dart';
 
 class SubscriptionWidget extends StatefulWidget {
   final List<ClassesModel?>? classes;
@@ -35,6 +36,11 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
 
   @override
   void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     widget.classes?.forEach((clss) {
       clss?.attenders?.forEach((driver) {
         if (driver == Session.instance.getUser()?.id) {
@@ -43,28 +49,34 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
         }
       });
     });
-    super.initState();
+    return hasSubscription ? subscribedWidget() : unsubscribedWidget();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget unsubscribedWidget() {
     return CardWidget(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: ButtonWidget(
             buttonColor: Theme.of(context).colorScheme.secondary,
             labelColor: Theme.of(context).primaryTextTheme.button?.color,
-            label: hasSubscription ? "Cancel subscription" : "Subscribe",
+            label: "Subscribe",
             type: ButtonType.normal,
             onPressed: () {
-              hasSubscription
-                  ? widget.onUnsubscribe.call(id)
-                  : actionSubscription();
+              handleChoice();
             },
             enabled: widget.classes != null,
           ),
         ),
         ready: widget.classes != null);
+  }
+
+  void handleChoice() {
+    var size = widget.classes?.length.toInt() ?? 0;
+    if (size > 1) {
+      actionSubscription();
+    } else {
+      widget.onSubscribe.call(widget.classes?.first?.id);
+    }
   }
 
   void actionSubscription() {
@@ -80,13 +92,14 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
                 children: [
                   const TextWidget(
                       text: "Choose a class: ", style: Style.title),
-                  const BoundWidget(BoundType.huge),
+                  const BoundWidget(BoundType.size32),
                   ListView.builder(
                     shrinkWrap: true,
                     itemCount: widget.classes?.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.only(left: 64, right: 64, bottom: 24),
+                        padding: const EdgeInsets.only(
+                            left: 64, right: 64, bottom: 24),
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width / 10,
                           child: ButtonWidget(
@@ -95,9 +108,11 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
                             onPressed: () {
                               setState(() {
                                 Navigator.of(context).pop();
-                                widget.onSubscribe.call(widget.classes?[index]?.id);
+                                widget.onSubscribe
+                                    .call(widget.classes?[index]?.id);
                               });
-                            }, enabled: true,
+                            },
+                            enabled: true,
                           ),
                         ),
                       );
@@ -110,5 +125,43 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
         ),
       ),
     );
+  }
+
+  Widget subscribedWidget() {
+    return ExpandedWidget(
+        header: const TextWidget(text: "Subscription", style: Style.subtitle, align: TextAlign.start),
+        body: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                const TextWidget(text: "Class: ", style: Style.subtitle),
+                TextWidget(
+                    text: widget.classes
+                            ?.firstWhere((element) => element?.id == id)
+                            ?.name ??
+                        '',
+                    style: Style.subtitle),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ButtonWidget(
+                buttonColor: Theme.of(context).colorScheme.secondary,
+                labelColor: Theme.of(context).primaryTextTheme.button?.color,
+                label: "cancel subscription",
+                type: ButtonType.normal,
+                onPressed: () {
+                  widget.onUnsubscribe.call(id);
+                },
+                enabled: true,
+              ),
+            ),
+          )
+        ],
+        ready: true);
   }
 }

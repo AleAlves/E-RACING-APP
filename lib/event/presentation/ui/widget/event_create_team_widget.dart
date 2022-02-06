@@ -2,24 +2,25 @@ import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:e_racing_app/login/presentation/login_view_model.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 import 'package:mobx/mobx.dart';
 
-class LoginResetCodeWidget extends StatefulWidget {
-  final LoginViewModel viewModel;
+import '../../../event_view_model.dart';
+import '../event_flow.dart';
 
-  const LoginResetCodeWidget(this.viewModel, {Key? key}) : super(key: key);
+class EventCreateTeamWidget extends StatefulWidget {
+  final EventViewModel viewModel;
+
+  const EventCreateTeamWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _LoginResetCodeWidgetState createState() => _LoginResetCodeWidgetState();
+  _EventCreateTeamWidgetState createState() => _EventCreateTeamWidgetState();
 }
 
-class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
+class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
     implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _mailController = TextEditingController();
@@ -28,9 +29,8 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
 
   @override
   void initState() {
-    _mailController.text = '';
-    observers();
     super.initState();
+    widget.viewModel.state = ViewState.ready;
   }
 
   @override
@@ -48,14 +48,6 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
   }
 
   @override
-  observers() {
-    _disposers
-        .add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
-      _mailController.text = widget.viewModel.user?.profile?.email ?? '';
-    }));
-  }
-
-  @override
   Widget content() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -68,11 +60,25 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
     );
   }
 
+  @override
+  observers() {}
+
   Widget getCode() {
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
         children: [
+          InputTextWidget(
+              label: 'Email',
+              icon: Icons.vpn_key,
+              controller: _mailController,
+              validator: (value) {
+                if (value == null || value.isEmpty == true) {
+                  return 'Email needed';
+                }
+                return null;
+              }),
+          const BoundWidget(BoundType.size48),
           InputTextWidget(
               label: 'Email',
               icon: Icons.vpn_key,
@@ -100,7 +106,7 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
             type: ButtonType.normal,
             onPressed: () {
               if (_formKey.currentState?.validate() == true) {
-                widget.viewModel.forgot(_mailController.text);
+
               }
             },
             label: "Generate reset code",
@@ -112,7 +118,7 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.flow = LoginWidgetFlow.init;
+    widget.viewModel.setFlow(EventFlows.list);
     return false;
   }
 }

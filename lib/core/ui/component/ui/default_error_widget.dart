@@ -25,7 +25,7 @@ class _DefaulErrorWidgetState extends State<DefaulErrorWidget> {
               children: [
                 const TextWidget(
                     text: "Tente Novamente", style: Style.subtitle),
-                const BoundWidget(BoundType.medium),
+                const BoundWidget(BoundType.size16),
                 Material(
                   color: Colors.transparent,
                   child: Center(

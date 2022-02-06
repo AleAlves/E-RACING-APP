@@ -101,13 +101,13 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const BoundWidget(BoundType.small),
+              const BoundWidget(BoundType.size8),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   idle,
-                  const BoundWidget(BoundType.sm),
+                  const BoundWidget(BoundType.size2),
                   Container(
                       decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
@@ -115,9 +115,9 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
                               const BorderRadius.all(Radius.circular(20))),
                       width: MediaQuery.of(context).size.width / 5,
                       height: 5),
-                  const BoundWidget(BoundType.sm),
+                  const BoundWidget(BoundType.size2),
                   onGoing,
-                  const BoundWidget(BoundType.sm),
+                  const BoundWidget(BoundType.size2),
                   Container(
                     decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.primary,
@@ -126,17 +126,17 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
                     width: MediaQuery.of(context).size.width / 5,
                     height: 5,
                   ),
-                  const BoundWidget(BoundType.sm),
+                  const BoundWidget(BoundType.size2),
                   finished,
                 ],
               ),
-              const BoundWidget(BoundType.medium),
+              const BoundWidget(BoundType.size16),
               TextWidget(
                 text: "status: ${_getStatus()?.second}",
                 style: Style.description,
                 align: TextAlign.left,
               ),
-              const BoundWidget(BoundType.sm),
+              const BoundWidget(BoundType.size2),
             ],
           )),
       ready: true,

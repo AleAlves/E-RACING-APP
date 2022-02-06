@@ -47,7 +47,7 @@ class EventCardWidget extends StatelessWidget {
                 color: _getStatusColor(event?.state),
               ),
             ),
-            const BoundWidget(BoundType.medium),
+            const BoundWidget(BoundType.size16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -103,7 +103,7 @@ class EventCardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon),
-            const BoundWidget(BoundType.small),
+            const BoundWidget(BoundType.size8),
             const TextWidget(
               text: "Championship",
               style: Style.description,
@@ -115,7 +115,7 @@ class EventCardWidget extends StatelessWidget {
         return Row(
           children: [
             Icon(icon),
-            const BoundWidget(BoundType.small),
+            const BoundWidget(BoundType.size8),
             const TextWidget(
               text: "Race",
               style: Style.description,

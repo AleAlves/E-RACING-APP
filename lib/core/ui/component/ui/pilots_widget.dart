@@ -58,7 +58,7 @@ class _PilotsWidgetState extends State<PilotsWidget> {
                   .toList()
                   .cast<Widget>(),
             ),
-            const BoundWidget(BoundType.xl),
+            const BoundWidget(BoundType.size48),
           ],
         ),
       );

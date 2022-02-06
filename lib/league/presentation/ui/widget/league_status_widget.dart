@@ -49,7 +49,7 @@ class _LeagueStatusWidgetState extends State<LeagueStatusWidget>
           TextWidget(
               text: widget.viewModel.status?.message ?? '',
               style: Style.description),
-          const BoundWidget(BoundType.medium),
+          const BoundWidget(BoundType.size16),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,

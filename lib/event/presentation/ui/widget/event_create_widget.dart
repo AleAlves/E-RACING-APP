@@ -187,7 +187,7 @@ class _EventCreateWidgetState
   Widget basic() {
     return Column(
       children: [
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
         InputTextWidget(
             label: "Title",
             icon: Icons.title,
@@ -198,7 +198,7 @@ class _EventCreateWidgetState
               }
               return null;
             }),
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
         InputTextWidget(
             label: "Rules",
             icon: Icons.title,
@@ -207,7 +207,7 @@ class _EventCreateWidgetState
               return null;
             },
             inputType: InputType.multilines),
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
       ],
     );
   }
@@ -241,7 +241,7 @@ class _EventCreateWidgetState
             })
           ],
         ),
-        const BoundWidget(BoundType.huge),
+        const BoundWidget(BoundType.size32),
         const TextWidget(
           text: "Banner: 1000x1000",
           style: Style.description,
@@ -319,7 +319,7 @@ class _EventCreateWidgetState
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.medium),
+                      const BoundWidget(BoundType.size16),
                       InputTextWidget(
                           label: "Value",
                           icon: Icons.settings,
@@ -330,7 +330,7 @@ class _EventCreateWidgetState
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.medium),
+                      const BoundWidget(BoundType.size16),
                     ],
                   ),
                 ),
@@ -351,7 +351,7 @@ class _EventCreateWidgetState
             );
           },
         ),
-        const BoundWidget(BoundType.xl),
+        const BoundWidget(BoundType.size48),
         ButtonWidget(
             enabled: true,
             type: ButtonType.borderless,
@@ -391,7 +391,7 @@ class _EventCreateWidgetState
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.medium),
+                      const BoundWidget(BoundType.size16),
                       InputTextWidget(
                         label: "Max entries",
                         icon: Icons.settings,
@@ -404,7 +404,7 @@ class _EventCreateWidgetState
                         },
                         inputType: InputType.number,
                       ),
-                      const BoundWidget(BoundType.medium),
+                      const BoundWidget(BoundType.size16),
                     ],
                   ),
                 ),
@@ -425,7 +425,7 @@ class _EventCreateWidgetState
             );
           },
         ),
-        const BoundWidget(BoundType.xl),
+        const BoundWidget(BoundType.size48),
         ButtonWidget(
             enabled: true,
             type: ButtonType.borderless,
