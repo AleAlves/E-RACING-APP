@@ -32,7 +32,7 @@ abstract class _LoginViewModel with Store {
   ViewState state = ViewState.loading;
 
   @observable
-  LoginWidgetFlow flow = LoginWidgetFlow.init;
+  LoginWidgetFlow flow = LoginWidgetFlow.login;
 
   @observable
   UserModel? user;
@@ -172,7 +172,7 @@ abstract class _LoginViewModel with Store {
     status = StatusModel(
         message: error.message(),
         action: "Ok",
-        next: LoginWidgetFlow.init,
+        next: LoginWidgetFlow.login,
         previous: flow);
 
     if (error.isBusiness()) {
@@ -185,6 +185,6 @@ abstract class _LoginViewModel with Store {
 
   void retry() {
     state = ViewState.ready;
-    flow = status?.previous ?? LoginWidgetFlow.init;
+    flow = status?.previous ?? LoginWidgetFlow.login;
   }
 }

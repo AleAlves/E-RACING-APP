@@ -2,6 +2,7 @@ import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
@@ -121,6 +122,17 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
             },
             label: "Esqueci a senha",
           ),
+          const BoundWidget(BoundType.size48),
+          const TextWidget(text: "Join us", style: Style.description,),
+          const BoundWidget(BoundType.size16),
+          ButtonWidget(
+            enabled: true,
+            type: ButtonType.important,
+            onPressed: () {
+              widget.viewModel.flow = LoginWidgetFlow.signin;
+            },
+            label: "Criar uma conta",
+          )
         ],
       ),
     );
@@ -128,7 +140,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.flow = LoginWidgetFlow.init;
+    widget.viewModel.flow = LoginWidgetFlow.login;
     return false;
   }
 }

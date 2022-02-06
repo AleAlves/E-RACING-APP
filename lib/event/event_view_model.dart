@@ -8,6 +8,7 @@ import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
+import 'package:e_racing_app/core/model/team_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/domain/fetch_events_use_case.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import 'domain/create_event_usecase.dart';
+import 'domain/create_team_usecase.dart';
 import 'domain/subscribe_event_usecase.dart';
 import 'domain/get_event_usecase.dart';
 import 'domain/unsubscribe_event_usecase.dart';
@@ -78,6 +80,7 @@ abstract class _EventViewModel with Store {
       Modular.get<SubscribeEventUseCase<StatusModel>>();
   final unsubscribeEventUseCase =
       Modular.get<UnsubscribeEventUseCase<StatusModel>>();
+  final createTeamEventUseCase = Modular.get<CreateTeamUseCase<StatusModel>>();
   final getEventUseCase = Modular.get<GetEventUseCase<EventModel>>();
 
   @action
@@ -227,6 +230,17 @@ abstract class _EventViewModel with Store {
         teamsEnabled: creatingEvent?.teamsEnabled);
 
     await createEventUseCase.build(event: event, media: media).invoke(
+        success: (data) {
+          status = data;
+          setFlow(EventFlows.status);
+        },
+        error: onError);
+  }
+
+  void createTeam(String name, List<String?> ids) async {
+    state = ViewState.loading;
+    var team = TeamModel(name: name, crew: ids);
+    await createTeamEventUseCase.build(id: event?.id, team: team).invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);

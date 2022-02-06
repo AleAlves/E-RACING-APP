@@ -104,8 +104,11 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
     return CardWidget(
       child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: TextWidget(
-              text: widget.viewModel.event?.title, style: Style.title)),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextWidget(
+                text: widget.viewModel.event?.title, style: Style.title),
+          )),
       ready: true,
     );
   }

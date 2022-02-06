@@ -23,6 +23,7 @@ class EventModel {
   final EventState? state;
   final bool? teamsEnabled;
   final bool? membersOnly;
+  final int? teamsMaxCrew;
   final List<int?>? scoring;
   final List<RaceModel?>? races;
   final List<TeamModel?>? teams;
@@ -42,6 +43,7 @@ class EventModel {
     this.joinable,
     this.settings,
     this.finished,
+    this.teamsMaxCrew,
     required this.races,
     required this.membersOnly,
     required this.teamsEnabled,

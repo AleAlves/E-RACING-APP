@@ -23,31 +23,31 @@ class TextWidget extends StatelessWidget {
       text ?? '',
       softWrap: true,
       textAlign: align,
-      style: _getStyle(),
+      style: _getStyle(context),
     );
   }
 
-  TextStyle _getStyle() {
+  TextStyle _getStyle(BuildContext context) {
     switch (style) {
       case Style.title:
         return TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400,
           color: color,
-          fontSize: 28.0,
+          fontSize: 24.0,
         );
       case Style.subtitle:
         return TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400,
-          fontSize: 20.0,
+          fontSize: 18.0,
           color: color,
         );
       case Style.description:
         return TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400,
-          fontSize: 16.0,
+          fontSize: 14.0,
           color: color,
         );
       case Style.label:
@@ -55,7 +55,7 @@ class TextWidget extends StatelessWidget {
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400,
           fontSize: 12.0,
-          color: color,
+          color: color  ?? Theme.of(context).colorScheme.onSecondary,
         );
       case Style.note:
         return TextStyle(
@@ -68,7 +68,7 @@ class TextWidget extends StatelessWidget {
         return TextStyle(
             fontFamily: 'Roboto',
             fontWeight: FontWeight.w400,
-            fontSize: 20.0,
+            fontSize: 18.0,
             color: color,
             shadows: [
               Shadow(

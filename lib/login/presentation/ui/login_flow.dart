@@ -12,7 +12,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 enum LoginWidgetFlow {
-  init,
   login,
   signin,
   login2fa,
@@ -28,8 +27,6 @@ enum LoginWidgetFlow {
 extension LoginNavigation on LoginWidgetFlow {
   static Widget flow(LoginViewModel vm) {
     switch (vm.flow) {
-      case LoginWidgetFlow.init:
-        return LoginInitialWidget(vm);
       case LoginWidgetFlow.login:
         return LoginFormWidget(vm);
       case LoginWidgetFlow.signin:

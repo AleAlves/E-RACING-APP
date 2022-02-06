@@ -42,65 +42,59 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
 
   Widget createForm() {
     return Form(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [stepper()],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [stepper()],
       ),
       key: _formKey,
     );
   }
 
   Widget stepper() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SizedBox(
-        child: Column(
-          children: [
-            Stepper(
-              physics: const ClampingScrollPhysics(),
-              currentStep: _index,
-              onStepTapped: (int index) {
-                setState(() {
-                  _index = index;
-                });
-              },
-              controlsBuilder: (BuildContext context,
-                  {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
-                return Row(
-                  children: <Widget>[
-                    Container(),
-                    Container(),
-                  ],
-                );
-              },
-              steps: <Step>[
-                Step(
-                  title: const Text('Basic'),
-                  content: basic(),
-                ),
-                Step(
-                  title: const Text('Date'),
-                  content: date(),
-                ),
-                Step(
-                  title: const Text('Poster'),
-                  content: banner(),
-                ),
-                Step(
-                  title: const Text('Settings'),
-                  content: settings(),
-                ),
-                Step(
-                  title: const Text('Broadcast'),
-                  content: broadcasting(),
-                ),
-              ],
-            ),
-          ],
-        ),
+    return SizedBox(
+      child: Column(
+        children: [
+          Stepper(
+            physics: const ClampingScrollPhysics(),
+            currentStep: _index,
+            onStepTapped: (int index) {
+              setState(() {
+                _index = index;
+              });
+            },
+            controlsBuilder: (BuildContext context,
+                {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
+              return Row(
+                children: <Widget>[
+                  Container(),
+                  Container(),
+                ],
+              );
+            },
+            steps: <Step>[
+              Step(
+                title: const Text('Basic'),
+                content: basic(),
+              ),
+              Step(
+                title: const Text('Date'),
+                content: date(),
+              ),
+              Step(
+                title: const Text('Poster'),
+                content: banner(),
+              ),
+              Step(
+                title: const Text('Settings'),
+                content: settings(),
+              ),
+              Step(
+                title: const Text('Broadcast'),
+                content: broadcasting(),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

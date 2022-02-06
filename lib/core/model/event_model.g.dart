@@ -31,6 +31,7 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
               : SettingsModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       finished: json['finished'] as bool?,
+      teamsMaxCrew: json['teamsMaxCrew'] as int?,
       races: (json['races'] as List<dynamic>?)
           ?.map((e) =>
               e == null ? null : RaceModel.fromJson(e as Map<String, dynamic>))
@@ -51,6 +52,7 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'state': _$EventStateEnumMap[instance.state],
       'teamsEnabled': instance.teamsEnabled,
       'membersOnly': instance.membersOnly,
+      'teamsMaxCrew': instance.teamsMaxCrew,
       'scoring': instance.scoring,
       'races': instance.races,
       'teams': instance.teams,

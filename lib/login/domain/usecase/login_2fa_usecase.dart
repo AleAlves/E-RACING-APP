@@ -31,7 +31,7 @@ class Login2FAUseCase<T> extends BaseUseCase<T?> {
       var wow = StatusModel(
           message: "2FA Logged successfuly",
           action: "ok",
-          next: LoginWidgetFlow.init);
+          next: LoginWidgetFlow.login);
       success.call(wow as T);
     } else {
       error.call();

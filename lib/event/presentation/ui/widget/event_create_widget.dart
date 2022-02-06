@@ -128,58 +128,55 @@ class _EventCreateWidgetState
   }
 
   Widget stepper() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SizedBox(
-        child: Column(
-          children: [
-            Stepper(
-              physics: const ClampingScrollPhysics(),
-              currentStep: _index,
-              onStepTapped: (int index) {
-                setState(() {
-                  _index = index;
-                });
-              },
-              controlsBuilder: (BuildContext context,
-                  {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
-                return Row(
-                  children: <Widget>[
-                    Container(),
-                    Container(),
-                  ],
-                );
-              },
-              steps: <Step>[
-                Step(
-                  title: const Text('Basic'),
-                  content: basic(),
-                ),
-                Step(
-                  title: const Text('Score'),
-                  content: scoring(),
-                ),
-                Step(
-                  title: const Text('Classes'),
-                  content: classes(),
-                ),
-                Step(
-                  title: const Text('Options'),
-                  content: options(),
-                ),
-                Step(
-                  title: const Text('Banner'),
-                  content: banner(),
-                ),
-                Step(
-                  title: const Text('Settings'),
-                  content: settings(),
-                ),
-              ],
-            ),
-            finish()
-          ],
-        ),
+    return SizedBox(
+      child: Column(
+        children: [
+          Stepper(
+            physics: const ClampingScrollPhysics(),
+            currentStep: _index,
+            onStepTapped: (int index) {
+              setState(() {
+                _index = index;
+              });
+            },
+            controlsBuilder: (BuildContext context,
+                {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
+              return Row(
+                children: <Widget>[
+                  Container(),
+                  Container(),
+                ],
+              );
+            },
+            steps: <Step>[
+              Step(
+                title: const Text('Basic'),
+                content: basic(),
+              ),
+              Step(
+                title: const Text('Score'),
+                content: scoring(),
+              ),
+              Step(
+                title: const Text('Classes'),
+                content: classes(),
+              ),
+              Step(
+                title: const Text('Options'),
+                content: options(),
+              ),
+              Step(
+                title: const Text('Banner'),
+                content: banner(),
+              ),
+              Step(
+                title: const Text('Settings'),
+                content: settings(),
+              ),
+            ],
+          ),
+          finish()
+        ],
       ),
     );
   }

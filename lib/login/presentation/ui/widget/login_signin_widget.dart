@@ -159,7 +159,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.flow = LoginWidgetFlow.init;
+    widget.viewModel.flow = LoginWidgetFlow.login;
     return false;
   }
 }

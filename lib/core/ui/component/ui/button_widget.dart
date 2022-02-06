@@ -60,7 +60,11 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       alignment: Alignment.center,
       child: TextButton(
         onPressed: widget.enabled ? widget.onPressed : null,
-        child:  TextWidget(text: widget.label ?? '', color: widget.labelColor, style: Style.shadow,),
+        child: TextWidget(
+          text: widget.label ?? '',
+          color: widget.labelColor,
+          style: Style.shadow,
+        ),
       ),
     );
   }
@@ -75,7 +79,11 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         onPressed: widget.enabled ? widget.onPressed : null,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: TextWidget(text: widget.label ?? '', color: widget.labelColor, style: Style.subtitle,),
+          child: TextWidget(
+            text: widget.label ?? '',
+            color: widget.labelColor,
+            style: Style.subtitle,
+          ),
         ),
       ),
     );
@@ -86,10 +94,18 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary:
-                widget.enabled ? widget.buttonColor  : ERcaingApp.color.shade50),
+            primary: widget.enabled
+                ? Theme.of(context).colorScheme.secondary
+                : ERcaingApp.color.shade50),
         onPressed: widget.enabled ? widget.onPressed : null,
-        child: Text(widget.label ?? ''),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextWidget(
+            text: widget.label ?? '',
+            color: Theme.of(context).colorScheme.onSecondary,
+            style: Style.subtitle,
+          ),
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/model/team_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
+import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,35 +45,35 @@ class _TeamsWidgetState extends State<TeamsWidget> {
               spacing: 5.0,
               children: widget.teams!
                   .map((team) {
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16),
-                      child: Column(
+                    return CardWidget(
+                      ready: true,
+                      onPressed: (){},
+                      child:  Row(
                         children: [
-                          Row(
-                            children: [
-                              TextWidget(
-                                  text: "${team?.name}:",
-                                  style: Style.description),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 16, right: 16),
-                                child: Row(
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.all(8),
-                                      child: Icon(
-                                          Icons.sports_motorsports),
-                                    ),
-                                    TextWidget(
-                                        text:
-                                            "(${team?.crew?.length.toString()}/${widget.maxCrew.toString()})",
-                                        style: Style.description),
-                                  ],
-                                ),
-                              ),
-                            ],
+                          const Icon(
+                            Icons.groups_outlined,
                           ),
                           const BoundWidget(BoundType.size16),
+                          TextWidget(
+                              text: "${team?.name}:",
+                              style: Style.description),
+                          Padding(
+                            padding:
+                            const EdgeInsets.only(left: 16, right: 16),
+                            child: Row(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8),
+                                  child: Icon(
+                                      Icons.sports_motorsports),
+                                ),
+                                TextWidget(
+                                    text:
+                                    "(${team?.crew?.length.toString()}/${widget.maxCrew.toString()})",
+                                    style: Style.description),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     );

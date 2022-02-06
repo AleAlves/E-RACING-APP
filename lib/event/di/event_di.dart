@@ -2,6 +2,7 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/event/domain/create_event_usecase.dart';
+import 'package:e_racing_app/event/domain/create_team_usecase.dart';
 import 'package:e_racing_app/event/domain/subscribe_event_usecase.dart';
 import 'package:e_racing_app/event/domain/fetch_events_use_case.dart';
 import 'package:e_racing_app/event/domain/get_event_usecase.dart';
@@ -22,6 +23,7 @@ class EventModule extends Module {
         Bind.factory((i) => CreateEventUseCase<StatusModel>()),
         Bind.factory((i) => SubscribeEventUseCase<StatusModel>()),
         Bind.factory((i) => UnsubscribeEventUseCase<StatusModel>()),
+        Bind.factory((i) => CreateTeamUseCase<StatusModel>()),
         Bind.factory((i) => GetEventUseCase<EventModel>()),
         Bind.factory((i) => GetTagUseCase()),
         Bind.factory((i) => GetSocialMediaUseCase())

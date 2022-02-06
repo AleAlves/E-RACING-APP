@@ -29,7 +29,7 @@ class ERcaingApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'E-Racing',
-      theme: ThemeData.light().copyWith(
+      theme: ThemeData.dark().copyWith(
         appBarTheme: const AppBarTheme(),
         colorScheme: ColorScheme.fromSwatch(
                 primarySwatch: color, accentColor: ascent)

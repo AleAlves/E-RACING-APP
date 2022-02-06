@@ -68,7 +68,7 @@ class _LoginOtpQRWidgetState extends State<LoginOtpQRWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.flow = LoginWidgetFlow.init;
+    widget.viewModel.flow = LoginWidgetFlow.login;
     return false;
   }
 }

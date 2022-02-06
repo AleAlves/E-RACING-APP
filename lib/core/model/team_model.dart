@@ -4,11 +4,11 @@ part 'team_model.g.dart';
 
 @JsonSerializable()
 class TeamModel {
-  late String? name;
-  late int? points;
-  late List<String>? crew;
+  String? name;
+  int? points;
+  List<String?>? crew;
 
-  TeamModel(this.name, this.crew, this.points);
+  TeamModel({this.name, this.crew, this.points});
 
   factory TeamModel.fromJson(Map<String, dynamic> json) => _$TeamModelFromJson(json);
 
