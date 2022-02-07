@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/presentation/login_view_model.dart';
@@ -42,7 +42,7 @@ class _LoginErrorWidgetState extends State<LoginErrorWidget>
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const TextWidget(text: "Tente Novamente", style: Style.subtitle),
-        const BoundWidget(BoundType.size16),
+        const SpacingWidget(LayoutSize.size16),
         Material(
           color: Colors.transparent,
           child: Center(

@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'bound_widget.dart';
+import 'spacing_widget.dart';
 import 'class_collection_widget.dart';
 
 class EventCardWidget extends StatelessWidget {
@@ -47,7 +47,7 @@ class EventCardWidget extends StatelessWidget {
                 color: _getStatusColor(event?.state),
               ),
             ),
-            const BoundWidget(BoundType.size16),
+            const SpacingWidget(LayoutSize.size16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -103,7 +103,7 @@ class EventCardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon),
-            const BoundWidget(BoundType.size8),
+            const SpacingWidget(LayoutSize.size8),
             const TextWidget(
               text: "Championship",
               style: Style.description,
@@ -115,7 +115,7 @@ class EventCardWidget extends StatelessWidget {
         return Row(
           children: [
             Icon(icon),
-            const BoundWidget(BoundType.size8),
+            const SpacingWidget(LayoutSize.size8),
             const TextWidget(
               text: "Race",
               style: Style.description,

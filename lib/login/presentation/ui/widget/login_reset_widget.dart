@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -76,7 +76,7 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
           const TextWidget(
               text: "Use the code we've sent you by email",
               style: Style.description),
-          const BoundWidget(BoundType.size16),
+          const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
               label: 'Validation code',
               icon: Icons.security,
@@ -87,7 +87,7 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
                 }
                 return null;
               }),
-          const BoundWidget(BoundType.size16),
+          const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
             label: 'Password',
             icon: Icons.vpn_key,
@@ -105,7 +105,7 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
             },
             inputType: InputType.password,
           ),
-          const BoundWidget(BoundType.size16),
+          const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
             label: 'Confirm password',
             icon: Icons.vpn_key,
@@ -120,7 +120,7 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
             },
             inputType: InputType.password,
           ),
-          const BoundWidget(BoundType.size48),
+          const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,

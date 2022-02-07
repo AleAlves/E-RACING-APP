@@ -7,7 +7,7 @@ import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/scoring_widget.dart';
@@ -184,7 +184,7 @@ class _EventCreateWidgetState
   Widget basic() {
     return Column(
       children: [
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
             label: "Title",
             icon: Icons.title,
@@ -195,7 +195,7 @@ class _EventCreateWidgetState
               }
               return null;
             }),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
             label: "Rules",
             icon: Icons.title,
@@ -204,7 +204,7 @@ class _EventCreateWidgetState
               return null;
             },
             inputType: InputType.multilines),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
       ],
     );
   }
@@ -238,7 +238,7 @@ class _EventCreateWidgetState
             })
           ],
         ),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         const TextWidget(
           text: "Banner: 1000x1000",
           style: Style.description,
@@ -316,7 +316,7 @@ class _EventCreateWidgetState
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.size16),
+                      const SpacingWidget(LayoutSize.size16),
                       InputTextWidget(
                           label: "Value",
                           icon: Icons.settings,
@@ -327,7 +327,7 @@ class _EventCreateWidgetState
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.size16),
+                      const SpacingWidget(LayoutSize.size16),
                     ],
                   ),
                 ),
@@ -348,7 +348,7 @@ class _EventCreateWidgetState
             );
           },
         ),
-        const BoundWidget(BoundType.size48),
+        const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
             type: ButtonType.borderless,
@@ -388,7 +388,7 @@ class _EventCreateWidgetState
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.size16),
+                      const SpacingWidget(LayoutSize.size16),
                       InputTextWidget(
                         label: "Max entries",
                         icon: Icons.settings,
@@ -401,7 +401,7 @@ class _EventCreateWidgetState
                         },
                         inputType: InputType.number,
                       ),
-                      const BoundWidget(BoundType.size16),
+                      const SpacingWidget(LayoutSize.size16),
                     ],
                   ),
                 ),
@@ -422,7 +422,7 @@ class _EventCreateWidgetState
             );
           },
         ),
-        const BoundWidget(BoundType.size48),
+        const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
             type: ButtonType.borderless,

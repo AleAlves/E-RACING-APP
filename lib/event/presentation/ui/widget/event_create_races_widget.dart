@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_edit_races_widget.dart';
@@ -90,7 +90,7 @@ class _EventCreateRacesWidgetState
               );
             },
           ),
-          const BoundWidget(BoundType.size48),
+          const SpacingWidget(LayoutSize.size48),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +116,7 @@ class _EventCreateRacesWidgetState
                     });
                   },
                   label: 'Add'),
-              const BoundWidget(BoundType.size48),
+              const SpacingWidget(LayoutSize.size48),
               ButtonWidget(
                   enabled: true,
                   icon: Icons.remove,
@@ -130,7 +130,7 @@ class _EventCreateRacesWidgetState
                   label: 'Remove'),
             ],
           ),
-          const BoundWidget(BoundType.size48),
+          const SpacingWidget(LayoutSize.size48),
           finish()
         ],
       ),

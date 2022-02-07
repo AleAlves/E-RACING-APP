@@ -7,7 +7,7 @@ import 'package:e_racing_app/home/domain/model/league_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'bound_widget.dart';
+import 'spacing_widget.dart';
 import 'button_widget.dart';
 
 class MembershipActionWidget extends StatefulWidget {
@@ -74,7 +74,7 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
         header: Row(
           children: const [
             Icon(Icons.military_tech),
-            BoundWidget(BoundType.size16),
+            SpacingWidget(LayoutSize.size16),
             TextWidget(text: "Membership", style: Style.title)
           ],
         ),

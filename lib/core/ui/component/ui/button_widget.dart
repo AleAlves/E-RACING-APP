@@ -1,11 +1,11 @@
 import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-enum ButtonType { normal, borderless, icon, important }
+enum ButtonType { normal, borderless, icon, iconBorderless, important }
 
 class ButtonWidget extends StatefulWidget {
   final String? label;
@@ -52,6 +52,8 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         return iconButton();
       case ButtonType.important:
         return important(context);
+      case ButtonType.iconBorderless:
+        return iconButtonBorderless();
     }
   }
 
@@ -130,7 +132,34 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 onPressed: widget.enabled ? widget.onPressed : null),
           ),
         ),
-        const BoundWidget(BoundType.size8),
+        const SpacingWidget(LayoutSize.size8),
+        widget.label == null
+            ? Container()
+            : TextWidget(text: widget.label ?? '', style: Style.label)
+      ],
+    );
+  }
+
+  Widget iconButtonBorderless() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          decoration: const ShapeDecoration(
+            color: Colors.transparent,
+            shape: CircleBorder(),
+          ),
+          child: Center(
+            child: IconButton(
+                icon: Icon(
+                  widget.icon,
+                  size: 24,
+                ),
+                onPressed: widget.enabled ? widget.onPressed : null),
+          ),
+        ),
+        const SpacingWidget(LayoutSize.size8),
         widget.label == null
             ? Container()
             : TextWidget(text: widget.label ?? '', style: Style.label)

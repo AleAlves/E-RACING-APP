@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -86,7 +86,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
                 }
                 return null;
               }),
-          const BoundWidget(BoundType.size16),
+          const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
               label: 'Password',
               icon: Icons.vpn_key,
@@ -101,7 +101,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
                 return null;
               },
               inputType: InputType.password),
-          const BoundWidget(BoundType.size48),
+          const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,
@@ -113,7 +113,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
             },
             label: "Entrar",
           ),
-          const BoundWidget(BoundType.size48),
+          const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
             enabled: true,
             type: ButtonType.borderless,
@@ -122,9 +122,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
             },
             label: "Esqueci a senha",
           ),
-          const BoundWidget(BoundType.size48),
+          const SpacingWidget(LayoutSize.size48),
           const TextWidget(text: "Join us", style: Style.description,),
-          const BoundWidget(BoundType.size16),
+          const SpacingWidget(LayoutSize.size16),
           ButtonWidget(
             enabled: true,
             type: ButtonType.important,

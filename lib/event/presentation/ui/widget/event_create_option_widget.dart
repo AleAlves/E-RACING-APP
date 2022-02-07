@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -57,8 +57,8 @@ class _EventCreateOptionWidgetState extends State<EventCreateOptionWidget>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const TextWidget(text: "Choose a type of event", style: Style.title),
-          const BoundWidget(BoundType.size32),
-          const BoundWidget(BoundType.size32),
+          const SpacingWidget(LayoutSize.size32),
+          const SpacingWidget(LayoutSize.size32),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,
@@ -67,9 +67,9 @@ class _EventCreateOptionWidgetState extends State<EventCreateOptionWidget>
             },
             label: "Single race",
           ),
-          const BoundWidget(BoundType.size32),
+          const SpacingWidget(LayoutSize.size32),
           const TextWidget(text: "or", style: Style.subtitle),
-          const BoundWidget(BoundType.size32),
+          const SpacingWidget(LayoutSize.size32),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,

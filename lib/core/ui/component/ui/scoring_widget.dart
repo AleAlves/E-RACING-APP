@@ -6,7 +6,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'bound_widget.dart';
+import 'spacing_widget.dart';
 import 'button_widget.dart';
 
 class ScoringWidget extends StatefulWidget {
@@ -63,7 +63,6 @@ class _ScoringWidgetState extends State<ScoringWidget> {
               var position = scoringEdit.indexOf(score);
               ++position;
               return CardWidget(
-                color: Theme.of(context).colorScheme.primaryVariant,
                 ready: true,
                 child: Column(
                   children: [
@@ -94,7 +93,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                 .toList()
                 .cast<Widget>(),
           ),
-          const BoundWidget(BoundType.size48),
+          const SpacingWidget(LayoutSize.size48),
           if (widget.editing) actions() else
             Container()
         ],
@@ -105,7 +104,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
   Widget editting() {
     return Column(children: const [
       TextWidget(text: "Tap to edit", style: Style.description),
-      BoundWidget(BoundType.size48)
+      SpacingWidget(LayoutSize.size48)
     ],);
   }
 
@@ -124,7 +123,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                 updateScore();
               });
             }),
-        const BoundWidget(BoundType.size48),
+        const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
             type: ButtonType.icon,
@@ -155,7 +154,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                     .bottom,
             child: Column(
               children: [
-                const BoundWidget(BoundType.size16),
+                const SpacingWidget(LayoutSize.size16),
                 Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: InputTextWidget(
@@ -168,7 +167,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                         }
                       }),
                 ),
-                const BoundWidget(BoundType.size16),
+                const SpacingWidget(LayoutSize.size16),
                 ButtonWidget(
                     enabled: true,
                     label: "apply",

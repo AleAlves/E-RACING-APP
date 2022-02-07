@@ -10,17 +10,17 @@ void main() => runApp(ModularApp(
 class ERcaingApp extends StatelessWidget {
   static const MaterialColor ascent = MaterialColor(0xffba1111, <int, Color>{});
   static const MaterialColor base = MaterialColor(0xFF282828, <int, Color>{});
-  static const MaterialColor color = MaterialColor(0xFF6FA8DC, <int, Color>{
-    50: Color(0xFFEEF5FB),
-    100: Color(0xFFD4E5F5),
-    200: Color(0xFFB7D4EE),
-    300: Color(0xFF9AC2E7),
-    400: Color(0xFF85B5E1),
-    500: Color(0xFF6FA8DC),
-    600: Color(0xFF67A0D8),
-    700: Color(0xFF5C97D3),
-    800: Color(0xFF528DCE),
-    900: Color(0xFF407DC5),
+  static const MaterialColor color = MaterialColor(0xFFF6B26B, <int, Color>{
+    50: Color(0xFFFEF6ED),
+    100: Color(0xFFFCE8D3),
+    200: Color(0xFFFBD9B5),
+    300: Color(0xFFF9C997),
+    400: Color(0xFFF7BE81),
+    500: Color(0xFFF6B26B),
+    600: Color(0xFFF5AB63),
+    700: Color(0xFFF3A258),
+    800: Color(0xFFF2994E),
+    900: Color(0xFFEF8A3C),
   });
 
   const ERcaingApp({Key? key}) : super(key: key);

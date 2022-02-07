@@ -4,7 +4,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'bound_widget.dart';
+import 'spacing_widget.dart';
 
 class SettingsWidget extends StatefulWidget {
   final List<SettingsModel?>? settings;
@@ -54,7 +54,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               ),
                             ],
                           ),
-                          const BoundWidget(BoundType.size16),
+                          const SpacingWidget(LayoutSize.size16),
                         ],
                       ),
                     );
@@ -62,7 +62,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   .toList()
                   .cast<Widget>(),
             ),
-            const BoundWidget(BoundType.size16),
+            const SpacingWidget(LayoutSize.size16),
           ],
         ),
       );

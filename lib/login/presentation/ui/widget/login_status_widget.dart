@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -45,7 +45,7 @@ class _LoginStatusWidgetState extends State<LoginStatusWidget>
         TextWidget(
             text: widget.viewModel.status?.message ?? '',
             style: Style.description),
-        const BoundWidget(BoundType.size16),
+        const SpacingWidget(LayoutSize.size16),
         ButtonWidget(
           enabled: true,
           type: ButtonType.normal,

@@ -1,7 +1,6 @@
 import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +16,7 @@ class ShortcutWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: Theme.of(context).cardTheme.color),
+          primary: Theme.of(context).cardColor),
       onPressed: () {
         onPressed.call(shortcut);
       },
@@ -30,7 +29,7 @@ class ShortcutWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Icon(shortcut?.icon),
+                child: Icon(shortcut?.icon, color: Theme.of(context).colorScheme.onSecondary,),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -38,6 +37,7 @@ class ShortcutWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     TextWidget(
+                      color: Theme.of(context).colorScheme.onSecondary,
                       text: shortcut?.title ?? "",
                       style: Style.description,
                     ),

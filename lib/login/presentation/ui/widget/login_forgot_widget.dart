@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -68,7 +68,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                 children: [
                   const TextWidget(
                       text: "Recuperação de senha", style: Style.description),
-                  const BoundWidget(BoundType.size24),
+                  const SpacingWidget(LayoutSize.size24),
                   InputTextWidget(
                       label: "Email",
                       icon: Icons.mail,
@@ -81,7 +81,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                         }
                         return null;
                       }),
-                  const BoundWidget(BoundType.size48),
+                  const SpacingWidget(LayoutSize.size48),
                   ButtonWidget(
                     enabled: true,
                     type: ButtonType.normal,
@@ -92,7 +92,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                     },
                     label: "Recuperar",
                   ),
-                  const BoundWidget(BoundType.size48),
+                  const SpacingWidget(LayoutSize.size48),
                   ButtonWidget(
                     enabled: true,
                     type: ButtonType.borderless,

@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
@@ -73,7 +73,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
         children: [
           const TextWidget(text: "Racing team", style: Style.title),
           stepper(),
-          const BoundWidget(BoundType.size48),
+          const SpacingWidget(LayoutSize.size48),
         ],
       ),
     );
@@ -111,7 +111,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
               ),
             ],
           ),
-          const BoundWidget(BoundType.size48),
+          const SpacingWidget(LayoutSize.size48),
           finish()
         ],
       ),
@@ -163,7 +163,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                             )
                           ],
                         ),
-                        const BoundWidget(BoundType.size16),
+                        const SpacingWidget(LayoutSize.size16),
                         TextWidget(
                           text: drivers[index],
                           style: Style.subtitle,
@@ -188,7 +188,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
             );
           },
         ),
-        const BoundWidget(BoundType.size24),
+        const SpacingWidget(LayoutSize.size24),
         addButton()
       ],
     );
@@ -237,12 +237,12 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
           itemBuilder: (context, index) {
             return Column(
               children: [
-                const BoundWidget(BoundType.size24),
+                const SpacingWidget(LayoutSize.size24),
                 TextWidget(
                   text: widget.viewModel.event?.classes?[index]?.name ?? '',
                   style: Style.subtitle,
                 ),
-                const BoundWidget(BoundType.size24),
+                const SpacingWidget(LayoutSize.size24),
                 ListView.builder(
                   physics: const ClampingScrollPhysics(),
                   shrinkWrap: true,
@@ -253,7 +253,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          const BoundWidget(BoundType.size16),
+                          const SpacingWidget(LayoutSize.size16),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,

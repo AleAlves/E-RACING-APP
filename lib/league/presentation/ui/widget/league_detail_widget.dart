@@ -1,7 +1,7 @@
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/membership_action_widget.dart';
@@ -87,7 +87,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
       header: Row(
         children: [
           const Icon(Icons.emoji_events),
-          const BoundWidget(BoundType.size16),
+          const SpacingWidget(LayoutSize.size16),
           TextWidget(
             text: widget.viewModel.league?.name ?? '',
             style: Style.title,
@@ -104,9 +104,9 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
             align: TextAlign.justify,
           ),
         ),
-        const BoundWidget(BoundType.size16),
+        const SpacingWidget(LayoutSize.size16),
         tags(),
-        const BoundWidget(BoundType.size16),
+        const SpacingWidget(LayoutSize.size16),
       ],
     );
   }

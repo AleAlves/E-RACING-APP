@@ -5,7 +5,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'bound_widget.dart';
+import 'spacing_widget.dart';
 
 class PilotsWidget extends StatefulWidget {
   final List<SettingsModel?>? settings;
@@ -58,7 +58,7 @@ class _PilotsWidgetState extends State<PilotsWidget> {
                   .toList()
                   .cast<Widget>(),
             ),
-            const BoundWidget(BoundType.size48),
+            const SpacingWidget(LayoutSize.size48),
           ],
         ),
       );

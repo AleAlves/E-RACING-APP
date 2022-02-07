@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -49,7 +49,7 @@ class _EventStatusWidgetState extends State<EventStatusWidget>
           TextWidget(
               text: widget.viewModel.status?.message ?? '',
               style: Style.title),
-          const BoundWidget(BoundType.size48),
+          const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,

@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -55,7 +55,7 @@ class _Login2FAWidgetState extends State<Login2FAWidget>
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const TextWidget(text: "Second Step Verification", style: Style.description),
-        const BoundWidget(BoundType.size16),
+        const SpacingWidget(LayoutSize.size16),
         OtpTextField(
           autoFocus: true,
           numberOfFields: 6,
@@ -66,7 +66,7 @@ class _Login2FAWidgetState extends State<Login2FAWidget>
             widget.viewModel.login2fa(code);
           },
         ),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         ButtonWidget(
           enabled: true,
           type: ButtonType.borderless,

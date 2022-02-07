@@ -7,7 +7,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'bound_widget.dart';
+import 'spacing_widget.dart';
 import 'button_widget.dart';
 
 class TeamsWidget extends StatefulWidget {
@@ -68,7 +68,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                           const Icon(
                             Icons.groups_outlined,
                           ),
-                          const BoundWidget(BoundType.size16),
+                          const SpacingWidget(LayoutSize.size16),
                           TextWidget(
                               text: "${team?.name}", style: Style.description),
                           Padding(
@@ -94,7 +94,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                   .toList()
                   .cast<Widget>(),
             ),
-            const BoundWidget(BoundType.size16),
+            const SpacingWidget(LayoutSize.size16),
           ],
         ),
       );
@@ -116,13 +116,13 @@ class _TeamsWidgetState extends State<TeamsWidget> {
             children: [
               Column(
                 children: [
-                  const BoundWidget(BoundType.size24),
+                  const SpacingWidget(LayoutSize.size24),
                   Row(
                     children: [
                       TextWidget(text: team?.name, style: Style.title),
                     ],
                   ),
-                  const BoundWidget(BoundType.size24),
+                  const SpacingWidget(LayoutSize.size24),
                   Wrap(
                     crossAxisAlignment: WrapCrossAlignment.start,
                     alignment: WrapAlignment.start,
@@ -136,7 +136,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                           const Icon(
                             Icons.groups_outlined,
                           ),
-                          const BoundWidget(BoundType.size16),
+                          const SpacingWidget(LayoutSize.size16),
                           TextWidget(text: crew, style: Style.description),
                           const Icon(Icons.chevron_right)
                         ],
@@ -145,7 +145,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                         .toList()
                         .cast<Widget>(),
                   ),
-                  const BoundWidget(BoundType.size48),
+                  const SpacingWidget(LayoutSize.size48),
                   alreadyInTeam
                       ? Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -160,7 +160,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                               },
                               enabled: true,
                             ),
-                            const BoundWidget(BoundType.size16),
+                            const SpacingWidget(LayoutSize.size16),
                             ButtonWidget(
                               label: "Delete",
                               type: ButtonType.icon,

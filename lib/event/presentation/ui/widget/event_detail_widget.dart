@@ -1,6 +1,6 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
@@ -69,17 +69,17 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       children: [
         Column(
           children: [
-            const BoundWidget(BoundType.size2),
+            const SpacingWidget(LayoutSize.size2),
             banner(),
-            const BoundWidget(BoundType.size2),
+            const SpacingWidget(LayoutSize.size2),
             title(),
-            const BoundWidget(BoundType.size2),
+            const SpacingWidget(LayoutSize.size2),
             status(),
-            const BoundWidget(BoundType.size2),
+            const SpacingWidget(LayoutSize.size2),
             information(),
-            const BoundWidget(BoundType.size2),
+            const SpacingWidget(LayoutSize.size2),
             subscription(),
-            const BoundWidget(BoundType.size2),
+            const SpacingWidget(LayoutSize.size2),
             teams()
           ],
         ),
@@ -132,11 +132,11 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
         ),
         body: [
           rules(),
-          const BoundWidget(BoundType.size2),
+          const SpacingWidget(LayoutSize.size2),
           scoring(),
-          const BoundWidget(BoundType.size2),
+          const SpacingWidget(LayoutSize.size2),
           settings(),
-          const BoundWidget(BoundType.size2),
+          const SpacingWidget(LayoutSize.size2),
         ],
         ready: true);
   }
@@ -148,7 +148,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       header: Row(
         children: const [
           Icon(Icons.gavel),
-          BoundWidget(BoundType.size16),
+          SpacingWidget(LayoutSize.size16),
           TextWidget(
             text: "Rules",
             style: Style.subtitle,
@@ -157,7 +157,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
         ],
       ),
       body: [
-        const BoundWidget(BoundType.size16),
+        const SpacingWidget(LayoutSize.size16),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextWidget(
@@ -166,7 +166,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             align: TextAlign.start,
           ),
         ),
-        const BoundWidget(BoundType.size16),
+        const SpacingWidget(LayoutSize.size16),
       ],
     );
   }
@@ -180,7 +180,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           Icon(
             Icons.format_list_numbered_outlined,
           ),
-          BoundWidget(BoundType.size16),
+          SpacingWidget(LayoutSize.size16),
           TextWidget(
             text: "Score system",
             style: Style.subtitle,
@@ -194,7 +194,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           editing: false,
           onScore: (wow) {},
         ),
-        const BoundWidget(BoundType.size16),
+        const SpacingWidget(LayoutSize.size16),
       ],
     );
   }
@@ -208,7 +208,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           Icon(
             Icons.settings,
           ),
-          BoundWidget(BoundType.size16),
+          SpacingWidget(LayoutSize.size16),
           TextWidget(
             text: "Settings",
             style: Style.subtitle,
@@ -217,9 +217,9 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
         ],
       ),
       body: [
-        const BoundWidget(BoundType.size16),
+        const SpacingWidget(LayoutSize.size16),
         SettingsWidget(settings: widget.viewModel.event?.settings),
-        const BoundWidget(BoundType.size16),
+        const SpacingWidget(LayoutSize.size16),
       ],
     );
   }
@@ -239,7 +239,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
               ],
             ),
             body: [
-              const BoundWidget(BoundType.size16),
+              const SpacingWidget(LayoutSize.size16),
               TeamsWidget(
                 teams: widget.viewModel.event?.teams,
                 maxCrew: widget.viewModel.event?.teamsMaxCrew,
@@ -271,7 +271,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                   ),
                 ),
               ),
-              const BoundWidget(BoundType.size16),
+              const SpacingWidget(LayoutSize.size16),
             ],
           )
         : Container();

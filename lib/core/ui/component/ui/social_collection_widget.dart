@@ -55,7 +55,7 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
                                 children: [
                                   ButtonWidget(
                                     enabled: true,
-                                    type: ButtonType.icon,
+                                    type: ButtonType.iconBorderless,
                                     onPressed: () {},
                                     icon: _getIcon(item?.platformId),
                                     label: widget.socialPlatforms

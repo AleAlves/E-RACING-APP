@@ -6,7 +6,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'bound_widget.dart';
+import 'spacing_widget.dart';
 import 'button_widget.dart';
 import 'expanded_widget.dart';
 
@@ -92,7 +92,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
                 children: [
                   const TextWidget(
                       text: "Choose a class: ", style: Style.title),
-                  const BoundWidget(BoundType.size32),
+                  const SpacingWidget(LayoutSize.size32),
                   ListView.builder(
                     shrinkWrap: true,
                     itemCount: widget.classes?.length,

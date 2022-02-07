@@ -6,7 +6,7 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
@@ -162,7 +162,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
   Widget basic() {
     return Column(
       children: [
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
             label: "Race Title",
             icon: Icons.title,
@@ -173,7 +173,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
               }
               return null;
             }),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
             label: "Notes",
             icon: Icons.title,
@@ -182,7 +182,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
               return null;
             },
             inputType: InputType.multilines),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
       ],
     );
   }
@@ -216,7 +216,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
             })
           ],
         ),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         const TextWidget(
           text: "Banner: 1000x1000",
           style: Style.description,
@@ -272,7 +272,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
             text:
                 "${eventDate.hour}:${eventDate.minute}, ${eventDate.day}/${eventDate.month}/${eventDate.year} ",
             style: Style.subtitle),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         ButtonWidget(
             icon: Icons.date_range,
             enabled: true,
@@ -312,7 +312,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.size16),
+                      const SpacingWidget(LayoutSize.size16),
                       InputTextWidget(
                           label: "Value",
                           icon: Icons.settings,
@@ -323,7 +323,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.size16),
+                      const SpacingWidget(LayoutSize.size16),
                     ],
                   ),
                 ),
@@ -345,7 +345,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
             );
           },
         ),
-        const BoundWidget(BoundType.size48),
+        const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
             type: ButtonType.borderless,
@@ -441,7 +441,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.size16),
+                      const SpacingWidget(LayoutSize.size16),
                       InputTextWidget(
                         label: "Max entries",
                         icon: Icons.settings,
@@ -454,7 +454,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
                         },
                         inputType: InputType.number,
                       ),
-                      const BoundWidget(BoundType.size16),
+                      const SpacingWidget(LayoutSize.size16),
                     ],
                   ),
                 ),
@@ -476,7 +476,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
             );
           },
         ),
-        const BoundWidget(BoundType.size48),
+        const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
             type: ButtonType.borderless,

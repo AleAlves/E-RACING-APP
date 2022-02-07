@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
@@ -102,7 +102,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
   Widget basic() {
     return Column(
       children: [
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
             label: "Race Title",
             icon: Icons.title,
@@ -113,7 +113,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
               }
               return null;
             }),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
             label: "Notes",
             icon: Icons.title,
@@ -122,7 +122,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
               return null;
             },
             inputType: InputType.multilines),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
       ],
     );
   }
@@ -156,7 +156,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
             })
           ],
         ),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         const TextWidget(
           text: "Banner: 1000x1000",
           style: Style.description,
@@ -175,7 +175,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
             text:
                 "${widget.model.eventDate.hour}:${widget.model.eventDate.minute}, ${widget.model.eventDate.day}/${widget.model.eventDate.month}/${widget.model.eventDate.year} ",
             style: Style.subtitle),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         ButtonWidget(
             icon: Icons.date_range,
             enabled: true,
@@ -216,7 +216,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.size16),
+                      const SpacingWidget(LayoutSize.size16),
                       InputTextWidget(
                           label: "Value",
                           icon: Icons.settings,
@@ -228,7 +228,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                             }
                             return null;
                           }),
-                      const BoundWidget(BoundType.size16),
+                      const SpacingWidget(LayoutSize.size16),
                     ],
                   ),
                 ),
@@ -249,7 +249,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
             );
           },
         ),
-        const BoundWidget(BoundType.size48),
+        const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
             type: ButtonType.borderless,

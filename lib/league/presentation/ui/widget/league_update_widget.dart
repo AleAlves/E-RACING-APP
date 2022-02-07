@@ -5,7 +5,7 @@ import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/dropdown_menu_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
@@ -176,7 +176,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
   Widget basic() {
     return Column(
       children: [
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
             label: "Nome",
             icon: Icons.title,
@@ -187,7 +187,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
               }
               return null;
             }),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
           label: "Descrição",
           icon: Icons.title,
@@ -360,7 +360,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                             return null;
                           }),
                     ),
-                    const BoundWidget(BoundType.size8),
+                    const SpacingWidget(LayoutSize.size8),
                     ButtonWidget(
                         enabled: true,
                         type: ButtonType.icon,
@@ -373,7 +373,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                         },
                         label: 'paste',
                         icon: Icons.paste),
-                    const BoundWidget(BoundType.size8),
+                    const SpacingWidget(LayoutSize.size8),
                     ButtonWidget(
                         enabled: true,
                         type: ButtonType.icon,
@@ -391,7 +391,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
             );
           },
         ),
-        const BoundWidget(BoundType.size32),
+        const SpacingWidget(LayoutSize.size32),
         ButtonWidget(
             enabled: true,
             type: ButtonType.borderless,

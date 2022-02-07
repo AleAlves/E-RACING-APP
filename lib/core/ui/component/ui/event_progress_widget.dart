@@ -4,7 +4,7 @@ import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'bound_widget.dart';
+import 'spacing_widget.dart';
 import 'card_widget.dart';
 
 class EventProgressWidget extends StatefulWidget {
@@ -101,13 +101,13 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const BoundWidget(BoundType.size8),
+              const SpacingWidget(LayoutSize.size8),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   idle,
-                  const BoundWidget(BoundType.size2),
+                  const SpacingWidget(LayoutSize.size2),
                   Container(
                       decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
@@ -115,9 +115,9 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
                               const BorderRadius.all(Radius.circular(20))),
                       width: MediaQuery.of(context).size.width / 5,
                       height: 5),
-                  const BoundWidget(BoundType.size2),
+                  const SpacingWidget(LayoutSize.size2),
                   onGoing,
-                  const BoundWidget(BoundType.size2),
+                  const SpacingWidget(LayoutSize.size2),
                   Container(
                     decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.primary,
@@ -126,17 +126,17 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
                     width: MediaQuery.of(context).size.width / 5,
                     height: 5,
                   ),
-                  const BoundWidget(BoundType.size2),
+                  const SpacingWidget(LayoutSize.size2),
                   finished,
                 ],
               ),
-              const BoundWidget(BoundType.size16),
+              const SpacingWidget(LayoutSize.size16),
               TextWidget(
                 text: "status: ${_getStatus()?.second}",
                 style: Style.description,
                 align: TextAlign.left,
               ),
-              const BoundWidget(BoundType.size2),
+              const SpacingWidget(LayoutSize.size2),
             ],
           )),
       ready: true,

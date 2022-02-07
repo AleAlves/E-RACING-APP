@@ -1,4 +1,4 @@
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -25,7 +25,7 @@ class _DefaulErrorWidgetState extends State<DefaulErrorWidget> {
               children: [
                 const TextWidget(
                     text: "Tente Novamente", style: Style.subtitle),
-                const BoundWidget(BoundType.size16),
+                const SpacingWidget(LayoutSize.size16),
                 Material(
                   color: Colors.transparent,
                   child: Center(

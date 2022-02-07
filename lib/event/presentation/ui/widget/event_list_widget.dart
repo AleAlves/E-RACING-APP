@@ -1,6 +1,6 @@
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -58,7 +58,7 @@ class _EventListWidgetState extends State<EventListWidget>
       children: [
         Column(
           children: [
-            const BoundWidget(BoundType.size8),
+            const SpacingWidget(LayoutSize.size8),
             ListView.builder(
               shrinkWrap: true,
               itemCount: widget.viewModel.events?.length,

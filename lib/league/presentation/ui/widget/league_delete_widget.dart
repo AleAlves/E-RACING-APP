@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/bound_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -71,10 +71,10 @@ class _LeagueDeleteWidgetState extends State<LeagueDeleteWidget>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const TextWidget(text: "Excluding League", style: Style.title),
-            const BoundWidget(BoundType.size48),
+            const SpacingWidget(LayoutSize.size48),
             const TextWidget(
                 text: "safety verification: 2+2?", style: Style.subtitle),
-            const BoundWidget(BoundType.size48),
+            const SpacingWidget(LayoutSize.size48),
             Padding(
               padding: const EdgeInsets.only(
                   left: 16.0, right: 16.0, top: 8.0, bottom: 8.0),
@@ -105,7 +105,7 @@ class _LeagueDeleteWidgetState extends State<LeagueDeleteWidget>
                 inputType: InputType.number,
               ),
             ),
-            const BoundWidget(BoundType.size48),
+            const SpacingWidget(LayoutSize.size48),
             ButtonWidget(
                 enabled: _formKey.currentState?.validate() == true,
                 type: ButtonType.normal,
