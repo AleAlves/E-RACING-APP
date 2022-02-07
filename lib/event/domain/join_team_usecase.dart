@@ -6,15 +6,19 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/team_model.dart';
 import 'package:e_racing_app/event/data/event_create_model.dart';
 import 'package:e_racing_app/event/data/team_create_model.dart';
+import 'package:e_racing_app/event/data/team_request_model.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 
-class CreateTeamUseCase<T> extends BaseUseCase<T> {
+class JoinTeamUseCase<T> extends BaseUseCase<T> {
+  late String? _teamId;
   late String? _eventId;
-  late TeamModel _team;
 
-  CreateTeamUseCase<T> build({required String? id, required TeamModel team}) {
-    _eventId = id;
-    _team = team;
+  JoinTeamUseCase<T> build({
+    required String? teamId,
+    required String? eventId,
+  }) {
+    _teamId = teamId;
+    _eventId = eventId;
     return this;
   }
 
@@ -22,13 +26,15 @@ class CreateTeamUseCase<T> extends BaseUseCase<T> {
   Future<void> invoke(
       {required Function(T) success, required Function error}) async {
     var response = await super.remote(Request(
-        endpoint: "api/v1/team",
+        endpoint: "api/v1/team/join",
         verb: HTTPVerb.post,
         params: HTTPRequesParams(
-            data: TeamCreateModel(eventId: _eventId, team: _team))));
+            data: TeamRequestModel(eventId: _eventId, teamId: _teamId))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Team Created", action: "Ok", next: EventFlows.detail) as T);
+          message: "Added to the crew",
+          action: "Ok",
+          next: EventFlows.detail) as T);
     } else {
       error.call();
     }

@@ -240,7 +240,22 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             ),
             body: [
               const BoundWidget(BoundType.size16),
-              TeamsWidget(teams: widget.viewModel.event?.teams, maxCrew: 2),
+              TeamsWidget(
+                teams: widget.viewModel.event?.teams,
+                maxCrew: widget.viewModel.event?.teamsMaxCrew,
+                onLeave: (id) {
+                  widget.viewModel.leaveTeam(id);
+                  Navigator.of(context).pop();
+                },
+                onJoin: (id) {
+                  widget.viewModel.joinTeam(id);
+                  Navigator.of(context).pop();
+                },
+                onDelete: (id){
+                  widget.viewModel.deleteTeam(id);
+                  Navigator.of(context).pop();
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 24, right: 24),
                 child: SizedBox(

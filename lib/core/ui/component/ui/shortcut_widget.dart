@@ -17,7 +17,7 @@ class ShortcutWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: ERcaingApp.color),
+        primary: Theme.of(context).cardTheme.color),
       onPressed: () {
         onPressed.call(shortcut);
       },

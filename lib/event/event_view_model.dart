@@ -21,6 +21,9 @@ import 'package:mobx/mobx.dart';
 
 import 'domain/create_event_usecase.dart';
 import 'domain/create_team_usecase.dart';
+import 'domain/delete_team_usecase.dart';
+import 'domain/join_team_usecase.dart';
+import 'domain/leave_team_usecase.dart';
 import 'domain/subscribe_event_usecase.dart';
 import 'domain/get_event_usecase.dart';
 import 'domain/unsubscribe_event_usecase.dart';
@@ -73,14 +76,14 @@ abstract class _EventViewModel with Store {
   final getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
   final getTagUseCase = Modular.get<GetTagUseCase>();
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
-  final fetchEventsUseCase =
-      Modular.get<FetchEventsUseCase<List<EventModel>>>();
+  final fetchEventsUseCase = Modular.get<FetchEventsUseCase<List<EventModel>>>();
   final createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
-  final doSubscribeEventUseCase =
-      Modular.get<SubscribeEventUseCase<StatusModel>>();
-  final unsubscribeEventUseCase =
-      Modular.get<UnsubscribeEventUseCase<StatusModel>>();
+  final doSubscribeEventUseCase = Modular.get<SubscribeEventUseCase<StatusModel>>();
+  final unsubscribeEventUseCase = Modular.get<UnsubscribeEventUseCase<StatusModel>>();
   final createTeamEventUseCase = Modular.get<CreateTeamUseCase<StatusModel>>();
+  final leaveTeamUseCase = Modular.get<LeaveTeamUseCase<StatusModel>>();
+  final joinTeamUseCase = Modular.get<JoinTeamUseCase<StatusModel>>();
+  final deleteTeamUseCase = Modular.get<DeleteTeamUseCase<StatusModel>>();
   final getEventUseCase = Modular.get<GetEventUseCase<EventModel>>();
 
   @action
@@ -241,6 +244,36 @@ abstract class _EventViewModel with Store {
     state = ViewState.loading;
     var team = TeamModel(name: name, crew: ids);
     await createTeamEventUseCase.build(id: event?.id, team: team).invoke(
+        success: (data) {
+          status = data;
+          setFlow(EventFlows.status);
+        },
+        error: onError);
+  }
+
+  void joinTeam(String? id) async {
+    state = ViewState.loading;
+    await joinTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
+        success: (data) {
+          status = data;
+          setFlow(EventFlows.status);
+        },
+        error: onError);
+  }
+
+  void leaveTeam(String? id) async {
+    state = ViewState.loading;
+    await leaveTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
+        success: (data) {
+          status = data;
+          setFlow(EventFlows.status);
+        },
+        error: onError);
+  }
+
+  void deleteTeam(String? id) async {
+    state = ViewState.loading;
+    await deleteTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);
