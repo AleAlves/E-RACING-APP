@@ -17,13 +17,12 @@ class LoadingShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
         child: Card(
-          color: Colors.black,
           child: SizedBox(
             width: width ?? MediaQuery.of(context).size.width,
             height: height ?? 75,
           ),
         ),
-        baseColor: Theme.of(context).cardColor,
-        highlightColor: Theme.of(context).backgroundColor);
+        baseColor: Theme.of(context).colorScheme.primary,
+        highlightColor: Theme.of(context).colorScheme.onPrimary);
   }
 }

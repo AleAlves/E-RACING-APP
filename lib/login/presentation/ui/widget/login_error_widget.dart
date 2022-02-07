@@ -48,7 +48,6 @@ class _LoginErrorWidgetState extends State<LoginErrorWidget>
           child: Center(
             child: Ink(
               decoration: const ShapeDecoration(
-                color: ERcaingApp.color,
                 shape: CircleBorder(),
               ),
               child: IconButton(

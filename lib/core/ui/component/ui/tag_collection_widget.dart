@@ -36,7 +36,6 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
       children: widget.tagIds!
           .map((item) {
             return ActionChip(
-              backgroundColor: Theme.of(context).backgroundColor,
               label: TextWidget(
                 text: name(item),
                 style: Style.note,

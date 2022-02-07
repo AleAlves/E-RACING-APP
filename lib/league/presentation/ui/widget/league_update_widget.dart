@@ -213,9 +213,6 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                   final selected = tags.contains(item?.id);
                   return ActionChip(
                       avatar: CircleAvatar(
-                        backgroundColor: selected
-                            ? Colors.black87
-                            : ERcaingApp.color,
                         child: selected ? const Text('-') : const Text('+'),
                       ),
                       label: Text(item?.name ?? ''),

@@ -59,7 +59,6 @@ class _Login2FAWidgetState extends State<Login2FAWidget>
         OtpTextField(
           autoFocus: true,
           numberOfFields: 6,
-          borderColor: ERcaingApp.color,
           showFieldAsBox: true,
           onCodeChanged: (String code) {},
           onSubmit: (String code) {

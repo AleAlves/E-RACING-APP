@@ -139,9 +139,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                 height: 300,
                 width: MediaQuery.of(context).size.height,
                 child: widget.model.posterFile.path == ''
-                    ? Container(
-                        color: ERcaingApp.color.shade100,
-                      )
+                    ? Container()
                     : Image.file(
                         widget.model.posterFile,
                         fit: BoxFit.fill,
@@ -273,7 +271,6 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
         Row(
           children: [
             Checkbox(
-              activeColor: ERcaingApp.ascent,
               value: widget.model.hasBroadcasting,
               onChanged: (bool? value) {
                 setState(() {

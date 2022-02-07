@@ -222,7 +222,6 @@ class _EventCreateWidgetState
                 width: MediaQuery.of(context).size.height,
                 child: bannerFile.path == ''
                     ? Container(
-                        color: ERcaingApp.color.shade100,
                       )
                     : Image.file(
                         bannerFile,
@@ -254,7 +253,6 @@ class _EventCreateWidgetState
         Row(
           children: [
             Checkbox(
-              activeColor: ERcaingApp.ascent,
               value: allowTeams,
               onChanged: (bool? value) {
                 setState(() {
@@ -269,7 +267,6 @@ class _EventCreateWidgetState
         Row(
           children: [
             Checkbox(
-              activeColor: ERcaingApp.ascent,
               value: allowMembersOnly,
               onChanged: (bool? value) {
                 setState(() {

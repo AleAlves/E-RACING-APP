@@ -170,8 +170,6 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                   final selected = tags.contains(item?.id);
                   return ActionChip(
                       avatar: CircleAvatar(
-                        backgroundColor:
-                            selected ? ERcaingApp.color[0] : ERcaingApp.color,
                         child: selected ? const Text('-') : const Text('+'),
                       ),
                       label: Text(item?.name ?? ''),
@@ -203,7 +201,6 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                     width: 100,
                     child: emblemFile.path == ''
                         ? Container(
-                            color: ERcaingApp.color.shade50,
                           )
                         : Image.file(
                             emblemFile,
@@ -244,7 +241,6 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                 width: MediaQuery.of(context).size.height,
                 child: bannerFile.path == ''
                     ? Container(
-                        color: ERcaingApp.color.shade50,
                       )
                     : Image.file(
                         bannerFile,

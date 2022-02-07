@@ -15,8 +15,6 @@ class ShortcutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          primary: Theme.of(context).cardColor),
       onPressed: () {
         onPressed.call(shortcut);
       },
@@ -29,7 +27,7 @@ class ShortcutWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Icon(shortcut?.icon, color: Theme.of(context).colorScheme.onSecondary,),
+                child: Icon(shortcut?.icon),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -37,7 +35,6 @@ class ShortcutWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     TextWidget(
-                      color: Theme.of(context).colorScheme.onSecondary,
                       text: shortcut?.title ?? "",
                       style: Style.description,
                     ),

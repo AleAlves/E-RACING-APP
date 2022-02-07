@@ -57,8 +57,6 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: ButtonWidget(
-            buttonColor: Theme.of(context).colorScheme.secondary,
-            labelColor: Theme.of(context).primaryTextTheme.button?.color,
             label: "Subscribe",
             type: ButtonType.normal,
             onPressed: () {
@@ -150,8 +148,6 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: ButtonWidget(
-                buttonColor: Theme.of(context).colorScheme.secondary,
-                labelColor: Theme.of(context).primaryTextTheme.button?.color,
                 label: "cancel subscription",
                 type: ButtonType.normal,
                 onPressed: () {

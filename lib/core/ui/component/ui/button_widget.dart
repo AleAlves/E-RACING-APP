@@ -75,9 +75,6 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            primary:
-                widget.enabled ? widget.buttonColor : ERcaingApp.color.shade50),
         onPressed: widget.enabled ? widget.onPressed : null,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -95,16 +92,11 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            primary: widget.enabled
-                ? Theme.of(context).colorScheme.secondary
-                : ERcaingApp.color.shade50),
         onPressed: widget.enabled ? widget.onPressed : null,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextWidget(
             text: widget.label ?? '',
-            color: Theme.of(context).colorScheme.onSecondary,
             style: Style.subtitle,
           ),
         ),
@@ -119,7 +111,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       children: [
         Container(
           decoration: ShapeDecoration(
-            color: widget.buttonColor ?? ERcaingApp.color.shade500,
+            color: Theme.of(context).colorScheme.primary,
             shape: const CircleBorder(),
           ),
           child: Center(
@@ -128,7 +120,6 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                   widget.icon,
                   size: 24,
                 ),
-                color: ERcaingApp.base,
                 onPressed: widget.enabled ? widget.onPressed : null),
           ),
         ),

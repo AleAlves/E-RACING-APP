@@ -31,7 +31,6 @@ class _DefaulErrorWidgetState extends State<DefaulErrorWidget> {
                   child: Center(
                     child: Ink(
                       decoration: const ShapeDecoration(
-                        color: ERcaingApp.color,
                         shape: CircleBorder(),
                       ),
                       child: IconButton(

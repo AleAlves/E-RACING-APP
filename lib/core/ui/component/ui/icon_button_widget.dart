@@ -20,7 +20,6 @@ class IconButtonWidget extends StatelessWidget {
       color: Colors.transparent,
       child: Ink(
         decoration: const ShapeDecoration(
-          color: ERcaingApp.color,
           shape: CircleBorder(),
         ),
         child: IconButton(

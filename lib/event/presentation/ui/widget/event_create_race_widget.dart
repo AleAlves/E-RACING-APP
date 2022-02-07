@@ -200,7 +200,6 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
                 width: MediaQuery.of(context).size.height,
                 child: bannerFile.path == ''
                     ? Container(
-                        color: ERcaingApp.color.shade100,
                       )
                     : Image.file(
                         bannerFile,
@@ -232,7 +231,6 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
         Row(
           children: [
             Checkbox(
-              activeColor: ERcaingApp.ascent,
               value: allowTeams,
               onChanged: (bool? value) {
                 setState(() {
@@ -247,7 +245,6 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
         Row(
           children: [
             Checkbox(
-              activeColor: ERcaingApp.ascent,
               value: allowMembersOnly,
               onChanged: (bool? value) {
                 setState(() {
@@ -370,7 +367,6 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
         Row(
           children: [
             Checkbox(
-              activeColor: ERcaingApp.ascent,
               value: hasBroadcasting,
               onChanged: (bool? value) {
                 setState(() {

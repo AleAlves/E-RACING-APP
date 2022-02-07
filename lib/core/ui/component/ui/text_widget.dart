@@ -55,7 +55,6 @@ class TextWidget extends StatelessWidget {
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400,
           fontSize: 12.0,
-          color: color  ?? Theme.of(context).colorScheme.onSecondary,
         );
       case Style.note:
         return TextStyle(

@@ -54,9 +54,8 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
         );
         break;
       case EventState.ongoing:
-        idle = Icon(
+        idle = const Icon(
           Icons.circle,
-          color: Theme.of(context).colorScheme.primary,
           size: 18,
         );
         onGoing = Icon(
@@ -71,14 +70,12 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
         );
         break;
       case EventState.finished:
-        idle = Icon(
+        idle = const Icon(
           Icons.circle,
-          color: Theme.of(context).colorScheme.primary,
           size: 18,
         );
-        onGoing = Icon(
+        onGoing = const Icon(
           Icons.circle,
-          color: Theme.of(context).colorScheme.primary,
           size: 18,
         );
         finished = Icon(

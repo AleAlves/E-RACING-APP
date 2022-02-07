@@ -56,8 +56,6 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: ButtonWidget(
-            buttonColor: Theme.of(context).colorScheme.secondary,
-            labelColor: Theme.of(context).primaryTextTheme.button?.color,
             label: "Become a member",
             type: ButtonType.normal,
             onPressed: () {
@@ -84,8 +82,6 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: ButtonWidget(
-                buttonColor: Theme.of(context).colorScheme.secondary,
-                labelColor: Theme.of(context).primaryTextTheme.button?.color,
                 label: "cancel membership",
                 type: ButtonType.normal,
                 onPressed: () {
