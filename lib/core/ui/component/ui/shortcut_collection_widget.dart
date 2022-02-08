@@ -33,25 +33,18 @@ class _ShortcutCollectionWidgetState extends State<ShortcutCollectionWidget> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 12, right: 12, top: 4),
-            child: SizedBox(
-              height: 100,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: widget.shortcuts?.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding:
-                      const EdgeInsets.only(right: 8.0, bottom: 4.0),
-                      child: ShortcutWidget(
-                        onPressed: widget.onPressed,
-                        shortcut: widget.shortcuts?[index],
-                      ),
-                    );
-                  }),
-            ),
+          child: SizedBox(
+            height: 100,
+            child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.shortcuts?.length,
+                itemBuilder: (context, index) {
+                  return ShortcutWidget(
+                    onPressed: widget.onPressed,
+                    shortcut: widget.shortcuts?[index],
+                  );
+                }),
           ),
         ),
       ],

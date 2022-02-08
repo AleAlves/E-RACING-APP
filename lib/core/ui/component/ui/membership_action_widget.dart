@@ -1,4 +1,3 @@
-
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
@@ -33,7 +32,6 @@ class MembershipActionWidget extends StatefulWidget {
 }
 
 class _MembershipActionWidgetState extends State<MembershipActionWidget> {
-
   @override
   void initState() {
     super.initState();
@@ -41,10 +39,7 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.leagueModel == null ? const Padding(
-      padding: EdgeInsets.only(left: 12, right: 12),
-      child: LoadingShimmer(),
-    ) : content();
+    return widget.leagueModel == null ? const LoadingShimmer() : content();
   }
 
   Widget content() {

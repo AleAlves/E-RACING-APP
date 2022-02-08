@@ -4,6 +4,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 enum ButtonType { normal, borderless, icon, iconBorderless, important }
 
@@ -106,21 +107,17 @@ class _ButtonWidgetState extends State<ButtonWidget> {
 
   Widget iconButton() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          decoration: ShapeDecoration(
-            color: Theme.of(context).colorScheme.primary,
-            shape: const CircleBorder(),
-          ),
-          child: Center(
+        CircleAvatar(
+          radius: 24,
+          backgroundColor: widget.buttonColor,
+          child: SizedBox(
+            width: double.infinity,
             child: IconButton(
-                icon: Icon(
-                  widget.icon,
-                  size: 24,
-                ),
-                onPressed: widget.enabled ? widget.onPressed : null),
+              icon: FaIcon(widget.icon, color: widget.labelColor),
+              iconSize: 24,
+              onPressed: () {},
+            ),
           ),
         ),
         const SpacingWidget(LayoutSize.size8),

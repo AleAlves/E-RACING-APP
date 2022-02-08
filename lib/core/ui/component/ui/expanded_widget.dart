@@ -31,16 +31,9 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
 
   Widget holder() {
     if (widget.cardless) {
-      return Padding(
-          padding: const EdgeInsets.only(
-              left: 8.0, right: 8.0, top: 1.0, bottom: 1.0),
-          child: content());
+      return content();
     }
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: 8.0, right: 8.0, top: 1.0, bottom: 1.0),
-      child: Card(child: content()),
-    );
+    return Card(child: content());
   }
 
   Widget content() {

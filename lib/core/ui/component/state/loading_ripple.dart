@@ -14,8 +14,8 @@ class LoadingRipple extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       child: Lottie.asset('assets/loading.json',
-          width: width ?? MediaQuery.of(context).size.width,
-          height: height ?? 100),
+          width: width ?? MediaQuery.of(context).size.width / 4,
+          height: height ?? MediaQuery.of(context).size.height / 4),
       alignment: align,
     );
   }

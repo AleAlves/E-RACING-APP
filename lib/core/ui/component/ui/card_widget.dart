@@ -23,20 +23,17 @@ class CardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-      child: ready
-          ? Card(
-              color: color,
-              child: InkWell(
-                onTap: onPressed,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: child,
-                ),
-              ))
-          : loading(context),
-    );
+    return ready
+        ? Card(
+            color: color,
+            child: InkWell(
+              onTap: onPressed,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: child,
+              ),
+            ))
+        : loading(context);
   }
 
   Widget loading(BuildContext context) {

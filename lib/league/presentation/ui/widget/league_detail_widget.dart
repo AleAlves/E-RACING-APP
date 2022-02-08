@@ -57,11 +57,26 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            banner(),
-            description(),
-            membership(),
-            social(),
-            panel(),
+            Padding(
+              padding: const EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 4),
+              child: banner(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: description(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: membership(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: social(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: panel(),
+            ),
           ],
         ),
         FloatActionButtonWidget<LeagueFlow>(
@@ -143,9 +158,8 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
         widget.viewModel.stopMembership();
       },
       isMember: widget.viewModel.league?.members
-              ?.where(
-                  (element) => element == Session.instance.getUser()?.id)
-              .isNotEmpty ??
+          ?.where((element) => element == Session.instance.getUser()?.id)
+          .isNotEmpty ??
           false,
     );
   }

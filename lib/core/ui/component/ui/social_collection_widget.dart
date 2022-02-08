@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/model/link_model.dart';
+import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,65 +41,66 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
         : CardWidget(
             ready: widget.links != null,
             placeholderHeight: 100,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Row(
-                children: [
-                  Wrap(
-                    spacing: 25.0,
-                    children: widget.links == null
-                        ? [Container()]
-                        : widget.links!
-                            .map((item) {
-                              return Column(
-                                children: [
-                                  ButtonWidget(
+            child: Row(
+              children: [
+                Wrap(
+                  spacing: 25.0,
+                  children: widget.links == null
+                      ? [Container()]
+                      : widget.links!
+                          .map((item) {
+                            return Column(
+                              children: [
+                                ButtonWidget(
                                     enabled: true,
-                                    type: ButtonType.iconBorderless,
+                                    type: ButtonType.icon,
                                     onPressed: () {},
-                                    icon: _getIcon(item?.platformId),
+                                    icon: _getSocialPlatform(item?.platformId)
+                                        .first,
+                                    buttonColor:
+                                        _getSocialPlatform(item?.platformId)
+                                            .second,
                                     label: widget.socialPlatforms
                                             ?.firstWhere((element) =>
                                                 element?.id == item?.platformId)
                                             ?.name ??
                                         '',
-                                  ),
-                                ],
-                              );
-                            })
-                            .toList()
-                            .cast<Widget>(),
-                  ),
-                ],
-              ),
+                                    labelColor: Colors.white),
+                              ],
+                            );
+                          })
+                          .toList()
+                          .cast<Widget>(),
+                ),
+              ],
             ),
           );
   }
 
-  IconData _getIcon(String? platformId) {
+  Pair<IconData, Color> _getSocialPlatform(String? platformId) {
     var index = widget.socialPlatforms
         ?.firstWhere((element) => element?.id == platformId)
         ?.name
         .toLowerCase();
     switch (index) {
       case "whatsapp":
-        return FontAwesomeIcons.whatsapp;
+        return Pair(FontAwesomeIcons.whatsapp, const Color(0xFF41D200));
       case "discord":
-        return FontAwesomeIcons.discord;
+        return Pair(FontAwesomeIcons.discord, const Color(0xFF737EE7));
       case "telegram":
-        return FontAwesomeIcons.telegram;
+        return Pair(FontAwesomeIcons.telegram, const Color(0xFF41B2FF));
       case "instagram":
-        return FontAwesomeIcons.instagram;
+        return Pair(FontAwesomeIcons.instagram, const Color(0xFFD40081));
       case "facebook":
-        return FontAwesomeIcons.facebook;
+        return Pair(FontAwesomeIcons.facebook, const Color(0xFF262DFD));
       case "youtube":
-        return FontAwesomeIcons.youtube;
+        return Pair(FontAwesomeIcons.youtube, const Color(0xFFFF0000));
       case "twitch":
-        return FontAwesomeIcons.twitch;
+        return Pair(FontAwesomeIcons.twitch, const Color(0xFFD000FF));
       case "site":
       case "blog":
       default:
-        return FontAwesomeIcons.globe;
+        return Pair(FontAwesomeIcons.blog, const Color(0xFFFDD300));
     }
   }
 }

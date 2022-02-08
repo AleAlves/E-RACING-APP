@@ -39,21 +39,15 @@ class _BannerWidgetState extends State<BannerWidget> {
     }
 
     return loaded
-        ? const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: LoadingShimmer(
-              height: 200,
-            ),
+        ? const LoadingShimmer(
+            height: 200,
           )
-        : Padding(
-            padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 8, bottom: 4),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: SizedBox(
-                  height: 200,
-                  width: MediaQuery.of(context).size.width,
-                  child: image),
-            ),
+        : ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: SizedBox(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                child: image),
           );
   }
 }

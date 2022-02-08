@@ -129,17 +129,19 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                     direction: Axis.horizontal,
                     spacing: 5.0,
                     children: team!.crew!.map((crew) {
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Icon(
-                            Icons.groups_outlined,
-                          ),
-                          const SpacingWidget(LayoutSize.size16),
-                          TextWidget(text: crew, style: Style.description),
-                          const Icon(Icons.chevron_right)
-                        ],
+                      return Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.sports_motorsports,
+                            ),
+                            const SpacingWidget(LayoutSize.size16),
+                            TextWidget(text: crew, style: Style.description),
+                          ],
+                        ),
                       );
                     })
                         .toList()

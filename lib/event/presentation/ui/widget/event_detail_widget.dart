@@ -70,17 +70,35 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
         Column(
           children: [
             const SpacingWidget(LayoutSize.size2),
-            banner(),
+            Padding(
+              padding: const EdgeInsets.only(left: 12, right: 12, top: 8),
+              child: banner(),
+            ),
             const SpacingWidget(LayoutSize.size2),
-            title(),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: title(),
+            ),
             const SpacingWidget(LayoutSize.size2),
-            status(),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: status(),
+            ),
             const SpacingWidget(LayoutSize.size2),
-            information(),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: information(),
+            ),
             const SpacingWidget(LayoutSize.size2),
-            subscription(),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: subscription(),
+            ),
             const SpacingWidget(LayoutSize.size2),
-            teams()
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: teams(),
+            )
           ],
         ),
         FloatActionButtonWidget<EventFlows>(
@@ -105,7 +123,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
             child: TextWidget(
                 text: widget.viewModel.event?.title, style: Style.title),
           )),
@@ -251,7 +269,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                   widget.viewModel.joinTeam(id);
                   Navigator.of(context).pop();
                 },
-                onDelete: (id){
+                onDelete: (id) {
                   widget.viewModel.deleteTeam(id);
                   Navigator.of(context).pop();
                 },
