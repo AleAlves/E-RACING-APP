@@ -15,7 +15,6 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
@@ -31,7 +30,6 @@ class EventDetailWidget extends StatefulWidget {
 
 class _EventDetailWidgetState extends State<EventDetailWidget>
     implements BaseSateWidget {
-
   @override
   void initState() {
     widget.viewModel.getEvent();
@@ -89,15 +87,6 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
               child: information(),
             ),
             const SpacingWidget(LayoutSize.size2),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: subscription(),
-            ),
-            const SpacingWidget(LayoutSize.size2),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: teams(),
-            )
           ],
         ),
         FloatActionButtonWidget<EventFlows>(
@@ -141,13 +130,17 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
         header: Row(
           children: const [
             TextWidget(
-              text: "Informations",
+              text: "Event",
               style: Style.subtitle,
               align: TextAlign.left,
             ),
           ],
         ),
         body: [
+          subscription(),
+          const SpacingWidget(LayoutSize.size2),
+          teams(),
+          const SpacingWidget(LayoutSize.size2),
           rules(),
           const SpacingWidget(LayoutSize.size2),
           scoring(),
@@ -245,9 +238,12 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
     var teams = widget.viewModel.event?.teamsEnabled ?? false;
     return teams
         ? ExpandedWidget(
+            cardless: true,
             ready: widget.viewModel.event != null,
             header: Row(
               children: const [
+                Icon(Icons.group),
+                SpacingWidget(LayoutSize.size16),
                 TextWidget(
                   text: "Teams",
                   style: Style.subtitle,

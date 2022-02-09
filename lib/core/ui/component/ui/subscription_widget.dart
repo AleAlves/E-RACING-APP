@@ -127,7 +127,18 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
 
   Widget subscribedWidget() {
     return ExpandedWidget(
-        header: const TextWidget(text: "Subscription", style: Style.subtitle, align: TextAlign.start),
+        cardless: true,
+        header: Row(
+          children: const [
+            Icon(Icons.assignment),
+            SpacingWidget(LayoutSize.size16),
+            TextWidget(
+              text: "Subcription",
+              style: Style.subtitle,
+              align: TextAlign.left,
+            ),
+          ],
+        ),
         body: [
           Padding(
             padding: const EdgeInsets.all(16.0),

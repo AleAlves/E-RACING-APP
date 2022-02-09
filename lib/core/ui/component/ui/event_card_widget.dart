@@ -227,7 +227,7 @@ class EventCardWidget extends StatelessWidget {
         const SpacingWidget(LayoutSize.size8),
         TextWidget(
           text: '$entries/$max',
-          style: Style.subtitle,
+          style: Style.description,
           align: TextAlign.start,
         ),
       ],
