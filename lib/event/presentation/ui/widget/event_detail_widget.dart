@@ -31,7 +31,6 @@ class EventDetailWidget extends StatefulWidget {
 
 class _EventDetailWidgetState extends State<EventDetailWidget>
     implements BaseSateWidget {
-  final List<ReactionDisposer> _disposers = [];
 
   @override
   void initState() {
@@ -76,7 +75,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             ),
             const SpacingWidget(LayoutSize.size2),
             Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
+              padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
               child: title(),
             ),
             const SpacingWidget(LayoutSize.size2),
@@ -259,6 +258,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             body: [
               const SpacingWidget(LayoutSize.size16),
               TeamsWidget(
+                users: widget.viewModel.users,
                 teams: widget.viewModel.event?.teams,
                 maxCrew: widget.viewModel.event?.teamsMaxCrew,
                 onLeave: (id) {

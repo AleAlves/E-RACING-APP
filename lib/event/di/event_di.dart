@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
+import 'package:e_racing_app/event/data/event_home_model.dart';
 import 'package:e_racing_app/event/domain/create_event_usecase.dart';
 import 'package:e_racing_app/event/domain/create_team_usecase.dart';
 import 'package:e_racing_app/event/domain/delete_team_usecase.dart';
@@ -30,7 +31,7 @@ class EventModule extends Module {
         Bind.factory((i) => JoinTeamUseCase<StatusModel>()),
         Bind.factory((i) => LeaveTeamUseCase<StatusModel>()),
         Bind.factory((i) => DeleteTeamUseCase<StatusModel>()),
-        Bind.factory((i) => GetEventUseCase<EventModel>()),
+        Bind.factory((i) => GetEventUseCase<EventHomeModel>()),
         Bind.factory((i) => GetTagUseCase()),
         Bind.factory((i) => GetSocialMediaUseCase())
       ];

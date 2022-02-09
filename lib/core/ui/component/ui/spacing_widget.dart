@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-enum LayoutSize { size2, size8, size16, size24, size32, size48, size64, size128, size256 }
+enum LayoutSize { size2, size4, size8, size16, size24, size32, size48, size64, size128, size256 }
 
 class SpacingWidget extends StatelessWidget {
   final LayoutSize type;
@@ -12,6 +12,8 @@ class SpacingWidget extends StatelessWidget {
     switch (type) {
       case LayoutSize.size2:
         return const SizedBox(height: 2, width: 2,);
+      case LayoutSize.size4:
+        return const SizedBox(height: 4, width: 4,);
       case LayoutSize.size8:
         return const SizedBox(height: 8, width: 8,);
       case LayoutSize.size16:

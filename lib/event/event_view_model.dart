@@ -11,8 +11,10 @@ import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/model/team_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/event/data/event_home_model.dart';
 import 'package:e_racing_app/event/domain/fetch_events_use_case.dart';
 import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
+import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
@@ -64,6 +66,9 @@ abstract class _EventViewModel with Store {
   ObservableList<TagModel?>? tags = ObservableList();
 
   @observable
+  ObservableList<UserModel?>? users = ObservableList();
+
+  @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
 
   @observable
@@ -76,15 +81,18 @@ abstract class _EventViewModel with Store {
   final getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
   final getTagUseCase = Modular.get<GetTagUseCase>();
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
-  final fetchEventsUseCase = Modular.get<FetchEventsUseCase<List<EventModel>>>();
+  final fetchEventHomeUseCase =
+      Modular.get<FetchEventsUseCase<List<EventModel>>>();
   final createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
-  final doSubscribeEventUseCase = Modular.get<SubscribeEventUseCase<StatusModel>>();
-  final unsubscribeEventUseCase = Modular.get<UnsubscribeEventUseCase<StatusModel>>();
+  final doSubscribeEventUseCase =
+      Modular.get<SubscribeEventUseCase<StatusModel>>();
+  final unsubscribeEventUseCase =
+      Modular.get<UnsubscribeEventUseCase<StatusModel>>();
   final createTeamEventUseCase = Modular.get<CreateTeamUseCase<StatusModel>>();
   final leaveTeamUseCase = Modular.get<LeaveTeamUseCase<StatusModel>>();
   final joinTeamUseCase = Modular.get<JoinTeamUseCase<StatusModel>>();
   final deleteTeamUseCase = Modular.get<DeleteTeamUseCase<StatusModel>>();
-  final getEventUseCase = Modular.get<GetEventUseCase<EventModel>>();
+  final getEventUseCase = Modular.get<GetEventUseCase<EventHomeModel>>();
 
   @action
   init() async {
@@ -93,7 +101,7 @@ abstract class _EventViewModel with Store {
 
   void fetchEvents() async {
     state = ViewState.loading;
-    fetchEventsUseCase.invoke(
+    fetchEventHomeUseCase.invoke(
         success: (data) {
           events = ObservableList.of(data);
           state = ViewState.ready;
@@ -106,11 +114,12 @@ abstract class _EventViewModel with Store {
     media = null;
     getEventUseCase.params(id: id.toString()).invoke(
         success: (data) {
-          event = data;
-          if (data?.type == EventType.race) {
+          event = data?.event;
+          users = ObservableList.of(data?.users ?? []);
+          if (data?.event.type == EventType.race) {
             setFlow(EventFlows.detailRace);
           } else {
-            getMedia(data?.id ?? '');
+            getMedia(data?.event.id ?? '');
           }
           state = ViewState.ready;
         },

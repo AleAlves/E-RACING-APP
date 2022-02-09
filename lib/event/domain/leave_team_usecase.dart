@@ -1,11 +1,6 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
-import 'package:e_racing_app/core/model/event_model.dart';
-import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
-import 'package:e_racing_app/core/model/team_model.dart';
-import 'package:e_racing_app/event/data/event_create_model.dart';
-import 'package:e_racing_app/event/data/team_create_model.dart';
 import 'package:e_racing_app/event/data/team_request_model.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 
@@ -32,7 +27,7 @@ class LeaveTeamUseCase<T> extends BaseUseCase<T> {
             data: TeamRequestModel(eventId: _eventId, teamId: _teamId))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Removed from the crew",
+          message: "Exited the team",
           action: "Ok",
           next: EventFlows.detail) as T);
     } else {

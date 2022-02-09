@@ -59,20 +59,23 @@ class _EventListWidgetState extends State<EventListWidget>
         Column(
           children: [
             const SpacingWidget(LayoutSize.size8),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: widget.viewModel.events?.length,
-              itemBuilder: (context, index) {
-                return EventCardWidget(
-                  icon: _getIcon(widget.viewModel.events?[index]?.type),
-                  color: _getColor(widget.viewModel.events?[index]?.type),
-                  event: widget.viewModel.events?[index],
-                  onPressed: (){
-                    widget.viewModel.id = widget.viewModel.events?[index]?.id;
-                    widget.viewModel.setFlow(EventFlows.detail);
-                  },
-                );
-              },
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: widget.viewModel.events?.length,
+                itemBuilder: (context, index) {
+                  return EventCardWidget(
+                    icon: _getIcon(widget.viewModel.events?[index]?.type),
+                    color: _getColor(widget.viewModel.events?[index]?.type),
+                    event: widget.viewModel.events?[index],
+                    onPressed: (){
+                      widget.viewModel.id = widget.viewModel.events?[index]?.id;
+                      widget.viewModel.setFlow(EventFlows.detail);
+                    },
+                  );
+                },
+              ),
             ),
           ],
         ),

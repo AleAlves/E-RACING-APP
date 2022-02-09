@@ -54,19 +54,22 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
   Widget content() {
     return Stack(
       children: [
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: widget.viewModel.leagues?.length,
-          itemBuilder: (context, index) {
-            return LeagueItemWidget(
-                widget.viewModel.leagues?[index]?.name,
-                widget.viewModel.leagues?[index]?.emblem,
-                widget.viewModel.tags,
-                widget.viewModel.leagues?[index]?.tags, () {
-              widget.viewModel.id = widget.viewModel.leagues?[index]?.id;
-              widget.viewModel.setFlow(LeagueFlow.detail);
-            });
-          },
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: widget.viewModel.leagues?.length,
+            itemBuilder: (context, index) {
+              return LeagueItemWidget(
+                  widget.viewModel.leagues?[index]?.name,
+                  widget.viewModel.leagues?[index]?.emblem,
+                  widget.viewModel.tags,
+                  widget.viewModel.leagues?[index]?.tags, () {
+                widget.viewModel.id = widget.viewModel.leagues?[index]?.id;
+                widget.viewModel.setFlow(LeagueFlow.detail);
+              });
+            },
+          ),
         ),
         FloatActionButtonWidget<LeagueFlow>(
           flow: LeagueFlow.create,

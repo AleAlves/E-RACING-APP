@@ -116,7 +116,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             child: IconButton(
               icon: FaIcon(widget.icon, color: widget.labelColor),
               iconSize: 24,
-              onPressed: () {},
+              onPressed: widget.enabled ? widget.onPressed : null,
             ),
           ),
         ),

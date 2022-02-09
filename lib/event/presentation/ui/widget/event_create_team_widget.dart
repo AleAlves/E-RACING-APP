@@ -5,10 +5,8 @@ import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
@@ -165,7 +163,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                         ),
                         const SpacingWidget(LayoutSize.size16),
                         TextWidget(
-                          text: drivers[index],
+                          text: getName(drivers[index]),
                           style: Style.subtitle,
                         ),
                       ],
@@ -263,12 +261,11 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.width / 2,
                                   child: TextWidget(
-                                    text: widget
-                                            .viewModel
-                                            .event
-                                            ?.classes?[index]
-                                            ?.attenders?[attendersIndex] ??
-                                        '',
+                                    text: getName(widget
+                                        .viewModel
+                                        .event
+                                        ?.classes?[index]
+                                        ?.attenders?[attendersIndex]),
                                     style: Style.subtitle,
                                   ),
                                 ),
@@ -307,5 +304,12 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
   Future<bool> onBackPressed() async {
     widget.viewModel.setFlow(EventFlows.detail);
     return false;
+  }
+
+  String getName(String? id) {
+    var user = widget.viewModel.users
+        ?.firstWhere((element) => element?.id == id)
+        ?.profile;
+    return "${user?.name} ${user?.surname}";
   }
 }

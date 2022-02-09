@@ -32,7 +32,7 @@ class JoinTeamUseCase<T> extends BaseUseCase<T> {
             data: TeamRequestModel(eventId: _eventId, teamId: _teamId))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Added to the crew",
+          message: "Added to the team",
           action: "Ok",
           next: EventFlows.detail) as T);
     } else {

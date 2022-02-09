@@ -4,6 +4,7 @@ import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
+import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ import 'button_widget.dart';
 
 class TeamsWidget extends StatefulWidget {
   final List<TeamModel?>? teams;
+  final List<UserModel?>? users;
   final int? maxCrew;
   final Function(String?) onLeave;
   final Function(String?) onJoin;
@@ -19,6 +21,7 @@ class TeamsWidget extends StatefulWidget {
 
   const TeamsWidget(
       {required this.teams,
+      required this.users,
       required this.maxCrew,
       required this.onLeave,
       required this.onJoin,
@@ -128,22 +131,24 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                     alignment: WrapAlignment.start,
                     direction: Axis.horizontal,
                     spacing: 5.0,
-                    children: team!.crew!.map((crew) {
-                      return Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Icon(
-                              Icons.sports_motorsports,
+                    children: team!.crew!
+                        .map((crew) {
+                          return Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Icon(
+                                  Icons.sports_motorsports,
+                                ),
+                                const SpacingWidget(LayoutSize.size16),
+                                TextWidget(
+                                    text: getName(crew), style: Style.description),
+                              ],
                             ),
-                            const SpacingWidget(LayoutSize.size16),
-                            TextWidget(text: crew, style: Style.description),
-                          ],
-                        ),
-                      );
-                    })
+                          );
+                        })
                         .toList()
                         .cast<Widget>(),
                   ),
@@ -190,5 +195,12 @@ class _TeamsWidgetState extends State<TeamsWidget> {
         ),
       ),
     );
+  }
+
+  String getName(String? id) {
+    var user = widget.users
+        ?.firstWhere((element) => element?.id == id)
+        ?.profile;
+    return "${user?.name} ${user?.surname}";
   }
 }

@@ -17,13 +17,13 @@ class ERcaingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const FlexScheme usedScheme = FlexScheme.sanJuanBlue;
+    const FlexScheme usedScheme = FlexScheme.amber;
 
     const FlexSchemeColor color = FlexSchemeColor(
       primary: Color(0xFFFFA94C),
       primaryVariant: Color(0xFFF68D1C),
       secondary: Color(0xFF1A246C),
-      secondaryVariant: Color(0xFF101852),
+      secondaryVariant: Color(0xFF1A246C),
     );
 
     const FlexSchemeData _myFlexScheme = FlexSchemeData(

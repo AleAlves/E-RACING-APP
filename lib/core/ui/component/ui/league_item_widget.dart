@@ -31,36 +31,38 @@ class LeagueItemWidget extends StatelessWidget {
   }
 
   Widget content() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PictureWidget(
-          image: emblem,
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextWidget(
-                  text: label ?? '',
-                  style: Style.subtitle,
-                  align: TextAlign.start,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: tagsWidget(),
-              )
-            ],
-          ),
-        ),
-        Column(
+        Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [Icon(Icons.chevron_right)],
-        )
+          children: [
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  PictureWidget(
+                    image: emblem,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextWidget(
+                      text: label ?? '',
+                      style: Style.title,
+                      align: TextAlign.start,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [Icon(Icons.chevron_right)],
+            ),
+          ],
+        ),
+        tagsWidget()
       ],
     );
   }
@@ -69,6 +71,7 @@ class LeagueItemWidget extends StatelessWidget {
     return TagCollectionWidget(
       tagIds: leagueTags,
       tags: tags,
+      singleLined: true,
     );
   }
 }

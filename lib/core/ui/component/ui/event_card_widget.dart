@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/model/event_model.dart';
+import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,49 +28,38 @@ class EventCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
-      child: content(),
+      markColor: _getTypeColor(),
+      child: content(context),
       onPressed: onPressed,
       ready: true,
     );
   }
 
-  Widget content() {
+  Widget content(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.circle,
-                color: _getStatusColor(event?.state),
-              ),
-            ),
+            progress(context),
             const SpacingWidget(LayoutSize.size16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextWidget(
-                    text: event?.title ?? event?.races?.first?.title ?? '',
-                    style: Style.subtitle,
-                    align: TextAlign.start,
-                  ),
+                TextWidget(
+                  text: event?.title ?? event?.races?.first?.title ?? '',
+                  style: Style.subtitle,
+                  align: TextAlign.start,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClassCollectionWidget(
-                    onPressed: (w) {},
-                    classes: event?.classes,
-                  ),
+                const SpacingWidget(LayoutSize.size8),
+                ClassCollectionWidget(
+                  onPressed: (w) {},
+                  classes: event?.classes,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: _getType(event?.type),
-                )
+                _getType(event?.type),
+                const SpacingWidget(LayoutSize.size4),
+                drivers()
               ],
             )
           ],
@@ -78,21 +68,114 @@ class EventCardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [Icon(Icons.chevron_right)],
-        )
+        ),
       ],
     );
   }
 
-  Color _getStatusColor(EventState? state) {
-    switch (state) {
+  Widget progress(BuildContext context) {
+    late Icon idle;
+    late Icon onGoing;
+    late Icon finished;
+
+    switch (event?.state) {
       case EventState.idle:
-        return const Color(0xFFF17F28);
+        idle = Icon(
+          Icons.circle,
+          color: _getStatus()?.first,
+          size: 18,
+        );
+        onGoing = Icon(
+          Icons.radio_button_off,
+          color: Theme.of(context).colorScheme.primary,
+          size: 18,
+        );
+        finished = Icon(
+          Icons.radio_button_off,
+          color: Theme.of(context).colorScheme.primary,
+          size: 18,
+        );
+        break;
       case EventState.ongoing:
-        return const Color(0xFF1AA01C);
+        idle = const Icon(
+          Icons.circle,
+          size: 18,
+        );
+        onGoing = Icon(
+          Icons.circle,
+          color: _getStatus()?.first,
+          size: 18,
+        );
+        finished = Icon(
+          Icons.radio_button_off,
+          color: Theme.of(context).colorScheme.primary,
+          size: 18,
+        );
+        break;
       case EventState.finished:
-        return const Color(0xFFA01A1A);
+        idle = const Icon(
+          Icons.circle,
+          size: 18,
+        );
+        onGoing = const Icon(
+          Icons.circle,
+          size: 18,
+        );
+        finished = Icon(
+          Icons.circle,
+          color: _getStatus()?.first,
+          size: 18,
+        );
+        break;
       default:
-        return const Color(0xFFA01A1A);
+        break;
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          idle,
+          Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: const BorderRadius.all(Radius.circular(20))),
+              width: 5,
+              height: 15),
+          onGoing,
+          Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: const BorderRadius.all(Radius.circular(20))),
+              width: 5,
+              height: 15),
+          finished,
+        ],
+      ),
+    );
+  }
+
+  Pair<Color, String>? _getStatus() {
+    switch (event?.state) {
+      case EventState.idle:
+        return Pair(const Color(0xFFF17F28), "In preparation");
+      case EventState.ongoing:
+        return Pair(const Color(0xFF1AA01C), "On going");
+      case EventState.finished:
+        return Pair(const Color(0xFFA01A1A), "Finished");
+      default:
+        return Pair(const Color(0xFF294CA5), "unknow");
+    }
+  }
+
+  Color _getTypeColor() {
+    switch (event?.type) {
+      case EventType.championship:
+        return Colors.green;
+      case EventType.race:
+        return Colors.blueAccent;
+      default:
+        return Colors.red;
     }
   }
 
@@ -126,5 +209,28 @@ class EventCardWidget extends StatelessWidget {
       default:
         return Container();
     }
+  }
+
+  Widget drivers() {
+    var max = 0;
+    var entries = 0;
+
+    event?.classes?.forEach((element) {
+      max += element?.maxEntries ?? 0;
+      entries += element?.attenders?.length ?? 0;
+    });
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(Icons.sports_motorsports),
+        const SpacingWidget(LayoutSize.size8),
+        TextWidget(
+          text: '$entries/$max',
+          style: Style.subtitle,
+          align: TextAlign.start,
+        ),
+      ],
+    );
   }
 }

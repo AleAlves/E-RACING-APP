@@ -144,6 +144,21 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
+  final _$usersAtom = Atom(name: '_EventViewModel.users');
+
+  @override
+  ObservableList<UserModel?>? get users {
+    _$usersAtom.reportRead();
+    return super.users;
+  }
+
+  @override
+  set users(ObservableList<UserModel?>? value) {
+    _$usersAtom.reportWrite(value, super.users, () {
+      super.users = value;
+    });
+  }
+
   final _$socialMediasAtom = Atom(name: '_EventViewModel.socialMedias');
 
   @override
@@ -193,6 +208,7 @@ state: ${state},
 events: ${events},
 menus: ${menus},
 tags: ${tags},
+users: ${users},
 socialMedias: ${socialMedias},
 creatingEvent: ${creatingEvent}
     ''';
