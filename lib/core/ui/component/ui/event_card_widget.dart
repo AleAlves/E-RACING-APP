@@ -43,32 +43,44 @@ class EventCardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             progress(context),
-            const SpacingWidget(LayoutSize.size16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextWidget(
-                  text: event?.title ?? event?.races?.first?.title ?? '',
-                  style: Style.subtitle,
-                  align: TextAlign.start,
-                ),
-                const SpacingWidget(LayoutSize.size8),
-                ClassCollectionWidget(
-                  onPressed: (w) {},
-                  classes: event?.classes,
-                ),
-                _getType(event?.type),
-                const SpacingWidget(LayoutSize.size4),
-                drivers()
-              ],
+            const SpacingWidget(LayoutSize.size8),
+            Expanded(
+              child: Column(
+                children: [
+                  TextWidget(
+                    text: event?.title ?? event?.races?.first?.title ?? '',
+                    style: Style.subtitle,
+                    align: TextAlign.start,
+                  ),
+                  const SpacingWidget(LayoutSize.size8),
+                  ClassCollectionWidget(
+                    onPressed: (w) {},
+                    classes: event?.classes,
+                  ),
+                  _getType(event?.type),
+                  const SpacingWidget(LayoutSize.size4),
+                  drivers()
+                ],
+              ),
             )
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [Icon(Icons.chevron_right)],
-        ),
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Ink(
+                decoration: ShapeDecoration(
+                  shape: const CircleBorder(),
+                  color: _getTypeColor(),
+                ),
+                child:Icon(
+                  Icons.chevron_right,
+                  color: Theme.of(context).colorScheme.background,
+                  size: 20.0,
+                ),
+              )
+            ]),
       ],
     );
   }
@@ -183,7 +195,6 @@ class EventCardWidget extends StatelessWidget {
     switch (state) {
       case EventType.championship:
         return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon),
             const SpacingWidget(LayoutSize.size8),
@@ -221,7 +232,6 @@ class EventCardWidget extends StatelessWidget {
     });
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Icon(Icons.sports_motorsports),
         const SpacingWidget(LayoutSize.size8),

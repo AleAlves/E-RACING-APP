@@ -24,6 +24,7 @@ class LeagueItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
+      padding: const EdgeInsets.only(left: 4, right: 4, bottom: 4),
       onPressed: onPressed,
       child: content(),
       ready: leagueTags != null,
@@ -31,38 +32,48 @@ class LeagueItemWidget extends StatelessWidget {
   }
 
   Widget content() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  PictureWidget(
-                    image: emblem,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextWidget(
-                      text: label ?? '',
-                      style: Style.title,
-                      align: TextAlign.start,
-                    ),
-                  ),
-                ],
+        Expanded(
+          child: Row(
+            children: [
+              PictureWidget(
+                image: emblem,
               ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [Icon(Icons.chevron_right)],
-            ),
-          ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4),
+                      child: Wrap(
+                        children: [
+                          TextWidget(
+                            text: label ?? '',
+                            style: Style.subtitle,
+                            align: TextAlign.start,
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: tagsWidget(),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-        tagsWidget()
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.chevron_right)
+          ],
+        )
       ],
     );
   }

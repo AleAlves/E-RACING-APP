@@ -33,6 +33,8 @@ class InputTextWidget extends StatelessWidget {
       case BorderType.normal:
         border = InputDecoration(
           labelText: label,
+          filled: true,
+          fillColor: Theme.of(context).chipTheme.backgroundColor,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
             borderSide: const BorderSide(

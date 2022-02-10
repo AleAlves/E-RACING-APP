@@ -31,8 +31,6 @@ class _ClassCollectionWidgetState extends State<ClassCollectionWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Icon(Icons.drive_eta),
         Padding(

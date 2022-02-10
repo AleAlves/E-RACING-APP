@@ -7,9 +7,8 @@ class GetTagUseCase<T> extends BaseUseCase<T> {
   Future<void> invoke(
       {required Function(T) success,
       required Function error}) async {
-    var response = await super
-        .remote(Request(endpoint: "api/v1/tags", verb: HTTPVerb.get));
-    if (response.isSuccessfully) {
+    var response = await super.remote(Request(endpoint: "api/v1/tags", verb: HTTPVerb.get));
+    if (response != null && response.isSuccessfully) {
       success.call((response.data as List)
           .map<TagModel>((tags) => TagModel.fromJson(tags))
           .toList() as T);

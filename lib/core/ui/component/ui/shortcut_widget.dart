@@ -17,31 +17,69 @@ class ShortcutWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      width: 150,
+      child: shortcut?.highlight == true ? highlighted(context) : normal(),
+    );
+  }
+
+  Widget normal() {
     return CardWidget(
       onPressed: () {
         onPressed.call(shortcut);
       },
-      child: SizedBox(
-        width: 100,
-        height: 100,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(shortcut?.icon),
-            const SpacingWidget(LayoutSize.size16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                TextWidget(
-                  text: shortcut?.title ?? "",
-                  style: Style.description,
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
       ready: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(shortcut?.icon),
+          const SpacingWidget(LayoutSize.size16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TextWidget(
+                text: shortcut?.title ?? "",
+                style: Style.description,
+              ),
+              const SpacingWidget(LayoutSize.size8),
+              const Icon(Icons.arrow_forward, size: 10,)
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget highlighted(BuildContext context) {
+    return CardWidget(
+      onPressed: () {
+        onPressed.call(shortcut);
+      },
+      ready: true,
+      color: Theme.of(context).primaryColor,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            shortcut?.icon,
+            color: Theme.of(context).cardColor,
+          ),
+          const SpacingWidget(LayoutSize.size16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TextWidget(
+                text: shortcut?.title ?? "",
+                style: Style.description,
+                color: Theme.of(context).cardColor,
+              ),
+              const SpacingWidget(LayoutSize.size8),
+               Icon(Icons.arrow_forward, size: 10, color: Theme.of(context).cardColor,)
+            ],
+          )
+        ],
+      ),
     );
   }
 

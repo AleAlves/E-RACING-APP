@@ -103,10 +103,12 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
         children: [
           const Icon(Icons.emoji_events),
           const SpacingWidget(LayoutSize.size16),
-          TextWidget(
-            text: widget.viewModel.league?.name ?? '',
-            style: Style.title,
-            align: TextAlign.left,
+          Expanded(
+            child: TextWidget(
+              text: widget.viewModel.league?.name ?? '',
+              style: Style.title,
+              align: TextAlign.left,
+            ),
           ),
         ],
       ),

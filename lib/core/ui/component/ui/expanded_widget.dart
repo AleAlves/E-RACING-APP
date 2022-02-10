@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../main.dart';
+import 'card_widget.dart';
 
 class ExpandedWidget extends StatefulWidget {
   final Widget header;
@@ -30,53 +31,47 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
   Widget build(BuildContext context) => holder();
 
   Widget holder() {
-    if (widget.cardless) {
-      return content();
-    }
-    return Card(child: content());
+    return widget.ready ? content() : const LoadingShimmer();
   }
 
   Widget content() {
-    return widget.ready
-        ? ExpansionTile(
-            title: Padding(
-              padding: const EdgeInsets.only(top: 24.0, bottom: 24.0),
-              child: widget.ready
-                  ? widget.header
-                  : const LoadingShimmer(
-                      height: 10,
-                    ),
-            ),
-            children: widget.body,
-            trailing: Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-              child: Ink(
-                decoration: const ShapeDecoration(
-                  shape: CircleBorder(),
-                ),
-                child: _expanded
-                    ? const Icon(
-                        Icons.keyboard_arrow_up,
-                        size: 20.0,
-                      )
-                    : const Icon(
-                        Icons.keyboard_arrow_down,
-                        size: 20.0,
-                      ),
-              ),
-            ),
-            onExpansionChanged: (bool expanded) {
-              setState(() {
-                _expanded = expanded;
-              });
-            })
-        : const Padding(
-            padding: EdgeInsets.only(left: 8, right: 8),
-            child: LoadingShimmer(),
-          );
+    if (widget.cardless) {
+      return content();
+    }
+    return CardWidget(ready: widget.ready, child: expansionWidget());
   }
 
-  Widget loading(BuildContext context) {
-    return const Card(child: LoadingRipple());
+  Widget expansionWidget() {
+    return ExpansionTile(
+        title: Padding(
+          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+          child: widget.header,
+        ),
+        children: widget.body,
+        trailing: Padding(
+          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+          child: Ink(
+            decoration: ShapeDecoration(
+              shape: const CircleBorder(),
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            child: _expanded
+                ? Icon(
+                    Icons.keyboard_arrow_up,
+                    size: 20.0,
+                    color: Theme.of(context).colorScheme.background,
+                  )
+                : Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Theme.of(context).colorScheme.background,
+                    size: 20.0,
+                  ),
+          ),
+        ),
+        onExpansionChanged: (bool expanded) {
+          setState(() {
+            _expanded = expanded;
+          });
+        });
   }
 }

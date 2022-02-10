@@ -115,6 +115,7 @@ abstract class _EventViewModel with Store {
     getEventUseCase.params(id: id.toString()).invoke(
         success: (data) {
           event = data?.event;
+          id = data?.event.id;
           users = ObservableList.of(data?.users ?? []);
           if (data?.event.type == EventType.race) {
             setFlow(EventFlows.detailRace);

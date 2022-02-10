@@ -8,7 +8,7 @@ class GetSocialMediaUseCase<T> extends BaseUseCase<T> {
       {required Function(T) success, required Function error}) async {
     var response = await super.remote(
         Request(endpoint: "api/v1/social-platforms", verb: HTTPVerb.get));
-    if (response.isSuccessfully) {
+    if (response != null && response.isSuccessfully) {
       success.call((response.data as List)
           .map<SocialPlatformModel>(
               (tags) => SocialPlatformModel.fromJson(tags))

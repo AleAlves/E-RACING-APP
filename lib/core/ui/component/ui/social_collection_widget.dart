@@ -1,7 +1,6 @@
 import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/social_platform_model.dart';
-import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,10 +18,6 @@ class SocialCollectionWidget extends StatefulWidget {
       required this.socialPlatforms,
       Key? key})
       : super(key: key);
-
-  Widget loading(BuildContext context) {
-    return const Card(child: LoadingShimmer());
-  }
 
   @override
   _SocialCollectionWidgetState createState() => _SocialCollectionWidgetState();

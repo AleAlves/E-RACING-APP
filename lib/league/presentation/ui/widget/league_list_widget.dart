@@ -55,7 +55,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8),
+          padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: widget.viewModel.leagues?.length,

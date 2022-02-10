@@ -40,12 +40,19 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
       direction: Axis.horizontal,
       children: widget.tagIds!
           .map((item) {
-        return ActionChip(
-          label: TextWidget(
-            text: name(item),
-            style: Style.note,
+        return ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(14.0)),
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextWidget(
+                text: name(item),
+                style: Style.note,
+                  color: Theme.of(context).cardColor
+              ),
+            ),
+            color: Theme.of(context).primaryColor,
           ),
-          onPressed: () {},
         );
       })
           .toList()
@@ -58,21 +65,29 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
       children: [
         Expanded(
           child: SizedBox(
-            height: 50,
+            height: 40,
             child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.tagIds?.length,
                 itemBuilder: (context, index) {
                   return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ActionChip(
-                        label: TextWidget(
-                          text: name(widget.tagIds?[index]),
-                          style: Style.note,
+                      ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(14.0)),
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextWidget(
+                              text: name(widget.tagIds?[index]),
+                              style: Style.note,
+                              color: Theme.of(context).cardColor
+                            ),
+                          ),
+                          color: Theme.of(context).primaryColor,
                         ),
-                        onPressed: () {},
                       ),
                       const SpacingWidget(LayoutSize.size4)
                     ],

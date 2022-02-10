@@ -8,9 +8,9 @@ class FetchLeagueMenuUseCase<T> extends BaseUseCase<T?> {
   void invoke({required Function(T?) success, required Function error}) async {
     List<ShortcutModel> menu = [];
     menu.add(ShortcutModel(
-        title: "Members", icon: Icons.supervised_user_circle, deepLink: ""));
+        title: "Events", icon: Icons.emoji_events, deepLink: Routes.events, highlight: true));
     menu.add(ShortcutModel(
-        title: "Events", icon: Icons.emoji_events, deepLink: Routes.events));
+        title: "Members", icon: Icons.supervised_user_circle, deepLink: ""));
     menu.add(ShortcutModel(
         title: "Historic", icon: Icons.flag_sharp, deepLink: ""));
     menu.add(ShortcutModel(

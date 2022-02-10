@@ -7,6 +7,7 @@ class CardWidget extends StatelessWidget {
   final bool ready;
   final Color? color;
   final Color? markColor;
+  final EdgeInsetsGeometry padding;
   final double? placeholderWidth;
   final double? placeholderHeight;
   final VoidCallback? onPressed;
@@ -16,6 +17,7 @@ class CardWidget extends StatelessWidget {
       this.onPressed,
       required this.ready,
       this.color,
+      this.padding = const EdgeInsets.all(16.0),
       this.markColor,
       this.placeholderHeight,
       this.placeholderWidth,
@@ -25,28 +27,23 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ready
-        ? Card(
-            color: color,
-            child: Stack(
-              children: [
-                InkWell(
-                  onTap: onPressed,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: child,
-                  ),
-                ),
-                ClipRRect(
-                  borderRadius:
-                      const BorderRadius.only(topLeft: Radius.circular(8.0)),
-                  child: Container(
-                    color: markColor,
-                    width: MediaQuery.of(context).size.width / 25,
-                    height: MediaQuery.of(context).size.height / 40,
-                  ),
-                ),
-              ],
-            ))
+        ? Stack(
+            children: [
+              Card(
+                  color: color,
+                  child: Stack(
+                    children: [
+                      InkWell(
+                        onTap: onPressed,
+                        child: Padding(
+                          padding: padding,
+                          child: child,
+                        ),
+                      ),
+                    ],
+                  )),
+            ],
+          )
         : loading(context);
   }
 

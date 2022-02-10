@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_race_carousel_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
@@ -87,6 +88,11 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
               child: information(),
             ),
             const SpacingWidget(LayoutSize.size2),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: races(),
+            ),
+            const SpacingWidget(LayoutSize.size48),
           ],
         ),
         FloatActionButtonWidget<EventFlows>(
@@ -301,5 +307,10 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
         widget.viewModel.unsubscribe(id);
       },
     );
+  }
+
+  Widget races() {
+    return EventRaceCarousel(
+        races: widget.viewModel.event?.races);
   }
 }
