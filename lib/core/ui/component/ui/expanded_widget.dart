@@ -28,15 +28,12 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
   bool _expanded = false;
 
   @override
-  Widget build(BuildContext context) => holder();
-
-  Widget holder() {
-    return widget.ready ? content() : const LoadingShimmer();
-  }
+  Widget build(BuildContext context) =>
+      widget.ready ? content() : const LoadingShimmer();
 
   Widget content() {
     if (widget.cardless) {
-      return content();
+      return expansionWidget();
     }
     return CardWidget(ready: widget.ready, child: expansionWidget());
   }

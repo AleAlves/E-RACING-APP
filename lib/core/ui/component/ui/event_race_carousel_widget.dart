@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
+import 'package:e_racing_app/core/tools/date_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/poster_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -32,10 +33,12 @@ class EventRaceCarousel extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             TextWidget(text: race?.title, style: Style.subtitle),
-                            const SpacingWidget(LayoutSize.size16),
+                            const SpacingWidget(LayoutSize.size48),
                             PosterWidget(post: race?.poster),
-                            const SpacingWidget(LayoutSize.size16),
-                            TextWidget(text: race?.date, style: Style.description),
+                            const SpacingWidget(LayoutSize.size48),
+                            TextWidget(text: formatDate(race?.date), style: Style.description),
+                            const SpacingWidget(LayoutSize.size8),
+                            TextWidget(text: formatHour(race?.date), style: Style.description),
                           ],
                         ),
                       ),

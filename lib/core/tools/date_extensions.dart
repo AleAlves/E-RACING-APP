@@ -1,9 +1,18 @@
-extension DateFormting on String {
-  String formatDate(DateTime date) {
-    return "${date.day}/${date.month}/${date.year}";
-  }
+import 'package:intl/intl.dart';
 
-  String formatHour(DateTime date) {
-    return "${date.hour}h ${date.minute}min";
-  }
+
+String formatDate(String? date) {
+  DateTime dateTime = toDatetime(date);
+  var month = DateFormat.MMMM().format(dateTime);
+  return "${dateTime.day}, $month ${dateTime.year}";
+}
+
+String formatHour(String? date) {
+  DateTime dateTime = toDatetime(date);
+  return "${dateTime.hour}h ${dateTime.minute}min";
+}
+
+
+DateTime toDatetime(String? date) {
+  return DateFormat('yyyy-MM-ddTHH:mm:ssZ').parse(date ?? '');
 }
