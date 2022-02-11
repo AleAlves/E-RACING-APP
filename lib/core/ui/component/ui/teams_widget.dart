@@ -1,4 +1,3 @@
-import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/model/team_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
@@ -15,6 +14,7 @@ class TeamsWidget extends StatefulWidget {
   final List<TeamModel?>? teams;
   final List<UserModel?>? users;
   final int? maxCrew;
+  final bool isSubscriber;
   final Function(String?) onLeave;
   final Function(String?) onJoin;
   final Function(String?) onDelete;
@@ -26,6 +26,7 @@ class TeamsWidget extends StatefulWidget {
       required this.onLeave,
       required this.onJoin,
       required this.onDelete,
+      this.isSubscriber = false,
       Key? key})
       : super(key: key);
 
@@ -144,7 +145,8 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                                 ),
                                 const SpacingWidget(LayoutSize.size16),
                                 TextWidget(
-                                    text: getName(crew), style: Style.description),
+                                    text: getName(crew),
+                                    style: Style.description),
                               ],
                             ),
                           );
@@ -179,7 +181,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                             ),
                           ],
                         )
-                      : ButtonWidget(
+                      : widget.isSubscriber ? ButtonWidget(
                           label: "Join",
                           type: ButtonType.icon,
                           icon: Icons.person_add,
@@ -187,7 +189,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                             widget.onJoin(team.id);
                           },
                           enabled: true,
-                        ),
+                        ) : Container(),
                 ],
               )
             ],
@@ -198,9 +200,8 @@ class _TeamsWidgetState extends State<TeamsWidget> {
   }
 
   String getName(String? id) {
-    var user = widget.users
-        ?.firstWhere((element) => element?.id == id)
-        ?.profile;
+    var user =
+        widget.users?.firstWhere((element) => element?.id == id)?.profile;
     return "${user?.name} ${user?.surname}";
   }
 }

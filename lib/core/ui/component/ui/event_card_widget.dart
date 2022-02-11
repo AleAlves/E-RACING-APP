@@ -46,6 +46,7 @@ class EventCardWidget extends StatelessWidget {
             const SpacingWidget(LayoutSize.size8),
             Expanded(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget(
                     text: event?.title ?? event?.races?.first?.title ?? '',

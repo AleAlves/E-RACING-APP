@@ -50,18 +50,18 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
           child: Ink(
             decoration: ShapeDecoration(
               shape: const CircleBorder(),
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.background,
             ),
             child: _expanded
                 ? Icon(
                     Icons.keyboard_arrow_up,
-                    size: 20.0,
-                    color: Theme.of(context).colorScheme.background,
+                    size: 24.0,
+                    color: Theme.of(context).colorScheme.primaryVariant,
                   )
                 : Icon(
                     Icons.keyboard_arrow_down,
-                    color: Theme.of(context).colorScheme.background,
-                    size: 20.0,
+                    color: Theme.of(context).colorScheme.primaryVariant,
+                    size: 24.0,
                   ),
           ),
         ),

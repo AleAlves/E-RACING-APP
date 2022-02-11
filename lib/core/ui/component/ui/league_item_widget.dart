@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/picture_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,12 +27,15 @@ class LeagueItemWidget extends StatelessWidget {
     return CardWidget(
       padding: const EdgeInsets.only(left: 4, right: 4, bottom: 4),
       onPressed: onPressed,
-      child: content(),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: content(context),
+      ),
       ready: leagueTags != null,
     );
   }
 
-  Widget content() {
+  Widget content(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -44,6 +48,7 @@ class LeagueItemWidget extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 4),
@@ -57,8 +62,9 @@ class LeagueItemWidget extends StatelessWidget {
                         ],
                       ),
                     ),
+                    const SpacingWidget(LayoutSize.size16),
                     Padding(
-                      padding: const EdgeInsets.only(top: 16),
+                      padding: const EdgeInsets.only(top: 16, right: 8 ,left: 8),
                       child: tagsWidget(),
                     )
                   ],
@@ -70,8 +76,18 @@ class LeagueItemWidget extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(Icons.chevron_right)
+          children: [
+            Ink(
+              decoration: ShapeDecoration(
+                shape: const CircleBorder(),
+                color: Theme.of(context).colorScheme.background,
+              ),
+              child: Icon(
+                Icons.chevron_right,
+                size: 24.0,
+                color: Theme.of(context).colorScheme.primaryVariant,
+              ),
+            )
           ],
         )
       ],

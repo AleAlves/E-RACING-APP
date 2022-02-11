@@ -12,7 +12,6 @@ String formatHour(String? date) {
   return "${dateTime.hour}h ${dateTime.minute}min";
 }
 
-
 DateTime toDatetime(String? date) {
   return DateFormat('yyyy-MM-ddTHH:mm:ssZ').parse(date ?? '');
 }

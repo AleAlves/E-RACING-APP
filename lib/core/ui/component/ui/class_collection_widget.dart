@@ -18,8 +18,7 @@ class ClassCollectionWidget extends StatefulWidget {
   }
 
   @override
-  _ClassCollectionWidgetState createState() =>
-      _ClassCollectionWidgetState();
+  _ClassCollectionWidgetState createState() => _ClassCollectionWidgetState();
 }
 
 class _ClassCollectionWidgetState extends State<ClassCollectionWidget> {
@@ -38,27 +37,27 @@ class _ClassCollectionWidgetState extends State<ClassCollectionWidget> {
           child: widget.classes == null
               ? Container()
               : Wrap(
-            spacing: 1.0,
-            runSpacing: 2.0,
-            children:  widget.classes!
-                .map((tag) {
-              return Padding(
-                padding: const EdgeInsets.all(1.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 2.0, right: 2.0, top: 2.0, bottom: 2.0),
-                    child: TextWidget(
-                        text:  tag?.name ?? '',
-                        style: Style.label),
-                  ),
+                  spacing: 1.0,
+                  runSpacing: 2.0,
+                  children: widget.classes!
+                      .map((tag) {
+                        return Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 2.0, right: 2.0, top: 2.0, bottom: 2.0),
+                              child: TextWidget(
+                                  text: tag?.name ?? '', style: Style.label),
+                            ),
+                          ),
+                        );
+                      })
+                      .toList()
+                      .cast<Widget>(),
                 ),
-              );
-            })
-                .toList()
-                .cast<Widget>(),
-          ),
         )
       ],
     );

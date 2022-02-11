@@ -77,7 +77,7 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: ButtonWidget(
-                label: "cancel membership",
+                label: "Cancel membership",
                 type: ButtonType.normal,
                 onPressed: () {
                   widget.onStopMembership.call();

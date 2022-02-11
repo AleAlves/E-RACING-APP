@@ -1,6 +1,7 @@
+import 'package:e_racing_app/core/tools/access_validation_extension.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/event_race_carousel_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_race_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
@@ -158,33 +159,35 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   }
 
   Widget rules() {
-    return ExpandedWidget(
-      cardless: true,
-      ready: widget.viewModel.event != null,
-      header: Row(
-        children: const [
-          Icon(Icons.gavel),
-          SpacingWidget(LayoutSize.size16),
-          TextWidget(
-            text: "Rules",
-            style: Style.subtitle,
-            align: TextAlign.left,
-          ),
-        ],
-      ),
-      body: [
-        const SpacingWidget(LayoutSize.size16),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: TextWidget(
-            text: widget.viewModel.event?.rules ?? '',
-            style: Style.description,
-            align: TextAlign.start,
-          ),
-        ),
-        const SpacingWidget(LayoutSize.size16),
-      ],
-    );
+    return (widget.viewModel.event?.rules?.isNotEmpty ?? false)
+        ? ExpandedWidget(
+            cardless: true,
+            ready: widget.viewModel.event != null,
+            header: Row(
+              children: const [
+                Icon(Icons.gavel),
+                SpacingWidget(LayoutSize.size16),
+                TextWidget(
+                  text: "Rules",
+                  style: Style.subtitle,
+                  align: TextAlign.left,
+                ),
+              ],
+            ),
+            body: [
+              const SpacingWidget(LayoutSize.size16),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextWidget(
+                  text: widget.viewModel.event?.rules ?? '',
+                  style: Style.description,
+                  align: TextAlign.start,
+                ),
+              ),
+              const SpacingWidget(LayoutSize.size16),
+            ],
+          )
+        : Container();
   }
 
   Widget scoring() {
@@ -216,28 +219,31 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   }
 
   Widget settings() {
-    return ExpandedWidget(
-      cardless: true,
-      ready: widget.viewModel.event != null,
-      header: Row(
-        children: const [
-          Icon(
-            Icons.settings,
-          ),
-          SpacingWidget(LayoutSize.size16),
-          TextWidget(
-            text: "Settings",
-            style: Style.subtitle,
-            align: TextAlign.left,
-          ),
-        ],
-      ),
-      body: [
-        const SpacingWidget(LayoutSize.size16),
-        SettingsWidget(settings: widget.viewModel.event?.settings),
-        const SpacingWidget(LayoutSize.size16),
-      ],
-    );
+    var hasSettings = widget.viewModel.event?.settings?.isNotEmpty ?? false;
+    return hasSettings
+        ? ExpandedWidget(
+            cardless: true,
+            ready: widget.viewModel.event != null,
+            header: Row(
+              children: const [
+                Icon(
+                  Icons.settings,
+                ),
+                SpacingWidget(LayoutSize.size16),
+                TextWidget(
+                  text: "Settings",
+                  style: Style.subtitle,
+                  align: TextAlign.left,
+                ),
+              ],
+            ),
+            body: [
+              const SpacingWidget(LayoutSize.size16),
+              SettingsWidget(settings: widget.viewModel.event?.settings),
+              const SpacingWidget(LayoutSize.size16),
+            ],
+          )
+        : Container();
   }
 
   Widget teams() {
@@ -263,6 +269,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                 users: widget.viewModel.users,
                 teams: widget.viewModel.event?.teams,
                 maxCrew: widget.viewModel.event?.teamsMaxCrew,
+                isSubscriber: isSubscriber(widget.viewModel.event?.classes),
                 onLeave: (id) {
                   widget.viewModel.leaveTeam(id);
                   Navigator.of(context).pop();
@@ -276,21 +283,23 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                   Navigator.of(context).pop();
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ButtonWidget(
-                    label: "New team",
-                    type: ButtonType.icon,
-                    icon: Icons.add,
-                    onPressed: () {
-                      widget.viewModel.setFlow(EventFlows.createTeam);
-                    },
-                    enabled: widget.viewModel.event != null,
-                  ),
-                ),
-              ),
+              isSubscriberOrHost(widget.viewModel.event)
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 24, right: 24),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: ButtonWidget(
+                          label: "New team",
+                          type: ButtonType.icon,
+                          icon: Icons.add,
+                          onPressed: () {
+                            widget.viewModel.setFlow(EventFlows.createTeam);
+                          },
+                          enabled: widget.viewModel.event != null,
+                        ),
+                      ),
+                    )
+                  : Container(),
               const SpacingWidget(LayoutSize.size16),
             ],
           )
@@ -310,7 +319,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   }
 
   Widget races() {
-    return EventRaceCarousel(
-        races: widget.viewModel.event?.races);
+    return EventRaceCollection(
+        onRaceCardPressed: (id) {}, races: widget.viewModel.event?.races);
   }
 }

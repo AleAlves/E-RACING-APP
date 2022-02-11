@@ -7,6 +7,7 @@ class CardWidget extends StatelessWidget {
   final bool ready;
   final Color? color;
   final Color? markColor;
+  final bool shapeLess;
   final EdgeInsetsGeometry padding;
   final double? placeholderWidth;
   final double? placeholderHeight;
@@ -18,6 +19,7 @@ class CardWidget extends StatelessWidget {
       required this.ready,
       this.color,
       this.padding = const EdgeInsets.all(16.0),
+      this.shapeLess = false,
       this.markColor,
       this.placeholderHeight,
       this.placeholderWidth,
@@ -30,6 +32,12 @@ class CardWidget extends StatelessWidget {
         ? Stack(
             children: [
               Card(
+                  shape: shapeLess
+                      ? null
+                      : RoundedRectangleBorder(
+                          side: const BorderSide(width: 0.3),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                   color: color,
                   child: Stack(
                     children: [

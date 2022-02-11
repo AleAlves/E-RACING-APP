@@ -54,6 +54,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
 
   Widget unsubscribedWidget() {
     return CardWidget(
+        shapeLess: true,
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: ButtonWidget(
