@@ -24,6 +24,21 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
+  final _$standingsAtom = Atom(name: '_EventViewModel.standings');
+
+  @override
+  EventStandingsModel? get standings {
+    _$standingsAtom.reportRead();
+    return super.standings;
+  }
+
+  @override
+  set standings(EventStandingsModel? value) {
+    _$standingsAtom.reportWrite(value, super.standings, () {
+      super.standings = value;
+    });
+  }
+
   final _$mediaAtom = Atom(name: '_EventViewModel.media');
 
   @override
@@ -200,6 +215,7 @@ mixin _$EventViewModel on _EventViewModel, Store {
   String toString() {
     return '''
 event: ${event},
+standings: ${standings},
 media: ${media},
 id: ${id},
 status: ${status},

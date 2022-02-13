@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

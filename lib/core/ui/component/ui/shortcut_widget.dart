@@ -43,7 +43,10 @@ class ShortcutWidget extends StatelessWidget {
                 style: Style.description,
               ),
               const SpacingWidget(LayoutSize.size8),
-              const Icon(Icons.arrow_forward, size: 10,)
+              const Icon(
+                Icons.arrow_forward,
+                size: 10,
+              )
             ],
           )
         ],
@@ -63,7 +66,7 @@ class ShortcutWidget extends StatelessWidget {
         children: [
           Icon(
             shortcut?.icon,
-            color: Theme.of(context).cardColor,
+            color: Theme.of(context).colorScheme.background,
           ),
           const SpacingWidget(LayoutSize.size16),
           Row(
@@ -72,10 +75,14 @@ class ShortcutWidget extends StatelessWidget {
               TextWidget(
                 text: shortcut?.title ?? "",
                 style: Style.description,
-                color: Theme.of(context).cardColor,
+                color: Theme.of(context).colorScheme.background,
               ),
               const SpacingWidget(LayoutSize.size8),
-               Icon(Icons.arrow_forward, size: 10, color: Theme.of(context).cardColor,)
+              Icon(
+                Icons.arrow_forward,
+                size: 10,
+                color: Theme.of(context).colorScheme.background,
+              )
             ],
           )
         ],

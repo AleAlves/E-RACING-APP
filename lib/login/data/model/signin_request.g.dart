@@ -8,7 +8,7 @@ part of 'signin_request.dart';
 
 SigninRequest _$SigninRequestFromJson(Map<String, dynamic> json) =>
     SigninRequest(
-      UserModel.fromJson(json['user'] as Map<String, dynamic>),
+      user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SigninRequestToJson(SigninRequest instance) =>

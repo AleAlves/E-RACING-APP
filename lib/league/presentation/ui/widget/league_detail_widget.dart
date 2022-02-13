@@ -118,10 +118,10 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
           child: TextWidget(
             text: widget.viewModel.league?.description ?? '',
             style: Style.description,
-            align: TextAlign.justify,
+            align: TextAlign.center,
           ),
         ),
-        const SpacingWidget(LayoutSize.size16),
+        const SpacingWidget(LayoutSize.size48),
         tags(),
         const SpacingWidget(LayoutSize.size16),
       ],

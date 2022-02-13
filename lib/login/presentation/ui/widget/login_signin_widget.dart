@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/country_picker_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
@@ -27,6 +28,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
   final _nameController = TextEditingController();
   final _surnameController = TextEditingController();
   late String password = "";
+  late String? country = "BR";
 
   @override
   void initState() {
@@ -134,6 +136,12 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
             },
             inputType: InputType.password,
           ),
+          const SpacingWidget(LayoutSize.size16),
+          CountryPickerWidget(
+            onCountrySelected: (code) {
+              country = code;
+            },
+          ),
           const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
             enabled: true,
@@ -144,7 +152,8 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
                     _nameController.text,
                     _surnameController.text,
                     _mailController.text,
-                    _passwordController.text);
+                    _passwordController.text,
+                    country ?? '');
               }
             },
             label: "Create account",

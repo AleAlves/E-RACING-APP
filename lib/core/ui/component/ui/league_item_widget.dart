@@ -85,7 +85,7 @@ class LeagueItemWidget extends StatelessWidget {
               child: Icon(
                 Icons.chevron_right,
                 size: 24.0,
-                color: Theme.of(context).colorScheme.primaryVariant,
+                color: Theme.of(context).colorScheme.onBackground,
               ),
             )
           ],

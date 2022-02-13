@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'entry_model.dart';
+import 'driver_model.dart';
 
 part 'classes_model.g.dart';
 
@@ -10,15 +10,13 @@ class ClassesModel {
   final String? id;
   String? name;
   int? maxEntries;
-  List<EntryModel?>? entries;
-  List<String?>? attenders;
+  List<DriverModel?>? drivers;
 
   ClassesModel(
       {this.id,
       required this.name,
       this.maxEntries,
-      this.attenders,
-      this.entries});
+      this.drivers});
 
   factory ClassesModel.fromJson(Map<String, dynamic> json) =>
       _$ClassesModelFromJson(json);

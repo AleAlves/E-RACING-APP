@@ -14,16 +14,20 @@ class SignInUseCase<T> extends BaseUseCase<T> {
   late String _surname;
   late String _email;
   late String _password;
+  late String _country;
 
   SignInUseCase<T> params(
       {required String name,
       required String surname,
       required String email,
-      required String password}) {
+      required String password,
+      required String country,
+      }) {
     _name = name;
     _surname = surname;
     _email = email;
     _password = password;
+    _country = country;
     return this;
   }
 
@@ -32,15 +36,15 @@ class SignInUseCase<T> extends BaseUseCase<T> {
       {required Function(T) success, required Function error}) async {
     var user = UserModel(
         auth: AuthModel(password: CryptoService.instance.sha256(_password)),
-        profile: ProfileModel(name: _name, surname: _surname, email: _email));
+        profile: ProfileModel(name: _name, surname: _surname, email: _email, country: _country));
+    var request = HTTPRequesParams(data: SigninRequest(user: user), cypherSchema: CypherSchema.rsa);
     var response = await super.remote(Request(
         endpoint: "api/v1/auth/signin",
         verb: HTTPVerb.post,
-        params: HTTPRequesParams(
-            data: SigninRequest(user), cypherSchema: CypherSchema.rsa)));
+        params: request));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Conta criada com sucesso",
+          message: "Account created, check your email to confirm it",
           action: "Ok",
           next: LoginWidgetFlow.login) as T);
     } else {

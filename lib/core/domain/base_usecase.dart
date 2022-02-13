@@ -6,8 +6,7 @@ import 'package:e_racing_app/core/data/store_request.dart';
 import 'package:e_racing_app/core/data/store_response.dart';
 
 abstract class BaseUseCase<T> {
-
-  final _remote =  RemoteRepositoryImpl();
+  final _remote = RemoteRepositoryImpl();
   final _local = LocalRepository();
 
   void invoke({required Function(T?) success, required Function error});

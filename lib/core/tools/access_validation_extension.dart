@@ -4,9 +4,8 @@ import 'package:e_racing_app/core/tools/session.dart';
 
 bool isSubscriber(List<ClassesModel?>? classes) {
   var isMember = false;
-  classes?.forEach((element) => element?.attenders?.forEach(
-      (driver) => isMember = driver == Session.instance.getUser()?.id));
-
+  classes?.forEach((element) => element?.drivers?.forEach((driver) =>
+      isMember = driver?.driverId == Session.instance.getUser()?.id));
   return isMember;
 }
 

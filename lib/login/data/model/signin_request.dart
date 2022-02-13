@@ -6,7 +6,7 @@ part 'signin_request.g.dart';
 class SigninRequest {
   late UserModel user;
 
-  SigninRequest(this.user);
+  SigninRequest({required this.user});
 
   factory SigninRequest.fromJson(Map<String, dynamic> json) => _$SigninRequestFromJson(json);
 

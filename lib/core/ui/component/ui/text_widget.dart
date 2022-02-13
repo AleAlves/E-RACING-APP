@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-enum Style { description, title, subtitle, label, note, shadow }
+enum Style { description, title, subtitle, button, label, note, shadow }
 
 class TextWidget extends StatelessWidget {
   final String? text;
@@ -77,6 +77,13 @@ class TextWidget extends StatelessWidget {
                   blurRadius: 0)
             ]);
         break;
+      case Style.button:
+        return TextStyle(
+          fontFamily: 'Roboto',
+          fontWeight: FontWeight.w500,
+          color: color,
+          fontSize: 18.0,
+        );
     }
   }
 }

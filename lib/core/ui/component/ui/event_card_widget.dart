@@ -60,7 +60,9 @@ class EventCardWidget extends StatelessWidget {
                   ),
                   _getType(event?.type),
                   const SpacingWidget(LayoutSize.size4),
-                  drivers()
+                  drivers(),
+                  const SpacingWidget(LayoutSize.size4),
+                  subscriptionsStatus(context)
                 ],
               ),
             )
@@ -75,7 +77,7 @@ class EventCardWidget extends StatelessWidget {
                   shape: const CircleBorder(),
                   color: _getTypeColor(),
                 ),
-                child:Icon(
+                child: Icon(
                   Icons.chevron_right,
                   color: Theme.of(context).colorScheme.background,
                   size: 20.0,
@@ -229,7 +231,7 @@ class EventCardWidget extends StatelessWidget {
 
     event?.classes?.forEach((element) {
       max += element?.maxEntries ?? 0;
-      entries += element?.attenders?.length ?? 0;
+      entries += element?.drivers?.length ?? 0;
     });
 
     return Row(
@@ -243,5 +245,31 @@ class EventCardWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget subscriptionsStatus(BuildContext context) {
+    return Row(
+      children: [
+        Chip(label: Text(_getSubscriptionStatus()), backgroundColor: Theme.of(context).colorScheme.secondary,),
+        const SpacingWidget(LayoutSize.size4),
+        event?.membersOnly == true
+            ? Chip(label: const Text("Members only"), backgroundColor: Theme.of(context).colorScheme.secondary,)
+            : Container()
+      ],
+    );
+  }
+
+  String _getSubscriptionStatus() {
+    if (event?.joinable == true) {
+      return "Drivers wanted";
+    } else {
+      if (event?.state == EventState.idle) {
+        return "Subscriptions opening soon";
+      } else if (event?.state == EventState.ongoing) {
+        return "No drivers needed";
+      } else {
+        return "Not available yet";
+      }
+    }
   }
 }

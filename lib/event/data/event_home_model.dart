@@ -1,5 +1,4 @@
 import 'package:e_racing_app/core/model/event_model.dart';
-import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 

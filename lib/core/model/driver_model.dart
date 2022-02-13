@@ -1,33 +1,16 @@
-
+import 'package:e_racing_app/core/model/summary_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'entry_model.dart';
 
 part 'driver_model.g.dart';
 
 @JsonSerializable()
 class DriverModel {
-  final int? number;
-  final int? laps;
-  final int? bonus;
-  final int? points;
-  final int? penalty;
-  final int? position;
-  final String? notes;
-  final String? pilotId;
-  final int? fastestLapTime;
-  final bool? disqualified;
+  String? driverId;
+  List<EntryModel?>? entries;
 
-  DriverModel({
-    required this.number,
-    required this.laps,
-    required this.bonus,
-    required this.notes,
-    required this.points,
-    required this.penalty,
-    required this.pilotId,
-    required this.position,
-    required this.disqualified,
-    required this.fastestLapTime,
-  });
+  DriverModel({required this.driverId, required this.entries});
 
   factory DriverModel.fromJson(Map<String, dynamic> json) =>
       _$DriverModelFromJson(json);

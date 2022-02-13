@@ -21,13 +21,16 @@ import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
+import 'data/event_standings_model.dart';
 import 'domain/create_event_usecase.dart';
 import 'domain/create_team_usecase.dart';
 import 'domain/delete_team_usecase.dart';
+import 'domain/get_event_standing_usecase.dart';
 import 'domain/join_team_usecase.dart';
 import 'domain/leave_team_usecase.dart';
 import 'domain/subscribe_event_usecase.dart';
 import 'domain/get_event_usecase.dart';
+import 'domain/toogle_subscriptions_usecase.dart';
 import 'domain/unsubscribe_event_usecase.dart';
 import 'presentation/ui/event_flow.dart';
 
@@ -40,6 +43,9 @@ abstract class _EventViewModel with Store {
 
   @observable
   EventModel? event;
+
+  @observable
+  EventStandingsModel? standings;
 
   @observable
   MediaModel? media;
@@ -73,26 +79,31 @@ abstract class _EventViewModel with Store {
 
   @observable
   EventModel? creatingEvent;
+
   List<RaceModel>? creatingRaces;
   List<MediaModel>? creatingMedias;
   File? bannerFile;
   List<ChampionshipRacesModel>? racesModel;
 
-  final getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
-  final getTagUseCase = Modular.get<GetTagUseCase>();
-  final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
-  final fetchEventHomeUseCase =
+  final _getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
+  final _getTagUseCase = Modular.get<GetTagUseCase>();
+  final _getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
+  final _fetchEventHomeUseCase =
       Modular.get<FetchEventsUseCase<List<EventModel>>>();
-  final createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
-  final doSubscribeEventUseCase =
+  final _createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
+  final _doSubscribeEventUseCase =
       Modular.get<SubscribeEventUseCase<StatusModel>>();
-  final unsubscribeEventUseCase =
+  final _unsubscribeEventUseCase =
       Modular.get<UnsubscribeEventUseCase<StatusModel>>();
-  final createTeamEventUseCase = Modular.get<CreateTeamUseCase<StatusModel>>();
-  final leaveTeamUseCase = Modular.get<LeaveTeamUseCase<StatusModel>>();
-  final joinTeamUseCase = Modular.get<JoinTeamUseCase<StatusModel>>();
-  final deleteTeamUseCase = Modular.get<DeleteTeamUseCase<StatusModel>>();
-  final getEventUseCase = Modular.get<GetEventUseCase<EventHomeModel>>();
+  final _createTeamEventUseCase = Modular.get<CreateTeamUseCase<StatusModel>>();
+  final _leaveTeamUseCase = Modular.get<LeaveTeamUseCase<StatusModel>>();
+  final _joinTeamUseCase = Modular.get<JoinTeamUseCase<StatusModel>>();
+  final _deleteTeamUseCase = Modular.get<DeleteTeamUseCase<StatusModel>>();
+  final _toogleSubscriptionsUseCase =
+      Modular.get<ToogleSubscriptionsUseCase<StatusModel>>();
+  final _getEventUseCase = Modular.get<GetEventUseCase<EventHomeModel>>();
+  final _getEventStandingsUseCase =
+      Modular.get<GetEventStandingUseCase<EventStandingsModel>>();
 
   @action
   init() async {
@@ -101,7 +112,7 @@ abstract class _EventViewModel with Store {
 
   void fetchEvents() async {
     state = ViewState.loading;
-    fetchEventHomeUseCase.invoke(
+    _fetchEventHomeUseCase.invoke(
         success: (data) {
           events = ObservableList.of(data);
           state = ViewState.ready;
@@ -112,8 +123,9 @@ abstract class _EventViewModel with Store {
   void getEvent() async {
     state = ViewState.loading;
     media = null;
-    getEventUseCase.params(id: id.toString()).invoke(
+    _getEventUseCase.params(id: id.toString()).invoke(
         success: (data) {
+          getStandings();
           event = data?.event;
           id = data?.event.id;
           users = ObservableList.of(data?.users ?? []);
@@ -127,8 +139,26 @@ abstract class _EventViewModel with Store {
         error: onError);
   }
 
+  void getStandings() async {
+    _getEventStandingsUseCase.params(id: id.toString()).invoke(
+        success: (data) {
+          standings = data;
+        },
+        error: onError);
+  }
+
+  void toogleSubscriptions() {
+    state = ViewState.loading;
+    _toogleSubscriptionsUseCase.build(eventId: id.toString()).invoke(
+        success: (data) {
+          status = data;
+          setFlow(EventFlows.status);
+        },
+        error: onError);
+  }
+
   void getMedia(String id) async {
-    await getMediaUseCase.params(id: id).invoke(
+    await _getMediaUseCase.params(id: id).invoke(
         success: (data) {
           media = data;
         },
@@ -137,7 +167,7 @@ abstract class _EventViewModel with Store {
 
   void fetchTags() async {
     state = ViewState.loading;
-    await getTagUseCase.invoke(
+    await _getTagUseCase.invoke(
         success: (data) {
           tags = ObservableList.of(data);
           state = ViewState.ready;
@@ -147,7 +177,7 @@ abstract class _EventViewModel with Store {
 
   void fetchSocialMedias() async {
     state = ViewState.loading;
-    await getSocialMediaUseCase.invoke(
+    await _getSocialMediaUseCase.invoke(
         success: (data) {
           socialMedias = ObservableList.of(data);
           state = ViewState.ready;
@@ -165,7 +195,7 @@ abstract class _EventViewModel with Store {
 
   void create(EventModel event) async {
     state = ViewState.loading;
-    await createEventUseCase.build(event: event).invoke(
+    await _createEventUseCase.build(event: event).invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);
@@ -175,7 +205,7 @@ abstract class _EventViewModel with Store {
 
   void subscribe(String? classId) async {
     state = ViewState.loading;
-    await doSubscribeEventUseCase
+    await _doSubscribeEventUseCase
         .build(classId: classId, eventId: event?.id)
         .invoke(
             success: (data) {
@@ -187,7 +217,7 @@ abstract class _EventViewModel with Store {
 
   void unsubscribe(String? classId) async {
     state = ViewState.loading;
-    await unsubscribeEventUseCase
+    await _unsubscribeEventUseCase
         .build(classId: classId, eventId: event?.id)
         .invoke(
             success: (data) {
@@ -242,7 +272,7 @@ abstract class _EventViewModel with Store {
         membersOnly: creatingEvent?.membersOnly,
         teamsEnabled: creatingEvent?.teamsEnabled);
 
-    await createEventUseCase.build(event: event, media: media).invoke(
+    await _createEventUseCase.build(event: event, media: media).invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);
@@ -253,7 +283,7 @@ abstract class _EventViewModel with Store {
   void createTeam(String name, List<String?> ids) async {
     state = ViewState.loading;
     var team = TeamModel(name: name, crew: ids);
-    await createTeamEventUseCase.build(id: event?.id, team: team).invoke(
+    await _createTeamEventUseCase.build(id: event?.id, team: team).invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);
@@ -263,7 +293,7 @@ abstract class _EventViewModel with Store {
 
   void joinTeam(String? id) async {
     state = ViewState.loading;
-    await joinTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
+    await _joinTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);
@@ -273,7 +303,7 @@ abstract class _EventViewModel with Store {
 
   void leaveTeam(String? id) async {
     state = ViewState.loading;
-    await leaveTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
+    await _leaveTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);
@@ -283,7 +313,7 @@ abstract class _EventViewModel with Store {
 
   void deleteTeam(String? id) async {
     state = ViewState.loading;
-    await deleteTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
+    await _deleteTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);

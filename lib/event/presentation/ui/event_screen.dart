@@ -38,6 +38,7 @@ class _EventScreenState extends State<EventScreen> implements BaseScreen {
           })
         ],
       ),
+
     );
   }
 

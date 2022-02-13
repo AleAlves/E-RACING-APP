@@ -48,10 +48,10 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
               child: TextWidget(
                 text: name(item),
                 style: Style.note,
-                  color: Theme.of(context).cardColor
+                  color: Theme.of(context).colorScheme.background
               ),
             ),
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).colorScheme.primary,
           ),
         );
       })
@@ -83,10 +83,10 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
                             child: TextWidget(
                               text: name(widget.tagIds?[index]),
                               style: Style.note,
-                              color: Theme.of(context).cardColor
+                              color: Theme.of(context).colorScheme.background
                             ),
                           ),
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       const SpacingWidget(LayoutSize.size4)

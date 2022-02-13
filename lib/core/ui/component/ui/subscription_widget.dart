@@ -42,8 +42,8 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
   @override
   Widget build(BuildContext context) {
     widget.classes?.forEach((clss) {
-      clss?.attenders?.forEach((driver) {
-        if (driver == Session.instance.getUser()?.id) {
+      clss?.drivers?.forEach((driver) {
+        if (driver?.driverId == Session.instance.getUser()?.id) {
           hasSubscription = true;
           id = clss.id;
         }

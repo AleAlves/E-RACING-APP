@@ -78,11 +78,11 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       child: ElevatedButton(
         onPressed: widget.enabled ? widget.onPressed : null,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(top: 16, bottom: 16),
           child: TextWidget(
             text: widget.label ?? '',
             color: widget.labelColor,
-            style: Style.subtitle,
+            style: Style.button,
           ),
         ),
       ),
@@ -93,12 +93,16 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Theme.of(context).colorScheme.secondary,
+          onPrimary: Theme.of(context).colorScheme.onSecondary,
+        ),
         onPressed: widget.enabled ? widget.onPressed : null,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(top: 16, bottom: 16),
           child: TextWidget(
             text: widget.label ?? '',
-            style: Style.subtitle,
+            style: Style.button,
           ),
         ),
       ),

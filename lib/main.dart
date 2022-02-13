@@ -22,8 +22,8 @@ class ERcaingApp extends StatelessWidget {
     const FlexSchemeColor color = FlexSchemeColor(
       primary: Color(0xFFFFA94C),
       primaryVariant: Color(0xFFF68D1C),
-      secondary: Color(0xFF1A246C),
-      secondaryVariant: Color(0xFF1A246C),
+      secondary: Color(0xFFA30000),
+      secondaryVariant: Color(0xFFBB1313),
     );
 
     const FlexSchemeData _myFlexScheme = FlexSchemeData(

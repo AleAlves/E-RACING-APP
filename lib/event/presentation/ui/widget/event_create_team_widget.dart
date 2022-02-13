@@ -244,8 +244,8 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                 ListView.builder(
                   physics: const ClampingScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: widget
-                      .viewModel.event?.classes?[index]?.attenders?.length,
+                  itemCount:
+                      widget.viewModel.event?.classes?[index]?.drivers?.length,
                   itemBuilder: (context, attendersIndex) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -265,7 +265,8 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                                         .viewModel
                                         .event
                                         ?.classes?[index]
-                                        ?.attenders?[attendersIndex]),
+                                        ?.drivers?[attendersIndex]
+                                        ?.driverId),
                                     style: Style.subtitle,
                                   ),
                                 ),
@@ -280,7 +281,8 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                                         .viewModel
                                         .event
                                         ?.classes?[index]
-                                        ?.attenders?[attendersIndex]);
+                                        ?.drivers?[attendersIndex]
+                                        ?.driverId);
                                     Navigator.of(context).pop();
                                   });
                                 },

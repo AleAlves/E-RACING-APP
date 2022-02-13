@@ -39,23 +39,25 @@ class _LoginStatusWidgetState extends State<LoginStatusWidget>
 
   @override
   Widget content() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TextWidget(
-            text: widget.viewModel.status?.message ?? '',
-            style: Style.description),
-        const SpacingWidget(LayoutSize.size16),
-        ButtonWidget(
-          enabled: true,
-          type: ButtonType.normal,
-          onPressed: () {
-            widget.viewModel.flow =
-                widget.viewModel.status?.next ?? LoginWidgetFlow.login;
-          },
-          label: widget.viewModel.status?.action ?? '',
-        )
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextWidget(
+              text: widget.viewModel.status?.message ?? '',
+              style: Style.description),
+          const SpacingWidget(LayoutSize.size16),
+          ButtonWidget(
+            enabled: true,
+            type: ButtonType.normal,
+            onPressed: () {
+              widget.viewModel.flow =
+                  widget.viewModel.status?.next ?? LoginWidgetFlow.login;
+            },
+            label: widget.viewModel.status?.action ?? '',
+          )
+        ],
+      ),
     );
   }
 

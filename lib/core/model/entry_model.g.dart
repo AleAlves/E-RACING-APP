@@ -8,15 +8,13 @@ part of 'entry_model.dart';
 
 EntryModel _$EntryModelFromJson(Map<String, dynamic> json) => EntryModel(
       raceId: json['raceId'] as String?,
-      drivers: (json['drivers'] as List<dynamic>?)
-          ?.map((e) => e == null
-              ? null
-              : DriverModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      summary: json['summary'] == null
+          ? null
+          : SummaryModel.fromJson(json['summary'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$EntryModelToJson(EntryModel instance) =>
     <String, dynamic>{
       'raceId': instance.raceId,
-      'drivers': instance.drivers,
+      'summary': instance.summary,
     };

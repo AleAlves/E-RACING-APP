@@ -39,6 +39,7 @@ class CardWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                   color: color,
+                  shadowColor: shapeLess ? Colors.transparent : null,
                   child: Stack(
                     children: [
                       InkWell(

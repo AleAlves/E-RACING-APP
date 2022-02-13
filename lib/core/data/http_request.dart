@@ -31,8 +31,7 @@ class HTTPRequesParams {
       if (safe) {
         switch (cypherSchema) {
           case CypherSchema.rsa:
-            data = CryptoService.instance
-                .rsaEncrypt(Session.instance.getRSAKey()?.publicKey, _encode());
+            data = CryptoService.instance.rsaEncrypt(Session.instance.getRSAKey()?.publicKey, _encode());
             break;
           case CypherSchema.aes:
           default:

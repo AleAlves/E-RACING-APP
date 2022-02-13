@@ -1,7 +1,9 @@
+import 'package:e_racing_app/core/tools/routes.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../main.dart';
 
@@ -24,7 +26,7 @@ class _DefaulErrorWidgetState extends State<DefaulErrorWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const TextWidget(
-                    text: "Tente Novamente", style: Style.subtitle),
+                    text: "An error occurred", style: Style.subtitle),
                 const SpacingWidget(LayoutSize.size16),
                 Material(
                   color: Colors.transparent,
@@ -35,12 +37,16 @@ class _DefaulErrorWidgetState extends State<DefaulErrorWidget> {
                       ),
                       child: IconButton(
                         icon: const Icon(Icons.refresh),
-                        color: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          Modular.to.navigate("/");
+                        },
                       ),
                     ),
                   ),
                 ),
+                const SpacingWidget(LayoutSize.size16),
+                const TextWidget(
+                    text: "Try again later", style: Style.subtitle),
               ],
             ),
           );

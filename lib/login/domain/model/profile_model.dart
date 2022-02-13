@@ -9,8 +9,9 @@ class ProfileModel {
   final String? name;
   final String? surname;
   final String? picture;
+  final String? country;
 
-  ProfileModel({this.email, this.name, this.surname, this.picture});
+  ProfileModel({this.email, this.name, this.surname, this.picture, this.country});
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) => _$ProfileModelFromJson(json);
 

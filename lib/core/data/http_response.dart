@@ -1,7 +1,7 @@
 class HTTPResponse<T> {
   T? data;
   late bool safe;
-  late bool isSuccessfully;
+  bool isSuccessfully = false;
   Response? response;
 
   HTTPResponse();

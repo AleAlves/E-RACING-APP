@@ -1,6 +1,8 @@
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
+import 'package:e_racing_app/core/tools/access_validation_extension.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +10,10 @@ import 'spacing_widget.dart';
 import 'card_widget.dart';
 
 class EventProgressWidget extends StatefulWidget {
-  final bool hide;
-  final EventState? state;
+  final EventModel? event;
+  final Function() onToogle;
 
-  const EventProgressWidget(
-      {this.hide = false, this.state = EventState.ongoing, Key? key})
+  const EventProgressWidget({this.event, required this.onToogle, Key? key})
       : super(key: key);
 
   Widget loading(BuildContext context) {
@@ -35,7 +36,7 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
     late Icon onGoing;
     late Icon finished;
 
-    switch (widget.state) {
+    switch (widget.event?.state) {
       case EventState.idle:
         idle = Icon(
           Icons.circle,
@@ -133,15 +134,27 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
                 style: Style.description,
                 align: TextAlign.left,
               ),
-              const SpacingWidget(LayoutSize.size2),
+              const SpacingWidget(LayoutSize.size24),
+              _getButton(),
+              const SpacingWidget(LayoutSize.size8),
             ],
           )),
       ready: true,
     );
   }
 
+  Widget _getButton() {
+    return isHost(widget.event) ? ButtonWidget(
+        label: widget.event?.joinable == true
+            ? "Close subscriptions"
+            : "Open subscriptions",
+        enabled: true,
+        type: ButtonType.important,
+        onPressed: widget.onToogle) : Container();
+  }
+
   Pair<Color, String>? _getStatus() {
-    switch (widget.state) {
+    switch (widget.event?.state) {
       case EventState.idle:
         return Pair(const Color(0xFFF17F28), "In preparation");
       case EventState.ongoing:

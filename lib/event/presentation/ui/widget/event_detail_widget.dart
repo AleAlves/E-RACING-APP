@@ -2,6 +2,7 @@ import 'package:e_racing_app/core/tools/access_validation_extension.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_race_collection_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_standing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
@@ -93,6 +94,11 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: races(),
             ),
+            const SpacingWidget(LayoutSize.size2),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: standings(),
+            ),
             const SpacingWidget(LayoutSize.size48),
           ],
         ),
@@ -128,7 +134,10 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
 
   Widget status() {
     return EventProgressWidget(
-      state: widget.viewModel.event?.state,
+      event: widget.viewModel.event,
+      onToogle: () {
+        widget.viewModel.toogleSubscriptions();
+      },
     );
   }
 
@@ -307,19 +316,28 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   }
 
   Widget subscription() {
-    return SubscriptionWidget(
-      classes: widget.viewModel.event?.classes,
-      onSubscribe: (id) {
-        widget.viewModel.subscribe(id);
-      },
-      onUnsubscribe: (id) {
-        widget.viewModel.unsubscribe(id);
-      },
-    );
+    return widget.viewModel.event?.joinable == true
+        ? SubscriptionWidget(
+            classes: widget.viewModel.event?.classes,
+            onSubscribe: (id) {
+              widget.viewModel.subscribe(id);
+            },
+            onUnsubscribe: (id) {
+              widget.viewModel.unsubscribe(id);
+            },
+          )
+        : Container();
   }
 
   Widget races() {
     return EventRaceCollection(
         onRaceCardPressed: (id) {}, races: widget.viewModel.event?.races);
+  }
+
+  Widget standings() {
+    return EventStandingWidget(
+      standings: widget.viewModel.standings,
+      onRaceCardPressed: (id) {},
+    );
   }
 }
