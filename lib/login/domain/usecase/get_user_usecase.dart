@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/data/store_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
+import 'package:e_racing_app/core/service/api_exception.dart';
 
 import '../model/user_model.dart';
 
@@ -12,7 +13,9 @@ class GetUserUseCase<T> extends BaseUseCase<T?> {
       var data = response.data == null ? null : UserModel.fromJson(response.data) as T ;
       success.call(data);
     } else {
-      error.call();
+      error.call(ApiException(
+          message: "error trying to retrive local data",
+          isBusinessError: false));
     }
   }
 }

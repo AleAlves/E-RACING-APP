@@ -1,13 +1,9 @@
 class ApiException implements Exception {
 
-  final String? _message;
-  bool? isBusinessError;
+  final String? message;
+  final bool? isBusinessError;
 
-  ApiException(this._message, {this.isBusinessError});
-
-  String message() {
-    return _message ?? '';
-  }
+  ApiException({this.message, required this.isBusinessError});
 
   bool isBusiness(){
     return isBusinessError ?? false;

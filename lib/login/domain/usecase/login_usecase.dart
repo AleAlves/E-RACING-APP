@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
+import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/login/data/model/login_request.dart';
@@ -28,7 +29,9 @@ class LoginUseCase<T> extends BaseUseCase<T> {
     if (response.isSuccessfully) {
       success.call(LoginResponse.fromJson(response.data) as T);
     } else {
-      error.call();
+      error.call(ApiException(
+          message: response.response?.status,
+          isBusinessError: response.response?.code == 422));
     }
   }
 }

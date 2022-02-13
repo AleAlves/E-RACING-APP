@@ -7,19 +7,26 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../main.dart';
-
 class LeagueItemWidget extends StatelessWidget {
   final String? label;
   final String? emblem;
+  final int? members;
+  final int? capacity;
   final TextAlign align;
   final List<TagModel?>? tags;
   final List<String?>? leagueTags;
   final VoidCallback? onPressed;
 
   const LeagueItemWidget(
-      this.label, this.emblem, this.tags, this.leagueTags, this.onPressed,
-      {this.align = TextAlign.center, Key? key})
+      {this.label,
+      this.emblem,
+      required this.capacity,
+      required this.members,
+      this.tags,
+      this.leagueTags,
+      this.onPressed,
+      this.align = TextAlign.center,
+      Key? key})
       : super(key: key);
 
   @override
@@ -62,9 +69,22 @@ class LeagueItemWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SpacingWidget(LayoutSize.size16),
+                    const SpacingWidget(LayoutSize.size4),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.groups,
+                        ),
+                        const SpacingWidget(LayoutSize.size8),
+                        TextWidget(
+                          text: "${members.toString()}/$capacity",
+                          style: Style.subtitle,
+                          align: TextAlign.start,
+                        )
+                      ],
+                    ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 16, right: 8 ,left: 8),
+                      padding: const EdgeInsets.only(top: 4, right: 8, left: 8),
                       child: tagsWidget(),
                     )
                   ],

@@ -1,9 +1,4 @@
-import 'package:carousel_slider/carousel_controller.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:e_racing_app/core/model/classes_model.dart';
-import 'package:e_racing_app/core/model/driver_model.dart';
-import 'package:e_racing_app/core/model/race_model.dart';
-import 'package:e_racing_app/core/tools/date_extensions.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -11,11 +6,8 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/event/data/event_standing_classes_model.dart';
 import 'package:e_racing_app/event/data/event_standing_model.dart';
 import 'package:e_racing_app/event/data/event_standings_model.dart';
-import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'expanded_widget.dart';
 
 class EventStandingWidget extends StatefulWidget {
   final EventStandingsModel? standings;
@@ -154,6 +146,16 @@ class _EventStandingWidgetState extends State<EventStandingWidget> {
                     align: TextAlign.start,
                   ),
                 ],
+              ),
+              const SpacingWidget(LayoutSize.size8),
+              CountryCodePicker(
+                onChanged: print,
+                showCountryOnly: true,
+                enabled: false,
+                initialSelection: standing?.user?.profile?.country,
+                hideMainText: true,
+                showFlagMain: true,
+                showFlag: false,
               ),
               const SpacingWidget(LayoutSize.size8),
               Expanded(

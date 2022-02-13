@@ -1,11 +1,7 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
-import 'package:e_racing_app/core/model/event_model.dart';
-import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
-import 'package:e_racing_app/core/model/team_model.dart';
-import 'package:e_racing_app/event/data/event_create_model.dart';
-import 'package:e_racing_app/event/data/team_create_model.dart';
+import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/event/data/team_request_model.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 
@@ -36,7 +32,9 @@ class JoinTeamUseCase<T> extends BaseUseCase<T> {
           action: "Ok",
           next: EventFlows.detail) as T);
     } else {
-      error.call();
+      error.call(ApiException(
+          message: response.response?.status,
+          isBusinessError: response.response?.code == 422));
     }
   }
 }

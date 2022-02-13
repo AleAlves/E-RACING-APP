@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
+import 'package:e_racing_app/core/service/api_exception.dart';
 
 class FetchEventsUseCase<T> extends BaseUseCase<T> {
   @override
@@ -17,7 +18,9 @@ class FetchEventsUseCase<T> extends BaseUseCase<T> {
               .toList() as T;
       success.call(list as T);
     } else {
-      error.call();
+      error.call(ApiException(
+          message: response.response?.status,
+          isBusinessError: response.response?.code == 422));
     }
   }
 }

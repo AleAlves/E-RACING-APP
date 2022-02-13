@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
+import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/login/data/model/reset_request.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 
@@ -31,7 +32,9 @@ class ResetPasswordUseCase<T> extends BaseUseCase<T> {
           message: "Senha resetada", action: "Ok", next: LoginWidgetFlow.login);
       success.call(status as T);
     } else {
-      error.call();
+      error.call(ApiException(
+          message: response.response?.status,
+          isBusinessError: response.response?.code == 422));
     }
   }
 }

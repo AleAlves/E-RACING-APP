@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
+import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/login/domain/model/public_key_model.dart';
 
 class GetPublicKeyUseCase<T> extends BaseUseCase<T> {
@@ -14,7 +15,9 @@ class GetPublicKeyUseCase<T> extends BaseUseCase<T> {
           : PublicKeyModel.fromJson(response.data) as T;
       success.call(data);
     } else {
-      error.call();
+      error.call(ApiException(
+          message: response.response?.status,
+          isBusinessError: response.response?.code == 422));
     }
   }
 }

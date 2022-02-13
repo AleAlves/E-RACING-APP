@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
+import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/event/data/event_standings_model.dart';
 
 class GetEventStandingUseCase<T> extends BaseUseCase<T> {
@@ -22,7 +23,9 @@ class GetEventStandingUseCase<T> extends BaseUseCase<T> {
           ? null
           : EventStandingsModel.fromJson(response.data) as T);
     } else {
-      error.call();
+      error.call(ApiException(
+          message: response.response?.status,
+          isBusinessError: response.response?.code == 422));
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
+import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
 
 class FetchLeagueUseCase<T> extends BaseUseCase<T?> {
@@ -15,7 +16,9 @@ class FetchLeagueUseCase<T> extends BaseUseCase<T?> {
               .toList() as T;
       success.call(list);
     } else {
-      error.call();
+      error.call(ApiException(
+          message: response.response?.status,
+          isBusinessError: response.response?.code == 422));
     }
   }
 }

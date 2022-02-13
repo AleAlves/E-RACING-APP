@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
+import 'package:e_racing_app/core/service/api_exception.dart';
 
 class GetSocialMediaUseCase<T> extends BaseUseCase<T> {
   @override
@@ -14,7 +15,9 @@ class GetSocialMediaUseCase<T> extends BaseUseCase<T> {
               (tags) => SocialPlatformModel.fromJson(tags))
           .toList() as T);
     } else {
-      error.call();
+      error.call(ApiException(
+          message: response.response?.status,
+          isBusinessError: response.response?.code == 422));
     }
   }
 }

@@ -323,7 +323,7 @@ abstract class _EventViewModel with Store {
 
   void onError(ApiException error) {
     status = StatusModel(
-      message: error.message(),
+      message: error.message,
       action: "Ok",
       next: EventFlows.list,
       previous: flow,

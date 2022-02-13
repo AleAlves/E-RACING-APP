@@ -170,17 +170,13 @@ abstract class _LoginViewModel with Store {
 
   void onError(ApiException error) {
     status = StatusModel(
-        message: error.message(),
+        message: error.message,
         action: "Ok",
         next: LoginWidgetFlow.login,
         previous: flow);
 
-    if (error.isBusiness()) {
-      state = ViewState.ready;
-      flow = LoginWidgetFlow.status;
-    } else {
-      state = ViewState.error;
-    }
+    state = ViewState.ready;
+    flow = LoginWidgetFlow.status;
   }
 
   void retry() {

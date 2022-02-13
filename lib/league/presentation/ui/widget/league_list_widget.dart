@@ -18,7 +18,6 @@ class LeagueListWidget extends StatefulWidget {
 
 class _LeagueListWidgetState extends State<LeagueListWidget>
     implements BaseSateWidget {
-
   @override
   void initState() {
     widget.viewModel.fetchLeagues();
@@ -61,20 +60,23 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
             itemCount: widget.viewModel.leagues?.length,
             itemBuilder: (context, index) {
               return LeagueItemWidget(
-                  widget.viewModel.leagues?[index]?.name,
-                  widget.viewModel.leagues?[index]?.emblem,
-                  widget.viewModel.tags,
-                  widget.viewModel.leagues?[index]?.tags, () {
-                widget.viewModel.id = widget.viewModel.leagues?[index]?.id;
-                widget.viewModel.setFlow(LeagueFlow.detail);
-              });
+                  label: widget.viewModel.leagues?[index]?.name,
+                  emblem: widget.viewModel.leagues?[index]?.emblem,
+                  members: widget.viewModel.leagues?[index]?.members?.length,
+                  capacity: widget.viewModel.leagues?[index]?.capacity,
+                  tags: widget.viewModel.tags,
+                  leagueTags: widget.viewModel.leagues?[index]?.tags,
+                  onPressed: () {
+                    widget.viewModel.id = widget.viewModel.leagues?[index]?.id;
+                    widget.viewModel.setFlow(LeagueFlow.detail);
+                  });
             },
           ),
         ),
         FloatActionButtonWidget<LeagueFlow>(
           flow: LeagueFlow.create,
           icon: Icons.add,
-          onPressed: (flow){
+          onPressed: (flow) {
             widget.viewModel.setFlow(flow);
           },
         ),

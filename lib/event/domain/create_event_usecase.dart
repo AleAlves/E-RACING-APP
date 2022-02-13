@@ -3,6 +3,7 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
+import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/event/data/event_create_model.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 
@@ -28,7 +29,9 @@ class CreateEventUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Event Created", action: "Ok", next: EventFlows.list) as T);
     } else {
-      error.call();
+      error.call(ApiException(
+          message: response.response?.status,
+          isBusinessError: response.response?.code == 422));
     }
   }
 }
