@@ -18,7 +18,7 @@ class GetLeagueUseCase<T> extends BaseUseCase<T> {
         endpoint: "api/v1/league",
         params: HTTPRequesParams(query: _id),
         verb: HTTPVerb.get));
-    if (response != null && response.isSuccessfully) {
+    if (response.isSuccessfully) {
       success.call(response.data == null
           ? null
           : LeagueModel.fromJson(response.data) as T);

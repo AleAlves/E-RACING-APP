@@ -9,8 +9,9 @@ part 'event_create_model.g.dart';
 class EventCreateModel {
   late MediaModel? media;
   late EventModel event;
+  late String? leagueId;
 
-  EventCreateModel(this.media, this.event);
+  EventCreateModel(this.media, this.event, this.leagueId);
 
   factory EventCreateModel.fromJson(Map<String, dynamic> json) => _$EventCreateModelFromJson(json);
 

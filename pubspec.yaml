@@ -53,6 +53,7 @@ dependencies:
   material_design_icons_flutter: 5.0.6595
   flex_color_scheme: ^4.0.0
   country_code_picker: ^2.0.2
+  toggle_switch: ^1.4.0
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,7 @@ dev_dependencies:
   otp_text_field: ^1.1.1
   qr_flutter: ^4.0.0
   flutter_otp_text_field: ^1.0.0
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

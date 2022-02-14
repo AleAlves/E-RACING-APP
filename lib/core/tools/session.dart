@@ -10,6 +10,7 @@ class Session{
   static late KeyChainModel _keyChain;
   static PublicKeyModel? _publicKeyModel;
   static BearerTokenModel? _bearerTokenModel;
+  static String? _currentLeagueId;
 
   Session._();
 
@@ -53,5 +54,13 @@ class Session{
 
   BearerTokenModel? getBearerToken(){
     return _bearerTokenModel;
+  }
+
+  void setLeagueId(String? id){
+    _currentLeagueId = id;
+  }
+
+  String? getLeagueId(){
+    return _currentLeagueId;
   }
 }

@@ -11,9 +11,8 @@ import 'card_widget.dart';
 
 class EventProgressWidget extends StatefulWidget {
   final EventModel? event;
-  final Function() onToogle;
 
-  const EventProgressWidget({this.event, required this.onToogle, Key? key})
+  const EventProgressWidget({this.event, Key? key})
       : super(key: key);
 
   Widget loading(BuildContext context) {
@@ -130,27 +129,15 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
               ),
               const SpacingWidget(LayoutSize.size16),
               TextWidget(
-                text: "status: ${_getStatus()?.second}",
+                text: "Status: ${_getStatus()?.second}",
                 style: Style.description,
                 align: TextAlign.left,
               ),
-              const SpacingWidget(LayoutSize.size24),
-              _getButton(),
               const SpacingWidget(LayoutSize.size8),
             ],
           )),
       ready: true,
     );
-  }
-
-  Widget _getButton() {
-    return isHost(widget.event) ? ButtonWidget(
-        label: widget.event?.joinable == true
-            ? "Close subscriptions"
-            : "Open subscriptions",
-        enabled: true,
-        type: ButtonType.important,
-        onPressed: widget.onToogle) : Container();
   }
 
   Pair<Color, String>? _getStatus() {

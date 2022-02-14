@@ -1,22 +1,24 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
+import 'package:e_racing_app/core/tools/access_validation_extension.dart';
 import 'package:e_racing_app/core/tools/date_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
+import 'button_widget.dart';
 import 'expanded_widget.dart';
 
-class EventRaceCollection extends StatelessWidget {
-  final List<RaceModel?>? races;
-  final Function(String) onRaceCardPressed;
-  final CarouselController buttonCarouselController = CarouselController();
+class EventAdminPanel extends StatelessWidget {
+  final EventModel? event;
+  final Function() onToogle;
 
-  EventRaceCollection(
-      {Key? key, required this.races, required this.onRaceCardPressed})
+  const EventAdminPanel({Key? key, required this.event, required this.onToogle})
       : super(key: key);
 
   @override
@@ -24,11 +26,15 @@ class EventRaceCollection extends StatelessWidget {
 
   Widget raceList(BuildContext context) {
     return ExpandedWidget(
-      body: racesSteps(context),
+      body: [
+        toogleSubscriptions(),
+        setEventStatus(context),
+        const SpacingWidget(LayoutSize.size16),
+      ],
       header: Row(
         children: const [
           TextWidget(
-            text: "Races",
+            text: "Admin panel",
             style: Style.subtitle,
             align: TextAlign.left,
           ),
@@ -38,84 +44,101 @@ class EventRaceCollection extends StatelessWidget {
     );
   }
 
-  List<Widget> racesSteps(BuildContext context) {
-    return races?.map((race) => raceCard(context, race)).toList() ?? [];
+  Widget toogleSubscriptions() {
+    var indexStatus = event?.joinable == true ? 0 : 1;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          const TextWidget(
+            text: "Subscriptions",
+            style: Style.subtitle,
+            align: TextAlign.left,
+          ),
+          const SpacingWidget(LayoutSize.size16),
+          ToggleSwitch(
+            initialLabelIndex: indexStatus,
+            totalSwitches: 2,
+            labels: const ['Open', 'Closed'],
+            radiusStyle: true,
+            onToggle: (index) {
+              if(index != indexStatus){
+                onToogle.call();
+              }
+            },
+          ),
+        ],
+      ),
+    );
   }
 
-  Widget raceCard(BuildContext context, RaceModel? race) {
-    return CardWidget(
-      ready: true,
-      onPressed: () {},
-      child: Stack(
-        alignment: Alignment.center,
+  Widget setEventStatus(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
         children: [
-          Row(
-            children: [
-              const SpacingWidget(LayoutSize.size8),
-              Expanded(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                      const Icon(Icons.sports_score_outlined),
-                      const SpacingWidget(LayoutSize.size8),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextWidget(
-                              text: race?.title,
-                              style: Style.subtitle,
-                              align: TextAlign.start,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],),
-                    const SpacingWidget(LayoutSize.size16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.date_range),
-                        const SpacingWidget(LayoutSize.size8),
-                        TextWidget(
-                            text: formatDate(race?.date),
-                            style: Style.description),
-                      ],
-                    ),
-                    const SpacingWidget(LayoutSize.size16),
-                    Row(
-                      children: [
-                        const Icon(Icons.schedule),
-                        const SpacingWidget(LayoutSize.size8),
-                        TextWidget(
-                            text: formatHour(race?.date),
-                            style: Style.description),
-                      ],
-                    ),
-                    const SpacingWidget(LayoutSize.size8),
-                  ],
-                ),
-              )
-            ],
+          const TextWidget(
+            text: "Status ",
+            style: Style.subtitle,
+            align: TextAlign.left,
           ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Ink(
-                  decoration: ShapeDecoration(
-                    shape: const CircleBorder(),
-                    color: Theme.of(context).colorScheme.background,
+          const SpacingWidget(LayoutSize.size16),
+          ToggleButtons(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SizedBox(
+                  width: 100,
+                  child: Column(
+                    children: const [
+                      Icon(Icons.flag, color:Colors.red),
+                      TextWidget(
+                        text: "Preparation",
+                        style: Style.description,
+                        align: TextAlign.center,
+                      ),
+                    ],
                   ),
-                  child: Icon(
-                    Icons.chevron_right,
-                    size: 24.0,
-                    color: Theme.of(context).colorScheme.onBackground,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SizedBox(
+                  width: 100,
+                  child: Column(
+                    children: const [
+                      Icon(Icons.flag, color: Colors.green,),
+                      TextWidget(
+                        text: "Start",
+                        style: Style.description,
+                        align: TextAlign.center,
+                      ),
+                    ],
                   ),
-                )
-              ]),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SizedBox(
+                  width: 100,
+                  child: Column(
+                    children: const [
+                      Icon(Icons.sports_score),
+                      TextWidget(
+                        text: "Finish",
+                        style: Style.description,
+                        align: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+            onPressed: (int index) {
+
+            },
+            isSelected: [false, false, false],
+          ),
         ],
       ),
     );

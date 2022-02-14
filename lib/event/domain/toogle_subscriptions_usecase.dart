@@ -29,7 +29,7 @@ class ToogleSubscriptionsUseCase<T> extends BaseUseCase<T> {
         params: HTTPRequesParams(query: _eventId)));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Subscriptions Updated",
+          message: "Event Updated",
           action: "Ok",
           next: EventFlows.detail) as T);
     } else {

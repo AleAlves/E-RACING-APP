@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_edit_races_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -17,17 +16,14 @@ import '../../../event_view_model.dart';
 class EventCreateRacesWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const EventCreateRacesWidget(this.viewModel, {Key? key})
-      : super(key: key);
+  const EventCreateRacesWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventCreateRacesWidgetState createState() =>
-      _EventCreateRacesWidgetState();
+  _EventCreateRacesWidgetState createState() => _EventCreateRacesWidgetState();
 }
 
-class _EventCreateRacesWidgetState
-    extends State<EventCreateRacesWidget> implements BaseSateWidget {
-  final _formKey = GlobalKey<FormState>();
+class _EventCreateRacesWidgetState extends State<EventCreateRacesWidget>
+    implements BaseSateWidget {
   List<ChampionshipRacesModel> racesModel = [];
 
   @override
@@ -80,13 +76,10 @@ class _EventCreateRacesWidgetState
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: CardWidget(
-                    onPressed: () {},
-                    ready: true,
-                    child: ExpansionTile(
-                      title: Text("Race #${++index}"),
-                      children: [EventEditRacesWidget(racesModel[--index])],
-                    )),
+                child: ExpansionTile(
+                  title: Text("Race #${++index}"),
+                  children: [EventEditRacesWidget(racesModel[--index])],
+                ),
               );
             },
           ),
@@ -104,13 +97,12 @@ class _EventCreateRacesWidgetState
                       racesModel.add(ChampionshipRacesModel(
                           eventDate: DateTime.now(),
                           hasBroadcasting: false,
-                          settingsModel:[],
                           picker: ImagePicker(),
                           posterFile: File(''),
                           titleController: TextEditingController(),
                           notesController: TextEditingController(),
                           broadcastingLinkController: TextEditingController(),
-                          settingsControllers: []));
+                          sessions: []));
 
                       widget.viewModel.updateChampionshipRaces(racesModel);
                     });
@@ -131,7 +123,8 @@ class _EventCreateRacesWidgetState
             ],
           ),
           const SpacingWidget(LayoutSize.size48),
-          finish()
+          finish(),
+          const SpacingWidget(LayoutSize.size48),
         ],
       ),
     );

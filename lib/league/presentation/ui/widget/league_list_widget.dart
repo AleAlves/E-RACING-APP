@@ -1,3 +1,4 @@
+import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/league_item_widget.dart';
@@ -68,6 +69,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
                   leagueTags: widget.viewModel.leagues?[index]?.tags,
                   onPressed: () {
                     widget.viewModel.id = widget.viewModel.leagues?[index]?.id;
+                    Session.instance.setLeagueId(widget.viewModel.leagues?[index]?.id);
                     widget.viewModel.setFlow(LeagueFlow.detail);
                   });
             },

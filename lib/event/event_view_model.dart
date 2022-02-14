@@ -10,6 +10,7 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/model/team_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
+import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/data/event_home_model.dart';
 import 'package:e_racing_app/event/domain/fetch_events_use_case.dart';
@@ -250,6 +251,7 @@ abstract class _EventViewModel with Store {
       } catch (e) {}
       races.add(RaceModel(
           poster: poster,
+          session: element.sessions,
           broadcasting: element.hasBroadcasting,
           date: element.eventDate.toIso8601String(),
           title: element.titleController.text));
@@ -272,12 +274,17 @@ abstract class _EventViewModel with Store {
         membersOnly: creatingEvent?.membersOnly,
         teamsEnabled: creatingEvent?.teamsEnabled);
 
-    await _createEventUseCase.build(event: event, media: media).invoke(
-        success: (data) {
-          status = data;
-          setFlow(EventFlows.status);
-        },
-        error: onError);
+    await _createEventUseCase
+        .build(
+            event: event,
+            media: media,
+            leagueId: Session.instance.getLeagueId())
+        .invoke(
+            success: (data) {
+              status = data;
+              setFlow(EventFlows.status);
+            },
+            error: onError);
   }
 
   void createTeam(String name, List<String?> ids) async {

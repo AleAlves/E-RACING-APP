@@ -13,14 +13,10 @@ RaceModel _$RaceModelFromJson(Map<String, dynamic> json) => RaceModel(
       id: json['_id'] as String?,
       notes: json['notes'] as String?,
       poster: json['poster'] as String?,
-      entries: (json['entries'] as List<dynamic>?)
-          ?.map((e) =>
-              e == null ? null : EntryModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      settings: (json['settings'] as List<dynamic>?)
+      session: (json['session'] as List<dynamic>?)
           ?.map((e) => e == null
               ? null
-              : SettingsModel.fromJson(e as Map<String, dynamic>))
+              : SessionModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       finished: json['finished'] as bool?,
       broadcastLink: json['broadcastLink'] as String?,
@@ -35,6 +31,5 @@ Map<String, dynamic> _$RaceModelToJson(RaceModel instance) => <String, dynamic>{
       'finished': instance.finished,
       'broadcasting': instance.broadcasting,
       'broadcastLink': instance.broadcastLink,
-      'entries': instance.entries,
-      'settings': instance.settings,
+      'session': instance.session,
     };

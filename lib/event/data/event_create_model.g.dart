@@ -12,10 +12,12 @@ EventCreateModel _$EventCreateModelFromJson(Map<String, dynamic> json) =>
           ? null
           : MediaModel.fromJson(json['media'] as Map<String, dynamic>),
       EventModel.fromJson(json['event'] as Map<String, dynamic>),
+      json['leagueId'] as String?,
     );
 
 Map<String, dynamic> _$EventCreateModelToJson(EventCreateModel instance) =>
     <String, dynamic>{
       'media': instance.media,
       'event': instance.event,
+      'leagueId': instance.leagueId,
     };

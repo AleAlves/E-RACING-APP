@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/tools/access_validation_extension.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_admin_panel_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_race_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_standing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -87,6 +88,11 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             const SpacingWidget(LayoutSize.size2),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
+              child: adminPanel(),
+            ),
+            const SpacingWidget(LayoutSize.size2),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
               child: information(),
             ),
             const SpacingWidget(LayoutSize.size2),
@@ -132,12 +138,20 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
     );
   }
 
+  Widget adminPanel() {
+    return isHost(widget.viewModel.event)
+        ? EventAdminPanel(
+            event: widget.viewModel.event,
+            onToogle: () {
+              widget.viewModel.toogleSubscriptions();
+            },
+          )
+        : Container();
+  }
+
   Widget status() {
     return EventProgressWidget(
       event: widget.viewModel.event,
-      onToogle: () {
-        widget.viewModel.toogleSubscriptions();
-      },
     );
   }
 

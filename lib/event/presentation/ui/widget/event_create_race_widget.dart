@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
-import 'package:e_racing_app/core/model/settings_model.dart';
+import 'package:e_racing_app/core/model/session_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
@@ -39,7 +39,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
   DateTime eventDate = DateTime.now();
   File bannerFile = File('');
   List<ClassesModel?> classesModel = [];
-  List<SettingsModel?> settingsModel = [];
+  List<SessionModel?> sessionModel = [];
   final _formKey = GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
   final _titleController = TextEditingController();
@@ -291,7 +291,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
       children: [
         ListView.builder(
           shrinkWrap: true,
-          itemCount: settingsModel.length,
+          itemCount: sessionModel.length,
           itemBuilder: (context, index) {
             return Row(
               children: [
@@ -331,7 +331,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
-                          settingsModel.removeAt(index);
+                          sessionModel.removeAt(index);
                           settingsNamesControllers.removeAt(index);
                           settingsValuesControllers.removeAt(index);
                         });
@@ -349,8 +349,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
               setState(() {
                 var name = TextEditingController();
                 var value = TextEditingController();
-                settingsModel
-                    .add(SettingsModel(name: name.text, value: value.text));
+                sessionModel.add(SessionModel(type: SessionType.race, settings: []));
                 settingsNamesControllers.add(name);
                 settingsValuesControllers.add(value);
               });
@@ -494,10 +493,10 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
       enabled: _formKey.currentState?.validate() == true,
       type: ButtonType.normal,
       onPressed: () {
-        for (var i = 0; i < settingsModel.length; i++) {
-          settingsModel[i]?.name = settingsNamesControllers[i].text;
-          settingsModel[i]?.value = settingsValuesControllers[i].text;
-        }
+        // for (var i = 0; i < sessionModel.length; i++) {
+          // sessionModel[i]?.name = settingsNamesControllers[i].text;
+          // sessionModel[i]?.value = settingsValuesControllers[i].text;
+        // }
 
         for (var i = 0; i < classesModel.length; i++) {
           classesModel[i]?.name = classesNameControllers[i].text;
@@ -517,7 +516,7 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
             title: _titleController.text,
             broadcasting: hasBroadcasting,
             poster: bannerImage,
-            settings: settingsModel);
+            session: sessionModel);
 
         var event = EventModel(
           races: [race],
