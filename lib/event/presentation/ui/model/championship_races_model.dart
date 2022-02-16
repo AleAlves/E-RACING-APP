@@ -13,7 +13,6 @@ class ChampionshipRacesModel {
   bool hasBroadcasting;
   List<SessionModel>? sessions;
   TextEditingController titleController;
-  TextEditingController notesController;
   TextEditingController broadcastingLinkController;
 
   ChampionshipRacesModel(
@@ -23,6 +22,5 @@ class ChampionshipRacesModel {
       required this.picker,
       required this.posterFile,
       required this.titleController,
-      required this.notesController,
       required this.broadcastingLinkController});
 }

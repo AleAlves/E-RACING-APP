@@ -9,12 +9,11 @@ class RaceModel {
   final String? id;
   final String? date;
   final String? title;
-  final String? notes;
   final String? poster;
   final bool? finished;
   final bool? broadcasting;
   final String? broadcastLink;
-  final List<SessionModel?>? session;
+  final List<SessionModel?>? sessions;
 
 
   RaceModel({
@@ -22,9 +21,8 @@ class RaceModel {
     required this.title,
     required this.broadcasting,
     this.id,
-    this.notes,
     this.poster,
-    this.session,
+    this.sessions,
     this.finished,
     this.broadcastLink,
   });

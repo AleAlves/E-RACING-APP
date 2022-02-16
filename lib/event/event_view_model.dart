@@ -251,7 +251,7 @@ abstract class _EventViewModel with Store {
       } catch (e) {}
       races.add(RaceModel(
           poster: poster,
-          session: element.sessions,
+          sessions: element.sessions,
           broadcasting: element.hasBroadcasting,
           date: element.eventDate.toIso8601String(),
           title: element.titleController.text));

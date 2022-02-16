@@ -8,10 +8,10 @@ enum SessionType { warmup, practice, qualify, race }
 @JsonSerializable()
 class SessionModel {
   @JsonKey(name: '_id')
-  final String? id;
-  final String? raceId;
-  final SessionType? type;
-  final List<SettingsModel?>? settings;
+  String? id;
+  String? raceId;
+  SessionType? type;
+  List<SettingsModel?>? settings;
 
   SessionModel({
     this.raceId,

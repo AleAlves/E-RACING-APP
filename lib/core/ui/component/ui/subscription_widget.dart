@@ -32,6 +32,7 @@ class SubscriptionWidget extends StatefulWidget {
 
 class _SubscriptionWidgetState extends State<SubscriptionWidget> {
   bool hasSubscription = false;
+  bool? acceptedTerms = false;
   String? id;
 
   @override
@@ -82,44 +83,66 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
-      builder: (context) => SizedBox(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Wrap(
-            children: [
-              Column(
-                children: [
-                  const TextWidget(
-                      text: "Choose a class: ", style: Style.title),
-                  const SpacingWidget(LayoutSize.size32),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: widget.classes?.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                            left: 64, right: 64, bottom: 24),
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width / 10,
-                          child: ButtonWidget(
-                            label: widget.classes?[index]?.name,
-                            type: ButtonType.important,
-                            onPressed: () {
+      builder: (context) => StatefulBuilder(
+        builder: (BuildContext context, setState) => SizedBox(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Wrap(
+              children: [
+                Column(
+                  children: [
+                    const TextWidget(
+                        text: "Choose a class: ", style: Style.title),
+                    const SpacingWidget(LayoutSize.size32),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: widget.classes?.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              left: 64, right: 64, bottom: 24),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 10,
+                            child: ButtonWidget(
+                              label: widget.classes?[index]?.name,
+                              type: ButtonType.important,
+                              onPressed: () {
+                                setState(() {
+                                  Navigator.of(context).pop();
+                                  widget.onSubscribe
+                                      .call(widget.classes?[index]?.id);
+                                });
+                              },
+                              enabled: acceptedTerms ?? false,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    const SpacingWidget(LayoutSize.size8),
+                    Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Row(
+                        children: [
+                          Checkbox(
+                            value: acceptedTerms,
+                            onChanged: (bool? value) {
                               setState(() {
-                                Navigator.of(context).pop();
-                                widget.onSubscribe
-                                    .call(widget.classes?[index]?.id);
+                                acceptedTerms = value;
                               });
                             },
-                            enabled: true,
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              )
-            ],
+                          const TextWidget(
+                              text:
+                                  "I do accept the event's rules and settings",
+                              style: Style.label)
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -43,7 +43,6 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
   final _formKey = GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
   final _titleController = TextEditingController();
-  final _notesController = TextEditingController();
   final _broadcastingLinkController = TextEditingController();
   List<TextEditingController> settingsNamesControllers = [];
   List<TextEditingController> settingsValuesControllers = [];
@@ -172,15 +171,6 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
               }
               return null;
             }),
-        const SpacingWidget(LayoutSize.size32),
-        InputTextWidget(
-            label: "Notes",
-            icon: Icons.title,
-            controller: _notesController,
-            validator: (value) {
-              return null;
-            },
-            inputType: InputType.multilines),
         const SpacingWidget(LayoutSize.size32),
       ],
     );
@@ -512,11 +502,10 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
 
         var race = RaceModel(
             date: eventDate.toIso8601String(),
-            notes: _notesController.text,
             title: _titleController.text,
             broadcasting: hasBroadcasting,
             poster: bannerImage,
-            session: sessionModel);
+            sessions: sessionModel);
 
         var event = EventModel(
           races: [race],

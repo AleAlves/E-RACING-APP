@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/session_model.dart';
+import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
@@ -14,6 +16,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'event_races_session_widget.dart';
+
 class EventEditRacesWidget extends StatefulWidget {
   final ChampionshipRacesModel model;
 
@@ -24,10 +28,8 @@ class EventEditRacesWidget extends StatefulWidget {
 }
 
 class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
-  int _index = 0;
+  int _stepIndex = 0;
   final _formKey = GlobalKey<FormState>();
-  final List<SessionType?> _sessionTypes = [];
-  final List<Pair<TextEditingController?, TextEditingController?>>? _sessionControllers = [];
 
   @override
   void initState() {
@@ -57,10 +59,10 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
         children: [
           Stepper(
             physics: const ClampingScrollPhysics(),
-            currentStep: _index,
+            currentStep: _stepIndex,
             onStepTapped: (int index) {
               setState(() {
-                _index = index;
+                _stepIndex = index;
               });
             },
             controlsBuilder: (BuildContext context,
@@ -113,14 +115,6 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
               }
               return null;
             }),
-        const SpacingWidget(LayoutSize.size32),
-        InputTextWidget(
-            label: "Notes",
-            controller: widget.model.notesController,
-            validator: (value) {
-              return null;
-            },
-            inputType: InputType.multilines),
         const SpacingWidget(LayoutSize.size32),
       ],
     );
@@ -192,173 +186,15 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
   }
 
   Widget sessions() {
-    return Column(
-      children: [
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: widget.model.sessions?.length,
-          itemBuilder: (context, index) {
-            return CardWidget(
-              ready: true,
-              child: Column(
-                children: [
-                  ListTile(
-                    title: const Text('Warmup'),
-                    leading: Radio<SessionType>(
-                      value: SessionType.warmup,
-                      groupValue: _sessionTypes[index],
-                      onChanged: (SessionType? value) {
-                        setState(() {
-                          _sessionTypes[index] = value;
-                        });
-                      },
-                    ),
-                  ),
-                  ListTile(
-                    title: const Text('Practice'),
-                    leading: Radio<SessionType>(
-                      value: SessionType.practice,
-                      groupValue: _sessionTypes[index],
-                      onChanged: (SessionType? value) {
-                        setState(() {
-                          _sessionTypes[index] = value;
-                        });
-                      },
-                    ),
-                  ),
-                  ListTile(
-                    title: const Text('Qualify'),
-                    leading: Radio<SessionType>(
-                      value: SessionType.qualify,
-                      groupValue: _sessionTypes[index],
-                      onChanged: (SessionType? value) {
-                        setState(() {
-                          _sessionTypes[index] = value;
-                        });
-                      },
-                    ),
-                  ),
-                  ListTile(
-                    title: const Text('Race'),
-                    leading: Radio<SessionType>(
-                      value: SessionType.race,
-                      groupValue: _sessionTypes[index],
-                      onChanged: (SessionType? value) {
-                        setState(() {
-                          _sessionTypes[index] = value;
-                        });
-                      },
-                    ),
-                  ),
-                  settings(index),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ButtonWidget(
-                        enabled: true,
-                        type: ButtonType.icon,
-                        icon: Icons.delete,
-                        onPressed: () {
-                          setState(() {
-                            widget.model.sessions?.removeAt(index);
-                          });
-                        }),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-        const SpacingWidget(LayoutSize.size16),
-        ButtonWidget(
-            enabled: true,
-            type: ButtonType.borderless,
-            icon: Icons.add,
-            onPressed: () async {
-              setState(() {
-                var label = TextEditingController();
-                var value = TextEditingController();
-                widget.model.sessions?.add(SessionModel(type: SessionType.race));
-                _sessionTypes.add(SessionType.race);
-                _sessionControllers?.add(Pair(label, value));
-              });
-            },
-            label: 'New session'),
-      ],
-    );
-  }
-
-  Widget settings(int index) {
-    return Column(
-      children: [
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: _sessionControllers?.length,
-          itemBuilder: (context, index) {
-            return Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      InputTextWidget(
-                          label: "Name",
-                          controller: _sessionControllers?[index].first,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "required";
-                            }
-                            return null;
-                          }),
-                      const SpacingWidget(LayoutSize.size16),
-                      InputTextWidget(
-                          label: "Value",
-                          controller:  _sessionControllers?[index].second,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "required";
-                            }
-                            return null;
-                          }),
-                      const SpacingWidget(LayoutSize.size16),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ButtonWidget(
-                            enabled: true,
-                            type: ButtonType.iconBorderless,
-                            icon: Icons.delete,
-                            onPressed: () {
-                              setState(() {
-                                _sessionTypes.removeAt(index);
-                                _sessionControllers?.removeAt(index);
-                              });
-                            }),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-        const SpacingWidget(LayoutSize.size16),
-        ButtonWidget(
-            enabled: true,
-            type: ButtonType.borderless,
-            onPressed: () async {
-              setState(() {
-                _sessionControllers?.add(Pair(TextEditingController(), TextEditingController()));
-              });
-            },
-            label: 'New settings'),
-        const SpacingWidget(LayoutSize.size16),
-      ],
+    return EventCreateRaceSessionWidget(
+      model: widget.model,
     );
   }
 
   Widget broadcasting() {
     return Column(
       children: [
-        const TextWidget(
-            text: "Settings", style: Style.description),
+        const TextWidget(text: "Settings", style: Style.description),
         Row(
           children: [
             Checkbox(
