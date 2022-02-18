@@ -43,81 +43,86 @@ class EventRaceCollection extends StatelessWidget {
   }
 
   Widget raceCard(BuildContext context, RaceModel? race) {
-    return CardWidget(
-      ready: true,
-      onPressed: () {},
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Row(
+    return Column(
+      children: [
+        CardWidget(
+          ready: true,
+          onPressed: () {},
+          child: Stack(
+            alignment: Alignment.center,
             children: [
-              const SpacingWidget(LayoutSize.size8),
-              Expanded(
-                child: Column(
-                  children: [
-                    Row(
+              Row(
+                children: [
+                  const SpacingWidget(LayoutSize.size8),
+                  Expanded(
+                    child: Column(
                       children: [
-                      const Icon(Icons.sports_score_outlined),
-                      const SpacingWidget(LayoutSize.size8),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
-                            TextWidget(
-                              text: race?.title,
-                              style: Style.subtitle,
-                              align: TextAlign.start,
+                          const Icon(Icons.sports_score_outlined),
+                          const SpacingWidget(LayoutSize.size8),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextWidget(
+                                  text: race?.title,
+                                  style: Style.subtitle,
+                                  align: TextAlign.start,
+                                ),
+                              ],
                             ),
+                          )
+                        ],),
+                        const SpacingWidget(LayoutSize.size16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Icon(Icons.date_range),
+                            const SpacingWidget(LayoutSize.size8),
+                            TextWidget(
+                                text: formatDate(race?.date),
+                                style: Style.description),
                           ],
                         ),
-                      )
-                    ],),
-                    const SpacingWidget(LayoutSize.size16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.date_range),
+                        const SpacingWidget(LayoutSize.size16),
+                        Row(
+                          children: [
+                            const Icon(Icons.schedule),
+                            const SpacingWidget(LayoutSize.size8),
+                            TextWidget(
+                                text: formatHour(race?.date),
+                                style: Style.description),
+                          ],
+                        ),
                         const SpacingWidget(LayoutSize.size8),
-                        TextWidget(
-                            text: formatDate(race?.date),
-                            style: Style.description),
                       ],
                     ),
-                    const SpacingWidget(LayoutSize.size16),
-                    Row(
-                      children: [
-                        const Icon(Icons.schedule),
-                        const SpacingWidget(LayoutSize.size8),
-                        TextWidget(
-                            text: formatHour(race?.date),
-                            style: Style.description),
-                      ],
-                    ),
-                    const SpacingWidget(LayoutSize.size8),
-                  ],
-                ),
-              )
+                  )
+                ],
+              ),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Ink(
+                      decoration: ShapeDecoration(
+                        shape: const CircleBorder(),
+                        color: Theme.of(context).colorScheme.background,
+                      ),
+                      child: Icon(
+                        Icons.chevron_right,
+                        size: 24.0,
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                    )
+                  ]),
             ],
           ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Ink(
-                  decoration: ShapeDecoration(
-                    shape: const CircleBorder(),
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  child: Icon(
-                    Icons.chevron_right,
-                    size: 24.0,
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
-                )
-              ]),
-        ],
-      ),
+        ),
+        const SpacingWidget(LayoutSize.size16),
+      ],
     );
   }
 }

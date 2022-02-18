@@ -57,6 +57,6 @@ class CardWidget extends StatelessWidget {
   }
 
   Widget loading(BuildContext context) {
-    return const Card(child: LoadingShimmer());
+    return const Card(child: LoadingShimmer(height: 100,));
   }
 }

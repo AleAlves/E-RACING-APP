@@ -25,22 +25,11 @@ class EventAdminPanel extends StatelessWidget {
   Widget build(BuildContext context) => raceList(context);
 
   Widget raceList(BuildContext context) {
-    return ExpandedWidget(
-      body: [
+    return Column(
+      children: [
         toogleSubscriptions(),
-        setEventStatus(context),
         const SpacingWidget(LayoutSize.size16),
       ],
-      header: Row(
-        children: const [
-          TextWidget(
-            text: "Admin panel",
-            style: Style.subtitle,
-            align: TextAlign.left,
-          ),
-        ],
-      ),
-      ready: true,
     );
   }
 
@@ -62,7 +51,7 @@ class EventAdminPanel extends StatelessWidget {
             labels: const ['Open', 'Closed'],
             radiusStyle: true,
             onToggle: (index) {
-              if(index != indexStatus){
+              if (index != indexStatus) {
                 onToogle.call();
               }
             },
@@ -72,75 +61,4 @@ class EventAdminPanel extends StatelessWidget {
     );
   }
 
-  Widget setEventStatus(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          const TextWidget(
-            text: "Status ",
-            style: Style.subtitle,
-            align: TextAlign.left,
-          ),
-          const SpacingWidget(LayoutSize.size16),
-          ToggleButtons(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Column(
-                    children: const [
-                      Icon(Icons.flag, color:Colors.red),
-                      TextWidget(
-                        text: "Preparation",
-                        style: Style.description,
-                        align: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Column(
-                    children: const [
-                      Icon(Icons.flag, color: Colors.green,),
-                      TextWidget(
-                        text: "Start",
-                        style: Style.description,
-                        align: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Column(
-                    children: const [
-                      Icon(Icons.sports_score),
-                      TextWidget(
-                        text: "Finish",
-                        style: Style.description,
-                        align: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-            onPressed: (int index) {
-
-            },
-            isSelected: [false, false, false],
-          ),
-        ],
-      ),
-    );
-  }
 }

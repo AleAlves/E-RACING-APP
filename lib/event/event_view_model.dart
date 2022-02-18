@@ -26,9 +26,11 @@ import 'data/event_standings_model.dart';
 import 'domain/create_event_usecase.dart';
 import 'domain/create_team_usecase.dart';
 import 'domain/delete_team_usecase.dart';
+import 'domain/finish_event_usecase.dart';
 import 'domain/get_event_standing_usecase.dart';
 import 'domain/join_team_usecase.dart';
 import 'domain/leave_team_usecase.dart';
+import 'domain/start_event_usecase.dart';
 import 'domain/subscribe_event_usecase.dart';
 import 'domain/get_event_usecase.dart';
 import 'domain/toogle_subscriptions_usecase.dart';
@@ -100,6 +102,8 @@ abstract class _EventViewModel with Store {
   final _leaveTeamUseCase = Modular.get<LeaveTeamUseCase<StatusModel>>();
   final _joinTeamUseCase = Modular.get<JoinTeamUseCase<StatusModel>>();
   final _deleteTeamUseCase = Modular.get<DeleteTeamUseCase<StatusModel>>();
+  final _startEventUseCase = Modular.get<StartEventUseCase<StatusModel>>();
+  final _finishEventUseCase = Modular.get<FinishEventUseCase<StatusModel>>();
   final _toogleSubscriptionsUseCase =
       Modular.get<ToogleSubscriptionsUseCase<StatusModel>>();
   final _getEventUseCase = Modular.get<GetEventUseCase<EventHomeModel>>();
@@ -321,6 +325,26 @@ abstract class _EventViewModel with Store {
   void deleteTeam(String? id) async {
     state = ViewState.loading;
     await _deleteTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
+        success: (data) {
+          status = data;
+          setFlow(EventFlows.status);
+        },
+        error: onError);
+  }
+
+  Future<void> startEvent() async {
+    state = ViewState.loading;
+    await _startEventUseCase.build(id: event?.id ?? '').invoke(
+        success: (data) {
+          status = data;
+          setFlow(EventFlows.status);
+        },
+        error: onError);
+  }
+
+  Future<void> finishEvent() async {
+    state = ViewState.loading;
+    await _finishEventUseCase.build(id: event?.id ?? '').invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);

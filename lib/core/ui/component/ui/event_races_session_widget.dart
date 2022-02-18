@@ -217,6 +217,7 @@ class _EventCreateRaceSessionWidgetState
                                   onPressed: () {
                                     setState(() {
                                       widget.model.sessions?.add(session);
+                                      FocusScope.of(context).requestFocus(FocusNode());
                                       Navigator.pop(context);
                                     });
                                   }),

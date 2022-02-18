@@ -115,6 +115,7 @@ class EventCardWidget extends StatelessWidget {
         idle = const Icon(
           Icons.circle,
           size: 18,
+          color: Color(0xFF294CA5),
         );
         onGoing = Icon(
           Icons.circle,
@@ -131,10 +132,12 @@ class EventCardWidget extends StatelessWidget {
         idle = const Icon(
           Icons.circle,
           size: 18,
+          color: Color(0xFF294CA5),
         );
         onGoing = const Icon(
           Icons.circle,
           size: 18,
+          color: Color(0xFF1AA01C),
         );
         finished = Icon(
           Icons.circle,
@@ -173,7 +176,7 @@ class EventCardWidget extends StatelessWidget {
   Pair<Color, String>? _getStatus() {
     switch (event?.state) {
       case EventState.idle:
-        return Pair(const Color(0xFFF17F28), "In preparation");
+        return Pair(const Color(0xFF294CA5), "In preparation");
       case EventState.ongoing:
         return Pair(const Color(0xFF1AA01C), "On going");
       case EventState.finished:

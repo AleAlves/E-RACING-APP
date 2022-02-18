@@ -6,6 +6,7 @@ import 'package:e_racing_app/event/presentation/ui/widget/event_create_widget.da
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_race_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_detail_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_detail_race_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_host_panel_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_list_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_status_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +19,7 @@ enum EventFlows {
   detail,
   status,
   create,
+  manager,
   createRace,
   createRaces,
   createEvent,
@@ -50,6 +52,8 @@ extension EventNavigation on EventFlows {
         return Container();
       case EventFlows.status:
         return EventStatusWidget(vm);
+      case EventFlows.manager:
+        return EventHostPanelWidget(vm);
       default:
         return Container();
     }

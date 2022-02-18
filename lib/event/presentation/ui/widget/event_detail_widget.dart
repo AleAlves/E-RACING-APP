@@ -72,7 +72,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           children: [
             const SpacingWidget(LayoutSize.size2),
             Padding(
-              padding: const EdgeInsets.only(left: 12, right: 12, top: 8),
+              padding: const EdgeInsets.only(left: 14, right: 14, top: 8),
               child: banner(),
             ),
             const SpacingWidget(LayoutSize.size2),
@@ -140,12 +140,36 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
 
   Widget adminPanel() {
     return isHost(widget.viewModel.event)
-        ? EventAdminPanel(
-            event: widget.viewModel.event,
-            onToogle: () {
-              widget.viewModel.toogleSubscriptions();
-            },
-          )
+        ? CardWidget(
+            shapeLess: true,
+            child: Column(
+              children: [
+                Row(
+                  children: const [
+                    Icon(Icons.manage_accounts),
+                    SpacingWidget(LayoutSize.size8),
+                    TextWidget(
+                      text: "Management",
+                      style: Style.subtitle,
+                      align: TextAlign.left,
+                    ),
+                  ],
+                ),
+                const SpacingWidget(LayoutSize.size16),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: ButtonWidget(
+                    label: "Manager area",
+                    type: ButtonType.normal,
+                    onPressed: () {
+                      widget.viewModel.setFlow(EventFlows.manager);
+                    },
+                    enabled: true,
+                  ),
+                ),
+              ],
+            ),
+            ready: true)
         : Container();
   }
 

@@ -11,8 +11,9 @@ import 'card_widget.dart';
 
 class EventProgressWidget extends StatefulWidget {
   final EventModel? event;
+  final bool shapeless;
 
-  const EventProgressWidget({this.event, Key? key})
+  const EventProgressWidget({this.event, this.shapeless = false, Key? key})
       : super(key: key);
 
   Widget loading(BuildContext context) {
@@ -40,7 +41,7 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
         idle = Icon(
           Icons.circle,
           color: _getStatus()?.first,
-          size: 18,
+          size: 24,
         );
         onGoing = Icon(
           Icons.radio_button_off,
@@ -57,11 +58,12 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
         idle = const Icon(
           Icons.circle,
           size: 18,
+          color: Color(0xFF294CA5),
         );
         onGoing = Icon(
           Icons.circle,
           color: _getStatus()?.first,
-          size: 18,
+          size: 24,
         );
         finished = Icon(
           Icons.radio_button_off,
@@ -73,15 +75,17 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
         idle = const Icon(
           Icons.circle,
           size: 18,
+          color: Color(0xFF294CA5),
         );
         onGoing = const Icon(
           Icons.circle,
           size: 18,
+          color: Color(0xFF1AA01C),
         );
         finished = Icon(
           Icons.circle,
           color: _getStatus()?.first,
-          size: 18,
+          size: 24,
         );
         break;
       default:
@@ -93,7 +97,6 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
   Widget progress(Icon idle, Icon onGoing, Icon finished) {
     return CardWidget(
       child: SizedBox(
-          width: MediaQuery.of(context).size.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,7 +113,7 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
                           color: Theme.of(context).colorScheme.primary,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(20))),
-                      width: MediaQuery.of(context).size.width / 5,
+                      width: MediaQuery.of(context).size.width / 3.5,
                       height: 5),
                   const SpacingWidget(LayoutSize.size2),
                   onGoing,
@@ -120,7 +123,7 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
                         color: Theme.of(context).colorScheme.primary,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20))),
-                    width: MediaQuery.of(context).size.width / 5,
+                    width: MediaQuery.of(context).size.width / 3.5,
                     height: 5,
                   ),
                   const SpacingWidget(LayoutSize.size2),
@@ -137,13 +140,14 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
             ],
           )),
       ready: true,
+      shapeLess: widget.shapeless,
     );
   }
 
   Pair<Color, String>? _getStatus() {
     switch (widget.event?.state) {
       case EventState.idle:
-        return Pair(const Color(0xFFF17F28), "In preparation");
+        return Pair(const Color(0xFF294CA5), "In preparation");
       case EventState.ongoing:
         return Pair(const Color(0xFF1AA01C), "On going");
       case EventState.finished:
