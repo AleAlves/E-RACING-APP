@@ -304,7 +304,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(EventFlows.detail);
+    widget.viewModel.setFlow(EventFlows.eventDetail);
     return false;
   }
 

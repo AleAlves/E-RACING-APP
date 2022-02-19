@@ -1,5 +1,3 @@
-
-
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
@@ -29,6 +27,7 @@ class _EventHostPanelWidgetState extends State<EventHostPanelWidget>
   @override
   void initState() {
     observers();
+    widget.viewModel.getEvent();
     super.initState();
   }
 
@@ -52,7 +51,7 @@ class _EventHostPanelWidgetState extends State<EventHostPanelWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(EventFlows.detail);
+    widget.viewModel.setFlow(EventFlows.eventDetail);
     return false;
   }
 
@@ -62,11 +61,46 @@ class _EventHostPanelWidgetState extends State<EventHostPanelWidget>
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          eventStatus(),
           eventSubscriptions(),
+          editEvent(),
+          eventStatus(),
         ],
       ),
     );
+  }
+
+  Widget editEvent() {
+    return CardWidget(
+        shapeLess: true,
+        child: Column(
+          children: [
+            Row(
+              children: const [
+                Icon(Icons.build),
+                SpacingWidget(LayoutSize.size8),
+                TextWidget(
+                  text: "Edit",
+                  style: Style.subtitle,
+                  align: TextAlign.left,
+                ),
+              ],
+            ),
+            const SpacingWidget(LayoutSize.size16),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ButtonWidget(
+                label: "Edit event",
+                type: ButtonType.normal,
+                onPressed: () {
+                  widget.viewModel.setFlow(EventFlows.manager);
+                },
+                enabled: true,
+              ),
+            ),
+            const SpacingWidget(LayoutSize.size8),
+          ],
+        ),
+        ready: true);
   }
 
   Widget eventSubscriptions() {
@@ -77,6 +111,7 @@ class _EventHostPanelWidgetState extends State<EventHostPanelWidget>
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: EventAdminPanel(
+              minWidth: MediaQuery.of(context).size.width,
               event: widget.viewModel.event,
               onToogle: () {
                 widget.viewModel.toogleSubscriptions();
@@ -92,39 +127,51 @@ class _EventHostPanelWidgetState extends State<EventHostPanelWidget>
     return CardWidget(
       ready: true,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Row(
+            children: const [
+              Icon(Icons.sports_score),
+              SpacingWidget(LayoutSize.size8),
+              TextWidget(
+                text: "State",
+                style: Style.subtitle,
+                align: TextAlign.left,
+              ),
+            ],
+          ),
+          const SpacingWidget(LayoutSize.size8),
           EventProgressWidget(
             shapeless: true,
             event: widget.viewModel.event,
           ),
           const SpacingWidget(LayoutSize.size16),
-          ButtonWidget(
-            label: _getStatus()?.second,
-            type: ButtonType.normal,
-            onPressed: () {
-              switch (widget.viewModel.event?.state) {
-                case EventState.idle:
-                  showAlert("Are you sure you want to start this event?",
-                          () {
-                        widget.viewModel.startEvent();
-                      });
-                  break;
-                case EventState.ongoing:
-                  showAlert("Are you sure you want to finish this event?",
-                          () {
-                        widget.viewModel.finishEvent();
-                      });
-                  break;
-                case EventState.finished:
-                  break;
-                default:
-                  break;
-              }
-            },
-            enabled: _getStatus()?.first ?? false,
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: ButtonWidget(
+              label: _getStatus()?.second,
+              type: ButtonType.normal,
+              onPressed: () {
+                switch (widget.viewModel.event?.state) {
+                  case EventState.idle:
+                    showAlert("Are you sure you want to start this event?", () {
+                      widget.viewModel.startEvent();
+                    });
+                    break;
+                  case EventState.ongoing:
+                    showAlert("Are you sure you want to finish this event?", () {
+                      widget.viewModel.finishEvent();
+                    });
+                    break;
+                  case EventState.finished:
+                    break;
+                  default:
+                    break;
+                }
+              },
+              enabled: _getStatus()?.first ?? false,
+            ),
           ),
-          const SpacingWidget(LayoutSize.size16),
+          const SpacingWidget(LayoutSize.size8),
         ],
       ),
     );
@@ -150,7 +197,7 @@ class _EventHostPanelWidgetState extends State<EventHostPanelWidget>
                             ButtonWidget(
                               label: "Yes I do",
                               type: ButtonType.important,
-                              onPressed: (){
+                              onPressed: () {
                                 onPositive.call();
                                 Navigator.of(context).pop();
                               },

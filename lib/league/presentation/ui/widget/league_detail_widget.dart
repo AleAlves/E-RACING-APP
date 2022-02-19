@@ -121,7 +121,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
             align: TextAlign.center,
           ),
         ),
-        const SpacingWidget(LayoutSize.size48),
+        const SpacingWidget(LayoutSize.size16),
         tags(),
         const SpacingWidget(LayoutSize.size16),
       ],

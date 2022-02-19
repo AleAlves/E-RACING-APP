@@ -1,7 +1,6 @@
 import 'package:e_racing_app/core/tools/access_validation_extension.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/event_admin_panel_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_race_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_standing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -108,13 +107,6 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             const SpacingWidget(LayoutSize.size48),
           ],
         ),
-        FloatActionButtonWidget<EventFlows>(
-          flow: EventFlows.create,
-          icon: Icons.build,
-          onPressed: (flow) {
-            widget.viewModel.setFlow(flow);
-          },
-        ),
       ],
     );
   }
@@ -167,6 +159,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                     enabled: true,
                   ),
                 ),
+                const SpacingWidget(LayoutSize.size8),
               ],
             ),
             ready: true)
@@ -369,7 +362,11 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
 
   Widget races() {
     return EventRaceCollection(
-        onRaceCardPressed: (id) {}, races: widget.viewModel.event?.races);
+        onRaceCardPressed: (id) {
+          widget.viewModel.id = id;
+          widget.viewModel.setFlow(EventFlows.raceDetail);
+        },
+        races: widget.viewModel.event?.races);
   }
 
   Widget standings() {

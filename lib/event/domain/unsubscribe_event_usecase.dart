@@ -1,11 +1,7 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
-import 'package:e_racing_app/core/model/classes_model.dart';
-import 'package:e_racing_app/core/model/event_model.dart';
-import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/event/data/event_create_model.dart';
 import 'package:e_racing_app/event/data/event_do_subscribe_model.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 
@@ -31,7 +27,7 @@ class UnsubscribeEventUseCase<T> extends BaseUseCase<T> {
                 classId: _classId ?? '', eventId: _eventId ?? ''))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "You've been removed from this event", action: "Ok", next: EventFlows.detail) as T);
+          message: "You've been removed from this event", action: "Ok", next: EventFlows.eventDetail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

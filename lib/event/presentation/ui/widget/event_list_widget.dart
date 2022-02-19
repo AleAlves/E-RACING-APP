@@ -71,7 +71,7 @@ class _EventListWidgetState extends State<EventListWidget>
                     event: widget.viewModel.events?[index],
                     onPressed: (){
                       widget.viewModel.id = widget.viewModel.events?[index]?.id;
-                      widget.viewModel.setFlow(EventFlows.detail);
+                      widget.viewModel.setFlow(EventFlows.eventDetail);
                     },
                   );
                 },

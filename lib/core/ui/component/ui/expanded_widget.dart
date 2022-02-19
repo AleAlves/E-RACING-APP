@@ -39,38 +39,41 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
   }
 
   Widget expansionWidget() {
-    return ExpansionTile(
-        title: Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-          child: widget.header,
-        ),
-        children: widget.body,
-        trailing: Padding(
-          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-          child: Ink(
-            decoration: ShapeDecoration(
-              shape: const CircleBorder(),
-              color: widget.cardless
-                  ? Colors.transparent
-                  : Theme.of(context).colorScheme.background,
-            ),
-            child: _expanded
-                ? Icon(
-                    Icons.keyboard_arrow_up,
-                    size: 24.0,
-                    color: Theme.of(context).colorScheme.onBackground,
-                  )
-                : Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Theme.of(context).colorScheme.onBackground,
-                    size: 24.0,
-                  ),
+    return Theme(
+      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+      child: ExpansionTile(
+          title: Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+            child: widget.header,
           ),
-        ),
-        onExpansionChanged: (bool expanded) {
-          setState(() {
-            _expanded = expanded;
-          });
-        });
+          children: widget.body,
+          trailing: Padding(
+            padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+            child: Ink(
+              decoration: ShapeDecoration(
+                shape: const CircleBorder(),
+                color: widget.cardless
+                    ? Colors.transparent
+                    : Theme.of(context).colorScheme.background,
+              ),
+              child: _expanded
+                  ? Icon(
+                      Icons.keyboard_arrow_up,
+                      size: 24.0,
+                      color: Theme.of(context).colorScheme.onBackground,
+                    )
+                  : Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Theme.of(context).colorScheme.onBackground,
+                      size: 24.0,
+                    ),
+            ),
+          ),
+          onExpansionChanged: (bool expanded) {
+            setState(() {
+              _expanded = expanded;
+            });
+          }),
+    );
   }
 }

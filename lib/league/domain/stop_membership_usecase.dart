@@ -24,7 +24,7 @@ class StopMembershipUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "You're no longer a member",
           action: "Ok",
-          next: EventFlows.detail) as T);
+          next: EventFlows.eventDetail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

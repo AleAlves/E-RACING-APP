@@ -11,12 +11,14 @@ StatusModel _$StatusModelFromJson(Map<String, dynamic> json) => StatusModel(
       action: json['action'] as String?,
       next: json['next'],
       previous: json['previous'],
+      error: json['error'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$StatusModelToJson(StatusModel instance) =>
     <String, dynamic>{
       'message': instance.message,
       'action': instance.action,
+      'error': instance.error,
       'next': instance.next,
       'previous': instance.previous,
     };

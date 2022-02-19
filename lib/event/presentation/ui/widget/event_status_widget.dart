@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../event_view_model.dart';
-import '../event_flow.dart';
 
 class EventStatusWidget extends StatefulWidget {
   final EventViewModel viewModel;
@@ -47,12 +46,21 @@ class _EventStatusWidgetState extends State<EventStatusWidget>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextWidget(
-              text: widget.viewModel.status?.message ?? '',
-              style: Style.title),
+              text: widget.viewModel.status?.message ?? '', style: Style.title),
+          const SpacingWidget(LayoutSize.size48),
+          Icon(
+            widget.viewModel.status?.error == true
+                ? Icons.cancel
+                : Icons.check_circle,
+            size: 64,
+            color: widget.viewModel.status?.error == true
+                ? Colors.red
+                : Colors.green,
+          ),
           const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.normal,
+            type: ButtonType.borderless,
             onPressed: () {
               widget.viewModel.setFlow(widget.viewModel.status?.next);
             },
@@ -68,7 +76,7 @@ class _EventStatusWidgetState extends State<EventStatusWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(EventFlows.list);
+    widget.viewModel.setFlow(widget.viewModel.status?.next);
     return false;
   }
 }

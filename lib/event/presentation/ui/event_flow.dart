@@ -16,7 +16,8 @@ enum EventFlows {
   edit,
   delete,
   join,
-  detail,
+  eventDetail,
+  raceDetail,
   status,
   create,
   manager,
@@ -40,7 +41,7 @@ extension EventNavigation on EventFlows {
         return EventCreateRacesWidget(vm);
       case EventFlows.createEvent:
         return EventCreateWidget(vm);
-      case EventFlows.detail:
+      case EventFlows.eventDetail:
         return EventDetailWidget(vm);
       case EventFlows.detailRace:
         return EventDetailRaceWidget(vm);
@@ -54,6 +55,8 @@ extension EventNavigation on EventFlows {
         return EventStatusWidget(vm);
       case EventFlows.manager:
         return EventHostPanelWidget(vm);
+      case EventFlows.raceDetail:
+        return EventDetailRaceWidget(vm);
       default:
         return Container();
     }

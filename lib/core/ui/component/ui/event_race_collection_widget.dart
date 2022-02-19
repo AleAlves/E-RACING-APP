@@ -47,7 +47,9 @@ class EventRaceCollection extends StatelessWidget {
       children: [
         CardWidget(
           ready: true,
-          onPressed: () {},
+          onPressed: (){
+            onRaceCardPressed.call(race?.id ?? '');
+          },
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -59,22 +61,23 @@ class EventRaceCollection extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                          const Icon(Icons.sports_score_outlined),
-                          const SpacingWidget(LayoutSize.size8),
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextWidget(
-                                  text: race?.title,
-                                  style: Style.subtitle,
-                                  align: TextAlign.start,
-                                ),
-                              ],
-                            ),
-                          )
-                        ],),
+                            const Icon(Icons.sports_score_outlined),
+                            const SpacingWidget(LayoutSize.size8),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    text: race?.title,
+                                    style: Style.subtitle,
+                                    align: TextAlign.start,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                         const SpacingWidget(LayoutSize.size16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -106,16 +109,10 @@ class EventRaceCollection extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Ink(
-                      decoration: ShapeDecoration(
-                        shape: const CircleBorder(),
-                        color: Theme.of(context).colorScheme.background,
-                      ),
-                      child: Icon(
-                        Icons.chevron_right,
-                        size: 24.0,
-                        color: Theme.of(context).colorScheme.onBackground,
-                      ),
+                    Icon(
+                      Icons.arrow_right,
+                      size: 24.0,
+                      color: Theme.of(context).colorScheme.onBackground,
                     )
                   ]),
             ],

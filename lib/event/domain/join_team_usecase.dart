@@ -30,7 +30,7 @@ class JoinTeamUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Added to the team",
           action: "Ok",
-          next: EventFlows.detail) as T);
+          next: EventFlows.eventDetail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

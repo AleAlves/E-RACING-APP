@@ -68,6 +68,7 @@ class TextWidget extends StatelessWidget {
         return TextStyle(
             fontFamily: 'Roboto',
             fontWeight: FontWeight.w400,
+            decoration: TextDecoration.underline,
             fontSize: 18.0,
             color: color,
             shadows: [

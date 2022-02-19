@@ -1,7 +1,6 @@
 import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -77,13 +76,20 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
         onPressed: widget.enabled ? widget.onPressed : null,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16, bottom: 16),
-          child: TextWidget(
-            text: widget.label ?? '',
-            color: widget.labelColor,
-            style: Style.button,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(),
+            Padding(
+              padding: const EdgeInsets.only(top: 16, bottom: 16),
+              child: TextWidget(
+                text: widget.label ?? '',
+                color: widget.labelColor,
+                style: Style.button,
+              ),
+            ),
+            const Icon(Icons.arrow_right, size: 20,)
+          ],
         ),
       ),
     );
@@ -98,12 +104,19 @@ class _ButtonWidgetState extends State<ButtonWidget> {
           onPrimary: Theme.of(context).colorScheme.onSecondary,
         ),
         onPressed: widget.enabled ? widget.onPressed : null,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16, bottom: 16),
-          child: TextWidget(
-            text: widget.label ?? '',
-            style: Style.button,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(),
+            Padding(
+              padding: const EdgeInsets.only(top: 16, bottom: 16),
+              child: TextWidget(
+                text: widget.label ?? '',
+                style: Style.button,
+              ),
+            ),
+            const Icon(Icons.warning, size: 12,)
+          ],
         ),
       ),
     );

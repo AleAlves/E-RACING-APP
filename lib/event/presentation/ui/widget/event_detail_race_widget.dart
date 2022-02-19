@@ -21,7 +21,6 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
 
   @override
   void initState() {
-    widget.viewModel.getEvent();
     observers();
     super.initState();
   }
@@ -51,6 +50,6 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
 
   @override
   Widget content() {
-    return const TextWidget(text: "race dtauk", style: Style.title);
+    return const TextWidget(text: "race detail", style: Style.title);
   }
 }

@@ -29,7 +29,7 @@ class SubscribeEventUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Subscribed in the event, good luck!",
           action: "Ok",
-          next: EventFlows.detail) as T);
+          next: EventFlows.eventDetail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,
