@@ -235,34 +235,40 @@ class EventCardWidget extends StatelessWidget {
   }
 
   Widget subscriptionsStatus(BuildContext context) {
-    return Row(
-      children: [
-        Chip(
-          label: Text(_getSubscriptionStatus()),
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-        ),
-        const SpacingWidget(LayoutSize.size4),
-        event?.membersOnly == true
-            ? Chip(
-                label: const Text("Members only"),
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-              )
-            : Container()
-      ],
-    );
+    return event?.joinable == true
+        ? Row(
+            children: [
+              Icon(
+                Icons.error,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              const SpacingWidget(LayoutSize.size8),
+              const TextWidget(
+                text: "Drivers wanted",
+                style: Style.description,
+                align: TextAlign.start,
+              ),
+              const SpacingWidget(LayoutSize.size8),
+              event?.membersOnly == true ? membership(context) : Container()
+            ],
+          )
+        : Container();
   }
 
-  String _getSubscriptionStatus() {
-    if (event?.joinable == true) {
-      return "Drivers wanted";
-    } else {
-      if (event?.state == EventState.idle) {
-        return "Subscriptions opening soon";
-      } else if (event?.state == EventState.ongoing) {
-        return "No drivers needed";
-      } else {
-        return "Not available yet";
-      }
-    }
+  Widget membership(BuildContext context) {
+    return Row(
+      children: const [
+        Icon(
+          Icons.verified,
+          color: Colors.blueAccent,
+        ),
+        SpacingWidget(LayoutSize.size8),
+        TextWidget(
+          text: 'Members only',
+          style: Style.description,
+          align: TextAlign.start,
+        ),
+      ],
+    );
   }
 }

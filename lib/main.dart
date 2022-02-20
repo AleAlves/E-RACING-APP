@@ -5,7 +5,7 @@ import 'login/di/login_di.dart';
 
 void main() => runApp(ModularApp(
       module: AppModule(),
-      child: ERcaingApp(),
+      child: const ERcaingApp(),
     ));
 
 

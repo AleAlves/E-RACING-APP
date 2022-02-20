@@ -1,6 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ext/date_extensions.dart';
-import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ext/status_extensions.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
@@ -67,7 +66,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
 
   Widget banner() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+      padding: const EdgeInsets.only(left: 14, right: 14, top: 8),
       child: PosterWidget(
         post: widget.viewModel.race?.poster,
       ),
@@ -164,10 +163,10 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                             widget.viewModel.race?.sessions?[index]?.type)),
                     const SpacingWidget(LayoutSize.size24),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8, right: 8),
+                      padding: const EdgeInsets.only(left: 24, right: 8),
                       child: sessionSettings(index),
                     ),
-                    const SpacingWidget(LayoutSize.size48),
+                    const SpacingWidget(LayoutSize.size24),
                   ],
                 );
               },
@@ -349,20 +348,34 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                           ready: true,
                           child: Column(
                             children: [
-                              TextWidget(
-                                text:
-                                    "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
-                                style: Style.subtitle,
-                                align: TextAlign.start,
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Icon(Icons.sports_motorsports),
+                                  const SpacingWidget(LayoutSize.size8),
+                                  TextWidget(
+                                    text:
+                                        "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
+                                    style: Style.subtitle,
+                                    align: TextAlign.start,
+                                  ),
+                                ],
                               ),
-                              const SpacingWidget(LayoutSize.size16),
+                              const SpacingWidget(LayoutSize.size8),
                               if (standing?.team == null)
                                 Container()
                               else
-                                TextWidget(
-                                  text: "${standing?.team?.name}",
-                                  style: Style.subtitle,
-                                  align: TextAlign.start,
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Icon(Icons.group),
+                                    const SpacingWidget(LayoutSize.size8),
+                                    TextWidget(
+                                      text: "${standing?.team?.name}",
+                                      style: Style.subtitle,
+                                      align: TextAlign.start,
+                                    ),
+                                  ],
                                 ),
                               const SpacingWidget(LayoutSize.size16),
                               Row(
@@ -465,7 +478,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                   ],
                                 ),
                               if (standing?.summary?.disqualified == null ||
-                                  standing?.summary?.disqualified == true)
+                                  standing?.summary?.disqualified == false)
                                 Container()
                               else
                                 TextWidget(
@@ -474,7 +487,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                     style: Style.shadow,
                                     text: "Disqualified"),
                               if (standing?.summary?.didntFinish == null ||
-                                  standing?.summary?.didntFinish == true)
+                                  standing?.summary?.didntFinish == false)
                                 Container()
                               else
                                 TextWidget(

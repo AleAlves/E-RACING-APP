@@ -140,7 +140,6 @@ abstract class _EventViewModel with Store {
     media = null;
     _getEventUseCase.params(id: eventId ?? '').invoke(
         success: (data) {
-          getStandings();
           event = data?.event;
           users = ObservableList.of(data?.users ?? []);
           if (data?.event.type == EventType.race) {
@@ -148,6 +147,7 @@ abstract class _EventViewModel with Store {
           } else {
             getMedia(data?.event.id ?? '');
           }
+          getStandings();
           state = ViewState.ready;
         },
         error: onError);

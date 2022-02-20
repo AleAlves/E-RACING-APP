@@ -35,7 +35,7 @@ class LeagueItemWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 4, right: 4, bottom: 4),
       onPressed: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(0.0),
         child: content(context),
       ),
       ready: leagueTags != null,
@@ -52,6 +52,7 @@ class LeagueItemWidget extends StatelessWidget {
               PictureWidget(
                 image: emblem,
               ),
+              const SpacingWidget(LayoutSize.size4),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,6 +73,7 @@ class LeagueItemWidget extends StatelessWidget {
                     const SpacingWidget(LayoutSize.size4),
                     Row(
                       children: [
+                        const SpacingWidget(LayoutSize.size4),
                         const Icon(
                           Icons.groups,
                         ),
