@@ -52,7 +52,7 @@ class _SwitchWidgetState extends State<SwitchWidget> {
       ready: true,
       child: SizedBox(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextWidget(
                 text: widget.enabled == true

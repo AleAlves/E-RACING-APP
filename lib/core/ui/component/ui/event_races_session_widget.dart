@@ -1,8 +1,6 @@
-import 'package:e_racing_app/core/model/event_model.dart';
-import 'package:e_racing_app/core/model/pair_model.dart';
+import 'package:e_racing_app/core/ext/status_extensions.dart';
 import 'package:e_racing_app/core/model/session_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
-import 'package:e_racing_app/core/tools/color_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -13,7 +11,6 @@ import 'package:flutter/rendering.dart';
 
 import 'button_widget.dart';
 import 'spacing_widget.dart';
-import 'class_collection_widget.dart';
 
 class EventCreateRaceSessionWidget extends StatefulWidget {
   final ChampionshipRacesModel model;
@@ -56,8 +53,7 @@ class _EventCreateRaceSessionWidgetState
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextWidget(
-                          text: getSessionType(
-                              widget.model.sessions?[index].type),
+                          text: getSessionType(widget.model.sessions?[index].type),
                           style: Style.subtitle,
                         ),
                         Padding(

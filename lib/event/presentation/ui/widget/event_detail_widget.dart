@@ -1,4 +1,4 @@
-import 'package:e_racing_app/core/tools/access_validation_extension.dart';
+import 'package:e_racing_app/core/ext/access_extension.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_race_collection_widget.dart';
@@ -148,13 +148,16 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                 const SpacingWidget(LayoutSize.size16),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: ButtonWidget(
-                    label: "Manager area",
-                    type: ButtonType.normal,
-                    onPressed: () {
-                      widget.viewModel.setFlow(EventFlows.manager);
-                    },
-                    enabled: true,
+                  child: Padding(
+                    padding:  const EdgeInsets.only(left: 18, right: 18),
+                    child: ButtonWidget(
+                      label: "Manager area",
+                      type: ButtonType.normal,
+                      onPressed: () {
+                        widget.viewModel.setFlow(EventFlows.manager);
+                      },
+                      enabled: true,
+                    ),
                   ),
                 ),
                 const SpacingWidget(LayoutSize.size8),

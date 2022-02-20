@@ -1,6 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:e_racing_app/core/tools/date_extensions.dart';
-import 'package:e_racing_app/core/tools/color_extensions.dart';
+import 'package:e_racing_app/core/ext/date_extensions.dart';
+import 'package:e_racing_app/core/ext/color_extensions.dart';
+import 'package:e_racing_app/core/ext/status_extensions.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
@@ -144,17 +145,17 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   Widget sessions() {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ListView.builder(
-            physics: const ClampingScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: widget.viewModel.race?.sessions?.length,
-            itemBuilder: (context, index) {
-              return CardWidget(
-                ready: true,
-                child: Column(
+      child: CardWidget(
+        ready: widget.viewModel.race?.sessions != null,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListView.builder(
+              physics: const ClampingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: widget.viewModel.race?.sessions?.length,
+              itemBuilder: (context, index) {
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextWidget(
@@ -162,13 +163,17 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                         text: getSessionType(
                             widget.viewModel.race?.sessions?[index]?.type)),
                     const SpacingWidget(LayoutSize.size24),
-                    sessionSettings(index)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, right: 8),
+                      child: sessionSettings(index),
+                    ),
+                    const SpacingWidget(LayoutSize.size48),
                   ],
-                ),
-              );
-            },
-          ),
-        ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -177,29 +182,23 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
     return ListView.builder(
       physics: const ClampingScrollPhysics(),
       shrinkWrap: true,
-      itemCount:
-          widget.viewModel.race?.sessions?[sessionIndex]?.settings?.length,
+      itemCount: widget.viewModel.race?.sessions?[sessionIndex]?.settings?.length,
       itemBuilder: (context, index) {
         return Column(
           children: [
-            CardWidget(
-              padding: EdgeInsets.zero,
-              shapeLess: true,
-              ready: true,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextWidget(
-                      style: Style.subtitle,
-                      text:
-                          "${widget.viewModel.race?.sessions?[sessionIndex]?.settings?[index]?.name}:"),
-                  const SpacingWidget(LayoutSize.size8),
-                  TextWidget(
-                      style: Style.description,
-                      text: widget.viewModel.race?.sessions?[sessionIndex]
-                          ?.settings?[index]?.name),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextWidget(
+                    style: Style.subtitle,
+                    text:
+                    "${widget.viewModel.race?.sessions?[sessionIndex]?.settings?[index]?.name}:"),
+                const SpacingWidget(LayoutSize.size8),
+                TextWidget(
+                    style: Style.description,
+                    text: widget.viewModel.race?.sessions?[sessionIndex]
+                        ?.settings?[index]?.name),
+              ],
             ),
           ],
         );
@@ -230,7 +229,8 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                     children: [
                       TextWidget(
                           style: Style.subtitle,
-                          text: widget.viewModel.raceStandings?[index]?.raceClass?.name),
+                          text: widget.viewModel.raceStandings?[index]
+                              ?.raceClass?.name),
                       const SpacingWidget(LayoutSize.size16),
                       drivers(widget.viewModel.raceStandings?[index]?.standings)
                     ],
@@ -360,7 +360,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                 Container()
                               else
                                 TextWidget(
-                                  text: "${standing?.team.name}",
+                                  text: "${standing?.team?.name}",
                                   style: Style.subtitle,
                                   align: TextAlign.start,
                                 ),
@@ -464,20 +464,22 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                         text: "${standing?.summary?.notes}"),
                                   ],
                                 ),
-                              if (standing?.summary?.disqualified == null || standing?.summary?.disqualified == true)
+                              if (standing?.summary?.disqualified == null ||
+                                  standing?.summary?.disqualified == true)
                                 Container()
                               else
                                 TextWidget(
                                     color:
-                                    Theme.of(context).colorScheme.secondary,
+                                        Theme.of(context).colorScheme.secondary,
                                     style: Style.shadow,
                                     text: "Disqualified"),
-                              if (standing?.summary?.didntFinish == null || standing?.summary?.didntFinish == true)
+                              if (standing?.summary?.didntFinish == null ||
+                                  standing?.summary?.didntFinish == true)
                                 Container()
                               else
                                 TextWidget(
                                     color:
-                                    Theme.of(context).colorScheme.secondary,
+                                        Theme.of(context).colorScheme.secondary,
                                     style: Style.shadow,
                                     text: "DNF"),
                             ],

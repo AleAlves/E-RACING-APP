@@ -6,7 +6,7 @@ import 'package:e_racing_app/event/data/event_standings_model.dart';
 class GetEventStandingUseCase<T> extends BaseUseCase<T> {
   late String _id;
 
-  GetEventStandingUseCase<T> params({required String id}) {
+  GetEventStandingUseCase<T> build({required String id}) {
     _id = id;
     return this;
   }

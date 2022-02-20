@@ -1,19 +1,9 @@
-import 'package:carousel_slider/carousel_controller.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
-import 'package:e_racing_app/core/model/race_model.dart';
-import 'package:e_racing_app/core/tools/access_validation_extension.dart';
-import 'package:e_racing_app/core/tools/date_extensions.dart';
-import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/swtich_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:toggle_switch/toggle_switch.dart';
-
-import 'button_widget.dart';
-import 'expanded_widget.dart';
 
 class EventSubscriptionsPanelWidget extends StatelessWidget {
   final EventModel? event;

@@ -28,7 +28,7 @@ class EventCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
-      markColor: _getTypeColor(),
+      markColor: Colors.green,
       child: content(context),
       onPressed: onPressed,
       ready: true,
@@ -43,7 +43,7 @@ class EventCardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             progress(context),
-            const SpacingWidget(LayoutSize.size8),
+            const SpacingWidget(LayoutSize.size24),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,17 +71,9 @@ class EventCardWidget extends StatelessWidget {
         Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Ink(
-                decoration: ShapeDecoration(
-                  shape: const CircleBorder(),
-                  color: _getTypeColor(),
-                ),
-                child: Icon(
-                  Icons.chevron_right,
-                  color: Theme.of(context).colorScheme.background,
-                  size: 20.0,
-                ),
+            children: const [
+              Icon(
+                Icons.chevron_right,
               )
             ]),
       ],
@@ -89,59 +81,57 @@ class EventCardWidget extends StatelessWidget {
   }
 
   Widget progress(BuildContext context) {
-    late Icon idle;
-    late Icon onGoing;
-    late Icon finished;
+    Icon idle = const Icon(
+      Icons.circle,
+      size: 18,
+      color: Colors.transparent,
+    );
+    Icon onGoing = const Icon(
+      Icons.circle,
+      size: 18,
+      color: Colors.transparent,
+    );
+    Icon finished = const Icon(
+      Icons.circle,
+      size: 18,
+      color: Colors.transparent,
+    );
+    var track = Theme.of(context).colorScheme.secondary;
 
     switch (event?.state) {
       case EventState.idle:
         idle = Icon(
           Icons.circle,
-          color: _getStatus()?.first,
-          size: 18,
-        );
-        onGoing = Icon(
-          Icons.radio_button_off,
-          color: Theme.of(context).colorScheme.primary,
-          size: 18,
-        );
-        finished = Icon(
-          Icons.radio_button_off,
-          color: Theme.of(context).colorScheme.primary,
+          color: track,
           size: 18,
         );
         break;
       case EventState.ongoing:
-        idle = const Icon(
+        idle = Icon(
           Icons.circle,
+          color: track,
           size: 18,
-          color: Color(0xFF294CA5),
         );
         onGoing = Icon(
           Icons.circle,
-          color: _getStatus()?.first,
-          size: 18,
-        );
-        finished = Icon(
-          Icons.radio_button_off,
-          color: Theme.of(context).colorScheme.primary,
+          color: track,
           size: 18,
         );
         break;
       case EventState.finished:
-        idle = const Icon(
+        idle = Icon(
           Icons.circle,
+          color: track,
           size: 18,
-          color: Color(0xFF294CA5),
         );
-        onGoing = const Icon(
+        onGoing = Icon(
           Icons.circle,
+          color: track,
           size: 18,
-          color: Color(0xFF1AA01C),
         );
         finished = Icon(
           Icons.circle,
-          color: _getStatus()?.first,
+          color: track,
           size: 18,
         );
         break;
@@ -153,48 +143,42 @@ class EventCardWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          idle,
+          Stack(
+            children: [
+              idle,
+              Icon(Icons.radio_button_unchecked,
+                  size: 18, color: Theme.of(context).colorScheme.primary),
+            ],
+          ),
           Container(
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
               width: 5,
-              height: 15),
-          onGoing,
+              height: 25),
+          Stack(
+            children: [
+              onGoing,
+              Icon(Icons.radio_button_unchecked,
+                  size: 18, color: Theme.of(context).colorScheme.primary),
+            ],
+          ),
           Container(
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
               width: 5,
-              height: 15),
-          finished,
+              height: 25),
+          Stack(
+            children: [
+              finished,
+              Icon(Icons.radio_button_unchecked,
+                  size: 18, color: Theme.of(context).colorScheme.primary),
+            ],
+          ),
         ],
       ),
     );
-  }
-
-  Pair<Color, String>? _getStatus() {
-    switch (event?.state) {
-      case EventState.idle:
-        return Pair(const Color(0xFF294CA5), "In preparation");
-      case EventState.ongoing:
-        return Pair(const Color(0xFF1AA01C), "On going");
-      case EventState.finished:
-        return Pair(const Color(0xFFA01A1A), "Finished");
-      default:
-        return Pair(const Color(0xFF294CA5), "unknow");
-    }
-  }
-
-  Color _getTypeColor() {
-    switch (event?.type) {
-      case EventType.championship:
-        return Colors.green;
-      case EventType.race:
-        return Colors.blueAccent;
-      default:
-        return Colors.red;
-    }
   }
 
   Widget _getType(EventType? state) {
@@ -253,10 +237,16 @@ class EventCardWidget extends StatelessWidget {
   Widget subscriptionsStatus(BuildContext context) {
     return Row(
       children: [
-        Chip(label: Text(_getSubscriptionStatus()), backgroundColor: Theme.of(context).colorScheme.secondary,),
+        Chip(
+          label: Text(_getSubscriptionStatus()),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+        ),
         const SpacingWidget(LayoutSize.size4),
         event?.membersOnly == true
-            ? Chip(label: const Text("Members only"), backgroundColor: Theme.of(context).colorScheme.secondary,)
+            ? Chip(
+                label: const Text("Members only"),
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+              )
             : Container()
       ],
     );

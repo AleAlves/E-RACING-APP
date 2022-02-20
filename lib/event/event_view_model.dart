@@ -154,7 +154,7 @@ abstract class _EventViewModel with Store {
   }
 
   void getStandings() async {
-    _getEventStandingsUseCase.params(id: event?.id ?? '').invoke(
+    _getEventStandingsUseCase.build(id: event?.id ?? '').invoke(
         success: (data) {
           standings = data;
         },

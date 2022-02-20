@@ -152,7 +152,7 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
               onPressed: () {
                 switch (widget.viewModel.event?.state) {
                   case EventState.idle:
-                    showAlert("Are you sure you want to start this event?", () {
+                    showAlert("Are you sure you want to start this event? ", () {
                       widget.viewModel.startEvent();
                     });
                     break;

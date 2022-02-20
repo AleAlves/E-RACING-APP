@@ -1,23 +1,20 @@
 import 'dart:ui';
 
-import 'package:e_racing_app/core/model/session_model.dart';
+import 'package:e_racing_app/core/model/event_model.dart';
+import 'package:flutter/material.dart';
 
-String getSessionType(SessionType? type) {
+Color getTypeColor(EventType type) {
   switch (type) {
-    case SessionType.warmup:
-      return "Warmup";
-    case SessionType.practice:
-      return "Practice";
-    case SessionType.qualify:
-      return "Qualify";
-    case SessionType.race:
-      return "Race";
+    case EventType.championship:
+      return Colors.green;
+    case EventType.race:
+      return Colors.blueAccent;
     default:
-      return "Unknow";
+      return Colors.red;
   }
 }
 
-Color _getClassColor(int _index) {
+Color getClassColor(int _index) {
   switch (_index) {
     case 1:
       return const Color(0xFFB600B2);
@@ -44,7 +41,7 @@ Color _getClassColor(int _index) {
   }
 }
 
-Color _getTeamColor(int _index) {
+Color getTeamColor(int _index) {
   switch (_index) {
     case 1:
       return const Color(0xFFB600B2);
