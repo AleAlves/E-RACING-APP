@@ -2,6 +2,7 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/session_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
+import 'package:e_racing_app/core/tools/color_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -307,20 +308,5 @@ class _EventCreateRaceSessionWidgetState
         );
       }),
     );
-  }
-
-  String getSessionType(SessionType? type) {
-    switch (type) {
-      case SessionType.warmup:
-        return "Warmup";
-      case SessionType.practice:
-        return "Practice";
-      case SessionType.qualify:
-        return "Qualify";
-      case SessionType.race:
-        return "Race";
-      default:
-        return "Unknow";
-    }
   }
 }

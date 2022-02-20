@@ -9,6 +9,21 @@ part of 'event_view_model.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$EventViewModel on _EventViewModel, Store {
+  final _$eventIdAtom = Atom(name: '_EventViewModel.eventId');
+
+  @override
+  String? get eventId {
+    _$eventIdAtom.reportRead();
+    return super.eventId;
+  }
+
+  @override
+  set eventId(String? value) {
+    _$eventIdAtom.reportWrite(value, super.eventId, () {
+      super.eventId = value;
+    });
+  }
+
   final _$eventAtom = Atom(name: '_EventViewModel.event');
 
   @override
@@ -54,18 +69,18 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$idAtom = Atom(name: '_EventViewModel.id');
+  final _$raceAtom = Atom(name: '_EventViewModel.race');
 
   @override
-  String? get id {
-    _$idAtom.reportRead();
-    return super.id;
+  RaceModel? get race {
+    _$raceAtom.reportRead();
+    return super.race;
   }
 
   @override
-  set id(String? value) {
-    _$idAtom.reportWrite(value, super.id, () {
-      super.id = value;
+  set race(RaceModel? value) {
+    _$raceAtom.reportWrite(value, super.race, () {
+      super.race = value;
     });
   }
 
@@ -189,6 +204,21 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
+  final _$raceStandingsAtom = Atom(name: '_EventViewModel.raceStandings');
+
+  @override
+  ObservableList<RaceStandingsModel?>? get raceStandings {
+    _$raceStandingsAtom.reportRead();
+    return super.raceStandings;
+  }
+
+  @override
+  set raceStandings(ObservableList<RaceStandingsModel?>? value) {
+    _$raceStandingsAtom.reportWrite(value, super.raceStandings, () {
+      super.raceStandings = value;
+    });
+  }
+
   final _$creatingEventAtom = Atom(name: '_EventViewModel.creatingEvent');
 
   @override
@@ -214,10 +244,11 @@ mixin _$EventViewModel on _EventViewModel, Store {
   @override
   String toString() {
     return '''
+eventId: ${eventId},
 event: ${event},
 standings: ${standings},
 media: ${media},
-id: ${id},
+race: ${race},
 status: ${status},
 flow: ${flow},
 state: ${state},
@@ -226,6 +257,7 @@ menus: ${menus},
 tags: ${tags},
 users: ${users},
 socialMedias: ${socialMedias},
+raceStandings: ${raceStandings},
 creatingEvent: ${creatingEvent}
     ''';
   }

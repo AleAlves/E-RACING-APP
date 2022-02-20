@@ -11,12 +11,14 @@ class ExpandedWidget extends StatefulWidget {
   final List<Widget> body;
   final bool ready;
   final bool cardless;
+  final bool iniExpanded;
 
   const ExpandedWidget(
       {Key? key,
       required this.header,
       required this.body,
       required this.ready,
+      this.iniExpanded = false,
       this.cardless = false})
       : super(key: key);
 
@@ -42,6 +44,7 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
+          initiallyExpanded: widget.iniExpanded,
           title: Padding(
             padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
             child: widget.header,

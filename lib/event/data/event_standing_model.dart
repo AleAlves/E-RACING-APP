@@ -14,6 +14,7 @@ class EventStandingModel {
   late int? bonus;
   late int? points;
   late int? penalties;
+  late int? desqualifies;
   late int? bestPosition;
   late int? worstPosition;
 
@@ -27,6 +28,7 @@ class EventStandingModel {
     required this.bonus,
     required this.points,
     required this.penalties,
+    required this.desqualifies,
     required this.bestPosition,
     required this.worstPosition
   });

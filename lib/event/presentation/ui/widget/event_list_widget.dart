@@ -69,8 +69,8 @@ class _EventListWidgetState extends State<EventListWidget>
                     icon: _getIcon(widget.viewModel.events?[index]?.type),
                     color: _getColor(widget.viewModel.events?[index]?.type),
                     event: widget.viewModel.events?[index],
-                    onPressed: (){
-                      widget.viewModel.id = widget.viewModel.events?[index]?.id;
+                    onPressed: () {
+                      widget.viewModel.eventId = widget.viewModel.events?[index]?.id;
                       widget.viewModel.setFlow(EventFlows.eventDetail);
                     },
                   );

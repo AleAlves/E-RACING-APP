@@ -24,6 +24,7 @@ class EventRaceCollection extends StatelessWidget {
 
   Widget raceList(BuildContext context) {
     return ExpandedWidget(
+      iniExpanded: true,
       body: racesSteps(context),
       header: Row(
         children: const [
@@ -46,6 +47,7 @@ class EventRaceCollection extends StatelessWidget {
     return Column(
       children: [
         CardWidget(
+          shapeLess: true,
           ready: true,
           onPressed: (){
             onRaceCardPressed.call(race?.id ?? '');
@@ -112,7 +114,7 @@ class EventRaceCollection extends StatelessWidget {
                     Icon(
                       Icons.arrow_right,
                       size: 24.0,
-                      color: Theme.of(context).colorScheme.onBackground,
+                      color: Theme.of(context).colorScheme.primary,
                     )
                   ]),
             ],

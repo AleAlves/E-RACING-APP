@@ -15,6 +15,7 @@ class SummaryModel {
   final String? pilotId;
   final int? fastestLapTime;
   final bool? disqualified;
+  final bool? didntFinish;
 
   SummaryModel({
     required this.number,
@@ -26,6 +27,7 @@ class SummaryModel {
     required this.pilotId,
     required this.position,
     required this.disqualified,
+    required this.didntFinish,
     required this.fastestLapTime,
   });
 

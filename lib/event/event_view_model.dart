@@ -23,11 +23,13 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import 'data/event_standings_model.dart';
+import 'data/race_standings_model.dart';
 import 'domain/create_event_usecase.dart';
 import 'domain/create_team_usecase.dart';
 import 'domain/delete_team_usecase.dart';
 import 'domain/finish_event_usecase.dart';
 import 'domain/get_event_standing_usecase.dart';
+import 'domain/get_race_standing_usecase.dart';
 import 'domain/join_team_usecase.dart';
 import 'domain/leave_team_usecase.dart';
 import 'domain/start_event_usecase.dart';
@@ -45,6 +47,9 @@ abstract class _EventViewModel with Store {
   _EventViewModel();
 
   @observable
+  String? eventId;
+  
+  @observable
   EventModel? event;
 
   @observable
@@ -54,7 +59,7 @@ abstract class _EventViewModel with Store {
   MediaModel? media;
 
   @observable
-  String? id;
+  RaceModel? race;
 
   @observable
   StatusModel? status;
@@ -81,6 +86,9 @@ abstract class _EventViewModel with Store {
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
 
   @observable
+  ObservableList<RaceStandingsModel?>? raceStandings = ObservableList();
+
+  @observable
   EventModel? creatingEvent;
 
   List<RaceModel>? creatingRaces;
@@ -103,6 +111,8 @@ abstract class _EventViewModel with Store {
   final _joinTeamUseCase = Modular.get<JoinTeamUseCase<StatusModel>>();
   final _deleteTeamUseCase = Modular.get<DeleteTeamUseCase<StatusModel>>();
   final _startEventUseCase = Modular.get<StartEventUseCase<StatusModel>>();
+  final _getRaceStandingdUseCase =
+      Modular.get<GetRaceStandingsUseCase<List<RaceStandingsModel>>>();
   final _finishEventUseCase = Modular.get<FinishEventUseCase<StatusModel>>();
   final _toogleSubscriptionsUseCase =
       Modular.get<ToogleSubscriptionsUseCase<StatusModel>>();
@@ -128,11 +138,10 @@ abstract class _EventViewModel with Store {
   void getEvent() async {
     state = ViewState.loading;
     media = null;
-    _getEventUseCase.params(id: id.toString()).invoke(
+    _getEventUseCase.params(id: eventId ?? '').invoke(
         success: (data) {
           getStandings();
           event = data?.event;
-          id = data?.event.id;
           users = ObservableList.of(data?.users ?? []);
           if (data?.event.type == EventType.race) {
             setFlow(EventFlows.detailRace);
@@ -145,7 +154,7 @@ abstract class _EventViewModel with Store {
   }
 
   void getStandings() async {
-    _getEventStandingsUseCase.params(id: id.toString()).invoke(
+    _getEventStandingsUseCase.params(id: event?.id ?? '').invoke(
         success: (data) {
           standings = data;
         },
@@ -154,7 +163,7 @@ abstract class _EventViewModel with Store {
 
   void toogleSubscriptions() {
     state = ViewState.loading;
-    _toogleSubscriptionsUseCase.build(eventId: id.toString()).invoke(
+    _toogleSubscriptionsUseCase.build(eventId: event?.id ?? '').invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);
@@ -350,6 +359,19 @@ abstract class _EventViewModel with Store {
           setFlow(EventFlows.status);
         },
         error: onError);
+  }
+
+  Future<void> getRaceStandings() async {
+    await _getRaceStandingdUseCase.build(id: race?.id ?? '').invoke(
+        success: (data) {
+          raceStandings = ObservableList.of(data);
+        },
+        error: onError);
+  }
+
+  void toRaceDetail(String id) {
+    race = event?.races?.firstWhere((element) => element?.id == id);
+    setFlow(EventFlows.raceDetail);
   }
 
   void onError(ApiException error) {

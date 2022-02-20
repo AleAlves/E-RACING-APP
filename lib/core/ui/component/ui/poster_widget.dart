@@ -44,7 +44,7 @@ class _PosterWidgetState extends State<PosterWidget> {
         : ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: SizedBox(
-                height: MediaQuery.of(context).size.height / 2 ,
+                height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width,
                 child: image),
           );

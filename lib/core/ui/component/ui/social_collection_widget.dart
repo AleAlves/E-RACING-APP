@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/social_platform_model.dart';
+import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,7 +33,7 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
   @override
   Widget build(BuildContext context) {
     return widget.hide
-        ? Container()
+        ? const LoadingShimmer()
         : CardWidget(
             ready: widget.links != null,
             placeholderHeight: 100,
@@ -55,11 +56,6 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
                                     buttonColor:
                                         _getSocialPlatform(item?.platformId)
                                             .second,
-                                    label: widget.socialPlatforms
-                                            ?.firstWhere((element) =>
-                                                element?.id == item?.platformId)
-                                            ?.name ??
-                                        '',
                                     labelColor: Colors.white),
                               ],
                             );

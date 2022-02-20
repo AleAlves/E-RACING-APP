@@ -16,10 +16,6 @@ class EventProgressWidget extends StatefulWidget {
   const EventProgressWidget({this.event, this.shapeless = false, Key? key})
       : super(key: key);
 
-  Widget loading(BuildContext context) {
-    return const Card(child: LoadingShimmer());
-  }
-
   @override
   _EventProgressWidgetState createState() => _EventProgressWidgetState();
 }

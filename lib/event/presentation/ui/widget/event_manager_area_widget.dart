@@ -2,7 +2,7 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/event_admin_panel_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_subscriptions_panel_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
@@ -13,16 +13,16 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
-class EventHostPanelWidget extends StatefulWidget {
+class EventManagerAreaWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const EventHostPanelWidget(this.viewModel, {Key? key}) : super(key: key);
+  const EventManagerAreaWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventHostPanelWidgetState createState() => _EventHostPanelWidgetState();
+  _EventManagerAreaWidgetState createState() => _EventManagerAreaWidgetState();
 }
 
-class _EventHostPanelWidgetState extends State<EventHostPanelWidget>
+class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -71,7 +71,6 @@ class _EventHostPanelWidgetState extends State<EventHostPanelWidget>
 
   Widget editEvent() {
     return CardWidget(
-        shapeLess: true,
         child: Column(
           children: [
             Row(
@@ -110,7 +109,7 @@ class _EventHostPanelWidgetState extends State<EventHostPanelWidget>
         children: [
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: EventAdminPanel(
+            child: EventSubscriptionsPanelWidget(
               minWidth: MediaQuery.of(context).size.width,
               event: widget.viewModel.event,
               onToogle: () {

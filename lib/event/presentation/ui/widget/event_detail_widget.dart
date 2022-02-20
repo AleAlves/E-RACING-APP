@@ -8,7 +8,6 @@ import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/scoring_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/settings_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/subscription_widget.dart';
@@ -133,7 +132,6 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   Widget adminPanel() {
     return isHost(widget.viewModel.event)
         ? CardWidget(
-            shapeLess: true,
             child: Column(
               children: [
                 Row(
@@ -363,8 +361,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   Widget races() {
     return EventRaceCollection(
         onRaceCardPressed: (id) {
-          widget.viewModel.id = id;
-          widget.viewModel.setFlow(EventFlows.raceDetail);
+          widget.viewModel.toRaceDetail(id);
         },
         races: widget.viewModel.event?.races);
   }

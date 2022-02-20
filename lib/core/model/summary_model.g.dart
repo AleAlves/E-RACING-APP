@@ -16,6 +16,7 @@ SummaryModel _$SummaryModelFromJson(Map<String, dynamic> json) => SummaryModel(
       pilotId: json['pilotId'] as String?,
       position: json['position'] as int?,
       disqualified: json['disqualified'] as bool?,
+      didntFinish: json['didntFinish'] as bool?,
       fastestLapTime: json['fastestLapTime'] as int?,
     );
 
@@ -31,4 +32,5 @@ Map<String, dynamic> _$SummaryModelToJson(SummaryModel instance) =>
       'pilotId': instance.pilotId,
       'fastestLapTime': instance.fastestLapTime,
       'disqualified': instance.disqualified,
+      'didntFinish': instance.didntFinish,
     };

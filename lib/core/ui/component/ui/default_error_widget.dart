@@ -55,6 +55,7 @@ class _DefaulErrorWidgetState extends State<DefaulErrorWidget> {
   }
 
   Future<bool> _onBackPressed() async {
+    Modular.to.navigate("/");
     return false;
   }
 }

@@ -3,11 +3,13 @@ import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/event/data/event_home_model.dart';
 import 'package:e_racing_app/event/data/event_standings_model.dart';
+import 'package:e_racing_app/event/data/race_standings_model.dart';
 import 'package:e_racing_app/event/domain/create_event_usecase.dart';
 import 'package:e_racing_app/event/domain/create_team_usecase.dart';
 import 'package:e_racing_app/event/domain/delete_team_usecase.dart';
 import 'package:e_racing_app/event/domain/finish_event_usecase.dart';
 import 'package:e_racing_app/event/domain/get_event_standing_usecase.dart';
+import 'package:e_racing_app/event/domain/get_race_standing_usecase.dart';
 import 'package:e_racing_app/event/domain/join_team_usecase.dart';
 import 'package:e_racing_app/event/domain/leave_team_usecase.dart';
 import 'package:e_racing_app/event/domain/start_event_usecase.dart';
@@ -39,6 +41,7 @@ class EventModule extends Module {
         Bind.factory((i) => ToogleSubscriptionsUseCase<StatusModel>()),
         Bind.factory((i) => GetEventUseCase<EventHomeModel>()),
         Bind.factory((i) => GetEventStandingUseCase<EventStandingsModel>()),
+        Bind.factory((i) => GetRaceStandingsUseCase<List<RaceStandingsModel>>()),
         Bind.factory((i) => StartEventUseCase<StatusModel>()),
         Bind.factory((i) => FinishEventUseCase<StatusModel>()),
         Bind.factory((i) => GetTagUseCase()),

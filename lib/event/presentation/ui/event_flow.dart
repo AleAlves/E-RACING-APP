@@ -6,7 +6,7 @@ import 'package:e_racing_app/event/presentation/ui/widget/event_create_widget.da
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_race_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_detail_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_detail_race_widget.dart';
-import 'package:e_racing_app/event/presentation/ui/widget/event_host_panel_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_manager_area_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_list_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_status_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -54,7 +54,7 @@ extension EventNavigation on EventFlows {
       case EventFlows.status:
         return EventStatusWidget(vm);
       case EventFlows.manager:
-        return EventHostPanelWidget(vm);
+        return EventManagerAreaWidget(vm);
       case EventFlows.raceDetail:
         return EventDetailRaceWidget(vm);
       default:

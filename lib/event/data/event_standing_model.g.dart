@@ -19,6 +19,7 @@ EventStandingModel _$EventStandingModelFromJson(Map<String, dynamic> json) =>
       bonus: json['bonus'] as int?,
       points: json['points'] as int?,
       penalties: json['penalties'] as int?,
+      desqualifies: json['desqualifies'] as int?,
       bestPosition: json['bestPosition'] as int?,
       worstPosition: json['worstPosition'] as int?,
     );
@@ -34,6 +35,7 @@ Map<String, dynamic> _$EventStandingModelToJson(EventStandingModel instance) =>
       'bonus': instance.bonus,
       'points': instance.points,
       'penalties': instance.penalties,
+      'desqualifies': instance.desqualifies,
       'bestPosition': instance.bestPosition,
       'worstPosition': instance.worstPosition,
     };

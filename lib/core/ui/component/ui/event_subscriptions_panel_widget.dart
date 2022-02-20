@@ -15,12 +15,12 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'button_widget.dart';
 import 'expanded_widget.dart';
 
-class EventAdminPanel extends StatelessWidget {
+class EventSubscriptionsPanelWidget extends StatelessWidget {
   final EventModel? event;
   final Function() onToogle;
   final double minWidth;
 
-  const EventAdminPanel(
+  const EventSubscriptionsPanelWidget(
       {Key? key,
       required this.event,
       required this.onToogle,
