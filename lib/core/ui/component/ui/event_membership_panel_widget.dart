@@ -5,12 +5,12 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class EventSubscriptionsPanelWidget extends StatelessWidget {
+class EventMembershipPanelWidget extends StatelessWidget {
   final EventModel? event;
   final Function() onToogle;
   final double minWidth;
 
-  const EventSubscriptionsPanelWidget(
+  const EventMembershipPanelWidget(
       {Key? key,
       required this.event,
       required this.onToogle,
@@ -33,10 +33,10 @@ class EventSubscriptionsPanelWidget extends StatelessWidget {
       children: [
         Row(
           children: const [
-            Icon(Icons.assignment_ind),
+            Icon(Icons.verified),
             SpacingWidget(LayoutSize.size8),
             TextWidget(
-              text: "Subscriptions",
+              text: "Members Only",
               style: Style.subtitle,
               align: TextAlign.left,
             ),
@@ -44,7 +44,7 @@ class EventSubscriptionsPanelWidget extends StatelessWidget {
         ),
         const SpacingWidget(LayoutSize.size16),
         SwitchWidget(
-          enabled: event?.joinable,
+          enabled: event?.membersOnly,
           onPressed: (value) {
             onToogle.call();
           },

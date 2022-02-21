@@ -2,6 +2,7 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_membership_panel_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_subscriptions_panel_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -62,6 +63,7 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
       child: Column(
         children: [
           eventSubscriptions(),
+          eventMemberships(),
           editEvent(),
           eventStatus(),
         ],
@@ -114,6 +116,26 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
               event: widget.viewModel.event,
               onToogle: () {
                 widget.viewModel.toogleSubscriptions();
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget eventMemberships() {
+    return CardWidget(
+      ready: true,
+      child: Column(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: EventMembershipPanelWidget(
+              minWidth: MediaQuery.of(context).size.width,
+              event: widget.viewModel.event,
+              onToogle: () {
+                widget.viewModel.toogleMembersOnly();
               },
             ),
           ),

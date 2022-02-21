@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:e_racing_app/core/model/event_model.dart';
@@ -43,16 +44,18 @@ Color getClassColor(int _index) {
 
 Color getTeamColor(int _index) {
   switch (_index) {
+    case 0:
+      return const Color(0xFF00B603);
     case 1:
       return const Color(0xFFB600B2);
     case 2:
       return const Color(0xFF00E0E0);
     case 3:
-      return const Color(0xFF3BA300);
+      return const Color(0xFFA30000);
     case 4:
-      return const Color(0xFFE80051);
+      return const Color(0xFF001FE8);
     case 5:
-      return const Color(0xFF00E0E0);
+      return const Color(0xFF8300E0);
     case 6:
       return const Color(0xFF58003F);
     case 7:
@@ -60,11 +63,11 @@ Color getTeamColor(int _index) {
     case 8:
       return const Color(0xFF1E205C);
     case 9:
-      return const Color(0xFF236A00);
+      return const Color(0xFFFF8E00);
     case 10:
       return const Color(0xFFB0ABFF);
     case 11:
-      return const Color(0xFF293427);
+      return const Color(0xFF00583C);
     case 12:
       return const Color(0xFFB600B2);
     case 13:
@@ -94,6 +97,11 @@ Color getTeamColor(int _index) {
     case 25:
       return const Color(0xFFB40BEA);
     default:
-      return const Color(0xFF1F6DC1);
+      return const Color(0xFFCBCBCB);
   }
+}
+
+
+Color randomColor(int length) {
+  return Color(Random().nextInt(0xffffffff));
 }

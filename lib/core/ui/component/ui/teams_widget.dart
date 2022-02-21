@@ -69,12 +69,6 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Icon(
-                            Icons.groups_outlined,
-                          ),
-                          const SpacingWidget(LayoutSize.size16),
-                          TextWidget(
-                              text: "${team?.name}", style: Style.description),
                           Padding(
                             padding: const EdgeInsets.only(left: 16, right: 16),
                             child: Row(
@@ -85,11 +79,13 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                                 ),
                                 TextWidget(
                                     text:
-                                        "(${team?.crew?.length.toString()}/${widget.maxCrew.toString()})",
+                                    "(${team?.crew?.length.toString()}/${widget.maxCrew.toString()})",
                                     style: Style.description),
                               ],
                             ),
                           ),
+                          TextWidget(
+                              text: "${team?.name}", style: Style.description),
                           const Icon(Icons.chevron_right)
                         ],
                       ),

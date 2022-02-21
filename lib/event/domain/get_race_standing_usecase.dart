@@ -1,8 +1,6 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
-import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/event/data/event_standings_model.dart';
 import 'package:e_racing_app/event/data/race_standings_model.dart';
 
 class GetRaceStandingsUseCase<T> extends BaseUseCase<T> {

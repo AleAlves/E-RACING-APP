@@ -1,6 +1,8 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ext/date_extensions.dart';
 import 'package:e_racing_app/core/ext/status_extensions.dart';
+import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
@@ -26,6 +28,8 @@ class EventDetailRaceWidget extends StatefulWidget {
 
 class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
     implements BaseSateWidget {
+  List<Pair<String, Color>> teamColors = [];
+
   @override
   void initState() {
     observers();
@@ -181,7 +185,8 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
     return ListView.builder(
       physics: const ClampingScrollPhysics(),
       shrinkWrap: true,
-      itemCount: widget.viewModel.race?.sessions?[sessionIndex]?.settings?.length,
+      itemCount:
+          widget.viewModel.race?.sessions?[sessionIndex]?.settings?.length,
       itemBuilder: (context, index) {
         return Column(
           children: [
@@ -191,7 +196,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                 TextWidget(
                     style: Style.subtitle,
                     text:
-                    "${widget.viewModel.race?.sessions?[sessionIndex]?.settings?[index]?.name}:"),
+                        "${widget.viewModel.race?.sessions?[sessionIndex]?.settings?[index]?.name}:"),
                 const SpacingWidget(LayoutSize.size8),
                 TextWidget(
                     style: Style.description,
@@ -255,6 +260,12 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   }
 
   Widget driverCard(RaceStandingsSummaryModel? standing) {
+    if (teamColors
+            .where((element) => element.first == standing?.team?.id)
+            .isEmpty ==
+        true) {
+      teamColors.add(Pair(standing?.team?.id, getTeamColor(teamColors.length)));
+    }
     return CardWidget(
         onPressed: () {
           setState(() {
@@ -273,7 +284,10 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                     Container(
                       height: 60,
                       width: 5,
-                      color: Colors.red,
+                      color: teamColors
+                          .firstWhere(
+                              (element) => element.first == standing?.team?.id)
+                          .second,
                     ),
                     const SpacingWidget(LayoutSize.size16),
                     TextWidget(

@@ -50,6 +50,7 @@ class _SwitchWidgetState extends State<SwitchWidget> {
   Widget normal(BuildContext context) {
     return CardWidget(
       ready: true,
+      shapeLess: true,
       child: SizedBox(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

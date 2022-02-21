@@ -35,6 +35,7 @@ import 'domain/leave_team_usecase.dart';
 import 'domain/start_event_usecase.dart';
 import 'domain/subscribe_event_usecase.dart';
 import 'domain/get_event_usecase.dart';
+import 'domain/toogle_members_only_usecase.dart';
 import 'domain/toogle_subscriptions_usecase.dart';
 import 'domain/unsubscribe_event_usecase.dart';
 import 'presentation/ui/event_flow.dart';
@@ -48,7 +49,7 @@ abstract class _EventViewModel with Store {
 
   @observable
   String? eventId;
-  
+
   @observable
   EventModel? event;
 
@@ -116,6 +117,8 @@ abstract class _EventViewModel with Store {
   final _finishEventUseCase = Modular.get<FinishEventUseCase<StatusModel>>();
   final _toogleSubscriptionsUseCase =
       Modular.get<ToogleSubscriptionsUseCase<StatusModel>>();
+  final _toogleMembersOnlyUseCase =
+      Modular.get<ToogleMembersOnlyUseCase<StatusModel>>();
   final _getEventUseCase = Modular.get<GetEventUseCase<EventHomeModel>>();
   final _getEventStandingsUseCase =
       Modular.get<GetEventStandingUseCase<EventStandingsModel>>();
@@ -164,6 +167,16 @@ abstract class _EventViewModel with Store {
   void toogleSubscriptions() {
     state = ViewState.loading;
     _toogleSubscriptionsUseCase.build(eventId: event?.id ?? '').invoke(
+        success: (data) {
+          status = data;
+          setFlow(EventFlows.status);
+        },
+        error: onError);
+  }
+
+  void toogleMembersOnly() {
+    state = ViewState.loading;
+    _toogleMembersOnlyUseCase.build(eventId: event?.id ?? '').invoke(
         success: (data) {
           status = data;
           setFlow(EventFlows.status);

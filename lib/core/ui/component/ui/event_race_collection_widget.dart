@@ -49,7 +49,7 @@ class EventRaceCollection extends StatelessWidget {
         CardWidget(
           shapeLess: true,
           ready: true,
-          onPressed: (){
+          onPressed: () {
             onRaceCardPressed.call(race?.id ?? '');
           },
           child: Stack(
@@ -118,6 +118,14 @@ class EventRaceCollection extends StatelessWidget {
                     )
                   ]),
             ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 24, right: 24),
+          child: Container(
+            color: Theme.of(context).colorScheme.onBackground,
+            width: MediaQuery.of(context).size.width,
+            height: 1,
           ),
         ),
         const SpacingWidget(LayoutSize.size16),

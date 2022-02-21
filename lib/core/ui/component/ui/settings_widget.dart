@@ -36,22 +36,20 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           children: [
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.start,
-              alignment: WrapAlignment.start,
+              alignment: WrapAlignment.spaceEvenly,
               direction: Axis.horizontal,
               spacing: 5.0,
               children: widget.settings!
                   .map((score) {
                     return Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16),
+                      padding: const EdgeInsets.only(left: 48, right: 16),
                       child: Column(
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextWidget(text: "${score?.name}:", style: Style.description),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 16, right: 16),
-                                child: TextWidget(text: score?.value, style: Style.description),
-                              ),
+                              TextWidget(text: score?.value, style: Style.description)
                             ],
                           ),
                           const SpacingWidget(LayoutSize.size16),

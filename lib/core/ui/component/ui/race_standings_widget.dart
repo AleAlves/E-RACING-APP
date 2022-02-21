@@ -1,12 +1,9 @@
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/event/data/event_standing_classes_model.dart';
 import 'package:e_racing_app/event/data/event_standing_model.dart';
-import 'package:e_racing_app/event/data/event_standings_model.dart';
 import 'package:e_racing_app/event/data/race_standings_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +19,6 @@ class RaceStandingsWidget extends StatefulWidget {
 }
 
 class _RaceStandingsWidgetState extends State<RaceStandingsWidget> {
-  var _index = -1;
 
   @override
   void initState() {
@@ -33,7 +29,6 @@ class _RaceStandingsWidgetState extends State<RaceStandingsWidget> {
   Widget build(BuildContext context) => raceList(context);
 
   Widget raceList(BuildContext context) {
-    _index = 0;
     return CardWidget(
       ready: widget.raceStandings != null,
       child: Column(

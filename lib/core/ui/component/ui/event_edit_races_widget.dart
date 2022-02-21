@@ -1,10 +1,5 @@
 import 'dart:io';
 
-import 'package:e_racing_app/core/model/event_model.dart';
-import 'package:e_racing_app/core/model/pair_model.dart';
-import 'package:e_racing_app/core/model/session_model.dart';
-import 'package:e_racing_app/core/model/settings_model.dart';
-import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';

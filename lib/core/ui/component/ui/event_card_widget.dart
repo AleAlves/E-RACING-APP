@@ -240,7 +240,7 @@ class EventCardWidget extends StatelessWidget {
             children: [
               Icon(
                 Icons.error,
-                color: Theme.of(context).colorScheme.secondary,
+                color: Theme.of(context).colorScheme.primaryVariant,
               ),
               const SpacingWidget(LayoutSize.size8),
               const TextWidget(
