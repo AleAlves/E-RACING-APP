@@ -62,10 +62,10 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
+          eventStatus(),
           eventSubscriptions(),
           eventMemberships(),
           editEvent(),
-          eventStatus(),
         ],
       ),
     );

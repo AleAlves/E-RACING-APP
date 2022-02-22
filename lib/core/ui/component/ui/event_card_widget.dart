@@ -96,7 +96,7 @@ class EventCardWidget extends StatelessWidget {
       size: 18,
       color: Colors.transparent,
     );
-    var track = Theme.of(context).colorScheme.secondary;
+    var track = Theme.of(context).colorScheme.primaryVariant;
 
     switch (event?.state) {
       case EventState.idle:

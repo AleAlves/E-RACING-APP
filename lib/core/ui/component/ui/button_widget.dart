@@ -75,11 +75,21 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              side: BorderSide(
+                color: Theme.of(context).colorScheme.primaryVariant,
+                width: 2.0,
+              ),
+            ),
+          ),
+        ),
         onPressed: widget.enabled ? widget.onPressed : null,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(),
             Padding(
               padding: const EdgeInsets.only(top: 16, bottom: 16),
               child: TextWidget(
@@ -88,7 +98,6 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 style: Style.button,
               ),
             ),
-            const Icon(Icons.arrow_right, size: 20,)
           ],
         ),
       ),
@@ -99,15 +108,23 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Theme.of(context).colorScheme.secondary,
-          onPrimary: Theme.of(context).colorScheme.onSecondary,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.secondary),
+          foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.onSecondary),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              side: const BorderSide(
+                color: Colors.black45,
+                width: 2.0,
+              ),
+            ),
+          ),
         ),
         onPressed: widget.enabled ? widget.onPressed : null,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(),
             Padding(
               padding: const EdgeInsets.only(top: 16, bottom: 16),
               child: TextWidget(
@@ -115,7 +132,6 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 style: Style.button,
               ),
             ),
-            const Icon(Icons.warning, size: 12,)
           ],
         ),
       ),

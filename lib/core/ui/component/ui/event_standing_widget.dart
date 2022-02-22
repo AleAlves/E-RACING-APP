@@ -39,11 +39,18 @@ class _EventStandingWidgetState extends State<EventStandingWidget> {
       child: Column(
         children: [
           const SpacingWidget(LayoutSize.size16),
-          const TextWidget(
-            text: "Standings",
-            style: Style.subtitle,
-            align: TextAlign.start,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              SpacingWidget(LayoutSize.size16),
+              TextWidget(
+                text: "Standings",
+                style: Style.subtitle,
+                align: TextAlign.start,
+              ),
+            ],
           ),
+          const SpacingWidget(LayoutSize.size16),
           Column(
             children: classesList(context),
           ),

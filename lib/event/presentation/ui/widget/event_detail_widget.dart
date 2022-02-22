@@ -103,7 +103,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: standings(),
             ),
-            const SpacingWidget(LayoutSize.size48),
+            const SpacingWidget(LayoutSize.size8),
           ],
         ),
       ],

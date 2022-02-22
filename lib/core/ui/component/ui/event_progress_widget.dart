@@ -1,9 +1,5 @@
 import 'package:e_racing_app/core/ext/status_extensions.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
-import 'package:e_racing_app/core/model/pair_model.dart';
-import 'package:e_racing_app/core/ext/access_extension.dart';
-import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
-import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +28,7 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
     late Icon idle;
     late Icon onGoing;
     late Icon finished;
-    var track = Colors.green;
+    var track = Theme.of(context).colorScheme.primaryVariant;
     var base = Theme.of(context).colorScheme.primary;
 
     switch (widget.event?.state) {

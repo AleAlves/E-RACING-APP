@@ -83,8 +83,11 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
       child: CardWidget(
         child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: TextWidget(
-                text: widget.viewModel.race?.title, style: Style.title)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextWidget(
+                  text: widget.viewModel.race?.title, style: Style.title),
+            )),
         ready: true,
       ),
     );
@@ -382,7 +385,14 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Icon(Icons.group),
+                                    Icon(
+                                      Icons.group,
+                                      color: teamColors
+                                          .firstWhere((element) =>
+                                              element.first ==
+                                              standing?.team?.id)
+                                          .second,
+                                    ),
                                     const SpacingWidget(LayoutSize.size8),
                                     TextWidget(
                                       text: "${standing?.team?.name}",
