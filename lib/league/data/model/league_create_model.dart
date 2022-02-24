@@ -1,4 +1,3 @@
-import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
 import 'package:json_annotation/json_annotation.dart';

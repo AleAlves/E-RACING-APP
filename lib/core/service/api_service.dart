@@ -92,8 +92,13 @@ class ApiService extends BaseService {
       case 422:
       case 400:
       case 401:
+      case 402:
       case 403:
+      case 404:
       case 500:
+      case 501:
+      case 502:
+      case 503:
       default:
         dynamic responseJson = jsonDecode(response.body);
         return HTTPResponse.onResponse(responseJson['data'],

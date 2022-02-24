@@ -7,7 +7,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LeagueItemWidget extends StatelessWidget {
+class LeagueCardWidget extends StatelessWidget {
   final String? label;
   final String? emblem;
   final int? members;
@@ -17,7 +17,7 @@ class LeagueItemWidget extends StatelessWidget {
   final List<String?>? leagueTags;
   final VoidCallback? onPressed;
 
-  const LeagueItemWidget(
+  const LeagueCardWidget(
       {this.label,
       this.emblem,
       required this.capacity,
@@ -32,10 +32,10 @@ class LeagueItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
-      padding: const EdgeInsets.only(left: 4, right: 4, bottom: 4),
+      padding: const EdgeInsets.only(left: 4, right: 8, bottom: 8),
       onPressed: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(0.0),
+        padding: const EdgeInsets.all(4.0),
         child: content(context),
       ),
       ready: leagueTags != null,
@@ -99,16 +99,9 @@ class LeagueItemWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Ink(
-              decoration: ShapeDecoration(
-                shape: const CircleBorder(),
-                color: Theme.of(context).colorScheme.background,
-              ),
-              child: Icon(
-                Icons.chevron_right,
-                size: 24.0,
-                color: Theme.of(context).colorScheme.onBackground,
-              ),
+            Icon(
+              Icons.chevron_right,
+              color: Theme.of(context).colorScheme.onBackground,
             )
           ],
         )

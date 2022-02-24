@@ -4,6 +4,7 @@ import 'package:e_racing_app/league/presentation/ui/widget/league_create_widget.
 import 'package:e_racing_app/league/presentation/ui/widget/league_delete_widget.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_detail_widget.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_list_widget.dart';
+import 'package:e_racing_app/league/presentation/ui/widget/league_members_widget.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_status_widget.dart';
 import 'package:e_racing_app/league/presentation/ui/widget/league_update_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +17,8 @@ enum LeagueFlow {
   join,
   detail,
   error,
-  status
+  status,
+  members
 }
 
 extension LeagueNavigation on LeagueFlow {
@@ -38,6 +40,8 @@ extension LeagueNavigation on LeagueFlow {
         return LeagueCreateWidget(vm);
       case LeagueFlow.status:
         return LeagueStatusWidget(vm);
+      case LeagueFlow.members:
+        return LeagueMembersWidget(vm);
       default:
         return LeagueCreateWidget(vm);
     }

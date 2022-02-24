@@ -1,28 +1,30 @@
+import 'package:e_racing_app/core/ext/access_extension.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/league_card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/league_member_card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class LeagueListWidget extends StatefulWidget {
+class LeagueMembersWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
 
-  const LeagueListWidget(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueMembersWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _LeagueListWidgetState createState() => _LeagueListWidgetState();
+  _LeagueMembersWidgetState createState() => _LeagueMembersWidgetState();
 }
 
-class _LeagueListWidgetState extends State<LeagueListWidget>
+class _LeagueMembersWidgetState extends State<LeagueMembersWidget>
     implements BaseSateWidget {
   @override
   void initState() {
-    widget.viewModel.fetchLeagues();
-    widget.viewModel.fetchTags();
+    widget.viewModel.fetchMembers();
     super.initState();
   }
 
@@ -46,7 +48,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(LeagueFlow.list);
+    widget.viewModel.setFlow(LeagueFlow.detail);
     return false;
   }
 
@@ -58,29 +60,17 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
           padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
           child: ListView.builder(
             shrinkWrap: true,
-            itemCount: widget.viewModel.leagues?.length,
+            itemCount: widget.viewModel.members?.length,
             itemBuilder: (context, index) {
-              return LeagueCardWidget(
-                  label: widget.viewModel.leagues?[index]?.name,
-                  emblem: widget.viewModel.leagues?[index]?.emblem,
-                  members: widget.viewModel.leagues?[index]?.members?.length,
-                  capacity: widget.viewModel.leagues?[index]?.capacity,
-                  tags: widget.viewModel.tags,
-                  leagueTags: widget.viewModel.leagues?[index]?.tags,
-                  onPressed: () {
-                    widget.viewModel.id = widget.viewModel.leagues?[index]?.id;
-                    Session.instance.setLeagueId(widget.viewModel.leagues?[index]?.id);
-                    widget.viewModel.setFlow(LeagueFlow.detail);
-                  });
+              return EventMemberCardWidget(
+                user: widget.viewModel.members?[index],
+                isHost: isLeagueManager(widget.viewModel.league),
+                onRemove: (id) {
+                    widget.viewModel.removeMember(id ?? '');
+              },
+              );
             },
           ),
-        ),
-        FloatActionButtonWidget<LeagueFlow>(
-          flow: LeagueFlow.create,
-          icon: Icons.add,
-          onPressed: (flow) {
-            widget.viewModel.setFlow(flow);
-          },
         ),
       ],
     );

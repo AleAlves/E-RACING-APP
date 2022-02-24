@@ -79,9 +79,8 @@ class _ButtonWidgetState extends State<ButtonWidget> {
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
-              side: BorderSide(
-                color: Theme.of(context).colorScheme.primaryVariant,
-                width: 2.0,
+              side: const BorderSide(
+                width: 0.5,
               ),
             ),
           ),
@@ -115,8 +114,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
               side: const BorderSide(
-                color: Colors.black45,
-                width: 2.0,
+                width: 0.5,
               ),
             ),
           ),

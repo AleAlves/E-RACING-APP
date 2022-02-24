@@ -130,7 +130,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   }
 
   Widget adminPanel() {
-    return isHost(widget.viewModel.event)
+    return isEventHost(widget.viewModel.event)
         ? CardWidget(
             child: Column(
               children: [

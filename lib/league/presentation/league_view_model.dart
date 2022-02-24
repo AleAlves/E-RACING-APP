@@ -4,18 +4,20 @@ import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
-import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/home/domain/model/league_model.dart';
+import 'package:e_racing_app/league/domain/fetch_league_usecase.dart';
+import 'package:e_racing_app/league/domain/get_members_usecase.dart';
+import 'package:e_racing_app/league/domain/remove_member_usecase.dart';
 import 'package:e_racing_app/league/domain/start_membership_usecase.dart';
 import 'package:e_racing_app/league/domain/stop_membership_usecase.dart';
-import 'package:e_racing_app/league/domain/usecase/create_league_usecase.dart';
-import 'package:e_racing_app/league/domain/usecase/delete_league_usecase.dart';
-import 'package:e_racing_app/league/domain/usecase/fetch_league_menu_usecase.dart';
-import 'package:e_racing_app/league/domain/usecase/fetch_league_usecase.dart';
-import 'package:e_racing_app/league/domain/usecase/get_league_usecase.dart';
-import 'package:e_racing_app/league/domain/usecase/upate_league_usecase.dart';
+import 'package:e_racing_app/league/domain/create_league_usecase.dart';
+import 'package:e_racing_app/league/domain/delete_league_usecase.dart';
+import 'package:e_racing_app/league/domain/fetch_league_menu_usecase.dart';
+import 'package:e_racing_app/league/domain/get_league_usecase.dart';
+import 'package:e_racing_app/league/domain/upate_league_usecase.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
+import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
@@ -57,11 +59,15 @@ abstract class _LeagueViewModel with Store {
   ObservableList<TagModel?>? tags = ObservableList();
 
   @observable
+  ObservableList<UserModel?>? members = ObservableList();
+
+  @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
 
   final fetchUseCase = Modular.get<FetchLeagueUseCase<List<LeagueModel>>>();
   final createUseCase = Modular.get<CreateLeagueUseCase<StatusModel>>();
   final updateUseCase = Modular.get<UpdateLeagueUseCase<StatusModel>>();
+  final removeMemberUseCase = Modular.get<RemoveMemberUseCase<StatusModel>>();
   final getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
   final getTagUseCase = Modular.get<GetTagUseCase>();
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
@@ -73,6 +79,7 @@ abstract class _LeagueViewModel with Store {
       Modular.get<StopMembershipUseCase<StatusModel>>();
   final fetchMenuUsecase =
       Modular.get<FetchLeagueMenuUseCase<List<ShortcutModel>>>();
+  final fetchMemberUseCase = Modular.get<GetMembersUseCase<List<UserModel?>>>();
 
   void fetchLeagues() async {
     state = ViewState.loading;
@@ -160,7 +167,6 @@ abstract class _LeagueViewModel with Store {
         error: onError);
   }
 
-
   Future<void> delete() async {
     state = ViewState.loading;
     deleteUseCase.params(id: id.toString()).invoke(
@@ -195,6 +201,26 @@ abstract class _LeagueViewModel with Store {
     fetchMenuUsecase.invoke(
         success: (data) {
           menus = ObservableList.of(data!);
+        },
+        error: onError);
+  }
+
+  void fetchMembers() {
+    state = ViewState.loading;
+    fetchMemberUseCase.req(id: league?.id ?? '').invoke(
+        success: (data) {
+          members = ObservableList.of(data!);
+          state = ViewState.ready;
+        },
+        error: onError);
+  }
+
+  void removeMember(String id) {
+    state = ViewState.loading;
+    removeMemberUseCase.req(memberId: id, leagueId: league?.id ?? '').invoke(
+        success: (data) {
+          status = data;
+          setFlow(LeagueFlow.status);
         },
         error: onError);
   }

@@ -19,7 +19,9 @@ LeagueModel _$LeagueModelFromJson(Map<String, dynamic> json) => LeagueModel(
       description: json['description'] as String?,
       capacity: json['capacity'] as int?,
       members: (json['members'] as List<dynamic>?)
-          ?.map((e) => e as String?)
+          ?.map((e) => e == null
+              ? null
+              : LeagueMembershipModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

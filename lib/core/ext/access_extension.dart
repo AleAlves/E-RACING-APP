@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
+import 'package:e_racing_app/home/domain/model/league_model.dart';
 
 bool isSubscriber(List<ClassesModel?>? classes) {
   var isSus = false;
@@ -9,10 +10,14 @@ bool isSubscriber(List<ClassesModel?>? classes) {
   return isSus;
 }
 
-bool isHost(EventModel? event) {
+bool isEventHost(EventModel? event) {
   return event?.hostId == Session.instance.getUser()?.id;
 }
 
+bool isLeagueManager(LeagueModel? league) {
+  return league?.owner == Session.instance.getUser()?.id;
+}
+
 isSubscriberOrHost(EventModel? event) {
-  return isSubscriber(event?.classes) || isHost(event);
+  return isSubscriber(event?.classes) || isEventHost(event);
 }
