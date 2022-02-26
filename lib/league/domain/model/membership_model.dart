@@ -8,7 +8,7 @@ class MembershipModel {
   @JsonKey(name: '_id')
   final String? id;
   final String? memberId;
-  final DateTime? since;
+  final String? since;
 
   MembershipModel({this.id, this.memberId, this.since});
 

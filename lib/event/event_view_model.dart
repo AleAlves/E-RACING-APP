@@ -32,6 +32,7 @@ import 'domain/get_event_standing_usecase.dart';
 import 'domain/get_race_standing_usecase.dart';
 import 'domain/join_team_usecase.dart';
 import 'domain/leave_team_usecase.dart';
+import 'domain/remove_subcription_usecase.dart';
 import 'domain/start_event_usecase.dart';
 import 'domain/subscribe_event_usecase.dart';
 import 'domain/get_event_usecase.dart';
@@ -107,6 +108,8 @@ abstract class _EventViewModel with Store {
       Modular.get<SubscribeEventUseCase<StatusModel>>();
   final _unsubscribeEventUseCase =
       Modular.get<UnsubscribeEventUseCase<StatusModel>>();
+  final _removeSubscriptiontUseCase =
+      Modular.get<RemoveSubscriptionUseCase<StatusModel>>();
   final _createTeamEventUseCase = Modular.get<CreateTeamUseCase<StatusModel>>();
   final _leaveTeamUseCase = Modular.get<LeaveTeamUseCase<StatusModel>>();
   final _joinTeamUseCase = Modular.get<JoinTeamUseCase<StatusModel>>();
@@ -385,6 +388,18 @@ abstract class _EventViewModel with Store {
   void toRaceDetail(String id) {
     race = event?.races?.firstWhere((element) => element?.id == id);
     setFlow(EventFlows.raceDetail);
+  }
+
+  Future<void> removeSubscription(String? classId, String userId) async {
+    state = ViewState.loading;
+    await _removeSubscriptiontUseCase
+        .build(classId: classId, eventId: eventId, userId: userId)
+        .invoke(
+            success: (data) {
+              status = data;
+              setFlow(EventFlows.status);
+            },
+            error: onError);
   }
 
   void onError(ApiException error) {

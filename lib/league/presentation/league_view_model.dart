@@ -5,6 +5,7 @@ import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/league/data/league_members_model.dart';
 import 'package:e_racing_app/league/domain/model/league_model.dart';
 import 'package:e_racing_app/league/domain/fetch_league_usecase.dart';
 import 'package:e_racing_app/league/domain/get_members_usecase.dart';
@@ -17,7 +18,6 @@ import 'package:e_racing_app/league/domain/fetch_league_menu_usecase.dart';
 import 'package:e_racing_app/league/domain/get_league_usecase.dart';
 import 'package:e_racing_app/league/domain/upate_league_usecase.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
-import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
@@ -59,7 +59,7 @@ abstract class _LeagueViewModel with Store {
   ObservableList<TagModel?>? tags = ObservableList();
 
   @observable
-  ObservableList<UserModel?>? members = ObservableList();
+  ObservableList<LeagueMembersModel?>? members = ObservableList();
 
   @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
@@ -79,7 +79,8 @@ abstract class _LeagueViewModel with Store {
       Modular.get<StopMembershipUseCase<StatusModel>>();
   final fetchMenuUsecase =
       Modular.get<FetchLeagueMenuUseCase<List<ShortcutModel>>>();
-  final fetchMemberUseCase = Modular.get<GetMembersUseCase<List<UserModel?>>>();
+  final fetchMemberUseCase =
+      Modular.get<FetchMembersUseCase<List<LeagueMembersModel?>>>();
 
   void fetchLeagues() async {
     state = ViewState.loading;

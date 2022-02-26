@@ -147,13 +147,13 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
   final _$membersAtom = Atom(name: '_LeagueViewModel.members');
 
   @override
-  ObservableList<UserModel?>? get members {
+  ObservableList<LeagueMembersModel?>? get members {
     _$membersAtom.reportRead();
     return super.members;
   }
 
   @override
-  set members(ObservableList<UserModel?>? value) {
+  set members(ObservableList<LeagueMembersModel?>? value) {
     _$membersAtom.reportWrite(value, super.members, () {
       super.members = value;
     });

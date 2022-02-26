@@ -105,7 +105,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
                             width: MediaQuery.of(context).size.width / 10,
                             child: ButtonWidget(
                               label: widget.classes?[index]?.name,
-                              type: ButtonType.important,
+                              type: ButtonType.normal,
                               onPressed: () {
                                 setState(() {
                                   Navigator.of(context).pop();

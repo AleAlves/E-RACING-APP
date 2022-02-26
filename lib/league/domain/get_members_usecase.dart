@@ -1,12 +1,12 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/login/domain/model/user_model.dart';
+import 'package:e_racing_app/league/data/league_members_model.dart';
 
-class GetMembersUseCase<T> extends BaseUseCase<T> {
+class FetchMembersUseCase<T> extends BaseUseCase<T> {
   late String _id;
 
-  GetMembersUseCase<T> req({required String id}) {
+  FetchMembersUseCase<T> req({required String id}) {
     _id = id;
     return this;
   }
@@ -22,7 +22,7 @@ class GetMembersUseCase<T> extends BaseUseCase<T> {
       var list = response.data == null
           ? null
           : response.data
-          .map<UserModel>((league) => UserModel.fromJson(league))
+          .map<LeagueMembersModel>((members) => LeagueMembersModel.fromJson(members))
           .toList() as T;
       success.call(list);
     } else {

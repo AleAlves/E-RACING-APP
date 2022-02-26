@@ -3,6 +3,7 @@ import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_membership_panel_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_subscribers_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_subscriptions_panel_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -66,6 +67,7 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
           eventSubscriptions(),
           eventMemberships(),
           editEvent(),
+          subscribers()
         ],
       ),
     );
@@ -174,12 +176,14 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
               onPressed: () {
                 switch (widget.viewModel.event?.state) {
                   case EventState.idle:
-                    showAlert("Are you sure you want to start this event? ", () {
+                    showAlert("Are you sure you want to start this event? ",
+                        () {
                       widget.viewModel.startEvent();
                     });
                     break;
                   case EventState.ongoing:
-                    showAlert("Are you sure you want to finish this event?", () {
+                    showAlert("Are you sure you want to finish this event?",
+                        () {
                       widget.viewModel.finishEvent();
                     });
                     break;
@@ -242,6 +246,16 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
                 ),
               );
             }));
+  }
+
+  Widget subscribers() {
+    return EventSubscribersWidget(
+      onRemove: (classId, userId) {
+        widget.viewModel.removeSubscription(classId, userId);
+      },
+      classes: widget.viewModel.event?.classes,
+      users: widget.viewModel.users,
+    );
   }
 
   Pair<bool, String>? _getStatus() {

@@ -12,6 +12,7 @@ import 'package:e_racing_app/event/domain/get_event_standing_usecase.dart';
 import 'package:e_racing_app/event/domain/get_race_standing_usecase.dart';
 import 'package:e_racing_app/event/domain/join_team_usecase.dart';
 import 'package:e_racing_app/event/domain/leave_team_usecase.dart';
+import 'package:e_racing_app/event/domain/remove_subcription_usecase.dart';
 import 'package:e_racing_app/event/domain/start_event_usecase.dart';
 import 'package:e_racing_app/event/domain/subscribe_event_usecase.dart';
 import 'package:e_racing_app/event/domain/fetch_events_use_case.dart';
@@ -46,6 +47,7 @@ class EventModule extends Module {
         Bind.factory((i) => StartEventUseCase<StatusModel>()),
         Bind.factory((i) => FinishEventUseCase<StatusModel>()),
         Bind.factory((i) => ToogleMembersOnlyUseCase<StatusModel>()),
+        Bind.factory((i) => RemoveSubscriptionUseCase<StatusModel>()),
         Bind.factory((i) => GetTagUseCase()),
         Bind.factory((i) => GetSocialMediaUseCase())
       ];
