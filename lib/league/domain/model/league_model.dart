@@ -1,7 +1,7 @@
 import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'league_membership_model.dart';
+import 'membership_model.dart';
 
 part 'league_model.g.dart';
 
@@ -13,7 +13,7 @@ class LeagueModel {
   final String? name;
   final String? emblem;
   final String? description;
-  final List<LeagueMembershipModel?>? members;
+  final List<MembershipModel?>? members;
   final List<String?>? tags;
   late List<LinkModel?>? links;
   final int? capacity;

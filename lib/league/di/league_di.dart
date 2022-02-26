@@ -1,7 +1,7 @@
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
-import 'package:e_racing_app/home/domain/model/league_model.dart';
+import 'package:e_racing_app/league/domain/model/league_model.dart';
 import 'package:e_racing_app/league/domain/fetch_league_usecase.dart';
 import 'package:e_racing_app/league/domain/get_members_usecase.dart';
 import 'package:e_racing_app/league/domain/remove_member_usecase.dart';

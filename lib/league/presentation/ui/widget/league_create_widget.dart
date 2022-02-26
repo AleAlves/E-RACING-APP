@@ -6,7 +6,7 @@ import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/dropdown_menu_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/stepper_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -16,8 +16,6 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
-import '../../../../main.dart';
 
 class LeagueCreateWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
@@ -34,12 +32,12 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
-  int _index = 0;
   File bannerFile = File('');
   File emblemFile = File('');
   List<String?> tags = [];
   List<TextEditingController> socialStuffControllers = [];
   List<LinkModel?> socialPlatforms = [];
+  bool termsAccepted = false;
 
   @override
   void initState() {
@@ -76,58 +74,34 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
   }
 
   Widget createForm() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SizedBox(
-        child: Column(
-          children: [
-            Stepper(
-              currentStep: _index,
-              onStepTapped: (int index) {
-                setState(() {
-                  _index = index;
-                });
-              },
-              controlsBuilder: (BuildContext context,
-                  {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
-                return Row(
-                  children: <Widget>[
-                    Container(),
-                    Container(),
-                  ],
-                );
-              },
-              steps: <Step>[
-                Step(
-                  title: const Text('Basic Info'),
-                  content: basic(),
-                ),
-                Step(
-                  title: const Text('Emblem'),
-                  content: emblem(),
-                ),
-                Step(
-                  title: const Text('Banner'),
-                  content: banner(),
-                ),
-                Step(
-                  title: const Text('Tags'),
-                  content: tag(),
-                ),
-                Step(
-                  title: const Text('Social'),
-                  content: social(),
-                ),
-                Step(
-                  title: const Text('Terms'),
-                  content: terms(),
-                ),
-              ],
-            ),
-            finish()
-          ],
+    return StepperWidget(
+      steps: <Step>[
+        Step(
+          title: const Text('Basic Info'),
+          content: basic(),
         ),
-      ),
+        Step(
+          title: const Text('Emblem'),
+          content: emblem(),
+        ),
+        Step(
+          title: const Text('Banner'),
+          content: banner(),
+        ),
+        Step(
+          title: const Text('Tags'),
+          content: tag(),
+        ),
+        Step(
+          title: const Text('Social'),
+          content: social(),
+        ),
+        Step(
+          title: const Text('Terms'),
+          content: terms(),
+        ),
+      ],
+      append: finish(),
     );
   }
 
@@ -164,30 +138,38 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
   Widget tag() {
     return widget.viewModel.tags!.isEmpty
         ? Container()
-        : Wrap(
-            children: widget.viewModel.tags!
-                .map((item) {
-                  final selected = tags.contains(item?.id);
-                  return ActionChip(
-                      avatar: CircleAvatar(
-                        child: selected ? const Text('-') : const Text('+'),
-                      ),
-                      label: Text(item?.name ?? ''),
-                      onPressed: () {
-                        setState(() {
-                          selected ? tags.remove(item?.id) : tags.add(item?.id);
+        : Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: Wrap(
+              children: widget.viewModel.tags!
+                  .map((item) {
+                    final selected = tags.contains(item?.id);
+                    return ActionChip(
+                        avatar: CircleAvatar(
+                          backgroundColor: selected
+                              ? Theme.of(context).colorScheme.secondary
+                              : null,
+                          child: selected ? const Text('-') : const Text('+'),
+                        ),
+                        label: Text(item?.name ?? ''),
+                        onPressed: () {
+                          setState(() {
+                            selected
+                                ? tags.remove(item?.id)
+                                : tags.add(item?.id);
+                          });
                         });
-                      });
-                })
-                .toList()
-                .cast<Widget>(),
+                  })
+                  .toList()
+                  .cast<Widget>(),
+            ),
           );
   }
 
   Widget emblem() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Column(
           children: [
@@ -200,21 +182,25 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                     height: 100,
                     width: 100,
                     child: emblemFile.path == ''
-                        ? Container(
-                          )
+                        ? Container()
                         : Image.file(
                             emblemFile,
                             fit: BoxFit.fill,
                           ),
                   ),
                 ),
-                IconButtonWidget(Icons.image_search, () async {
-                  var image =
-                      await _picker.pickImage(source: ImageSource.gallery);
-                  setState(() {
-                    emblemFile = File(image?.path ?? '');
-                  });
-                })
+                ButtonWidget(
+                  type: ButtonType.icon,
+                  icon: Icons.image_search,
+                  onPressed: () async {
+                    var image =
+                        await _picker.pickImage(source: ImageSource.gallery);
+                    setState(() {
+                      emblemFile = File(image?.path ?? '');
+                    });
+                  },
+                  enabled: true,
+                )
               ],
             ),
             const TextWidget(
@@ -240,20 +226,24 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                 height: 100,
                 width: MediaQuery.of(context).size.height,
                 child: bannerFile.path == ''
-                    ? Container(
-                      )
+                    ? Container()
                     : Image.file(
                         bannerFile,
                         fit: BoxFit.fill,
                       ),
               ),
             ),
-            IconButtonWidget(Icons.image_search, () async {
-              var image = await _picker.pickImage(source: ImageSource.gallery);
-              setState(() {
-                bannerFile = File(image?.path ?? '');
-              });
-            })
+            ButtonWidget(
+                type: ButtonType.icon,
+                icon: Icons.image_search,
+                enabled: true,
+                onPressed: () async {
+                  var image =
+                      await _picker.pickImage(source: ImageSource.gallery);
+                  setState(() {
+                    bannerFile = File(image?.path ?? '');
+                  });
+                })
           ],
         ),
         const TextWidget(
@@ -269,6 +259,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
     return Column(
       children: [
         ListView.builder(
+          physics: const ClampingScrollPhysics(),
           shrinkWrap: true,
           itemCount: socialPlatforms.length,
           itemBuilder: (context, index) {
@@ -284,6 +275,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                             item?.id, socialStuffControllers[index].text);
                       },
                       hint: "Platform",
+                      currentModel: null,
                     ),
                   ],
                 ),
@@ -347,10 +339,10 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
 
   Widget finish() {
     return ButtonWidget(
-      enabled: _formKey.currentState?.validate() == true,
+      enabled: termsAccepted,
       type: ButtonType.normal,
       onPressed: () {
-        if (_formKey.currentState?.validate() == true) {
+        if (_formKey.currentState?.validate() == true && termsAccepted) {
           List<int> imageBytes = [];
           List<int> emblemBytes = [];
           try {
@@ -379,9 +371,11 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
       children: [
         Checkbox(
           checkColor: Colors.white,
-          value: false,
+          value: termsAccepted,
           onChanged: (bool? value) {
-            setState(() {});
+            setState(() {
+              termsAccepted = value ?? false;
+            });
           },
         ),
         const TextWidget(

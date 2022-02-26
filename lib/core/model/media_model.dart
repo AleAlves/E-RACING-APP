@@ -1,4 +1,4 @@
-import 'package:e_racing_app/home/domain/model/league_model.dart';
+import 'package:e_racing_app/league/domain/model/league_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'media_model.g.dart';
 

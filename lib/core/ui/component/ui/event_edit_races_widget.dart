@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
@@ -134,13 +133,17 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                       ),
               ),
             ),
-            IconButtonWidget(Icons.image_search, () async {
-              var image = await widget.model.picker
-                  .pickImage(source: ImageSource.gallery);
-              setState(() {
-                widget.model.posterFile = File(image?.path ?? '');
-              });
-            })
+            ButtonWidget(
+                enabled: true,
+                type: ButtonType.icon,
+                icon: Icons.image_search,
+                onPressed: () async {
+                  var image = await widget.model.picker
+                      .pickImage(source: ImageSource.gallery);
+                  setState(() {
+                    widget.model.posterFile = File(image?.path ?? '');
+                  });
+                })
           ],
         ),
         const SpacingWidget(LayoutSize.size32),

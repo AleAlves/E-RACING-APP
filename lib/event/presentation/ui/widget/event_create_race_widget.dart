@@ -8,7 +8,6 @@ import 'package:e_racing_app/core/model/session_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -188,20 +187,24 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
                 height: 300,
                 width: MediaQuery.of(context).size.height,
                 child: bannerFile.path == ''
-                    ? Container(
-                      )
+                    ? Container()
                     : Image.file(
                         bannerFile,
                         fit: BoxFit.fill,
                       ),
               ),
             ),
-            IconButtonWidget(Icons.image_search, () async {
-              var image = await _picker.pickImage(source: ImageSource.gallery);
-              setState(() {
-                bannerFile = File(image?.path ?? '');
-              });
-            })
+            ButtonWidget(
+                enabled: true,
+                type: ButtonType.icon,
+                icon: Icons.image_search,
+                onPressed: () async {
+                  var image =
+                      await _picker.pickImage(source: ImageSource.gallery);
+                  setState(() {
+                    bannerFile = File(image?.path ?? '');
+                  });
+                })
           ],
         ),
         const SpacingWidget(LayoutSize.size32),
@@ -339,7 +342,8 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
               setState(() {
                 var name = TextEditingController();
                 var value = TextEditingController();
-                sessionModel.add(SessionModel(type: SessionType.race, settings: []));
+                sessionModel
+                    .add(SessionModel(type: SessionType.race, settings: []));
                 settingsNamesControllers.add(name);
                 settingsValuesControllers.add(value);
               });
@@ -484,8 +488,8 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
       type: ButtonType.normal,
       onPressed: () {
         // for (var i = 0; i < sessionModel.length; i++) {
-          // sessionModel[i]?.name = settingsNamesControllers[i].text;
-          // sessionModel[i]?.value = settingsValuesControllers[i].text;
+        // sessionModel[i]?.name = settingsNamesControllers[i].text;
+        // sessionModel[i]?.value = settingsValuesControllers[i].text;
         // }
 
         for (var i = 0; i < classesModel.length; i++) {

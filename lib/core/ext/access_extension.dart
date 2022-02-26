@@ -1,7 +1,7 @@
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
-import 'package:e_racing_app/home/domain/model/league_model.dart';
+import 'package:e_racing_app/league/domain/model/league_model.dart';
 
 bool isSubscriber(List<ClassesModel?>? classes) {
   var isSus = false;

@@ -9,18 +9,15 @@ import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/dropdown_menu_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/home/domain/model/league_model.dart';
+import 'package:e_racing_app/league/domain/model/league_model.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
-import '../../../../main.dart';
 import '../league_flow.dart';
 
 class LeagueUpdateWidget extends StatefulWidget {
@@ -213,7 +210,9 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                   final selected = tags.contains(item?.id);
                   return ActionChip(
                       avatar: CircleAvatar(
-                        backgroundColor: selected ? Colors.blue : null,
+                        backgroundColor: selected
+                            ? Theme.of(context).colorScheme.secondary
+                            : null,
                         child: selected ? const Text('-') : const Text('+'),
                       ),
                       label: Text(item?.name ?? ''),
@@ -255,13 +254,18 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                           ),
                   ),
                 ),
-                IconButtonWidget(Icons.image_search, () async {
-                  var image =
-                      await _picker.pickImage(source: ImageSource.gallery);
-                  setState(() {
-                    emblemFile = File(image?.path ?? '');
-                  });
-                })
+                ButtonWidget(
+                  enabled: true,
+                  type: ButtonType.icon,
+                  icon: Icons.image_search,
+                  onPressed: () async {
+                    var image =
+                        await _picker.pickImage(source: ImageSource.gallery);
+                    setState(() {
+                      emblemFile = File(image?.path ?? '');
+                    });
+                  },
+                )
               ],
             ),
             const TextWidget(
@@ -297,12 +301,18 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                       ),
               ),
             ),
-            IconButtonWidget(Icons.image_search, () async {
-              var image = await _picker.pickImage(source: ImageSource.gallery);
-              setState(() {
-                bannerFile = File(image?.path ?? '');
-              });
-            })
+            ButtonWidget(
+              enabled: true,
+              type: ButtonType.icon,
+              icon: Icons.image_search,
+              onPressed: () async {
+                var image =
+                    await _picker.pickImage(source: ImageSource.gallery);
+                setState(() {
+                  bannerFile = File(image?.path ?? '');
+                });
+              },
+            )
           ],
         ),
         const TextWidget(
@@ -333,16 +343,19 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                               links[index].first?.platformId = item?.id ?? '';
                             },
                             hint: "Platform",
+                            currentModel: null,
                           )
-                        : DropdownMenuWidget(widget.viewModel.socialMedias,
+                        : DropdownMenuWidget(
+                            widget.viewModel.socialMedias,
                             (item) {
-                            isEditingSocialPlatform = true;
-                            links[index].first?.platformId = item?.id ?? '';
-                          },
-                            current: widget.viewModel.socialMedias?.firstWhere(
-                                (element) =>
+                              isEditingSocialPlatform = true;
+                              links[index].first?.platformId = item?.id ?? '';
+                            },
+                            currentModel: widget.viewModel.socialMedias
+                                ?.firstWhere((element) =>
                                     element?.id ==
-                                    links[index].first?.platformId)),
+                                    links[index].first?.platformId),
+                          ),
                   ],
                 ),
                 Row(

@@ -9,7 +9,6 @@ import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/icon_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/scoring_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -23,16 +22,14 @@ import '../../../event_view_model.dart';
 class EventCreateWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const EventCreateWidget(this.viewModel, {Key? key})
-      : super(key: key);
+  const EventCreateWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventCreateWidgetState createState() =>
-      _EventCreateWidgetState();
+  _EventCreateWidgetState createState() => _EventCreateWidgetState();
 }
 
-class _EventCreateWidgetState
-    extends State<EventCreateWidget> implements BaseSateWidget {
+class _EventCreateWidgetState extends State<EventCreateWidget>
+    implements BaseSateWidget {
   int _index = 0;
   bool allowTeams = false;
   bool allowMembersOnly = false;
@@ -220,20 +217,24 @@ class _EventCreateWidgetState
                 height: 300,
                 width: MediaQuery.of(context).size.height,
                 child: bannerFile.path == ''
-                    ? Container(
-                      )
+                    ? Container()
                     : Image.file(
                         bannerFile,
                         fit: BoxFit.fill,
                       ),
               ),
             ),
-            IconButtonWidget(Icons.image_search, () async {
-              var image = await _picker.pickImage(source: ImageSource.gallery);
-              setState(() {
-                bannerFile = File(image?.path ?? '');
-              });
-            })
+            ButtonWidget(
+                enabled: true,
+                type: ButtonType.icon,
+                icon: Icons.image_search,
+                onPressed: () async {
+                  var image =
+                      await _picker.pickImage(source: ImageSource.gallery);
+                  setState(() {
+                    bannerFile = File(image?.path ?? '');
+                  });
+                })
           ],
         ),
         const SpacingWidget(LayoutSize.size32),

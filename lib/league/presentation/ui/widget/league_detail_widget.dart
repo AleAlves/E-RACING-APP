@@ -160,7 +160,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
         widget.viewModel.stopMembership();
       },
       isMember: widget.viewModel.league?.members
-          ?.where((element) => element == Session.instance.getUser()?.id)
+          ?.where((element) => element?.memberId == Session.instance.getUser()?.id)
           .isNotEmpty ??
           false,
     );

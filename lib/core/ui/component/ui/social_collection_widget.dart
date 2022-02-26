@@ -37,34 +37,31 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
         : CardWidget(
             ready: widget.links != null,
             placeholderHeight: 100,
-            child: Row(
-              children: [
-                Wrap(
-                  spacing: 25.0,
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Wrap(
+                  spacing: 20,
                   children: widget.links == null
                       ? [Container()]
                       : widget.links!
                           .map((item) {
-                            return Column(
-                              children: [
-                                ButtonWidget(
-                                    enabled: true,
-                                    type: ButtonType.icon,
-                                    onPressed: () {},
-                                    icon: _getSocialPlatform(item?.platformId)
-                                        .first,
-                                    buttonColor:
-                                        _getSocialPlatform(item?.platformId)
-                                            .second,
-                                    labelColor: Colors.white),
-                              ],
+                            return SizedBox(
+                              width: 50,
+                              child: ButtonWidget(
+                                  enabled: true,
+                                  type: ButtonType.icon,
+                                  onPressed: () {},
+                                  icon: _getSocialPlatform(item?.platformId)
+                                      .first,
+                                  buttonColor:
+                                      _getSocialPlatform(item?.platformId)
+                                          .second,
+                                  labelColor: Colors.white),
                             );
                           })
                           .toList()
                           .cast<Widget>(),
-                ),
-              ],
-            ),
+                )),
           );
   }
 

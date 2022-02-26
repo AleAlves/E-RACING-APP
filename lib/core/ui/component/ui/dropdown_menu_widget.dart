@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 class DropdownMenuWidget extends StatefulWidget {
   final String? hint;
-  final SocialPlatformModel? current;
+  final SocialPlatformModel? currentModel;
   final List<SocialPlatformModel?>? socialMedias;
   final ValueChanged<SocialPlatformModel?>? onSelected;
 
   const DropdownMenuWidget(this.socialMedias, this.onSelected,
-      {this.current, this.hint, Key? key})
+      {required this.currentModel, this.hint, Key? key})
       : super(key: key);
 
   @override
@@ -17,9 +17,12 @@ class DropdownMenuWidget extends StatefulWidget {
 }
 
 class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
+  SocialPlatformModel? current;
+
   @override
   void initState() {
     super.initState();
+    current = widget.currentModel;
   }
 
   @override
@@ -29,18 +32,19 @@ class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: DropdownButton<SocialPlatformModel>(
-              hint: TextWidget(text: widget.hint ?? '', style: Style.label),
-              value: widget.current,
+              hint: TextWidget(text: widget.hint ?? '', style: Style.subtitle),
+              value: current,
               underline: Container(height: 0),
               items: widget.socialMedias
                   ?.map<DropdownMenuItem<SocialPlatformModel>>((value) {
                 return DropdownMenuItem<SocialPlatformModel>(
                   value: value,
-                  child: TextWidget(text: value?.name ?? '',style: Style.label),
+                  child: TextWidget(text: value?.name ?? '',style: Style.subtitle),
                 );
               }).toList(),
               onChanged: (item) {
                 setState(() {
+                  current = item;
                   widget.onSelected?.call(item);
                 });
               },
