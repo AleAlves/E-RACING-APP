@@ -11,6 +11,7 @@ class Session{
   static PublicKeyModel? _publicKeyModel;
   static BearerTokenModel? _bearerTokenModel;
   static String? _currentLeagueId;
+  static String _server = "https://e-racing-api-dev.herokuapp.com/";
 
   Session._();
 
@@ -62,5 +63,13 @@ class Session{
 
   String? getLeagueId(){
     return _currentLeagueId;
+  }
+
+  void setURL(String url){
+    _server = url;
+  }
+
+  String getURL(){
+    return _server;
   }
 }

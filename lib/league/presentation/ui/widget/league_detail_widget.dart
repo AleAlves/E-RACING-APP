@@ -58,7 +58,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 4),
+              padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 4),
               child: banner(),
             ),
             Padding(

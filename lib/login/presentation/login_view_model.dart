@@ -29,10 +29,10 @@ abstract class _LoginViewModel with Store {
   _LoginViewModel();
 
   @observable
-  ViewState state = ViewState.loading;
+  ViewState state = ViewState.ready;
 
   @observable
-  LoginWidgetFlow flow = LoginWidgetFlow.login;
+  LoginWidgetFlow flow = LoginWidgetFlow.enviroment;
 
   @observable
   UserModel? user;

@@ -100,6 +100,18 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
                 enabled: true,
               ),
             ),
+            const SpacingWidget(LayoutSize.size48),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ButtonWidget(
+                label: "Edit Races",
+                type: ButtonType.normal,
+                onPressed: () {
+                  widget.viewModel.setFlow(EventFlows.manager);
+                },
+                enabled: true,
+              ),
+            ),
             const SpacingWidget(LayoutSize.size8),
           ],
         ),

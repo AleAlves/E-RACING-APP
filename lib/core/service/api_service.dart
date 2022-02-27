@@ -22,7 +22,7 @@ class ApiService extends BaseService {
   }
 
   Uri parseRequest(String endpoint) {
-    return Uri.parse(server + endpoint);
+    return Uri.parse(Session.instance.getURL() + endpoint);
   }
 
   Map<String, String> headers() {

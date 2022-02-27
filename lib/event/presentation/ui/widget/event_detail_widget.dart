@@ -70,12 +70,12 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           children: [
             const SpacingWidget(LayoutSize.size2),
             Padding(
-              padding: const EdgeInsets.only(left: 14, right: 14, top: 8),
+              padding: const EdgeInsets.only(left: 8, right: 8),
               child: banner(),
             ),
             const SpacingWidget(LayoutSize.size2),
             Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
+              padding: const EdgeInsets.only(left: 8, right: 8),
               child: title(),
             ),
             const SpacingWidget(LayoutSize.size2),

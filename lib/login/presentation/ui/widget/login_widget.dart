@@ -12,17 +12,16 @@ import 'package:mobx/mobx.dart';
 
 import '../../login_view_model.dart';
 
-class LoginFormWidget extends StatefulWidget {
+class LoginWidget extends StatefulWidget {
   final LoginViewModel viewModel;
 
-  const LoginFormWidget(this.viewModel, {Key? key}) : super(key: key);
+  const LoginWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _LoginFormWidgetState createState() => _LoginFormWidgetState();
+  _LoginWidgetState createState() => _LoginWidgetState();
 }
 
-class _LoginFormWidgetState extends State<LoginFormWidget>
-    implements BaseSateWidget {
+class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -32,6 +31,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
   void initState() {
     _emailController.text = '';
     _passwordController.text = '';
+    widget.viewModel.getPublickey();
     super.initState();
   }
 
@@ -123,7 +123,10 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
             label: "Esqueci a senha",
           ),
           const SpacingWidget(LayoutSize.size48),
-          const TextWidget(text: "Join us", style: Style.description,),
+          const TextWidget(
+            text: "Join us",
+            style: Style.description,
+          ),
           const SpacingWidget(LayoutSize.size16),
           ButtonWidget(
             enabled: true,

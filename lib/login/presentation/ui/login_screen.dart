@@ -21,7 +21,6 @@ class _LoginScreenState extends State<LoginScreen> implements BaseScreen {
   @override
   void initState() {
     super.initState();
-    viewModel.getPublickey();
   }
 
   @override

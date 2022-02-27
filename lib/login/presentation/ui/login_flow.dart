@@ -2,9 +2,9 @@ import 'package:e_racing_app/login/presentation/login_view_model.dart';
 import 'package:e_racing_app/login/presentation/ui/widget/login_2fa_otp_qr_widget.dart';
 import 'package:e_racing_app/login/presentation/ui/widget/login_2fa_otp_widget.dart';
 import 'package:e_racing_app/login/presentation/ui/widget/login_2fa_toogle_widget.dart';
+import 'package:e_racing_app/login/presentation/ui/widget/login_enviroment_widget.dart';
 import 'package:e_racing_app/login/presentation/ui/widget/login_forgot_widget.dart';
-import 'package:e_racing_app/login/presentation/ui/widget/login_form_widget.dart';
-import 'package:e_racing_app/login/presentation/ui/widget/login_initial_widget.dart';
+import 'package:e_racing_app/login/presentation/ui/widget/login_widget.dart';
 import 'package:e_racing_app/login/presentation/ui/widget/login_reset_widget.dart';
 import 'package:e_racing_app/login/presentation/ui/widget/login_signin_widget.dart';
 import 'package:e_racing_app/login/presentation/ui/widget/login_status_widget.dart';
@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 enum LoginWidgetFlow {
+  enviroment,
   login,
   signin,
   login2fa,
@@ -28,7 +29,7 @@ extension LoginNavigation on LoginWidgetFlow {
   static Widget flow(LoginViewModel vm) {
     switch (vm.flow) {
       case LoginWidgetFlow.login:
-        return LoginFormWidget(vm);
+        return LoginWidget(vm);
       case LoginWidgetFlow.signin:
         return LoginSigninWidget(vm);
       case LoginWidgetFlow.login2fa:
@@ -47,6 +48,8 @@ extension LoginNavigation on LoginWidgetFlow {
         return LoginForgotWidget(vm);
       case LoginWidgetFlow.status:
         return LoginStatusWidget(vm);
+      case LoginWidgetFlow.enviroment:
+        return LoginEnviromentWidget(vm);
     }
   }
 }
