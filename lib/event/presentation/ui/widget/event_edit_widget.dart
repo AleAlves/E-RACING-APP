@@ -45,6 +45,9 @@ class _EventEditWidgetState extends State<EventEditWidget>
   List<Pair<TextEditingController, TextEditingController>> classesControllers =
       [];
 
+  bool editingClasses = false;
+  bool editingSettings = false;
+
   @override
   void initState() {
     observers();
@@ -347,6 +350,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
                             if (value == null || value.isEmpty) {
                               return "required";
                             }
+                            editingClasses = true;
                             return null;
                           }),
                       const SpacingWidget(LayoutSize.size16),
@@ -358,6 +362,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
                           if (value == null || value.isEmpty) {
                             return "required";
                           }
+                          editingClasses = true;
                           return null;
                         },
                         inputType: InputType.number,
@@ -392,6 +397,19 @@ class _EventEditWidgetState extends State<EventEditWidget>
       enabled: _formKey.currentState?.validate() == true,
       type: ButtonType.normal,
       onPressed: () {
+        if (editingClasses) {
+          for (var i = 0; i < classesControllers.length; i++) {
+            classesModel?[i]?.name = classesControllers[i].first?.text;
+            classesModel?[i]?.maxEntries =
+                int.parse(classesControllers[i].second?.text ?? '');
+          }
+        }
+        if (editingSettings) {
+          for (var i = 0; i < settingsControllers.length; i++) {
+            settingsModel?[i]?.name = settingsControllers[i].first?.text;
+            settingsModel?[i]?.value = settingsControllers[i].second?.text;
+          }
+        }
         var event = widget.viewModel.event;
         event?.settings = settingsModel;
         event?.classes = classesModel;

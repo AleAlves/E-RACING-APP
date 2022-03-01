@@ -2,7 +2,6 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/event_membership_panel_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_subscribers_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_subscriptions_panel_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
@@ -65,9 +64,9 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
         children: [
           eventStatus(),
           eventSubscriptions(),
-          eventMemberships(),
           editEvent(),
-          subscribers()
+          subscribers(),
+          excludeEvent()
         ],
       ),
     );
@@ -131,24 +130,7 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
               onToogle: () {
                 widget.viewModel.toogleSubscriptions();
               },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget eventMemberships() {
-    return CardWidget(
-      ready: true,
-      child: Column(
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: EventMembershipPanelWidget(
-              minWidth: MediaQuery.of(context).size.width,
-              event: widget.viewModel.event,
-              onToogle: () {
+              onToogleMembership: () {
                 widget.viewModel.toogleMembersOnly();
               },
             ),
@@ -268,6 +250,40 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
       classes: widget.viewModel.event?.classes,
       users: widget.viewModel.users,
     );
+  }
+
+  Widget excludeEvent() {
+    return CardWidget(
+        child: Column(
+          children: [
+            Row(
+              children: const [
+                Icon(Icons.delete_forever),
+                SpacingWidget(LayoutSize.size8),
+                TextWidget(
+                  text: "Exclude",
+                  style: Style.subtitle,
+                  align: TextAlign.left,
+                ),
+              ],
+            ),
+            const SpacingWidget(LayoutSize.size16),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ButtonWidget(
+                label: "Delete this event",
+                type: ButtonType.important,
+                onPressed: () {
+                  showAlert(
+                      "Are you sure you want to delete this event? ", () {});
+                },
+                enabled: true,
+              ),
+            ),
+            const SpacingWidget(LayoutSize.size8),
+          ],
+        ),
+        ready: true);
   }
 
   Pair<bool, String>? _getStatus() {
