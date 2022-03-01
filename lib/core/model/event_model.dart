@@ -13,22 +13,23 @@ enum EventState { idle, ongoing, finished }
 @JsonSerializable()
 class EventModel {
   @JsonKey(name: '_id')
-  final String? id;
-  final String? title;
-  final String? rules;
-  final bool? finished;
-  final bool? joinable;
-  final String? hostId;
-  final EventType? type;
-  final EventState? state;
-  final bool? teamsEnabled;
-  final bool? membersOnly;
-  final int? teamsMaxCrew;
-  final List<int?>? scoring;
-  final List<RaceModel?>? races;
-  final List<TeamModel?>? teams;
-  final List<ClassesModel?>? classes;
-  final List<SettingsModel?>? settings;
+  String? id;
+  String? title;
+  String? rules;
+  bool? finished;
+  bool? joinable;
+  String? hostId;
+  EventType? type;
+  String? leagueId;
+  EventState? state;
+  bool? teamsEnabled;
+  bool? membersOnly;
+  int? teamsMaxCrew;
+  List<int?>? scoring;
+  List<RaceModel?>? races;
+  List<TeamModel?>? teams;
+  List<ClassesModel?>? classes;
+  List<SettingsModel?>? settings;
 
   EventModel({
     this.id,
@@ -43,6 +44,7 @@ class EventModel {
     this.joinable,
     this.settings,
     this.finished,
+    this.leagueId,
     this.teamsMaxCrew,
     required this.races,
     required this.membersOnly,

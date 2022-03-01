@@ -39,6 +39,7 @@ import 'domain/get_event_usecase.dart';
 import 'domain/toogle_members_only_usecase.dart';
 import 'domain/toogle_subscriptions_usecase.dart';
 import 'domain/unsubscribe_event_usecase.dart';
+import 'domain/update_event_usecase.dart';
 import 'presentation/ui/event_flow.dart';
 
 part 'event_view_model.g.dart';
@@ -104,6 +105,7 @@ abstract class _EventViewModel with Store {
   final _fetchEventHomeUseCase =
       Modular.get<FetchEventsUseCase<List<EventModel>>>();
   final _createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
+  final _updateEventUseCase = Modular.get<UpdateEventUseCase<StatusModel>>();
   final _doSubscribeEventUseCase =
       Modular.get<SubscribeEventUseCase<StatusModel>>();
   final _unsubscribeEventUseCase =
@@ -314,6 +316,16 @@ abstract class _EventViewModel with Store {
               setFlow(EventFlows.status);
             },
             error: onError);
+  }
+
+  Future<void> updateEvent(EventModel event, MediaModel media) async {
+    state = ViewState.loading;
+    await _updateEventUseCase.build(event: event, media: media).invoke(
+        success: (data) {
+          status = data;
+          setFlow(EventFlows.status);
+        },
+        error: onError);
   }
 
   void createTeam(String name, List<String?> ids) async {

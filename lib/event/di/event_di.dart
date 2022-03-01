@@ -20,6 +20,7 @@ import 'package:e_racing_app/event/domain/get_event_usecase.dart';
 import 'package:e_racing_app/event/domain/toogle_members_only_usecase.dart';
 import 'package:e_racing_app/event/domain/toogle_subscriptions_usecase.dart';
 import 'package:e_racing_app/event/domain/unsubscribe_event_usecase.dart';
+import 'package:e_racing_app/event/domain/update_event_usecase.dart';
 import 'package:e_racing_app/event/event_view_model.dart';
 import 'package:e_racing_app/event/presentation/ui/event_screen.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
@@ -34,6 +35,7 @@ class EventModule extends Module {
         Bind.factory((i) => GetMediaUseCase<MediaModel>()),
         Bind.factory((i) => FetchEventsUseCase<List<EventModel>>()),
         Bind.factory((i) => CreateEventUseCase<StatusModel>()),
+        Bind.factory((i) => UpdateEventUseCase<StatusModel>()),
         Bind.factory((i) => SubscribeEventUseCase<StatusModel>()),
         Bind.factory((i) => UnsubscribeEventUseCase<StatusModel>()),
         Bind.factory((i) => CreateTeamUseCase<StatusModel>()),

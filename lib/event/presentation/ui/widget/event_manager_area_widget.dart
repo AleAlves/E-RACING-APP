@@ -92,10 +92,10 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: ButtonWidget(
-                label: "Edit event",
+                label: "Event",
                 type: ButtonType.normal,
                 onPressed: () {
-                  widget.viewModel.setFlow(EventFlows.manager);
+                  widget.viewModel.setFlow(EventFlows.editEvent);
                 },
                 enabled: true,
               ),
@@ -104,7 +104,7 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: ButtonWidget(
-                label: "Edit Races",
+                label: "Races",
                 type: ButtonType.normal,
                 onPressed: () {
                   widget.viewModel.setFlow(EventFlows.manager);

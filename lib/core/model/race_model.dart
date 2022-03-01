@@ -6,15 +6,15 @@ part 'race_model.g.dart';
 @JsonSerializable()
 class RaceModel {
   @JsonKey(name: '_id')
-  final String? id;
-  final String? date;
-  final String? title;
-  final String? poster;
-  final bool? finished;
-  final bool? broadcasting;
-  final String? broadcastLink;
-  final List<SessionModel?>? sessions;
-
+  String? id;
+  String? date;
+  String? title;
+  String? poster;
+  String? leagueId;
+  bool? finished;
+  bool? broadcasting;
+  String? broadcastLink;
+  List<SessionModel?>? sessions;
 
   RaceModel({
     required this.date,
@@ -22,6 +22,7 @@ class RaceModel {
     required this.broadcasting,
     this.id,
     this.poster,
+    this.leagueId,
     this.sessions,
     this.finished,
     this.broadcastLink,

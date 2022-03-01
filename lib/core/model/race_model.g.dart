@@ -12,6 +12,7 @@ RaceModel _$RaceModelFromJson(Map<String, dynamic> json) => RaceModel(
       broadcasting: json['broadcasting'] as bool?,
       id: json['_id'] as String?,
       poster: json['poster'] as String?,
+      leagueId: json['leagueId'] as String?,
       sessions: (json['sessions'] as List<dynamic>?)
           ?.map((e) => e == null
               ? null
@@ -26,6 +27,7 @@ Map<String, dynamic> _$RaceModelToJson(RaceModel instance) => <String, dynamic>{
       'date': instance.date,
       'title': instance.title,
       'poster': instance.poster,
+      'leagueId': instance.leagueId,
       'finished': instance.finished,
       'broadcasting': instance.broadcasting,
       'broadcastLink': instance.broadcastLink,

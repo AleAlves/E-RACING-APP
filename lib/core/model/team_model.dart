@@ -7,10 +7,11 @@ class TeamModel {
   @JsonKey(name: '_id')
   final String? id;
   String? name;
+  String? creator;
   int? points;
   List<String?>? crew;
 
-  TeamModel({this.id, this.name, this.crew, this.points});
+  TeamModel({this.id, this.name, this.creator, this.crew, this.points});
 
   factory TeamModel.fromJson(Map<String, dynamic> json) => _$TeamModelFromJson(json);
 
