@@ -44,6 +44,7 @@ class _EventCreateRaceSessionWidgetState
       children: [
         ListView.builder(
           shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
           itemCount: widget.model?.sessions?.length,
           itemBuilder: (context, index) {
             return CardWidget(

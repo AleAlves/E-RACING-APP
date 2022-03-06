@@ -203,7 +203,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   Widget rules() {
     return (widget.viewModel.event?.rules?.isNotEmpty ?? false)
         ? ExpandedWidget(
-            cardless: true,
+            shapeless: true,
             ready: widget.viewModel.event != null,
             header: Row(
               children: const [
@@ -234,7 +234,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
 
   Widget scoring() {
     return ExpandedWidget(
-      cardless: true,
+      shapeless: true,
       ready: widget.viewModel.event != null,
       header: Row(
         children: const [
@@ -264,7 +264,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
     var hasSettings = widget.viewModel.event?.settings?.isNotEmpty ?? false;
     return hasSettings
         ? ExpandedWidget(
-            cardless: true,
+            shapeless: true,
             ready: widget.viewModel.event != null,
             header: Row(
               children: const [
@@ -292,7 +292,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
     var teams = widget.viewModel.event?.teamsEnabled ?? false;
     return teams
         ? ExpandedWidget(
-            cardless: true,
+            shapeless: true,
             ready: widget.viewModel.event != null,
             header: Row(
               children: const [

@@ -9,11 +9,11 @@ import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 
 class UpdateEventUseCase<T> extends BaseUseCase<T> {
   late MediaModel? _media;
-  late EventModel _event;
+  late EventModel? _event;
   late String? _leagueId;
 
   UpdateEventUseCase<T> build(
-      {required EventModel event, MediaModel? media, String? leagueId}) {
+      {required EventModel? event, MediaModel? media, String? leagueId}) {
     _media = media;
     _event = event;
     _leagueId = leagueId;

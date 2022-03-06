@@ -19,6 +19,7 @@ import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -322,7 +323,7 @@ abstract class _EventViewModel with Store {
             error: onError);
   }
 
-  Future<void> updateEvent(EventModel event, MediaModel media) async {
+  Future<void> updateEvent(EventModel? event, MediaModel? media) async {
     state = ViewState.loading;
     await _updateEventUseCase.build(event: event, media: media).invoke(
         success: (data) {
@@ -421,6 +422,22 @@ abstract class _EventViewModel with Store {
   void editRace(String? id) {
     raceId = id;
     setFlow(EventFlows.managementEditRace);
+  }
+
+  void updateRace(ChampionshipRacesModel? model) {
+    event?.races?.forEach((race) {
+      if (race?.id == model?.id) {
+        race?.broadcastLink = model?.broadcastingLinkController?.text;
+        race?.date = model?.eventDate?.toIso8601String();
+        race?.broadcasting = model?.hasBroadcasting;
+        race?.title = model?.titleController?.text;
+        race?.poster = model?.poster.toString();
+        race?.leagueId = event?.leagueId;
+        race?.sessions = model?.sessions;
+        race?.finished = false;
+      }
+    });
+    updateEvent(event, media);
   }
 
   void onError(ApiException error) {

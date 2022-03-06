@@ -61,13 +61,14 @@ class _EventManagementEditRaceWidgetState
 
     model = ChampionshipRacesModel(
         eventDate: toDatetime(race?.date),
-        posterbase64: base64Decode(race?.poster ?? ''),
+        poster: race?.poster,
         hasBroadcasting: false,
         picker: ImagePicker(),
         posterFile: File(''),
         titleController: titleController,
         broadcastingLinkController: linkController,
-        sessions: race?.sessions);
+        sessions: race?.sessions,
+        id: race?.id);
   }
 
   @override
@@ -183,7 +184,7 @@ class _EventManagementEditRaceWidgetState
               child: SizedBox(
                 height: 300,
                 width: MediaQuery.of(context).size.height,
-                child: Image.memory(model?.posterbase64 ?? Uint8List(0)),
+                child: Image.memory(base64Decode(model?.poster ?? '')),
               ),
             ),
             ButtonWidget(
@@ -209,7 +210,8 @@ class _EventManagementEditRaceWidgetState
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextWidget(
-            text: "${formatHour(model?.eventDate?.toIso8601String())} - ${formatDate(model?.eventDate?.toIso8601String())}",
+            text:
+                "${formatHour(model?.eventDate?.toIso8601String())} - ${formatDate(model?.eventDate?.toIso8601String())}",
             style: Style.subtitle),
         const SpacingWidget(LayoutSize.size32),
         ButtonWidget(
@@ -229,6 +231,7 @@ class _EventManagementEditRaceWidgetState
       ],
     );
   }
+
   Widget sessionsWidget() {
     return EventCreateRaceSessionWidget(
       model: model,
@@ -291,7 +294,9 @@ class _EventManagementEditRaceWidgetState
     return ButtonWidget(
       enabled: true,
       type: ButtonType.normal,
-      onPressed: () {},
+      onPressed: () {
+        widget.viewModel.updateRace(model);
+      },
       label: "Update",
     );
   }

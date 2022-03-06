@@ -151,7 +151,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
 
   Widget subscribedWidget() {
     return ExpandedWidget(
-        cardless: true,
+        shapeless: true,
         header: Row(
           children: const [
             Icon(Icons.assignment),

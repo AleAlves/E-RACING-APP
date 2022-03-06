@@ -8,7 +8,7 @@ class ExpandedWidget extends StatefulWidget {
   final Widget header;
   final List<Widget> body;
   final bool ready;
-  final bool cardless;
+  final bool shapeless;
   final bool iniExpanded;
 
   const ExpandedWidget(
@@ -17,7 +17,7 @@ class ExpandedWidget extends StatefulWidget {
       required this.body,
       required this.ready,
       this.iniExpanded = false,
-      this.cardless = false})
+      this.shapeless = false})
       : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
       widget.ready ? content() : const LoadingShimmer();
 
   Widget content() {
-    if (widget.cardless) {
+    if (widget.shapeless) {
       return expansionWidget();
     }
     return CardWidget(ready: widget.ready, child: expansionWidget());
@@ -51,12 +51,6 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
           trailing: Padding(
             padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
             child: Ink(
-              decoration: ShapeDecoration(
-                shape: const CircleBorder(),
-                color: widget.cardless
-                    ? Colors.transparent
-                    : Theme.of(context).colorScheme.background,
-              ),
               child: _expanded
                   ? Icon(
                       Icons.keyboard_arrow_up,

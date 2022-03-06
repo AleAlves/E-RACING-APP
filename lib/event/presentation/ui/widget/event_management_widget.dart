@@ -256,18 +256,6 @@ class _EventManagementWidgetState extends State<EventManagementWidget>
     return CardWidget(
         child: Column(
           children: [
-            Row(
-              children: const [
-                Icon(Icons.delete_forever),
-                SpacingWidget(LayoutSize.size8),
-                TextWidget(
-                  text: "Exclude",
-                  style: Style.subtitle,
-                  align: TextAlign.left,
-                ),
-              ],
-            ),
-            const SpacingWidget(LayoutSize.size16),
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: ButtonWidget(

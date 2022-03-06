@@ -1,13 +1,13 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:e_racing_app/core/model/session_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChampionshipRacesModel {
+  String? id;
   File? posterFile;
-  Uint8List? posterbase64;
+  String? poster;
   DateTime? eventDate;
   ImagePicker? picker;
   bool? hasBroadcasting;
@@ -23,6 +23,7 @@ class ChampionshipRacesModel {
     required this.posterFile,
     required this.titleController,
     required this.broadcastingLinkController,
-    this.posterbase64,
+    this.poster,
+    this.id,
   });
 }

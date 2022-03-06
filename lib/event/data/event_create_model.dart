@@ -8,7 +8,7 @@ part 'event_create_model.g.dart';
 @JsonSerializable()
 class EventCreateModel {
   late MediaModel? media;
-  late EventModel event;
+  late EventModel? event;
   late String? leagueId;
 
   EventCreateModel(this.media, this.event, this.leagueId);

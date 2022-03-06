@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
@@ -58,12 +59,8 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 4),
+              padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
               child: banner(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: description(),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
@@ -91,13 +88,26 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   }
 
   Widget banner() {
-    return BannerWidget(
-      media: widget.viewModel.media,
+    return CardWidget(
+      padding: EdgeInsets.zero,
+      ready: true,
+      child: Column(
+        children: [
+          BannerWidget(
+            media: widget.viewModel.media,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: description(),
+          )
+        ],
+      ),
     );
   }
 
   Widget description() {
     return ExpandedWidget(
+      shapeless: true,
       ready: widget.viewModel.league != null,
       header: Row(
         children: [
