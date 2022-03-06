@@ -29,7 +29,7 @@ class UpdateEventUseCase<T> extends BaseUseCase<T> {
         params: HTTPRequesParams(data: EventCreateModel(_media, _event, _leagueId))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Event Updated", action: "Ok", next: EventFlows.list) as T);
+          message: "Event Updated", action: "Ok", next: EventFlows.manager) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

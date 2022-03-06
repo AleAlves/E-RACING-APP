@@ -14,16 +14,16 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
-class EventManagerAreaWidget extends StatefulWidget {
+class EventManagementWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const EventManagerAreaWidget(this.viewModel, {Key? key}) : super(key: key);
+  const EventManagementWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventManagerAreaWidgetState createState() => _EventManagerAreaWidgetState();
+  _EventManagementWidgetState createState() => _EventManagementWidgetState();
 }
 
-class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
+class _EventManagementWidgetState extends State<EventManagementWidget>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -94,7 +94,7 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
                 label: "Event",
                 type: ButtonType.normal,
                 onPressed: () {
-                  widget.viewModel.setFlow(EventFlows.editEvent);
+                  widget.viewModel.setFlow(EventFlows.managementEditEvent);
                 },
                 enabled: true,
               ),
@@ -106,7 +106,7 @@ class _EventManagerAreaWidgetState extends State<EventManagerAreaWidget>
                 label: "Races",
                 type: ButtonType.normal,
                 onPressed: () {
-                  widget.viewModel.setFlow(EventFlows.manager);
+                  widget.viewModel.setFlow(EventFlows.managementEditRaceList);
                 },
                 enabled: true,
               ),

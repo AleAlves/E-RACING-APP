@@ -7,13 +7,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChampionshipRacesModel {
-  File posterFile;
-  DateTime eventDate;
-  ImagePicker picker;
-  bool hasBroadcasting;
-  List<SessionModel>? sessions;
-  TextEditingController titleController;
-  TextEditingController broadcastingLinkController;
+  File? posterFile;
+  DateTime? eventDate;
+  ImagePicker? picker;
+  bool? hasBroadcasting;
+  List<SessionModel?>? sessions;
+  TextEditingController? titleController;
+  TextEditingController? broadcastingLinkController;
 
   ChampionshipRacesModel(
       {required this.hasBroadcasting,

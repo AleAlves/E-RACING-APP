@@ -53,7 +53,7 @@ class _EventCreateRaceSessionWidgetState
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextWidget(
-                          text: getSessionType(widget.model.sessions?[index].type),
+                          text: getSessionType(widget.model.sessions?[index]?.type),
                           style: Style.subtitle,
                         ),
                         Padding(
@@ -71,13 +71,13 @@ class _EventCreateRaceSessionWidgetState
                       ],
                     ),
                     if (widget.model.sessions?[index] == null ||
-                        widget.model.sessions?[index].settings == null ||
-                        widget.model.sessions?[index].settings?.isEmpty == true)
+                        widget.model.sessions?[index]?.settings == null ||
+                        widget.model.sessions?[index]?.settings?.isEmpty == true)
                       Container()
                     else
                       Wrap(
                         direction: Axis.vertical,
-                        children: widget.model.sessions![index].settings!
+                        children: widget.model.sessions![index]!.settings!
                             .map((item) {
                               return TextWidget(
                                   text: "${item?.name}: ${item?.value}",
@@ -100,8 +100,8 @@ class _EventCreateRaceSessionWidgetState
                             }),
                         const SpacingWidget(LayoutSize.size24),
                         if (widget.model.sessions?[index] == null ||
-                            widget.model.sessions?[index].settings == null ||
-                            widget.model.sessions?[index].settings?.isEmpty == true)
+                            widget.model.sessions?[index]?.settings == null ||
+                            widget.model.sessions?[index]?.settings?.isEmpty == true)
                           Container()
                         else
                           ButtonWidget(
@@ -111,7 +111,7 @@ class _EventCreateRaceSessionWidgetState
                               label: "Delete",
                               onPressed: () async {
                                 setState(() {
-                                  widget.model.sessions?[index].settings?.removeLast();
+                                  widget.model.sessions?[index]?.settings?.removeLast();
                                 });
                               }),
                       ],
@@ -288,7 +288,7 @@ class _EventCreateRaceSessionWidgetState
                         onPressed: () {
                           if (_formKey.currentState?.validate() == true) {
                             setState(() {
-                              widget.model.sessions?[index].settings?.add(
+                              widget.model.sessions?[index]?.settings?.add(
                                   SettingsModel(
                                       name: nameController.text,
                                       value: valueController.text));

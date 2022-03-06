@@ -487,11 +487,6 @@ class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
       enabled: _formKey.currentState?.validate() == true,
       type: ButtonType.normal,
       onPressed: () {
-        // for (var i = 0; i < sessionModel.length; i++) {
-        // sessionModel[i]?.name = settingsNamesControllers[i].text;
-        // sessionModel[i]?.value = settingsValuesControllers[i].text;
-        // }
-
         for (var i = 0; i < classesModel.length; i++) {
           classesModel[i]?.name = classesNameControllers[i].text;
           classesModel[i]?.maxEntries =

@@ -17,7 +17,6 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -76,11 +75,6 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             const SpacingWidget(LayoutSize.size2),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
-              child: title(),
-            ),
-            const SpacingWidget(LayoutSize.size2),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
               child: status(),
             ),
             const SpacingWidget(LayoutSize.size2),
@@ -111,22 +105,29 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   }
 
   Widget banner() {
-    return BannerWidget(
-      media: widget.viewModel.media,
+    return CardWidget(
+      padding: EdgeInsets.zero,
+      ready: true,
+      child: Column(
+        children: [
+          BannerWidget(
+            media: widget.viewModel.media,
+          ),
+          const SpacingWidget(LayoutSize.size8),
+          title()
+        ],
+      ),
     );
   }
 
   Widget title() {
-    return CardWidget(
-      child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextWidget(
-                text: widget.viewModel.event?.title, style: Style.title),
-          )),
-      ready: true,
-    );
+    return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: TextWidget(
+              text: widget.viewModel.event?.title, style: Style.title),
+        ));
   }
 
   Widget adminPanel() {
@@ -149,7 +150,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding:  const EdgeInsets.only(left: 18, right: 18),
+                    padding: const EdgeInsets.only(left: 18, right: 18),
                     child: ButtonWidget(
                       label: "Manager area",
                       type: ButtonType.normal,

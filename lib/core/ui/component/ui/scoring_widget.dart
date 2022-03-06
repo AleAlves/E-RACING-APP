@@ -31,15 +31,16 @@ class _ScoringWidgetState extends State<ScoringWidget> {
 
   @override
   void initState() {
-    if (widget.scoring == null) {
+    if (widget.scoring == null && widget.editing == false) {
       defaultScore();
+      updateScore();
     } else {
       scoringEdit.clear();
       widget.scoring?.forEach((element) {
         scoringEdit.add(Pair(element, TextEditingController()));
+        updateScore();
       });
     }
-    updateScore();
     super.initState();
   }
 
@@ -49,63 +50,61 @@ class _ScoringWidgetState extends State<ScoringWidget> {
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: Column(
         children: [
-          if (widget.editing)
-            editting()
-          else
-            Container(),
+          if (widget.editing) editting() else Container(),
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.start,
             alignment: WrapAlignment.start,
             spacing: 5.0,
             children: scoringEdit
                 .map((score) {
-              score.second?.text = score.first.toString();
-              var position = scoringEdit.indexOf(score);
-              ++position;
-              return CardWidget(
-                ready: true,
-                child: Column(
-                  children: [
-                    TextWidget(
-                        text: "${position.toString()}°",
-                        style: Style.label),
-                    SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: TextWidget(
-                          text: score.first.toString(),
-                          style: Style.label,
+                  score.second?.text = score.first.toString();
+                  var position = scoringEdit.indexOf(score);
+                  ++position;
+                  return CardWidget(
+                    ready: true,
+                    child: Column(
+                      children: [
+                        TextWidget(
+                            text: "${position.toString()}°",
+                            style: Style.label),
+                        SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: TextWidget(
+                              text: score.first.toString(),
+                              style: Style.label,
+                            ),
+                          ),
                         ),
-                      ),
+                        const TextWidget(text: "pts", style: Style.label)
+                      ],
                     ),
-                    const TextWidget(text: "pts", style: Style.label)
-                  ],
-                ),
-                onPressed: () {
-                  setState(() {
-                    if (widget.editing) actionTooltip(score);
-                  });
-                },
-              );
-            })
+                    onPressed: () {
+                      setState(() {
+                        if (widget.editing) actionTooltip(score);
+                      });
+                    },
+                  );
+                })
                 .toList()
                 .cast<Widget>(),
           ),
           const SpacingWidget(LayoutSize.size48),
-          if (widget.editing) actions() else
-            Container()
+          if (widget.editing) actions() else Container()
         ],
       ),
     );
   }
 
   Widget editting() {
-    return Column(children: const [
-      TextWidget(text: "Tap to edit", style: Style.description),
-      SpacingWidget(LayoutSize.size48)
-    ],);
+    return Column(
+      children: const [
+        TextWidget(text: "Tap to edit", style: Style.description),
+        SpacingWidget(LayoutSize.size48)
+      ],
+    );
   }
 
   Widget actions() {
@@ -142,47 +141,40 @@ class _ScoringWidgetState extends State<ScoringWidget> {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
-      builder: (context) =>
-          SizedBox(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height / 5 +
-                MediaQuery
-                    .of(context)
-                    .viewInsets
-                    .bottom,
-            child: Column(
-              children: [
-                const SpacingWidget(LayoutSize.size16),
-                Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: InputTextWidget(
-                      label: "Set Score",
-                      controller: score.second,
-                      inputType: InputType.number,
-                      validator: (value) {
-                        if (value == null || double.tryParse(value) == null) {
-                          return "invalid score value";
-                        }
-                      }),
-                ),
-                const SpacingWidget(LayoutSize.size16),
-                ButtonWidget(
-                    enabled: true,
-                    label: "apply",
-                    type: ButtonType.normal,
-                    icon: Icons.remove,
-                    onPressed: () async {
-                      setState(() {
-                        score.first = int.parse(score.second?.text ?? "0");
-                        updateScore();
-                        Navigator.of(context).pop();
-                      });
-                    }),
-              ],
+      builder: (context) => SizedBox(
+        height: MediaQuery.of(context).size.height / 5 +
+            MediaQuery.of(context).viewInsets.bottom,
+        child: Column(
+          children: [
+            const SpacingWidget(LayoutSize.size16),
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: InputTextWidget(
+                  label: "Set Score",
+                  controller: score.second,
+                  inputType: InputType.number,
+                  validator: (value) {
+                    if (value == null || double.tryParse(value) == null) {
+                      return "invalid score value";
+                    }
+                  }),
             ),
-          ),
+            const SpacingWidget(LayoutSize.size16),
+            ButtonWidget(
+                enabled: true,
+                label: "apply",
+                type: ButtonType.normal,
+                icon: Icons.remove,
+                onPressed: () async {
+                  setState(() {
+                    score.first = int.parse(score.second?.text ?? "0");
+                    updateScore();
+                    Navigator.of(context).pop();
+                  });
+                }),
+          ],
+        ),
+      ),
     );
   }
 

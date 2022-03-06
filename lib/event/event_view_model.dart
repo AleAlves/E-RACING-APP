@@ -53,6 +53,9 @@ abstract class _EventViewModel with Store {
   String? eventId;
 
   @observable
+  String? raceId;
+
+  @observable
   EventModel? event;
 
   @observable
@@ -277,15 +280,16 @@ abstract class _EventViewModel with Store {
     for (var element in racesModel) {
       var poster;
       try {
-        List<int> posterBytes = element.posterFile.readAsBytesSync();
+        List<int> posterBytes =
+            element.posterFile?.readAsBytesSync() as List<int>;
         poster = base64Encode(posterBytes);
       } catch (e) {}
       races.add(RaceModel(
           poster: poster,
           sessions: element.sessions,
           broadcasting: element.hasBroadcasting,
-          date: element.eventDate.toIso8601String(),
-          title: element.titleController.text));
+          date: element.eventDate?.toIso8601String(),
+          title: element.titleController?.text));
     }
     var banner;
     try {
@@ -412,6 +416,11 @@ abstract class _EventViewModel with Store {
               setFlow(EventFlows.status);
             },
             error: onError);
+  }
+
+  void editRace(String? id) {
+    raceId = id;
+    setFlow(EventFlows.managementEditRace);
   }
 
   void onError(ApiException error) {

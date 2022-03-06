@@ -23,20 +23,7 @@ class EventRaceCollection extends StatelessWidget {
   Widget build(BuildContext context) => raceList(context);
 
   Widget raceList(BuildContext context) {
-    return ExpandedWidget(
-      iniExpanded: true,
-      body: racesSteps(context),
-      header: Row(
-        children: const [
-          TextWidget(
-            text: "Races",
-            style: Style.subtitle,
-            align: TextAlign.left,
-          ),
-        ],
-      ),
-      ready: true,
-    );
+    return Column(children: racesSteps(context),);
   }
 
   List<Widget> racesSteps(BuildContext context) {
@@ -119,7 +106,6 @@ class EventRaceCollection extends StatelessWidget {
             ],
           ),
         ),
-        const SpacingWidget(LayoutSize.size16),
       ],
     );
   }

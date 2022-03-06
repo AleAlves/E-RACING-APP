@@ -133,7 +133,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const TextWidget(text: "Championship", style: Style.title),
+          const TextWidget(text: "Event", style: Style.title),
           stepper()
         ],
       ),
@@ -266,6 +266,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
   Widget scoring() {
     return ScoringWidget(
       editing: true,
+      scoring: widget.viewModel.event?.scoring,
       onScore: (scoring) {
         score = scoring;
       },
@@ -292,6 +293,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
                             if (value == null || value.isEmpty) {
                               return "required";
                             }
+                            editingSettings = true;
                             return null;
                           }),
                       const SpacingWidget(LayoutSize.size16),
@@ -303,6 +305,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
                             if (value == null || value.isEmpty) {
                               return "required";
                             }
+                            editingSettings = true;
                             return null;
                           }),
                       const SpacingWidget(LayoutSize.size16),
