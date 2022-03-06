@@ -64,31 +64,28 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   @override
   Widget content() {
     return Column(
-      children: [banner(), title(), schedule(), sessions(), standings()],
+      children: [banner(), schedule(), sessions(), standings()],
     );
   }
 
   Widget banner() {
     return Padding(
-      padding: const EdgeInsets.only(left: 14, right: 14, top: 8),
-      child: PosterWidget(
-        post: widget.viewModel.race?.poster,
-      ),
-    );
-  }
-
-  Widget title() {
-    return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
       child: CardWidget(
-        child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.zero,
+        ready: widget.viewModel.race?.title != null,
+        child: Column(
+          children: [
+            PosterWidget(
+              post: widget.viewModel.race?.poster,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(24.0),
               child: TextWidget(
                   text: widget.viewModel.race?.title, style: Style.title),
-            )),
-        ready: true,
+            )
+          ],
+        ),
       ),
     );
   }

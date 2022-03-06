@@ -20,16 +20,16 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../event_view_model.dart';
 
-class EventCreateRaceWidget extends StatefulWidget {
+class EventCreateSingleRaceWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const EventCreateRaceWidget(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateSingleRaceWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventCreateRaceWidgetState createState() => _EventCreateRaceWidgetState();
+  _EventCreateSingleRaceWidgetState createState() => _EventCreateSingleRaceWidgetState();
 }
 
-class _EventCreateRaceWidgetState extends State<EventCreateRaceWidget>
+class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidget>
     implements BaseSateWidget {
   int _index = 0;
   bool allowTeams = false;

@@ -1,17 +1,22 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:e_racing_app/core/ext/date_extensions.dart';
-import 'package:e_racing_app/core/model/race_model.dart';
+import 'package:e_racing_app/core/model/session_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_races_session_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -31,7 +36,9 @@ class _EventManagementEditRaceWidgetState
   int _stepIndex = 0;
   final _formKey = GlobalKey<FormState>();
   TextEditingController titleController = TextEditingController();
-  RaceModel? race;
+  TextEditingController linkController = TextEditingController();
+  ChampionshipRacesModel? model;
+  List<SessionModel>? sessions;
 
   @override
   void initState() {
@@ -47,9 +54,20 @@ class _EventManagementEditRaceWidgetState
 
   @override
   observers() {
-    race = widget.viewModel.event?.races
+    var race = widget.viewModel.event?.races
         ?.firstWhere((element) => element?.id == widget.viewModel.raceId);
     titleController.text = race?.title ?? '';
+    linkController.text = race?.broadcastLink ?? '';
+
+    model = ChampionshipRacesModel(
+        eventDate: toDatetime(race?.date),
+        posterbase64: base64Decode(race?.poster ?? ''),
+        hasBroadcasting: false,
+        picker: ImagePicker(),
+        posterFile: File(''),
+        titleController: titleController,
+        broadcastingLinkController: linkController,
+        sessions: race?.sessions);
   }
 
   @override
@@ -63,7 +81,7 @@ class _EventManagementEditRaceWidgetState
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(EventFlows.managementEditRaceList);
+    widget.viewModel.setFlow(EventFlows.manager);
     return false;
   }
 
@@ -121,7 +139,7 @@ class _EventManagementEditRaceWidgetState
               ),
               Step(
                 title: const Text('Sessions'),
-                content: Container(),
+                content: sessionsWidget(),
               ),
               Step(
                 title: const Text('Broadcast'),
@@ -165,7 +183,7 @@ class _EventManagementEditRaceWidgetState
               child: SizedBox(
                 height: 300,
                 width: MediaQuery.of(context).size.height,
-                child: Image.memory(base64Decode(race?.poster ?? '')),
+                child: Image.memory(model?.posterbase64 ?? Uint8List(0)),
               ),
             ),
             ButtonWidget(
@@ -190,7 +208,9 @@ class _EventManagementEditRaceWidgetState
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        TextWidget(text: formatDate(race?.date), style: Style.subtitle),
+        TextWidget(
+            text: "${formatHour(model?.eventDate?.toIso8601String())} - ${formatDate(model?.eventDate?.toIso8601String())}",
+            style: Style.subtitle),
         const SpacingWidget(LayoutSize.size32),
         ButtonWidget(
             icon: Icons.date_range,
@@ -199,11 +219,19 @@ class _EventManagementEditRaceWidgetState
             onPressed: () {
               DatePicker.showDateTimePicker(context,
                   showTitleActions: false,
-                  minTime: DateTime.now(), onChanged: (date) {
-                setState(() {});
+                  minTime: toDatetime(model?.eventDate?.toIso8601String()),
+                  onChanged: (date) {
+                setState(() {
+                  model?.eventDate = date;
+                });
               }, currentTime: DateTime.now());
             }),
       ],
+    );
+  }
+  Widget sessionsWidget() {
+    return EventCreateRaceSessionWidget(
+      model: model,
     );
   }
 
@@ -214,10 +242,10 @@ class _EventManagementEditRaceWidgetState
         Row(
           children: [
             Checkbox(
-              value: race?.broadcasting,
+              value: model?.hasBroadcasting,
               onChanged: (bool? value) {
                 setState(() {
-                  race?.broadcasting = value ?? false;
+                  model?.hasBroadcasting = value ?? false;
                 });
               },
             ),
@@ -225,7 +253,7 @@ class _EventManagementEditRaceWidgetState
                 text: "Live broadcasting", style: Style.description),
           ],
         ),
-        if (race?.broadcasting == true)
+        if (model?.hasBroadcasting == true)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

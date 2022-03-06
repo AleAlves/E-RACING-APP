@@ -96,11 +96,9 @@ class EventRaceCollection extends StatelessWidget {
               Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+                  children: const [
                     Icon(
-                      Icons.arrow_right,
-                      size: 24.0,
-                      color: Theme.of(context).colorScheme.primary,
+                      Icons.chevron_right,
                     )
                   ]),
             ],

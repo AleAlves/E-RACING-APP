@@ -13,7 +13,7 @@ import 'button_widget.dart';
 import 'spacing_widget.dart';
 
 class EventCreateRaceSessionWidget extends StatefulWidget {
-  final ChampionshipRacesModel model;
+  final ChampionshipRacesModel? model;
 
   const EventCreateRaceSessionWidget({required this.model, Key? key})
       : super(key: key);
@@ -44,7 +44,7 @@ class _EventCreateRaceSessionWidgetState
       children: [
         ListView.builder(
           shrinkWrap: true,
-          itemCount: widget.model.sessions?.length,
+          itemCount: widget.model?.sessions?.length,
           itemBuilder: (context, index) {
             return CardWidget(
                 child: Column(
@@ -53,7 +53,8 @@ class _EventCreateRaceSessionWidgetState
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextWidget(
-                          text: getSessionType(widget.model.sessions?[index]?.type),
+                          text: getSessionType(
+                              widget.model?.sessions?[index]?.type),
                           style: Style.subtitle,
                         ),
                         Padding(
@@ -64,27 +65,39 @@ class _EventCreateRaceSessionWidgetState
                               icon: Icons.delete,
                               onPressed: () {
                                 setState(() {
-                                  widget.model.sessions?.removeAt(index);
+                                  widget.model?.sessions?.removeAt(index);
                                 });
                               }),
                         )
                       ],
                     ),
-                    if (widget.model.sessions?[index] == null ||
-                        widget.model.sessions?[index]?.settings == null ||
-                        widget.model.sessions?[index]?.settings?.isEmpty == true)
+                    if (widget.model?.sessions?[index] == null ||
+                        widget.model?.sessions?[index]?.settings == null ||
+                        widget.model?.sessions?[index]?.settings?.isEmpty ==
+                            true)
                       Container()
                     else
-                      Wrap(
-                        direction: Axis.vertical,
-                        children: widget.model.sessions![index]!.settings!
-                            .map((item) {
-                              return TextWidget(
-                                  text: "${item?.name}: ${item?.value}",
-                                  style: Style.description);
-                            })
-                            .toList()
-                            .cast<Widget>(),
+                      ListView.builder(
+                        physics: const ClampingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount:
+                            widget.model!.sessions![index]!.settings!.length,
+                        itemBuilder: (context, settingsIndex) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              TextWidget(
+                                  text:
+                                      "${widget.model!.sessions![index]!.settings![settingsIndex]?.name}:",
+                                  style: Style.description),
+                              const SpacingWidget(LayoutSize.size8),
+                              TextWidget(
+                                  text:
+                                  "${widget.model!.sessions![index]!.settings![settingsIndex]?.value}",
+                                  style: Style.description),
+                            ],
+                          );
+                        },
                       ),
                     const SpacingWidget(LayoutSize.size16),
                     Row(
@@ -99,19 +112,21 @@ class _EventCreateRaceSessionWidgetState
                               newSettings(index);
                             }),
                         const SpacingWidget(LayoutSize.size24),
-                        if (widget.model.sessions?[index] == null ||
-                            widget.model.sessions?[index]?.settings == null ||
-                            widget.model.sessions?[index]?.settings?.isEmpty == true)
+                        if (widget.model?.sessions?[index] == null ||
+                            widget.model?.sessions?[index]?.settings == null ||
+                            widget.model!.sessions?[index]?.settings?.isEmpty ==
+                                true)
                           Container()
                         else
                           ButtonWidget(
                               enabled: true,
                               type: ButtonType.iconBorderless,
-                              icon: Icons.delete,
+                              icon: Icons.remove,
                               label: "Delete",
                               onPressed: () async {
                                 setState(() {
-                                  widget.model.sessions?[index]?.settings?.removeLast();
+                                  widget.model!.sessions?[index]?.settings
+                                      ?.removeLast();
                                 });
                               }),
                       ],
@@ -213,8 +228,9 @@ class _EventCreateRaceSessionWidgetState
                                   icon: Icons.done,
                                   onPressed: () {
                                     setState(() {
-                                      widget.model.sessions?.add(session);
-                                      FocusScope.of(context).requestFocus(FocusNode());
+                                      widget.model!.sessions?.add(session);
+                                      FocusScope.of(context)
+                                          .requestFocus(FocusNode());
                                       Navigator.pop(context);
                                     });
                                   }),
@@ -288,7 +304,7 @@ class _EventCreateRaceSessionWidgetState
                         onPressed: () {
                           if (_formKey.currentState?.validate() == true) {
                             setState(() {
-                              widget.model.sessions?[index]?.settings?.add(
+                              widget.model!.sessions?[index]?.settings?.add(
                                   SettingsModel(
                                       name: nameController.text,
                                       value: valueController.text));

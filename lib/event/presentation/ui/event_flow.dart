@@ -3,7 +3,7 @@ import 'package:e_racing_app/event/presentation/ui/widget/event_create_option_wi
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_races_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_team_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_create_widget.dart';
-import 'package:e_racing_app/event/presentation/ui/widget/event_create_race_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_create_single_race_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_detail_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_detail_race_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_edit_widget.dart';
@@ -41,7 +41,7 @@ extension EventNavigation on EventFlows {
       case EventFlows.create:
         return EventCreateOptionWidget(vm);
       case EventFlows.createRace:
-        return EventCreateRaceWidget(vm);
+        return EventCreateSingleRaceWidget(vm);
       case EventFlows.createRaces:
         return EventCreateRacesWidget(vm);
       case EventFlows.createEvent:
