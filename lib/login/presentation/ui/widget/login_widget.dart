@@ -52,8 +52,7 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
 
   @override
   observers() {
-    _disposers
-        .add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
+    _disposers.add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
       _emailController.text = widget.viewModel.user?.profile?.email ?? "";
       _passwordController.text = widget.viewModel.user?.auth?.password ?? "";
     }));

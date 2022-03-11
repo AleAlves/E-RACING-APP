@@ -75,11 +75,6 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             const SpacingWidget(LayoutSize.size2),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
-              child: status(),
-            ),
-            const SpacingWidget(LayoutSize.size2),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
               child: adminPanel(),
             ),
             const SpacingWidget(LayoutSize.size2),
@@ -114,7 +109,9 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             media: widget.viewModel.media,
           ),
           const SpacingWidget(LayoutSize.size8),
-          title()
+          title(),
+          const SpacingWidget(LayoutSize.size8),
+          status()
         ],
       ),
     );
@@ -170,12 +167,14 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
 
   Widget status() {
     return EventProgressWidget(
+      shapeless: true,
       event: widget.viewModel.event,
     );
   }
 
   Widget information() {
     return ExpandedWidget(
+        iniExpanded: !isSubscriber(widget.viewModel.event?.classes),
         header: Row(
           children: const [
             TextWidget(

@@ -68,7 +68,6 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
                   tags: widget.viewModel.tags,
                   leagueTags: widget.viewModel.leagues?[index]?.tags,
                   onPressed: () {
-                    widget.viewModel.id = widget.viewModel.leagues?[index]?.id;
                     Session.instance.setLeagueId(widget.viewModel.leagues?[index]?.id);
                     widget.viewModel.setFlow(LeagueFlow.detail);
                   });

@@ -96,7 +96,7 @@ class _EventManagementWidgetState extends State<EventManagementWidget>
                 onPressed: () {
                   widget.viewModel.setFlow(EventFlows.managementEditEvent);
                 },
-                enabled: true,
+                enabled: widget.viewModel.event?.state == EventState.idle,
               ),
             ),
             const SpacingWidget(LayoutSize.size48),
@@ -108,7 +108,7 @@ class _EventManagementWidgetState extends State<EventManagementWidget>
                 onPressed: () {
                   widget.viewModel.setFlow(EventFlows.managementEditRaceList);
                 },
-                enabled: true,
+                enabled: widget.viewModel.event?.state == EventState.idle,
               ),
             ),
             const SpacingWidget(LayoutSize.size8),

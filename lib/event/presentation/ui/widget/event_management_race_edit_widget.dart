@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:e_racing_app/core/ext/date_extensions.dart';
 import 'package:e_racing_app/core/model/session_model.dart';
@@ -34,6 +33,7 @@ class EventManagementEditRaceWidget extends StatefulWidget {
 class _EventManagementEditRaceWidgetState
     extends State<EventManagementEditRaceWidget> implements BaseSateWidget {
   int _stepIndex = 0;
+  bool _editingImage = false;
   final _formKey = GlobalKey<FormState>();
   TextEditingController titleController = TextEditingController();
   TextEditingController linkController = TextEditingController();
@@ -136,7 +136,7 @@ class _EventManagementEditRaceWidgetState
               ),
               Step(
                 title: const Text('Poster'),
-                content: banner(),
+                content: posterWidget(),
               ),
               Step(
                 title: const Text('Sessions'),
@@ -173,7 +173,7 @@ class _EventManagementEditRaceWidgetState
     );
   }
 
-  Widget banner() {
+  Widget posterWidget() {
     return Column(
       children: [
         Stack(
@@ -184,14 +184,21 @@ class _EventManagementEditRaceWidgetState
               child: SizedBox(
                 height: 300,
                 width: MediaQuery.of(context).size.height,
-                child: Image.memory(base64Decode(model?.poster ?? '')),
+                child: _editingImage
+                    ? Image.file(model?.posterFile ?? File(''))
+                    : Image.memory(base64Decode(model?.poster.toString() ?? '')),
               ),
             ),
             ButtonWidget(
                 enabled: true,
                 type: ButtonType.icon,
                 icon: Icons.image_search,
-                onPressed: () async {})
+                onPressed: () async {
+                  var image = await model?.picker
+                      ?.pickImage(source: ImageSource.gallery);
+                  model?.posterFile = File(image?.path ?? '');
+                  _editingImage = true;
+                })
           ],
         ),
         const SpacingWidget(LayoutSize.size32),

@@ -1,7 +1,12 @@
+import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
+import 'package:e_racing_app/core/tools/routes.dart';
+import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
+import 'package:e_racing_app/event/presentation/ui/event_screen.dart';
 import 'package:e_racing_app/league/data/league_members_model.dart';
+import 'package:e_racing_app/league/domain/fetch_player_events_use_case.dart';
 import 'package:e_racing_app/league/domain/model/league_model.dart';
 import 'package:e_racing_app/league/domain/fetch_league_usecase.dart';
 import 'package:e_racing_app/league/domain/get_members_usecase.dart';
@@ -26,6 +31,7 @@ class LeagueModule extends Module {
         Bind.factory((i) => LeagueViewModel()),
         Bind.factory((i) => CreateLeagueUseCase<StatusModel>()),
         Bind.factory((i) => FetchLeagueUseCase<List<LeagueModel>>()),
+        Bind.factory((i) => FetchPlayerEventsUseCase<List<EventModel>>()),
         Bind.factory((i) => UpdateLeagueUseCase<StatusModel>()),
         Bind.factory((i) => StartMembershipUseCase<StatusModel>()),
         Bind.factory((i) => StopMembershipUseCase<StatusModel>()),

@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:flutter/material.dart';
 
+
 Color getTypeColor(EventType type) {
   switch (type) {
     case EventType.championship:

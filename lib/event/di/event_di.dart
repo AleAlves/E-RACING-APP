@@ -22,6 +22,7 @@ import 'package:e_racing_app/event/domain/toogle_subscriptions_usecase.dart';
 import 'package:e_racing_app/event/domain/unsubscribe_event_usecase.dart';
 import 'package:e_racing_app/event/domain/update_event_usecase.dart';
 import 'package:e_racing_app/event/event_view_model.dart';
+import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:e_racing_app/event/presentation/ui/event_screen.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
@@ -45,7 +46,8 @@ class EventModule extends Module {
         Bind.factory((i) => ToogleSubscriptionsUseCase<StatusModel>()),
         Bind.factory((i) => GetEventUseCase<EventHomeModel>()),
         Bind.factory((i) => GetEventStandingUseCase<EventStandingsModel>()),
-        Bind.factory((i) => GetRaceStandingsUseCase<List<RaceStandingsModel>>()),
+        Bind.factory(
+            (i) => GetRaceStandingsUseCase<List<RaceStandingsModel>>()),
         Bind.factory((i) => StartEventUseCase<StatusModel>()),
         Bind.factory((i) => FinishEventUseCase<StatusModel>()),
         Bind.factory((i) => ToogleMembersOnlyUseCase<StatusModel>()),
@@ -56,6 +58,7 @@ class EventModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => const EventScreen()),
+        ChildRoute('/',
+            child: (context, args) => EventScreen(flows: args.data))
       ];
 }

@@ -39,21 +39,6 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
-  final _$idAtom = Atom(name: '_LeagueViewModel.id');
-
-  @override
-  String? get id {
-    _$idAtom.reportRead();
-    return super.id;
-  }
-
-  @override
-  set id(String? value) {
-    _$idAtom.reportWrite(value, super.id, () {
-      super.id = value;
-    });
-  }
-
   final _$statusAtom = Atom(name: '_LeagueViewModel.status');
 
   @override
@@ -96,6 +81,21 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
   set state(ViewState value) {
     _$stateAtom.reportWrite(value, super.state, () {
       super.state = value;
+    });
+  }
+
+  final _$playerEventsAtom = Atom(name: '_LeagueViewModel.playerEvents');
+
+  @override
+  ObservableList<EventModel?>? get playerEvents {
+    _$playerEventsAtom.reportRead();
+    return super.playerEvents;
+  }
+
+  @override
+  set playerEvents(ObservableList<EventModel?>? value) {
+    _$playerEventsAtom.reportWrite(value, super.playerEvents, () {
+      super.playerEvents = value;
     });
   }
 
@@ -179,10 +179,10 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     return '''
 league: ${league},
 media: ${media},
-id: ${id},
 status: ${status},
 flow: ${flow},
 state: ${state},
+playerEvents: ${playerEvents},
 leagues: ${leagues},
 menus: ${menus},
 tags: ${tags},

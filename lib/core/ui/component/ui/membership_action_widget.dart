@@ -48,11 +48,12 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
 
   Widget startMembershipButton() {
     return CardWidget(
+        shapeLess: true,
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: ButtonWidget(
             label: "Become a member",
-            type: ButtonType.normal,
+            type: ButtonType.important,
             onPressed: () {
               widget.onStartMembership.call();
             },
@@ -63,30 +64,19 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
   }
 
   Widget stopMembershipAction() {
-    return ExpandedWidget(
-        header: Row(
-          children: const [
-            Icon(Icons.military_tech),
-            SpacingWidget(LayoutSize.size16),
-            TextWidget(text: "Membership", style: Style.title)
-          ],
+    return CardWidget(
+        shapeLess: true,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: ButtonWidget(
+            label: "Cancel membership",
+            type: ButtonType.normal,
+            onPressed: () {
+              widget.onStartMembership.call();
+            },
+            enabled: widget.leagueModel?.members != null,
+          ),
         ),
-        body: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: ButtonWidget(
-                label: "Cancel membership",
-                type: ButtonType.normal,
-                onPressed: () {
-                  widget.onStopMembership.call();
-                },
-                enabled: widget.leagueModel?.members != null,
-              ),
-            ),
-          )
-        ],
-        ready: true);
+        ready: widget.leagueModel?.members != null);
   }
 }

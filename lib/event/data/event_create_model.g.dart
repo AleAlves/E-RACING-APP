@@ -11,7 +11,9 @@ EventCreateModel _$EventCreateModelFromJson(Map<String, dynamic> json) =>
       json['media'] == null
           ? null
           : MediaModel.fromJson(json['media'] as Map<String, dynamic>),
-      EventModel.fromJson(json['event'] as Map<String, dynamic>),
+      json['event'] == null
+          ? null
+          : EventModel.fromJson(json['event'] as Map<String, dynamic>),
       json['leagueId'] as String?,
     );
 

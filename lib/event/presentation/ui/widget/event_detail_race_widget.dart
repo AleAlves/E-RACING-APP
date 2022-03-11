@@ -64,7 +64,26 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   @override
   Widget content() {
     return Column(
-      children: [banner(), schedule(), sessions(), standings()],
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        banner(),
+        itemTitle("Sessions"),
+        sessions(),
+        itemTitle("Standings"),
+        standings(),
+        const SpacingWidget(LayoutSize.size16),
+      ],
+    );
+  }
+
+  Widget itemTitle(String title){
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, top: 16, bottom: 4),
+      child: TextWidget(
+        text: title,
+        style: Style.subtitle,
+        align: TextAlign.start,
+      ),
     );
   }
 
@@ -80,10 +99,11 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
               post: widget.viewModel.race?.poster,
             ),
             Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: const EdgeInsets.only(top: 24),
               child: TextWidget(
                   text: widget.viewModel.race?.title, style: Style.title),
-            )
+            ),
+            schedule()
           ],
         ),
       ),
@@ -98,6 +118,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
       ),
       child: CardWidget(
         ready: true,
+        shapeLess: true,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(

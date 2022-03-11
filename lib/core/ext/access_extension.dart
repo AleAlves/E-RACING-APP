@@ -18,6 +18,14 @@ bool isLeagueManager(LeagueModel? league) {
   return league?.owner == Session.instance.getUser()?.id;
 }
 
+bool isLeagueMember(LeagueModel? league) {
+  return league?.members
+          ?.where(
+              (element) => element?.memberId == Session.instance.getUser()?.id)
+          .isNotEmpty ??
+      false;
+}
+
 isSubscriberOrHost(EventModel? event) {
   return isSubscriber(event?.classes) || isEventHost(event);
 }

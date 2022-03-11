@@ -35,7 +35,7 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
     if (widget.shapeless) {
       return expansionWidget();
     }
-    return CardWidget(ready: widget.ready, child: expansionWidget());
+    return CardWidget(ready: widget.ready, child: expansionWidget(), padding: EdgeInsets.only(top: 16, bottom: 16, left: 8),);
   }
 
   Widget expansionWidget() {

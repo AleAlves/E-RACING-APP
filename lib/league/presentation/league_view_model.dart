@@ -1,11 +1,14 @@
+import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
+import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/data/league_members_model.dart';
+import 'package:e_racing_app/league/domain/fetch_player_events_use_case.dart';
 import 'package:e_racing_app/league/domain/model/league_model.dart';
 import 'package:e_racing_app/league/domain/fetch_league_usecase.dart';
 import 'package:e_racing_app/league/domain/get_members_usecase.dart';
@@ -38,9 +41,6 @@ abstract class _LeagueViewModel with Store {
   MediaModel? media;
 
   @observable
-  String? id;
-
-  @observable
   StatusModel? status;
 
   @observable
@@ -48,6 +48,9 @@ abstract class _LeagueViewModel with Store {
 
   @observable
   ViewState state = ViewState.ready;
+
+  @observable
+  ObservableList<EventModel?>? playerEvents = ObservableList();
 
   @observable
   ObservableList<LeagueModel?>? leagues = ObservableList();
@@ -81,6 +84,8 @@ abstract class _LeagueViewModel with Store {
       Modular.get<FetchLeagueMenuUseCase<List<ShortcutModel>>>();
   final fetchMemberUseCase =
       Modular.get<FetchMembersUseCase<List<LeagueMembersModel?>>>();
+  final fetchPlayersEventUseCase =
+      Modular.get<FetchPlayerEventsUseCase<List<EventModel>>>();
 
   void fetchLeagues() async {
     state = ViewState.loading;
@@ -159,18 +164,20 @@ abstract class _LeagueViewModel with Store {
     media = null;
     fetchTags();
     fetchSocialMedias();
-    await getLeagueMediaUseCase.params(id: id.toString()).invoke(
-        success: (data) {
-          league = data;
-          getMedia(data?.id ?? '');
-          state = ViewState.ready;
-        },
-        error: onError);
+    await getLeagueMediaUseCase
+        .params(id: Session.instance.getLeagueId().toString())
+        .invoke(
+            success: (data) {
+              league = data;
+              getMedia(data?.id ?? '');
+              state = ViewState.ready;
+            },
+            error: onError);
   }
 
   Future<void> delete() async {
     state = ViewState.loading;
-    deleteUseCase.params(id: id.toString()).invoke(
+    deleteUseCase.params(id: Session.instance.getLeagueId().toString()).invoke(
         success: (data) {
           status = data;
           setFlow(LeagueFlow.status);
@@ -180,7 +187,7 @@ abstract class _LeagueViewModel with Store {
 
   Future<void> startMembership() async {
     state = ViewState.loading;
-    startMembershipUseCase.build(leagueId: id.toString()).invoke(
+    startMembershipUseCase.build(leagueId: Session.instance.getLeagueId().toString()).invoke(
         success: (data) {
           status = data;
           setFlow(LeagueFlow.status);
@@ -190,7 +197,7 @@ abstract class _LeagueViewModel with Store {
 
   Future<void> stopMembership() async {
     state = ViewState.loading;
-    stopMembershipUseCase.build(leagueId: id.toString()).invoke(
+    stopMembershipUseCase.build(leagueId: Session.instance.getLeagueId().toString()).invoke(
         success: (data) {
           status = data;
           setFlow(LeagueFlow.status);
@@ -232,6 +239,14 @@ abstract class _LeagueViewModel with Store {
     } else if (shortcut?.flow != null) {
       setFlow(shortcut?.flow);
     }
+  }
+
+  Future<void> getPlayerEvents() async {
+    await fetchPlayersEventUseCase.params(leagueId: Session.instance.getLeagueId().toString()).invoke(
+        success: (data) {
+          playerEvents = ObservableList.of(data);
+        },
+        error: onError);
   }
 
   void onError() {

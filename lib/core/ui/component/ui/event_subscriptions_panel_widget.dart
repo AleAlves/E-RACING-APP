@@ -56,7 +56,6 @@ class EventSubscriptionsPanelWidget extends StatelessWidget {
           negativeLabel: "Disabled",
           positiveLabel: "Enabled",
         ),
-        const SpacingWidget(LayoutSize.size16),
         toogleMembersOnly(),
         const SpacingWidget(LayoutSize.size4),
         TextWidget(

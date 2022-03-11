@@ -8,7 +8,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'event_flow.dart';
 
 class EventScreen extends StatefulWidget {
-  const EventScreen({Key? key}) : super(key: key);
+
+  final EventFlows? flows;
+
+  const EventScreen({this.flows, Key? key}) : super(key: key);
 
   @override
   _EventScreenState createState() => _EventScreenState();
@@ -21,6 +24,7 @@ class _EventScreenState extends State<EventScreen> implements BaseScreen {
 
   @override
   void initState() {
+    viewModel.setFlow(widget.flows ??  EventFlows.list);
     super.initState();
   }
 

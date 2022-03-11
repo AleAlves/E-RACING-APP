@@ -49,6 +49,7 @@ class _SwitchWidgetState extends State<SwitchWidget> {
 
   Widget normal(BuildContext context) {
     return CardWidget(
+      padding: EdgeInsets.zero,
       ready: true,
       shapeLess: true,
       child: SizedBox(

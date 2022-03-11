@@ -19,7 +19,6 @@ import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -49,9 +48,6 @@ class EventViewModel = _EventViewModel with _$EventViewModel;
 
 abstract class _EventViewModel with Store {
   _EventViewModel();
-
-  @observable
-  String? eventId;
 
   @observable
   String? raceId;
@@ -150,7 +146,7 @@ abstract class _EventViewModel with Store {
   void getEvent() async {
     state = ViewState.loading;
     media = null;
-    _getEventUseCase.params(id: eventId ?? '').invoke(
+    _getEventUseCase.params(id: Session.instance.getEventId() ?? '').invoke(
         success: (data) {
           event = data?.event;
           users = ObservableList.of(data?.users ?? []);
@@ -410,7 +406,7 @@ abstract class _EventViewModel with Store {
   Future<void> removeSubscription(String? classId, String userId) async {
     state = ViewState.loading;
     await _removeSubscriptiontUseCase
-        .build(classId: classId, eventId: eventId, userId: userId)
+        .build(classId: classId, eventId: Session.instance.getEventId(), userId: userId)
         .invoke(
             success: (data) {
               status = data;
@@ -431,7 +427,15 @@ abstract class _EventViewModel with Store {
         race?.date = model?.eventDate?.toIso8601String();
         race?.broadcasting = model?.hasBroadcasting;
         race?.title = model?.titleController?.text;
-        race?.poster = model?.poster.toString();
+        if (model?.posterFile != null) {
+          try {
+            List<int> posterBytes =
+                model?.posterFile?.readAsBytesSync() as List<int>;
+            race?.poster = base64Encode(posterBytes);
+          } catch (e) {}
+        } else {
+          race?.poster = model?.poster;
+        }
         race?.leagueId = event?.leagueId;
         race?.sessions = model?.sessions;
         race?.finished = false;

@@ -91,8 +91,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                 .toList()
                 .cast<Widget>(),
           ),
-          const SpacingWidget(LayoutSize.size48),
-          if (widget.editing) actions() else Container()
+          if (widget.editing) actionsWidget() else Container()
         ],
       ),
     );
@@ -107,32 +106,37 @@ class _ScoringWidgetState extends State<ScoringWidget> {
     );
   }
 
-  Widget actions() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
+  Widget actionsWidget() {
+    return Column(
       children: [
-        ButtonWidget(
-            enabled: true,
-            type: ButtonType.icon,
-            icon: Icons.remove,
-            onPressed: () async {
-              setState(() {
-                scoringEdit.removeAt(scoringEdit.length - 1);
-                updateScore();
-              });
-            }),
         const SpacingWidget(LayoutSize.size48),
-        ButtonWidget(
-            enabled: true,
-            type: ButtonType.icon,
-            icon: Icons.add,
-            onPressed: () async {
-              setState(() {
-                scoringEdit.add(Pair(0, TextEditingController()));
-                updateScore();
-              });
-            }),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ButtonWidget(
+                enabled: true,
+                type: ButtonType.icon,
+                icon: Icons.remove,
+                onPressed: () async {
+                  setState(() {
+                    scoringEdit.removeAt(scoringEdit.length - 1);
+                    updateScore();
+                  });
+                }),
+            const SpacingWidget(LayoutSize.size48),
+            ButtonWidget(
+                enabled: true,
+                type: ButtonType.icon,
+                icon: Icons.add,
+                onPressed: () async {
+                  setState(() {
+                    scoringEdit.add(Pair(0, TextEditingController()));
+                    updateScore();
+                  });
+                }),
+          ],
+        ),
       ],
     );
   }
