@@ -57,13 +57,6 @@ class EventSubscriptionsPanelWidget extends StatelessWidget {
           positiveLabel: "Enabled",
         ),
         toogleMembersOnly(),
-        const SpacingWidget(LayoutSize.size4),
-        TextWidget(
-          text: "* Start the event to unlock subscriptions",
-          style: Style.subtitle,
-          align: TextAlign.left,
-          color: Theme.of(context).colorScheme.secondary,
-        ),
       ],
     );
   }

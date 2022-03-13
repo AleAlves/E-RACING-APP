@@ -9,21 +9,6 @@ part of 'event_view_model.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$EventViewModel on _EventViewModel, Store {
-  final _$raceIdAtom = Atom(name: '_EventViewModel.raceId');
-
-  @override
-  String? get raceId {
-    _$raceIdAtom.reportRead();
-    return super.raceId;
-  }
-
-  @override
-  set raceId(String? value) {
-    _$raceIdAtom.reportWrite(value, super.raceId, () {
-      super.raceId = value;
-    });
-  }
-
   final _$eventAtom = Atom(name: '_EventViewModel.event');
 
   @override
@@ -244,7 +229,6 @@ mixin _$EventViewModel on _EventViewModel, Store {
   @override
   String toString() {
     return '''
-raceId: ${raceId},
 event: ${event},
 standings: ${standings},
 media: ${media},

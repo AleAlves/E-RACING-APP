@@ -2,6 +2,7 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_race_results_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_subscribers_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_subscriptions_panel_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
@@ -65,6 +66,7 @@ class _EventManagementWidgetState extends State<EventManagementWidget>
           eventStatus(),
           eventSubscriptions(),
           editEvent(),
+          racesWidget(),
           subscribers(),
           excludeEvent()
         ],
@@ -272,6 +274,14 @@ class _EventManagementWidgetState extends State<EventManagementWidget>
           ],
         ),
         ready: true);
+  }
+
+  Widget racesWidget() {
+    return EventRaceResultsCollection(
+        onRaceCardPressed: (id) {
+          widget.viewModel.toRaceResults(id);
+        },
+        races: widget.viewModel.event?.races);
   }
 
   Pair<bool, String>? _getStatus() {

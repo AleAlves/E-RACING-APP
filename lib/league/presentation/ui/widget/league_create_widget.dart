@@ -7,7 +7,7 @@ import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/dropdown_menu_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/stepper_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';

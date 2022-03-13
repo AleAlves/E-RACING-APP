@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
 import 'package:flutter/material.dart';

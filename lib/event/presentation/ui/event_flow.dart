@@ -9,6 +9,7 @@ import 'package:e_racing_app/event/presentation/ui/widget/event_detail_race_widg
 import 'package:e_racing_app/event/presentation/ui/widget/event_edit_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_edit_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_list_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_results_edit_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_management_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_list_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_status_widget.dart';
@@ -18,8 +19,6 @@ enum EventFlows {
   list,
   delete,
   join,
-  eventDetail,
-  raceDetail,
   status,
   create,
   manager,
@@ -28,9 +27,12 @@ enum EventFlows {
   createEvent,
   createTeam,
   detailRace,
+  eventDetail,
+  raceDetail,
+  managementEditRace,
   managementEditEvent,
   managementEditRaceList,
-  managementEditRace,
+  managementEditRaceResultsEdit,
 }
 
 extension EventNavigation on EventFlows {
@@ -66,6 +68,8 @@ extension EventNavigation on EventFlows {
         return EventManagementRaceListWidget(vm);
       case EventFlows.managementEditRace:
         return EventManagementEditRaceWidget(vm);
+      case EventFlows.managementEditRaceResultsEdit:
+        return EventManagementEditRaceResultsWidget(vm);
       default:
         return Container();
     }

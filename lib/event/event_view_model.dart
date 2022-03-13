@@ -50,9 +50,6 @@ abstract class _EventViewModel with Store {
   _EventViewModel();
 
   @observable
-  String? raceId;
-
-  @observable
   EventModel? event;
 
   @observable
@@ -403,6 +400,11 @@ abstract class _EventViewModel with Store {
     setFlow(EventFlows.raceDetail);
   }
 
+  void toRaceResults(String id) {
+    race = event?.races?.firstWhere((element) => element?.id == id);
+    setFlow(EventFlows.managementEditRaceResultsEdit);
+  }
+
   Future<void> removeSubscription(String? classId, String userId) async {
     state = ViewState.loading;
     await _removeSubscriptiontUseCase
@@ -415,8 +417,7 @@ abstract class _EventViewModel with Store {
             error: onError);
   }
 
-  void editRace(String? id) {
-    raceId = id;
+  void editRace() {
     setFlow(EventFlows.managementEditRace);
   }
 

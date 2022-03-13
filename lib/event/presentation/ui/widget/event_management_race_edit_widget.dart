@@ -3,11 +3,12 @@ import 'dart:io';
 
 import 'package:e_racing_app/core/ext/date_extensions.dart';
 import 'package:e_racing_app/core/model/session_model.dart';
+import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_races_session_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
@@ -55,7 +56,7 @@ class _EventManagementEditRaceWidgetState
   @override
   observers() {
     var race = widget.viewModel.event?.races
-        ?.firstWhere((element) => element?.id == widget.viewModel.raceId);
+        ?.firstWhere((element) => element?.id == Session.instance.getRaceId());
     titleController.text = race?.title ?? '';
     linkController.text = race?.broadcastLink ?? '';
 

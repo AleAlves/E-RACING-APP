@@ -2,7 +2,7 @@ import 'package:e_racing_app/core/ext/status_extensions.dart';
 import 'package:e_racing_app/core/model/session_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/text_from_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
 import 'package:flutter/cupertino.dart';

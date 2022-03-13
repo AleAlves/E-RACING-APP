@@ -1,34 +1,49 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ext/date_extensions.dart';
-import 'package:e_racing_app/core/ext/status_extensions.dart';
+import 'package:e_racing_app/core/model/entry_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
+import 'package:e_racing_app/core/model/session_model.dart';
+import 'package:e_racing_app/core/model/summary_model.dart';
+import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/poster_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_races_session_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/data/race_standings_summary_model.dart';
+import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
-class EventDetailRaceWidget extends StatefulWidget {
+class EventManagementEditRaceResultsWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const EventDetailRaceWidget(this.viewModel, {Key? key}) : super(key: key);
+  const EventManagementEditRaceResultsWidget(this.viewModel, {Key? key})
+      : super(key: key);
 
   @override
-  _EventDetailRaceWidgetState createState() => _EventDetailRaceWidgetState();
+  _EventManagementEditRaceResultsWidgetState createState() =>
+      _EventManagementEditRaceResultsWidgetState();
 }
 
-class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
+class _EventManagementEditRaceResultsWidgetState
+    extends State<EventManagementEditRaceResultsWidget>
     implements BaseSateWidget {
   List<Pair<String, Color>> teamColors = [];
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -50,184 +65,27 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         content: content(),
-        scrollable: true,
         state: widget.viewModel.state,
+        scrollable: true,
         onBackPressed: onBackPressed);
   }
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(EventFlows.eventDetail);
+    widget.viewModel.setFlow(EventFlows.manager);
     return false;
   }
 
   @override
   Widget content() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        banner(),
-        itemTitle("Standings"),
         standings(),
-        itemTitle("Sessions"),
-        sessions(),
         const SpacingWidget(LayoutSize.size16),
+        canceledWidget(),
+        const SpacingWidget(LayoutSize.size8),
+        finishWidget()
       ],
-    );
-  }
-
-  Widget itemTitle(String title){
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, top: 16, bottom: 4),
-      child: TextWidget(
-        text: title,
-        style: Style.subtitle,
-        align: TextAlign.start,
-      ),
-    );
-  }
-
-  Widget banner() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-      child: CardWidget(
-        padding: EdgeInsets.zero,
-        ready: widget.viewModel.race?.title != null,
-        child: Column(
-          children: [
-            PosterWidget(
-              post: widget.viewModel.race?.poster,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 24),
-              child: TextWidget(
-                  text: widget.viewModel.race?.title, style: Style.title),
-            ),
-            schedule()
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget schedule() {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 8,
-        right: 8,
-      ),
-      child: CardWidget(
-        ready: true,
-        shapeLess: true,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  TextWidget(
-                    text: "Schedule",
-                    style: Style.subtitle,
-                    align: TextAlign.start,
-                  ),
-                ],
-              ),
-              const SpacingWidget(LayoutSize.size16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.schedule),
-                      const SpacingWidget(LayoutSize.size8),
-                      TextWidget(
-                          text: formatHour(widget.viewModel.race?.date),
-                          style: Style.description),
-                    ],
-                  ),
-                  Container(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Icon(Icons.date_range),
-                      const SpacingWidget(LayoutSize.size8),
-                      TextWidget(
-                          text: formatDate(widget.viewModel.race?.date),
-                          style: Style.description),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget sessions() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8),
-      child: CardWidget(
-        ready: widget.viewModel.race?.sessions != null,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ListView.builder(
-              physics: const ClampingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: widget.viewModel.race?.sessions?.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextWidget(
-                        style: Style.subtitle,
-                        text: getSessionType(
-                            widget.viewModel.race?.sessions?[index]?.type)),
-                    const SpacingWidget(LayoutSize.size24),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 24, right: 8),
-                      child: sessionSettings(index),
-                    ),
-                    const SpacingWidget(LayoutSize.size24),
-                  ],
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget sessionSettings(int sessionIndex) {
-    return ListView.builder(
-      physics: const ClampingScrollPhysics(),
-      shrinkWrap: true,
-      itemCount:
-          widget.viewModel.race?.sessions?[sessionIndex]?.settings?.length,
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextWidget(
-                    style: Style.subtitle,
-                    text:
-                        "${widget.viewModel.race?.sessions?[sessionIndex]?.settings?[index]?.name}:"),
-                const SpacingWidget(LayoutSize.size8),
-                TextWidget(
-                    style: Style.description,
-                    text: widget.viewModel.race?.sessions?[sessionIndex]
-                        ?.settings?[index]?.name),
-              ],
-            ),
-          ],
-        );
-      },
     );
   }
 
@@ -267,17 +125,6 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
         ],
       );
     }
-  }
-
-  Widget drivers(List<RaceStandingsSummaryModel>? standings) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      itemCount: standings?.length,
-      itemBuilder: (context, index) {
-        return driverCard(standings?[index]);
-      },
-    );
   }
 
   Widget driverCard(RaceStandingsSummaryModel? standing) {
@@ -351,7 +198,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                   ],
                 ),
                 Icon(
-                  Icons.navigate_next,
+                  Icons.edit,
                   color: Theme.of(context).colorScheme.primary,
                 )
               ],
@@ -367,7 +214,18 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
         ready: true);
   }
 
-  void showDriverSummary(RaceStandingsSummaryModel? standing) {
+  Widget drivers(List<RaceStandingsSummaryModel>? standings) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      itemCount: standings?.length,
+      itemBuilder: (context, index) {
+        return driverCard(standings?[index]);
+      },
+    );
+  }
+
+  showDriverSummary(RaceStandingsSummaryModel? standing) {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -546,5 +404,27 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                 ),
               );
             }));
+  }
+
+  Widget canceledWidget() {
+    return ButtonWidget(
+      enabled: true,
+      type: ButtonType.normal,
+      onPressed: () {
+        //widget.viewModel.updateRace(model);
+      },
+      label: "Canceled",
+    );
+  }
+
+  Widget finishWidget() {
+    return ButtonWidget(
+      enabled: true,
+      type: ButtonType.normal,
+      onPressed: () {
+        //widget.viewModel.updateRace(model);
+      },
+      label: "Finish",
+    );
   }
 }

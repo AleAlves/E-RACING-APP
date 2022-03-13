@@ -46,7 +46,7 @@ Color getClassColor(int _index) {
 Color getTeamColor(int _index) {
   switch (_index) {
     case 0:
-      return const Color(0xFF00B603);
+      return const Color(0xFFCBCBCB);
     case 1:
       return const Color(0xFFB600B2);
     case 2:
@@ -96,7 +96,7 @@ Color getTeamColor(int _index) {
     case 24:
       return const Color(0xFFDE9212);
     case 25:
-      return const Color(0xFFB40BEA);
+      return const Color(0xFF00B603);
     default:
       return const Color(0xFFCBCBCB);
   }

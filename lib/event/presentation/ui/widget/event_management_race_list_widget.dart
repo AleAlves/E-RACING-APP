@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/model/race_model.dart';
+import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -79,7 +80,8 @@ class _EventManagementRaceListWidgetState extends State<EventManagementRaceListW
   Widget raceCard(RaceModel? raceModel) {
     return CardWidget(
       onPressed: () {
-        widget.viewModel.editRace(raceModel?.id);
+        Session.instance.setRaceId(raceModel?.id);
+        widget.viewModel.editRace();
       },
       ready: true,
       child: Stack(
