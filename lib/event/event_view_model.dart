@@ -13,7 +13,9 @@ import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/data/event_home_model.dart';
+import 'package:e_racing_app/event/data/set_summary_model.dart';
 import 'package:e_racing_app/event/domain/fetch_events_use_case.dart';
+import 'package:e_racing_app/event/domain/set_result_event_usecase.dart';
 import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
 import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
@@ -122,6 +124,7 @@ abstract class _EventViewModel with Store {
   final _toogleMembersOnlyUseCase =
       Modular.get<ToogleMembersOnlyUseCase<StatusModel>>();
   final _getEventUseCase = Modular.get<GetEventUseCase<EventHomeModel>>();
+  final _setSumaryUseCase = Modular.get<SetSummaryUseCase<StatusModel>>();
   final _getEventStandingsUseCase =
       Modular.get<GetEventStandingUseCase<EventStandingsModel>>();
 
@@ -401,6 +404,7 @@ abstract class _EventViewModel with Store {
   }
 
   void toRaceResults(String id) {
+    Session.instance.setRaceId(id);
     race = event?.races?.firstWhere((element) => element?.id == id);
     setFlow(EventFlows.managementEditRaceResultsEdit);
   }
@@ -408,7 +412,10 @@ abstract class _EventViewModel with Store {
   Future<void> removeSubscription(String? classId, String userId) async {
     state = ViewState.loading;
     await _removeSubscriptiontUseCase
-        .build(classId: classId, eventId: Session.instance.getEventId(), userId: userId)
+        .build(
+            classId: classId,
+            eventId: Session.instance.getEventId(),
+            userId: userId)
         .invoke(
             success: (data) {
               status = data;
@@ -443,6 +450,14 @@ abstract class _EventViewModel with Store {
       }
     });
     updateEvent(event, media);
+  }
+
+  setSummaryResult(SetSummaryModel? summaryModel) async {
+    await _setSumaryUseCase.build(summaryModel: summaryModel).invoke(
+        success: (data) {
+          getRaceStandings();
+        },
+        error: onError);
   }
 
   void onError(ApiException error) {

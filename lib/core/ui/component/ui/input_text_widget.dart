@@ -13,10 +13,12 @@ class InputTextWidget extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final TextEditingController? controller;
   final Function(String)? onChange;
+  final bool enabled;
 
   const InputTextWidget(
       {this.borderType = BorderType.normal,
       this.inputType = InputType.text,
+      this.enabled = false,
       this.icon,
       this.onChange,
       required this.label,
@@ -71,6 +73,7 @@ class InputTextWidget extends StatelessWidget {
         return Align(
           alignment: Alignment.center,
           child: TextFormField(
+            enabled: enabled,
             controller: controller,
             validator: validator,
             onChanged: onChange,
@@ -81,6 +84,7 @@ class InputTextWidget extends StatelessWidget {
         return Align(
           alignment: Alignment.center,
           child: TextFormField(
+            enabled: enabled,
             keyboardType: TextInputType.number,
             controller: controller,
             validator: validator,
@@ -92,6 +96,7 @@ class InputTextWidget extends StatelessWidget {
         return Align(
           alignment: Alignment.center,
           child: TextFormField(
+            enabled: enabled,
             controller: controller,
             validator: validator,
             onChanged: onChange,
@@ -103,6 +108,7 @@ class InputTextWidget extends StatelessWidget {
         return Align(
           alignment: Alignment.center,
           child: TextFormField(
+            enabled: enabled,
             controller: controller,
             validator: validator,
             onChanged: onChange,
