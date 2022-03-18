@@ -410,13 +410,18 @@ class _EventManagementEditRaceResultsWidgetState
                                           performingInput = true;
                                           widget.viewModel.setSummaryResult(
                                               SetSummaryModel(
-                                                  position: int.parse(positionController.text),
-                                                  penalty: int.parse(penaltyController.text),
-                                                  bonus: int.parse(bonusController.text),
-                                                  lap: int.parse(fastestController.text),
+                                                  position: int.parse(
+                                                      positionController.text),
+                                                  penalty: int.parse(
+                                                      penaltyController.text),
+                                                  bonus: int.parse(
+                                                      bonusController.text),
+                                                  lap: int.parse(fastestController
+                                                      .text),
                                                   dnf: dnf,
                                                   dqf: dqf,
                                                   notes: notesController.text,
+                                                  driverId: standing?.user?.id,
                                                   classId: widget
                                                       .viewModel
                                                       .raceStandings?[

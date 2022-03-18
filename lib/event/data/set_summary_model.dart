@@ -4,6 +4,7 @@ part 'set_summary_model.g.dart';
 
 @JsonSerializable()
 class SetSummaryModel {
+  late String? driverId;
   late String? eventId;
   late String? classId;
   late String? raceId;
@@ -18,6 +19,7 @@ class SetSummaryModel {
   SetSummaryModel({
     this.position,
     this.penalty,
+    this.driverId,
     this.eventId,
     this.classId,
     this.raceId,
