@@ -21,7 +21,7 @@ class CardWidget extends StatelessWidget {
       this.padding = const EdgeInsets.all(16.0),
       this.shapeLess = false,
       this.markColor,
-      this.placeholderHeight,
+      this.placeholderHeight = 100,
       this.placeholderWidth,
       Key? key})
       : super(key: key);
@@ -57,6 +57,6 @@ class CardWidget extends StatelessWidget {
   }
 
   Widget loading(BuildContext context) {
-    return const Card(child: LoadingShimmer(height: 100,));
+    return Card(child: LoadingShimmer(height: placeholderHeight,));
   }
 }

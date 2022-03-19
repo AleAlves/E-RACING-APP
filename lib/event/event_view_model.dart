@@ -91,6 +91,9 @@ abstract class _EventViewModel with Store {
   ObservableList<RaceStandingsModel?>? raceStandings = ObservableList();
 
   @observable
+  bool isUpdatingDriverResult = false;
+
+  @observable
   EventModel? creatingEvent;
 
   List<RaceModel>? creatingRaces;
@@ -394,6 +397,7 @@ abstract class _EventViewModel with Store {
     await _getRaceStandingdUseCase.build(id: race?.id ?? '').invoke(
         success: (data) {
           raceStandings = ObservableList.of(data);
+          isUpdatingDriverResult = false;
         },
         error: onError);
   }
@@ -453,6 +457,7 @@ abstract class _EventViewModel with Store {
   }
 
   setSummaryResult(SetSummaryModel? summaryModel) async {
+    isUpdatingDriverResult = true;
     await _setSumaryUseCase.build(summaryModel: summaryModel).invoke(
         success: (data) {
           getRaceStandings();

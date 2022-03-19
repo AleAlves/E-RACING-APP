@@ -1,3 +1,4 @@
+import 'package:e_racing_app/core/ext/dialog_extension.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
@@ -172,16 +173,26 @@ class _EventManagementWidgetState extends State<EventManagementWidget>
               onPressed: () {
                 switch (widget.viewModel.event?.state) {
                   case EventState.idle:
-                    showAlert("Are you sure you want to start this event? ",
-                        () {
-                      widget.viewModel.startEvent();
-                    });
+                    confirmationDialog(
+                      context: context,
+                      issueMessage:
+                          "Are you sure you want to start this event? you won't be able to edit the event nor the races settings",
+                      consentMessage: "Yes, I do",
+                      onPositive: () {
+                        widget.viewModel.startEvent();
+                      },
+                    );
                     break;
                   case EventState.ongoing:
-                    showAlert("Are you sure you want to finish this event?",
-                        () {
-                      widget.viewModel.finishEvent();
-                    });
+                    confirmationDialog(
+                      context: context,
+                      issueMessage:
+                          "Are you sure you want to finish this event?",
+                      consentMessage: "Yes, I do",
+                      onPositive: () {
+                        widget.viewModel.finishEvent();
+                      },
+                    );
                     break;
                   case EventState.finished:
                     break;
@@ -196,52 +207,6 @@ class _EventManagementWidgetState extends State<EventManagementWidget>
         ],
       ),
     );
-  }
-
-  showAlert(String message, Function() onPositive) {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (context) =>
-            StatefulBuilder(builder: (BuildContext context, myState) {
-              return SizedBox(
-                child: Wrap(
-                  children: [
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            const SpacingWidget(LayoutSize.size16),
-                            TextWidget(text: message, style: Style.subtitle),
-                            const SpacingWidget(LayoutSize.size48),
-                            ButtonWidget(
-                              label: "Yes I do",
-                              type: ButtonType.important,
-                              onPressed: () {
-                                onPositive.call();
-                                Navigator.of(context).pop();
-                              },
-                              enabled: true,
-                            ),
-                            const SpacingWidget(LayoutSize.size24),
-                            ButtonWidget(
-                              label: "No I don't",
-                              type: ButtonType.normal,
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              enabled: true,
-                            ),
-                            const SpacingWidget(LayoutSize.size16),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            }));
   }
 
   Widget subscribers() {
@@ -264,8 +229,12 @@ class _EventManagementWidgetState extends State<EventManagementWidget>
                 label: "Delete this event",
                 type: ButtonType.important,
                 onPressed: () {
-                  showAlert(
-                      "Are you sure you want to delete this event? ", () {});
+                  confirmationDialog(
+                      context: context,
+                      onPositive: () {},
+                      consentMessage: "Yes, I do",
+                      issueMessage:
+                          "Are you sure you want to delete this event?");
                 },
                 enabled: true,
               ),

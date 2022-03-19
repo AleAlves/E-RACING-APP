@@ -32,7 +32,7 @@ class EventRaceResultsCollection extends StatelessWidget {
                 Icon(Icons.format_list_numbered),
                 SpacingWidget(LayoutSize.size8),
                 TextWidget(
-                  text: "Results",
+                  text: "Race director",
                   style: Style.subtitle,
                   align: TextAlign.left,
                 ),
@@ -106,9 +106,10 @@ class EventRaceResultsCollection extends StatelessWidget {
               Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     Icon(
-                      Icons.chevron_right,
+                      Icons.build,
+                      color: Theme.of(context).primaryColorDark,
                     )
                   ]),
             ],

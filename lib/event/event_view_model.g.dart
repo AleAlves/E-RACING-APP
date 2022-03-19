@@ -204,6 +204,23 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
+  final _$isUpdatingDriverResultAtom =
+      Atom(name: '_EventViewModel.isUpdatingDriverResult');
+
+  @override
+  bool get isUpdatingDriverResult {
+    _$isUpdatingDriverResultAtom.reportRead();
+    return super.isUpdatingDriverResult;
+  }
+
+  @override
+  set isUpdatingDriverResult(bool value) {
+    _$isUpdatingDriverResultAtom
+        .reportWrite(value, super.isUpdatingDriverResult, () {
+      super.isUpdatingDriverResult = value;
+    });
+  }
+
   final _$creatingEventAtom = Atom(name: '_EventViewModel.creatingEvent');
 
   @override
@@ -242,6 +259,7 @@ tags: ${tags},
 users: ${users},
 socialMedias: ${socialMedias},
 raceStandings: ${raceStandings},
+isUpdatingDriverResult: ${isUpdatingDriverResult},
 creatingEvent: ${creatingEvent}
     ''';
   }

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ext/date_extensions.dart';
+import 'package:e_racing_app/core/ext/dialog_extension.dart';
 import 'package:e_racing_app/core/model/entry_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/session_model.dart';
@@ -45,7 +46,6 @@ class _EventManagementEditRaceResultsWidgetState
     extends State<EventManagementEditRaceResultsWidget>
     implements BaseSateWidget {
   List<Pair<String, Color>> teamColors = [];
-  bool performingInput = false;
   bool dnf = false;
   bool dqf = false;
   late TextEditingController positionController;
@@ -89,44 +89,19 @@ class _EventManagementEditRaceResultsWidgetState
   Widget content() {
     return Column(
       children: [
-        raceStatus(),
         const SpacingWidget(LayoutSize.size8),
         standings(),
+        const SpacingWidget(LayoutSize.size8),
+        raceStatus(),
         const SpacingWidget(LayoutSize.size8),
       ],
     );
   }
 
   Widget raceStatus() {
-    return CardWidget(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              const TextWidget(style: Style.subtitle, text: "Race status"),
-              const SpacingWidget(LayoutSize.size48),
-              ButtonWidget(
-                enabled: true,
-                type: ButtonType.normal,
-                onPressed: () {
-                  //widget.viewModel.updateRace(model);
-                },
-                label: "Canceled",
-              ),
-              const SpacingWidget(LayoutSize.size8),
-              ButtonWidget(
-                enabled: true,
-                type: ButtonType.normal,
-                onPressed: () {
-                  //widget.viewModel.updateRace(model);
-                },
-                label: "Finish",
-              ),
-              const SpacingWidget(LayoutSize.size8),
-            ],
-          ),
-        ),
-        ready: true);
+    return Column(
+      children: [cancelRace(), finishRace()],
+    );
   }
 
   Widget standings() {
@@ -256,7 +231,8 @@ class _EventManagementEditRaceResultsWidgetState
                 height: 1)
           ],
         ),
-        ready: true);
+        placeholderHeight: 40,
+        ready: widget.viewModel.isUpdatingDriverResult == false);
   }
 
   Widget drivers(int classIndex, List<RaceStandingsSummaryModel>? standings) {
@@ -271,7 +247,7 @@ class _EventManagementEditRaceResultsWidgetState
   }
 
   showDriverSummary(int classIndex, RaceStandingsSummaryModel? standing) {
-    setup();
+    setup(standing);
     showModalBottomSheet(
         isScrollControlled: true,
         isDismissible: false,
@@ -285,178 +261,283 @@ class _EventManagementEditRaceResultsWidgetState
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: performingInput
-                            ? const LoadingRipple()
-                            : CardWidget(
-                                ready: true,
-                                child: Column(
+                        child: CardWidget(
+                          ready: true,
+                          child: Column(
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Icon(Icons.sports_motorsports),
+                                  const SpacingWidget(LayoutSize.size8),
+                                  TextWidget(
+                                    text:
+                                        "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
+                                    style: Style.subtitle,
+                                    align: TextAlign.start,
+                                  ),
+                                ],
+                              ),
+                              const SpacingWidget(LayoutSize.size8),
+                              if (standing?.team == null)
+                                Container()
+                              else
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Icon(Icons.sports_motorsports),
-                                        const SpacingWidget(LayoutSize.size8),
-                                        TextWidget(
-                                          text:
-                                              "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
-                                          style: Style.subtitle,
-                                          align: TextAlign.start,
-                                        ),
-                                      ],
+                                    Icon(
+                                      Icons.group,
+                                      color: teamColors
+                                          .firstWhere((element) =>
+                                              element.first ==
+                                              standing?.team?.id)
+                                          .second,
                                     ),
                                     const SpacingWidget(LayoutSize.size8),
-                                    if (standing?.team == null)
-                                      Container()
-                                    else
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Icon(
-                                            Icons.group,
-                                            color: teamColors
-                                                .firstWhere((element) =>
-                                                    element.first ==
-                                                    standing?.team?.id)
-                                                .second,
-                                          ),
-                                          const SpacingWidget(LayoutSize.size8),
-                                          TextWidget(
-                                            text: "${standing?.team?.name}",
-                                            style: Style.subtitle,
-                                            align: TextAlign.start,
-                                          ),
-                                        ],
-                                      ),
-                                    const SpacingWidget(LayoutSize.size16),
-                                    InputTextWidget(
-                                        enabled: !performingInput,
-                                        inputType: InputType.number,
-                                        label: "Position",
-                                        controller: positionController,
-                                        validator: (value) {}),
-                                    const SpacingWidget(LayoutSize.size16),
-                                    InputTextWidget(
-                                        enabled: !performingInput,
-                                        inputType: InputType.number,
-                                        label: "Bonus points",
-                                        controller: bonusController,
-                                        validator: (value) {}),
-                                    const SpacingWidget(LayoutSize.size16),
-                                    InputTextWidget(
-                                        enabled: !performingInput,
-                                        inputType: InputType.number,
-                                        label: "Penalty points",
-                                        controller: penaltyController,
-                                        validator: (value) {}),
-                                    const SpacingWidget(LayoutSize.size16),
-                                    InputTextWidget(
-                                        enabled: !performingInput,
-                                        inputType: InputType.number,
-                                        label: "Fastest Lap time",
-                                        controller: fastestController,
-                                        validator: (value) {}),
-                                    const SpacingWidget(LayoutSize.size16),
-                                    InputTextWidget(
-                                        enabled: !performingInput,
-                                        inputType: InputType.multilines,
-                                        label: "Notes",
-                                        controller: notesController,
-                                        validator: (value) {}),
-                                    const SpacingWidget(LayoutSize.size16),
-                                    Row(
-                                      children: [
-                                        Checkbox(
-                                          value: dnf,
-                                          onChanged: (bool? value) {
-                                            if (!performingInput) {
-                                              myState(() {
-                                                dnf = value ?? false;
-                                              });
-                                            }
-                                          },
-                                        ),
-                                        const TextWidget(
-                                            text: "Didn't finish the race",
-                                            style: Style.description)
-                                      ],
+                                    TextWidget(
+                                      text: "${standing?.team?.name}",
+                                      style: Style.subtitle,
+                                      align: TextAlign.start,
                                     ),
-                                    const SpacingWidget(LayoutSize.size8),
-                                    Row(
-                                      children: [
-                                        Checkbox(
-                                          value: dqf,
-                                          onChanged: (bool? value) {
-                                            if (!performingInput) {
-                                              myState(() {
-                                                dqf = value ?? false;
-                                              });
-                                            }
-                                          },
-                                        ),
-                                        const TextWidget(
-                                            text: "Desqualified",
-                                            style: Style.description)
-                                      ],
-                                    ),
-                                    const SpacingWidget(LayoutSize.size48),
-                                    ButtonWidget(
-                                      enabled: true,
-                                      type: ButtonType.icon,
-                                      icon: Icons.archive,
-                                      onPressed: () {
-                                        myState(() {
-                                          performingInput = true;
-                                          widget.viewModel.setSummaryResult(
-                                              SetSummaryModel(
-                                                  position: int.parse(
-                                                      positionController.text),
-                                                  penalty: int.parse(
-                                                      penaltyController.text),
-                                                  bonus: int.parse(
-                                                      bonusController.text),
-                                                  lap: int.parse(fastestController
-                                                      .text),
-                                                  dnf: dnf,
-                                                  dqf: dqf,
-                                                  notes: notesController.text,
-                                                  driverId: standing?.user?.id,
-                                                  classId: widget
-                                                      .viewModel
-                                                      .raceStandings?[
-                                                          classIndex]
-                                                      ?.raceClass
-                                                      ?.id,
-                                                  eventId: Session.instance
-                                                      .getEventId(),
-                                                  raceId: Session.instance
-                                                      .getRaceId()));
-                                        });
-                                      },
-                                      label: "Save",
-                                    ),
-                                    const SpacingWidget(LayoutSize.size8),
                                   ],
                                 ),
+                              const SpacingWidget(LayoutSize.size16),
+                              InputTextWidget(
+                                  enabled:
+                                      widget.viewModel.isUpdatingDriverResult ==
+                                          false,
+                                  inputType: InputType.number,
+                                  label: "Position",
+                                  controller: positionController,
+                                  validator: (value) {}),
+                              const SpacingWidget(LayoutSize.size16),
+                              InputTextWidget(
+                                  enabled:
+                                      widget.viewModel.isUpdatingDriverResult ==
+                                          false,
+                                  inputType: InputType.number,
+                                  label: "Bonus points",
+                                  controller: bonusController,
+                                  validator: (value) {}),
+                              const SpacingWidget(LayoutSize.size16),
+                              InputTextWidget(
+                                  enabled:
+                                      widget.viewModel.isUpdatingDriverResult ==
+                                          false,
+                                  inputType: InputType.number,
+                                  label: "Penalty points",
+                                  controller: penaltyController,
+                                  validator: (value) {}),
+                              const SpacingWidget(LayoutSize.size16),
+                              InputTextWidget(
+                                  enabled:
+                                      widget.viewModel.isUpdatingDriverResult ==
+                                          false,
+                                  inputType: InputType.number,
+                                  label: "Fastest Lap time",
+                                  controller: fastestController,
+                                  validator: (value) {}),
+                              const SpacingWidget(LayoutSize.size16),
+                              InputTextWidget(
+                                  enabled:
+                                      widget.viewModel.isUpdatingDriverResult ==
+                                          false,
+                                  inputType: InputType.multilines,
+                                  label: "Notes",
+                                  controller: notesController,
+                                  validator: (value) {}),
+                              const SpacingWidget(LayoutSize.size16),
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: dnf,
+                                    onChanged: (bool? value) {
+                                      if (widget.viewModel
+                                              .isUpdatingDriverResult ==
+                                          false) {
+                                        myState(() {
+                                          dnf = value ?? false;
+                                        });
+                                      }
+                                    },
+                                  ),
+                                  const TextWidget(
+                                      text: "Didn't finish the race",
+                                      style: Style.description)
+                                ],
                               ),
+                              const SpacingWidget(LayoutSize.size8),
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: dqf,
+                                    onChanged: (bool? value) {
+                                      if (widget.viewModel
+                                              .isUpdatingDriverResult ==
+                                          false) {
+                                        myState(() {
+                                          dqf = value ?? false;
+                                        });
+                                      }
+                                    },
+                                  ),
+                                  const TextWidget(
+                                      text: "Desqualified",
+                                      style: Style.description)
+                                ],
+                              ),
+                              const SpacingWidget(LayoutSize.size48),
+                              ButtonWidget(
+                                enabled: true,
+                                type: ButtonType.icon,
+                                icon: Icons.check_circle,
+                                onPressed: () {
+                                  setState(() {
+                                    widget.viewModel.setSummaryResult(
+                                        SetSummaryModel(
+                                            position: int.parse(
+                                                positionController.text),
+                                            penalty: int.parse(
+                                                penaltyController.text),
+                                            bonus:
+                                                int.parse(bonusController.text),
+                                            lap: int.parse(
+                                                fastestController.text),
+                                            dnf: dnf,
+                                            dqf: dqf,
+                                            notes: notesController.text,
+                                            driverId: standing?.user?.id,
+                                            classId: widget
+                                                .viewModel
+                                                .raceStandings?[classIndex]
+                                                ?.raceClass
+                                                ?.id,
+                                            eventId:
+                                                Session.instance.getEventId(),
+                                            raceId:
+                                                Session.instance.getRaceId()));
+                                    Navigator.of(context).pop();
+                                  });
+                                },
+                                label: "Save",
+                              ),
+                              const SpacingWidget(LayoutSize.size8),
+                            ],
+                          ),
+                        ),
                       ),
                     )
                   ],
                 ),
               );
             })).whenComplete(() {
-      setup();
+      clear();
     });
   }
 
-  setup() {
-    dnf = false;
-    dqf = false;
+  Widget cancelRace() {
+    return CardWidget(
+        child: Column(
+          children: [
+            Row(
+              children: const [
+                Icon(
+                  Icons.block,
+                  color: Colors.red,
+                ),
+                SpacingWidget(LayoutSize.size8),
+                TextWidget(
+                  text: "Cancellation",
+                  style: Style.subtitle,
+                  align: TextAlign.left,
+                ),
+              ],
+            ),
+            const SpacingWidget(LayoutSize.size16),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ButtonWidget(
+                label: "Cancel this race",
+                type: ButtonType.normal,
+                onPressed: () {
+                  confirmationDialog(
+                      onPositive: () {},
+                      context: context,
+                      issueMessage:
+                          "By canceling this race any result will be invalidated. Are you sure you want to proceed?",
+                      consentMessage: "Yes, I do");
+                },
+                enabled: true,
+              ),
+            ),
+            const SpacingWidget(LayoutSize.size8),
+          ],
+        ),
+        ready: true);
+  }
+
+  Widget finishRace() {
+    return CardWidget(
+        child: Column(
+          children: [
+            Row(
+              children: const [
+                Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.green,
+                ),
+                SpacingWidget(LayoutSize.size8),
+                TextWidget(
+                  text: "Conclusion",
+                  style: Style.subtitle,
+                  align: TextAlign.left,
+                ),
+              ],
+            ),
+            const SpacingWidget(LayoutSize.size16),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ButtonWidget(
+                label: "Finish this race",
+                type: ButtonType.normal,
+                onPressed: () {
+                  confirmationDialog(
+                      onPositive: () {},
+                      context: context,
+                      issueMessage:
+                          "By finishing this race you won't be able to edit the results anymore. Are you sure you want to proceed?",
+                      consentMessage: "Yes, I do");
+                },
+                enabled: true,
+              ),
+            ),
+            const SpacingWidget(LayoutSize.size8),
+          ],
+        ),
+        ready: true);
+  }
+
+  clear() {
     positionController = TextEditingController();
     bonusController = TextEditingController();
     penaltyController = TextEditingController();
     fastestController = TextEditingController();
     notesController = TextEditingController();
+    fastestController.text = "000";
+    penaltyController.text = "0";
+    bonusController.text = "0";
+    dnf = false;
+    dqf = false;
+  }
+
+  setup(RaceStandingsSummaryModel? standing) {
+    clear();
+    dnf = standing?.summary?.didntFinish ?? false;
+    dqf = standing?.summary?.disqualified ?? false;
+    positionController.text = standing?.summary?.position.toString() ?? "0";
+    bonusController.text = standing?.summary?.bonus.toString() ?? "0";
+    penaltyController.text = standing?.summary?.penalty.toString() ?? "0";
+    fastestController.text =  standing?.summary?.fastestLapTime.toString() ?? "0";
+    notesController.text = standing?.summary?.notes.toString() ?? "0";
   }
 }
