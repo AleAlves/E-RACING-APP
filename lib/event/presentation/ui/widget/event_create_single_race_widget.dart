@@ -161,6 +161,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
       children: [
         const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
+            enabled: true,
             label: "Race Title",
             icon: Icons.title,
             controller: _titleController,
@@ -292,6 +293,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
                   child: Column(
                     children: [
                       InputTextWidget(
+                          enabled: true,
                           label: "Name",
                           icon: Icons.settings,
                           controller: settingsNamesControllers[index],
@@ -303,6 +305,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
                           }),
                       const SpacingWidget(LayoutSize.size16),
                       InputTextWidget(
+                          enabled: true,
                           label: "Value",
                           icon: Icons.settings,
                           controller: settingsValuesControllers[index],
@@ -376,6 +379,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
             children: [
               Expanded(
                 child: InputTextWidget(
+                    enabled: true,
                     label: "link",
                     icon: Icons.settings,
                     controller: _broadcastingLinkController,
@@ -420,6 +424,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
                   child: Column(
                     children: [
                       InputTextWidget(
+                          enabled: true,
                           label: "Name",
                           icon: Icons.settings,
                           controller: classesNameControllers[index],
@@ -431,6 +436,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
                           }),
                       const SpacingWidget(LayoutSize.size16),
                       InputTextWidget(
+                        enabled: true,
                         label: "Max entries",
                         icon: Icons.settings,
                         controller: classesMaxEntriesControllers[index],

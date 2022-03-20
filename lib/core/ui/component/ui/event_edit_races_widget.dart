@@ -101,6 +101,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
       children: [
         const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
+            enabled: true,
             label: "Race Title",
             controller: widget.model.titleController,
             validator: (value) {
@@ -213,6 +214,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
             children: [
               Expanded(
                 child: InputTextWidget(
+                    enabled: true,
                     label: "link",
                     icon: Icons.settings,
                     controller: widget.model.broadcastingLinkController,

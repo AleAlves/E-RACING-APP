@@ -122,6 +122,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
       child: Column(
         children: [
           InputTextWidget(
+              enabled: true,
               label: 'Name',
               controller: _nameController,
               validator: (value) {

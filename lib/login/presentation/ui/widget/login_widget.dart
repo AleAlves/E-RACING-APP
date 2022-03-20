@@ -74,6 +74,7 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
       child: Column(
         children: [
           InputTextWidget(
+              enabled: true,
               label: 'Email',
               icon: Icons.mail,
               controller: _emailController,
@@ -87,6 +88,7 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
               }),
           const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
+              enabled: true,
               label: 'Password',
               icon: Icons.vpn_key,
               controller: _passwordController,

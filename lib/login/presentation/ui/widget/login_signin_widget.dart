@@ -70,6 +70,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
           const TextWidget(text: "Create Account", style: Style.description),
           const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
+              enabled: true,
               label: 'Name',
               icon: Icons.person,
               controller: _nameController,
@@ -81,6 +82,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
               }),
           const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
+              enabled: true,
               label: 'Surname',
               icon: Icons.person,
               controller: _surnameController,
@@ -92,6 +94,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
               }),
           const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
+              enabled: true,
               label: 'Email',
               icon: Icons.mail,
               controller: _mailController,
@@ -105,6 +108,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
               }),
           const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
+            enabled: true,
             label: 'Password',
             icon: Icons.vpn_key,
             controller: _passwordController,
@@ -123,6 +127,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
           ),
           const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
+            enabled: true,
             label: 'Confirm password',
             icon: Icons.vpn_key,
             controller: _passwordController,

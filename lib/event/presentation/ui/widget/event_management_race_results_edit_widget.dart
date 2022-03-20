@@ -242,6 +242,12 @@ class _EventManagementEditRaceResultsWidgetState
       physics: const ClampingScrollPhysics(),
       itemCount: standings?.length,
       itemBuilder: (context, index) {
+        standings?.forEach((element) {
+          var position =  1 + index;
+          if (!positions.contains(position.toString())) {
+            positions.add(position.toString());
+          }
+        });
         return driverCard(classIndex, standings?[index]);
       },
     );
@@ -321,7 +327,7 @@ class _EventManagementEditRaceResultsWidgetState
                                         positionController.text = newValue!;
                                       });
                                     },
-                                    items: <String>['0', '1', '2']
+                                    items: positions
                                         .map<DropdownMenuItem<String>>(
                                             (String value) {
                                       return DropdownMenuItem<String>(
@@ -464,9 +470,7 @@ class _EventManagementEditRaceResultsWidgetState
                   ],
                 ),
               );
-            })).whenComplete(() {
-      clear();
-    });
+            }));
   }
 
   Widget finishRace() {
@@ -494,7 +498,7 @@ class _EventManagementEditRaceResultsWidgetState
                 label: "Cancel",
                 type: ButtonType.important,
                 onPressed: () {
-                  confirmationDialog(
+                  confirmationDialogExt(
                       onPositive: () {},
                       context: context,
                       issueMessage:
@@ -511,7 +515,7 @@ class _EventManagementEditRaceResultsWidgetState
                 label: "Finish",
                 type: ButtonType.normal,
                 onPressed: () {
-                  confirmationDialog(
+                  confirmationDialogExt(
                       onPositive: () {},
                       context: context,
                       issueMessage:

@@ -161,6 +161,7 @@ class _EventManagementEditRaceWidgetState
       children: [
         const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
+            enabled: true,
             label: "Race Title",
             controller: titleController,
             validator: (value) {
@@ -270,6 +271,7 @@ class _EventManagementEditRaceWidgetState
             children: [
               Expanded(
                 child: InputTextWidget(
+                    enabled: true,
                     label: "link",
                     icon: Icons.settings,
                     controller: TextEditingController(),

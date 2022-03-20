@@ -276,6 +276,7 @@ abstract class _EventViewModel with Store {
 
   void createChampionshipRacesStep(
       List<ChampionshipRacesModel> racesModel) async {
+    state = ViewState.loading;
     List<RaceModel> races = [];
     for (var element in racesModel) {
       var poster;

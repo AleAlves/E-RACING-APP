@@ -74,6 +74,7 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
       child: Column(
         children: [
           InputTextWidget(
+              enabled: true,
               label: 'Email',
               icon: Icons.vpn_key,
               controller: _mailController,
@@ -85,6 +86,7 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
               }),
           const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
+              enabled: true,
               label: 'Code',
               icon: Icons.security,
               controller: _codeController,

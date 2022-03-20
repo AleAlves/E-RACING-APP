@@ -19,16 +19,16 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../event_view_model.dart';
 
-class EventCreateWidget extends StatefulWidget {
+class EventCreateEventWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const EventCreateWidget(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateEventWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventCreateWidgetState createState() => _EventCreateWidgetState();
+  _EventCreateEventWidgetState createState() => _EventCreateEventWidgetState();
 }
 
-class _EventCreateWidgetState extends State<EventCreateWidget>
+class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
     implements BaseSateWidget {
   int _index = 0;
   bool allowTeams = false;
@@ -180,27 +180,20 @@ class _EventCreateWidgetState extends State<EventCreateWidget>
   Widget basic() {
     return Column(
       children: [
-        const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
+            enabled: true,
             label: "Title",
             icon: Icons.title,
             controller: _titleController,
-            validator: (value) {
-              if (value == null || value.isEmpty == true) {
-                return 'Required';
-              }
-              return null;
-            }),
-        const SpacingWidget(LayoutSize.size32),
+            validator: (value) {}),
+        const SpacingWidget(LayoutSize.size16),
         InputTextWidget(
+            enabled: true,
             label: "Rules",
             icon: Icons.title,
             controller: _rulesController,
-            validator: (value) {
-              return null;
-            },
+            validator: (value) {},
             inputType: InputType.multilines),
-        const SpacingWidget(LayoutSize.size32),
       ],
     );
   }
@@ -304,6 +297,7 @@ class _EventCreateWidgetState extends State<EventCreateWidget>
                   child: Column(
                     children: [
                       InputTextWidget(
+                          enabled: true,
                           label: "Name",
                           icon: Icons.settings,
                           controller: settingsControllers[index].first,
@@ -315,6 +309,7 @@ class _EventCreateWidgetState extends State<EventCreateWidget>
                           }),
                       const SpacingWidget(LayoutSize.size16),
                       InputTextWidget(
+                          enabled: true,
                           label: "Value",
                           icon: Icons.settings,
                           controller: settingsControllers[index].second,
@@ -376,6 +371,7 @@ class _EventCreateWidgetState extends State<EventCreateWidget>
                   child: Column(
                     children: [
                       InputTextWidget(
+                          enabled: true,
                           label: "Name",
                           icon: Icons.settings,
                           controller: classesControllers[index].first,
@@ -387,6 +383,7 @@ class _EventCreateWidgetState extends State<EventCreateWidget>
                           }),
                       const SpacingWidget(LayoutSize.size16),
                       InputTextWidget(
+                        enabled: true,
                         label: "Max entries",
                         icon: Icons.settings,
                         controller: classesControllers[index].second,

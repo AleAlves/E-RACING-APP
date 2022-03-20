@@ -78,6 +78,7 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
               style: Style.description),
           const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
+              enabled: true,
               label: 'Validation code',
               icon: Icons.security,
               controller: _codeController,
@@ -89,6 +90,7 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
               }),
           const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
+            enabled: true,
             label: 'Password',
             icon: Icons.vpn_key,
             controller: _passwordController,

@@ -1,3 +1,4 @@
+import 'package:e_racing_app/core/ext/dialog_extension.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/swtich_widget.dart';
@@ -51,6 +52,9 @@ class EventSubscriptionsPanelWidget extends StatelessWidget {
           onPressed: (value) {
             if(isOnGoing){
               onToogle.call();
+            }
+            else{
+              showAlertExt(context: context, message: 'Event must be on going to allow subscriptions', );
             }
           },
           negativeLabel: "Disabled",

@@ -110,6 +110,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
       children: [
         const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
+            enabled: true,
             label: "Nome",
             icon: Icons.title,
             controller: _nameController,
@@ -121,6 +122,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
             }),
         const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
+            enabled: true,
             label: "Descrição",
             icon: Icons.title,
             controller: _descriptionController,
@@ -283,6 +285,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                   children: [
                     Expanded(
                       child: InputTextWidget(
+                          enabled: true,
                           label: "Link",
                           icon: Icons.add_link,
                           controller: socialStuffControllers[index],

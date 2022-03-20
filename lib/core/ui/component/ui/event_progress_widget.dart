@@ -28,7 +28,7 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
     late Icon idle;
     late Icon onGoing;
     late Icon finished;
-    var track = Theme.of(context).colorScheme.primaryVariant;
+    var track = Theme.of(context).colorScheme.secondary;
     var base = Theme.of(context).colorScheme.primary;
 
     switch (widget.event?.state) {

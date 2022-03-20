@@ -154,6 +154,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: InputTextWidget(
+                  enabled: true,
                   label: "Set Score",
                   controller: score.second,
                   inputType: InputType.number,

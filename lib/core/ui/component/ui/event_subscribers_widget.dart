@@ -106,7 +106,7 @@ class _EventSubscribersWidgetState extends State<EventSubscribersWidget> {
                         enabled: true,
                         type: ButtonType.iconBorderless,
                         onPressed: () {
-                          confirmationDialog(
+                          confirmationDialogExt(
                             context: context,
                             issueMessage:
                             "Are you sure you want to remove this subscription?",

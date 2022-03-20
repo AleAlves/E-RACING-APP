@@ -173,7 +173,7 @@ class _EventManagementWidgetState extends State<EventManagementWidget>
               onPressed: () {
                 switch (widget.viewModel.event?.state) {
                   case EventState.idle:
-                    confirmationDialog(
+                    confirmationDialogExt(
                       context: context,
                       issueMessage:
                           "Are you sure you want to start this event? you won't be able to edit the event nor the races settings",
@@ -184,7 +184,7 @@ class _EventManagementWidgetState extends State<EventManagementWidget>
                     );
                     break;
                   case EventState.ongoing:
-                    confirmationDialog(
+                    confirmationDialogExt(
                       context: context,
                       issueMessage:
                           "Are you sure you want to finish this event?",
@@ -229,7 +229,7 @@ class _EventManagementWidgetState extends State<EventManagementWidget>
                 label: "Delete this event",
                 type: ButtonType.important,
                 onPressed: () {
-                  confirmationDialog(
+                  confirmationDialogExt(
                       context: context,
                       onPositive: () {},
                       consentMessage: "Yes, I do",

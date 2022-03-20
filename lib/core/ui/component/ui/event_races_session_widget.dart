@@ -94,7 +94,7 @@ class _EventCreateRaceSessionWidgetState
                               const SpacingWidget(LayoutSize.size8),
                               TextWidget(
                                   text:
-                                  "${widget.model!.sessions![index]!.settings![settingsIndex]?.value}",
+                                      "${widget.model!.sessions![index]!.settings![settingsIndex]?.value}",
                                   style: Style.description),
                             ],
                           );
@@ -272,6 +272,7 @@ class _EventCreateRaceSessionWidgetState
                         child: Column(
                           children: [
                             InputTextWidget(
+                                enabled: true,
                                 label: "Name",
                                 controller: nameController,
                                 validator: (value) {
@@ -282,6 +283,7 @@ class _EventCreateRaceSessionWidgetState
                                 }),
                             const SpacingWidget(LayoutSize.size8),
                             InputTextWidget(
+                                enabled: true,
                                 label: "Value",
                                 controller: valueController,
                                 validator: (value) {

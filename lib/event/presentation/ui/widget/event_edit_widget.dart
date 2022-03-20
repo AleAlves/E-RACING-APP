@@ -195,6 +195,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
       children: [
         const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
+            enabled: true,
             label: "Title",
             icon: Icons.title,
             controller: _titleController,
@@ -206,6 +207,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
             }),
         const SpacingWidget(LayoutSize.size32),
         InputTextWidget(
+            enabled: true,
             label: "Rules",
             icon: Icons.title,
             controller: _rulesController,
@@ -286,6 +288,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
                   child: Column(
                     children: [
                       InputTextWidget(
+                          enabled: true,
                           label: "Name",
                           icon: Icons.settings,
                           controller: settingsControllers[index].first,
@@ -298,6 +301,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
                           }),
                       const SpacingWidget(LayoutSize.size16),
                       InputTextWidget(
+                          enabled: true,
                           label: "Value",
                           icon: Icons.settings,
                           controller: settingsControllers[index].second,
@@ -346,6 +350,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
                   child: Column(
                     children: [
                       InputTextWidget(
+                          enabled: true,
                           label: "Name",
                           icon: Icons.settings,
                           controller: classesControllers[index].first,
@@ -358,6 +363,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
                           }),
                       const SpacingWidget(LayoutSize.size16),
                       InputTextWidget(
+                        enabled: true,
                         label: "Max entries",
                         icon: Icons.settings,
                         controller: classesControllers[index].second,

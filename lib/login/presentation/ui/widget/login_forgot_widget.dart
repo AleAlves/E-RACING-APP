@@ -70,6 +70,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                       text: "Recuperação de senha", style: Style.description),
                   const SpacingWidget(LayoutSize.size24),
                   InputTextWidget(
+                      enabled: true,
                       label: "Email",
                       icon: Icons.mail,
                       controller: _emailController,
