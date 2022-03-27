@@ -16,16 +16,16 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
-class EventManagementWidget extends StatefulWidget {
+class EventManagementRaceWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const EventManagementWidget(this.viewModel, {Key? key}) : super(key: key);
+  const EventManagementRaceWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventManagementWidgetState createState() => _EventManagementWidgetState();
+  _EventManagementRaceWidgetState createState() => _EventManagementRaceWidgetState();
 }
 
-class _EventManagementWidgetState extends State<EventManagementWidget>
+class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
     implements BaseSateWidget {
   @override
   void initState() {

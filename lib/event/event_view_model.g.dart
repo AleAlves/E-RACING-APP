@@ -84,6 +84,21 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
+  final _$raceStandingsAtom = Atom(name: '_EventViewModel.raceStandings');
+
+  @override
+  RaceStandingsModel? get raceStandings {
+    _$raceStandingsAtom.reportRead();
+    return super.raceStandings;
+  }
+
+  @override
+  set raceStandings(RaceStandingsModel? value) {
+    _$raceStandingsAtom.reportWrite(value, super.raceStandings, () {
+      super.raceStandings = value;
+    });
+  }
+
   final _$flowAtom = Atom(name: '_EventViewModel.flow');
 
   @override
@@ -189,21 +204,6 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$raceStandingsAtom = Atom(name: '_EventViewModel.raceStandings');
-
-  @override
-  ObservableList<RaceStandingsModel?>? get raceStandings {
-    _$raceStandingsAtom.reportRead();
-    return super.raceStandings;
-  }
-
-  @override
-  set raceStandings(ObservableList<RaceStandingsModel?>? value) {
-    _$raceStandingsAtom.reportWrite(value, super.raceStandings, () {
-      super.raceStandings = value;
-    });
-  }
-
   final _$isUpdatingDriverResultAtom =
       Atom(name: '_EventViewModel.isUpdatingDriverResult');
 
@@ -251,6 +251,7 @@ standings: ${standings},
 media: ${media},
 race: ${race},
 status: ${status},
+raceStandings: ${raceStandings},
 flow: ${flow},
 state: ${state},
 events: ${events},
@@ -258,7 +259,6 @@ menus: ${menus},
 tags: ${tags},
 users: ${users},
 socialMedias: ${socialMedias},
-raceStandings: ${raceStandings},
 isUpdatingDriverResult: ${isUpdatingDriverResult},
 creatingEvent: ${creatingEvent}
     ''';

@@ -76,7 +76,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
     );
   }
 
-  Widget itemTitle(String title){
+  Widget itemTitle(String title) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, top: 16, bottom: 4),
       child: TextWidget(
@@ -186,6 +186,10 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                         style: Style.subtitle,
                         text: getSessionType(
                             widget.viewModel.race?.sessions?[index]?.type)),
+                    const SpacingWidget(LayoutSize.size8),
+                    TextWidget(
+                        style: Style.subtitle,
+                        text: widget.viewModel.race?.sessions?[index]?.name),
                     const SpacingWidget(LayoutSize.size24),
                     Padding(
                       padding: const EdgeInsets.only(left: 24, right: 8),
@@ -232,7 +236,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   }
 
   Widget standings() {
-    if (widget.viewModel.raceStandings?.isEmpty == true) {
+    if (widget.viewModel.raceStandings == null) {
       return const Padding(
         padding: EdgeInsets.only(left: 8, right: 8),
         child: LoadingShimmer(),
@@ -246,18 +250,13 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
             child: ListView.builder(
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
-              itemCount: widget.viewModel.raceStandings?.length,
+              itemCount: widget.viewModel.raceStandings?.sessions?.length,
               itemBuilder: (context, index) {
                 return CardWidget(
                   ready: true,
                   child: Column(
                     children: [
-                      TextWidget(
-                          style: Style.subtitle,
-                          text: widget.viewModel.raceStandings?[index]
-                              ?.raceClass?.name),
-                      const SpacingWidget(LayoutSize.size16),
-                      drivers(widget.viewModel.raceStandings?[index]?.standings)
+                      drivers(widget.viewModel.raceStandings?.sessions?[index]?.standings)
                     ],
                   ),
                 );

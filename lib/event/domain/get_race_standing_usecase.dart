@@ -19,10 +19,7 @@ class GetRaceStandingsUseCase<T> extends BaseUseCase<T> {
         params: HTTPRequesParams(query: _id),
         verb: HTTPVerb.get));
     if (response.isSuccessfully) {
-      success.call((response.data as List)
-          .map<RaceStandingsModel>(
-              (race) => RaceStandingsModel.fromJson(race))
-          .toList() as T);
+      success.call(RaceStandingsModel.fromJson(response.data) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

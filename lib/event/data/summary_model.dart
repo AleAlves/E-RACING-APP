@@ -1,10 +1,10 @@
 import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'event_standing_model.g.dart';
+part 'summary_model.g.dart';
 
 @JsonSerializable()
-class EventStandingModel {
+class SummaryModel {
   late UserModel? user;
   late int? dnf;
   late int? laps;
@@ -18,7 +18,7 @@ class EventStandingModel {
   late int? bestPosition;
   late int? worstPosition;
 
-  EventStandingModel({
+  SummaryModel({
     required this.user,
     required this.dnf,
     required this.laps,
@@ -33,8 +33,7 @@ class EventStandingModel {
     required this.worstPosition
   });
 
-  factory EventStandingModel.fromJson(Map<String, dynamic> json) =>
-      _$EventStandingModelFromJson(json);
+  factory SummaryModel.fromJson(Map<String, dynamic> json) => _$SummaryModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$EventStandingModelToJson(this);
+  Map<String, dynamic> toJson() => _$SummaryModelToJson(this);
 }

@@ -10,7 +10,7 @@ import 'package:e_racing_app/event/presentation/ui/widget/event_edit_widget.dart
 import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_edit_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_list_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_results_edit_widget.dart';
-import 'package:e_racing_app/event/presentation/ui/widget/event_management_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_list_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_status_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -59,7 +59,7 @@ extension EventNavigation on EventFlows {
       case EventFlows.status:
         return EventStatusWidget(vm);
       case EventFlows.manager:
-        return EventManagementWidget(vm);
+        return EventManagementRaceWidget(vm);
       case EventFlows.raceDetail:
         return EventDetailRaceWidget(vm);
       case EventFlows.managementEditEvent:

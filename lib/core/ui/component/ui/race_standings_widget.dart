@@ -3,7 +3,7 @@ import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/event/data/event_standing_model.dart';
+import 'package:e_racing_app/event/data/summary_model.dart';
 import 'package:e_racing_app/event/data/race_standings_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,12 +52,12 @@ class _RaceStandingsWidgetState extends State<RaceStandingsWidget> {
   }
 
 
-  List<Widget> driverList(List<EventStandingModel?>? entries, Color color) {
+  List<Widget> driverList(List<SummaryModel?>? entries, Color color) {
     return entries?.map((driver) => driverCard(driver, color)).toList() ??
         [Container()];
   }
 
-  Widget driverCard(EventStandingModel? standing, Color color) {
+  Widget driverCard(SummaryModel? standing, Color color) {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8),
       child: Column(

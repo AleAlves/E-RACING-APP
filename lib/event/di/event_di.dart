@@ -47,8 +47,7 @@ class EventModule extends Module {
         Bind.factory((i) => ToogleSubscriptionsUseCase<StatusModel>()),
         Bind.factory((i) => GetEventUseCase<EventHomeModel>()),
         Bind.factory((i) => GetEventStandingUseCase<EventStandingsModel>()),
-        Bind.factory(
-            (i) => GetRaceStandingsUseCase<List<RaceStandingsModel>>()),
+        Bind.factory((i) => GetRaceStandingsUseCase<RaceStandingsModel>()),
         Bind.factory((i) => StartEventUseCase<StatusModel>()),
         Bind.factory((i) => FinishEventUseCase<StatusModel>()),
         Bind.factory((i) => ToogleMembersOnlyUseCase<StatusModel>()),

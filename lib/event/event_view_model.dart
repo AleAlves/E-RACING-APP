@@ -67,6 +67,9 @@ abstract class _EventViewModel with Store {
   StatusModel? status;
 
   @observable
+  RaceStandingsModel? raceStandings;
+
+  @observable
   EventFlows flow = EventFlows.list;
 
   @observable
@@ -86,9 +89,6 @@ abstract class _EventViewModel with Store {
 
   @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
-
-  @observable
-  ObservableList<RaceStandingsModel?>? raceStandings = ObservableList();
 
   @observable
   bool isUpdatingDriverResult = false;
@@ -120,7 +120,7 @@ abstract class _EventViewModel with Store {
   final _deleteTeamUseCase = Modular.get<DeleteTeamUseCase<StatusModel>>();
   final _startEventUseCase = Modular.get<StartEventUseCase<StatusModel>>();
   final _getRaceStandingdUseCase =
-      Modular.get<GetRaceStandingsUseCase<List<RaceStandingsModel>>>();
+      Modular.get<GetRaceStandingsUseCase<RaceStandingsModel>>();
   final _finishEventUseCase = Modular.get<FinishEventUseCase<StatusModel>>();
   final _toogleSubscriptionsUseCase =
       Modular.get<ToogleSubscriptionsUseCase<StatusModel>>();
@@ -395,9 +395,10 @@ abstract class _EventViewModel with Store {
   }
 
   Future<void> getRaceStandings() async {
+    raceStandings = null;
     await _getRaceStandingdUseCase.build(id: race?.id ?? '').invoke(
         success: (data) {
-          raceStandings = ObservableList.of(data);
+          raceStandings = data;
           isUpdatingDriverResult = false;
         },
         error: onError);

@@ -106,7 +106,7 @@ class _EventManagementEditRaceResultsWidgetState
   }
 
   Widget standings() {
-    if (widget.viewModel.raceStandings?.isEmpty == true) {
+    if (widget.viewModel.raceStandings == null) {
       return const Padding(
         padding: EdgeInsets.only(left: 8, right: 8),
         child: LoadingShimmer(),
@@ -120,7 +120,7 @@ class _EventManagementEditRaceResultsWidgetState
             child: ListView.builder(
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
-              itemCount: widget.viewModel.raceStandings?.length,
+              itemCount: widget.viewModel.raceStandings?.sessions?.length,
               itemBuilder: (context, index) {
                 return CardWidget(
                   ready: true,
@@ -129,13 +129,8 @@ class _EventManagementEditRaceResultsWidgetState
                     children: [
                       const TextWidget(style: Style.subtitle, text: "Results"),
                       const SpacingWidget(LayoutSize.size48),
-                      TextWidget(
-                          style: Style.subtitle,
-                          text: widget.viewModel.raceStandings?[index]
-                              ?.raceClass?.name),
                       const SpacingWidget(LayoutSize.size16),
-                      drivers(index,
-                          widget.viewModel.raceStandings?[index]?.standings)
+                      drivers(index, widget.viewModel.raceStandings?.sessions?.first?.standings)
                     ],
                   ),
                 );
@@ -450,9 +445,8 @@ class _EventManagementEditRaceResultsWidgetState
                                           driverId: standing?.user?.id,
                                           classId: widget
                                               .viewModel
-                                              .raceStandings?[classIndex]
-                                              ?.raceClass
-                                              ?.id,
+                                              .raceStandings?.sessions?.first
+                                              ?.sessionName,
                                           eventId:
                                               Session.instance.getEventId(),
                                           raceId:
