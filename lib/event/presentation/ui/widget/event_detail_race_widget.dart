@@ -6,6 +6,7 @@ import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/poster_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -69,8 +70,6 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
         banner(),
         itemTitle("Standings"),
         standings(),
-        itemTitle("Sessions"),
-        sessions(),
         const SpacingWidget(LayoutSize.size16),
       ],
     );
@@ -103,7 +102,50 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
               child: TextWidget(
                   text: widget.viewModel.race?.title, style: Style.title),
             ),
-            schedule()
+            schedule(),
+            ExpandedWidget(
+                header: Row(
+                  children: const [
+                    TextWidget(
+                      text: "Sessions",
+                      style: Style.subtitle,
+                      align: TextAlign.left,
+                    ),
+                  ],
+                ),
+                body: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      physics: const ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: widget.viewModel.race?.sessions?.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextWidget(
+                                style: Style.subtitle,
+                                text: getSessionType(widget
+                                    .viewModel.race?.sessions?[index]?.type)),
+                            const SpacingWidget(LayoutSize.size8),
+                            TextWidget(
+                                style: Style.subtitle,
+                                text: widget
+                                    .viewModel.race?.sessions?[index]?.name),
+                            const SpacingWidget(LayoutSize.size24),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 24, right: 8),
+                              child: sessionSettings(index),
+                            ),
+                            const SpacingWidget(LayoutSize.size24),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ],
+                ready: true)
           ],
         ),
       ),
@@ -166,46 +208,6 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
     );
   }
 
-  Widget sessions() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8),
-      child: CardWidget(
-        ready: widget.viewModel.race?.sessions != null,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ListView.builder(
-              physics: const ClampingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: widget.viewModel.race?.sessions?.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextWidget(
-                        style: Style.subtitle,
-                        text: getSessionType(
-                            widget.viewModel.race?.sessions?[index]?.type)),
-                    const SpacingWidget(LayoutSize.size8),
-                    TextWidget(
-                        style: Style.subtitle,
-                        text: widget.viewModel.race?.sessions?[index]?.name),
-                    const SpacingWidget(LayoutSize.size24),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 24, right: 8),
-                      child: sessionSettings(index),
-                    ),
-                    const SpacingWidget(LayoutSize.size24),
-                  ],
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget sessionSettings(int sessionIndex) {
     return ListView.builder(
       physics: const ClampingScrollPhysics(),
@@ -243,7 +245,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
       );
     } else {
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8),
@@ -256,7 +258,20 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                   ready: true,
                   child: Column(
                     children: [
-                      drivers(widget.viewModel.raceStandings?.sessions?[index]?.standings)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          TextWidget(
+                            text: widget.viewModel.raceStandings
+                                ?.sessions?[index]?.sessionName,
+                            style: Style.subtitle,
+                            align: TextAlign.start,
+                          ),
+                        ],
+                      ),
+                      const SpacingWidget(LayoutSize.size8),
+                      drivers(widget
+                          .viewModel.raceStandings?.sessions?[index]?.standings)
                     ],
                   ),
                 );

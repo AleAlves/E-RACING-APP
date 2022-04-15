@@ -80,11 +80,6 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             const SpacingWidget(LayoutSize.size2),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
-              child: information(),
-            ),
-            const SpacingWidget(LayoutSize.size2),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
               child: races(),
             ),
             const SpacingWidget(LayoutSize.size2),
@@ -108,10 +103,9 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           BannerWidget(
             media: widget.viewModel.media,
           ),
-          const SpacingWidget(LayoutSize.size8),
           title(),
-          const SpacingWidget(LayoutSize.size8),
-          status()
+          status(),
+          information()
         ],
       ),
     );
@@ -121,7 +115,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
     return SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.only(top: 16),
           child: TextWidget(
               text: widget.viewModel.event?.title, style: Style.title),
         ));
@@ -174,6 +168,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
 
   Widget information() {
     return ExpandedWidget(
+        shapeless: true,
         iniExpanded: !isSubscriber(widget.viewModel.event?.classes),
         header: Row(
           children: const [

@@ -60,7 +60,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
           width: MediaQuery.of(context).size.width,
           child: ButtonWidget(
             label: "Subscribe",
-            type: ButtonType.normal,
+            type: ButtonType.important,
             onPressed: () {
               handleChoice();
             },

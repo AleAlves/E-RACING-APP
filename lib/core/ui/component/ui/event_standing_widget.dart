@@ -3,8 +3,6 @@ import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/event/data/race_standings_model.dart';
-import 'package:e_racing_app/event/data/summary_model.dart';
 import 'package:e_racing_app/event/data/event_standings_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,9 +49,9 @@ class _EventStandingWidgetState extends State<EventStandingWidget> {
             ],
           ),
           const SpacingWidget(LayoutSize.size16),
-          // Column(
-          //   children: classesList(context),
-          // ),
+          Column(
+            children: classesList(context),
+          ),
           const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
               enabled: true,
@@ -66,16 +64,16 @@ class _EventStandingWidgetState extends State<EventStandingWidget> {
     );
   }
 
-  // List<Widget> classesList(BuildContext context) {
-  //   return widget.standings?.se?.map((clazz) {
-  //         ++_index;
-  //         return raceCard(context, clazz, _getClassColor());
-  //       }).toList() ??
-  //       [Container()];
-  // }
+  List<Widget> classesList(BuildContext context) {
+    return widget.standings?.classes!.map((clazz) {
+          ++_index;
+          return raceCard(context, clazz, _getClassColor());
+        }).toList() ??
+        [Container()];
+  }
 
   Widget raceCard(
-      BuildContext context, RaceStandingsModel? clazz, Color color) {
+      BuildContext context, EventStandingsClassesModel? clazz, Color color) {
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -98,20 +96,20 @@ class _EventStandingWidgetState extends State<EventStandingWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // TextWidget(
-                            //   text: clazz?.className,
-                            //   style: Style.subtitle,
-                            //   align: TextAlign.start,
-                            // ),
+                            TextWidget(
+                              text: clazz?.className,
+                              style: Style.subtitle,
+                              align: TextAlign.start,
+                            ),
                           ],
                         ),
                       )
                     ],
                   ),
                   const SpacingWidget(LayoutSize.size16),
-                  // Column(
-                  //   children: driverList(clazz?.summaries, color),
-                  // )
+                  Column(
+                    children: summaryWidget(clazz?.summaries, color),
+                  )
                 ],
               ),
             )
@@ -121,12 +119,11 @@ class _EventStandingWidgetState extends State<EventStandingWidget> {
     );
   }
 
-  List<Widget> driverList(List<SummaryModel?>? entries, Color color) {
-    return entries?.map((driver) => driverCard(driver, color)).toList() ??
-        [Container()];
+  List<Widget> summaryWidget(List<EventStandingSummaryModel?>? summaries, Color color) {
+    return summaries?.map((driver) => driverCard(driver, color)).toList() ?? [Container()];
   }
 
-  Widget driverCard(SummaryModel? standing, Color color) {
+  Widget driverCard(EventStandingSummaryModel? standing, Color color) {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8),
       child: Column(

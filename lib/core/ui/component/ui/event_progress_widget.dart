@@ -30,6 +30,8 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
     late Icon finished;
     var track = Theme.of(context).colorScheme.secondary;
     var base = Theme.of(context).colorScheme.primary;
+    var bar1Size = 5.0;
+    var bar2Size = 5.0;
 
     switch (widget.event?.state) {
       case EventState.idle:
@@ -59,6 +61,7 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
           Icons.radio_button_off,
           color: base,
         );
+        bar1Size = 10.0;
         break;
       case EventState.finished:
         idle = Icon(
@@ -73,14 +76,16 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
           Icons.circle,
           color: track,
         );
+        bar1Size = 10.0;
+        bar2Size = 10.0;
         break;
       default:
         break;
     }
-    return progress(idle, onGoing, finished);
+    return progress(idle, onGoing, finished, bar1Size, bar2Size);
   }
 
-  Widget progress(Icon idle, Icon onGoing, Icon finished) {
+  Widget progress(Icon idle, Icon onGoing, Icon finished, double bar1Size, double bar2size) {
     return CardWidget(
       child: SizedBox(
           child: Column(
@@ -106,7 +111,7 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(50))),
                   width: MediaQuery.of(context).size.width / 3.5,
-                  height: 5),
+                  height: bar1Size),
               const SpacingWidget(LayoutSize.size2),
               Stack(
                 children: [
@@ -121,7 +126,7 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
                     color: Theme.of(context).colorScheme.primary,
                     borderRadius: const BorderRadius.all(Radius.circular(50))),
                 width: MediaQuery.of(context).size.width / 3.5,
-                height: 5,
+                height: bar2size,
               ),
               const SpacingWidget(LayoutSize.size2),
               Stack(
@@ -133,13 +138,6 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
               ),
             ],
           ),
-          const SpacingWidget(LayoutSize.size16),
-          TextWidget(
-            text: "Status: ${getEventStatus(widget.event?.state)}",
-            style: Style.description,
-            align: TextAlign.left,
-          ),
-          const SpacingWidget(LayoutSize.size8),
         ],
       )),
       ready: true,

@@ -129,7 +129,12 @@ class _EventManagementEditRaceResultsWidgetState
                     children: [
                       const TextWidget(style: Style.subtitle, text: "Results"),
                       const SpacingWidget(LayoutSize.size48),
-                      const SpacingWidget(LayoutSize.size16),
+                      TextWidget(
+                        text: widget.viewModel.raceStandings?.sessions?[index]?.sessionName,
+                        style: Style.subtitle,
+                        align: TextAlign.start,
+                      ),
+                      const SpacingWidget(LayoutSize.size8),
                       drivers(index, widget.viewModel.raceStandings?.sessions?.first?.standings)
                     ],
                   ),
@@ -431,6 +436,8 @@ class _EventManagementEditRaceResultsWidgetState
                                 setState(() {
                                   widget.viewModel.setSummaryResult(
                                       SetSummaryModel(
+                                        summaryId: standing?.summary?.id,
+                                          sessionId: standing?.summary?.sessionId,
                                           position: int.parse(
                                               positionController.text),
                                           penalty:
@@ -443,10 +450,7 @@ class _EventManagementEditRaceResultsWidgetState
                                           dqf: dqf,
                                           notes: notesController.text,
                                           driverId: standing?.user?.id,
-                                          classId: widget
-                                              .viewModel
-                                              .raceStandings?.sessions?.first
-                                              ?.sessionName,
+                                          classId: standing?.summary?.classId,
                                           eventId:
                                               Session.instance.getEventId(),
                                           raceId:

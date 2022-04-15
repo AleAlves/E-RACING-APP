@@ -4,6 +4,8 @@ part 'set_summary_model.g.dart';
 
 @JsonSerializable()
 class SetSummaryModel {
+  late String? summaryId;
+  late String? sessionId;
   late String? driverId;
   late String? eventId;
   late String? classId;
@@ -17,6 +19,8 @@ class SetSummaryModel {
   late int? lap;
 
   SetSummaryModel({
+    this.summaryId,
+    this.sessionId,
     this.position,
     this.penalty,
     this.driverId,

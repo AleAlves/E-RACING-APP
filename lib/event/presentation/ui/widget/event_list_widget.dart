@@ -1,5 +1,4 @@
 import 'package:e_racing_app/core/ext/event_iconography_extension.dart';
-import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';

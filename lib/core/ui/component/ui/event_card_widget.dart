@@ -96,7 +96,9 @@ class EventCardWidget extends StatelessWidget {
       size: 18,
       color: Colors.transparent,
     );
-    var track = Theme.of(context).colorScheme.primaryVariant;
+    var track = Theme.of(context).colorScheme.secondary;
+    var bar1Width = 5.0;
+    var bar2Width = 5.0;
 
     switch (event?.state) {
       case EventState.idle:
@@ -117,6 +119,7 @@ class EventCardWidget extends StatelessWidget {
           color: track,
           size: 18,
         );
+        bar1Width = 10.0;
         break;
       case EventState.finished:
         idle = Icon(
@@ -134,6 +137,8 @@ class EventCardWidget extends StatelessWidget {
           color: track,
           size: 18,
         );
+        bar1Width = 10.0;
+        bar2Width = 10.0;
         break;
       default:
         break;
@@ -154,7 +159,7 @@ class EventCardWidget extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
-              width: 5,
+              width: bar1Width,
               height: 25),
           Stack(
             children: [
@@ -167,7 +172,7 @@ class EventCardWidget extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
-              width: 5,
+              width: bar2Width,
               height: 25),
           Stack(
             children: [
