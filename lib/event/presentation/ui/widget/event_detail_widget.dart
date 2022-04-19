@@ -105,6 +105,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           ),
           title(),
           status(),
+          const SpacingWidget(LayoutSize.size16),
           information()
         ],
       ),
@@ -167,31 +168,36 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   }
 
   Widget information() {
-    return ExpandedWidget(
-        shapeless: true,
-        iniExpanded: !isSubscriber(widget.viewModel.event?.classes),
-        header: Row(
-          children: const [
-            TextWidget(
-              text: "Event",
-              style: Style.subtitle,
-              align: TextAlign.left,
-            ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ExpandedWidget(
+          shapeless: true,
+          expandIcon: Icons.visibility_outlined,
+          collapseIcon: Icons.visibility_off_outlined,
+          iniExpanded: !isSubscriber(widget.viewModel.event?.classes),
+          header: Row(
+            children: const [
+              TextWidget(
+                text: "Event",
+                style: Style.subtitle,
+                align: TextAlign.left,
+              ),
+            ],
+          ),
+          body: [
+            subscription(),
+            const SpacingWidget(LayoutSize.size2),
+            teams(),
+            const SpacingWidget(LayoutSize.size2),
+            rules(),
+            const SpacingWidget(LayoutSize.size2),
+            scoring(),
+            const SpacingWidget(LayoutSize.size2),
+            settings(),
+            const SpacingWidget(LayoutSize.size2),
           ],
-        ),
-        body: [
-          subscription(),
-          const SpacingWidget(LayoutSize.size2),
-          teams(),
-          const SpacingWidget(LayoutSize.size2),
-          rules(),
-          const SpacingWidget(LayoutSize.size2),
-          scoring(),
-          const SpacingWidget(LayoutSize.size2),
-          settings(),
-          const SpacingWidget(LayoutSize.size2),
-        ],
-        ready: true);
+          ready: true),
+    );
   }
 
   Widget rules() {

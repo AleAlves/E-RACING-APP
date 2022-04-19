@@ -473,6 +473,7 @@ abstract class _EventViewModel with Store {
       action: "Ok",
       next: EventFlows.list,
       previous: flow,
+      error: error.isBusiness()
     );
     if (error.isBusiness()) {
       state = ViewState.ready;

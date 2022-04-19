@@ -1,4 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -67,7 +68,7 @@ class _EventStandingWidgetState extends State<EventStandingWidget> {
   List<Widget> classesList(BuildContext context) {
     return widget.standings?.classes!.map((clazz) {
           ++_index;
-          return raceCard(context, clazz, _getClassColor());
+          return raceCard(context, clazz, getClassColor(_index));
         }).toList() ??
         [Container()];
   }
@@ -88,7 +89,7 @@ class _EventStandingWidgetState extends State<EventStandingWidget> {
                     children: [
                       Icon(
                         Icons.circle,
-                        color: _getClassColor(),
+                        color: getClassColor(_index),
                       ),
                       const SpacingWidget(LayoutSize.size8),
                       Expanded(
@@ -124,6 +125,7 @@ class _EventStandingWidgetState extends State<EventStandingWidget> {
   }
 
   Widget driverCard(EventStandingSummaryModel? standing, Color color) {
+    var position = 0;
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8),
       child: Column(
@@ -145,7 +147,7 @@ class _EventStandingWidgetState extends State<EventStandingWidget> {
                   ),
                   const SpacingWidget(LayoutSize.size16),
                   TextWidget(
-                    text: "${standing?.points}º",
+                    text: "${++position}º",
                     style: Style.subtitle,
                     align: TextAlign.start,
                   ),
@@ -194,32 +196,5 @@ class _EventStandingWidgetState extends State<EventStandingWidget> {
         ],
       ),
     );
-  }
-
-  Color _getClassColor() {
-    switch (_index) {
-      case 1:
-        return const Color(0xFFB600B2);
-      case 2:
-        return const Color(0xFF00E0E0);
-      case 3:
-        return const Color(0xFF3BA300);
-      case 4:
-        return const Color(0xFFE80051);
-      case 5:
-        return const Color(0xFF00E0E0);
-      case 6:
-        return const Color(0xFF58003F);
-      case 7:
-        return const Color(0xFFF52C00);
-      case 8:
-        return const Color(0xFF1E205C);
-      case 9:
-        return const Color(0xFF236A00);
-      case 10:
-        return const Color(0xFFB0ABFF);
-      default:
-        return const Color(0xFF1F6DC1);
-    }
   }
 }

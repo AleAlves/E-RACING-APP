@@ -1,33 +1,22 @@
-import 'dart:convert';
-import 'dart:io';
+
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ext/color_extensions.dart';
-import 'package:e_racing_app/core/ext/date_extensions.dart';
 import 'package:e_racing_app/core/ext/dialog_extension.dart';
-import 'package:e_racing_app/core/model/entry_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
-import 'package:e_racing_app/core/model/session_model.dart';
-import 'package:e_racing_app/core/model/summary_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
-import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/event_races_session_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/event/data/race_standings_summary_model.dart';
+import 'package:e_racing_app/event/data/race_standings_model.dart';
 import 'package:e_racing_app/event/data/set_summary_model.dart';
-import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -94,7 +83,6 @@ class _EventManagementEditRaceResultsWidgetState
       children: [
         const SpacingWidget(LayoutSize.size8),
         standings(),
-        const SpacingWidget(LayoutSize.size8),
         raceStatus(),
         const SpacingWidget(LayoutSize.size8),
       ],
@@ -102,7 +90,10 @@ class _EventManagementEditRaceResultsWidgetState
   }
 
   Widget raceStatus() {
-    return finishRace();
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, right: 8),
+      child: finishRace(),
+    );
   }
 
   Widget standings() {
@@ -120,7 +111,7 @@ class _EventManagementEditRaceResultsWidgetState
             child: ListView.builder(
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
-              itemCount: widget.viewModel.raceStandings?.sessions?.length,
+              itemCount: widget.viewModel.raceStandings?.classes?.length,
               itemBuilder: (context, index) {
                 return CardWidget(
                   ready: true,
@@ -130,12 +121,12 @@ class _EventManagementEditRaceResultsWidgetState
                       const TextWidget(style: Style.subtitle, text: "Results"),
                       const SpacingWidget(LayoutSize.size48),
                       TextWidget(
-                        text: widget.viewModel.raceStandings?.sessions?[index]?.sessionName,
+                        text: widget.viewModel.raceStandings?.classes?[index]?.className,
                         style: Style.subtitle,
                         align: TextAlign.start,
                       ),
                       const SpacingWidget(LayoutSize.size8),
-                      drivers(index, widget.viewModel.raceStandings?.sessions?.first?.standings)
+                      classes(widget.viewModel.raceStandings?.classes?[index]?.sessions)
                     ],
                   ),
                 );
@@ -147,7 +138,39 @@ class _EventManagementEditRaceResultsWidgetState
     }
   }
 
-  Widget driverCard(int classIndex, RaceStandingsSummaryModel? standing) {
+  Widget classes(List<RaceStandingsSessionModel?>? sessions) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      itemCount: sessions?.length,
+      itemBuilder: (context, index) {
+        return session(sessions?[index]);
+      },
+    );
+  }
+
+  Widget session(RaceStandingsSessionModel? sessions){
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      itemCount: sessions?.standings?.length,
+      itemBuilder: (context, sessionsIndex) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            TextWidget(
+              text: sessions?.sessionName,
+              style: Style.subtitle,
+              align: TextAlign.start,
+            ),
+            driverCard(sessionsIndex, sessions?.standings?[sessionsIndex]),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget driverCard(int sessionIndex, RaceStandingsSummaryModel? standing) {
     if (teamColors
             .where((element) => element.first == standing?.team?.id)
             .isEmpty ==
@@ -157,7 +180,7 @@ class _EventManagementEditRaceResultsWidgetState
     return CardWidget(
         onPressed: () {
           setState(() {
-            showDriverSummary(classIndex, standing);
+            showDriverSummary(standing);
           });
         },
         padding: EdgeInsets.zero,
@@ -236,7 +259,7 @@ class _EventManagementEditRaceResultsWidgetState
         ready: widget.viewModel.isUpdatingDriverResult == false);
   }
 
-  Widget drivers(int classIndex, List<RaceStandingsSummaryModel>? standings) {
+  Widget drivers(int sessionIndex, List<RaceStandingsSummaryModel>? standings) {
     return ListView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
@@ -248,12 +271,12 @@ class _EventManagementEditRaceResultsWidgetState
             positions.add(position.toString());
           }
         });
-        return driverCard(classIndex, standings?[index]);
+        return driverCard(sessionIndex, standings?[index]);
       },
     );
   }
 
-  showDriverSummary(int classIndex, RaceStandingsSummaryModel? standing) {
+  showDriverSummary(RaceStandingsSummaryModel? standing) {
     setup(standing);
     showModalBottomSheet(
         isScrollControlled: true,

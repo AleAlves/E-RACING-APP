@@ -103,7 +103,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
             media: widget.viewModel.media,
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(top: 24, bottom: 24),
             child: description(),
           ),
         ],
@@ -116,10 +116,10 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
       shapeless: true,
       iniExpanded: !isLeagueMember(widget.viewModel.league),
       ready: widget.viewModel.league != null,
+      expandIcon: Icons.visibility_outlined,
+      collapseIcon: Icons.visibility_off_outlined,
       header: Row(
         children: [
-          const Icon(Icons.emoji_events),
-          const SpacingWidget(LayoutSize.size16),
           Expanded(
             child: TextWidget(
               text: widget.viewModel.league?.name ?? '',
@@ -237,7 +237,8 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
                     onPressed: () {
                       Session.instance.setEventId(
                           widget.viewModel.playerEvents?[index]?.id);
-                      Modular.to.pushNamed(Routes.events, arguments: EventFlows.eventDetail);
+                      Modular.to.pushNamed(Routes.events,
+                          arguments: EventFlows.eventDetail);
                     },
                   );
                 },

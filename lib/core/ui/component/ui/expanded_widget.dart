@@ -10,12 +10,16 @@ class ExpandedWidget extends StatefulWidget {
   final bool ready;
   final bool shapeless;
   final bool iniExpanded;
+  final IconData expandIcon;
+  final IconData collapseIcon;
 
   const ExpandedWidget(
       {Key? key,
       required this.header,
       required this.body,
       required this.ready,
+      this.expandIcon = Icons.keyboard_arrow_up,
+      this.collapseIcon = Icons.keyboard_arrow_down,
       this.iniExpanded = false,
       this.shapeless = false})
       : super(key: key);
@@ -35,7 +39,11 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
     if (widget.shapeless) {
       return expansionWidget();
     }
-    return CardWidget(ready: widget.ready, child: expansionWidget(), padding: EdgeInsets.only(top: 16, bottom: 16, left: 8),);
+    return CardWidget(
+      ready: widget.ready,
+      child: expansionWidget(),
+      padding: const EdgeInsets.only(top: 16, bottom: 16, left: 8),
+    );
   }
 
   Widget expansionWidget() {
@@ -53,13 +61,13 @@ class _ExpandedWidgetState extends State<ExpandedWidget> {
             child: Ink(
               child: _expanded
                   ? Icon(
-                      Icons.keyboard_arrow_up,
+                      widget.expandIcon,
                       size: 24.0,
-                      color: Theme.of(context).colorScheme.onBackground,
+                      color: Theme.of(context).colorScheme.primary,
                     )
                   : Icon(
-                      Icons.keyboard_arrow_down,
-                      color: Theme.of(context).colorScheme.onBackground,
+                      widget.collapseIcon,
+                      color: Theme.of(context).colorScheme.primary,
                       size: 24.0,
                     ),
             ),

@@ -19,11 +19,11 @@ Color getTypeColor(EventType type) {
 Color getClassColor(int _index) {
   switch (_index) {
     case 1:
-      return const Color(0xFFB600B2);
+      return const Color(0xFF3BA300);
     case 2:
       return const Color(0xFF00E0E0);
     case 3:
-      return const Color(0xFF3BA300);
+      return const Color(0xFFB600B2);
     case 4:
       return const Color(0xFFE80051);
     case 5:

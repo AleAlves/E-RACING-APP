@@ -27,10 +27,14 @@ class EventRaceCollection extends StatelessWidget {
   }
 
   List<Widget> racesSteps(BuildContext context) {
-    return races?.map((race) => raceCard(context, race)).toList() ?? [];
+    var index = 0;
+    return races?.map((race){
+      ++index;
+      return raceCard(context, race, index);
+    }).toList() ?? [];
   }
 
-  Widget raceCard(BuildContext context, RaceModel? race) {
+  Widget raceCard(BuildContext context, RaceModel? race, int index) {
     return Column(
       children: [
         CardWidget(
@@ -49,7 +53,17 @@ class EventRaceCollection extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            const Icon(Icons.sports_score_outlined),
+                            Container(
+                              color: Theme.of(context).colorScheme.secondary,
+                              child: SizedBox(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextWidget(
+                                      text: index.toString(),
+                                      style: Style.description),
+                                ),
+                              ),
+                            ),
                             const SpacingWidget(LayoutSize.size8),
                             Expanded(
                               child: Column(
@@ -96,9 +110,15 @@ class EventRaceCollection extends StatelessWidget {
               Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.chevron_right,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        SpacingWidget(LayoutSize.size16),
+                        Icon(
+                          Icons.chevron_right,
+                        ),
+                      ],
                     )
                   ]),
             ],

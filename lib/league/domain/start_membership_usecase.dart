@@ -16,7 +16,7 @@ class StartMembershipUseCase<T> extends BaseUseCase<T> {
   Future<void> invoke(
       {required Function(T) success, required Function error}) async {
     var response = await super.remote(Request(
-        endpoint: "api/v1/league/start-membership",
+        endpoint: "api/v1/league/membership/start",
         verb: HTTPVerb.get,
         params: HTTPRequesParams(query: _leagueId ?? '')));
     if (response != null && response.isSuccessfully) {

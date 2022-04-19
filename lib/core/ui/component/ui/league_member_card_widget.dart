@@ -28,7 +28,7 @@ class EventMemberCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CardWidget(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(left: 8, right: 8),
         child: content(context),
       ),
       onPressed: () {},
