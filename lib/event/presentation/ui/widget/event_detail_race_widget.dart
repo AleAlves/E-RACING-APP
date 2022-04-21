@@ -309,11 +309,18 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
       itemBuilder: (context, sessionsIndex) {
         return Column(
           children: [
-            TextWidget(
-              text: sessions?.sessionName,
-              style: Style.subtitle,
-              align: TextAlign.start,
+            const SpacingWidget(LayoutSize.size16),
+            Row(
+              children: [
+                Icon(Icons.sports_score, color: Theme.of(context).colorScheme.primary,),
+                const SpacingWidget(LayoutSize.size8),
+                TextWidget(
+                  text: sessions?.sessionName,
+                  style: Style.subtitle,
+                ),
+              ],
             ),
+            const SpacingWidget(LayoutSize.size16),
             driverCard(sessions?.standings?[sessionsIndex]),
           ],
         );

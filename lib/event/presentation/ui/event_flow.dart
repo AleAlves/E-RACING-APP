@@ -7,6 +7,7 @@ import 'package:e_racing_app/event/presentation/ui/widget/event_create_single_ra
 import 'package:e_racing_app/event/presentation/ui/widget/event_detail_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_detail_race_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_edit_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_full_standings_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_edit_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_list_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_results_edit_widget.dart';
@@ -29,6 +30,7 @@ enum EventFlows {
   detailRace,
   eventDetail,
   raceDetail,
+  fullStandings,
   managementEditRace,
   managementEditEvent,
   managementEditRaceList,
@@ -70,6 +72,8 @@ extension EventNavigation on EventFlows {
         return EventManagementEditRaceWidget(vm);
       case EventFlows.managementEditRaceResultsEdit:
         return EventManagementEditRaceResultsWidget(vm);
+      case EventFlows.fullStandings:
+        return EventFullStandingsWidget(vm);
       default:
         return Container();
     }

@@ -2,7 +2,7 @@ import 'package:e_racing_app/core/ext/access_extension.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_race_collection_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/event_standing_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/simple_standings_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
@@ -169,7 +169,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
 
   Widget information() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(left: 8, right: 8),
       child: ExpandedWidget(
           shapeless: true,
           expandIcon: Icons.visibility_outlined,
@@ -179,7 +179,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             children: const [
               TextWidget(
                 text: "Event",
-                style: Style.subtitle,
+                style: Style.title,
                 align: TextAlign.left,
               ),
             ],
@@ -371,9 +371,12 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   }
 
   Widget standings() {
-    return EventStandingWidget(
+    return SimpleStandingsWidget(
       standings: widget.viewModel.standings,
       onRaceCardPressed: (id) {},
+      onFullStandingsPressed: () {
+        widget.viewModel.setFlow(EventFlows.fullStandings);
+      },
     );
   }
 }

@@ -38,6 +38,9 @@ class EventRaceCollection extends StatelessWidget {
     return Column(
       children: [
         CardWidget(
+          marked: true,
+          markWidth: 40,
+          markColor: Theme.of(context).colorScheme.secondary,
           ready: true,
           onPressed: () {
             onRaceCardPressed.call(race?.id ?? '');
@@ -47,23 +50,22 @@ class EventRaceCollection extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const SpacingWidget(LayoutSize.size8),
+                  SizedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextWidget(
+                        color: Theme.of(context).colorScheme.onSecondary,
+                          text: index.toString(),
+                          style: Style.title),
+                    ),
+                  ),
+                  const SpacingWidget(LayoutSize.size16),
                   Expanded(
                     child: Column(
                       children: [
                         Row(
                           children: [
-                            Container(
-                              color: Theme.of(context).colorScheme.secondary,
-                              child: SizedBox(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: TextWidget(
-                                      text: index.toString(),
-                                      style: Style.description),
-                                ),
-                              ),
-                            ),
+                            const Icon(Icons.sports_score),
                             const SpacingWidget(LayoutSize.size8),
                             Expanded(
                               child: Column(

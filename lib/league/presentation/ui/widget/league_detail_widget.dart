@@ -103,7 +103,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
             media: widget.viewModel.media,
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 24, bottom: 24),
+            padding: const EdgeInsets.only(top: 24, bottom: 8),
             child: description(),
           ),
         ],

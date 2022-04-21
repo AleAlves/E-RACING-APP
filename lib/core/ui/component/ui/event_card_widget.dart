@@ -1,5 +1,5 @@
+import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
-import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,7 +28,8 @@ class EventCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
-      markColor: Colors.green,
+      marked: true,
+      markColor: getTypeColor(event?.type),
       child: content(context),
       onPressed: onPressed,
       ready: true,
@@ -42,8 +43,9 @@ class EventCardWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const SpacingWidget(LayoutSize.size8),
             progress(context),
-            const SpacingWidget(LayoutSize.size24),
+            const SpacingWidget(LayoutSize.size8),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +64,8 @@ class EventCardWidget extends StatelessWidget {
                   const SpacingWidget(LayoutSize.size4),
                   drivers(),
                   const SpacingWidget(LayoutSize.size4),
-                  subscriptionsStatus(context)
+                  subscriptionsStatus(context),
+                  const SpacingWidget(LayoutSize.size4),
                 ],
               ),
             )

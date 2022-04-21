@@ -46,14 +46,15 @@ class _BannerWidgetState extends State<BannerWidget> {
             ),
           )
         : Padding(
-          padding: EdgeInsets.zero,
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
+            padding: EdgeInsets.zero,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8), topRight: Radius.circular(8)),
               child: SizedBox(
                   height: 200,
                   width: MediaQuery.of(context).size.width,
                   child: image),
             ),
-        );
+          );
   }
 }

@@ -2,15 +2,28 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:e_racing_app/core/model/event_model.dart';
+import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:flutter/material.dart';
 
+Pair<Color, Color> getPodiumColor(int? position) {
+  switch (position) {
+    case 1:
+      return Pair(const Color(0xFFC6A23D), Colors.black);
+    case 2:
+      return Pair(const Color(0xFFBAB9B9), Colors.black);
+    case 3:
+      return Pair(const Color(0xFFDC8A61), Colors.black);
+    default:
+      return Pair(null, null);
+  }
+}
 
-Color getTypeColor(EventType type) {
+Color getTypeColor(EventType? type) {
   switch (type) {
     case EventType.championship:
-      return Colors.green;
+      return const Color(0xFFE80051);
     case EventType.race:
-      return Colors.blueAccent;
+      return const Color(0xFF1F6DC1);
     default:
       return Colors.red;
   }

@@ -34,7 +34,7 @@ class EventManagementEditRaceResultsWidget extends StatefulWidget {
 class _EventManagementEditRaceResultsWidgetState
     extends State<EventManagementEditRaceResultsWidget>
     implements BaseSateWidget {
-  List<String> positions = ['0'];
+  List<String> positions = ['','0'];
   List<Pair<String, Color>> teamColors = [];
   bool dnf = false;
   bool dqf = false;
@@ -155,6 +155,12 @@ class _EventManagementEditRaceResultsWidgetState
       physics: const ClampingScrollPhysics(),
       itemCount: sessions?.standings?.length,
       itemBuilder: (context, sessionsIndex) {
+        sessions?.standings?.forEach((element) {
+          var position =  1 + sessionsIndex;
+          if (!positions.contains(position.toString())) {
+            positions.add(position.toString());
+          }
+        });
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -257,23 +263,6 @@ class _EventManagementEditRaceResultsWidgetState
         ),
         placeholderHeight: 40,
         ready: widget.viewModel.isUpdatingDriverResult == false);
-  }
-
-  Widget drivers(int sessionIndex, List<RaceStandingsSummaryModel>? standings) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      itemCount: standings?.length,
-      itemBuilder: (context, index) {
-        standings?.forEach((element) {
-          var position =  1 + index;
-          if (!positions.contains(position.toString())) {
-            positions.add(position.toString());
-          }
-        });
-        return driverCard(sessionIndex, standings?[index]);
-      },
-    );
   }
 
   showDriverSummary(RaceStandingsSummaryModel? standing) {
