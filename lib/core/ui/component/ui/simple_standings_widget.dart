@@ -54,8 +54,11 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
             ],
           ),
           const SpacingWidget(LayoutSize.size16),
-          Column(
-            children: classesList(context),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: classesList(context),
+            ),
           ),
           const SpacingWidget(LayoutSize.size48),
           SizedBox(

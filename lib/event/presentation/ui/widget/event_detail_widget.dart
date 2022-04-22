@@ -311,7 +311,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                 users: widget.viewModel.users,
                 teams: widget.viewModel.event?.teams,
                 maxCrew: widget.viewModel.event?.teamsMaxCrew,
-                isSubscriber: isSubscriber(widget.viewModel.event?.classes),
+                classes: widget.viewModel.event?.classes,
                 onLeave: (id) {
                   widget.viewModel.leaveTeam(id);
                   Navigator.of(context).pop();

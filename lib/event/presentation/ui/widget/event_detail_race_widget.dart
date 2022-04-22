@@ -312,7 +312,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
             const SpacingWidget(LayoutSize.size16),
             Row(
               children: [
-                Icon(Icons.sports_score, color: Theme.of(context).colorScheme.primary,),
+                const Icon(Icons.sports_score),
                 const SpacingWidget(LayoutSize.size8),
                 TextWidget(
                   text: sessions?.sessionName,

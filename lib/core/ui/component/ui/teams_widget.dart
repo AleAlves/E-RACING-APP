@@ -1,3 +1,5 @@
+import 'package:e_racing_app/core/ext/access_extension.dart';
+import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/team_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
@@ -13,8 +15,8 @@ import 'button_widget.dart';
 class TeamsWidget extends StatefulWidget {
   final List<TeamModel?>? teams;
   final List<UserModel?>? users;
+  final List<ClassesModel?>? classes;
   final int? maxCrew;
-  final bool isSubscriber;
   final Function(String?) onLeave;
   final Function(String?) onJoin;
   final Function(String?) onDelete;
@@ -22,11 +24,11 @@ class TeamsWidget extends StatefulWidget {
   const TeamsWidget(
       {required this.teams,
       required this.users,
+      required this.classes,
       required this.maxCrew,
       required this.onLeave,
       required this.onJoin,
       required this.onDelete,
-      this.isSubscriber = false,
       Key? key})
       : super(key: key);
 
@@ -177,7 +179,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                             ),
                           ],
                         )
-                      : widget.isSubscriber ? ButtonWidget(
+                      : isSubscriber(widget.classes) ? ButtonWidget(
                           label: "Join",
                           type: ButtonType.icon,
                           icon: Icons.person_add,

@@ -4,10 +4,14 @@ import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/league/domain/model/league_model.dart';
 
 bool isSubscriber(List<ClassesModel?>? classes) {
-  var isSus = false;
-  classes?.forEach((element) => element?.drivers?.forEach(
-      (driver) => isSus = driver?.driverId == Session.instance.getUser()?.id));
-  return isSus;
+  if(classes == null) return false;
+  for (var i = 0; i < classes!.length; i++) {
+    for (var j = 0; j < classes[i]!.drivers!.length; j++) {
+      var isSus = classes[i]?.drivers?[j]?.driverId == Session.instance.getUser()?.id;
+      if (isSus) return true;
+    }
+  }
+  return false;
 }
 
 bool isEventHost(EventModel? event) {
