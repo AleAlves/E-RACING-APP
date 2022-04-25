@@ -48,7 +48,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
               SpacingWidget(LayoutSize.size16),
               TextWidget(
                 text: "Standings",
-                style: Style.subtitle,
+                style: Style.title,
                 align: TextAlign.start,
               ),
             ],
@@ -69,7 +69,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                   enabled: true,
                   type: ButtonType.normal,
                   label: "Full standings",
-                  onPressed: (){
+                  onPressed: () {
                     widget.onFullStandingsPressed();
                   }),
             ),
@@ -130,36 +130,75 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
     );
   }
 
-  List<Widget> summaryWidget(
-      List<EventStandingSummaryModel?>? summaries, Color color) {
-    return summaries?.map((driver) => driverCard(driver, color)).toList() ??
+  List<Widget> summaryWidget(List<EventStandingSummaryModel?>? summaries, Color color) {
+    var position = 0;
+    return summaries?.map((driver) {
+          return Column(
+            children: [
+              driverCard(driver, color, ++position),
+              const SpacingWidget(LayoutSize.size2),
+            ],
+          );
+        }).toList() ??
         [Container()];
   }
 
-  Widget driverCard(EventStandingSummaryModel? standing, Color color) {
-    var position = 0;
-    return Padding(
-      padding: const EdgeInsets.only(left: 0, right: 0),
+  Widget driverCard(
+      EventStandingSummaryModel? standing, Color color, int position) {
+    return Container(
+      color: Colors.black12,
       child: Column(
         children: [
           Row(
             children: [
+              const SpacingWidget(LayoutSize.size16),
               Row(
                 children: [
                   Container(
-                    height: 60,
+                    height: 35,
                     width: 5,
-                    color: color,
+                    color: getClassColor(_index),
                   ),
-                  const SpacingWidget(LayoutSize.size16),
-                  TextWidget(
-                    text: "${++position}º",
-                    style: Style.subtitle,
-                    align: TextAlign.start,
+                  Container(
+                    height: 35,
+                    color: getPodiumColor(position).first,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 16, right: 16, top: 8),
+                      child: TextWidget(
+                        text: "$positionº",
+                        style: Style.subtitle,
+                        color: getPodiumColor(position).second,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              const SpacingWidget(LayoutSize.size8),
+              const SpacingWidget(LayoutSize.size16),
+              Expanded(
+                child: Wrap(
+                  children: [
+                    TextWidget(
+                      text:
+                          "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
+                      style: Style.subtitle,
+                      align: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextWidget(
+                      text: "${standing?.points} pts",
+                      style: Style.subtitle,
+                      align: TextAlign.start,
+                    ),
+                  ),
+                ],
+              ),
               CountryCodePicker(
                 onChanged: print,
                 showCountryOnly: true,
@@ -169,42 +208,8 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                 showFlagMain: true,
                 showFlag: false,
               ),
-              const SpacingWidget(LayoutSize.size8),
-              Expanded(
-                child: Wrap(
-                  children: [
-                    TextWidget(
-                      text:
-                      "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
-                      style: Style.subtitle,
-                      align: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 40,
-                decoration: BoxDecoration(
-                  color: getPodiumColor(position).first,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextWidget(
-                        text: "${standing?.points} pts",
-                        style: Style.subtitle,
-                        align: TextAlign.start,
-                        color: getPodiumColor(position).second,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
-          const SpacingWidget(LayoutSize.size4),
         ],
       ),
     );

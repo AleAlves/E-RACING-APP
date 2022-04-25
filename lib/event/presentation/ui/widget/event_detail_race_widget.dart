@@ -68,21 +68,9 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         banner(),
-        itemTitle("Standings"),
         standings(),
         const SpacingWidget(LayoutSize.size16),
       ],
-    );
-  }
-
-  Widget itemTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, top: 16, bottom: 4),
-      child: TextWidget(
-        text: title,
-        style: Style.subtitle,
-        align: TextAlign.start,
-      ),
     );
   }
 
@@ -265,13 +253,14 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                   ready: true,
                   child: Column(
                     children: [
+                      const SpacingWidget(LayoutSize.size8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           TextWidget(
                             text: widget.viewModel.raceStandings
                                 ?.classes?[index]?.className,
-                            style: Style.subtitle,
+                            style: Style.title,
                             align: TextAlign.start,
                           ),
                         ],
@@ -302,39 +291,36 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   }
 
   Widget session(RaceStandingsSessionModel? sessions){
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      itemCount: sessions?.standings?.length,
-      itemBuilder: (context, sessionsIndex) {
-        return Column(
+    return Column(
+      children: [
+        const SpacingWidget(LayoutSize.size16),
+        Row(
           children: [
-            const SpacingWidget(LayoutSize.size16),
-            Row(
-              children: [
-                const Icon(Icons.sports_score),
-                const SpacingWidget(LayoutSize.size8),
-                TextWidget(
-                  text: sessions?.sessionName,
-                  style: Style.subtitle,
-                ),
-              ],
+            const Icon(Icons.sports_score),
+            const SpacingWidget(LayoutSize.size8),
+            TextWidget(
+              text: sessions?.sessionName,
+              style: Style.subtitle,
             ),
-            const SpacingWidget(LayoutSize.size16),
-            driverCard(sessions?.standings?[sessionsIndex]),
           ],
-        );
-      },
+        ),
+        const SpacingWidget(LayoutSize.size16),
+        driversContainer(sessions?.standings),
+      ],
     );
   }
 
-  Widget drivers(List<RaceStandingsSummaryModel>? standings) {
+  Widget driversContainer(List<RaceStandingsSummaryModel>? standings){
     return ListView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       itemCount: standings?.length,
-      itemBuilder: (context, index) {
-        return driverCard(standings?[index]);
+      itemBuilder: (context, sessionsIndex) {
+        return Column(
+          children: [
+            driverCard(standings?[sessionsIndex]),
+          ],
+        );
       },
     );
   }

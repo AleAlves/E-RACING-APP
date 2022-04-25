@@ -5,7 +5,7 @@ import 'package:e_racing_app/league/domain/model/league_model.dart';
 
 bool isSubscriber(List<ClassesModel?>? classes) {
   if(classes == null) return false;
-  for (var i = 0; i < classes!.length; i++) {
+  for (var i = 0; i < classes.length; i++) {
     for (var j = 0; j < classes[i]!.drivers!.length; j++) {
       var isSus = classes[i]?.drivers?[j]?.driverId == Session.instance.getUser()?.id;
       if (isSus) return true;

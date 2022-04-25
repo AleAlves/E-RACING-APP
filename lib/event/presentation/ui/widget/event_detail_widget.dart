@@ -75,17 +75,17 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             const SpacingWidget(LayoutSize.size2),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
-              child: adminPanel(),
-            ),
-            const SpacingWidget(LayoutSize.size2),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
               child: races(),
             ),
             const SpacingWidget(LayoutSize.size2),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: standings(),
+            ),
+            const SpacingWidget(LayoutSize.size2),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: adminPanel(),
             ),
             const SpacingWidget(LayoutSize.size8),
           ],
@@ -129,12 +129,13 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
               children: [
                 Row(
                   children: const [
-                    Icon(Icons.manage_accounts),
-                    SpacingWidget(LayoutSize.size8),
-                    TextWidget(
-                      text: "Management",
-                      style: Style.subtitle,
-                      align: TextAlign.left,
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: TextWidget(
+                        text: "Management",
+                        style: Style.title,
+                        align: TextAlign.left,
+                      ),
                     ),
                   ],
                 ),

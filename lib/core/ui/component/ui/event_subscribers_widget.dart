@@ -38,12 +38,12 @@ class _EventSubscribersWidgetState extends State<EventSubscribersWidget> {
   Widget subscribers(BuildContext context) {
     return ExpandedWidget(
       header: Row(
-        children: const [
-          Icon(Icons.sports_motorsports),
-          SpacingWidget(LayoutSize.size16),
-          TextWidget(
+        children: [
+          Icon(Icons.sports_motorsports, color: Theme.of(context).colorScheme.primaryVariant,),
+          const SpacingWidget(LayoutSize.size16),
+          const TextWidget(
             text: "Subscribers",
-            style: Style.subtitle,
+            style: Style.title,
             align: TextAlign.left,
           ),
         ],

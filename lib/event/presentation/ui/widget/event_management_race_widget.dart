@@ -80,12 +80,12 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
         child: Column(
           children: [
             Row(
-              children: const [
-                Icon(Icons.build),
-                SpacingWidget(LayoutSize.size8),
-                TextWidget(
+              children: [
+                Icon(Icons.build, color: Theme.of(context).colorScheme.primaryVariant,),
+                const SpacingWidget(LayoutSize.size8),
+                const TextWidget(
                   text: "Edit",
-                  style: Style.subtitle,
+                  style: Style.title,
                   align: TextAlign.left,
                 ),
               ],
@@ -149,12 +149,12 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
       child: Column(
         children: [
           Row(
-            children: const [
-              Icon(Icons.sports_score),
-              SpacingWidget(LayoutSize.size8),
-              TextWidget(
+            children: [
+              Icon(Icons.sports_score, color: Theme.of(context).colorScheme.primaryVariant,),
+              const SpacingWidget(LayoutSize.size8),
+              const TextWidget(
                 text: "State",
-                style: Style.subtitle,
+                style: Style.title,
                 align: TextAlign.left,
               ),
             ],

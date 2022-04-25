@@ -116,14 +116,20 @@ class _EventManagementEditRaceResultsWidgetState
                 return CardWidget(
                   ready: true,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const TextWidget(style: Style.subtitle, text: "Results"),
-                      const SpacingWidget(LayoutSize.size48),
-                      TextWidget(
-                        text: widget.viewModel.raceStandings?.classes?[index]?.className,
-                        style: Style.subtitle,
-                        align: TextAlign.start,
+                      const SpacingWidget(LayoutSize.size8),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: TextWidget(style: Style.title, text: "Results"),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextWidget(
+                          text: widget.viewModel.raceStandings?.classes?[index]?.className,
+                          style: Style.subtitle,
+                          align: TextAlign.start,
+                        ),
                       ),
                       const SpacingWidget(LayoutSize.size8),
                       classes(widget.viewModel.raceStandings?.classes?[index]?.sessions)
@@ -150,26 +156,31 @@ class _EventManagementEditRaceResultsWidgetState
   }
 
   Widget session(RaceStandingsSessionModel? sessions){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextWidget(
+          text: sessions?.sessionName,
+          style: Style.subtitle,
+          align: TextAlign.start,
+        ),
+        const SpacingWidget(LayoutSize.size8),
+        driversContainer(sessions?.standings),
+      ],
+    );
+  }
+
+  Widget driversContainer(List<RaceStandingsSummaryModel>? standings){
+    var sessionIndex = 0;
     return ListView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
-      itemCount: sessions?.standings?.length,
+      itemCount: standings?.length,
       itemBuilder: (context, sessionsIndex) {
-        sessions?.standings?.forEach((element) {
-          var position =  1 + sessionsIndex;
-          if (!positions.contains(position.toString())) {
-            positions.add(position.toString());
-          }
-        });
+        ++sessionIndex;
         return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            TextWidget(
-              text: sessions?.sessionName,
-              style: Style.subtitle,
-              align: TextAlign.start,
-            ),
-            driverCard(sessionsIndex, sessions?.standings?[sessionsIndex]),
+            driverCard(sessionIndex, standings?[sessionsIndex]),
           ],
         );
       },

@@ -28,12 +28,12 @@ class EventRaceResultsCollection extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              children: const [
-                Icon(Icons.format_list_numbered),
-                SpacingWidget(LayoutSize.size8),
-                TextWidget(
+              children: [
+                Icon(Icons.format_list_numbered, color: Theme.of(context).colorScheme.primaryVariant,),
+                const SpacingWidget(LayoutSize.size8),
+                const TextWidget(
                   text: "Race director",
-                  style: Style.subtitle,
+                  style: Style.title,
                   align: TextAlign.left,
                 ),
               ],
@@ -55,7 +55,6 @@ class EventRaceResultsCollection extends StatelessWidget {
       children: [
         CardWidget(
           ready: true,
-          shapeLess: true,
           onPressed: () {
             onRaceCardPressed.call(race?.id ?? '');
           },

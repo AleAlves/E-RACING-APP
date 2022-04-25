@@ -1,7 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/event/data/event_standings_model.dart';
@@ -73,182 +72,206 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
 
   Widget raceCard(
       BuildContext context, EventStandingsClassesModel? clazz, Color color) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    const SpacingWidget(LayoutSize.size8),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextWidget(
-                                text: clazz?.className,
-                                style: Style.subtitle,
-                                align: TextAlign.start,
-                                color: getClassColor(_index),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    const SpacingWidget(LayoutSize.size16),
-                    Column(
-                      children: summaryWidget(clazz?.summaries, color),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  const SpacingWidget(LayoutSize.size8),
+                  Row(
+                    children: [
+                      const SpacingWidget(LayoutSize.size8),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextWidget(
+                              text: clazz?.className,
+                              style: Style.subtitle,
+                              align: TextAlign.start,
+                              color: getClassColor(_index),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  const SpacingWidget(LayoutSize.size16),
+                  Column(
+                    children: summaryWidget(clazz?.summaries, color),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ],
     );
   }
 
   List<Widget> summaryWidget(
       List<EventStandingSummaryModel?>? summaries, Color color) {
-    return summaries
-            ?.map((driver) => driverContainer(driver, color))
-            .toList() ??
+    var position = 0;
+    return summaries?.map((driver) {
+          return driverContainer(driver, color, ++position);
+        }).toList() ??
         [Container()];
   }
 
-  Widget driverContainer(EventStandingSummaryModel? standing, Color color) {
-    return ExpandedWidget(
-      header: driverCard(standing, color),
-      body: [driverResume(standing)],
-      ready: true,
-      shapeless: true,
-    );
-  }
-
-  Widget driverCard(EventStandingSummaryModel? standing, Color color) {
-    var position = 0;
+  Widget driverContainer(EventStandingSummaryModel? standing, Color color, int position) {
     return Column(
       children: [
-        Row(
-          children: [
-            Row(
-              children: [
-                Container(
-                  height: 40,
-                  width: 5,
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(5),
-                        bottomLeft: Radius.circular(5)),
-                  ),
-                ),
-                Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: getPodiumColor(++position).first,
-                    borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(5),
-                        bottomRight: Radius.circular(5)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-                    child: TextWidget(
-                      text: "$positionº",
-                      style: Style.subtitle,
-                      color: getPodiumColor(position).second,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SpacingWidget(LayoutSize.size8),
-            CountryCodePicker(
-              onChanged: print,
-              showCountryOnly: true,
-              enabled: false,
-              initialSelection: standing?.user?.profile?.country,
-              hideMainText: true,
-              showFlagMain: true,
-              showFlag: false,
-            ),
-            const SpacingWidget(LayoutSize.size8),
-            Expanded(
-              child: Wrap(
-                children: [
-                  TextWidget(
-                    text:
-                        "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
-                    style: Style.subtitle,
-                    align: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextWidget(
-                    text: "${standing?.points} pts",
-                    style: Style.subtitle,
-                    align: TextAlign.start,
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-        const SpacingWidget(LayoutSize.size4),
+        driverCard(standing, color, position),
       ],
     );
   }
 
+  Widget driverCard(EventStandingSummaryModel? standing, Color color, int position) {
+    return CardWidget(
+      ready: true,
+      shapeLess: true,
+      padding: EdgeInsets.zero,
+      onPressed: (){
+        showResume(standing);
+      },
+      child: Container(
+        color: Colors.black12,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                const SpacingWidget(LayoutSize.size16),
+                Row(
+                  children: [
+                    Container(
+                      height: 35,
+                      color: getPodiumColor(position).first,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+                        child: TextWidget(
+                          text: "$positionº",
+                          style: Style.subtitle,
+                          color: getPodiumColor(position).second,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SpacingWidget(LayoutSize.size16),
+                Expanded(
+                  child: Wrap(
+                    children: [
+                      TextWidget(
+                        text:
+                            "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
+                        style: Style.subtitle,
+                        align: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextWidget(
+                        text: "${standing?.points} pts",
+                        style: Style.subtitle,
+                        align: TextAlign.start,
+                      ),
+                    ),
+                  ],
+                ),
+                CountryCodePicker(
+                  onChanged: print,
+                  showCountryOnly: true,
+                  enabled: false,
+                  initialSelection: standing?.user?.profile?.country,
+                  hideMainText: true,
+                  showFlagMain: true,
+                  showFlag: false,
+                ),
+                const Icon(Icons.chevron_right_sharp),
+                const SpacingWidget(LayoutSize.size4),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  showResume(EventStandingSummaryModel? standing){
+    showModalBottomSheet(
+        isScrollControlled: false,
+        context: context,
+        builder: (context) =>
+            StatefulBuilder(builder: (BuildContext context, myState) {
+              return driverResume(standing);
+            }));
+  }
+
   Widget driverResume(EventStandingSummaryModel? standing) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Wrap(
       children: [
-        TextWidget(
-          text: "${standing?.bonus} bonus points",
-          style: Style.subtitle,
-        ),
-        TextWidget(
-          text: "${standing?.penalties} penalty points",
-          style: Style.subtitle,
-        ),
-        TextWidget(
-          text: "${standing?.wins} wins",
-          style: Style.subtitle,
-        ),
-        TextWidget(
-          text: "${standing?.top5} top 5",
-          style: Style.subtitle,
-        ),
-        TextWidget(
-          text: "${standing?.top5} top 10",
-          style: Style.subtitle,
-        ),
-        TextWidget(
-          text: "${standing?.bestPosition} place, best position",
-          style: Style.subtitle,
-        ),
-        TextWidget(
-          text: "${standing?.worstPosition} place, worst position",
-          style: Style.subtitle,
-        ),
-        TextWidget(
-          text: "${standing?.desqualifies} Desqualifications",
-          style: Style.subtitle,
-        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SpacingWidget(LayoutSize.size16),
+              TextWidget(
+                text: "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
+                style: Style.subtitle,
+              ),
+              const SpacingWidget(LayoutSize.size16),
+              TextWidget(
+                text: "${standing?.bonus} bonus points",
+                style: Style.subtitle,
+              ),
+              const SpacingWidget(LayoutSize.size4),
+              TextWidget(
+                text: "${standing?.penalties} penalty points",
+                style: Style.subtitle,
+              ),
+              const SpacingWidget(LayoutSize.size4),
+              TextWidget(
+                text: "${standing?.wins} wins",
+                style: Style.subtitle,
+              ),
+              const SpacingWidget(LayoutSize.size4),
+              TextWidget(
+                text: "${standing?.top5} top 5",
+                style: Style.subtitle,
+              ),
+              const SpacingWidget(LayoutSize.size4),
+              TextWidget(
+                text: "${standing?.top5} top 10",
+                style: Style.subtitle,
+              ),
+              const SpacingWidget(LayoutSize.size4),
+              TextWidget(
+                text: "${standing?.bestPosition} place, best position",
+                style: Style.subtitle,
+              ),
+              const SpacingWidget(LayoutSize.size4),
+              TextWidget(
+                text: "${standing?.worstPosition} place, worst position",
+                style: Style.subtitle,
+              ),
+              const SpacingWidget(LayoutSize.size4),
+              TextWidget(
+                text: "${standing?.desqualifies} Desqualifications",
+                style: Style.subtitle,
+              ),
+              const SpacingWidget(LayoutSize.size48),
+            ],
+          ),
+        )
       ],
     );
   }

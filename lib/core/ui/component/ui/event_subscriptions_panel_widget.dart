@@ -36,12 +36,12 @@ class EventSubscriptionsPanelWidget extends StatelessWidget {
     return Column(
       children: [
         Row(
-          children: const [
-            Icon(Icons.assignment_ind),
-            SpacingWidget(LayoutSize.size8),
-            TextWidget(
+          children: [
+            Icon(Icons.assignment_ind, color: Theme.of(context).colorScheme.primaryVariant,),
+            const SpacingWidget(LayoutSize.size8),
+            const TextWidget(
               text: "Subscriptions",
-              style: Style.subtitle,
+              style: Style.title,
               align: TextAlign.left,
             ),
           ],
