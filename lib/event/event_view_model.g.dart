@@ -99,6 +99,22 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
+  final _$raceTeamsStandingsAtom =
+      Atom(name: '_EventViewModel.raceTeamsStandings');
+
+  @override
+  EventTeamsStandingsModel? get raceTeamsStandings {
+    _$raceTeamsStandingsAtom.reportRead();
+    return super.raceTeamsStandings;
+  }
+
+  @override
+  set raceTeamsStandings(EventTeamsStandingsModel? value) {
+    _$raceTeamsStandingsAtom.reportWrite(value, super.raceTeamsStandings, () {
+      super.raceTeamsStandings = value;
+    });
+  }
+
   final _$flowAtom = Atom(name: '_EventViewModel.flow');
 
   @override
@@ -252,6 +268,7 @@ media: ${media},
 race: ${race},
 status: ${status},
 raceStandings: ${raceStandings},
+raceTeamsStandings: ${raceTeamsStandings},
 flow: ${flow},
 state: ${state},
 events: ${events},

@@ -25,6 +25,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import 'data/event_standings_model.dart';
+import 'data/event_teams_standings_model.dart';
 import 'data/race_standings_model.dart';
 import 'domain/create_event_usecase.dart';
 import 'domain/create_team_usecase.dart';
@@ -32,6 +33,7 @@ import 'domain/delete_team_usecase.dart';
 import 'domain/finish_event_usecase.dart';
 import 'domain/get_event_standing_usecase.dart';
 import 'domain/get_race_standing_usecase.dart';
+import 'domain/get_race_teams_standing_usecase.dart';
 import 'domain/join_team_usecase.dart';
 import 'domain/leave_team_usecase.dart';
 import 'domain/remove_subcription_usecase.dart';
@@ -68,6 +70,9 @@ abstract class _EventViewModel with Store {
 
   @observable
   RaceStandingsModel? raceStandings;
+
+  @observable
+  EventTeamsStandingsModel? raceTeamsStandings;
 
   @observable
   EventFlows flow = EventFlows.list;
@@ -121,6 +126,8 @@ abstract class _EventViewModel with Store {
   final _startEventUseCase = Modular.get<StartEventUseCase<StatusModel>>();
   final _getRaceStandingdUseCase =
       Modular.get<GetRaceStandingsUseCase<RaceStandingsModel>>();
+  final _getRaceTeamsStandingsUseCase =
+      Modular.get<GetRaceTeamsStandingsUseCase<EventTeamsStandingsModel>>();
   final _finishEventUseCase = Modular.get<FinishEventUseCase<StatusModel>>();
   final _toogleSubscriptionsUseCase =
       Modular.get<ToogleSubscriptionsUseCase<StatusModel>>();
@@ -400,6 +407,15 @@ abstract class _EventViewModel with Store {
         success: (data) {
           raceStandings = data;
           isUpdatingDriverResult = false;
+        },
+        error: onError);
+  }
+
+  Future<void> getRaceTeamsStandings() async {
+    raceTeamsStandings = null;
+    await _getRaceTeamsStandingsUseCase.build(id: event?.id ?? '').invoke(
+        success: (data) {
+          raceTeamsStandings = data;
         },
         error: onError);
   }

@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/full_standings_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/teams_standings_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -20,7 +21,7 @@ class _EventFullStandingsWidgetState extends State<EventFullStandingsWidget>
     implements BaseSateWidget {
   @override
   void initState() {
-    widget.viewModel.fetchEvents();
+    widget.viewModel.getRaceTeamsStandings();
     super.initState();
   }
 
@@ -54,16 +55,26 @@ class _EventFullStandingsWidgetState extends State<EventFullStandingsWidget>
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: generalStanding(),
+          child: generalStandings(),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: teamsStandings(),
         ),
       ],
     );
   }
 
-  Widget generalStanding(){
+  Widget generalStandings(){
     return FullStandingsWidget(
       standings: widget.viewModel.standings,
       onRaceCardPressed: (id) {}, onFullStandingsPressed: (){},
+    );
+  }
+
+  Widget teamsStandings(){
+    return TeamsStandingsWidget(
+      standings: widget.viewModel.raceTeamsStandings
     );
   }
 }

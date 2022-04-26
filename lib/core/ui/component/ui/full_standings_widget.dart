@@ -161,6 +161,15 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                     ),
                   ],
                 ),
+                CountryCodePicker(
+                  onChanged: print,
+                  showCountryOnly: true,
+                  enabled: false,
+                  initialSelection: standing?.user?.profile?.country,
+                  hideMainText: true,
+                  showFlagMain: true,
+                  showFlag: false,
+                ),
                 const SpacingWidget(LayoutSize.size16),
                 Expanded(
                   child: Wrap(
@@ -175,6 +184,8 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                   ),
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -185,15 +196,6 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                       ),
                     ),
                   ],
-                ),
-                CountryCodePicker(
-                  onChanged: print,
-                  showCountryOnly: true,
-                  enabled: false,
-                  initialSelection: standing?.user?.profile?.country,
-                  hideMainText: true,
-                  showFlagMain: true,
-                  showFlag: false,
                 ),
                 const Icon(Icons.chevron_right_sharp),
                 const SpacingWidget(LayoutSize.size4),
@@ -220,55 +222,60 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
       children: [
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              const SpacingWidget(LayoutSize.size16),
-              TextWidget(
-                text: "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
-                style: Style.subtitle,
+              const SpacingWidget(LayoutSize.size32),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SpacingWidget(LayoutSize.size16),
+                  TextWidget(
+                    text: "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
+                    style: Style.subtitle,
+                  ),
+                  const SpacingWidget(LayoutSize.size16),
+                  TextWidget(
+                    text: "${standing?.bonus} bonus points",
+                    style: Style.subtitle,
+                  ),
+                  const SpacingWidget(LayoutSize.size4),
+                  TextWidget(
+                    text: "${standing?.penalties} penalty points",
+                    style: Style.subtitle,
+                  ),
+                  const SpacingWidget(LayoutSize.size4),
+                  TextWidget(
+                    text: "${standing?.wins} wins",
+                    style: Style.subtitle,
+                  ),
+                  const SpacingWidget(LayoutSize.size4),
+                  TextWidget(
+                    text: "${standing?.top5} top 5",
+                    style: Style.subtitle,
+                  ),
+                  const SpacingWidget(LayoutSize.size4),
+                  TextWidget(
+                    text: "${standing?.top5} top 10",
+                    style: Style.subtitle,
+                  ),
+                  const SpacingWidget(LayoutSize.size4),
+                  TextWidget(
+                    text: "${standing?.bestPosition} place, best position",
+                    style: Style.subtitle,
+                  ),
+                  const SpacingWidget(LayoutSize.size4),
+                  TextWidget(
+                    text: "${standing?.worstPosition} place, worst position",
+                    style: Style.subtitle,
+                  ),
+                  const SpacingWidget(LayoutSize.size4),
+                  TextWidget(
+                    text: "${standing?.desqualifies} Desqualifications",
+                    style: Style.subtitle,
+                  ),
+                  const SpacingWidget(LayoutSize.size48),
+                ],
               ),
-              const SpacingWidget(LayoutSize.size16),
-              TextWidget(
-                text: "${standing?.bonus} bonus points",
-                style: Style.subtitle,
-              ),
-              const SpacingWidget(LayoutSize.size4),
-              TextWidget(
-                text: "${standing?.penalties} penalty points",
-                style: Style.subtitle,
-              ),
-              const SpacingWidget(LayoutSize.size4),
-              TextWidget(
-                text: "${standing?.wins} wins",
-                style: Style.subtitle,
-              ),
-              const SpacingWidget(LayoutSize.size4),
-              TextWidget(
-                text: "${standing?.top5} top 5",
-                style: Style.subtitle,
-              ),
-              const SpacingWidget(LayoutSize.size4),
-              TextWidget(
-                text: "${standing?.top5} top 10",
-                style: Style.subtitle,
-              ),
-              const SpacingWidget(LayoutSize.size4),
-              TextWidget(
-                text: "${standing?.bestPosition} place, best position",
-                style: Style.subtitle,
-              ),
-              const SpacingWidget(LayoutSize.size4),
-              TextWidget(
-                text: "${standing?.worstPosition} place, worst position",
-                style: Style.subtitle,
-              ),
-              const SpacingWidget(LayoutSize.size4),
-              TextWidget(
-                text: "${standing?.desqualifies} Desqualifications",
-                style: Style.subtitle,
-              ),
-              const SpacingWidget(LayoutSize.size48),
             ],
           ),
         )

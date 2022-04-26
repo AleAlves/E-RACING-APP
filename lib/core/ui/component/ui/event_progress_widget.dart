@@ -30,8 +30,8 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
     late Icon finished;
     var track = Theme.of(context).colorScheme.secondary;
     var base = Theme.of(context).colorScheme.primary;
-    var bar1Size = 5.0;
-    var bar2Size = 5.0;
+    var bar1Size = 10.0;
+    var bar2Size = 10.0;
 
     switch (widget.event?.state) {
       case EventState.idle:
