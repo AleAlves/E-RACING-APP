@@ -229,9 +229,15 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SpacingWidget(LayoutSize.size16),
-                  TextWidget(
-                    text: "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
-                    style: Style.subtitle,
+                  Row(
+                    children: [
+                      const Icon(Icons.sports_motorsports),
+                      const SpacingWidget(LayoutSize.size16),
+                      TextWidget(
+                        text: "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
+                        style: Style.subtitle,
+                      ),
+                    ],
                   ),
                   const SpacingWidget(LayoutSize.size16),
                   TextWidget(

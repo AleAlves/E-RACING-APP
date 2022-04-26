@@ -171,7 +171,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                 children: [
                   const SpacingWidget(LayoutSize.size32),
                   TextWidget(
-                    text: "${teamStanding?.points} pts",
+                    text: "${teamStanding?.team} pts",
                     style: Style.subtitle,
                   ),
                 ],
