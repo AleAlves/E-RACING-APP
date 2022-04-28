@@ -1,12 +1,11 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ext/date_extensions.dart';
-import 'package:e_racing_app/core/ext/status_extensions.dart';
+import 'package:e_racing_app/core/ext/event_iconography_extension.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/poster_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -68,6 +67,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         banner(),
+        sessionsWidget(),
         standings(),
         const SpacingWidget(LayoutSize.size16),
       ],
@@ -91,56 +91,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                   text: widget.viewModel.race?.title, style: Style.title),
             ),
             schedule(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ExpandedWidget(
-                  shapeless: true,
-                  expandIcon: Icons.visibility_outlined,
-                  collapseIcon: Icons.visibility_off_outlined,
-                  header: Row(
-                    children: const [
-                      TextWidget(
-                        text: "Sessions",
-                        style: Style.subtitle,
-                        align: TextAlign.left,
-                      ),
-                    ],
-                  ),
-                  body: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListView.builder(
-                        physics: const ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: widget.viewModel.race?.sessions?.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextWidget(
-                                  style: Style.subtitle,
-                                  text: getSessionType(widget
-                                      .viewModel.race?.sessions?[index]?.type)),
-                              const SpacingWidget(LayoutSize.size8),
-                              TextWidget(
-                                  style: Style.subtitle,
-                                  text: widget
-                                      .viewModel.race?.sessions?[index]?.name),
-                              const SpacingWidget(LayoutSize.size24),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 24, right: 8),
-                                child: sessionSettings(index),
-                              ),
-                              const SpacingWidget(LayoutSize.size24),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                  ready: true),
-            ),
+            const SpacingWidget(LayoutSize.size16),
           ],
         ),
       ),
@@ -148,57 +99,129 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   }
 
   Widget schedule() {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 8,
-        right: 8,
+    return CardWidget(
+      ready: true,
+      shapeLess: true,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8, right: 8),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: const [
+                TextWidget(
+                  text: "Schedule",
+                  style: Style.subtitle,
+                  align: TextAlign.start,
+                ),
+              ],
+            ),
+            const SpacingWidget(LayoutSize.size16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.schedule),
+                    const SpacingWidget(LayoutSize.size8),
+                    TextWidget(
+                        text: formatHour(widget.viewModel.race?.date),
+                        style: Style.subtitle),
+                  ],
+                ),
+                Container(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.date_range),
+                    const SpacingWidget(LayoutSize.size8),
+                    TextWidget(
+                        text: formatDate(widget.viewModel.race?.date),
+                        style: Style.description),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-      child: CardWidget(
-        ready: true,
-        shapeLess: true,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
+    );
+  }
+
+  Widget sessionsWidget() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, right: 8),
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        itemCount: widget.viewModel.race?.sessions?.length,
+        itemBuilder: (context, index) {
+          return Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  TextWidget(
-                    text: "Schedule",
-                    style: Style.subtitle,
-                    align: TextAlign.start,
-                  ),
-                ],
-              ),
-              const SpacingWidget(LayoutSize.size16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.schedule),
-                      const SpacingWidget(LayoutSize.size8),
-                      TextWidget(
-                          text: formatHour(widget.viewModel.race?.date),
-                          style: Style.description),
-                    ],
-                  ),
-                  Container(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Icon(Icons.date_range),
-                      const SpacingWidget(LayoutSize.size8),
-                      TextWidget(
-                          text: formatDate(widget.viewModel.race?.date),
-                          style: Style.description),
-                    ],
-                  ),
-                ],
+              CardWidget(
+                marked: true,
+                markWidth: 40,
+                ready: true,
+                onPressed: () {},
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        const SpacingWidget(LayoutSize.size4),
+                        TextWidget(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            text: getSesionTypeFirstLetter(widget
+                                .viewModel.race?.sessions?[index]?.type),
+                            style: Style.title),
+                        const SpacingWidget(LayoutSize.size24),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextWidget(
+                                          text: widget.viewModel.race
+                                              ?.sessions?[index]?.name,
+                                          style: Style.subtitle,
+                                          align: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                              const SpacingWidget(LayoutSize.size16),
+                              Row(
+                                children: const [
+                                  Icon(Icons.tune),
+                                  SpacingWidget(LayoutSize.size8),
+                                  TextWidget(
+                                      text: "session settings:",
+                                      style: Style.subtitle),
+                                ],
+                              ),
+                              const SpacingWidget(LayoutSize.size16),
+                              sessionSettings(index),
+                              const SpacingWidget(LayoutSize.size16),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
-          ),
-        ),
+          );
+        },
       ),
     );
   }
@@ -213,8 +236,9 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
         return Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                const SpacingWidget(LayoutSize.size16),
                 TextWidget(
                     style: Style.subtitle,
                     text:
@@ -290,7 +314,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
     );
   }
 
-  Widget session(RaceStandingsSessionModel? sessions){
+  Widget session(RaceStandingsSessionModel? sessions) {
     return Column(
       children: [
         const SpacingWidget(LayoutSize.size16),
@@ -310,7 +334,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
     );
   }
 
-  Widget driversContainer(List<RaceStandingsSummaryModel>? standings){
+  Widget driversContainer(List<RaceStandingsSummaryModel>? standings) {
     return ListView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
@@ -327,59 +351,58 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
 
   Widget driverCard(RaceStandingsSummaryModel? standing) {
     if (teamColors
-            .where((element) => element.first == standing?.team?.id)
-            .isEmpty ==
+        .where((element) => element.first == standing?.team?.id)
+        .isEmpty ==
         true) {
       teamColors.add(Pair(standing?.team?.id, getTeamColor(teamColors.length)));
     }
     return CardWidget(
-        onPressed: () {
-          setState(() {
-            showDriverSummary(standing);
-          });
-        },
-        padding: EdgeInsets.zero,
-        shapeLess: true,
+      ready: true,
+      shapeLess: true,
+      padding: EdgeInsets.zero,
+      onPressed: (){
+        showDriverSummary(standing);
+      },
+      child: Container(
+        color: Colors.black12,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
               children: [
+                const SpacingWidget(LayoutSize.size16),
                 Row(
                   children: [
-                    Container(
-                      height: 60,
-                      width: 5,
-                      color: teamColors
-                          .firstWhere(
-                              (element) => element.first == standing?.team?.id)
-                          .second,
-                    ),
-                    const SpacingWidget(LayoutSize.size16),
-                    TextWidget(
-                      text: "${standing?.summary?.position}º",
-                      style: Style.subtitle,
-                      align: TextAlign.start,
+                    SizedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 35,
+                          color: getPodiumColor(standing?.summary?.position).first,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+                            child: TextWidget(
+                              text: "${standing?.summary?.position}º",
+                              style: Style.subtitle,
+                              color: getPodiumColor(standing?.summary?.position).second,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                const SpacingWidget(LayoutSize.size8),
-                CountryCodePicker(
-                  onChanged: print,
-                  showCountryOnly: true,
-                  enabled: false,
-                  initialSelection: standing?.user?.profile?.country,
-                  hideMainText: true,
-                  showFlagMain: true,
-                  showFlag: false,
-                ),
-                const SpacingWidget(LayoutSize.size8),
+                const SpacingWidget(LayoutSize.size16),
+                Icon(Icons.sports_motorsports, color: teamColors
+                    .firstWhere(
+                        (element) => element.first == standing?.team?.id)
+                    .second),
+                const SpacingWidget(LayoutSize.size4),
                 Expanded(
                   child: Wrap(
                     children: [
                       TextWidget(
                         text:
-                            "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
+                        "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
                         style: Style.subtitle,
                         align: TextAlign.center,
                       ),
@@ -387,29 +410,27 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                   ),
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextWidget(
-                      text: "${standing?.summary?.points} pts",
-                      style: Style.subtitle,
-                      align: TextAlign.start,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextWidget(
+                        text: "${standing?.summary?.points} pts",
+                        style: Style.subtitle,
+                        align: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
-                Icon(
-                  Icons.navigate_next,
-                  color: Theme.of(context).colorScheme.primary,
-                )
+                const Icon(Icons.chevron_right_sharp),
+                const SpacingWidget(LayoutSize.size4),
               ],
             ),
-            Container(
-                decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background,
-                    borderRadius: const BorderRadius.all(Radius.circular(20))),
-                width: MediaQuery.of(context).size.width,
-                height: 1)
           ],
         ),
-        ready: true);
+      ),
+    );
   }
 
   void showDriverSummary(RaceStandingsSummaryModel? standing) {
@@ -426,163 +447,166 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                         padding: const EdgeInsets.all(16.0),
                         child: CardWidget(
                           ready: true,
-                          child: Column(
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Icon(Icons.sports_motorsports),
-                                  const SpacingWidget(LayoutSize.size8),
-                                  TextWidget(
-                                    text:
-                                        "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
-                                    style: Style.subtitle,
-                                    align: TextAlign.start,
-                                  ),
-                                ],
-                              ),
-                              const SpacingWidget(LayoutSize.size8),
-                              if (standing?.team == null)
-                                Container()
-                              else
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Icon(
-                                      Icons.group,
-                                      color: teamColors
-                                          .firstWhere((element) =>
-                                              element.first ==
-                                              standing?.team?.id)
-                                          .second,
-                                    ),
+                                    const Icon(Icons.sports_motorsports),
                                     const SpacingWidget(LayoutSize.size8),
                                     TextWidget(
-                                      text: "${standing?.team?.name}",
+                                      text:
+                                          "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
                                       style: Style.subtitle,
                                       align: TextAlign.start,
                                     ),
                                   ],
                                 ),
-                              const SpacingWidget(LayoutSize.size16),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const TextWidget(
-                                      style: Style.subtitle, text: "Position"),
-                                  const SpacingWidget(LayoutSize.size8),
-                                  TextWidget(
-                                      style: Style.description,
-                                      text:
-                                          "${standing?.summary?.position} th"),
-                                ],
-                              ),
-                              const SpacingWidget(LayoutSize.size8),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const TextWidget(
-                                      style: Style.subtitle, text: "Points"),
-                                  const SpacingWidget(LayoutSize.size8),
-                                  TextWidget(
-                                      style: Style.description,
-                                      text: "${standing?.summary?.points} pts"),
-                                ],
-                              ),
-                              const SpacingWidget(LayoutSize.size8),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const TextWidget(
-                                      style: Style.subtitle, text: "Bonus"),
-                                  const SpacingWidget(LayoutSize.size8),
-                                  TextWidget(
-                                      style: Style.description,
-                                      text: "${standing?.summary?.bonus} pts"),
-                                ],
-                              ),
-                              const SpacingWidget(LayoutSize.size8),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const TextWidget(
-                                      style: Style.subtitle, text: "Penalty"),
-                                  const SpacingWidget(LayoutSize.size8),
-                                  TextWidget(
-                                      style: Style.description,
-                                      text:
-                                          "${standing?.summary?.penalty} pts"),
-                                ],
-                              ),
-                              const SpacingWidget(LayoutSize.size8),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const TextWidget(
-                                      style: Style.subtitle,
-                                      text: "Fastest lap time"),
-                                  const SpacingWidget(LayoutSize.size8),
-                                  TextWidget(
-                                      style: Style.description,
-                                      text:
-                                          "${standing?.summary?.fastestLapTime}"),
-                                ],
-                              ),
-                              const SpacingWidget(LayoutSize.size8),
-                              if (standing?.summary?.laps == null)
-                                Container()
-                              else
+                                const SpacingWidget(LayoutSize.size8),
+                                if (standing?.team == null)
+                                  Container()
+                                else
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.group,
+                                        color: teamColors
+                                            .firstWhere((element) =>
+                                                element.first ==
+                                                standing?.team?.id)
+                                            .second,
+                                      ),
+                                      const SpacingWidget(LayoutSize.size8),
+                                      TextWidget(
+                                        text: "${standing?.team?.name}",
+                                        style: Style.subtitle,
+                                        align: TextAlign.start,
+                                      ),
+                                    ],
+                                  ),
+                                const SpacingWidget(LayoutSize.size16),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     const TextWidget(
-                                        style: Style.subtitle, text: "Laps"),
+                                        style: Style.subtitle, text: "Position"),
                                     const SpacingWidget(LayoutSize.size8),
                                     TextWidget(
                                         style: Style.description,
-                                        text: "${standing?.summary?.laps}"),
+                                        text:
+                                            "${standing?.summary?.position} th"),
                                   ],
                                 ),
-                              const SpacingWidget(LayoutSize.size8),
-                              if (standing?.summary?.notes == null)
-                                Container()
-                              else
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                const SpacingWidget(LayoutSize.size8),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     const TextWidget(
-                                        style: Style.subtitle, text: "Notes:"),
+                                        style: Style.subtitle, text: "Points"),
                                     const SpacingWidget(LayoutSize.size8),
                                     TextWidget(
                                         style: Style.description,
-                                        text: "${standing?.summary?.notes}"),
+                                        text: "${standing?.summary?.points} pts"),
                                   ],
                                 ),
-                              if (standing?.summary?.disqualified == null ||
-                                  standing?.summary?.disqualified == false)
-                                Container()
-                              else
-                                TextWidget(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    style: Style.shadow,
-                                    text: "Disqualified"),
-                              if (standing?.summary?.didntFinish == null ||
-                                  standing?.summary?.didntFinish == false)
-                                Container()
-                              else
-                                TextWidget(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    style: Style.shadow,
-                                    text: "DNF"),
-                            ],
+                                const SpacingWidget(LayoutSize.size8),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const TextWidget(
+                                        style: Style.subtitle, text: "Bonus"),
+                                    const SpacingWidget(LayoutSize.size8),
+                                    TextWidget(
+                                        style: Style.description,
+                                        text: "${standing?.summary?.bonus} pts"),
+                                  ],
+                                ),
+                                const SpacingWidget(LayoutSize.size8),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const TextWidget(
+                                        style: Style.subtitle, text: "Penalty"),
+                                    const SpacingWidget(LayoutSize.size8),
+                                    TextWidget(
+                                        style: Style.description,
+                                        text:
+                                            "${standing?.summary?.penalty} pts"),
+                                  ],
+                                ),
+                                const SpacingWidget(LayoutSize.size8),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const TextWidget(
+                                        style: Style.subtitle,
+                                        text: "Fastest lap time"),
+                                    const SpacingWidget(LayoutSize.size8),
+                                    TextWidget(
+                                        style: Style.description,
+                                        text:
+                                            "${standing?.summary?.fastestLapTime}"),
+                                  ],
+                                ),
+                                const SpacingWidget(LayoutSize.size8),
+                                if (standing?.summary?.laps == null)
+                                  Container()
+                                else
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const TextWidget(
+                                          style: Style.subtitle, text: "Laps"),
+                                      const SpacingWidget(LayoutSize.size8),
+                                      TextWidget(
+                                          style: Style.description,
+                                          text: "${standing?.summary?.laps}"),
+                                    ],
+                                  ),
+                                const SpacingWidget(LayoutSize.size8),
+                                if (standing?.summary?.notes == null)
+                                  Container()
+                                else
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const TextWidget(
+                                          style: Style.subtitle, text: "Notes:"),
+                                      const SpacingWidget(LayoutSize.size8),
+                                      TextWidget(
+                                          style: Style.description,
+                                          text: "${standing?.summary?.notes}"),
+                                    ],
+                                  ),
+                                if (standing?.summary?.disqualified == null ||
+                                    standing?.summary?.disqualified == false)
+                                  Container()
+                                else
+                                  TextWidget(
+                                      color:
+                                          Theme.of(context).colorScheme.secondary,
+                                      style: Style.shadow,
+                                      text: "Disqualified"),
+                                if (standing?.summary?.didntFinish == null ||
+                                    standing?.summary?.didntFinish == false)
+                                  Container()
+                                else
+                                  TextWidget(
+                                      color:
+                                          Theme.of(context).colorScheme.secondary,
+                                      style: Style.shadow,
+                                      text: "DNF"),
+                              ],
+                            ),
                           ),
                         ),
                       ),

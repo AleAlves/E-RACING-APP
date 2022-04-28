@@ -156,11 +156,6 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                 children: [
                   Container(
                     height: 35,
-                    width: 5,
-                    color: getClassColor(_index),
-                  ),
-                  Container(
-                    height: 35,
                     color: getPodiumColor(position).first,
                     child: Padding(
                       padding:

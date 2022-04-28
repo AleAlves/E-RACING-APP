@@ -178,6 +178,7 @@ class _EventManagementEditRaceResultsWidgetState
       itemCount: standings?.length,
       itemBuilder: (context, sessionsIndex) {
         ++sessionIndex;
+        addPosition(sessionIndex);
         return Column(
           children: [
             driverCard(sessionIndex, standings?[sessionsIndex]),
@@ -570,6 +571,12 @@ class _EventManagementEditRaceResultsWidgetState
     bonusController.text = standing?.summary?.bonus.toString() ?? "";
     penaltyController.text = standing?.summary?.penalty.toString() ?? "";
     fastestController.text = standing?.summary?.fastestLapTime.toString() ?? "";
-    notesController.text = standing?.summary?.notes.toString() ?? "";
+    notesController.text = standing?.summary?.notes ?? "";
+  }
+
+  addPosition(int position){
+    if(!positions.contains(position.toString())) {
+      positions.add(position.toString());
+    }
   }
 }

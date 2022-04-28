@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/model/event_model.dart';
+import 'package:e_racing_app/core/model/session_model.dart';
 import 'package:flutter/material.dart';
 
 IconData? getIcon(EventType? type) {
@@ -20,5 +21,20 @@ Color? getColor(EventType? type) {
       return const Color(0xFF1AA01C);
     default:
       return const Color(0xFF1AA01C);
+  }
+}
+
+String? getSesionTypeFirstLetter(SessionType? type) {
+  switch (type) {
+    case SessionType.race:
+      return "R";
+    case SessionType.practice:
+      return "P";
+    case SessionType.qualify:
+      return "Q";
+    case SessionType.warmup:
+      return "W";
+    default:
+      return "";
   }
 }
