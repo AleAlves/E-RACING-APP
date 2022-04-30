@@ -39,18 +39,18 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
     });
   }
 
-  final _$leaguesAtom = Atom(name: '_HomeViewModel.leagues');
+  final _$profileModelAtom = Atom(name: '_HomeViewModel.profileModel');
 
   @override
-  List<LeagueModel>? get leagues {
-    _$leaguesAtom.reportRead();
-    return super.leagues;
+  ProfileModel? get profileModel {
+    _$profileModelAtom.reportRead();
+    return super.profileModel;
   }
 
   @override
-  set leagues(List<LeagueModel>? value) {
-    _$leaguesAtom.reportWrite(value, super.leagues, () {
-      super.leagues = value;
+  set profileModel(ProfileModel? value) {
+    _$profileModelAtom.reportWrite(value, super.profileModel, () {
+      super.profileModel = value;
     });
   }
 
@@ -74,7 +74,7 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
     return '''
 flow: ${flow},
 state: ${state},
-leagues: ${leagues},
+profileModel: ${profileModel},
 status: ${status}
     ''';
   }

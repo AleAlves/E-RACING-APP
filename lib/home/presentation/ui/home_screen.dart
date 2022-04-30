@@ -1,5 +1,3 @@
-import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
-import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/home/presentation/home_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final HomeViewModel viewModel = HomeViewModel();
+  final HomeViewModel vm = HomeViewModel();
 
   @override
   void initState() {
@@ -44,23 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget navigation() {
-    switch (viewModel.state) {
-      case ViewState.loading:
-        return const LoadingRipple();
-      case ViewState.ready:
-        switch (viewModel.flow) {
-          case HomeFlow.home:
-            return  Container();
-          case HomeFlow.error:
-            return  Container();
-          default:
-            return Container();
-        }
-        break;
-      case ViewState.error:
-        return Container();
-      default:
-        return Container();
-    }
+    return HomeNavigation.flow(vm);
   }
 }

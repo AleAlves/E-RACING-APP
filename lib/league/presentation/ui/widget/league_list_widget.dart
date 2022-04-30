@@ -7,6 +7,7 @@ import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class LeagueListWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
@@ -46,7 +47,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(LeagueFlow.list);
+    Modular.to.pop();
     return false;
   }
 

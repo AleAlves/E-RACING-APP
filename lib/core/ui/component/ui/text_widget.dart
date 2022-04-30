@@ -33,9 +33,8 @@ class TextWidget extends StatelessWidget {
       case Style.title:
         return TextStyle(
           fontFamily: 'Roboto',
-          fontWeight: FontWeight.w500,
-          color: color ?? Theme.of(context).colorScheme.primaryVariant,
-          fontSize: 24.0,
+          color: color,
+          fontSize: 32.0,
         );
       case Style.subtitle:
         return TextStyle(
