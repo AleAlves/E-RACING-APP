@@ -34,7 +34,7 @@ class TextWidget extends StatelessWidget {
         return TextStyle(
           fontFamily: 'Roboto',
           color: color,
-          fontSize: 32.0,
+          fontSize: 28.0,
         );
       case Style.subtitle:
         return TextStyle(

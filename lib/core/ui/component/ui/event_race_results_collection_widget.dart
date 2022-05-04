@@ -54,6 +54,7 @@ class EventRaceResultsCollection extends StatelessWidget {
     return Column(
       children: [
         CardWidget(
+          marked: true,
           ready: true,
           onPressed: () {
             onRaceCardPressed.call(race?.id ?? '');

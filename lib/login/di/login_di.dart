@@ -18,6 +18,7 @@ import 'package:e_racing_app/login/domain/usecase/sign_in_usecase.dart';
 import 'package:e_racing_app/login/domain/usecase/toogle_2fa_usecase.dart';
 import 'package:e_racing_app/login/presentation/login_view_model.dart';
 import 'package:e_racing_app/login/presentation/ui/login_screen.dart';
+import 'package:e_racing_app/profile/di/profile_di.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginModule extends Module {
@@ -41,5 +42,6 @@ class LoginModule extends Module {
         ModuleRoute(Routes.home, module: HomeModule()),
         ModuleRoute(Routes.leagues, module: LeagueModule()),
         ModuleRoute(Routes.events, module: EventModule()),
+        ModuleRoute(Routes.profile, module: ProfileModule()),
       ];
 }

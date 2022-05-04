@@ -3,4 +3,5 @@ class Routes {
   static String home = "/home/";
   static String leagues = "/leagues/";
   static String events = "/events/";
+  static String profile = "/profile/";
 }

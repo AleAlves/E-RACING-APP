@@ -28,7 +28,7 @@ class EventCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
-      marked: true,
+      marked: false,
       markColor: getTypeColor(event?.type),
       child: content(context),
       onPressed: onPressed,
@@ -43,32 +43,33 @@ class EventCardWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SpacingWidget(LayoutSize.size8),
             progress(context),
-            const SpacingWidget(LayoutSize.size8),
+            const SpacingWidget(LayoutSize.size16),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextWidget(
-                    text: event?.title ?? event?.races?.first?.title ?? '',
-                    style: Style.subtitle,
-                    align: TextAlign.start,
-                  ),
-                  const SpacingWidget(LayoutSize.size8),
-                  ClassCollectionWidget(
-                    onPressed: (w) {},
-                    classes: event?.classes,
-                  ),
-                  _getType(event?.type),
-                  const SpacingWidget(LayoutSize.size4),
-                  drivers(),
-                  const SpacingWidget(LayoutSize.size4),
-                  subscriptionsStatus(context),
-                  const SpacingWidget(LayoutSize.size4),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextWidget(
+                      text: event?.title ?? event?.races?.first?.title ?? '',
+                      style: Style.subtitle,
+                      align: TextAlign.start,
+                    ),
+                    const SpacingWidget(LayoutSize.size8),
+                    ClassCollectionWidget(
+                      onPressed: (w) {},
+                      classes: event?.classes,
+                    ),
+                    _getType(event?.type),
+                    const SpacingWidget(LayoutSize.size4),
+                    drivers(),
+                    const SpacingWidget(LayoutSize.size4),
+                    subscriptionsStatus(context),
+                  ],
+                ),
               ),
-            )
+            ),
           ],
         ),
         Row(
@@ -140,8 +141,6 @@ class EventCardWidget extends StatelessWidget {
           color: track,
           size: 18,
         );
-        bar1Width = 10.0;
-        bar2Width = 10.0;
         break;
       default:
         break;

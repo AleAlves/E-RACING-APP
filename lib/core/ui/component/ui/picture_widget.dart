@@ -6,8 +6,12 @@ import 'package:flutter/material.dart';
 
 class PictureWidget extends StatefulWidget {
   final String? image;
+  final double width;
+  final double height;
 
-  const PictureWidget({required this.image, Key? key}) : super(key: key);
+  const PictureWidget(
+      {required this.image, this.width = 100.0, this.height = 100.0, Key? key})
+      : super(key: key);
 
   Widget loading(BuildContext context) {
     return const Card(child: LoadingShimmer());
@@ -38,10 +42,11 @@ class _PictureWidgetState extends State<PictureWidget> {
     }
 
     return loaded
-        ? const Padding(
-            padding: EdgeInsets.all(8.0),
+        ? Padding(
+            padding: const EdgeInsets.all(8.0),
             child: LoadingShimmer(
-              height: 200,
+              height: widget.height,
+              width: widget.width,
             ),
           )
         : Padding(
@@ -49,8 +54,8 @@ class _PictureWidgetState extends State<PictureWidget> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: SizedBox(
-                width: 100,
-                height: 100,
+                width: widget.width,
+                height: widget.height,
                 child: Image.memory(
                   base64Decode(widget.image ?? ''),
                   fit: BoxFit.fill,

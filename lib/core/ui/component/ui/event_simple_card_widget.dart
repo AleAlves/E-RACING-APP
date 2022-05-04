@@ -41,10 +41,12 @@ class EventSimpleCardWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const SpacingWidget(LayoutSize.size16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SpacingWidget(LayoutSize.size8),
                   TextWidget(
                     text: event?.title ?? event?.races?.first?.title ?? '',
                     style: Style.title,
@@ -56,7 +58,7 @@ class EventSimpleCardWidget extends StatelessWidget {
                     classes: event?.classes,
                   ),
                   _getType(event?.type),
-                  const SpacingWidget(LayoutSize.size4),
+                  const SpacingWidget(LayoutSize.size8),
                 ],
               ),
             )

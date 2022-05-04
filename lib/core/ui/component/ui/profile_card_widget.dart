@@ -31,54 +31,48 @@ class ProfileCardWidget extends StatelessWidget {
         children: [
           const SpacingWidget(LayoutSize.size8),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(
-                Icons.account_circle,
-                color: Theme.of(context).colorScheme.primary,
-                size: 48,
-              ),
-              const SpacingWidget(LayoutSize.size8),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: TextWidget(
-                      text: profileModel?.name,
-                      style: Style.title,
-                    ),
+                  const SpacingWidget(LayoutSize.size16),
+                  TextWidget(
+                    text: profileModel?.name,
+                    style: Style.title,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: TextWidget(
-                      text: profileModel?.email,
-                      style: Style.description,
-                    ),
+                  const SpacingWidget(LayoutSize.size8),
+                  TextWidget(
+                    text: profileModel?.email,
+                    style: Style.description,
+                  ),
+                  const SpacingWidget(LayoutSize.size16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      TextWidget(
+                        text: "My profile",
+                        style: Style.description,
+                        color: Theme.of(context).colorScheme.primaryVariant,
+                      ),
+                      Icon(
+                        Icons.settings,
+                        color: Theme.of(context).colorScheme.primaryVariant,
+                        size: 24,
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: TextWidget(
-                  text: "My profile",
-                  style: Style.description,
-                  color: Theme.of(context).colorScheme.primaryVariant,
-                ),
-              ),
               Icon(
-                Icons.settings,
-                color: Theme.of(context).colorScheme.primaryVariant,
-                size: 24,
+                Icons.account_circle,
+                size: 64,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ],
           ),
-          const SpacingWidget(LayoutSize.size8),
+          const SpacingWidget(LayoutSize.size16),
         ],
       ),
     );

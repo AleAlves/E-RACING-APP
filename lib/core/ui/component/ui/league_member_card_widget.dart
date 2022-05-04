@@ -76,7 +76,7 @@ class EventMemberCardWidget extends StatelessWidget {
                 children: [
                     ButtonWidget(
                       enabled: true,
-                      type: ButtonType.iconBorderless,
+                      type: ButtonType.icon,
                       icon: Icons.delete_forever,
                       onPressed: () {
                         onRemove.call(member?.user.id);

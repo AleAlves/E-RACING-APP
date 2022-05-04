@@ -6,10 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class LeaguesCardWidget extends StatelessWidget {
+class EventsCardWidget extends StatelessWidget {
   final VoidCallback? onPressed;
 
-  const LeaguesCardWidget({this.onPressed, Key? key}) : super(key: key);
+  const EventsCardWidget({this.onPressed, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +33,12 @@ class LeaguesCardWidget extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.all(8),
                 child: TextWidget(
-                  text: "Leagues",
+                  text: "Events",
                   style: Style.title,
                 ),
               ),
               Icon(
-                Icons.emoji_events_sharp,
+                Icons.sports_score_outlined,
                 color: Theme.of(context).colorScheme.primary,
               ),
             ],
@@ -49,7 +49,7 @@ class LeaguesCardWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: TextWidget(
-                  text: "Racing communities",
+                  text: "Drivers needed",
                   style: Style.description,
                   color: Theme.of(context).colorScheme.primaryVariant,
                 ),
