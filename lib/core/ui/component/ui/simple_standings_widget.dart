@@ -38,6 +38,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
   Widget raceList(BuildContext context) {
     _index = 0;
     return CardWidget(
+      padding: EdgeInsets.zero,
       ready: widget.standings != null,
       child: Column(
         children: [
@@ -145,68 +146,66 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
 
   Widget driverCard(
       EventStandingSummaryModel? standing, Color color, int position) {
-    return Container(
-      color: Colors.black12,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              const SpacingWidget(LayoutSize.size16),
-              Row(
-                children: [
-                  Container(
-                    height: 35,
-                    color: getPodiumColor(position).first,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 16, right: 16, top: 8),
-                      child: TextWidget(
-                        text: "$positionº",
-                        style: Style.subtitle,
-                        color: getPodiumColor(position).second,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SpacingWidget(LayoutSize.size16),
-              Expanded(
-                child: Wrap(
-                  children: [
-                    TextWidget(
-                      text:
-                          "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
-                      style: Style.subtitle,
-                      align: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+    return Column(
+      children: [
+        Row(
+          children: [
+            const SpacingWidget(LayoutSize.size8),
+            Row(
+              children: [
+                Container(
+                  height: 35,
+                  color: getPodiumColor(position).first,
+                  child: Padding(
+                    padding:
+                    const EdgeInsets.only(left: 16, right: 16, top: 8),
                     child: TextWidget(
-                      text: "${standing?.points} pts",
+                      text: "$positionº",
                       style: Style.subtitle,
-                      align: TextAlign.start,
+                      color: getPodiumColor(position).second,
                     ),
+                  ),
+                ),
+              ],
+            ),
+            const SpacingWidget(LayoutSize.size16),
+            Expanded(
+              child: Wrap(
+                children: [
+                  TextWidget(
+                    text:
+                    "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
+                    style: Style.subtitle,
+                    align: TextAlign.center,
                   ),
                 ],
               ),
-              CountryCodePicker(
-                onChanged: print,
-                showCountryOnly: true,
-                enabled: false,
-                initialSelection: standing?.user?.profile?.country,
-                hideMainText: true,
-                showFlagMain: true,
-                showFlag: false,
-              ),
-            ],
-          ),
-        ],
-      ),
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextWidget(
+                    text: "${standing?.points} pts",
+                    style: Style.subtitle,
+                    align: TextAlign.start,
+                  ),
+                ),
+              ],
+            ),
+            CountryCodePicker(
+              onChanged: print,
+              showCountryOnly: true,
+              enabled: false,
+              initialSelection: standing?.user?.profile?.country,
+              hideMainText: true,
+              showFlagMain: true,
+              showFlag: false,
+            ),
+          ],
+        ),
+        Container(height: 1, color: Colors.black26,)
+      ],
     );
   }
 }

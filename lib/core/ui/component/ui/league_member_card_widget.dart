@@ -4,7 +4,6 @@ import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/league/data/league_members_model.dart';
-import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -12,12 +11,12 @@ import 'package:flutter/rendering.dart';
 import 'button_widget.dart';
 import 'spacing_widget.dart';
 
-class EventMemberCardWidget extends StatelessWidget {
+class LeagueMemberCardWidget extends StatelessWidget {
   final LeagueMembersModel? member;
   final bool isHost;
   final Function(String?) onRemove;
 
-  const EventMemberCardWidget(
+  const LeagueMemberCardWidget(
       {required this.member,
       required this.onRemove,
       this.isHost = false,
@@ -76,7 +75,7 @@ class EventMemberCardWidget extends StatelessWidget {
                 children: [
                     ButtonWidget(
                       enabled: true,
-                      type: ButtonType.icon,
+                      type: ButtonType.iconBorderless,
                       icon: Icons.delete_forever,
                       onPressed: () {
                         onRemove.call(member?.user.id);
@@ -88,7 +87,10 @@ class EventMemberCardWidget extends StatelessWidget {
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [Icon(Icons.manage_accounts)])
+                children: const [Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(Icons.manage_accounts),
+                )])
             : Container(),
       ],
     );

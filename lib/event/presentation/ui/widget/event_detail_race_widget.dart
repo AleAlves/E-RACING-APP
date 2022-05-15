@@ -337,14 +337,11 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   Widget driversContainer(List<RaceStandingsSummaryModel>? standings) {
     return ListView.builder(
       shrinkWrap: true,
+      padding: EdgeInsets.zero,
       physics: const ClampingScrollPhysics(),
       itemCount: standings?.length,
       itemBuilder: (context, sessionsIndex) {
-        return Column(
-          children: [
-            driverCard(standings?[sessionsIndex]),
-          ],
-        );
+        return driverCard(standings?[sessionsIndex]);
       },
     );
   }
@@ -363,72 +360,68 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
       onPressed: (){
         showDriverSummary(standing);
       },
-      child: Container(
-        color: Colors.black12,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                const SpacingWidget(LayoutSize.size16),
-                Row(
-                  children: [
-                    SizedBox(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 35,
-                          color: getPodiumColor(standing?.summary?.position).first,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-                            child: TextWidget(
-                              text: "${standing?.summary?.position}º",
-                              style: Style.subtitle,
-                              color: getPodiumColor(standing?.summary?.position).second,
-                            ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 35,
+                        color: getPodiumColor(standing?.summary?.position).first,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+                          child: TextWidget(
+                            text: "${standing?.summary?.position}º",
+                            style: Style.subtitle,
+                            color: getPodiumColor(standing?.summary?.position).second,
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
-                const SpacingWidget(LayoutSize.size16),
-                Icon(Icons.sports_motorsports, color: teamColors
-                    .firstWhere(
-                        (element) => element.first == standing?.team?.id)
-                    .second),
-                const SpacingWidget(LayoutSize.size4),
-                Expanded(
-                  child: Wrap(
-                    children: [
-                      TextWidget(
-                        text:
-                        "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
-                        style: Style.subtitle,
-                        align: TextAlign.center,
-                      ),
-                    ],
                   ),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                ],
+              ),
+              Container(height: 35, width: 5, color: teamColors
+                  .firstWhere(
+                      (element) => element.first == standing?.team?.id)
+                  .second,),
+              const SpacingWidget(LayoutSize.size16),
+              Expanded(
+                child: Wrap(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextWidget(
-                        text: "${standing?.summary?.points} pts",
-                        style: Style.subtitle,
-                        align: TextAlign.start,
-                      ),
+                    TextWidget(
+                      text:
+                      "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
+                      style: Style.subtitle,
+                      align: TextAlign.center,
                     ),
                   ],
                 ),
-                const Icon(Icons.chevron_right_sharp),
-                const SpacingWidget(LayoutSize.size4),
-              ],
-            ),
-          ],
-        ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextWidget(
+                      text: "${standing?.summary?.points} pts",
+                      style: Style.subtitle,
+                      align: TextAlign.start,
+                    ),
+                  ),
+                ],
+              ),
+              const Icon(Icons.chevron_right_sharp),
+              const SpacingWidget(LayoutSize.size4),
+            ],
+          ),
+          Container(height: 1, color: Colors.black26,)
+        ],
       ),
     );
   }

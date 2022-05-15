@@ -4,6 +4,7 @@ import 'package:e_racing_app/core/tools/routes.dart';
 import 'package:e_racing_app/event/di/event_di.dart';
 import 'package:e_racing_app/home/di/home_di.dart';
 import 'package:e_racing_app/league/di/league_di.dart';
+import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 import 'package:e_racing_app/login/data/model/login_response.dart';
 import 'package:e_racing_app/login/domain/usecase/forgot_password_usecase.dart';
 import 'package:e_racing_app/login/domain/usecase/get_public_key_usecase.dart';
@@ -41,6 +42,7 @@ class LoginModule extends Module {
         ChildRoute('/', child: (context, args) => const LoginScreen()),
         ModuleRoute(Routes.home, module: HomeModule()),
         ModuleRoute(Routes.leagues, module: LeagueModule()),
+        ModuleRoute(Routes.leagueDetail, module: LeagueModule(flow: LeagueFlow.detail)),
         ModuleRoute(Routes.events, module: EventModule()),
         ModuleRoute(Routes.profile, module: ProfileModule()),
       ];

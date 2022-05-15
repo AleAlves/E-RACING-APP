@@ -43,11 +43,12 @@ class LeaguesCardWidget extends StatelessWidget {
               ),
             ],
           ),
+          const SpacingWidget(LayoutSize.size8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.only(left: 16),
                 child: TextWidget(
                   text: "Racing communities",
                   style: Style.description,

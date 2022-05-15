@@ -9,7 +9,7 @@ class GetTagUseCase<T> extends BaseUseCase<T> {
       {required Function(T) success,
       required Function error}) async {
     var response = await super.remote(Request(endpoint: "api/v1/tags", verb: HTTPVerb.get));
-    if (response != null && response.isSuccessfully) {
+    if (response.isSuccessfully) {
       success.call((response.data as List)
           .map<TagModel>((tags) => TagModel.fromJson(tags))
           .toList() as T);

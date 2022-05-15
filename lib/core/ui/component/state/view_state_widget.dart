@@ -15,15 +15,17 @@ class ViewStateWidget extends StatelessWidget {
       {required this.content,
       required this.state,
       required this.onBackPressed,
-      this.scrollable = false,
+      this.scrollable = true,
       Key? key})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => _content(context);
+
+  Widget _content(BuildContext context) {
     switch (state) {
       case ViewState.ready:
-        return _scope(content);
+        return _scope(context, content);
       case ViewState.loading:
         return const LoadingRipple();
       case ViewState.error:
@@ -32,9 +34,10 @@ class ViewStateWidget extends StatelessWidget {
     }
   }
 
-  Widget _scope(Widget content) {
-    if(scrollable){
-      return WillPopScope(child: ScrollWidget(content), onWillPop: onBackPressed);
+  Widget _scope(BuildContext context, Widget content) {
+    if (scrollable) {
+      return WillPopScope(
+          child: ScrollWidget(content), onWillPop: onBackPressed);
     }
     return WillPopScope(child: content, onWillPop: onBackPressed);
   }

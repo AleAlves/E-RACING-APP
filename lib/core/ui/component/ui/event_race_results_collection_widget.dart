@@ -8,7 +8,6 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'expanded_widget.dart';
 
 class EventRaceResultsCollection extends StatelessWidget {
   final List<RaceModel?>? races;

@@ -8,9 +8,10 @@ class PictureWidget extends StatefulWidget {
   final String? image;
   final double width;
   final double height;
+  final double padding;
 
   const PictureWidget(
-      {required this.image, this.width = 100.0, this.height = 100.0, Key? key})
+      {required this.image, this.width = 100.0, this.height = 100.0, this.padding = 8.0,Key? key})
       : super(key: key);
 
   Widget loading(BuildContext context) {
@@ -50,7 +51,7 @@ class _PictureWidgetState extends State<PictureWidget> {
             ),
           )
         : Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(widget.padding),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: SizedBox(

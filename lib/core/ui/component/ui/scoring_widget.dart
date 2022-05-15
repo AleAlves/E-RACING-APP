@@ -52,40 +52,39 @@ class _ScoringWidgetState extends State<ScoringWidget> {
         children: [
           if (widget.editing) editting() else Container(),
           Wrap(
-            crossAxisAlignment: WrapCrossAlignment.start,
-            alignment: WrapAlignment.start,
             spacing: 5.0,
             children: scoringEdit
                 .map((score) {
                   score.second?.text = score.first.toString();
                   var position = scoringEdit.indexOf(score);
                   ++position;
-                  return CardWidget(
-                    ready: true,
-                    child: Column(
-                      children: [
-                        TextWidget(
-                            text: "${position.toString()}°",
-                            style: Style.label),
-                        SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: TextWidget(
-                              text: score.first.toString(),
-                              style: Style.label,
-                            ),
+                  return SizedBox(
+                    width: 100,
+                    child: CardWidget(
+                      ready: true,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              TextWidget(
+                                  text: "${position.toString()}°",
+                                  style: Style.label),
+                              TextWidget(
+                                text: score.first.toString(),
+                                style: Style.label,
+                              ),
+                              const TextWidget(text: "pts", style: Style.label)
+                            ],
                           ),
-                        ),
-                        const TextWidget(text: "pts", style: Style.label)
-                      ],
+                        ],
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          if (widget.editing) actionTooltip(score);
+                        });
+                      },
                     ),
-                    onPressed: () {
-                      setState(() {
-                        if (widget.editing) actionTooltip(score);
-                      });
-                    },
                   );
                 })
                 .toList()

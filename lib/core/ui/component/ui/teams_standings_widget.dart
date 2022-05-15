@@ -3,7 +3,6 @@ import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/event/data/event_standings_model.dart';
 import 'package:e_racing_app/event/data/event_teams_standings_model.dart';
 import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/cupertino.dart';

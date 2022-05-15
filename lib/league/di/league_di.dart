@@ -16,6 +16,7 @@ import 'package:e_racing_app/league/domain/fetch_league_menu_usecase.dart';
 import 'package:e_racing_app/league/domain/get_league_usecase.dart';
 import 'package:e_racing_app/league/domain/upate_league_usecase.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
+import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 import 'package:e_racing_app/league/presentation/ui/league_screen.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
@@ -23,6 +24,10 @@ import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class LeagueModule extends Module {
+  final LeagueFlow flow;
+
+  LeagueModule({this.flow = LeagueFlow.list});
+
   @override
   List<Bind> get binds => [
         Bind.factory((i) => LeagueViewModel()),
@@ -44,6 +49,6 @@ class LeagueModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => const LeagueScreen()),
+        ChildRoute('/', child: (context, args) => LeagueScreen(flow)),
       ];
 }

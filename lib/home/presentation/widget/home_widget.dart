@@ -1,6 +1,5 @@
 import 'package:e_racing_app/core/tools/routes.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/events_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/league_thumb_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/leagues_card_widget.dart';
@@ -55,12 +54,12 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
       children: [
         profileWidget(),
         discoverWidget(),
-        activitiesWidget()
+        communitiesWidget(),
       ],
     );
   }
 
-  Widget profileWidget(){
+  Widget profileWidget() {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
       child: ProfileCardWidget(
@@ -72,27 +71,24 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
     );
   }
 
-  Widget discoverWidget(){
+  Widget discoverWidget() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
           padding: EdgeInsets.all(16),
-          child: TextWidget(
-              text: "Discover",
-              style: Style.subtitle
-          ),
+          child: TextWidget(text: "Discover", style: Style.subtitle),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
-          child: LeaguesCardWidget(onPressed: (){
+          child: LeaguesCardWidget(onPressed: () {
             Modular.to.pushNamed(Routes.leagues);
           }),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
-          child: EventsCardWidget(onPressed: (){
+          child: EventsCardWidget(onPressed: () {
             Modular.to.pushNamed(Routes.leagues);
           }),
         ),
@@ -100,24 +96,28 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
     );
   }
 
-  Widget activitiesWidget(){
+  Widget communitiesWidget() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.all(16),
-          child: TextWidget(
-              text: "Your places",
-              style: Style.subtitle
-          ),
+          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+          child: TextWidget(text: "Your communities", style: Style.subtitle),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-          child: CardWidget(
-            ready: true,
-              child: LeagueThumbCollectionWidget(leagues: widget.vm.leagues,)),
-        )
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: Row(
+            children: [
+              LeagueThumbCollectionWidget(
+                onPressed: () {
+                  Modular.to.pushNamed(Routes.leagueDetail);
+                },
+                leagues: widget.vm.leagues,
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

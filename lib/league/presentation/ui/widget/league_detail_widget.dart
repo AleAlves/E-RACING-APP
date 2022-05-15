@@ -37,6 +37,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   void initState() {
     widget.viewModel.getLeague();
     widget.viewModel.getPlayerEvents();
+    widget.viewModel.getMenu();
     super.initState();
   }
 
@@ -250,6 +251,6 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   @override
   Future<bool> onBackPressed() async {
     widget.viewModel.setFlow(LeagueFlow.list);
-    return false;
+    return true;
   }
 }

@@ -8,7 +8,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'league_flow.dart';
 
 class LeagueScreen extends StatefulWidget {
-  const LeagueScreen({Key? key}) : super(key: key);
+
+  final LeagueFlow flow;
+
+  const LeagueScreen(this.flow, {Key? key}) : super(key: key);
 
   @override
   _LeagueScreenState createState() => _LeagueScreenState();
@@ -20,6 +23,7 @@ class _LeagueScreenState extends State<LeagueScreen> implements BaseScreen {
 
   @override
   void initState() {
+    viewModel.setFlow(widget.flow);
     super.initState();
   }
 

@@ -32,18 +32,18 @@ abstract class _HomeViewModel with Store {
   @observable
   StatusModel? status;
 
-  fetchProfile(){
+  fetchProfile() {
     state = ViewState.ready;
     profileModel = Session.instance.getUser()?.profile;
   }
 
-  fetchPlayerLeagues(){
+  fetchPlayerLeagues() {
     fetchUseCase.invoke(
         success: (data) {
           leagues = ObservableList.of(data!);
           state = ViewState.ready;
         },
-        error: (){});
+        error: () {});
   }
 
   void retry() {

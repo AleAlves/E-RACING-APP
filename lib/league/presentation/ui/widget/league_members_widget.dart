@@ -58,7 +58,7 @@ class _LeagueMembersWidgetState extends State<LeagueMembersWidget>
             shrinkWrap: true,
             itemCount: widget.viewModel.members?.length,
             itemBuilder: (context, index) {
-              return EventMemberCardWidget(
+              return LeagueMemberCardWidget(
                 member: widget.viewModel.members?[index],
                 isHost: isLeagueManager(widget.viewModel.league),
                 onRemove: (id) {

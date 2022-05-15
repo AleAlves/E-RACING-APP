@@ -10,15 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../profile_flow.dart';
-
 class ProfileWidget extends StatefulWidget {
-final ProfileViewModel vm;
+  final ProfileViewModel vm;
 
-const ProfileWidget(this.vm, {Key? key}) : super(key: key);
+  const ProfileWidget(this.vm, {Key? key}) : super(key: key);
 
-@override
-_ProfileWidgetState createState() => _ProfileWidgetState();
+  @override
+  _ProfileWidgetState createState() => _ProfileWidgetState();
 }
 
 class _ProfileWidgetState extends State<ProfileWidget>
@@ -48,6 +46,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
+        scrollable: false,
         content: content(),
         state: widget.vm.state,
         onBackPressed: onBackPressed);
@@ -65,49 +64,50 @@ class _ProfileWidgetState extends State<ProfileWidget>
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const SpacingWidget(LayoutSize.size16),
-          InputTextWidget(
-              enabled: true,
-              label: 'Name',
-              icon: Icons.person,
-              controller: _nameController,
-              validator: (value) {
-                if (value == null || value.isEmpty == true) {
-                  return 'valid name needed';
-                }
-                return null;
-              }),
-          const SpacingWidget(LayoutSize.size16),
-          InputTextWidget(
-              enabled: true,
-              label: 'Surname',
-              icon: Icons.person,
-              controller: _surnameController,
-              validator: (value) {
-                if (value == null || value.isEmpty == true) {
-                  return 'valid surname needed';
-                }
-                return null;
-              }),
-          const SpacingWidget(LayoutSize.size16),
-          CountryPickerWidget(
-            onCountrySelected: (code) {
-              country = code;
-            },
+          Column(
+            children: [
+              const SpacingWidget(LayoutSize.size16),
+              InputTextWidget(
+                  enabled: true,
+                  label: 'Name',
+                  icon: Icons.person,
+                  controller: _nameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty == true) {
+                      return 'valid name needed';
+                    }
+                    return null;
+                  }),
+              const SpacingWidget(LayoutSize.size16),
+              InputTextWidget(
+                  enabled: true,
+                  label: 'Surname',
+                  icon: Icons.person,
+                  controller: _surnameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty == true) {
+                      return 'valid surname needed';
+                    }
+                    return null;
+                  }),
+              const SpacingWidget(LayoutSize.size16),
+              CountryPickerWidget(
+                onCountrySelected: (code) {
+                  country = code;
+                },
+              ),
+              const SpacingWidget(LayoutSize.size48),
+            ],
           ),
-          const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
             enabled: true,
             type: ButtonType.normal,
             onPressed: () {
               if (_formKey.currentState?.validate() == true) {
-                widget.vm.udpate(
-                    _nameController.text,
-                    _surnameController.text,
-                    _mailController.text,
-                    country ?? '');
+                widget.vm.udpate(_nameController.text, _surnameController.text,
+                    _mailController.text, country ?? '');
               }
             },
             label: "Update",
