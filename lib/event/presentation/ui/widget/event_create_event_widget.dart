@@ -135,15 +135,6 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
                 _index = index;
               });
             },
-            controlsBuilder: (BuildContext context,
-                {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
-              return Row(
-                children: <Widget>[
-                  Container(),
-                  Container(),
-                ],
-              );
-            },
             steps: <Step>[
               Step(
                 title: const Text('Basic'),

@@ -59,15 +59,6 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                 _stepIndex = index;
               });
             },
-            controlsBuilder: (BuildContext context,
-                {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
-              return Row(
-                children: <Widget>[
-                  Container(),
-                  Container(),
-                ],
-              );
-            },
             steps: <Step>[
               Step(
                 title: const Text('Basic'),

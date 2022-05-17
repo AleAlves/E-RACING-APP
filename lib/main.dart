@@ -33,7 +33,7 @@ class ERcaingApp extends StatelessWidget {
       dark: color,
     );
 
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
         scheme: usedScheme,
@@ -47,7 +47,9 @@ class ERcaingApp extends StatelessWidget {
       ),
       themeMode: themeMode,
       title: 'E-Racing',
-    ).modular();
+      routeInformationParser: Modular.routeInformationParser,
+      routerDelegate: Modular.routerDelegate,
+    );
   }
 }
 

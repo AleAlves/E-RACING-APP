@@ -40,13 +40,6 @@ class _StepperWidgetState extends State<StepperWidget> {
                 _index = index;
               });
             },
-            controlsBuilder: (BuildContext context,
-                {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
-              return const Padding(
-                  padding: EdgeInsets.only(top: 0.0),
-                  child: SizedBox()
-              );
-            },
             steps: widget.steps,
           ),
           widget.append ?? Container()
