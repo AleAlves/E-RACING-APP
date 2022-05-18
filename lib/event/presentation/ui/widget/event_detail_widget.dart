@@ -207,10 +207,13 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             shapeless: true,
             ready: widget.viewModel.event != null,
             header: Row(
-              children: const [
-                Icon(Icons.gavel),
-                SpacingWidget(LayoutSize.size16),
-                TextWidget(
+              children: [
+                Icon(
+                  Icons.sports,
+                  color: Theme.of(context).primaryColorDark,
+                ),
+                const SpacingWidget(LayoutSize.size16),
+                const TextWidget(
                   text: "Rules",
                   style: Style.subtitle,
                   align: TextAlign.left,
@@ -238,12 +241,11 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       shapeless: true,
       ready: widget.viewModel.event != null,
       header: Row(
-        children: const [
-          Icon(
-            Icons.format_list_numbered_outlined,
-          ),
-          SpacingWidget(LayoutSize.size16),
-          TextWidget(
+        children: [
+          Icon(Icons.format_list_numbered_outlined,
+              color: Theme.of(context).primaryColorDark),
+          const SpacingWidget(LayoutSize.size16),
+          const TextWidget(
             text: "Score system",
             style: Style.subtitle,
             align: TextAlign.left,
@@ -268,12 +270,10 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             shapeless: true,
             ready: widget.viewModel.event != null,
             header: Row(
-              children: const [
-                Icon(
-                  Icons.settings,
-                ),
-                SpacingWidget(LayoutSize.size16),
-                TextWidget(
+              children: [
+                Icon(Icons.settings, color: Theme.of(context).primaryColorDark),
+                const SpacingWidget(LayoutSize.size16),
+                const TextWidget(
                   text: "Settings",
                   style: Style.subtitle,
                   align: TextAlign.left,
@@ -296,10 +296,10 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             shapeless: true,
             ready: widget.viewModel.event != null,
             header: Row(
-              children: const [
-                Icon(Icons.group),
-                SpacingWidget(LayoutSize.size16),
-                TextWidget(
+              children: [
+                Icon(Icons.group, color: Theme.of(context).primaryColorDark),
+                const SpacingWidget(LayoutSize.size16),
+                const TextWidget(
                   text: "Teams",
                   style: Style.subtitle,
                   align: TextAlign.left,

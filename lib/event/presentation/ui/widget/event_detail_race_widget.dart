@@ -437,170 +437,169 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                   children: [
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: CardWidget(
-                          ready: true,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Icon(Icons.sports_motorsports),
-                                    const SpacingWidget(LayoutSize.size8),
-                                    TextWidget(
-                                      text:
-                                          "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
-                                      style: Style.subtitle,
-                                      align: TextAlign.start,
-                                    ),
-                                  ],
+                                const Icon(Icons.sports_motorsports),
+                                const SpacingWidget(LayoutSize.size8),
+                                TextWidget(
+                                  text:
+                                  "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
+                                  style: Style.subtitle,
+                                  align: TextAlign.start,
                                 ),
-                                const SpacingWidget(LayoutSize.size8),
-                                if (standing?.team == null)
-                                  Container()
-                                else
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.group,
-                                        color: teamColors
-                                            .firstWhere((element) =>
-                                                element.first ==
-                                                standing?.team?.id)
-                                            .second,
-                                      ),
-                                      const SpacingWidget(LayoutSize.size8),
-                                      TextWidget(
-                                        text: "${standing?.team?.name}",
-                                        style: Style.subtitle,
-                                        align: TextAlign.start,
-                                      ),
-                                    ],
-                                  ),
-                                const SpacingWidget(LayoutSize.size16),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const TextWidget(
-                                        style: Style.subtitle, text: "Position"),
-                                    const SpacingWidget(LayoutSize.size8),
-                                    TextWidget(
-                                        style: Style.description,
-                                        text:
-                                            "${standing?.summary?.position} th"),
-                                  ],
-                                ),
-                                const SpacingWidget(LayoutSize.size8),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const TextWidget(
-                                        style: Style.subtitle, text: "Points"),
-                                    const SpacingWidget(LayoutSize.size8),
-                                    TextWidget(
-                                        style: Style.description,
-                                        text: "${standing?.summary?.points} pts"),
-                                  ],
-                                ),
-                                const SpacingWidget(LayoutSize.size8),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const TextWidget(
-                                        style: Style.subtitle, text: "Bonus"),
-                                    const SpacingWidget(LayoutSize.size8),
-                                    TextWidget(
-                                        style: Style.description,
-                                        text: "${standing?.summary?.bonus} pts"),
-                                  ],
-                                ),
-                                const SpacingWidget(LayoutSize.size8),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const TextWidget(
-                                        style: Style.subtitle, text: "Penalty"),
-                                    const SpacingWidget(LayoutSize.size8),
-                                    TextWidget(
-                                        style: Style.description,
-                                        text:
-                                            "${standing?.summary?.penalty} pts"),
-                                  ],
-                                ),
-                                const SpacingWidget(LayoutSize.size8),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const TextWidget(
-                                        style: Style.subtitle,
-                                        text: "Fastest lap time"),
-                                    const SpacingWidget(LayoutSize.size8),
-                                    TextWidget(
-                                        style: Style.description,
-                                        text:
-                                            "${standing?.summary?.fastestLapTime}"),
-                                  ],
-                                ),
-                                const SpacingWidget(LayoutSize.size8),
-                                if (standing?.summary?.laps == null)
-                                  Container()
-                                else
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const TextWidget(
-                                          style: Style.subtitle, text: "Laps"),
-                                      const SpacingWidget(LayoutSize.size8),
-                                      TextWidget(
-                                          style: Style.description,
-                                          text: "${standing?.summary?.laps}"),
-                                    ],
-                                  ),
-                                const SpacingWidget(LayoutSize.size8),
-                                if (standing?.summary?.notes == null)
-                                  Container()
-                                else
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      const TextWidget(
-                                          style: Style.subtitle, text: "Notes:"),
-                                      const SpacingWidget(LayoutSize.size8),
-                                      TextWidget(
-                                          style: Style.description,
-                                          text: "${standing?.summary?.notes}"),
-                                    ],
-                                  ),
-                                if (standing?.summary?.disqualified == null ||
-                                    standing?.summary?.disqualified == false)
-                                  Container()
-                                else
-                                  TextWidget(
-                                      color:
-                                          Theme.of(context).colorScheme.secondary,
-                                      style: Style.shadow,
-                                      text: "Disqualified"),
-                                if (standing?.summary?.didntFinish == null ||
-                                    standing?.summary?.didntFinish == false)
-                                  Container()
-                                else
-                                  TextWidget(
-                                      color:
-                                          Theme.of(context).colorScheme.secondary,
-                                      style: Style.shadow,
-                                      text: "DNF"),
                               ],
                             ),
-                          ),
+                            const SpacingWidget(LayoutSize.size8),
+                            if (standing?.team == null)
+                              Container()
+                            else
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.group,
+                                    color: teamColors
+                                        .firstWhere((element) =>
+                                    element.first ==
+                                        standing?.team?.id)
+                                        .second,
+                                  ),
+                                  const SpacingWidget(LayoutSize.size8),
+                                  TextWidget(
+                                    text: "${standing?.team?.name}",
+                                    style: Style.subtitle,
+                                    align: TextAlign.start,
+                                  ),
+                                ],
+                              ),
+                            const SpacingWidget(LayoutSize.size16),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                const TextWidget(
+                                    style: Style.subtitle, text: "Position"),
+                                const SpacingWidget(LayoutSize.size8),
+                                TextWidget(
+                                    style: Style.description,
+                                    text:
+                                    "${standing?.summary?.position} th"),
+                              ],
+                            ),
+                            const SpacingWidget(LayoutSize.size8),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                const TextWidget(
+                                    style: Style.subtitle, text: "Points"),
+                                const SpacingWidget(LayoutSize.size8),
+                                TextWidget(
+                                    style: Style.description,
+                                    text: "${standing?.summary?.points} pts"),
+                              ],
+                            ),
+                            const SpacingWidget(LayoutSize.size8),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                const TextWidget(
+                                    style: Style.subtitle, text: "Bonus"),
+                                const SpacingWidget(LayoutSize.size8),
+                                TextWidget(
+                                    style: Style.description,
+                                    text: "${standing?.summary?.bonus} pts"),
+                              ],
+                            ),
+                            const SpacingWidget(LayoutSize.size8),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                const TextWidget(
+                                    style: Style.subtitle, text: "Penalty"),
+                                const SpacingWidget(LayoutSize.size8),
+                                TextWidget(
+                                    style: Style.description,
+                                    text:
+                                    "${standing?.summary?.penalty} pts"),
+                              ],
+                            ),
+                            const SpacingWidget(LayoutSize.size8),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                const TextWidget(
+                                    style: Style.subtitle,
+                                    text: "Fastest lap time"),
+                                const SpacingWidget(LayoutSize.size8),
+                                TextWidget(
+                                    style: Style.description,
+                                    text:
+                                    "${standing?.summary?.fastestLapTime}"),
+                              ],
+                            ),
+                            const SpacingWidget(LayoutSize.size8),
+                            if (standing?.summary?.laps == null)
+                              Container()
+                            else
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const TextWidget(
+                                      style: Style.subtitle, text: "Laps"),
+                                  const SpacingWidget(LayoutSize.size8),
+                                  TextWidget(
+                                      style: Style.description,
+                                      text: "${standing?.summary?.laps}"),
+                                ],
+                              ),
+                            const SpacingWidget(LayoutSize.size8),
+                            if (standing?.summary?.notes == null)
+                              Container()
+                            else
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: const [
+                                      TextWidget(
+                                          style: Style.subtitle, text: "Notes:"),
+                                    ],
+                                  ),
+                                  const SpacingWidget(LayoutSize.size8),
+                                  TextWidget(
+                                      style: Style.description,
+                                      text: "${standing?.summary?.notes}"),
+                                ],
+                              ),
+                            if (standing?.summary?.disqualified == null ||
+                                standing?.summary?.disqualified == false)
+                              Container()
+                            else
+                              TextWidget(
+                                  color:
+                                  Theme.of(context).colorScheme.secondary,
+                                  style: Style.shadow,
+                                  text: "Disqualified"),
+                            if (standing?.summary?.didntFinish == null ||
+                                standing?.summary?.didntFinish == false)
+                              Container()
+                            else
+                              TextWidget(
+                                  color:
+                                  Theme.of(context).colorScheme.secondary,
+                                  style: Style.shadow,
+                                  text: "DNF"),
+                          ],
                         ),
                       ),
                     )

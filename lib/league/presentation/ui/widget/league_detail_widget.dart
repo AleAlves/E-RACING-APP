@@ -222,7 +222,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
               const Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: TextWidget(
-                    text: "Your activities", style: Style.description),
+                    text: "Your competitions", style: Style.description),
               ),
               const SpacingWidget(LayoutSize.size4),
               ListView.builder(

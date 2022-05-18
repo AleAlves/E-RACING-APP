@@ -1,6 +1,5 @@
 import 'package:e_racing_app/profile/presentation/ui/profile_flow.dart';
 import 'package:e_racing_app/profile/presentation/profile_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 

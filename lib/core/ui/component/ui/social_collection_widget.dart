@@ -35,6 +35,7 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
     return widget.hide
         ? const LoadingShimmer()
         : CardWidget(
+            padding: EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
             ready: widget.links != null,
             placeholderHeight: 100,
             child: SizedBox(
@@ -88,7 +89,7 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
       case "site":
       case "blog":
       default:
-        return Pair(FontAwesomeIcons.blog, const Color(0xFFFDD300));
+        return Pair(Icons.language_outlined, const Color(0xFF6D9CFF));
     }
   }
 }

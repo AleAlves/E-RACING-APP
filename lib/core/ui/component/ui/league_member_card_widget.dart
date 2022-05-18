@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import '../../../ext/dialog_extension.dart';
 import 'button_widget.dart';
 import 'spacing_widget.dart';
 
@@ -78,7 +79,15 @@ class LeagueMemberCardWidget extends StatelessWidget {
                       type: ButtonType.iconBorderless,
                       icon: Icons.delete_forever,
                       onPressed: () {
-                        onRemove.call(member?.user.id);
+                        confirmationDialogExt(
+                          context: context,
+                          issueMessage:
+                          "Are you sure you want to remove this member?",
+                          consentMessage: "Yes, I do",
+                          onPositive: () {
+                            onRemove.call(member?.user.id);
+                          },
+                        );
                       },
                     )
                   ])

@@ -52,8 +52,9 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: ButtonWidget(
+            icon: Icons.person_add_outlined,
             label: "Become a member",
-            type: ButtonType.important,
+            type: ButtonType.icon,
             onPressed: () {
               widget.onStartMembership.call();
             },
@@ -70,7 +71,8 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
           width: MediaQuery.of(context).size.width,
           child: ButtonWidget(
             label: "Cancel membership",
-            type: ButtonType.normal,
+            icon: Icons.person_remove,
+            type: ButtonType.icon,
             onPressed: () {
               widget.onStartMembership.call();
             },

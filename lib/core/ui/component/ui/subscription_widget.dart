@@ -153,10 +153,10 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
     return ExpandedWidget(
         shapeless: true,
         header: Row(
-          children: const [
-            Icon(Icons.assignment),
-            SpacingWidget(LayoutSize.size16),
-            TextWidget(
+          children: [
+            Icon(Icons.assignment, color: Theme.of(context).primaryColorDark),
+            const SpacingWidget(LayoutSize.size16),
+            const TextWidget(
               text: "Subcription",
               style: Style.subtitle,
               align: TextAlign.left,
