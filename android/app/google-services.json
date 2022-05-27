@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "711281828191",
+    "project_id": "e-racing-app",
+    "storage_bucket": "e-racing-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711281828191:android:a9112ce39bae33aab796ea",
+        "android_client_info": {
+          "package_name": "com.br.e.e_racing_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "711281828191-9lte7t1efu8fhq7p6qmtg6ta34uo88rs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcZKvF5FEnIatTGHrp-0opV1G8mqUmdG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711281828191-9lte7t1efu8fhq7p6qmtg6ta34uo88rs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
