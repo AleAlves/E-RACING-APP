@@ -5,4 +5,5 @@ class Routes {
   static String leagueDetail = "/leagues/detail";
   static String events = "/events/";
   static String profile = "/profile/";
+  static String notifications = "/notifications/";
 }

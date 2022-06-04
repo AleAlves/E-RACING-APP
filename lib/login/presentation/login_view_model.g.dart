@@ -6,10 +6,11 @@ part of 'login_view_model.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$LoginViewModel on _LoginViewModel, Store {
-  final _$stateAtom = Atom(name: '_LoginViewModel.state');
+  late final _$stateAtom =
+      Atom(name: '_LoginViewModel.state', context: context);
 
   @override
   ViewState get state {
@@ -24,7 +25,7 @@ mixin _$LoginViewModel on _LoginViewModel, Store {
     });
   }
 
-  final _$flowAtom = Atom(name: '_LoginViewModel.flow');
+  late final _$flowAtom = Atom(name: '_LoginViewModel.flow', context: context);
 
   @override
   LoginWidgetFlow get flow {
@@ -39,7 +40,7 @@ mixin _$LoginViewModel on _LoginViewModel, Store {
     });
   }
 
-  final _$userAtom = Atom(name: '_LoginViewModel.user');
+  late final _$userAtom = Atom(name: '_LoginViewModel.user', context: context);
 
   @override
   UserModel? get user {
@@ -54,7 +55,8 @@ mixin _$LoginViewModel on _LoginViewModel, Store {
     });
   }
 
-  final _$statusAtom = Atom(name: '_LoginViewModel.status');
+  late final _$statusAtom =
+      Atom(name: '_LoginViewModel.status', context: context);
 
   @override
   StatusModel? get status {
@@ -69,7 +71,8 @@ mixin _$LoginViewModel on _LoginViewModel, Store {
     });
   }
 
-  final _$otpQRAtom = Atom(name: '_LoginViewModel.otpQR');
+  late final _$otpQRAtom =
+      Atom(name: '_LoginViewModel.otpQR', context: context);
 
   @override
   String? get otpQR {
@@ -84,8 +87,8 @@ mixin _$LoginViewModel on _LoginViewModel, Store {
     });
   }
 
-  final _$loginAutomaticallyAtom =
-      Atom(name: '_LoginViewModel.loginAutomatically');
+  late final _$loginAutomaticallyAtom =
+      Atom(name: '_LoginViewModel.loginAutomatically', context: context);
 
   @override
   bool get loginAutomatically {

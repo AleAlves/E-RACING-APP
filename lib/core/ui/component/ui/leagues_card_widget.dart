@@ -26,10 +26,14 @@ class LeaguesCardWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SpacingWidget(LayoutSize.size8),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Icon(
+                Icons.emoji_events_sharp,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              const SpacingWidget(LayoutSize.size8),
               const Padding(
                 padding: EdgeInsets.all(8),
                 child: TextWidget(
@@ -37,27 +41,22 @@ class LeaguesCardWidget extends StatelessWidget {
                   style: Style.title,
                 ),
               ),
-              Icon(
-                Icons.emoji_events_sharp,
-                color: Theme.of(context).colorScheme.primary,
-              ),
             ],
           ),
           const SpacingWidget(LayoutSize.size8),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
+              const Padding(
+                padding: EdgeInsets.only(left: 16),
                 child: TextWidget(
                   text: "Racing communities",
                   style: Style.description,
-                  color: Theme.of(context).colorScheme.primaryVariant,
                 ),
               ),
               Icon(
                 Icons.arrow_forward_sharp,
-                color: Theme.of(context).colorScheme.primaryVariant,
+                color: Theme.of(context).colorScheme.onBackground,
                 size: 24,
               ),
             ],

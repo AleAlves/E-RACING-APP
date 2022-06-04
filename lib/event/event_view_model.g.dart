@@ -6,10 +6,11 @@ part of 'event_view_model.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$EventViewModel on _EventViewModel, Store {
-  final _$eventAtom = Atom(name: '_EventViewModel.event');
+  late final _$eventAtom =
+      Atom(name: '_EventViewModel.event', context: context);
 
   @override
   EventModel? get event {
@@ -24,7 +25,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$standingsAtom = Atom(name: '_EventViewModel.standings');
+  late final _$standingsAtom =
+      Atom(name: '_EventViewModel.standings', context: context);
 
   @override
   EventStandingsModel? get standings {
@@ -39,7 +41,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$mediaAtom = Atom(name: '_EventViewModel.media');
+  late final _$mediaAtom =
+      Atom(name: '_EventViewModel.media', context: context);
 
   @override
   MediaModel? get media {
@@ -54,7 +57,7 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$raceAtom = Atom(name: '_EventViewModel.race');
+  late final _$raceAtom = Atom(name: '_EventViewModel.race', context: context);
 
   @override
   RaceModel? get race {
@@ -69,7 +72,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$statusAtom = Atom(name: '_EventViewModel.status');
+  late final _$statusAtom =
+      Atom(name: '_EventViewModel.status', context: context);
 
   @override
   StatusModel? get status {
@@ -84,7 +88,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$raceStandingsAtom = Atom(name: '_EventViewModel.raceStandings');
+  late final _$raceStandingsAtom =
+      Atom(name: '_EventViewModel.raceStandings', context: context);
 
   @override
   RaceStandingsModel? get raceStandings {
@@ -99,8 +104,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$raceTeamsStandingsAtom =
-      Atom(name: '_EventViewModel.raceTeamsStandings');
+  late final _$raceTeamsStandingsAtom =
+      Atom(name: '_EventViewModel.raceTeamsStandings', context: context);
 
   @override
   EventTeamsStandingsModel? get raceTeamsStandings {
@@ -115,7 +120,7 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$flowAtom = Atom(name: '_EventViewModel.flow');
+  late final _$flowAtom = Atom(name: '_EventViewModel.flow', context: context);
 
   @override
   EventFlows get flow {
@@ -130,7 +135,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$stateAtom = Atom(name: '_EventViewModel.state');
+  late final _$stateAtom =
+      Atom(name: '_EventViewModel.state', context: context);
 
   @override
   ViewState get state {
@@ -145,7 +151,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$eventsAtom = Atom(name: '_EventViewModel.events');
+  late final _$eventsAtom =
+      Atom(name: '_EventViewModel.events', context: context);
 
   @override
   ObservableList<EventModel?>? get events {
@@ -160,7 +167,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$menusAtom = Atom(name: '_EventViewModel.menus');
+  late final _$menusAtom =
+      Atom(name: '_EventViewModel.menus', context: context);
 
   @override
   ObservableList<ShortcutModel>? get menus {
@@ -175,7 +183,7 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$tagsAtom = Atom(name: '_EventViewModel.tags');
+  late final _$tagsAtom = Atom(name: '_EventViewModel.tags', context: context);
 
   @override
   ObservableList<TagModel?>? get tags {
@@ -190,7 +198,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$usersAtom = Atom(name: '_EventViewModel.users');
+  late final _$usersAtom =
+      Atom(name: '_EventViewModel.users', context: context);
 
   @override
   ObservableList<UserModel?>? get users {
@@ -205,7 +214,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$socialMediasAtom = Atom(name: '_EventViewModel.socialMedias');
+  late final _$socialMediasAtom =
+      Atom(name: '_EventViewModel.socialMedias', context: context);
 
   @override
   ObservableList<SocialPlatformModel?>? get socialMedias {
@@ -220,8 +230,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$isUpdatingDriverResultAtom =
-      Atom(name: '_EventViewModel.isUpdatingDriverResult');
+  late final _$isUpdatingDriverResultAtom =
+      Atom(name: '_EventViewModel.isUpdatingDriverResult', context: context);
 
   @override
   bool get isUpdatingDriverResult {
@@ -237,7 +247,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$creatingEventAtom = Atom(name: '_EventViewModel.creatingEvent');
+  late final _$creatingEventAtom =
+      Atom(name: '_EventViewModel.creatingEvent', context: context);
 
   @override
   EventModel? get creatingEvent {
@@ -252,7 +263,8 @@ mixin _$EventViewModel on _EventViewModel, Store {
     });
   }
 
-  final _$initAsyncAction = AsyncAction('_EventViewModel.init');
+  late final _$initAsyncAction =
+      AsyncAction('_EventViewModel.init', context: context);
 
   @override
   Future init() {

@@ -24,7 +24,7 @@ class LoginUseCase<T> extends BaseUseCase<T> {
         verb: HTTPVerb.post,
         params: HTTPRequesParams(
             data: LoginRequest(_email, CryptoService.instance.sha256(_password),
-                Session.instance.getKeyChain()),
+                Session.instance.getFCMToken(), Session.instance.getKeyChain()),
             cypherSchema: CypherSchema.rsa)));
     if (response.isSuccessfully) {
       success.call(LoginResponse.fromJson(response.data) as T);

@@ -48,6 +48,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
+        scrollable: false,
         content: content(),
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
@@ -153,7 +154,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
             type: ButtonType.normal,
             onPressed: () {
               if (_formKey.currentState?.validate() == true) {
-                widget.viewModel.signin(
+                widget.viewModel.signIn(
                     _nameController.text,
                     _surnameController.text,
                     _mailController.text,

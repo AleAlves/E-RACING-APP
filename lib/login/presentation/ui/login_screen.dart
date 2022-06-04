@@ -2,6 +2,7 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import '../login_view_model.dart';
 import 'login_flow.dart';
@@ -20,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> implements BaseScreen {
 
   @override
   void initState() {
+    FlutterNativeSplash.remove();
     super.initState();
   }
 

@@ -29,6 +29,7 @@ class _LoginToogle2FAWidgetState extends State<LoginToogle2FAWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
+      scrollable: false,
       content: content(),
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,

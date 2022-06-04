@@ -14,6 +14,7 @@ class Session{
   static String? _currenEventId;
   static String? _currenRaceId;
   static String _server = "https://e-racing-api-dev.herokuapp.com/";
+  static String? _fcmToken;
 
   Session._();
 
@@ -84,11 +85,24 @@ class Session{
   }
 
 
-  void setURL(String url){
+  void setDrive(String url){
     _server = url;
   }
 
   String getURL(){
     return _server;
+  }
+
+  void setURL(String url){
+    _server = url;
+  }
+
+  String? getFCMToken(){
+    return _fcmToken;
+  }
+
+  void setFCMToken(String? fcmToken){
+    print("TOKEN FCM: $fcmToken");
+    _fcmToken = fcmToken;
   }
 }

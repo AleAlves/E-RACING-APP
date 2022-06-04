@@ -8,11 +8,13 @@ class TextWidget extends StatelessWidget {
   final Style style;
   final TextAlign align;
   final Color? color;
+  final FontWeight? weight;
 
   const TextWidget(
       {required this.text,
       required this.style,
       this.color,
+      this.weight,
       this.align = TextAlign.center,
       Key? key})
       : super(key: key);
@@ -34,39 +36,39 @@ class TextWidget extends StatelessWidget {
         return TextStyle(
           fontFamily: 'Roboto',
           color: color,
+          fontWeight: weight ?? FontWeight.normal,
           fontSize: 28.0,
         );
       case Style.subtitle:
         return TextStyle(
-          fontFamily: 'Roboto',
-          fontWeight: FontWeight.w400,
-          fontSize: 20.0,
-          color: color
-        );
+            fontFamily: 'Roboto',
+            fontWeight: weight ?? FontWeight.w400,
+            fontSize: 20.0,
+            color: color);
       case Style.description:
         return TextStyle(
           fontFamily: 'Roboto',
-          fontWeight: FontWeight.w400,
+          fontWeight: weight ?? FontWeight.w400,
           fontSize: 16.0,
           color: color,
         );
       case Style.label:
-        return const TextStyle(
+        return TextStyle(
           fontFamily: 'Roboto',
-          fontWeight: FontWeight.w400,
+          fontWeight: weight ?? FontWeight.w400,
           fontSize: 12.0,
         );
       case Style.note:
         return TextStyle(
           fontFamily: 'Roboto',
-          fontWeight: FontWeight.w500,
+          fontWeight: weight ?? FontWeight.w500,
           fontSize: 10.0,
           color: color,
         );
       case Style.shadow:
         return TextStyle(
             fontFamily: 'Roboto',
-            fontWeight: FontWeight.w400,
+            fontWeight: weight ?? FontWeight.w400,
             decoration: TextDecoration.underline,
             fontSize: 18.0,
             color: color,
@@ -80,7 +82,7 @@ class TextWidget extends StatelessWidget {
       case Style.button:
         return TextStyle(
           fontFamily: 'Roboto',
-          fontWeight: FontWeight.w500,
+          fontWeight: weight ?? FontWeight.w500,
           color: color,
           fontSize: 18.0,
         );

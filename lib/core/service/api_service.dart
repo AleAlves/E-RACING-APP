@@ -30,6 +30,7 @@ class ApiService extends BaseService {
       'Content-Type': 'application/json; charset=UTF-8',
       'authorization': Session.instance.getBearerToken()?.token ?? ''
     };
+    print("Autorization:  $headers \n");
     return headers;
   }
 
@@ -71,10 +72,10 @@ class ApiService extends BaseService {
               body: jsonEncode(request.params));
           break;
       }
-      print("Response URL: ${response.request?.url.path}");
-      print("Response Head: ${response.request?.headers}");
-      print("Response Status: ${response.statusCode}");
-      print("Response body: ${response.body}");
+      print("Response URL: ${response.request?.url.path} \n");
+      print("Response Head: ${response.request?.headers} \n");
+      print("Response Status: ${response.statusCode} \n");
+      print("Response body: ${response.body} \n");
     } on SocketException {
       return HTTPResponse();
     }

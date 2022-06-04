@@ -46,6 +46,7 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
+        scrollable: false,
         content: content(),
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
@@ -132,7 +133,7 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
                     _passwordController.text, _codeController.text);
               }
             },
-            label: 'Create password',
+            label: 'Create new password',
           )
         ],
       ),

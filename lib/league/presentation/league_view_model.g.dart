@@ -6,10 +6,11 @@ part of 'league_view_model.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$LeagueViewModel on _LeagueViewModel, Store {
-  final _$leagueAtom = Atom(name: '_LeagueViewModel.league');
+  late final _$leagueAtom =
+      Atom(name: '_LeagueViewModel.league', context: context);
 
   @override
   LeagueModel? get league {
@@ -24,7 +25,8 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
-  final _$mediaAtom = Atom(name: '_LeagueViewModel.media');
+  late final _$mediaAtom =
+      Atom(name: '_LeagueViewModel.media', context: context);
 
   @override
   MediaModel? get media {
@@ -39,7 +41,8 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
-  final _$statusAtom = Atom(name: '_LeagueViewModel.status');
+  late final _$statusAtom =
+      Atom(name: '_LeagueViewModel.status', context: context);
 
   @override
   StatusModel? get status {
@@ -54,7 +57,7 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
-  final _$flowAtom = Atom(name: '_LeagueViewModel.flow');
+  late final _$flowAtom = Atom(name: '_LeagueViewModel.flow', context: context);
 
   @override
   LeagueFlow get flow {
@@ -69,7 +72,8 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
-  final _$stateAtom = Atom(name: '_LeagueViewModel.state');
+  late final _$stateAtom =
+      Atom(name: '_LeagueViewModel.state', context: context);
 
   @override
   ViewState get state {
@@ -84,7 +88,8 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
-  final _$playerEventsAtom = Atom(name: '_LeagueViewModel.playerEvents');
+  late final _$playerEventsAtom =
+      Atom(name: '_LeagueViewModel.playerEvents', context: context);
 
   @override
   ObservableList<EventModel?>? get playerEvents {
@@ -99,7 +104,8 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
-  final _$leaguesAtom = Atom(name: '_LeagueViewModel.leagues');
+  late final _$leaguesAtom =
+      Atom(name: '_LeagueViewModel.leagues', context: context);
 
   @override
   ObservableList<LeagueModel?>? get leagues {
@@ -114,7 +120,8 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
-  final _$menusAtom = Atom(name: '_LeagueViewModel.menus');
+  late final _$menusAtom =
+      Atom(name: '_LeagueViewModel.menus', context: context);
 
   @override
   ObservableList<ShortcutModel>? get menus {
@@ -129,7 +136,7 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
-  final _$tagsAtom = Atom(name: '_LeagueViewModel.tags');
+  late final _$tagsAtom = Atom(name: '_LeagueViewModel.tags', context: context);
 
   @override
   ObservableList<TagModel?>? get tags {
@@ -144,7 +151,8 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
-  final _$membersAtom = Atom(name: '_LeagueViewModel.members');
+  late final _$membersAtom =
+      Atom(name: '_LeagueViewModel.members', context: context);
 
   @override
   ObservableList<LeagueMembersModel?>? get members {
@@ -159,7 +167,8 @@ mixin _$LeagueViewModel on _LeagueViewModel, Store {
     });
   }
 
-  final _$socialMediasAtom = Atom(name: '_LeagueViewModel.socialMedias');
+  late final _$socialMediasAtom =
+      Atom(name: '_LeagueViewModel.socialMedias', context: context);
 
   @override
   ObservableList<SocialPlatformModel?>? get socialMedias {

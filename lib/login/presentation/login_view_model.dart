@@ -109,7 +109,7 @@ abstract class _LoginViewModel with Store {
             error: onError);
   }
 
-  void signin(String name, String surname, String mail, String password, String country) async {
+  void signIn(String name, String surname, String mail, String password, String country) async {
     state = ViewState.loading;
     await signInUseCase
         .params(name: name, surname: surname, email: mail, password: password, country: country)

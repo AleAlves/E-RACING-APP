@@ -8,6 +8,9 @@ import 'package:e_racing_app/login/domain/model/profile_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../core/service/api_exception.dart';
+import '../../notification/domain/get_notifications_count_usecase.dart';
+
 part 'home_view_model.g.dart';
 
 class HomeViewModel = _HomeViewModel with _$HomeViewModel;
@@ -16,6 +19,8 @@ abstract class _HomeViewModel with Store {
   _HomeViewModel();
 
   final fetchUseCase = Modular.get<FetchLeagueUseCase<List<LeagueModel>>>();
+  final notificationsCountUC =
+      Modular.get<GetNotificationsCountUseCase<String>>();
 
   @observable
   HomeFlow flow = HomeFlow.error;
@@ -25,6 +30,9 @@ abstract class _HomeViewModel with Store {
 
   @observable
   ProfileModel? profileModel;
+
+  @observable
+  String? notificationsCount;
 
   @observable
   ObservableList<LeagueModel?>? leagues = ObservableList();
@@ -44,6 +52,18 @@ abstract class _HomeViewModel with Store {
           state = ViewState.ready;
         },
         error: () {});
+  }
+
+  fetchNotificationsCount() {
+    notificationsCountUC.invoke(
+        success: (data) {
+          notificationsCount = data;
+        },
+        error: onError);
+  }
+
+  void onError(ApiException error) {
+    state = ViewState.ready;
   }
 
   void retry() {

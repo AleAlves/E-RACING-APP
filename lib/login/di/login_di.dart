@@ -22,6 +22,8 @@ import 'package:e_racing_app/login/presentation/ui/login_screen.dart';
 import 'package:e_racing_app/profile/di/profile_di.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../notification/di/notification_di.dart';
+
 class LoginModule extends Module {
   @override
   List<Bind> get binds => [
@@ -42,8 +44,10 @@ class LoginModule extends Module {
         ChildRoute('/', child: (context, args) => const LoginScreen()),
         ModuleRoute(Routes.home, module: HomeModule()),
         ModuleRoute(Routes.leagues, module: LeagueModule()),
-        ModuleRoute(Routes.leagueDetail, module: LeagueModule(flow: LeagueFlow.detail)),
+        ModuleRoute(Routes.leagueDetail,
+            module: LeagueModule(flow: LeagueFlow.detail)),
         ModuleRoute(Routes.events, module: EventModule()),
         ModuleRoute(Routes.profile, module: ProfileModule()),
+        ModuleRoute(Routes.notifications, module: NotificationModule()),
       ];
 }

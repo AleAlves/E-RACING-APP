@@ -33,9 +33,9 @@ class _CountryPickerWidgetState extends State<CountryPickerWidget> {
       ready: true,
       child: Center(
           child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           CountryCodePicker(
+            padding: EdgeInsets.only(left: 128, right: 128),
             onChanged: (e) => widget.onCountrySelected.call(e.code),
             initialSelection: '+55',
             showCountryOnly: false,

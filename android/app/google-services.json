@@ -29,6 +29,13 @@
             {
               "client_id": "711281828191-9lte7t1efu8fhq7p6qmtg6ta34uo88rs.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "711281828191-q0pn93amk93dl2r4mttqsm420ee1entu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.br.e.eRacingApp"
+              }
             }
           ]
         }

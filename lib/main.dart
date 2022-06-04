@@ -1,14 +1,29 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'core/tools/session.dart';
 import 'login/di/login_di.dart';
 import 'package:firebase_core/firebase_core.dart';
 import './firebase_options.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  Session.instance.setFCMToken(await FirebaseMessaging.instance.getToken());
+  await FirebaseMessaging.instance.setAutoInitEnabled(false);
+  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+    Session.instance.setFCMToken(fcmToken);
+    print("TOKEN FCM:" + fcmToken);
+  }).onError((err) {
+    print(err);
+  });
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+  });
   runApp(ModularApp(
     module: AppModule(),
     child: const ERcaingApp(),

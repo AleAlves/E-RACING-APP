@@ -28,6 +28,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
+        scrollable: false,
         content: content(),
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);

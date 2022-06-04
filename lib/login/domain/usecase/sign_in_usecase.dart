@@ -3,6 +3,7 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
+import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/login/data/model/signin_request.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 
@@ -17,13 +18,13 @@ class SignInUseCase<T> extends BaseUseCase<T> {
   late String _password;
   late String _country;
 
-  SignInUseCase<T> params(
-      {required String name,
-      required String surname,
-      required String email,
-      required String password,
-      required String country,
-      }) {
+  SignInUseCase<T> params({
+    required String name,
+    required String surname,
+    required String email,
+    required String password,
+    required String country,
+  }) {
     _name = name;
     _surname = surname;
     _email = email;
@@ -36,13 +37,14 @@ class SignInUseCase<T> extends BaseUseCase<T> {
   Future<void> invoke(
       {required Function(T) success, required Function error}) async {
     var user = UserModel(
+        tokenFcm: Session.instance.getFCMToken(),
         auth: AuthModel(password: CryptoService.instance.sha256(_password)),
-        profile: ProfileModel(name: _name, surname: _surname, email: _email, country: _country));
-    var request = HTTPRequesParams(data: SigninRequest(user: user), cypherSchema: CypherSchema.rsa);
+        profile: ProfileModel(
+            name: _name, surname: _surname, email: _email, country: _country));
+    var request = HTTPRequesParams(
+        data: SigninRequest(user: user), cypherSchema: CypherSchema.rsa);
     var response = await super.remote(Request(
-        endpoint: "api/v1/auth/signin",
-        verb: HTTPVerb.post,
-        params: request));
+        endpoint: "api/v1/auth/signin", verb: HTTPVerb.post, params: request));
     if (response.isSuccessfully) {
       success.call(StatusModel(
           message: "Account created, check your email to confirm it",

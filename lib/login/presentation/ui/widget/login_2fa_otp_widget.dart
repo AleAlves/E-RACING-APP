@@ -32,6 +32,7 @@ class _Login2FAWidgetState extends State<Login2FAWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
+      scrollable: false,
       content: content(),
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,

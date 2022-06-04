@@ -42,6 +42,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
+      scrollable: false,
       content: content(),
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
