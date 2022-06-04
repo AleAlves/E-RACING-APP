@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-enum ButtonType { normal, borderless, icon, iconBorderless, important }
+enum ButtonType { normal, borderless, icon, iconBorderless, important, discret }
 
 class ButtonWidget extends StatefulWidget {
   final String? label;
@@ -54,6 +54,8 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         return important(context);
       case ButtonType.iconBorderless:
         return iconButtonBorderless();
+      case ButtonType.discret:
+        return discret(context);
     }
   }
 
@@ -118,6 +120,47 @@ class _ButtonWidgetState extends State<ButtonWidget> {
               Theme.of(context).colorScheme.secondary),
           foregroundColor: MaterialStateProperty.all(
               Theme.of(context).colorScheme.onSecondary),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4.0),
+              side: const BorderSide(
+                width: 0.5,
+              ),
+            ),
+          ),
+        ),
+        onPressed: widget.enabled ? widget.onPressed : null,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 16, bottom: 16),
+              child: TextWidget(
+                text: widget.label ?? '',
+                style: Style.button,
+              ),
+            ),
+            widget.icon == null ? Container() : Row(
+              children: [
+                const SpacingWidget(LayoutSize.size16),
+                Icon(widget.icon),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget discret(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width / 2,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(
+              Theme.of(context).colorScheme.background),
+          foregroundColor: MaterialStateProperty.all(
+              Theme.of(context).colorScheme.onBackground),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),

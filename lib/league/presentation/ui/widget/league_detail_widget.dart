@@ -73,10 +73,6 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
-              child: membership(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
               child: social(),
             ),
             Padding(
@@ -87,6 +83,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: playersEvent(),
             ),
+            const SpacingWidget(LayoutSize.size8),
           ],
         ),
         FloatActionButtonWidget<LeagueFlow>(
@@ -112,6 +109,10 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
           Padding(
             padding: const EdgeInsets.only(top: 24, bottom: 8),
             child: description(),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8),
+            child: membership(),
           ),
         ],
       ),

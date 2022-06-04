@@ -7,11 +7,7 @@ import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/scoring_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/settings_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/subscription_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/teams_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
@@ -75,6 +71,11 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             const SpacingWidget(LayoutSize.size2),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
+              child: eventInfo(),
+            ),
+            const SpacingWidget(LayoutSize.size2),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
               child: races(),
             ),
             const SpacingWidget(LayoutSize.size2),
@@ -106,7 +107,8 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           title(),
           status(),
           const SpacingWidget(LayoutSize.size16),
-          information()
+          subscription(),
+          const SpacingWidget(LayoutSize.size8),
         ],
       ),
     );
@@ -120,6 +122,42 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           child: TextWidget(
               text: widget.viewModel.event?.title, style: Style.title),
         ));
+  }
+
+  Widget eventInfo() {
+    return CardWidget(
+      onPressed: () {
+        widget.viewModel.setFlow(EventFlows.eventDetailInfo);
+      },
+      ready: true,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  Row(
+                    children: const [
+                      Icon(Icons.info_outline),
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: TextWidget(
+                          text: "Event information",
+                          style: Style.title,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const Icon(Icons.chevron_right)
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   Widget adminPanel() {
@@ -166,187 +204,6 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       shapeless: true,
       event: widget.viewModel.event,
     );
-  }
-
-  Widget information() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8),
-      child: ExpandedWidget(
-          shapeless: true,
-          expandIcon: Icons.visibility_outlined,
-          collapseIcon: Icons.visibility_off_outlined,
-          iniExpanded: !isSubscriber(widget.viewModel.event?.classes),
-          header: Row(
-            children: const [
-              TextWidget(
-                text: "Event",
-                style: Style.title,
-                align: TextAlign.left,
-              ),
-            ],
-          ),
-          body: [
-            subscription(),
-            const SpacingWidget(LayoutSize.size2),
-            teams(),
-            const SpacingWidget(LayoutSize.size2),
-            rules(),
-            const SpacingWidget(LayoutSize.size2),
-            scoring(),
-            const SpacingWidget(LayoutSize.size2),
-            settings(),
-            const SpacingWidget(LayoutSize.size2),
-          ],
-          ready: true),
-    );
-  }
-
-  Widget rules() {
-    return (widget.viewModel.event?.rules?.isNotEmpty ?? false)
-        ? ExpandedWidget(
-            shapeless: true,
-            ready: widget.viewModel.event != null,
-            header: Row(
-              children: [
-                Icon(
-                  Icons.sports,
-                  color: Theme.of(context).primaryColorDark,
-                ),
-                const SpacingWidget(LayoutSize.size16),
-                const TextWidget(
-                  text: "Rules",
-                  style: Style.subtitle,
-                  align: TextAlign.left,
-                ),
-              ],
-            ),
-            body: [
-              const SpacingWidget(LayoutSize.size16),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: TextWidget(
-                  text: widget.viewModel.event?.rules ?? '',
-                  style: Style.description,
-                  align: TextAlign.start,
-                ),
-              ),
-              const SpacingWidget(LayoutSize.size16),
-            ],
-          )
-        : Container();
-  }
-
-  Widget scoring() {
-    return ExpandedWidget(
-      shapeless: true,
-      ready: widget.viewModel.event != null,
-      header: Row(
-        children: [
-          Icon(Icons.format_list_numbered_outlined,
-              color: Theme.of(context).primaryColorDark),
-          const SpacingWidget(LayoutSize.size16),
-          const TextWidget(
-            text: "Score system",
-            style: Style.subtitle,
-            align: TextAlign.left,
-          ),
-        ],
-      ),
-      body: [
-        ScoringWidget(
-          scoring: widget.viewModel.event?.scoring,
-          editing: false,
-          onScore: (wow) {},
-        ),
-        const SpacingWidget(LayoutSize.size16),
-      ],
-    );
-  }
-
-  Widget settings() {
-    var hasSettings = widget.viewModel.event?.settings?.isNotEmpty ?? false;
-    return hasSettings
-        ? ExpandedWidget(
-            shapeless: true,
-            ready: widget.viewModel.event != null,
-            header: Row(
-              children: [
-                Icon(Icons.settings, color: Theme.of(context).primaryColorDark),
-                const SpacingWidget(LayoutSize.size16),
-                const TextWidget(
-                  text: "Settings",
-                  style: Style.subtitle,
-                  align: TextAlign.left,
-                ),
-              ],
-            ),
-            body: [
-              const SpacingWidget(LayoutSize.size16),
-              SettingsWidget(settings: widget.viewModel.event?.settings),
-              const SpacingWidget(LayoutSize.size16),
-            ],
-          )
-        : Container();
-  }
-
-  Widget teams() {
-    var teams = widget.viewModel.event?.teamsEnabled ?? false;
-    return teams
-        ? ExpandedWidget(
-            shapeless: true,
-            ready: widget.viewModel.event != null,
-            header: Row(
-              children: [
-                Icon(Icons.group, color: Theme.of(context).primaryColorDark),
-                const SpacingWidget(LayoutSize.size16),
-                const TextWidget(
-                  text: "Teams",
-                  style: Style.subtitle,
-                  align: TextAlign.left,
-                ),
-              ],
-            ),
-            body: [
-              const SpacingWidget(LayoutSize.size16),
-              TeamsWidget(
-                users: widget.viewModel.users,
-                teams: widget.viewModel.event?.teams,
-                maxCrew: widget.viewModel.event?.teamsMaxCrew,
-                classes: widget.viewModel.event?.classes,
-                onLeave: (id) {
-                  widget.viewModel.leaveTeam(id);
-                  Navigator.of(context).pop();
-                },
-                onJoin: (id) {
-                  widget.viewModel.joinTeam(id);
-                  Navigator.of(context).pop();
-                },
-                onDelete: (id) {
-                  widget.viewModel.deleteTeam(id);
-                  Navigator.of(context).pop();
-                },
-              ),
-              isSubscriberOrHost(widget.viewModel.event)
-                  ? Padding(
-                      padding: const EdgeInsets.only(left: 24, right: 24),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: ButtonWidget(
-                          label: "New team",
-                          type: ButtonType.icon,
-                          icon: Icons.add,
-                          onPressed: () {
-                            widget.viewModel.setFlow(EventFlows.createTeam);
-                          },
-                          enabled: widget.viewModel.event != null,
-                        ),
-                      ),
-                    )
-                  : Container(),
-              const SpacingWidget(LayoutSize.size16),
-            ],
-          )
-        : Container();
   }
 
   Widget subscription() {
