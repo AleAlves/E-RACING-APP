@@ -54,7 +54,7 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
                                   onPressed: () {},
                                   icon: _getSocialPlatform(item?.platformId)
                                       .first,
-                                  buttonColor:
+                                  color:
                                       _getSocialPlatform(item?.platformId)
                                           .second,
                                   labelColor: Colors.white),

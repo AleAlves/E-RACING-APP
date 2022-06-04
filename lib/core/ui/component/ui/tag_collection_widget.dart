@@ -11,7 +11,10 @@ class TagCollectionWidget extends StatefulWidget {
   final bool singleLined;
 
   const TagCollectionWidget(
-      {required this.tagIds, required this.tags, this.singleLined = false, Key? key})
+      {required this.tagIds,
+      required this.tags,
+      this.singleLined = false,
+      Key? key})
       : super(key: key);
 
   Widget loading(BuildContext context) {
@@ -34,29 +37,52 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
   }
 
   Widget wrappedContent() {
-    return Wrap(
-      spacing: 5.0,
-      runSpacing: 5.0,
-      direction: Axis.horizontal,
-      children: widget.tagIds!
-          .map((item) {
-        return ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(14.0)),
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextWidget(
-                text: name(item),
-                style: Style.note,
-                  color: Theme.of(context).colorScheme.background
-              ),
-            ),
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        );
-      })
-          .toList()
-          .cast<Widget>(),
+    return widget.tagIds == null
+        ? wrappedLoading()
+        : Wrap(
+            spacing: 5.0,
+            runSpacing: 5.0,
+            direction: Axis.horizontal,
+            children: widget.tagIds!
+                .map((item) {
+                  return ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(14.0)),
+                    child: Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextWidget(
+                            text: name(item),
+                            style: Style.note,
+                            color: Theme.of(context).colorScheme.background),
+                      ),
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  );
+                })
+                .toList()
+                .cast<Widget>(),
+          );
+  }
+
+  Widget wrappedLoading() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        LoadingShimmer(
+          width: 100,
+          height: 30,
+        ),
+        SpacingWidget(LayoutSize.size4),
+        LoadingShimmer(
+          width: 100,
+          height: 30,
+        ),
+        SpacingWidget(LayoutSize.size4),
+        LoadingShimmer(
+          width: 100,
+          height: 30,
+        ),
+      ],
     );
   }
 
@@ -76,15 +102,16 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(14.0)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(14.0)),
                         child: Container(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextWidget(
-                              text: name(widget.tagIds?[index]),
-                              style: Style.note,
-                              color: Theme.of(context).colorScheme.background
-                            ),
+                                text: name(widget.tagIds?[index]),
+                                style: Style.note,
+                                color:
+                                    Theme.of(context).colorScheme.background),
                           ),
                           color: Theme.of(context).colorScheme.primary,
                         ),
@@ -100,8 +127,6 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
   }
 
   String name(String? id) {
-    return widget.tags
-        ?.firstWhere((k) => k?.id == id)
-        ?.name ?? "";
+    return widget.tags?.firstWhere((k) => k?.id == id)?.name ?? "";
   }
 }

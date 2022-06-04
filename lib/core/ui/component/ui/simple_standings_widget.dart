@@ -3,6 +3,7 @@ import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/team_indicator_paint.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/event/data/event_standings_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -75,7 +76,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                   }),
             ),
           ),
-          const SpacingWidget(LayoutSize.size8),
+          const SpacingWidget(LayoutSize.size16),
         ],
       ),
     );
@@ -166,6 +167,15 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 35,
+                  width: 15,
+                  child: CustomPaint(
+                    painter: TeamIndicatorPaint(
+                        color
+                    ),
+                  ),
+                )
               ],
             ),
             const SpacingWidget(LayoutSize.size16),

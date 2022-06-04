@@ -54,7 +54,7 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
           child: ButtonWidget(
             icon: Icons.person_add_outlined,
             label: "Become a member",
-            type: ButtonType.icon,
+            type: ButtonType.important,
             onPressed: () {
               widget.onStartMembership.call();
             },
@@ -70,11 +70,12 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: ButtonWidget(
-            label: "Cancel membership",
-            icon: Icons.person_remove,
-            type: ButtonType.icon,
+            label: "Already a member",
+            icon: Icons.check_circle_outline,
+            type: ButtonType.important,
+            color: Theme.of(context).colorScheme.background,
             onPressed: () {
-              widget.onStartMembership.call();
+              widget.onStopMembership.call();
             },
             enabled: widget.leagueModel?.members != null,
           ),

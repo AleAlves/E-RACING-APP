@@ -14,8 +14,9 @@ class GetNotificationsCountUseCase<T> extends BaseUseCase<T?> {
       int count = 0;
       for (var element in element.docs) {
         count++;
-        success(count.toString() as T);
       }
+      success(count.toString() as T);
     });
   }
 }
+

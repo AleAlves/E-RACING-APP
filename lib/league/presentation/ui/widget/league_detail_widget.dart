@@ -22,6 +22,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../core/ext/dialog_extension.dart';
+
 class LeagueDetailWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
 
@@ -71,6 +73,10 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
+              child: membership(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
               child: social(),
             ),
             Padding(
@@ -113,24 +119,13 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   }
 
   Widget description() {
-    return ExpandedWidget(
-      shapeless: true,
-      iniExpanded: !isLeagueMember(widget.viewModel.league),
-      ready: widget.viewModel.league != null,
-      expandIcon: Icons.visibility_outlined,
-      collapseIcon: Icons.visibility_off_outlined,
-      header: Row(
-        children: [
-          Expanded(
-            child: TextWidget(
-              text: widget.viewModel.league?.name ?? '',
-              style: Style.title,
-              align: TextAlign.left,
-            ),
-          ),
-        ],
-      ),
-      body: [
+    return Column(
+      children: [
+        TextWidget(
+          text: widget.viewModel.league?.name ?? '',
+          style: Style.title,
+          align: TextAlign.left,
+        ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextWidget(
@@ -142,7 +137,6 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
         const SpacingWidget(LayoutSize.size16),
         tags(),
         const SpacingWidget(LayoutSize.size16),
-        membership(),
       ],
     );
   }
@@ -197,10 +191,17 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
       child: MembershipActionWidget(
         leagueModel: widget.viewModel.league,
         onStartMembership: () {
-          widget.viewModel.startMembership();
+          widget.viewModel.stopMembership();
         },
         onStopMembership: () {
-          widget.viewModel.stopMembership();
+          confirmationDialogExt(
+            context: context,
+            issueMessage: "Are you sure you want to cancel your membership?",
+            consentMessage: "Yes, I do",
+            onPositive: () {
+              widget.viewModel.stopMembership();
+            },
+          );
         },
         isMember: isLeagueMember(widget.viewModel.league),
       ),

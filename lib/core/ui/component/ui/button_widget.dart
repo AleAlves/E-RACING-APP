@@ -12,7 +12,7 @@ class ButtonWidget extends StatefulWidget {
   final IconData? icon;
   final ButtonType type;
   final bool enabled;
-  final Color? buttonColor;
+  final Color? color;
   final Color? labelColor;
   final VoidCallback? onPressed;
 
@@ -21,7 +21,7 @@ class ButtonWidget extends StatefulWidget {
       required this.type,
       required this.onPressed,
       this.label,
-      this.buttonColor,
+      this.color,
       this.labelColor,
       this.icon,
       Key? key})
@@ -97,6 +97,12 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 style: Style.button,
               ),
             ),
+            widget.icon == null ? Container() : Row(
+              children: [
+                const SpacingWidget(LayoutSize.size16),
+                Icon(widget.icon),
+              ],
+            )
           ],
         ),
       ),
@@ -108,8 +114,10 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.secondary),
-          foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.onSecondary),
+          backgroundColor: MaterialStateProperty.all(
+              Theme.of(context).colorScheme.secondary),
+          foregroundColor: MaterialStateProperty.all(
+              Theme.of(context).colorScheme.onSecondary),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
@@ -130,6 +138,12 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 style: Style.button,
               ),
             ),
+            widget.icon == null ? Container() : Row(
+              children: [
+                const SpacingWidget(LayoutSize.size16),
+                Icon(widget.icon),
+              ],
+            )
           ],
         ),
       ),
@@ -141,7 +155,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       children: [
         CircleAvatar(
           radius: 24,
-          backgroundColor: widget.buttonColor,
+          backgroundColor: widget.color,
           child: SizedBox(
             width: double.infinity,
             child: IconButton(

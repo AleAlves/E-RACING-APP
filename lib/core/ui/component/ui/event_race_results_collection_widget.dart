@@ -55,6 +55,7 @@ class EventRaceResultsCollection extends StatelessWidget {
         CardWidget(
           marked: true,
           ready: true,
+          shapeLess: true,
           onPressed: () {
             onRaceCardPressed.call(race?.id ?? '');
           },
@@ -114,6 +115,7 @@ class EventRaceResultsCollection extends StatelessWidget {
             ],
           ),
         ),
+        const SpacingWidget(LayoutSize.size8),
       ],
     );
   }

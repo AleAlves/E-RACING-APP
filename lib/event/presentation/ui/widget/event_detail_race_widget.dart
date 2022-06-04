@@ -1,4 +1,3 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ext/date_extensions.dart';
 import 'package:e_racing_app/core/ext/event_iconography_extension.dart';
@@ -14,6 +13,7 @@ import 'package:e_racing_app/event/data/race_standings_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../core/ui/component/ui/team_indicator_paint.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -171,8 +171,8 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                         const SpacingWidget(LayoutSize.size4),
                         TextWidget(
                             color: Theme.of(context).colorScheme.onPrimary,
-                            text: getSesionTypeFirstLetter(widget
-                                .viewModel.race?.sessions?[index]?.type),
+                            text: getSesionTypeFirstLetter(
+                                widget.viewModel.race?.sessions?[index]?.type),
                             style: Style.title),
                         const SpacingWidget(LayoutSize.size24),
                         Expanded(
@@ -348,8 +348,8 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
 
   Widget driverCard(RaceStandingsSummaryModel? standing) {
     if (teamColors
-        .where((element) => element.first == standing?.team?.id)
-        .isEmpty ==
+            .where((element) => element.first == standing?.team?.id)
+            .isEmpty ==
         true) {
       teamColors.add(Pair(standing?.team?.id, getTeamColor(teamColors.length)));
     }
@@ -357,7 +357,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
       ready: true,
       shapeLess: true,
       padding: EdgeInsets.zero,
-      onPressed: (){
+      onPressed: () {
         showDriverSummary(standing);
       },
       child: Column(
@@ -367,35 +367,43 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
               Row(
                 children: [
                   SizedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 35,
-                        color: getPodiumColor(standing?.summary?.position).first,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-                          child: TextWidget(
-                            text: "${standing?.summary?.position}º",
-                            style: Style.subtitle,
-                            color: getPodiumColor(standing?.summary?.position).second,
-                          ),
+                    child: Container(
+                      height: 35,
+                      color:
+                      getPodiumColor(standing?.summary?.position).first,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16, right: 16, top: 8),
+                        child: TextWidget(
+                          text: "${standing?.summary?.position}º",
+                          style: Style.subtitle,
+                          color: getPodiumColor(standing?.summary?.position)
+                              .second,
                         ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 35,
+                    width: 15,
+                    child: CustomPaint(
+                      painter: TeamIndicatorPaint(
+                          teamColors
+                              .firstWhere(
+                                  (element) => element.first == standing?.team?.id)
+                              .second
                       ),
                     ),
                   ),
                 ],
               ),
-              Container(height: 35, width: 5, color: teamColors
-                  .firstWhere(
-                      (element) => element.first == standing?.team?.id)
-                  .second,),
               const SpacingWidget(LayoutSize.size16),
               Expanded(
                 child: Wrap(
                   children: [
                     TextWidget(
                       text:
-                      "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
+                          "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
                       style: Style.subtitle,
                       align: TextAlign.center,
                     ),
@@ -420,7 +428,10 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
               const SpacingWidget(LayoutSize.size4),
             ],
           ),
-          Container(height: 1, color: Colors.black26,)
+          Container(
+            height: 1,
+            color: Colors.black26,
+          )
         ],
       ),
     );
@@ -447,7 +458,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                   text:
-                                  "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
+                                      "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
                                   style: Style.subtitle,
                                   align: TextAlign.start,
                                 ),
@@ -464,8 +475,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                     Icons.group,
                                     color: teamColors
                                         .firstWhere((element) =>
-                                    element.first ==
-                                        standing?.team?.id)
+                                            element.first == standing?.team?.id)
                                         .second,
                                   ),
                                   const SpacingWidget(LayoutSize.size8),
@@ -478,22 +488,19 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                               ),
                             const SpacingWidget(LayoutSize.size16),
                             Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const TextWidget(
                                     style: Style.subtitle, text: "Position"),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                     style: Style.description,
-                                    text:
-                                    "${standing?.summary?.position} th"),
+                                    text: "${standing?.summary?.position} th"),
                               ],
                             ),
                             const SpacingWidget(LayoutSize.size8),
                             Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const TextWidget(
                                     style: Style.subtitle, text: "Points"),
@@ -505,8 +512,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                             ),
                             const SpacingWidget(LayoutSize.size8),
                             Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const TextWidget(
                                     style: Style.subtitle, text: "Bonus"),
@@ -518,22 +524,19 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                             ),
                             const SpacingWidget(LayoutSize.size8),
                             Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const TextWidget(
                                     style: Style.subtitle, text: "Penalty"),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                     style: Style.description,
-                                    text:
-                                    "${standing?.summary?.penalty} pts"),
+                                    text: "${standing?.summary?.penalty} pts"),
                               ],
                             ),
                             const SpacingWidget(LayoutSize.size8),
                             Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const TextWidget(
                                     style: Style.subtitle,
@@ -542,7 +545,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                 TextWidget(
                                     style: Style.description,
                                     text:
-                                    "${standing?.summary?.fastestLapTime}"),
+                                        "${standing?.summary?.fastestLapTime}"),
                               ],
                             ),
                             const SpacingWidget(LayoutSize.size8),
@@ -551,7 +554,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                             else
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const TextWidget(
                                       style: Style.subtitle, text: "Laps"),
@@ -572,7 +575,8 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: const [
                                       TextWidget(
-                                          style: Style.subtitle, text: "Notes:"),
+                                          style: Style.subtitle,
+                                          text: "Notes:"),
                                     ],
                                   ),
                                   const SpacingWidget(LayoutSize.size8),
@@ -587,7 +591,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                             else
                               TextWidget(
                                   color:
-                                  Theme.of(context).colorScheme.secondary,
+                                      Theme.of(context).colorScheme.secondary,
                                   style: Style.shadow,
                                   text: "Disqualified"),
                             if (standing?.summary?.didntFinish == null ||
@@ -596,7 +600,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                             else
                               TextWidget(
                                   color:
-                                  Theme.of(context).colorScheme.secondary,
+                                      Theme.of(context).colorScheme.secondary,
                                   style: Style.shadow,
                                   text: "DNF"),
                           ],

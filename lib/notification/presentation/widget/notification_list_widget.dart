@@ -64,7 +64,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                 children: [
                   const SpacingWidget(LayoutSize.size256),
                   const TextWidget(
-                    text: "No notifications",
+                    text: "No new notifications",
                     style: Style.title,
                   ),
                   const SpacingWidget(LayoutSize.size24),
