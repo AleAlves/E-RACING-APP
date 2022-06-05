@@ -72,7 +72,7 @@ class _EventListWidgetState extends State<EventListWidget>
                     event: widget.viewModel.events?[index],
                     onPressed: () {
                       Session.instance.setEventId(widget.viewModel.events?[index]?.id);
-                      widget.viewModel.setFlow(EventFlows.eventDetail);
+                      widget.viewModel.setFlow(EventFlow.eventDetail);
                     },
                   );
                 },
@@ -80,8 +80,8 @@ class _EventListWidgetState extends State<EventListWidget>
             ),
           ],
         ),
-        FloatActionButtonWidget<EventFlows>(
-          flow: EventFlows.create,
+        FloatActionButtonWidget<EventFlow>(
+          flow: EventFlow.create,
           icon: Icons.add,
           onPressed: (flow) {
             widget.viewModel.setFlow(flow);

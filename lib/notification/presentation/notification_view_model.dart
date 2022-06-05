@@ -8,6 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../core/service/api_exception.dart';
+import '../domain/get_notifications_flow_usecase.dart';
 import '../domain/get_notifications_usecase.dart';
 
 part 'notification_view_model.g.dart';
@@ -35,6 +36,8 @@ abstract class _NotificationViewModel with Store {
 
   final _getNotificationsUC =
       Modular.get<GetNotificationsUseCase<List<QueryDocumentSnapshot>>>();
+  final _getNotificationsFlowUC =
+      Modular.get<GetNotificationsFlowUseCase<String>>();
 
   fetchProfile() {
     state = ViewState.ready;
@@ -45,6 +48,14 @@ abstract class _NotificationViewModel with Store {
     _getNotificationsUC.invoke(
         success: (data) {
           notifications = ObservableList.of(data!);
+        },
+        error: onError);
+  }
+
+  doNavigate(document) {
+    _getNotificationsFlowUC.params(document: document).invoke(
+        success: (flow) {
+          Modular.to.pushNamed(flow ?? '');
         },
         error: onError);
   }

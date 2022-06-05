@@ -55,7 +55,7 @@ class _EventCreateRacesWidgetState extends State<EventCreateRacesWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(EventFlows.createEvent);
+    widget.viewModel.setFlow(EventFlow.createEvent);
     return false;
   }
 

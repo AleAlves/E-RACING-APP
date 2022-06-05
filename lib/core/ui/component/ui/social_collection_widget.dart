@@ -35,7 +35,7 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
     return widget.hide
         ? const LoadingShimmer()
         : CardWidget(
-            padding: EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
+            padding: const EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
             ready: widget.links != null,
             placeholderHeight: 100,
             child: SizedBox(
@@ -57,7 +57,7 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
                                   color:
                                       _getSocialPlatform(item?.platformId)
                                           .second,
-                                  labelColor: Colors.white),
+                                  iconColor: Colors.white),
                             );
                           })
                           .toList()

@@ -123,13 +123,13 @@ mixin _$EventViewModel on _EventViewModel, Store {
   late final _$flowAtom = Atom(name: '_EventViewModel.flow', context: context);
 
   @override
-  EventFlows get flow {
+  EventFlow get flow {
     _$flowAtom.reportRead();
     return super.flow;
   }
 
   @override
-  set flow(EventFlows value) {
+  set flow(EventFlow value) {
     _$flowAtom.reportWrite(value, super.flow, () {
       super.flow = value;
     });

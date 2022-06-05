@@ -30,7 +30,7 @@ class LeaveTeamUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Exited the team",
           action: "Ok",
-          next: EventFlows.eventDetail) as T);
+          next: EventFlow.eventDetail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

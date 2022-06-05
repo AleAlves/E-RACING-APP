@@ -27,7 +27,7 @@ class UnsubscribeEventUseCase<T> extends BaseUseCase<T> {
                 classId: _classId ?? '', eventId: _eventId ?? ''))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "You've been removed from this event", action: "Ok", next: EventFlows.eventDetail) as T);
+          message: "You've been removed from this event", action: "Ok", next: EventFlow.eventDetail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

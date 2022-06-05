@@ -127,7 +127,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                               type: ButtonType.icon,
                               icon: Icons.add,
                               onPressed: () {
-                                widget.viewModel.setFlow(EventFlows.createTeam);
+                                widget.viewModel.setFlow(EventFlow.createTeam);
                               },
                               enabled: widget.viewModel.event != null,
                             ),
@@ -196,7 +196,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(EventFlows.eventDetail);
+    widget.viewModel.setFlow(EventFlow.eventDetail);
     return false;
   }
 }

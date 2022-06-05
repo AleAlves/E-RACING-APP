@@ -24,7 +24,7 @@ class SetSummaryUseCase<T> extends BaseUseCase<T> {
         verb: HTTPVerb.post,
         params: HTTPRequesParams(data: _summaryModel)));
     if (response.isSuccessfully) {
-      success.call(StatusModel(message: "", action: "", next: EventFlows.managementEditRaceResultsEdit) as T);
+      success.call(StatusModel(message: "", action: "", next: EventFlow.managementEditRaceResultsEdit) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

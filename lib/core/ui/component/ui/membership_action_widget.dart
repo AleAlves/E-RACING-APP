@@ -72,6 +72,7 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
           child: ButtonWidget(
             label: "Already a member",
             icon: Icons.check_circle_outline,
+            iconColor: Colors.green,
             type: ButtonType.discret,
             onPressed: () {
               widget.onStopMembership.call();

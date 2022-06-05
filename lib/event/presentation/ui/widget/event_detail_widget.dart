@@ -53,7 +53,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(EventFlows.list);
+    widget.viewModel.setFlow(EventFlow.list);
     return false;
   }
 
@@ -127,7 +127,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   Widget eventInfo() {
     return CardWidget(
       onPressed: () {
-        widget.viewModel.setFlow(EventFlows.eventDetailInfo);
+        widget.viewModel.setFlow(EventFlow.eventDetailInfo);
       },
       ready: true,
       child: Stack(
@@ -186,7 +186,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                       label: "Manager area",
                       type: ButtonType.normal,
                       onPressed: () {
-                        widget.viewModel.setFlow(EventFlows.manager);
+                        widget.viewModel.setFlow(EventFlow.manager);
                       },
                       enabled: true,
                     ),
@@ -233,7 +233,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       standings: widget.viewModel.standings,
       onRaceCardPressed: (id) {},
       onFullStandingsPressed: () {
-        widget.viewModel.setFlow(EventFlows.fullStandings);
+        widget.viewModel.setFlow(EventFlow.fullStandings);
       },
     );
   }

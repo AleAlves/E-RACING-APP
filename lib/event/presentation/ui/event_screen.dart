@@ -8,9 +8,9 @@ import 'event_flow.dart';
 
 class EventScreen extends StatefulWidget {
 
-  final EventFlows? flows;
+  final EventFlow? flow;
 
-  const EventScreen({this.flows, Key? key}) : super(key: key);
+  const EventScreen({this.flow, Key? key}) : super(key: key);
 
   @override
   _EventScreenState createState() => _EventScreenState();
@@ -23,7 +23,7 @@ class _EventScreenState extends State<EventScreen> implements BaseScreen {
 
   @override
   void initState() {
-    viewModel.setFlow(widget.flows ??  EventFlows.list);
+    viewModel.setFlow(widget.flow ??  EventFlow.list);
     super.initState();
   }
 

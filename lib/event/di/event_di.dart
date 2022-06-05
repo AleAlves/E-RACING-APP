@@ -31,7 +31,14 @@ import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../presentation/ui/event_flow.dart';
+
 class EventModule extends Module {
+
+  final EventFlow flow;
+
+  EventModule({this.flow = EventFlow.list});
+
   @override
   List<Bind> get binds => [
         Bind.factory((i) => EventViewModel()),
@@ -61,6 +68,6 @@ class EventModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => EventScreen(flows: args.data))
+        ChildRoute('/', child: (context, args) => EventScreen(flow: flow))
       ];
 }

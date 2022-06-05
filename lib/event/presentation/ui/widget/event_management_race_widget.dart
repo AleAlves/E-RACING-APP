@@ -54,7 +54,7 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(EventFlows.eventDetail);
+    widget.viewModel.setFlow(EventFlow.eventDetail);
     return false;
   }
 
@@ -97,7 +97,7 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
                 label: "Event",
                 type: ButtonType.normal,
                 onPressed: () {
-                  widget.viewModel.setFlow(EventFlows.managementEditEvent);
+                  widget.viewModel.setFlow(EventFlow.managementEditEvent);
                 },
                 enabled: widget.viewModel.event?.state == EventState.idle,
               ),
@@ -109,7 +109,7 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
                 label: "Races",
                 type: ButtonType.normal,
                 onPressed: () {
-                  widget.viewModel.setFlow(EventFlows.managementEditRaceList);
+                  widget.viewModel.setFlow(EventFlow.managementEditRaceList);
                 },
                 enabled: widget.viewModel.event?.state == EventState.idle,
               ),

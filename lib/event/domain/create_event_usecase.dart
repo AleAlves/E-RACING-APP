@@ -29,7 +29,7 @@ class CreateEventUseCase<T> extends BaseUseCase<T> {
         params: HTTPRequesParams(data: EventCreateModel(_media, _event, _leagueId))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Event Created", action: "Ok", next: EventFlows.list) as T);
+          message: "Event Created", action: "Ok", next: EventFlow.list) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

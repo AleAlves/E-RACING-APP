@@ -84,8 +84,8 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
                 ),
               ],),
               widget.vm.notificationsCount == null ||
-                      widget.vm.notificationsCount?.isEmpty == true
-                  ? Container()
+                      widget.vm.notificationsCount == "0"
+                  ? const Icon(Icons.arrow_forward)
                   : Row(
                       children: [
                         CircleAvatar(
@@ -165,7 +165,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
             children: [
               LeagueThumbCollectionWidget(
                 onPressed: () {
-                  Modular.to.pushNamed(Routes.leagueDetail);
+                  Modular.to.pushNamed(Routes.league);
                 },
                 leagues: widget.vm.leagues,
               ),

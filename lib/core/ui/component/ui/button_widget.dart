@@ -13,6 +13,7 @@ class ButtonWidget extends StatefulWidget {
   final ButtonType type;
   final bool enabled;
   final Color? color;
+  final Color? iconColor;
   final Color? labelColor;
   final VoidCallback? onPressed;
 
@@ -22,6 +23,7 @@ class ButtonWidget extends StatefulWidget {
       required this.onPressed,
       this.label,
       this.color,
+      this.iconColor,
       this.labelColor,
       this.icon,
       Key? key})
@@ -102,7 +104,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             widget.icon == null ? Container() : Row(
               children: [
                 const SpacingWidget(LayoutSize.size16),
-                Icon(widget.icon),
+                Icon(widget.icon, color: widget.iconColor,),
               ],
             )
           ],
@@ -143,7 +145,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             widget.icon == null ? Container() : Row(
               children: [
                 const SpacingWidget(LayoutSize.size16),
-                Icon(widget.icon),
+                Icon(widget.icon, color: widget.iconColor,),
               ],
             )
           ],
@@ -184,7 +186,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             widget.icon == null ? Container() : Row(
               children: [
                 const SpacingWidget(LayoutSize.size16),
-                Icon(widget.icon),
+                Icon(widget.icon, color: widget.iconColor,),
               ],
             )
           ],
@@ -202,7 +204,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
           child: SizedBox(
             width: double.infinity,
             child: IconButton(
-              icon: FaIcon(widget.icon, color: widget.labelColor),
+              icon: FaIcon(widget.icon, color: widget.iconColor,),
               iconSize: 24,
               onPressed: widget.enabled ? widget.onPressed : null,
             ),
@@ -231,6 +233,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 icon: Icon(
                   widget.icon,
                   size: 24,
+                  color: widget.iconColor,
                 ),
                 onPressed: widget.enabled ? widget.onPressed : null),
           ),

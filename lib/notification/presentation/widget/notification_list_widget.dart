@@ -5,6 +5,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobx/mobx.dart';
 import '../../../core/ui/component/state/view_state_widget.dart';
 import '../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../core/ui/view_state.dart';
@@ -84,7 +85,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
     return widget.vm.notifications!
         .map((element) => CardWidget(
             marked: element?['important'],
-            markColor: Colors.red,
+            markColor: Theme.of(context).colorScheme.primary,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Row(
@@ -105,12 +106,17 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: TextWidget(
-                          text: element?['date'],
-                          style: Style.note,
-                        ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: TextWidget(
+                              text: element?['date'],
+                              style: Style.note,
+                            ),
+                          ),
+                          Icon(Icons.arrow_forward, color: Theme.of(context).colorScheme.primary,)
+                        ],
                       ),
                     ],
                   ),
@@ -124,18 +130,23 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                         widget.vm.fetchNotifications();
                       });
                     },
+                    iconColor: Colors.red,
                     icon: Icons.highlight_off_outlined,
                   )
                 ],
               ),
             ),
+            onPressed: (){
+              widget.vm.doNavigate(element?['source']);
+            },
             ready: true))
         .toList()
         .cast<Widget>();
   }
 
   @override
-  observers() {}
+  observers() {
+  }
 
   @override
   Future<bool> onBackPressed() async {

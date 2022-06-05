@@ -17,7 +17,7 @@ import 'package:e_racing_app/event/presentation/ui/widget/event_list_widget.dart
 import 'package:e_racing_app/event/presentation/ui/widget/event_status_widget.dart';
 import 'package:flutter/cupertino.dart';
 
-enum EventFlows {
+enum EventFlow {
   list,
   delete,
   status,
@@ -38,42 +38,42 @@ enum EventFlows {
   managementEditRaceResultsEdit,
 }
 
-extension EventNavigation on EventFlows {
+extension EventNavigation on EventFlow {
   static Widget flow(EventViewModel vm) {
     switch (vm.flow) {
-      case EventFlows.list:
+      case EventFlow.list:
         return EventListWidget(vm);
-      case EventFlows.create:
+      case EventFlow.create:
         return EventCreateOptionWidget(vm);
-      case EventFlows.createRace:
+      case EventFlow.createRace:
         return EventCreateSingleRaceWidget(vm);
-      case EventFlows.createRaces:
+      case EventFlow.createRaces:
         return EventCreateRacesWidget(vm);
-      case EventFlows.createEvent:
+      case EventFlow.createEvent:
         return EventCreateEventWidget(vm);
-      case EventFlows.eventDetail:
+      case EventFlow.eventDetail:
         return EventDetailWidget(vm);
-      case EventFlows.detailRace:
+      case EventFlow.detailRace:
         return EventDetailRaceWidget(vm);
-      case EventFlows.createTeam:
+      case EventFlow.createTeam:
         return EventCreateTeamWidget(vm);
-      case EventFlows.eventDetailInfo:
+      case EventFlow.eventDetailInfo:
         return EventDetailInfoWidget(vm);
-      case EventFlows.status:
+      case EventFlow.status:
         return EventStatusWidget(vm);
-      case EventFlows.manager:
+      case EventFlow.manager:
         return EventManagementRaceWidget(vm);
-      case EventFlows.raceDetail:
+      case EventFlow.raceDetail:
         return EventDetailRaceWidget(vm);
-      case EventFlows.managementEditEvent:
+      case EventFlow.managementEditEvent:
         return EventEditWidget(vm);
-      case EventFlows.managementEditRaceList:
+      case EventFlow.managementEditRaceList:
         return EventManagementRaceListWidget(vm);
-      case EventFlows.managementEditRace:
+      case EventFlow.managementEditRace:
         return EventManagementEditRaceWidget(vm);
-      case EventFlows.managementEditRaceResultsEdit:
+      case EventFlow.managementEditRaceResultsEdit:
         return EventManagementEditRaceResultsWidget(vm);
-      case EventFlows.fullStandings:
+      case EventFlow.fullStandings:
         return EventFullStandingsWidget(vm);
       default:
         return Container();

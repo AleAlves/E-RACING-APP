@@ -241,7 +241,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
                       Session.instance.setEventId(
                           widget.viewModel.playerEvents?[index]?.id);
                       Modular.to.pushNamed(Routes.events,
-                          arguments: EventFlows.eventDetail);
+                          arguments: EventFlow.eventDetail);
                     },
                   );
                 },

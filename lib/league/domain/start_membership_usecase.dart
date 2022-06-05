@@ -23,7 +23,7 @@ class StartMembershipUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "You've became a member",
           action: "Ok",
-          next: EventFlows.eventDetail) as T);
+          next: EventFlow.eventDetail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

@@ -29,7 +29,7 @@ class CreateTeamUseCase<T> extends BaseUseCase<T> {
             data: TeamCreateModel(eventId: _eventId, team: _team))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Team Created", action: "Ok", next: EventFlows.eventDetail) as T);
+          message: "Team Created", action: "Ok", next: EventFlow.eventDetail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

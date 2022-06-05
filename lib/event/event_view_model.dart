@@ -75,7 +75,7 @@ abstract class _EventViewModel with Store {
   EventTeamsStandingsModel? raceTeamsStandings;
 
   @observable
-  EventFlows flow = EventFlows.list;
+  EventFlow flow = EventFlow.list;
 
   @observable
   ViewState state = ViewState.ready;
@@ -161,7 +161,7 @@ abstract class _EventViewModel with Store {
           event = data?.event;
           users = ObservableList.of(data?.users ?? []);
           if (data?.event.type == EventType.race) {
-            setFlow(EventFlows.detailRace);
+            setFlow(EventFlow.detailRace);
           } else {
             getMedia(data?.event.id ?? '');
           }
@@ -184,7 +184,7 @@ abstract class _EventViewModel with Store {
     _toogleSubscriptionsUseCase.build(eventId: event?.id ?? '').invoke(
         success: (data) {
           status = data;
-          setFlow(EventFlows.status);
+          setFlow(EventFlow.status);
         },
         error: onError);
   }
@@ -194,7 +194,7 @@ abstract class _EventViewModel with Store {
     _toogleMembersOnlyUseCase.build(eventId: event?.id ?? '').invoke(
         success: (data) {
           status = data;
-          setFlow(EventFlows.status);
+          setFlow(EventFlow.status);
         },
         error: onError);
   }
@@ -227,7 +227,7 @@ abstract class _EventViewModel with Store {
         error: onError);
   }
 
-  void deeplink({String? deepLink, EventFlows? flow}) {
+  void deeplink({String? deepLink, EventFlow? flow}) {
     if (deepLink != null) {
       Modular.to.pushNamed(deepLink);
     } else if (flow != null) {
@@ -240,7 +240,7 @@ abstract class _EventViewModel with Store {
     await _createEventUseCase.build(event: event).invoke(
         success: (data) {
           status = data;
-          setFlow(EventFlows.status);
+          setFlow(EventFlow.status);
         },
         error: onError);
   }
@@ -252,7 +252,7 @@ abstract class _EventViewModel with Store {
         .invoke(
             success: (data) {
               status = data;
-              setFlow(EventFlows.status);
+              setFlow(EventFlow.status);
             },
             error: onError);
   }
@@ -264,7 +264,7 @@ abstract class _EventViewModel with Store {
         .invoke(
             success: (data) {
               status = data;
-              setFlow(EventFlows.status);
+              setFlow(EventFlow.status);
             },
             error: onError);
   }
@@ -274,7 +274,7 @@ abstract class _EventViewModel with Store {
     bannerFile = banner;
     creatingEvent = event;
     creatingMedias?.add(media);
-    setFlow(EventFlows.createRaces);
+    setFlow(EventFlow.createRaces);
   }
 
   void updateChampionshipRaces(List<ChampionshipRacesModel> races) async {
@@ -325,7 +325,7 @@ abstract class _EventViewModel with Store {
         .invoke(
             success: (data) {
               status = data;
-              setFlow(EventFlows.status);
+              setFlow(EventFlow.status);
             },
             error: onError);
   }
@@ -335,7 +335,7 @@ abstract class _EventViewModel with Store {
     await _updateEventUseCase.build(event: event, media: media).invoke(
         success: (data) {
           status = data;
-          setFlow(EventFlows.status);
+          setFlow(EventFlow.status);
         },
         error: onError);
   }
@@ -346,7 +346,7 @@ abstract class _EventViewModel with Store {
     await _createTeamEventUseCase.build(id: event?.id, team: team).invoke(
         success: (data) {
           status = data;
-          setFlow(EventFlows.status);
+          setFlow(EventFlow.status);
         },
         error: onError);
   }
@@ -356,7 +356,7 @@ abstract class _EventViewModel with Store {
     await _joinTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
         success: (data) {
           status = data;
-          setFlow(EventFlows.status);
+          setFlow(EventFlow.status);
         },
         error: onError);
   }
@@ -366,7 +366,7 @@ abstract class _EventViewModel with Store {
     await _leaveTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
         success: (data) {
           status = data;
-          setFlow(EventFlows.status);
+          setFlow(EventFlow.status);
         },
         error: onError);
   }
@@ -376,7 +376,7 @@ abstract class _EventViewModel with Store {
     await _deleteTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
         success: (data) {
           status = data;
-          setFlow(EventFlows.status);
+          setFlow(EventFlow.status);
         },
         error: onError);
   }
@@ -386,7 +386,7 @@ abstract class _EventViewModel with Store {
     await _startEventUseCase.build(id: event?.id ?? '').invoke(
         success: (data) {
           status = data;
-          setFlow(EventFlows.status);
+          setFlow(EventFlow.status);
         },
         error: onError);
   }
@@ -396,7 +396,7 @@ abstract class _EventViewModel with Store {
     await _finishEventUseCase.build(id: event?.id ?? '').invoke(
         success: (data) {
           status = data;
-          setFlow(EventFlows.status);
+          setFlow(EventFlow.status);
         },
         error: onError);
   }
@@ -422,13 +422,13 @@ abstract class _EventViewModel with Store {
 
   void toRaceDetail(String id) {
     race = event?.races?.firstWhere((element) => element?.id == id);
-    setFlow(EventFlows.raceDetail);
+    setFlow(EventFlow.raceDetail);
   }
 
   void toRaceResults(String id) {
     Session.instance.setRaceId(id);
     race = event?.races?.firstWhere((element) => element?.id == id);
-    setFlow(EventFlows.managementEditRaceResultsEdit);
+    setFlow(EventFlow.managementEditRaceResultsEdit);
   }
 
   Future<void> removeSubscription(String? classId, String userId) async {
@@ -441,13 +441,13 @@ abstract class _EventViewModel with Store {
         .invoke(
             success: (data) {
               status = data;
-              setFlow(EventFlows.status);
+              setFlow(EventFlow.status);
             },
             error: onError);
   }
 
   void editRace() {
-    setFlow(EventFlows.managementEditRace);
+    setFlow(EventFlow.managementEditRace);
   }
 
   void updateRace(ChampionshipRacesModel? model) {
@@ -487,19 +487,19 @@ abstract class _EventViewModel with Store {
     status = StatusModel(
       message: error.message,
       action: "Ok",
-      next: EventFlows.list,
+      next: EventFlow.list,
       previous: flow,
       error: error.isBusiness()
     );
     if (error.isBusiness()) {
       state = ViewState.ready;
-      flow = EventFlows.status;
+      flow = EventFlow.status;
     } else {
       state = ViewState.error;
     }
   }
 
-  void setFlow(EventFlows flow) {
+  void setFlow(EventFlow flow) {
     this.flow = flow;
   }
 }

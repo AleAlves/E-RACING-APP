@@ -33,7 +33,7 @@ class RemoveSubscriptionUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Subscription removed from the event",
           action: "Ok",
-          next: EventFlows.manager) as T);
+          next: EventFlow.manager) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

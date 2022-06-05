@@ -83,7 +83,7 @@ class _EventManagementEditRaceWidgetState
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(EventFlows.manager);
+    widget.viewModel.setFlow(EventFlow.manager);
     return false;
   }
 

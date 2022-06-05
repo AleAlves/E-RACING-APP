@@ -63,7 +63,7 @@ class _EventCreateOptionWidgetState extends State<EventCreateOptionWidget>
             enabled: true,
             type: ButtonType.normal,
             onPressed: () {
-              widget.viewModel.flow = EventFlows.createRace;
+              widget.viewModel.flow = EventFlow.createRace;
             },
             label: "Single race",
           ),
@@ -74,7 +74,7 @@ class _EventCreateOptionWidgetState extends State<EventCreateOptionWidget>
             enabled: true,
             type: ButtonType.normal,
             onPressed: () {
-              widget.viewModel.flow = EventFlows.createEvent;
+              widget.viewModel.flow = EventFlow.createEvent;
             },
             label: "Championship",
           ),
