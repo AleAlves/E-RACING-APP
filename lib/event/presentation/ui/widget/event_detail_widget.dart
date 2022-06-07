@@ -139,9 +139,12 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
               Column(
                 children: [
                   Row(
-                    children: const [
-                      Icon(Icons.info_outline),
-                      Padding(
+                    children: [
+                      Icon(
+                        Icons.info_outline,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const Padding(
                         padding: EdgeInsets.all(16.0),
                         child: TextWidget(
                           text: "Event information",
@@ -184,7 +187,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                     padding: const EdgeInsets.only(left: 18, right: 18),
                     child: ButtonWidget(
                       label: "Manager area",
-                      type: ButtonType.normal,
+                      type: ButtonType.discret,
                       onPressed: () {
                         widget.viewModel.setFlow(EventFlow.manager);
                       },

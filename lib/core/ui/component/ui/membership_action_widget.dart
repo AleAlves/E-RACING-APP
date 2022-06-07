@@ -39,7 +39,7 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.leagueModel == null ? const LoadingShimmer() : content();
+    return widget.leagueModel == null ? const LoadingShimmer( height: 50,) : content();
   }
 
   Widget content() {
@@ -47,39 +47,33 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
   }
 
   Widget startMembershipButton() {
-    return CardWidget(
-        shapeLess: true,
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: ButtonWidget(
-            icon: Icons.person_add_outlined,
-            label: "Become a member",
-            type: ButtonType.important,
-            onPressed: () {
-              widget.onStartMembership.call();
-            },
-            enabled: widget.leagueModel?.members != null,
-          ),
-        ),
-        ready: widget.leagueModel?.members != null);
+    return  SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: ButtonWidget(
+        icon: Icons.person_add_outlined,
+        label: "Become a member",
+        type: ButtonType.important,
+        onPressed: () {
+          widget.onStartMembership.call();
+        },
+        enabled: widget.leagueModel?.members != null,
+      ),
+    );
   }
 
   Widget stopMembershipAction() {
-    return CardWidget(
-        shapeLess: true,
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: ButtonWidget(
-            label: "Already a member",
-            icon: Icons.check_circle_outline,
-            iconColor: Colors.green,
-            type: ButtonType.discret,
-            onPressed: () {
-              widget.onStopMembership.call();
-            },
-            enabled: widget.leagueModel?.members != null,
-          ),
-        ),
-        ready: widget.leagueModel?.members != null);
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: ButtonWidget(
+        label: "Membership",
+        icon: Icons.check_circle_outline,
+        iconColor: Colors.green,
+        type: ButtonType.discret,
+        onPressed: () {
+          widget.onStopMembership.call();
+        },
+        enabled: widget.leagueModel?.members != null,
+      ),
+    );
   }
 }

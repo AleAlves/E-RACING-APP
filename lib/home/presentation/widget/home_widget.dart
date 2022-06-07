@@ -64,7 +64,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
 
   Widget notifications() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(left: 8, right: 8),
       child: CardWidget(
         child: Padding(
           padding: const EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),

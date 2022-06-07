@@ -55,24 +55,21 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
   }
 
   Widget unsubscribedWidget() {
-    return CardWidget(
-        shapeLess: true,
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: ButtonWidget(
-              label: "Registration",
-              type: ButtonType.normal,
-              icon: Icons.how_to_reg_outlined,
-              onPressed: () {
-                handleChoice();
-              },
-              enabled: widget.classes != null,
-            ),
-          ),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8, right: 8),
+        child: ButtonWidget(
+          label: "Registration",
+          type: ButtonType.normal,
+          icon: Icons.how_to_reg_outlined,
+          onPressed: () {
+            handleChoice();
+          },
+          enabled: widget.classes != null,
         ),
-        ready: widget.classes != null);
+      ),
+    );
   }
 
   void handleChoice() {
@@ -158,36 +155,29 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
   }
 
   Widget subscribedWidget() {
-    return CardWidget(
-        shapeLess: true,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: ButtonWidget(
-                  label:
-                      "Registered as ${widget.classes?.firstWhere((element) => element?.id == id)?.name} driver",
-                  type: ButtonType.discret,
-                  icon: Icons.sports_motorsports,
-                  onPressed: () {
-                    confirmationDialogExt(
-                      context: context,
-                      issueMessage:
-                          "Are you sure you want to cancel your registration?",
-                      consentMessage: "Yes, I do",
-                      onPositive: () {
-                        widget.onUnsubscribe.call(id);
-                      },
-                    );
-                  },
-                  enabled: true,
-                ),
-              ),
-            )
-          ],
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding:  const EdgeInsets.only(left: 8, right: 8),
+        child: ButtonWidget(
+          label:
+          "Registered as ${widget.classes?.firstWhere((element) => element?.id == id)?.name} driver",
+          type: ButtonType.discret,
+          icon: Icons.sports_motorsports,
+          onPressed: () {
+            confirmationDialogExt(
+              context: context,
+              issueMessage:
+              "Are you sure you want to cancel your registration?",
+              consentMessage: "Yes, I do",
+              onPositive: () {
+                widget.onUnsubscribe.call(id);
+              },
+            );
+          },
+          enabled: true,
         ),
-        ready: true);
+      ),
+    );
   }
 }

@@ -227,14 +227,14 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
               width: MediaQuery.of(context).size.width,
               child: ButtonWidget(
                 label: "Delete this event",
-                type: ButtonType.important,
+                type: ButtonType.discret,
                 onPressed: () {
                   confirmationDialogExt(
                       context: context,
                       onPositive: () {},
                       consentMessage: "Yes, I do",
                       issueMessage:
-                          "Are you sure you want to delete this event?");
+                          "Do you want to delete this event?");
                 },
                 enabled: true,
               ),

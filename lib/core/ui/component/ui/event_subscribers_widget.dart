@@ -42,7 +42,7 @@ class _EventSubscribersWidgetState extends State<EventSubscribersWidget> {
           Icon(Icons.sports_motorsports, color: Theme.of(context).colorScheme.primaryVariant,),
           const SpacingWidget(LayoutSize.size16),
           const TextWidget(
-            text: "Subscribers",
+            text: "Drivers",
             style: Style.title,
             align: TextAlign.left,
           ),

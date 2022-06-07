@@ -15,10 +15,8 @@ class TeamIndicatorPaint extends CustomPainter {
     paint.strokeWidth = 2.0;
 
     var path = Path();
-
     path.lineTo(0, size.height);
-    path.lineTo(size.width / 2, 0);
-
+    path.lineTo(size.width * 1.5, 0);
     canvas.drawPath(path, paint);
   }
 

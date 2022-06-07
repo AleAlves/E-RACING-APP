@@ -5,7 +5,6 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobx/mobx.dart';
 import '../../../core/ui/component/state/view_state_widget.dart';
 import '../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../core/ui/view_state.dart';
@@ -65,7 +64,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                 children: [
                   const SpacingWidget(LayoutSize.size256),
                   const TextWidget(
-                    text: "No new notifications",
+                    text: "Inbox empty",
                     style: Style.title,
                   ),
                   const SpacingWidget(LayoutSize.size24),
@@ -122,7 +121,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                   ),
                   ButtonWidget(
                     enabled: true,
-                    type: ButtonType.iconBorderless,
+                    type: ButtonType.icon,
                     onPressed: () {
                       FirebaseFirestore.instance
                           .runTransaction((Transaction myTransaction) async {
@@ -130,8 +129,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                         widget.vm.fetchNotifications();
                       });
                     },
-                    iconColor: Colors.red,
-                    icon: Icons.highlight_off_outlined,
+                    icon: Icons.delete,
                   )
                 ],
               ),

@@ -7,7 +7,6 @@ import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_simple_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/expanded_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/membership_action_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/shortcut_collection_widget.dart';
@@ -15,7 +14,6 @@ import 'package:e_racing_app/core/ui/component/ui/social_collection_widget.dart'
 import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +71,10 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
+              child: membership(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
               child: social(),
             ),
             Padding(
@@ -109,10 +111,6 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
           Padding(
             padding: const EdgeInsets.only(top: 24, bottom: 8),
             child: description(),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: membership(),
           ),
         ],
       ),
@@ -188,7 +186,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
 
   Widget membership() {
     return Padding(
-      padding: const EdgeInsets.only(top: 8, bottom: 4),
+      padding: const EdgeInsets.only(left: 4, right: 4, top: 4),
       child: MembershipActionWidget(
         leagueModel: widget.viewModel.league,
         onStartMembership: () {
@@ -197,7 +195,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
         onStopMembership: () {
           confirmationDialogExt(
             context: context,
-            issueMessage: "Are you sure you want to cancel your membership?",
+            issueMessage: "Do you wanto to cancel your membership?",
             consentMessage: "Yes, I do",
             onPositive: () {
               widget.viewModel.stopMembership();
@@ -240,8 +238,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
                     onPressed: () {
                       Session.instance.setEventId(
                           widget.viewModel.playerEvents?[index]?.id);
-                      Modular.to.pushNamed(Routes.events,
-                          arguments: EventFlow.eventDetail);
+                      Modular.to.pushNamed(Routes.event);
                     },
                   );
                 },

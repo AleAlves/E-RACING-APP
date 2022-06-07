@@ -167,14 +167,10 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                     ),
                   ),
                 ),
-                SizedBox(
+                Container(
                   height: 35,
-                  width: 15,
-                  child: CustomPaint(
-                    painter: TeamIndicatorPaint(
-                        color
-                    ),
-                  ),
+                  width: 5,
+                  color: getClassColor(_index),
                 )
               ],
             ),

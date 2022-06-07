@@ -53,7 +53,7 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
                         child: TextWidget(
                             text: name(item),
                             style: Style.note,
-                            color: Theme.of(context).colorScheme.background),
+                            color: Theme.of(context).colorScheme.onPrimary),
                       ),
                       color: Theme.of(context).colorScheme.primary,
                     ),

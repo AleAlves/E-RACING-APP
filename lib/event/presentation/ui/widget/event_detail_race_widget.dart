@@ -383,18 +383,6 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 35,
-                    width: 15,
-                    child: CustomPaint(
-                      painter: TeamIndicatorPaint(
-                          teamColors
-                              .firstWhere(
-                                  (element) => element.first == standing?.team?.id)
-                              .second
-                      ),
-                    ),
-                  ),
                 ],
               ),
               const SpacingWidget(LayoutSize.size16),
