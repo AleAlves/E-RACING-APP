@@ -31,6 +31,7 @@ import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../domain/fetch_filtered_events_use_case.dart';
 import '../presentation/ui/event_flow.dart';
 
 class EventModule extends Module {
@@ -44,6 +45,7 @@ class EventModule extends Module {
         Bind.factory((i) => EventViewModel()),
         Bind.factory((i) => GetMediaUseCase<MediaModel>()),
         Bind.factory((i) => FetchEventsUseCase<List<EventModel>>()),
+        Bind.factory((i) => FetchFilteredEventsUseCase<List<EventModel>>()),
         Bind.factory((i) => CreateEventUseCase<StatusModel>()),
         Bind.factory((i) => UpdateEventUseCase<StatusModel>()),
         Bind.factory((i) => SubscribeEventUseCase<StatusModel>()),

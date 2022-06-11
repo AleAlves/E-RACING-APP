@@ -91,8 +91,9 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         ),
         onPressed: widget.enabled ? widget.onPressed : null,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Container(),
             Padding(
               padding: const EdgeInsets.only(top: 16, bottom: 16),
               child: TextWidget(
@@ -133,8 +134,9 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         ),
         onPressed: widget.enabled ? widget.onPressed : null,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Container(),
             Padding(
               padding: const EdgeInsets.only(top: 16, bottom: 16),
               child: TextWidget(
@@ -174,8 +176,9 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         ),
         onPressed: widget.enabled ? widget.onPressed : null,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Container(),
             Padding(
               padding: const EdgeInsets.only(top: 16, bottom: 16),
               child: TextWidget(

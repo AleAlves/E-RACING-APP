@@ -61,23 +61,32 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
     return (widget.viewModel.event?.rules?.isNotEmpty ?? false)
         ? CardWidget(
             ready: true,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const TextWidget(
-                    text: "Rules", style: Style.title, align: TextAlign.start),
-                const SpacingWidget(LayoutSize.size16),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: TextWidget(
-                    text: widget.viewModel.event?.rules ?? '',
-                    style: Style.description,
-                    align: TextAlign.justify,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: const [
+                      Icon(Icons.sports),
+                      SpacingWidget(LayoutSize.size8),
+                      TextWidget(
+                          text: "Rules", style: Style.title, align: TextAlign.start),
+                    ],
                   ),
-                ),
-                const SpacingWidget(LayoutSize.size16),
-              ],
+                  const SpacingWidget(LayoutSize.size16),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextWidget(
+                      text: widget.viewModel.event?.rules ?? '',
+                      style: Style.description,
+                      align: TextAlign.justify,
+                    ),
+                  ),
+                  const SpacingWidget(LayoutSize.size16),
+                ],
+              ),
             ),
           )
         : Container();
@@ -94,10 +103,16 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const TextWidget(
-                      text: "Teams",
-                      style: Style.title,
-                      align: TextAlign.start),
+                  Row(
+                    children: const [
+                      Icon(Icons.group),
+                      SpacingWidget(LayoutSize.size8),
+                      TextWidget(
+                          text: "Teams",
+                          style: Style.title,
+                          align: TextAlign.start),
+                    ],
+                  ),
                   const SpacingWidget(LayoutSize.size16),
                   TeamsWidget(
                     users: widget.viewModel.users,
@@ -124,7 +139,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                             width: MediaQuery.of(context).size.width,
                             child: ButtonWidget(
                               label: "Create new team",
-                              type: ButtonType.icon,
+                              type: ButtonType.normal,
                               icon: Icons.add,
                               onPressed: () {
                                 widget.viewModel.setFlow(EventFlow.createTeam);
@@ -151,10 +166,16 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const TextWidget(
-                text: "Score system",
-                style: Style.title,
-                align: TextAlign.start),
+            Row(
+              children: const [
+                Icon(Icons.format_list_numbered),
+                SpacingWidget(LayoutSize.size8),
+                TextWidget(
+                    text: "Score system",
+                    style: Style.title,
+                    align: TextAlign.start),
+              ],
+            ),
             const SpacingWidget(LayoutSize.size16),
             ScoringWidget(
               scoring: widget.viewModel.event?.scoring,
@@ -173,19 +194,26 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
     return hasSettings
         ? CardWidget(
             ready: true,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const TextWidget(
-                    text: "Settings",
-                    style: Style.title,
-                    align: TextAlign.start),
-                const SpacingWidget(LayoutSize.size16),
-                const SpacingWidget(LayoutSize.size16),
-                SettingsWidget(settings: widget.viewModel.event?.settings),
-                const SpacingWidget(LayoutSize.size16),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: const [
+                      Icon(Icons.tune),
+                      SpacingWidget(LayoutSize.size8),
+                      TextWidget(
+                          text: "Settings",
+                          style: Style.title,
+                          align: TextAlign.start),
+                    ],
+                  ),
+                  const SpacingWidget(LayoutSize.size16),
+                  SettingsWidget(settings: widget.viewModel.event?.settings),
+                ],
+              ),
             ),
           )
         : Container();

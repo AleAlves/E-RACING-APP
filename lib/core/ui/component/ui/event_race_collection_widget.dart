@@ -40,7 +40,7 @@ class EventRaceCollection extends StatelessWidget {
         CardWidget(
           marked: true,
           markWidth: 40,
-          markColor: Theme.of(context).colorScheme.secondary,
+          markColor: Theme.of(context).colorScheme.primary,
           ready: true,
           onPressed: () {
             onRaceCardPressed.call(race?.id ?? '');
@@ -54,7 +54,7 @@ class EventRaceCollection extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextWidget(
-                        color: Theme.of(context).colorScheme.onSecondary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                           text: index.toString(),
                           style: Style.title),
                     ),

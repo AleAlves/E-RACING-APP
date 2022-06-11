@@ -12,20 +12,21 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
-class EventListWidget extends StatefulWidget {
+class EventListFilteredWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const EventListWidget(this.viewModel, {Key? key}) : super(key: key);
+  const EventListFilteredWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventListWidgetState createState() => _EventListWidgetState();
+  _EventListFilteredWidgetState createState() =>
+      _EventListFilteredWidgetState();
 }
 
-class _EventListWidgetState extends State<EventListWidget>
+class _EventListFilteredWidgetState extends State<EventListFilteredWidget>
     implements BaseSateWidget {
   @override
   void initState() {
-    widget.viewModel.fetchEvents();
+    widget.viewModel.fetchEventsFiltered();
     super.initState();
   }
 

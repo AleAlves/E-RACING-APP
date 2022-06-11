@@ -28,7 +28,7 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
     late Icon idle;
     late Icon onGoing;
     late Icon finished;
-    var track = Theme.of(context).colorScheme.secondary;
+    var track = Theme.of(context).colorScheme.primary;
     var base = Theme.of(context).colorScheme.primary;
     var bar1Size = 10.0;
     var bar2Size = 10.0;
@@ -61,7 +61,6 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
           Icons.radio_button_off,
           color: base,
         );
-        bar1Size = 10.0;
         break;
       case EventState.finished:
         idle = Icon(
@@ -76,8 +75,6 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
           Icons.circle,
           color: track,
         );
-        bar1Size = 10.0;
-        bar2Size = 10.0;
         break;
       default:
         break;
@@ -85,7 +82,8 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
     return progress(idle, onGoing, finished, bar1Size, bar2Size);
   }
 
-  Widget progress(Icon idle, Icon onGoing, Icon finished, double bar1Size, double bar2size) {
+  Widget progress(Icon idle, Icon onGoing, Icon finished, double bar1Size,
+      double bar2size) {
     return CardWidget(
       child: SizedBox(
           child: Column(

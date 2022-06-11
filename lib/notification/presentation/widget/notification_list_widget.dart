@@ -68,7 +68,6 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                     style: Style.title,
                   ),
                   const SpacingWidget(LayoutSize.size24),
-
                   Icon(
                     Icons.manage_search_outlined,
                     size: 56,
@@ -107,21 +106,38 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: TextWidget(
-                              text: element?['date'],
-                              style: Style.note,
+                          const SpacingWidget(LayoutSize.size16),
+                          ClipRRect(
+                            borderRadius: const BorderRadius.all(Radius.circular(14.0)),
+                            child: Container(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(children: [
+                                  TextWidget(
+                                    text: element?['action'],
+                                    style: Style.note,
+                                      color: Theme.of(context).colorScheme.onPrimary
+                                  ),
+                                  Icon(Icons.arrow_forward, color: Theme.of(context).colorScheme.onPrimary, size: 10,)
+                                ],),
+                              ),
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
-                          Icon(Icons.arrow_forward, color: Theme.of(context).colorScheme.primary,)
                         ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: TextWidget(
+                          text: element?['date'],
+                          style: Style.note,
+                        ),
                       ),
                     ],
                   ),
                   ButtonWidget(
                     enabled: true,
-                    type: ButtonType.icon,
+                    type: ButtonType.iconBorderless,
                     onPressed: () {
                       FirebaseFirestore.instance
                           .runTransaction((Transaction myTransaction) async {

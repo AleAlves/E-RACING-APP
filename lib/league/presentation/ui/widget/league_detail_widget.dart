@@ -53,53 +53,46 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        content: content(),
-        state: widget.viewModel.state,
-        onBackPressed: onBackPressed,
-        scrollable: true);
+      content: content(),
+      state: widget.viewModel.state,
+      onBackPressed: onBackPressed,
+      scrollable: true,
+      floatAction: FloatActionButtonWidget<LeagueFlow>(
+        flow: LeagueFlow.edit,
+        icon: Icons.build,
+        onPressed: (flow) {
+          widget.viewModel.setFlow(flow);
+        },
+      ),
+    );
   }
 
   @override
   Widget content() {
-    return Stack(
+    return Column(
       children: [
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-              child: banner(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: membership(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: social(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: panel(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: playersEvent(),
-            ),
-            const SpacingWidget(LayoutSize.size8),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+          child: header(),
         ),
-        FloatActionButtonWidget<LeagueFlow>(
-          flow: LeagueFlow.edit,
-          icon: Icons.build,
-          onPressed: (flow) {
-            widget.viewModel.setFlow(flow);
-          },
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: social(),
         ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: panel(),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: playersEvent(),
+        ),
+        const SpacingWidget(LayoutSize.size8),
       ],
     );
   }
 
-  Widget banner() {
+  Widget header() {
     return CardWidget(
       padding: EdgeInsets.zero,
       ready: true,
@@ -112,6 +105,11 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
             padding: const EdgeInsets.only(top: 24, bottom: 8),
             child: description(),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: membership(),
+          ),
+          const SpacingWidget(LayoutSize.size8),
         ],
       ),
     );

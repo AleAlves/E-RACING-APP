@@ -60,7 +60,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
       child: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8),
         child: ButtonWidget(
-          label: "Registration",
+          label: "Register",
           type: ButtonType.normal,
           icon: Icons.how_to_reg_outlined,
           onPressed: () {

@@ -42,7 +42,14 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
         content: content(),
         scrollable: true,
         state: widget.viewModel.state,
-        onBackPressed: onBackPressed);
+        onBackPressed: onBackPressed,
+        floatAction: FloatActionButtonWidget<LeagueFlow>(
+          flow: LeagueFlow.create,
+          icon: Icons.add,
+          onPressed: (flow) {
+            widget.viewModel.setFlow(flow);
+          },
+        ));
   }
 
   @override
@@ -53,36 +60,26 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
 
   @override
   Widget content() {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.viewModel.leagues?.length,
-            itemBuilder: (context, index) {
-              return LeagueCardWidget(
-                  label: widget.viewModel.leagues?[index]?.name,
-                  emblem: widget.viewModel.leagues?[index]?.emblem,
-                  members: widget.viewModel.leagues?[index]?.members?.length,
-                  capacity: widget.viewModel.leagues?[index]?.capacity,
-                  tags: widget.viewModel.tags,
-                  leagueTags: widget.viewModel.leagues?[index]?.tags,
-                  onPressed: () {
-                    Session.instance.setLeagueId(widget.viewModel.leagues?[index]?.id);
-                    widget.viewModel.setFlow(LeagueFlow.detail);
-                  });
-            },
-          ),
-        ),
-        FloatActionButtonWidget<LeagueFlow>(
-          flow: LeagueFlow.create,
-          icon: Icons.add,
-          onPressed: (flow) {
-            widget.viewModel.setFlow(flow);
-          },
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: widget.viewModel.leagues?.length,
+        itemBuilder: (context, index) {
+          return LeagueCardWidget(
+              label: widget.viewModel.leagues?[index]?.name,
+              emblem: widget.viewModel.leagues?[index]?.emblem,
+              members: widget.viewModel.leagues?[index]?.members?.length,
+              capacity: widget.viewModel.leagues?[index]?.capacity,
+              tags: widget.viewModel.tags,
+              leagueTags: widget.viewModel.leagues?[index]?.tags,
+              onPressed: () {
+                Session.instance
+                    .setLeagueId(widget.viewModel.leagues?[index]?.id);
+                widget.viewModel.setFlow(LeagueFlow.detail);
+              });
+        },
+      ),
     );
   }
 }

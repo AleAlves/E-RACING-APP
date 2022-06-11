@@ -126,6 +126,9 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
 
   Widget eventInfo() {
     return CardWidget(
+      marked: true,
+      markWidth: 40,
+      markColor: Theme.of(context).colorScheme.primary,
       onPressed: () {
         widget.viewModel.setFlow(EventFlow.eventDetailInfo);
       },
@@ -142,10 +145,10 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                     children: [
                       Icon(
                         Icons.info_outline,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                       const Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: EdgeInsets.all(24.0),
                         child: TextWidget(
                           text: "Event information",
                           style: Style.title,

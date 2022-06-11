@@ -100,7 +100,7 @@ class EventCardWidget extends StatelessWidget {
       size: 18,
       color: Colors.transparent,
     );
-    var track = Theme.of(context).colorScheme.secondary;
+    var track = Theme.of(context).colorScheme.primaryContainer;
     var bar1Width = 5.0;
     var bar2Width = 5.0;
 
@@ -123,7 +123,6 @@ class EventCardWidget extends StatelessWidget {
           color: track,
           size: 18,
         );
-        bar1Width = 10.0;
         break;
       case EventState.finished:
         idle = Icon(

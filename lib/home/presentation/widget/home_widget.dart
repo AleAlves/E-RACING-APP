@@ -143,7 +143,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: EventsCardWidget(onPressed: () {
-            Modular.to.pushNamed(Routes.leagues);
+            Modular.to.pushNamed(Routes.eventFilter);
           }),
         ),
       ],

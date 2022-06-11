@@ -60,10 +60,18 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        content: content(),
-        scrollable: true,
-        state: widget.viewModel.state,
-        onBackPressed: onBackPressed);
+      content: content(),
+      scrollable: true,
+      state: widget.viewModel.state,
+      onBackPressed: onBackPressed,
+      floatAction: FloatActionButtonWidget<LeagueFlow>(
+        flow: LeagueFlow.delete,
+        icon: Icons.delete,
+        onPressed: (flow) {
+          widget.viewModel.setFlow(flow);
+        },
+      ),
+    );
   }
 
   @override
@@ -72,20 +80,9 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
   @override
   Widget content() {
     setupProperties();
-    return Stack(
-      children: [
-        Form(
-          child: updateForm(),
-          key: _formKey,
-        ),
-        FloatActionButtonWidget<LeagueFlow>(
-          flow: LeagueFlow.delete,
-          icon: Icons.delete,
-          onPressed: (flow) {
-            widget.viewModel.setFlow(flow);
-          },
-        ),
-      ],
+    return Form(
+      child: updateForm(),
+      key: _formKey,
     );
   }
 

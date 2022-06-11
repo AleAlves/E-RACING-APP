@@ -52,24 +52,29 @@ class _ScoringWidgetState extends State<ScoringWidget> {
         children: [
           if (widget.editing) editting() else Container(),
           Wrap(
-            spacing: 5.0,
+            spacing: 0.0,
             children: scoringEdit
                 .map((score) {
                   score.second?.text = score.first.toString();
                   var position = scoringEdit.indexOf(score);
                   ++position;
                   return SizedBox(
-                    width: 100,
+                    width: MediaQuery.of(context).size.width / 5,
                     child: CardWidget(
+                      marked: true,
+                      markWidth: MediaQuery.of(context).size.width / 10,
                       ready: true,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+                          TextWidget(
+                            text: "${position.toString()}°",
+                            style: Style.label,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                          const SpacingWidget(LayoutSize.size8),
                           Column(
                             children: [
-                              TextWidget(
-                                  text: "${position.toString()}°",
-                                  style: Style.label),
                               TextWidget(
                                 text: score.first.toString(),
                                 style: Style.label,

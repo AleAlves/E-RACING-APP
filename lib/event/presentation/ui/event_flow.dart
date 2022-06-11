@@ -9,6 +9,7 @@ import 'package:e_racing_app/event/presentation/ui/widget/event_detail_widget.da
 import 'package:e_racing_app/event/presentation/ui/widget/event_detail_race_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_edit_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_full_standings_widget.dart';
+import 'package:e_racing_app/event/presentation/ui/widget/event_list_filtered_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_edit_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_list_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/widget/event_management_race_results_edit_widget.dart';
@@ -19,6 +20,7 @@ import 'package:flutter/cupertino.dart';
 
 enum EventFlow {
   list,
+  listFiltered,
   delete,
   status,
   create,
@@ -75,6 +77,8 @@ extension EventNavigation on EventFlow {
         return EventManagementEditRaceResultsWidget(vm);
       case EventFlow.fullStandings:
         return EventFullStandingsWidget(vm);
+      case EventFlow.listFiltered:
+        return EventListFilteredWidget(vm);
       default:
         return Container();
     }

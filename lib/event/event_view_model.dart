@@ -30,6 +30,7 @@ import 'data/race_standings_model.dart';
 import 'domain/create_event_usecase.dart';
 import 'domain/create_team_usecase.dart';
 import 'domain/delete_team_usecase.dart';
+import 'domain/fetch_filtered_events_use_case.dart';
 import 'domain/finish_event_usecase.dart';
 import 'domain/get_event_standing_usecase.dart';
 import 'domain/get_race_standing_usecase.dart';
@@ -109,8 +110,8 @@ abstract class _EventViewModel with Store {
   final _getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
   final _getTagUseCase = Modular.get<GetTagUseCase>();
   final _getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
-  final _fetchEventHomeUseCase =
-      Modular.get<FetchEventsUseCase<List<EventModel>>>();
+  final _fetchEventHomeUseCase = Modular.get<FetchEventsUseCase<List<EventModel>>>();
+  final _fetchFilteredEventHomeUseCase = Modular.get<FetchFilteredEventsUseCase<List<EventModel>>>();
   final _createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
   final _updateEventUseCase = Modular.get<UpdateEventUseCase<StatusModel>>();
   final _doSubscribeEventUseCase =
@@ -146,6 +147,17 @@ abstract class _EventViewModel with Store {
   void fetchEvents() async {
     state = ViewState.loading;
     _fetchEventHomeUseCase.invoke(
+        success: (data) {
+          events = ObservableList.of(data);
+          state = ViewState.ready;
+        },
+        error: onError);
+  }
+
+  void fetchEventsFiltered() async {
+    state = ViewState.loading;
+    events = null;
+    _fetchFilteredEventHomeUseCase.invoke(
         success: (data) {
           events = ObservableList.of(data);
           state = ViewState.ready;

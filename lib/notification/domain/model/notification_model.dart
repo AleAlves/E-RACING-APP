@@ -2,11 +2,12 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'notification_model.g.dart';
 
-enum NotificationTypeModel { race, event, league,profile  }
+enum NotificationTypeModel { race, event, league, profile }
 
 @JsonSerializable()
 class NotificationModel {
   late String? date;
+  late String? action;
   late String message;
   late bool important;
   late bool hasAction;
@@ -14,6 +15,7 @@ class NotificationModel {
 
   NotificationModel(
       {required this.date,
+      required this.action,
       required this.message,
       required this.important,
       required this.hasAction});
