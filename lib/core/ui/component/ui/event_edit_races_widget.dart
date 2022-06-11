@@ -127,7 +127,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
             ),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.icon,
+                type: ButtonType.iconButton,
                 icon: Icons.image_search,
                 onPressed: () async {
                   var image = await widget.model.picker
@@ -161,7 +161,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
         ButtonWidget(
             icon: Icons.date_range,
             enabled: true,
-            type: ButtonType.icon,
+            type: ButtonType.iconButton,
             onPressed: () {
               DatePicker.showDateTimePicker(context,
                   showTitleActions: false,
@@ -220,7 +220,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                 padding: const EdgeInsets.all(16.0),
                 child: ButtonWidget(
                     enabled: true,
-                    type: ButtonType.icon,
+                    type: ButtonType.iconButton,
                     onPressed: () async {
                       Clipboard.getData(Clipboard.kTextPlain).then((value) {
                         widget.model.broadcastingLinkController?.text =

@@ -120,7 +120,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
           children: [
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.icon,
+                type: ButtonType.iconButton,
                 icon: Icons.remove,
                 onPressed: () async {
                   setState(() {
@@ -131,7 +131,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
             const SpacingWidget(LayoutSize.size48),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.icon,
+                type: ButtonType.iconButton,
                 icon: Icons.add,
                 onPressed: () async {
                   setState(() {
@@ -172,7 +172,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
             ButtonWidget(
                 enabled: true,
                 label: "apply",
-                type: ButtonType.normal,
+                type: ButtonType.primary,
                 icon: Icons.remove,
                 onPressed: () async {
                   setState(() {

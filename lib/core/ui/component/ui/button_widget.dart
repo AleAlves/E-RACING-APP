@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-enum ButtonType { normal, borderless, icon, iconBorderless, important, discret }
+enum ButtonType { primary,  secondary, important,link, iconButton, iconPure }
 
 class ButtonWidget extends StatefulWidget {
   final String? label;
@@ -46,17 +46,17 @@ class _ButtonWidgetState extends State<ButtonWidget> {
   @override
   Widget build(BuildContext context) {
     switch (widget.type) {
-      case ButtonType.normal:
+      case ButtonType.primary:
         return normal(context);
-      case ButtonType.borderless:
+      case ButtonType.link:
         return borderless();
-      case ButtonType.icon:
+      case ButtonType.iconButton:
         return iconButton();
       case ButtonType.important:
         return important(context);
-      case ButtonType.iconBorderless:
+      case ButtonType.iconPure:
         return iconButtonBorderless();
-      case ButtonType.discret:
+      case ButtonType.secondary:
         return discret(context);
     }
   }
@@ -120,9 +120,9 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(
-              Theme.of(context).colorScheme.secondary),
+              Colors.redAccent),
           foregroundColor: MaterialStateProperty.all(
-              Theme.of(context).colorScheme.onSecondary),
+              Colors.redAccent),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
@@ -142,6 +142,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
               child: TextWidget(
                 text: widget.label ?? '',
                 style: Style.button,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
             ),
             widget.icon == null ? Container() : Row(

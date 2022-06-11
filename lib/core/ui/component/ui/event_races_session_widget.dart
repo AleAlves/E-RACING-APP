@@ -62,7 +62,7 @@ class _EventCreateRaceSessionWidgetState
                           padding: const EdgeInsets.all(8.0),
                           child: ButtonWidget(
                               enabled: true,
-                              type: ButtonType.iconBorderless,
+                              type: ButtonType.iconPure,
                               icon: Icons.delete,
                               onPressed: () {
                                 setState(() {
@@ -106,7 +106,7 @@ class _EventCreateRaceSessionWidgetState
                       children: [
                         ButtonWidget(
                             enabled: true,
-                            type: ButtonType.iconBorderless,
+                            type: ButtonType.iconPure,
                             icon: Icons.add,
                             label: "new setting",
                             onPressed: () async {
@@ -121,7 +121,7 @@ class _EventCreateRaceSessionWidgetState
                         else
                           ButtonWidget(
                               enabled: true,
-                              type: ButtonType.iconBorderless,
+                              type: ButtonType.iconPure,
                               icon: Icons.remove,
                               label: "Delete",
                               onPressed: () async {
@@ -140,7 +140,7 @@ class _EventCreateRaceSessionWidgetState
         const SpacingWidget(LayoutSize.size16),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.borderless,
+            type: ButtonType.link,
             icon: Icons.add,
             onPressed: () async {
               newSession();
@@ -225,7 +225,7 @@ class _EventCreateRaceSessionWidgetState
                               padding: const EdgeInsets.all(8.0),
                               child: ButtonWidget(
                                   enabled: true,
-                                  type: ButtonType.icon,
+                                  type: ButtonType.iconButton,
                                   icon: Icons.done,
                                   onPressed: () {
                                     setState(() {
@@ -302,7 +302,7 @@ class _EventCreateRaceSessionWidgetState
                     padding: const EdgeInsets.all(8.0),
                     child: ButtonWidget(
                         enabled: true,
-                        type: ButtonType.icon,
+                        type: ButtonType.iconButton,
                         icon: Icons.done,
                         onPressed: () {
                           if (_formKey.currentState?.validate() == true) {

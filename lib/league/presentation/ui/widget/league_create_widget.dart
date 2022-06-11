@@ -192,7 +192,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                   ),
                 ),
                 ButtonWidget(
-                  type: ButtonType.icon,
+                  type: ButtonType.iconButton,
                   icon: Icons.image_search,
                   onPressed: () async {
                     var image =
@@ -236,7 +236,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
               ),
             ),
             ButtonWidget(
-                type: ButtonType.icon,
+                type: ButtonType.iconButton,
                 icon: Icons.image_search,
                 enabled: true,
                 onPressed: () async {
@@ -299,7 +299,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                     const SpacingWidget(LayoutSize.size8),
                     ButtonWidget(
                         enabled: true,
-                        type: ButtonType.icon,
+                        type: ButtonType.iconButton,
                         onPressed: () async {
                           Clipboard.getData(Clipboard.kTextPlain).then((value) {
                             socialStuffControllers[index].text =
@@ -311,7 +311,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
                     const SpacingWidget(LayoutSize.size8),
                     ButtonWidget(
                         enabled: true,
-                        type: ButtonType.icon,
+                        type: ButtonType.iconButton,
                         onPressed: () async {
                           setState(() {
                             socialPlatforms.removeAt(index);
@@ -329,7 +329,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
         const SpacingWidget(LayoutSize.size32),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.borderless,
+            type: ButtonType.link,
             onPressed: () async {
               setState(() {
                 socialPlatforms.add(LinkModel('', ''));
@@ -343,7 +343,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
   Widget finish() {
     return ButtonWidget(
       enabled: termsAccepted,
-      type: ButtonType.normal,
+      type: ButtonType.primary,
       onPressed: () {
         if (_formKey.currentState?.validate() == true && termsAccepted) {
           List<int> imageBytes = [];

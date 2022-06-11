@@ -86,7 +86,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                   const SpacingWidget(LayoutSize.size48),
                   ButtonWidget(
                     enabled: true,
-                    type: ButtonType.normal,
+                    type: ButtonType.primary,
                     onPressed: () {
                       if (_formKey.currentState?.validate() == true) {
                         widget.viewModel.forgot(_emailController.text);
@@ -97,7 +97,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                   const SpacingWidget(LayoutSize.size48),
                   ButtonWidget(
                     enabled: true,
-                    type: ButtonType.borderless,
+                    type: ButtonType.link,
                     onPressed: () {
                       widget.viewModel.flow = LoginWidgetFlow.reset;
                     },

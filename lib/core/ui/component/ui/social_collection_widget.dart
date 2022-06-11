@@ -50,7 +50,7 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
                               width: 50,
                               child: ButtonWidget(
                                   enabled: true,
-                                  type: ButtonType.icon,
+                                  type: ButtonType.iconButton,
                                   onPressed: () {},
                                   icon: _getSocialPlatform(item?.platformId)
                                       .first,

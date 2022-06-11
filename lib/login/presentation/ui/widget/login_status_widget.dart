@@ -50,7 +50,7 @@ class _LoginStatusWidgetState extends State<LoginStatusWidget>
           const SpacingWidget(LayoutSize.size16),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.normal,
+            type: ButtonType.primary,
             onPressed: () {
               widget.viewModel.flow =
                   widget.viewModel.status?.next ?? LoginWidgetFlow.login;

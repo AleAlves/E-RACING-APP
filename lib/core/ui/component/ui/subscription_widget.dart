@@ -61,7 +61,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
         padding: const EdgeInsets.only(left: 8, right: 8),
         child: ButtonWidget(
           label: "Register",
-          type: ButtonType.normal,
+          type: ButtonType.primary,
           icon: Icons.how_to_reg_outlined,
           onPressed: () {
             handleChoice();
@@ -110,7 +110,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
                             width: MediaQuery.of(context).size.width / 10,
                             child: ButtonWidget(
                               label: widget.classes?[index]?.name,
-                              type: ButtonType.normal,
+                              type: ButtonType.primary,
                               onPressed: () {
                                 setState(() {
                                   Navigator.of(context).pop();
@@ -162,7 +162,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
         child: ButtonWidget(
           label:
           "Registered as ${widget.classes?.firstWhere((element) => element?.id == id)?.name} driver",
-          type: ButtonType.discret,
+          type: ButtonType.secondary,
           icon: Icons.sports_motorsports,
           onPressed: () {
             confirmationDialogExt(

@@ -104,7 +104,7 @@ class _EventSubscribersWidgetState extends State<EventSubscribersWidget> {
                       const SpacingWidget(LayoutSize.size24),
                       ButtonWidget(
                         enabled: true,
-                        type: ButtonType.iconBorderless,
+                        type: ButtonType.iconPure,
                         onPressed: () {
                           confirmationDialogExt(
                             context: context,

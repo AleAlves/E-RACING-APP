@@ -52,7 +52,7 @@ class _LeagueStatusWidgetState extends State<LeagueStatusWidget>
           const SpacingWidget(LayoutSize.size16),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.normal,
+            type: ButtonType.primary,
             onPressed: () {
               widget.viewModel.setFlow(widget.viewModel.status?.next);
             },

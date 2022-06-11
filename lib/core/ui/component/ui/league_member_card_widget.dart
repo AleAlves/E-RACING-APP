@@ -76,7 +76,7 @@ class LeagueMemberCardWidget extends StatelessWidget {
                 children: [
                     ButtonWidget(
                       enabled: true,
-                      type: ButtonType.iconBorderless,
+                      type: ButtonType.iconPure,
                       icon: Icons.delete_forever,
                       onPressed: () {
                         confirmationDialogExt(

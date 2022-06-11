@@ -46,7 +46,7 @@ confirmationDialogExt(
                           const SpacingWidget(LayoutSize.size48),
                           ButtonWidget(
                             label: "Confirm",
-                            type: ButtonType.normal,
+                            type: ButtonType.primary,
                             onPressed: () {
                               onPositive.call();
                               Navigator.of(context).pop();
@@ -86,7 +86,7 @@ showAlertExt(
                           const SpacingWidget(LayoutSize.size48),
                           ButtonWidget(
                             label: "Confirm",
-                            type: ButtonType.normal,
+                            type: ButtonType.primary,
                             onPressed: () {
                               Navigator.of(context).pop();
                             },

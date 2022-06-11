@@ -61,7 +61,7 @@ class _EventStatusWidgetState extends State<EventStatusWidget>
           const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.normal,
+            type: ButtonType.primary,
             onPressed: () {
               widget.viewModel.setFlow(widget.viewModel.status?.next);
             },

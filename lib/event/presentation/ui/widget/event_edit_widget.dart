@@ -235,7 +235,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
             ),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.icon,
+                type: ButtonType.iconButton,
                 icon: Icons.image_search,
                 onPressed: () async {
                   var image =
@@ -311,7 +311,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonWidget(
                       enabled: true,
-                      type: ButtonType.icon,
+                      type: ButtonType.iconButton,
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
@@ -375,7 +375,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonWidget(
                       enabled: true,
-                      type: ButtonType.icon,
+                      type: ButtonType.iconButton,
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
@@ -395,7 +395,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
   Widget finish() {
     return ButtonWidget(
       enabled: _formKey.currentState?.validate() == true,
-      type: ButtonType.normal,
+      type: ButtonType.primary,
       onPressed: () {
         if (editingClasses) {
           for (var i = 0; i < classesControllers.length; i++) {

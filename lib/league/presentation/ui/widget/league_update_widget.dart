@@ -246,7 +246,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                 ),
                 ButtonWidget(
                   enabled: true,
-                  type: ButtonType.icon,
+                  type: ButtonType.iconButton,
                   icon: Icons.image_search,
                   onPressed: () async {
                     var image =
@@ -293,7 +293,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
             ),
             ButtonWidget(
               enabled: true,
-              type: ButtonType.icon,
+              type: ButtonType.iconButton,
               icon: Icons.image_search,
               onPressed: () async {
                 var image =
@@ -365,7 +365,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                     const SpacingWidget(LayoutSize.size8),
                     ButtonWidget(
                         enabled: true,
-                        type: ButtonType.icon,
+                        type: ButtonType.iconButton,
                         onPressed: () async {
                           isEditingSocialPlatform = true;
                           Clipboard.getData(Clipboard.kTextPlain).then((value) {
@@ -378,7 +378,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                     const SpacingWidget(LayoutSize.size8),
                     ButtonWidget(
                         enabled: true,
-                        type: ButtonType.icon,
+                        type: ButtonType.iconButton,
                         onPressed: () async {
                           isEditingSocialPlatform = true;
                           setState(() {
@@ -396,7 +396,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
         const SpacingWidget(LayoutSize.size32),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.borderless,
+            type: ButtonType.link,
             onPressed: () async {
               setState(() {
                 links
@@ -411,7 +411,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
   Widget finish() {
     return ButtonWidget(
       enabled: true,
-      type: ButtonType.normal,
+      type: ButtonType.primary,
       onPressed: () {
         if (_formKey.currentState?.validate() == true) {
           List<int> bannerBytes = [];

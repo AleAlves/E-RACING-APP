@@ -95,7 +95,7 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
               width: MediaQuery.of(context).size.width,
               child: ButtonWidget(
                 label: "Event",
-                type: ButtonType.normal,
+                type: ButtonType.primary,
                 onPressed: () {
                   widget.viewModel.setFlow(EventFlow.managementEditEvent);
                 },
@@ -107,7 +107,7 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
               width: MediaQuery.of(context).size.width,
               child: ButtonWidget(
                 label: "Races",
-                type: ButtonType.normal,
+                type: ButtonType.primary,
                 onPressed: () {
                   widget.viewModel.setFlow(EventFlow.managementEditRaceList);
                 },
@@ -169,7 +169,7 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
             width: MediaQuery.of(context).size.width,
             child: ButtonWidget(
               label: _getStatus()?.second,
-              type: ButtonType.normal,
+              type: ButtonType.primary,
               onPressed: () {
                 switch (widget.viewModel.event?.state) {
                   case EventState.idle:
@@ -227,7 +227,7 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
               width: MediaQuery.of(context).size.width,
               child: ButtonWidget(
                 label: "Delete this event",
-                type: ButtonType.discret,
+                type: ButtonType.secondary,
                 onPressed: () {
                   confirmationDialogExt(
                       context: context,

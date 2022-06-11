@@ -151,7 +151,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
           const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.normal,
+            type: ButtonType.primary,
             onPressed: () {
               if (_formKey.currentState?.validate() == true) {
                 widget.viewModel.signIn(

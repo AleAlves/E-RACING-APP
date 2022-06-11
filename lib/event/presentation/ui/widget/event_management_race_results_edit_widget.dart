@@ -454,7 +454,7 @@ class _EventManagementEditRaceResultsWidgetState
                             const SpacingWidget(LayoutSize.size48),
                             ButtonWidget(
                               enabled: true,
-                              type: ButtonType.icon,
+                              type: ButtonType.iconButton,
                               icon: Icons.check_circle,
                               onPressed: () {
                                 setState(() {
@@ -535,7 +535,7 @@ class _EventManagementEditRaceResultsWidgetState
               width: MediaQuery.of(context).size.width,
               child: ButtonWidget(
                 label: "Finish",
-                type: ButtonType.normal,
+                type: ButtonType.primary,
                 onPressed: () {
                   confirmationDialogExt(
                       onPositive: () {},

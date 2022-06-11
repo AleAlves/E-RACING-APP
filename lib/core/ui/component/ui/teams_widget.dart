@@ -160,7 +160,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                           children: [
                             ButtonWidget(
                               label: "Leave",
-                              type: ButtonType.icon,
+                              type: ButtonType.iconButton,
                               icon: Icons.exit_to_app,
                               onPressed: () {
                                 widget.onLeave(team.id);
@@ -170,7 +170,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                             const SpacingWidget(LayoutSize.size16),
                             ButtonWidget(
                               label: "Delete",
-                              type: ButtonType.icon,
+                              type: ButtonType.iconButton,
                               icon: Icons.delete,
                               onPressed: () {
                                 widget.onDelete(team.id);
@@ -181,7 +181,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                         )
                       : isSubscriber(widget.classes) ? ButtonWidget(
                           label: "Join",
-                          type: ButtonType.icon,
+                          type: ButtonType.iconButton,
                           icon: Icons.person_add,
                           onPressed: () {
                             widget.onJoin(team.id);

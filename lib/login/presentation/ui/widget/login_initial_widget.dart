@@ -46,7 +46,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget>
         children: [
           ButtonWidget(
             enabled: true,
-            type: ButtonType.normal,
+            type: ButtonType.primary,
             onPressed: () {
               widget.viewModel.flow = LoginWidgetFlow.login;
             },
@@ -55,7 +55,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget>
           const SpacingWidget(LayoutSize.size32),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.normal,
+            type: ButtonType.primary,
             onPressed: () {
               widget.viewModel.flow = LoginWidgetFlow.signin;
             },

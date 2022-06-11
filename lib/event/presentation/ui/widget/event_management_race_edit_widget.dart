@@ -184,7 +184,7 @@ class _EventManagementEditRaceWidgetState
             ),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.icon,
+                type: ButtonType.iconButton,
                 icon: Icons.image_search,
                 onPressed: () async {
                   var image = await model?.picker
@@ -217,7 +217,7 @@ class _EventManagementEditRaceWidgetState
         ButtonWidget(
             icon: Icons.date_range,
             enabled: true,
-            type: ButtonType.icon,
+            type: ButtonType.iconButton,
             onPressed: () {
               DatePicker.showDateTimePicker(context,
                   showTitleActions: false,
@@ -277,7 +277,7 @@ class _EventManagementEditRaceWidgetState
                 padding: const EdgeInsets.all(16.0),
                 child: ButtonWidget(
                     enabled: true,
-                    type: ButtonType.icon,
+                    type: ButtonType.iconButton,
                     onPressed: () async {
                       Clipboard.getData(Clipboard.kTextPlain).then((value) {});
                     },
@@ -294,7 +294,7 @@ class _EventManagementEditRaceWidgetState
   Widget finish() {
     return ButtonWidget(
       enabled: true,
-      type: ButtonType.normal,
+      type: ButtonType.primary,
       onPressed: () {
         widget.viewModel.updateRace(model);
       },

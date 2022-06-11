@@ -106,7 +106,7 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
           const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.normal,
+            type: ButtonType.secondary,
             onPressed: () {
               if (_formKey.currentState?.validate() == true) {
                 widget.viewModel
@@ -118,7 +118,7 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
           const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.borderless,
+            type: ButtonType.link,
             onPressed: () {
               widget.viewModel.flow = LoginWidgetFlow.resetCode;
             },
@@ -132,7 +132,7 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
           const SpacingWidget(LayoutSize.size16),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.important,
+            type: ButtonType.primary,
             onPressed: () {
               widget.viewModel.flow = LoginWidgetFlow.signin;
             },

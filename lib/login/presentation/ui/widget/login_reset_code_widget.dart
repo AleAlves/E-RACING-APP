@@ -100,7 +100,7 @@ class _LoginResetCodeWidgetState extends State<LoginResetCodeWidget>
           const SpacingWidget(LayoutSize.size48),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.normal,
+            type: ButtonType.primary,
             onPressed: () {
               if (_formKey.currentState?.validate() == true) {
                 widget.viewModel.forgot(_mailController.text);

@@ -137,7 +137,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                   ),
                   ButtonWidget(
                     enabled: true,
-                    type: ButtonType.iconBorderless,
+                    type: ButtonType.iconPure,
                     onPressed: () {
                       FirebaseFirestore.instance
                           .runTransaction((Transaction myTransaction) async {

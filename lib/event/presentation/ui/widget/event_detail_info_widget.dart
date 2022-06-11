@@ -139,7 +139,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                             width: MediaQuery.of(context).size.width,
                             child: ButtonWidget(
                               label: "Create new team",
-                              type: ButtonType.normal,
+                              type: ButtonType.primary,
                               icon: Icons.add,
                               onPressed: () {
                                 widget.viewModel.setFlow(EventFlow.createTeam);

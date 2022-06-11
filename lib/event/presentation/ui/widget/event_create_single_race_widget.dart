@@ -188,7 +188,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
             ),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.icon,
+                type: ButtonType.iconButton,
                 icon: Icons.image_search,
                 onPressed: () async {
                   var image =
@@ -257,7 +257,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
         ButtonWidget(
             icon: Icons.date_range,
             enabled: true,
-            type: ButtonType.icon,
+            type: ButtonType.iconButton,
             onPressed: () {
               DatePicker.showDateTimePicker(context,
                   showTitleActions: false,
@@ -314,7 +314,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonWidget(
                       enabled: true,
-                      type: ButtonType.icon,
+                      type: ButtonType.iconButton,
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
@@ -331,7 +331,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
         const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.borderless,
+            type: ButtonType.link,
             onPressed: () async {
               setState(() {
                 var name = TextEditingController();
@@ -385,7 +385,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
                 padding: const EdgeInsets.all(16.0),
                 child: ButtonWidget(
                     enabled: true,
-                    type: ButtonType.icon,
+                    type: ButtonType.iconButton,
                     onPressed: () async {
                       Clipboard.getData(Clipboard.kTextPlain).then((value) {
                         _broadcastingLinkController.text =
@@ -447,7 +447,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonWidget(
                       enabled: true,
-                      type: ButtonType.icon,
+                      type: ButtonType.iconButton,
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
@@ -464,7 +464,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
         const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.borderless,
+            type: ButtonType.link,
             onPressed: () async {
               setState(() {
                 var name = TextEditingController();
@@ -482,7 +482,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
   Widget finish() {
     return ButtonWidget(
       enabled: _formKey.currentState?.validate() == true,
-      type: ButtonType.normal,
+      type: ButtonType.primary,
       onPressed: () {
         for (var i = 0; i < classesModel.length; i++) {
           classesModel[i]?.name = classesNameControllers[i].text;

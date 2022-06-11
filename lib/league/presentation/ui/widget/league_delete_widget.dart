@@ -109,7 +109,7 @@ class _LeagueDeleteWidgetState extends State<LeagueDeleteWidget>
             const SpacingWidget(LayoutSize.size48),
             ButtonWidget(
                 enabled: _formKey.currentState?.validate() == true,
-                type: ButtonType.normal,
+                type: ButtonType.primary,
                 onPressed: () {
                   widget.viewModel.delete();
                 },

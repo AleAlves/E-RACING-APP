@@ -68,7 +68,7 @@ class _Login2FAWidgetState extends State<Login2FAWidget>
         const SpacingWidget(LayoutSize.size32),
         ButtonWidget(
           enabled: true,
-          type: ButtonType.borderless,
+          type: ButtonType.link,
           onPressed: () {
             widget.viewModel.flow = LoginWidgetFlow.resetCode;
           },

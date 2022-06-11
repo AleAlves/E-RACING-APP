@@ -166,7 +166,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonWidget(
                       enabled: true,
-                      type: ButtonType.icon,
+                      type: ButtonType.iconButton,
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
@@ -189,7 +189,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
     if (drivers.length < max) {
       return ButtonWidget(
         enabled: true,
-        type: ButtonType.icon,
+        type: ButtonType.iconButton,
         icon: Icons.add,
         label: "Add driver",
         onPressed: () {
@@ -265,7 +265,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                               ),
                               ButtonWidget(
                                 enabled: true,
-                                type: ButtonType.icon,
+                                type: ButtonType.iconButton,
                                 icon: Icons.add,
                                 onPressed: () {
                                   setState(() {

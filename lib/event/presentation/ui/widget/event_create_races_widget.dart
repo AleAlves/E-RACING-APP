@@ -95,7 +95,7 @@ class _EventCreateRacesWidgetState extends State<EventCreateRacesWidget>
               ButtonWidget(
                   enabled: true,
                   icon: Icons.add,
-                  type: ButtonType.icon,
+                  type: ButtonType.iconButton,
                   onPressed: () async {
                     setState(() {
                       racesModel.add(ChampionshipRacesModel(
@@ -115,7 +115,7 @@ class _EventCreateRacesWidgetState extends State<EventCreateRacesWidget>
               ButtonWidget(
                   enabled: true,
                   icon: Icons.remove,
-                  type: ButtonType.icon,
+                  type: ButtonType.iconButton,
                   onPressed: () async {
                     setState(() {
                       racesModel.removeLast();
@@ -136,7 +136,7 @@ class _EventCreateRacesWidgetState extends State<EventCreateRacesWidget>
   Widget finish() {
     return ButtonWidget(
       enabled: racesModel.length > 1,
-      type: ButtonType.normal,
+      type: ButtonType.primary,
       onPressed: () {
         widget.viewModel.createChampionshipRacesStep(racesModel);
       },

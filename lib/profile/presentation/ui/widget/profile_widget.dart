@@ -98,12 +98,11 @@ class _ProfileWidgetState extends State<ProfileWidget>
                   country = code;
                 },
               ),
-              const SpacingWidget(LayoutSize.size48),
             ],
           ),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.normal,
+            type: ButtonType.primary,
             onPressed: () {
               if (_formKey.currentState?.validate() == true) {
                 widget.vm.udpate(_nameController.text, _surnameController.text,

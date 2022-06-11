@@ -61,7 +61,7 @@ class _EventCreateOptionWidgetState extends State<EventCreateOptionWidget>
           const SpacingWidget(LayoutSize.size32),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.normal,
+            type: ButtonType.primary,
             onPressed: () {
               widget.viewModel.flow = EventFlow.createRace;
             },
@@ -72,7 +72,7 @@ class _EventCreateOptionWidgetState extends State<EventCreateOptionWidget>
           const SpacingWidget(LayoutSize.size32),
           ButtonWidget(
             enabled: true,
-            type: ButtonType.normal,
+            type: ButtonType.primary,
             onPressed: () {
               widget.viewModel.flow = EventFlow.createEvent;
             },

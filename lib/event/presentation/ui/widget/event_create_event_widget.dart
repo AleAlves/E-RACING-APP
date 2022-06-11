@@ -210,7 +210,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
             ),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.icon,
+                type: ButtonType.iconButton,
                 icon: Icons.image_search,
                 onPressed: () async {
                   var image =
@@ -318,7 +318,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonWidget(
                       enabled: true,
-                      type: ButtonType.icon,
+                      type: ButtonType.iconButton,
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
@@ -334,7 +334,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
         const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.borderless,
+            type: ButtonType.link,
             onPressed: () async {
               setState(() {
                 var name = TextEditingController();
@@ -394,7 +394,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonWidget(
                       enabled: true,
-                      type: ButtonType.icon,
+                      type: ButtonType.iconButton,
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
@@ -410,7 +410,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
         const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.borderless,
+            type: ButtonType.link,
             onPressed: () async {
               setState(() {
                 var name = TextEditingController();
@@ -427,7 +427,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
   Widget finish() {
     return ButtonWidget(
       enabled: _formKey.currentState?.validate() == true,
-      type: ButtonType.normal,
+      type: ButtonType.primary,
       onPressed: () {
         for (var i = 0; i < settingsModel.length; i++) {
           settingsModel[i]?.name = settingsControllers[i].first?.text;

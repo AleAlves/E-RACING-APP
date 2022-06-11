@@ -108,7 +108,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           status(),
           const SpacingWidget(LayoutSize.size16),
           subscription(),
-          const SpacingWidget(LayoutSize.size8),
+          const SpacingWidget(LayoutSize.size16),
         ],
       ),
     );
@@ -190,7 +190,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                     padding: const EdgeInsets.only(left: 18, right: 18),
                     child: ButtonWidget(
                       label: "Manager area",
-                      type: ButtonType.discret,
+                      type: ButtonType.secondary,
                       onPressed: () {
                         widget.viewModel.setFlow(EventFlow.manager);
                       },
