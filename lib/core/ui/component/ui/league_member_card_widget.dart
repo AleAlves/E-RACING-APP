@@ -4,9 +4,7 @@ import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/league/data/league_members_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import '../../../ext/dialog_extension.dart';
 import 'button_widget.dart';
@@ -76,8 +74,8 @@ class LeagueMemberCardWidget extends StatelessWidget {
                 children: [
                     ButtonWidget(
                       enabled: true,
-                      type: ButtonType.iconPure,
-                      icon: Icons.delete_forever,
+                      type: ButtonType.iconButton,
+                      icon: Icons.delete,
                       onPressed: () {
                         confirmationDialogExt(
                           context: context,

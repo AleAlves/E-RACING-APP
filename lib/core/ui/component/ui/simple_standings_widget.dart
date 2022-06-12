@@ -3,10 +3,8 @@ import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/team_indicator_paint.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/event/data/event_standings_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SimpleStandingsWidget extends StatefulWidget {
@@ -66,10 +64,11 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
+              padding: const EdgeInsets.only(left: 24, right: 24),
               child: ButtonWidget(
                   enabled: true,
                   type: ButtonType.primary,
+                  icon: Icons.format_list_numbered,
                   label: "Full standings",
                   onPressed: () {
                     widget.onFullStandingsPressed();

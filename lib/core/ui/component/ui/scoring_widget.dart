@@ -3,7 +3,6 @@ import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'spacing_widget.dart';
@@ -61,16 +60,13 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                   return SizedBox(
                     width: MediaQuery.of(context).size.width / 5,
                     child: CardWidget(
-                      marked: true,
-                      markWidth: MediaQuery.of(context).size.width / 10,
                       ready: true,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           TextWidget(
                             text: "${position.toString()}°",
-                            style: Style.label,
-                            color: Theme.of(context).colorScheme.onPrimary,
+                            style: Style.label
                           ),
                           const SpacingWidget(LayoutSize.size8),
                           Column(

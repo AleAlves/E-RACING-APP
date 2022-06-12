@@ -1,7 +1,6 @@
 import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -119,10 +118,8 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
-              Colors.redAccent),
-          foregroundColor: MaterialStateProperty.all(
-              Colors.redAccent),
+          backgroundColor: MaterialStateProperty.all(const Color(0xff2a7522)),
+          foregroundColor: MaterialStateProperty.all(const Color(0xff246b1c)),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
@@ -142,13 +139,13 @@ class _ButtonWidgetState extends State<ButtonWidget> {
               child: TextWidget(
                 text: widget.label ?? '',
                 style: Style.button,
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),
             widget.icon == null ? Container() : Row(
               children: [
                 const SpacingWidget(LayoutSize.size16),
-                Icon(widget.icon, color: widget.iconColor,),
+                Icon(widget.icon, color: widget.iconColor ?? Theme.of(context).colorScheme.onSecondary),
               ],
             )
           ],

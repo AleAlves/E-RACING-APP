@@ -3,7 +3,6 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/swtich_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EventSubscriptionsPanelWidget extends StatelessWidget {
@@ -26,57 +25,57 @@ class EventSubscriptionsPanelWidget extends StatelessWidget {
   Widget raceList(BuildContext context) {
     return Column(
       children: [
-        toogleSubscriptions(context),
-      ],
-    );
-  }
-
-  Widget toogleSubscriptions(BuildContext context) {
-    var isOnGoing = event?.state == EventState.ongoing;
-    return Column(
-      children: [
         Row(
-          children: [
-            Icon(Icons.assignment_ind, color: Theme.of(context).colorScheme.primaryVariant,),
-            const SpacingWidget(LayoutSize.size8),
-            const TextWidget(
+          children: const [
+            Icon(Icons.assignment_ind),
+            SpacingWidget(LayoutSize.size8),
+            TextWidget(
               text: "Subscriptions",
               style: Style.title,
               align: TextAlign.left,
             ),
           ],
         ),
-        const SpacingWidget(LayoutSize.size16),
-        SwitchWidget(
-          enabled: isOnGoing ? event?.joinable : false,
-          onPressed: (value) {
-            if(isOnGoing){
-              onToogle.call();
-            }
-            else{
-              showAlertExt(context: context, message: 'Event must be on going to allow subscriptions', );
-            }
-          },
-          negativeLabel: "Disabled",
-          positiveLabel: "Enabled",
-        ),
+        const SpacingWidget(LayoutSize.size8),
+        toogleSubscriptions(context),
         toogleMembersOnly(),
       ],
     );
   }
 
+  Widget toogleSubscriptions(BuildContext context) {
+    var isOnGoing = event?.state == EventState.ongoing;
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      child: SwitchWidget(
+        enabled: isOnGoing ? event?.joinable : false,
+        onPressed: (value) {
+          if (isOnGoing) {
+            onToogle.call();
+          } else {
+            showAlertExt(
+              context: context,
+              message: 'Event must be on going to allow subscriptions',
+            );
+          }
+        },
+        negativeLabel: "Disabled",
+        positiveLabel: "Enabled",
+      ),
+    );
+  }
+
   Widget toogleMembersOnly() {
-    return Column(
-      children: [
-        SwitchWidget(
-          enabled: event?.membersOnly,
-          onPressed: (value) {
-            onToogleMembership.call();
-          },
-          negativeLabel: "For anyone",
-          positiveLabel: "Members Only",
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      child: SwitchWidget(
+        enabled: event?.membersOnly,
+        onPressed: (value) {
+          onToogleMembership.call();
+        },
+        negativeLabel: "For anyone",
+        positiveLabel: "Members Only",
+      ),
     );
   }
 }

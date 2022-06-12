@@ -2,7 +2,6 @@ import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TagCollectionWidget extends StatefulWidget {
@@ -111,7 +110,7 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
                                 text: name(widget.tagIds?[index]),
                                 style: Style.note,
                                 color:
-                                    Theme.of(context).colorScheme.background),
+                                    Theme.of(context).colorScheme.onPrimary),
                           ),
                           color: Theme.of(context).colorScheme.primary,
                         ),

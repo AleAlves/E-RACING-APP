@@ -118,17 +118,20 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   Widget description() {
     return Column(
       children: [
-        TextWidget(
-          text: widget.viewModel.league?.name ?? '',
-          style: Style.title,
-          align: TextAlign.left,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextWidget(
+            text: widget.viewModel.league?.name ?? '',
+            style: Style.title,
+            align: TextAlign.center,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextWidget(
             text: widget.viewModel.league?.description ?? '',
             style: Style.description,
-            align: TextAlign.center,
+            align: TextAlign.justify,
           ),
         ),
         const SpacingWidget(LayoutSize.size16),
@@ -184,7 +187,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
 
   Widget membership() {
     return Padding(
-      padding: const EdgeInsets.only(left: 4, right: 4, top: 4),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 4, bottom: 8),
       child: MembershipActionWidget(
         leagueModel: widget.viewModel.league,
         onStartMembership: () {

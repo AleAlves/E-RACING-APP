@@ -151,28 +151,24 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
   }
 
   Widget communitiesWidget() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
-          child: TextWidget(text: "Your communities", style: Style.subtitle),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8),
-          child: Row(
-            children: [
-              LeagueThumbCollectionWidget(
-                onPressed: () {
-                  Modular.to.pushNamed(Routes.league);
-                },
-                leagues: widget.vm.leagues,
-              ),
-            ],
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+            child: TextWidget(text: "Your communities", style: Style.subtitle),
           ),
-        ),
-      ],
+          LeagueThumbCollectionWidget(
+            onPressed: () {
+              Modular.to.pushNamed(Routes.league);
+            },
+            leagues: widget.vm.leagues,
+          ),
+        ],
+      ),
     );
   }
 

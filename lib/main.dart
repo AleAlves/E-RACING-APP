@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:i18n_extension/i18n_widget.dart';
 import 'core/tools/session.dart';
 import 'login/di/login_di.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,16 +27,14 @@ Future<void> main() async {
   });
   runApp(ModularApp(
     module: AppModule(),
-    child: const ERcaingApp(),
+    child: I18n(initialLocale: const Locale("pt"), child: const ERcaingApp()),
   ));
 }
 
 class ERcaingApp extends StatelessWidget {
-
   final ThemeMode themeMode = ThemeMode.system;
 
   const ERcaingApp({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +61,8 @@ class ERcaingApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('en', ''),
-        Locale('es', ''),
-        Locale('pt', ''),
+        Locale('en'),
+        Locale('pt'),
       ],
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(

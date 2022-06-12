@@ -5,10 +5,8 @@ import 'package:e_racing_app/core/ext/date_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'expanded_widget.dart';
 
 class EventRaceCollection extends StatelessWidget {
   final List<RaceModel?>? races;
@@ -39,7 +37,7 @@ class EventRaceCollection extends StatelessWidget {
       children: [
         CardWidget(
           marked: true,
-          markWidth: 40,
+          markWidth: 45,
           markColor: Theme.of(context).colorScheme.primary,
           ready: true,
           onPressed: () {

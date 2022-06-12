@@ -2,9 +2,7 @@ import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/login/domain/model/profile_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class ProfileCardWidget extends StatelessWidget {
   final ProfileModel? profileModel;
@@ -54,11 +52,11 @@ class ProfileCardWidget extends StatelessWidget {
                       TextWidget(
                         text: "My profile",
                         style: Style.description,
-                        color: Theme.of(context).colorScheme.primaryVariant,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       Icon(
                         Icons.settings,
-                        color: Theme.of(context).colorScheme.primaryVariant,
+                        color: Theme.of(context).colorScheme.primary,
                         size: 24,
                       ),
                     ],

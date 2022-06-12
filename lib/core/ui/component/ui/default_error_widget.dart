@@ -38,7 +38,7 @@ class _DefaulErrorWidgetState extends State<DefaulErrorWidget> {
                       child: IconButton(
                         icon: const Icon(Icons.refresh),
                         onPressed: () {
-                          Modular.to.navigate("/");
+                          Modular.to.pushNamed(Routes.home);
                         },
                       ),
                     ),
@@ -55,7 +55,7 @@ class _DefaulErrorWidgetState extends State<DefaulErrorWidget> {
   }
 
   Future<bool> _onBackPressed() async {
-    Modular.to.navigate("/");
+    Modular.to.pushNamed(Routes.home);
     return false;
   }
 }

@@ -1,7 +1,6 @@
 import 'package:e_racing_app/core/ui/component/ui/default_error_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/scroll_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/float_action_button_widget.dart';

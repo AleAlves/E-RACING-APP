@@ -4,7 +4,6 @@ import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_race_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/simple_standings_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/subscription_widget.dart';
@@ -13,6 +12,7 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -45,10 +45,12 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        content: content(),
-        scrollable: true,
-        state: widget.viewModel.state,
-        onBackPressed: onBackPressed);
+      content: content(),
+      scrollable: true,
+      state: widget.viewModel.state,
+      onBackPressed: onBackPressed,
+      floatAction: adminOption(),
+    );
   }
 
   @override
@@ -83,12 +85,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: standings(),
             ),
-            const SpacingWidget(LayoutSize.size2),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: adminPanel(),
-            ),
-            const SpacingWidget(LayoutSize.size8),
+            const SpacingWidget(LayoutSize.size128),
           ],
         ),
       ],
@@ -127,7 +124,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   Widget eventInfo() {
     return CardWidget(
       marked: true,
-      markWidth: 40,
+      markWidth: 45,
       markColor: Theme.of(context).colorScheme.primary,
       onPressed: () {
         widget.viewModel.setFlow(EventFlow.eventDetailInfo);
@@ -144,7 +141,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                   Row(
                     children: [
                       Icon(
-                        Icons.info_outline,
+                        Icons.info,
                         color: Theme.of(context).colorScheme.onPrimary,
                       ),
                       const Padding(
@@ -166,43 +163,16 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
     );
   }
 
-  Widget adminPanel() {
+  FloatActionButtonWidget<EventFlow>? adminOption() {
     return isEventHost(widget.viewModel.event)
-        ? CardWidget(
-            child: Column(
-              children: [
-                Row(
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: TextWidget(
-                        text: "Management",
-                        style: Style.title,
-                        align: TextAlign.left,
-                      ),
-                    ),
-                  ],
-                ),
-                const SpacingWidget(LayoutSize.size16),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 18, right: 18),
-                    child: ButtonWidget(
-                      label: "Manager area",
-                      type: ButtonType.secondary,
-                      onPressed: () {
-                        widget.viewModel.setFlow(EventFlow.manager);
-                      },
-                      enabled: true,
-                    ),
-                  ),
-                ),
-                const SpacingWidget(LayoutSize.size8),
-              ],
-            ),
-            ready: true)
-        : Container();
+        ? FloatActionButtonWidget<EventFlow>(
+      flow: EventFlow.manager,
+      icon: Icons.manage_accounts,
+      onPressed: (flow) {
+        widget.viewModel.setFlow(flow);
+      },
+    )
+        : null;
   }
 
   Widget status() {

@@ -1,15 +1,12 @@
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
-import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../ext/dialog_extension.dart';
 import 'spacing_widget.dart';
 import 'button_widget.dart';
-import 'expanded_widget.dart';
 
 class SubscriptionWidget extends StatefulWidget {
   final List<ClassesModel?>? classes;
@@ -58,11 +55,11 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Padding(
-        padding: const EdgeInsets.only(left: 8, right: 8),
+        padding: const EdgeInsets.only(left: 24, right: 24),
         child: ButtonWidget(
           label: "Register",
-          type: ButtonType.primary,
-          icon: Icons.how_to_reg_outlined,
+          type: ButtonType.important,
+          icon: Icons.person_add,
           onPressed: () {
             handleChoice();
           },

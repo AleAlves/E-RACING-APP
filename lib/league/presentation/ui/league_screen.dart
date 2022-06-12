@@ -1,6 +1,5 @@
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';

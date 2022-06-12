@@ -4,11 +4,8 @@ import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-
+import '../../../../event/presentation/ui/model/championship_races_model.dart';
 import 'button_widget.dart';
 import 'spacing_widget.dart';
 

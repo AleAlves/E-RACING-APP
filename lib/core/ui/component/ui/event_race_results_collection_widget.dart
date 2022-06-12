@@ -5,7 +5,6 @@ import 'package:e_racing_app/core/ext/date_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -24,24 +23,27 @@ class EventRaceResultsCollection extends StatelessWidget {
   Widget raceList(BuildContext context) {
     return CardWidget(
         ready: true,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Icon(Icons.format_list_numbered, color: Theme.of(context).colorScheme.primaryVariant,),
-                const SpacingWidget(LayoutSize.size8),
-                const TextWidget(
-                  text: "Race director",
-                  style: Style.title,
-                  align: TextAlign.left,
-                ),
-              ],
-            ),
-            const SpacingWidget(LayoutSize.size16),
-            Column(
-              children: racesSteps(context),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Row(
+                children: const [
+                  Icon(Icons.manage_accounts),
+                  SpacingWidget(LayoutSize.size8),
+                  TextWidget(
+                    text: "Race director",
+                    style: Style.title,
+                    align: TextAlign.left,
+                  ),
+                ],
+              ),
+              const SpacingWidget(LayoutSize.size16),
+              Column(
+                children: racesSteps(context),
+              ),
+            ],
+          ),
         ));
   }
 
@@ -109,7 +111,7 @@ class EventRaceResultsCollection extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.build,
-                      color: Theme.of(context).primaryColorDark,
+                      color: Theme.of(context).colorScheme.secondary,
                     )
                   ]),
             ],
