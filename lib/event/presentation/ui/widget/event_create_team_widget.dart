@@ -8,6 +8,7 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../core/ui/component/ui/stepper_widget.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -22,7 +23,6 @@ class EventCreateTeamWidget extends StatefulWidget {
 
 class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
     implements BaseSateWidget {
-  int _index = 0;
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   List<String?> drivers = [];
@@ -69,7 +69,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const TextWidget(text: "Racing team", style: Style.title),
+          const TextWidget(text: "Team", style: Style.title),
           stepper(),
           const SpacingWidget(LayoutSize.size48),
         ],
@@ -81,14 +81,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
     return SizedBox(
       child: Column(
         children: [
-          Stepper(
-            physics: const ClampingScrollPhysics(),
-            currentStep: _index,
-            onStepTapped: (int index) {
-              setState(() {
-                _index = index;
-              });
-            },
+          StepperWidget(
             steps: <Step>[
               Step(
                 title: const Text('Basic'),
@@ -99,9 +92,8 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                 content: crew(),
               ),
             ],
+            append: finish(),
           ),
-          const SpacingWidget(LayoutSize.size48),
-          finish()
         ],
       ),
     );
@@ -137,29 +129,25 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
           itemBuilder: (context, index) {
             return Row(
               children: [
-                CardWidget(
-                  onPressed: () {},
-                  ready: true,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.sports_motorsports),
-                            TextWidget(
-                              text: "${index + 1}# driver",
-                              style: Style.subtitle,
-                            )
-                          ],
-                        ),
-                        const SpacingWidget(LayoutSize.size16),
-                        TextWidget(
-                          text: getName(drivers[index]),
-                          style: Style.subtitle,
-                        ),
-                      ],
-                    ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.sports_motorsports),
+                          TextWidget(
+                            text: "${index + 1}# driver",
+                            style: Style.subtitle,
+                          )
+                        ],
+                      ),
+                      const SpacingWidget(LayoutSize.size16),
+                      TextWidget(
+                        text: getName(drivers[index]),
+                        style: Style.subtitle,
+                      ),
+                    ],
                   ),
                 ),
                 Padding(
@@ -239,18 +227,18 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                   itemCount:
                       widget.viewModel.event?.classes?[index]?.drivers?.length,
                   itemBuilder: (context, attendersIndex) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          const SpacingWidget(LayoutSize.size16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CardWidget(
-                                ready: true,
-                                child: SizedBox(
+                    return CardWidget(
+                      ready: true,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            const SpacingWidget(LayoutSize.size16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
                                   width: MediaQuery.of(context).size.width / 2,
                                   child: TextWidget(
                                     text: getName(widget
@@ -262,26 +250,26 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                                     style: Style.subtitle,
                                   ),
                                 ),
-                              ),
-                              ButtonWidget(
-                                enabled: true,
-                                type: ButtonType.iconButton,
-                                icon: Icons.add,
-                                onPressed: () {
-                                  setState(() {
-                                    drivers.add(widget
-                                        .viewModel
-                                        .event
-                                        ?.classes?[index]
-                                        ?.drivers?[attendersIndex]
-                                        ?.driverId);
-                                    Navigator.of(context).pop();
-                                  });
-                                },
-                              )
-                            ],
-                          ),
-                        ],
+                                ButtonWidget(
+                                  enabled: true,
+                                  type: ButtonType.iconButton,
+                                  icon: Icons.add,
+                                  onPressed: () {
+                                    setState(() {
+                                      drivers.add(widget
+                                          .viewModel
+                                          .event
+                                          ?.classes?[index]
+                                          ?.drivers?[attendersIndex]
+                                          ?.driverId);
+                                      Navigator.of(context).pop();
+                                    });
+                                  },
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

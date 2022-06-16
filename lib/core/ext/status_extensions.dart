@@ -21,7 +21,9 @@ String getSessionType(SessionType? type) {
 String? getEventStatus(EventState? state) {
   switch (state) {
     case EventState.idle:
-      return "In preparation";
+      return "Creating";
+    case EventState.ready:
+      return "Ready";
     case EventState.ongoing:
       return "On going";
     case EventState.finished:

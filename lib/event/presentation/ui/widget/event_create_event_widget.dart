@@ -17,12 +17,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../core/ui/component/ui/stepper_widget.dart';
 import '../../../event_view_model.dart';
 
 class EventCreateEventWidget extends StatefulWidget {
-  final EventViewModel viewModel;
+  final EventViewModel vm;
 
-  const EventCreateEventWidget(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateEventWidget(this.vm, {Key? key}) : super(key: key);
 
   @override
   _EventCreateEventWidgetState createState() => _EventCreateEventWidgetState();
@@ -30,11 +31,11 @@ class EventCreateEventWidget extends StatefulWidget {
 
 class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
     implements BaseSateWidget {
-  int _index = 0;
   bool allowTeams = false;
   bool allowMembersOnly = false;
   File bannerFile = File('');
   List<int?> score = [];
+  List<String?> tags = [];
   List<ClassesModel?> classesModel = [];
   List<SettingsModel?> settingsModel = [];
   final _formKey = GlobalKey<FormState>();
@@ -49,6 +50,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
   @override
   void initState() {
     observers();
+    widget.vm.fetchTags();
     super.initState();
   }
 
@@ -64,11 +66,11 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
     classesModel.clear();
     classesControllers.clear();
     settingsControllers.clear();
-    _titleController.text = widget.viewModel.creatingEvent?.title ?? '';
-    _rulesController.text = widget.viewModel.creatingEvent?.rules ?? '';
-    allowTeams = widget.viewModel.creatingEvent?.teamsEnabled ?? false;
-    allowMembersOnly = widget.viewModel.creatingEvent?.membersOnly ?? false;
-    widget.viewModel.creatingEvent?.classes?.forEach((element) {
+    _titleController.text = widget.vm.creatingEvent?.title ?? '';
+    _rulesController.text = widget.vm.creatingEvent?.rules ?? '';
+    allowTeams = widget.vm.creatingEvent?.teamsEnabled ?? false;
+    allowMembersOnly = widget.vm.creatingEvent?.membersOnly ?? false;
+    widget.vm.creatingEvent?.classes?.forEach((element) {
       var name = TextEditingController();
       var value = TextEditingController();
       name.text = element?.name ?? '';
@@ -76,7 +78,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
       classesModel.add(ClassesModel(name: name.text));
       classesControllers.add(Pair(name, value));
     });
-    widget.viewModel.creatingEvent?.settings?.forEach((element) {
+    widget.vm.creatingEvent?.settings?.forEach((element) {
       var name = TextEditingController();
       var value = TextEditingController();
       name.text = element?.name ?? '';
@@ -84,14 +86,14 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
       settingsModel.add(SettingsModel(name: name.text, value: value.text));
       settingsControllers.add(Pair(name, value));
     });
-    bannerFile = widget.viewModel.bannerFile ?? File('');
+    bannerFile = widget.vm.bannerFile ?? File('');
   }
 
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
         content: content(),
-        state: widget.viewModel.state,
+        state: widget.vm.state,
         scrollable: true,
         onBackPressed: onBackPressed);
   }
@@ -117,54 +119,45 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const TextWidget(text: "Championship", style: Style.title),
-          stepper()
+          steps()
         ],
       ),
     );
   }
 
-  Widget stepper() {
-    return SizedBox(
-      child: Column(
-        children: [
-          Stepper(
-            physics: const ClampingScrollPhysics(),
-            currentStep: _index,
-            onStepTapped: (int index) {
-              setState(() {
-                _index = index;
-              });
-            },
-            steps: <Step>[
-              Step(
-                title: const Text('Basic'),
-                content: basic(),
-              ),
-              Step(
-                title: const Text('Score'),
-                content: scoring(),
-              ),
-              Step(
-                title: const Text('Classes'),
-                content: classes(),
-              ),
-              Step(
-                title: const Text('Options'),
-                content: options(),
-              ),
-              Step(
-                title: const Text('Banner'),
-                content: banner(),
-              ),
-              Step(
-                title: const Text('Settings'),
-                content: settings(),
-              ),
-            ],
-          ),
-          finish()
-        ],
-      ),
+  Widget steps() {
+    return StepperWidget(
+      steps: <Step>[
+        Step(
+          title: const Text('Basic'),
+          content: basic(),
+        ),
+        Step(
+          title: const Text('Score'),
+          content: scoring(),
+        ),
+        Step(
+          title: const Text('Classes'),
+          content: classes(),
+        ),
+        Step(
+          title: const Text('Options'),
+          content: options(),
+        ),
+        Step(
+          title: const Text('Tags'),
+          content: tag(),
+        ),
+        Step(
+          title: const Text('Banner'),
+          content: banner(),
+        ),
+        Step(
+          title: const Text('Settings'),
+          content: settings(),
+        ),
+      ],
+      append: finish(),
     );
   }
 
@@ -334,7 +327,8 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
         const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.link,
+            type: ButtonType.primary,
+            icon: Icons.add,
             onPressed: () async {
               setState(() {
                 var name = TextEditingController();
@@ -344,9 +338,40 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
                 settingsControllers.add(Pair(name, value));
               });
             },
-            label: 'New setting'),
+            label: 'Create setting'),
       ],
     );
+  }
+
+  Widget tag() {
+    return widget.vm.tags!.isEmpty
+        ? Container()
+        : Padding(
+            padding: EdgeInsets.zero,
+            child: Wrap(
+              children: widget.vm.tags!
+                  .map((item) {
+                    final selected = tags.contains(item?.id);
+                    return ActionChip(
+                        avatar: CircleAvatar(
+                          backgroundColor: selected
+                              ? Theme.of(context).colorScheme.secondary
+                              : null,
+                          child: selected ? const Text('-') : const Text('+'),
+                        ),
+                        label: Text(item?.name ?? ''),
+                        onPressed: () {
+                          setState(() {
+                            selected
+                                ? tags.remove(item?.id)
+                                : tags.add(item?.id);
+                          });
+                        });
+                  })
+                  .toList()
+                  .cast<Widget>(),
+            ),
+          );
   }
 
   Widget classes() {
@@ -410,7 +435,8 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
         const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.link,
+            type: ButtonType.primary,
+            icon: Icons.add,
             onPressed: () async {
               setState(() {
                 var name = TextEditingController();
@@ -419,7 +445,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
                 classesControllers.add(Pair(name, value));
               });
             },
-            label: 'New class'),
+            label: 'Create class'),
       ],
     );
   }
@@ -441,6 +467,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
 
         var event = EventModel(
             races: [],
+            tags: tags,
             settings: settingsModel,
             classes: classesModel,
             teamsEnabled: allowTeams,
@@ -454,7 +481,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
         } catch (e) {}
         String bannerImage = base64Encode(bannerBytes);
         var media = MediaModel(bannerImage);
-        widget.viewModel.createChampionshipEventStep(event, media, bannerFile);
+        widget.vm.createChampionshipEventStep(event, media, bannerFile);
       },
       label: "Next",
     );

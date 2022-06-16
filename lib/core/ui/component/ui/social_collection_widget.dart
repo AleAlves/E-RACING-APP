@@ -4,6 +4,7 @@ import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'button_widget.dart';
 import 'card_widget.dart';
 
@@ -34,7 +35,8 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
     return widget.hide
         ? const LoadingShimmer()
         : CardWidget(
-            padding: const EdgeInsets.only(top: 16, bottom: 8, left: 8, right: 8),
+            padding:
+                const EdgeInsets.only(top: 16, bottom: 8, left: 8, right: 8),
             ready: widget.links != null,
             placeholderHeight: 100,
             child: SizedBox(
@@ -50,12 +52,13 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
                               child: ButtonWidget(
                                   enabled: true,
                                   type: ButtonType.iconButton,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    launchUrl(Uri.parse(item?.link ?? ''));
+                                  },
                                   icon: _getSocialPlatform(item?.platformId)
                                       .first,
-                                  color:
-                                      _getSocialPlatform(item?.platformId)
-                                          .second,
+                                  color: _getSocialPlatform(item?.platformId)
+                                      .second,
                                   iconColor: Colors.white),
                             );
                           })

@@ -1,4 +1,6 @@
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:flutter/material.dart';
 
 class StepperWidget extends StatefulWidget {
@@ -34,6 +36,28 @@ class _StepperWidgetState extends State<StepperWidget> {
           Stepper(
             physics: const ClampingScrollPhysics(),
             currentStep: _index,
+            controlsBuilder: (context, _) {
+              return _index == (widget.steps.length - 1)
+                  ? Container()
+                  : Column(
+                      children: [
+                        const SpacingWidget(LayoutSize.size16),
+                        Row(
+                          children: <Widget>[
+                            ButtonWidget(
+                                enabled: true,
+                                label: "Next",
+                                type: ButtonType.link,
+                                onPressed: () {
+                                  setState(() {
+                                    _index += 1;
+                                  });
+                                })
+                          ],
+                        ),
+                      ],
+                    );
+            },
             onStepTapped: (int index) {
               setState(() {
                 _index = index;
@@ -41,6 +65,7 @@ class _StepperWidgetState extends State<StepperWidget> {
             },
             steps: widget.steps,
           ),
+          const SpacingWidget(LayoutSize.size48),
           widget.append ?? Container()
         ],
       ),

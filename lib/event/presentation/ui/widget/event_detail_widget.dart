@@ -141,7 +141,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                   Row(
                     children: [
                       Icon(
-                        Icons.info,
+                        Icons.info_outline,
                         color: Theme.of(context).colorScheme.onPrimary,
                       ),
                       const Padding(

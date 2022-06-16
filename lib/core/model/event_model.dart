@@ -8,7 +8,7 @@ part 'event_model.g.dart';
 
 enum EventType { race, championship }
 
-enum EventState { idle, ongoing, finished }
+enum EventState { idle, ready, ongoing, finished }
 
 @JsonSerializable()
 class EventModel {
@@ -25,6 +25,7 @@ class EventModel {
   bool? teamsEnabled;
   bool? membersOnly;
   int? teamsMaxCrew;
+  List<String?>? tags;
   List<int?>? scoring;
   List<RaceModel?>? races;
   List<TeamModel?>? teams;
@@ -35,6 +36,7 @@ class EventModel {
     this.id,
     this.teams,
     this.type,
+    this.tags,
     this.rules,
     this.title,
     this.state,

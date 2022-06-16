@@ -166,6 +166,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                     ),
                   ),
                 ),
+                const SpacingWidget(LayoutSize.size2),
                 Container(
                   height: 35,
                   width: 5,

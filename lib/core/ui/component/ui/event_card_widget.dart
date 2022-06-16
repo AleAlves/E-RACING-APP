@@ -88,6 +88,11 @@ class EventCardWidget extends StatelessWidget {
       size: 18,
       color: Colors.transparent,
     );
+    Icon ready = const Icon(
+      Icons.circle,
+      size: 18,
+      color: Colors.transparent,
+    );
     Icon onGoing = const Icon(
       Icons.circle,
       size: 18,
@@ -98,7 +103,7 @@ class EventCardWidget extends StatelessWidget {
       size: 18,
       color: Colors.transparent,
     );
-    var track = Theme.of(context).colorScheme.primaryContainer;
+    var track = Theme.of(context).colorScheme.secondary;
     var bar1Width = 5.0;
     var bar2Width = 5.0;
 
@@ -110,8 +115,25 @@ class EventCardWidget extends StatelessWidget {
           size: 18,
         );
         break;
+      case EventState.ready:
+        idle = Icon(
+          Icons.circle,
+          color: track,
+          size: 18,
+        );
+        ready = Icon(
+          Icons.circle,
+          color: track,
+          size: 18,
+        );
+        break;
       case EventState.ongoing:
         idle = Icon(
+          Icons.circle,
+          color: track,
+          size: 18,
+        );
+        ready = Icon(
           Icons.circle,
           color: track,
           size: 18,
@@ -124,6 +146,11 @@ class EventCardWidget extends StatelessWidget {
         break;
       case EventState.finished:
         idle = Icon(
+          Icons.circle,
+          color: track,
+          size: 18,
+        );
+        ready = Icon(
           Icons.circle,
           color: track,
           size: 18,
@@ -159,7 +186,20 @@ class EventCardWidget extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
               width: bar1Width,
-              height: 25),
+              height: 15),
+          Stack(
+            children: [
+              ready,
+              Icon(Icons.radio_button_unchecked,
+                  size: 18, color: Theme.of(context).colorScheme.primary),
+            ],
+          ),
+          Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: const BorderRadius.all(Radius.circular(20))),
+              width: bar1Width,
+              height: 15),
           Stack(
             children: [
               onGoing,
@@ -172,7 +212,7 @@ class EventCardWidget extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
               width: bar2Width,
-              height: 25),
+              height: 15),
           Stack(
             children: [
               finished,

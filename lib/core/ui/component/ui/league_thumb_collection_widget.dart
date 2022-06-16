@@ -2,8 +2,6 @@ import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/picture_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/league/domain/model/league_model.dart';
 import 'package:flutter/material.dart';
 
@@ -35,12 +33,16 @@ class _LeagueThumbCollectionWidgetState
             child: Row(
               children: [
                 SizedBox(
-                  child: const LoadingShimmer(height: 250),
-                  width: MediaQuery.of(context).size.width / 2 - 8,
+                  child: const LoadingShimmer(height: 150),
+                  width: MediaQuery.of(context).size.width / 3 - 8,
                 ),
                 SizedBox(
-                  child: const LoadingShimmer(height: 250),
-                  width: MediaQuery.of(context).size.width / 2 - 8,
+                  child: const LoadingShimmer(height: 150),
+                  width: MediaQuery.of(context).size.width / 3 - 8,
+                ),
+                SizedBox(
+                  child: const LoadingShimmer(height: 150),
+                  width: MediaQuery.of(context).size.width / 3 - 8,
                 ),
               ],
             ),
@@ -58,15 +60,14 @@ class _LeagueThumbCollectionWidgetState
           : leagues
               .map((item) {
                 return SizedBox(
-                  height: 250,
-                  width: MediaQuery.of(context).size.width / 2.1,
+                  width: MediaQuery.of(context).size.width / 3 - 8,
                   child: CardWidget(
                     ready: true,
                     padding: EdgeInsets.zero,
                     child: PictureWidget(
-                      padding: 0.0,
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: 250,
+                      padding: 0,
+                      width: MediaQuery.of(context).size.width / 3,
+                      height:  MediaQuery.of(context).size.width / 3,
                       image: item?.emblem,
                     ),
                     onPressed: () {

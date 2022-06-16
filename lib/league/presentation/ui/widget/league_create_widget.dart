@@ -141,7 +141,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
     return widget.viewModel.tags!.isEmpty
         ? Container()
         : Padding(
-            padding: const EdgeInsets.all(40.0),
+            padding: EdgeInsets.zero,
             child: Wrap(
               children: widget.viewModel.tags!
                   .map((item) {

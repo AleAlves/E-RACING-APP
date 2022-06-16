@@ -54,14 +54,14 @@ class TextWidget extends StatelessWidget {
       case Style.label:
         return TextStyle(
           fontFamily: 'Roboto',
-          fontWeight: weight ?? FontWeight.w700,
+          fontWeight: weight ?? FontWeight.w500,
           fontSize: 14.0,
           color: color,
         );
       case Style.note:
         return TextStyle(
           fontFamily: 'Roboto',
-          fontWeight: weight ?? FontWeight.w700,
+          fontWeight: weight ?? FontWeight.w500,
           fontSize: 12.0,
           color: color,
         );
