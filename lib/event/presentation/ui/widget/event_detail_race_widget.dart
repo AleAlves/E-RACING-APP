@@ -13,7 +13,6 @@ import 'package:e_racing_app/event/data/race_standings_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../core/ui/component/ui/team_indicator_paint.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -76,7 +75,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
 
   Widget banner() {
     return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+      padding: const EdgeInsets.only(left: 8, right: 8, top: 16),
       child: CardWidget(
         padding: EdgeInsets.zero,
         ready: widget.viewModel.race?.title != null,

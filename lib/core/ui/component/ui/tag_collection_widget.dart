@@ -1,8 +1,9 @@
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
+
+import 'chip_widget.dart';
 
 class TagCollectionWidget extends StatefulWidget {
   final List<TagModel?>? tags;
@@ -41,22 +42,9 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
         : Wrap(
             spacing: 5.0,
             runSpacing: 5.0,
-            direction: Axis.horizontal,
             children: widget.tagIds!
                 .map((item) {
-                  return ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(14.0)),
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextWidget(
-                            text: name(item),
-                            style: Style.note,
-                            color: Theme.of(context).colorScheme.onPrimary),
-                      ),
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  );
+                  return ChipWidget(label: name(item));
                 })
                 .toList()
                 .cast<Widget>(),
@@ -100,21 +88,7 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(14.0)),
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextWidget(
-                                text: name(widget.tagIds?[index]),
-                                style: Style.note,
-                                color:
-                                    Theme.of(context).colorScheme.onPrimary),
-                          ),
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
+                      ChipWidget(label: name(widget.tagIds?[index])),
                       const SpacingWidget(LayoutSize.size4)
                     ],
                   );

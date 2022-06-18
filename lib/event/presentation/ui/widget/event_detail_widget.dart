@@ -65,7 +65,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       children: [
         Column(
           children: [
-            const SpacingWidget(LayoutSize.size2),
+            const SpacingWidget(LayoutSize.size16),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: banner(),
@@ -103,9 +103,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           ),
           title(),
           status(),
-          const SpacingWidget(LayoutSize.size16),
           subscription(),
-          const SpacingWidget(LayoutSize.size16),
         ],
       ),
     );
@@ -184,15 +182,20 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
 
   Widget subscription() {
     return widget.viewModel.event?.joinable == true
-        ? SubscriptionWidget(
-            classes: widget.viewModel.event?.classes,
-            onSubscribe: (id) {
-              widget.viewModel.subscribe(id);
-            },
-            onUnsubscribe: (id) {
-              widget.viewModel.unsubscribe(id);
-            },
-          )
+        ? Column(
+          children: [
+            SubscriptionWidget(
+                classes: widget.viewModel.event?.classes,
+                onSubscribe: (id) {
+                  widget.viewModel.subscribe(id);
+                },
+                onUnsubscribe: (id) {
+                  widget.viewModel.unsubscribe(id);
+                },
+              ),
+            const SpacingWidget(LayoutSize.size16),
+          ],
+        )
         : Container();
   }
 

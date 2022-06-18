@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/chip_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -62,7 +63,7 @@ class EventCardWidget extends StatelessWidget {
                     _getType(event?.type),
                     const SpacingWidget(LayoutSize.size4),
                     drivers(),
-                    const SpacingWidget(LayoutSize.size4),
+                    const SpacingWidget(LayoutSize.size8),
                     subscriptionsStatus(context),
                   ],
                 ),
@@ -282,17 +283,10 @@ class EventCardWidget extends StatelessWidget {
     return event?.joinable == true
         ? Row(
             children: [
-              Icon(
-                Icons.error,
-                color: Theme.of(context).colorScheme.primary,
+              const ChipWidget(
+                label: 'Drivers wanted',
               ),
-              const SpacingWidget(LayoutSize.size8),
-              const TextWidget(
-                text: "Drivers wanted",
-                style: Style.description,
-                align: TextAlign.start,
-              ),
-              const SpacingWidget(LayoutSize.size8),
+              const SpacingWidget(LayoutSize.size4),
               event?.membersOnly == true ? membership(context) : Container()
             ],
           )
@@ -302,16 +296,9 @@ class EventCardWidget extends StatelessWidget {
   Widget membership(BuildContext context) {
     return Row(
       children: const [
-        Icon(
-          Icons.verified,
-          color: Colors.blueAccent,
-        ),
-        SpacingWidget(LayoutSize.size8),
-        TextWidget(
-          text: 'Members only',
-          style: Style.description,
-          align: TextAlign.start,
-        ),
+        ChipWidget(
+          label: 'Members only'
+        )
       ],
     );
   }

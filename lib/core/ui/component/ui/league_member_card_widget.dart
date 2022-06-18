@@ -51,6 +51,8 @@ class LeagueMemberCardWidget extends StatelessWidget {
               showFlag: false,
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(children: [
                   TextWidget(

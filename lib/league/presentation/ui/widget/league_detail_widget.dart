@@ -72,7 +72,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+          padding: const EdgeInsets.only(left: 8, right: 8, top: 16),
           child: header(),
         ),
         Padding(
