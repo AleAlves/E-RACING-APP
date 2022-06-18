@@ -143,7 +143,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
           children: [
             Row(
               children: [
-                const SpacingWidget(LayoutSize.size16),
+                const SpacingWidget(LayoutSize.size8),
                 Row(
                   children: [
                     Container(
@@ -160,16 +160,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                     ),
                   ],
                 ),
-                CountryCodePicker(
-                  onChanged: print,
-                  showCountryOnly: true,
-                  enabled: false,
-                  initialSelection: standing?.user?.profile?.country,
-                  hideMainText: true,
-                  showFlagMain: true,
-                  showFlag: false,
-                ),
-                const SpacingWidget(LayoutSize.size16),
+                const SpacingWidget(LayoutSize.size8),
                 Expanded(
                   child: Wrap(
                     children: [
@@ -184,8 +175,17 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    CountryCodePicker(
+                      onChanged: print,
+                      showCountryOnly: true,
+                      enabled: false,
+                      initialSelection: standing?.user?.profile?.country,
+                      hideMainText: true,
+                      showFlagMain: true,
+                      showFlag: false,
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextWidget(

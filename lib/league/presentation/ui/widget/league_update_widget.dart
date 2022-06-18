@@ -10,6 +10,8 @@ import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/dropdown_menu_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/step_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/stepper_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/domain/model/league_model.dart';
@@ -111,36 +113,28 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
     return Column(
       children: [
         header(),
-        Stepper(
-          currentStep: _index,
-          onStepTapped: (int index) {
-            setState(() {
-              _index = index;
-            });
-          },
-          steps: <Step>[
-            Step(
-              title: const Text('Basic Info'),
-              content: basic(),
-            ),
-            Step(
-              title: const Text('Emblem'),
-              content: emblem(),
-            ),
-            Step(
-              title: const Text('Banner'),
-              content: banner(),
-            ),
-            Step(
-              title: const Text('Tags'),
-              content: tag(),
-            ),
-            Step(
-              title: const Text('Social'),
-              content: social(),
-            ),
-          ],
-        ),
+        StepperWidget(steps: <Step>[
+          Step(
+            title: const StepWidget(title: 'Basic Info'),
+            content: basic(),
+          ),
+          Step(
+            title: const StepWidget(title: 'Thumbnail'),
+            content: emblem(),
+          ),
+          Step(
+            title: const StepWidget(title: 'Banner'),
+            content: banner(),
+          ),
+          Step(
+            title: const StepWidget(title: 'Tags'),
+            content: tag(),
+          ),
+          Step(
+            title: const StepWidget(title: 'Social'),
+            content: social(),
+          ),
+        ]),
         finish()
       ],
     );
@@ -259,7 +253,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
               ],
             ),
             const TextWidget(
-              text: "Emblem: 100x100",
+              text: "Thumbnail: 100x100",
               style: Style.label,
               align: TextAlign.start,
             )

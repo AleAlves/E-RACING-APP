@@ -81,7 +81,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
           children: [
             Row(
               children: [
-                const SpacingWidget(LayoutSize.size16),
+                const SpacingWidget(LayoutSize.size8),
                 Row(
                   children: [
                     Container(
@@ -98,12 +98,11 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                     ),
                   ],
                 ),
-                const SpacingWidget(LayoutSize.size16),
                 Expanded(
                   child: Wrap(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.only(top: 16, bottom: 16, left: 8),
                         child: TextWidget(
                           text:
                           "${teamStanding?.team?.name}",
@@ -127,7 +126,6 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                   ],
                 ),
                 const Icon(Icons.chevron_right_sharp),
-                const SpacingWidget(LayoutSize.size4),
               ],
             ),
           ],

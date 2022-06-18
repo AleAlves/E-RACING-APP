@@ -116,6 +116,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
                                 });
                               },
                               enabled: acceptedTerms ?? false,
+                              icon: Icons.directions_car,
                             ),
                           ),
                         );

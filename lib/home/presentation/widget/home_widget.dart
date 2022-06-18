@@ -85,7 +85,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
               ],),
               widget.vm.notificationsCount == null ||
                       widget.vm.notificationsCount == "0"
-                  ? const Icon(Icons.arrow_forward)
+                  ? const Icon(Icons.chevron_right)
                   : Row(
                       children: [
                         CircleAvatar(
@@ -115,7 +115,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
 
   Widget profileWidget() {
     return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
+      padding: const EdgeInsets.only(left: 8, right: 8, top: 16),
       child: ProfileCardWidget(
         onPressed: () {
           Modular.to.pushNamed(Routes.profile);

@@ -27,50 +27,50 @@ class ProfileCardWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SpacingWidget(LayoutSize.size8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  const SpacingWidget(LayoutSize.size16),
-                  TextWidget(
-                    text: profileModel?.name,
-                    style: Style.title,
+                  Icon(
+                    Icons.account_circle,
+                    size: 48,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   const SpacingWidget(LayoutSize.size8),
-                  TextWidget(
-                    text: profileModel?.email,
-                    style: Style.description,
-                  ),
-                  const SpacingWidget(LayoutSize.size16),
-                  Row(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SpacingWidget(LayoutSize.size16),
                       TextWidget(
-                        text: "My profile",
-                        style: Style.description,
-                        color: Theme.of(context).colorScheme.primary,
+                        text: profileModel?.name,
+                        style: Style.title,
                       ),
+                      const SpacingWidget(LayoutSize.size8),
+                      TextWidget(
+                        text: profileModel?.email,
+                        style: Style.description,
+                      ),
+                      const SpacingWidget(LayoutSize.size16),
+                    ],
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: const [
                       Icon(
-                        Icons.settings,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 24,
+                        Icons.settings
                       ),
                     ],
                   ),
                 ],
               ),
-              Icon(
-                Icons.account_circle,
-                size: 64,
-                color: Theme.of(context).colorScheme.primary,
-              ),
             ],
           ),
-          const SpacingWidget(LayoutSize.size16),
         ],
       ),
     );

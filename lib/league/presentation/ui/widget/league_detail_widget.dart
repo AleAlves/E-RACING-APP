@@ -87,7 +87,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: playersEvent(),
         ),
-        const SpacingWidget(LayoutSize.size8),
+        const SpacingWidget(LayoutSize.size64),
       ],
     );
   }

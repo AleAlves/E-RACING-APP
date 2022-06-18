@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 class StepperWidget extends StatefulWidget {
   final List<Step> steps;
   final Widget? append;
+  final Function()? onNext;
 
-  const StepperWidget({required this.steps, this.append, Key? key})
+  const StepperWidget({required this.steps, this.append, this.onNext, Key? key})
       : super(key: key);
 
   Widget loading(BuildContext context) {
@@ -46,11 +47,12 @@ class _StepperWidgetState extends State<StepperWidget> {
                           children: <Widget>[
                             ButtonWidget(
                                 enabled: true,
-                                label: "Next",
+                                label: "Done",
                                 type: ButtonType.link,
                                 onPressed: () {
                                   setState(() {
                                     _index += 1;
+                                    widget.onNext?.call();
                                   });
                                 })
                           ],
@@ -61,6 +63,7 @@ class _StepperWidgetState extends State<StepperWidget> {
             onStepTapped: (int index) {
               setState(() {
                 _index = index;
+                widget.onNext?.call();
               });
             },
             steps: widget.steps,
