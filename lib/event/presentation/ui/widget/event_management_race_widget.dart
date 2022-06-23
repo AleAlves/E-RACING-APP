@@ -78,7 +78,7 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          SpacingWidget(LayoutSize.size8),
+          const SpacingWidget(LayoutSize.size8),
           eventStatus(),
           eventSubscriptions(),
           editEvent(),

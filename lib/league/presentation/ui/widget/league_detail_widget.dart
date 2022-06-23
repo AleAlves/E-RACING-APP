@@ -142,9 +142,12 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   }
 
   Widget tags() {
-    return TagCollectionWidget(
-      tagIds: widget.viewModel.league?.tags,
-      tags: widget.viewModel.tags,
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      child: TagCollectionWidget(
+        tagIds: widget.viewModel.league?.tags,
+        tags: widget.viewModel.tags,
+      ),
     );
   }
 

@@ -27,6 +27,9 @@ import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../core/domain/share_model.dart';
+import '../../core/tools/routes.dart';
+
 part 'league_view_model.g.dart';
 
 class LeagueViewModel = _LeagueViewModel with _$LeagueViewModel;
@@ -36,6 +39,9 @@ abstract class _LeagueViewModel with Store {
 
   @observable
   LeagueModel? league;
+
+  @observable
+  ShareModel? share;
 
   @observable
   MediaModel? media;
@@ -169,6 +175,11 @@ abstract class _LeagueViewModel with Store {
         .invoke(
             success: (data) {
               league = data;
+              share = ShareModel(
+                  route: Routes.league,
+                  leagueId: league?.id,
+                  message: "Check out this community",
+                  name: league?.name);
               getMedia(data?.id ?? '');
               state = ViewState.ready;
             },
@@ -187,22 +198,26 @@ abstract class _LeagueViewModel with Store {
 
   Future<void> startMembership() async {
     state = ViewState.loading;
-    startMembershipUseCase.build(leagueId: Session.instance.getLeagueId().toString()).invoke(
-        success: (data) {
-          status = data;
-          setFlow(LeagueFlow.status);
-        },
-        error: onError);
+    startMembershipUseCase
+        .build(leagueId: Session.instance.getLeagueId().toString())
+        .invoke(
+            success: (data) {
+              status = data;
+              setFlow(LeagueFlow.status);
+            },
+            error: onError);
   }
 
   Future<void> stopMembership() async {
     state = ViewState.loading;
-    stopMembershipUseCase.build(leagueId: Session.instance.getLeagueId().toString()).invoke(
-        success: (data) {
-          status = data;
-          setFlow(LeagueFlow.status);
-        },
-        error: onError);
+    stopMembershipUseCase
+        .build(leagueId: Session.instance.getLeagueId().toString())
+        .invoke(
+            success: (data) {
+              status = data;
+              setFlow(LeagueFlow.status);
+            },
+            error: onError);
   }
 
   void getMenu() {
@@ -242,11 +257,13 @@ abstract class _LeagueViewModel with Store {
   }
 
   Future<void> getPlayerEvents() async {
-    await fetchPlayersEventUseCase.params(leagueId: Session.instance.getLeagueId().toString()).invoke(
-        success: (data) {
-          playerEvents = ObservableList.of(data);
-        },
-        error: onError);
+    await fetchPlayersEventUseCase
+        .params(leagueId: Session.instance.getLeagueId().toString())
+        .invoke(
+            success: (data) {
+              playerEvents = ObservableList.of(data);
+            },
+            error: onError);
   }
 
   void onError() {

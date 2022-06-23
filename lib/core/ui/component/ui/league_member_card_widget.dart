@@ -64,7 +64,7 @@ class LeagueMemberCardWidget extends StatelessWidget {
                 const SpacingWidget(LayoutSize.size8),
                 TextWidget(
                     text: "Since ${formatDate(member?.membership.since)}",
-                    style: Style.note),
+                    style: Style.label),
               ],
             )
           ],

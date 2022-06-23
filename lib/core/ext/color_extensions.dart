@@ -21,9 +21,9 @@ Pair<Color, Color> getPodiumColor(int? position) {
 Color getTypeColor(EventType? type) {
   switch (type) {
     case EventType.championship:
-      return const Color(0xFFE80051);
+      return const Color(0xFF7A2491);
     case EventType.race:
-      return const Color(0xFF1F6DC1);
+      return const Color(0xFF295483);
     default:
       return Colors.red;
   }

@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/domain/share_model.dart';
+import '../../../core/ui/component/ui/share_widget.dart';
 import '../home_view_model.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -57,7 +59,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
         profileWidget(),
         notifications(),
         discoverWidget(),
-        communitiesWidget(),
+        communitiesWidget()
       ],
     );
   }
@@ -67,39 +69,44 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
       padding: const EdgeInsets.only(left: 8, right: 8),
       child: CardWidget(
         child: Padding(
-          padding: const EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
+          padding:
+              const EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                Icon(
-                  Icons.notifications,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                  Icon(
+                    Icons.notifications,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                   const SpacingWidget(LayoutSize.size8),
-                const TextWidget(
-                    text: "Notifications",
-                    style: Style.title
-                ),
-              ],),
+                  const TextWidget(text: "Notifications", style: Style.title),
+                ],
+              ),
               widget.vm.notificationsCount == null ||
                       widget.vm.notificationsCount == "0"
                   ? const Icon(Icons.chevron_right)
                   : Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: Theme.of(context).colorScheme.secondary,
-                          child:  ClipRRect(
-                            borderRadius: BorderRadius.circular(100.0),
-                            child:TextWidget(
+                        SizedBox(
+                          width: 30,
+                          height: 30,
+                          child: CircleAvatar(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100.0),
+                              child: TextWidget(
                                 text: widget.vm.notificationsCount,
                                 style: Style.description,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSecondary,
-                            weight: FontWeight.w900,),
-                          ),),
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
+                                weight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
             ],

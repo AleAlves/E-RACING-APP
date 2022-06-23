@@ -579,7 +579,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                               TextWidget(
                                   color:
                                       Theme.of(context).colorScheme.secondary,
-                                  style: Style.shadow,
+                                  style: Style.label,
                                   text: "Disqualified"),
                             if (standing?.summary?.didntFinish == null ||
                                 standing?.summary?.didntFinish == false)
@@ -588,7 +588,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                               TextWidget(
                                   color:
                                       Theme.of(context).colorScheme.secondary,
-                                  style: Style.shadow,
+                                  style: Style.label,
                                   text: "DNF"),
                           ],
                         ),

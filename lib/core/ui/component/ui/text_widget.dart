@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum Style { description, title, subtitle, button, label, note, shadow }
+enum Style { title, subtitle, description, label, button }
 
 class TextWidget extends StatelessWidget {
   final String? text;
@@ -29,63 +29,18 @@ class TextWidget extends StatelessWidget {
     );
   }
 
-  TextStyle _getStyle(BuildContext context) {
+  TextStyle? _getStyle(BuildContext context) {
     switch (style) {
       case Style.title:
-        return TextStyle(
-          fontFamily: 'Roboto',
-          color: color,
-          fontWeight: weight ?? FontWeight.normal,
-          fontSize: 28.0,
-        );
+        return Theme.of(context).textTheme.headline4?.copyWith(color: color);
       case Style.subtitle:
-        return TextStyle(
-            fontFamily: 'Roboto',
-            fontWeight: weight ?? FontWeight.w400,
-            fontSize: 20.0,
-            color: color);
+        return Theme.of(context).textTheme.headline5?.copyWith(color: color);
       case Style.description:
-        return TextStyle(
-          fontFamily: 'Roboto',
-          fontWeight: weight ?? FontWeight.w400,
-          fontSize: 16.0,
-          color: color,
-        );
+        return Theme.of(context).textTheme.bodyLarge?.copyWith(color: color);
       case Style.label:
-        return TextStyle(
-          fontFamily: 'Roboto',
-          fontWeight: weight ?? FontWeight.w500,
-          fontSize: 14.0,
-          color: color,
-        );
-      case Style.note:
-        return TextStyle(
-          fontFamily: 'Roboto',
-          fontWeight: weight ?? FontWeight.w500,
-          fontSize: 12.0,
-          color: color,
-        );
-      case Style.shadow:
-        return TextStyle(
-            fontFamily: 'Roboto',
-            fontWeight: weight ?? FontWeight.w400,
-            decoration: TextDecoration.underline,
-            fontSize: 18.0,
-            color: color,
-            shadows: [
-              Shadow(
-                  color: Colors.black.withOpacity(0.1),
-                  offset: const Offset(0, 1),
-                  blurRadius: 0)
-            ]);
-        break;
+        return Theme.of(context).textTheme.overline?.copyWith(color: color, fontSize: 12);
       case Style.button:
-        return TextStyle(
-          fontFamily: 'Roboto',
-          fontWeight: weight ?? FontWeight.w500,
-          color: color,
-          fontSize: 18.0,
-        );
+        return Theme.of(context).textTheme.button?.copyWith(color: color);
     }
   }
 }

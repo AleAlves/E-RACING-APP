@@ -46,7 +46,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
   Widget build(BuildContext context) {
     switch (widget.type) {
       case ButtonType.primary:
-        return normal(context);
+        return primary(context);
       case ButtonType.link:
         return borderless();
       case ButtonType.iconButton:
@@ -68,13 +68,13 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         child: TextWidget(
           text: widget.label ?? '',
           color: widget.labelColor,
-          style: Style.shadow,
+          style: Style.label,
         ),
       ),
     );
   }
 
-  Widget normal(BuildContext context) {
+  Widget primary(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
@@ -97,14 +97,14 @@ class _ButtonWidgetState extends State<ButtonWidget> {
               padding: const EdgeInsets.only(top: 16, bottom: 16),
               child: TextWidget(
                 text: widget.label ?? '',
-                color: widget.labelColor,
+                color: widget.labelColor ?? Theme.of(context).colorScheme.onPrimary,
                 style: Style.button,
               ),
             ),
             widget.icon == null ? Container() : Row(
               children: [
                 const SpacingWidget(LayoutSize.size16),
-                Icon(widget.icon, color: widget.iconColor,),
+                Icon(widget.icon, color: widget.iconColor ?? Theme.of(context).colorScheme.onPrimary,),
               ],
             )
           ],

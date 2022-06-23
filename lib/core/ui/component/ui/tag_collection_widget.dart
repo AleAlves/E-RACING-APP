@@ -40,7 +40,8 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
     return widget.tagIds == null
         ? wrappedLoading()
         : Wrap(
-            spacing: 5.0,
+            alignment: WrapAlignment.center,
+            spacing: 2.0,
             runSpacing: 5.0,
             children: widget.tagIds!
                 .map((item) {

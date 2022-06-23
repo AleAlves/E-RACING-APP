@@ -67,7 +67,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
               padding: const EdgeInsets.only(left: 24, right: 24),
               child: ButtonWidget(
                   enabled: true,
-                  type: ButtonType.primary,
+                  type: ButtonType.iconButton,
                   icon: Icons.format_list_numbered,
                   label: "Full standings",
                   onPressed: () {

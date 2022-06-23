@@ -1,3 +1,5 @@
+import 'package:e_racing_app/core/tools/routes.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -25,33 +27,72 @@ Future<void> main() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print('Got a message whilst in the foreground!');
   });
+
   runApp(ModularApp(
     module: AppModule(),
-    child: I18n(initialLocale: const Locale("pt"), child: const ERcaingApp()),
+    child: I18n(initialLocale: const Locale("pt"), child: const ERacingApp()),
   ));
 }
 
-class ERcaingApp extends StatelessWidget {
-  final ThemeMode themeMode = ThemeMode.system;
+class ERacingApp extends StatefulWidget {
+  const ERacingApp({Key? key}) : super(key: key);
 
-  const ERcaingApp({Key? key}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() => _ERacingAppState();
+}
+
+class _ERacingAppState extends State<ERacingApp> {
+  final ThemeMode themeMode = ThemeMode.system;
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    initDynamicLinks();
+  }
+
+  Future<void> initDynamicLinks() async {
+    dynamicLinks.onLink.listen((dynamicLinkData) {
+      print('######## Dynamic Link #########');
+      print(dynamicLinkData.link);
+      print(dynamicLinkData.link.path);
+      Session.instance.setLeagueId(dynamicLinkData.link.queryParameters['leagueId']);
+      Session.instance.setEventId(dynamicLinkData.link.queryParameters['eventId']);
+      if (Session.instance.getBearerToken() != null) {
+        Modular.to.pushNamed(dynamicLinkData.link.queryParameters['route'] ?? '');
+      } else {
+        Session.instance.setOnDeeplinkFlow(true);
+        Session.instance.setDeeplink(Routes.event);
+      }
+    }).onError((error) {
+      print('######## Dynamic Link Error #########');
+      print(error.message);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    const FlexScheme usedScheme = FlexScheme.amber;
+    FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
-    const FlexSchemeColor color = FlexSchemeColor(
+    const FlexSchemeColor colorDark = FlexSchemeColor(
       primary: Color(0xFFFFA94C),
       primaryVariant: Color(0xFFF68D1C),
-      secondary: Color(0xFF5D116B),
-      secondaryVariant: Color(0xFF3D1C41),
+      secondary: Color(0xFF7A2491),
+      secondaryVariant: Color(0xFF7A2491),
+    );
+
+    const FlexSchemeColor colorLight = FlexSchemeColor(
+      primary: Color(0xFFFF9E37),
+      primaryVariant: Color(0xFFF68D1C),
+      secondary: Color(0xFF7A2491),
+      secondaryVariant: Color(0xFF7A2491),
     );
 
     const FlexSchemeData _myFlexScheme = FlexSchemeData(
       name: 'Midnight blue',
       description: 'Midnight blue theme, custom definition of all colors',
-      light: color,
-      dark: color,
+      light: colorLight,
+      dark: colorDark,
     );
 
     return MaterialApp.router(
@@ -66,15 +107,13 @@ class ERcaingApp extends StatelessWidget {
       ],
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
-        scheme: usedScheme,
         colors: _myFlexScheme.light,
         appBarElevation: 0.5,
-      ),
+      ).copyWith(cardColor: const Color(0xFFF5F5F5)),
       darkTheme: FlexThemeData.dark(
-        scheme: usedScheme,
         colors: _myFlexScheme.dark,
         appBarElevation: 2,
-      ),
+      ).copyWith(cardColor: const Color(0xFF1C1C1C)),
       themeMode: themeMode,
       title: 'E-Racing',
       routeInformationParser: Modular.routeInformationParser,
@@ -88,7 +127,5 @@ class AppModule extends Module {
   List<Bind> get binds => [];
 
   @override
-  List<ModularRoute> get routes => [
-        ModuleRoute("/", module: LoginModule()),
-      ];
+  List<ModularRoute> get routes => [ModuleRoute("/", module: LoginModule())];
 }

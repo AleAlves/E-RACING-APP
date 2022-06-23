@@ -31,7 +31,7 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
   void initState() {
     _emailController.text = '';
     _passwordController.text = '';
-    widget.viewModel.getPublickey();
+    widget.viewModel.getPublicKey();
     super.initState();
   }
 

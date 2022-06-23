@@ -31,9 +31,10 @@ class ShortcutWidget extends StatelessWidget {
       ready: true,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Icon(shortcut?.icon),
-          const SpacingWidget(LayoutSize.size16),
+          const SpacingWidget(LayoutSize.size24),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -62,12 +63,13 @@ class ShortcutWidget extends StatelessWidget {
       color: Theme.of(context).primaryColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Icon(
             shortcut?.icon,
             color: Theme.of(context).colorScheme.onPrimary,
           ),
-          const SpacingWidget(LayoutSize.size16),
+          const SpacingWidget(LayoutSize.size24),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

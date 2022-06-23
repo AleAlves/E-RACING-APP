@@ -1,11 +1,11 @@
-
 import 'package:e_racing_app/login/domain/model/bearer_token_model.dart';
 import 'package:e_racing_app/login/domain/model/keychain_model.dart';
 import 'package:e_racing_app/login/domain/model/public_key_model.dart';
 import 'package:e_racing_app/login/domain/model/user_model.dart';
 
-class Session{
+import '../model/pair_model.dart';
 
+class Session {
   static UserModel? _userModel;
   static late KeyChainModel _keyChain;
   static PublicKeyModel? _publicKeyModel;
@@ -15,6 +15,8 @@ class Session{
   static String? _currenRaceId;
   static String _server = "https://e-racing-api-dev.herokuapp.com/";
   static String? _fcmToken;
+  static String? _deeplink;
+  static bool _hasDeeplink = false;
 
   Session._();
 
@@ -28,15 +30,15 @@ class Session{
     _instance = null;
   }
 
-  void setUser(UserModel userModel){
+  void setUser(UserModel userModel) {
     _userModel = userModel;
   }
 
-  UserModel? getUser(){
+  UserModel? getUser() {
     return _userModel;
   }
 
-  void setRSAKey(PublicKeyModel publicKeyModel){
+  void setRSAKey(PublicKeyModel publicKeyModel) {
     _publicKeyModel = publicKeyModel;
   }
 
@@ -44,65 +46,80 @@ class Session{
     return _publicKeyModel;
   }
 
-  void setKeyChain(KeyChainModel keyChain){
+  void setKeyChain(KeyChainModel keyChain) {
     _keyChain = keyChain;
   }
 
-  KeyChainModel getKeyChain(){
+  KeyChainModel getKeyChain() {
     return _keyChain;
   }
 
-  void setBearerToken(BearerTokenModel? bearerTokenModel){
+  void setBearerToken(BearerTokenModel? bearerTokenModel) {
     _bearerTokenModel = bearerTokenModel;
   }
 
-  BearerTokenModel? getBearerToken(){
+  BearerTokenModel? getBearerToken() {
     return _bearerTokenModel;
   }
 
-  void setLeagueId(String? id){
+  void setLeagueId(String? id) {
     _currentLeagueId = id;
   }
 
-  String? getLeagueId(){
+  String? getLeagueId() {
     return _currentLeagueId;
   }
 
-  void setEventId(String? id){
+  void setEventId(String? id) {
     _currenEventId = id;
   }
 
-  String? getEventId(){
+  String? getEventId() {
     return _currenEventId;
   }
 
-  void setRaceId(String? id){
+  void setRaceId(String? id) {
     _currenRaceId = id;
   }
 
-  String? getRaceId(){
+  String? getRaceId() {
     return _currenRaceId;
   }
 
-
-  void setDrive(String url){
+  void setDrive(String url) {
     _server = url;
   }
 
-  String getURL(){
+  String getURL() {
     return _server;
   }
 
-  void setURL(String url){
+  void setURL(String url) {
     _server = url;
   }
 
-  String? getFCMToken(){
+  String? getFCMToken() {
     return _fcmToken;
   }
 
-  void setFCMToken(String? fcmToken){
+  void setFCMToken(String? fcmToken) {
     print("TOKEN FCM: $fcmToken");
     _fcmToken = fcmToken;
+  }
+
+  String? getDeeplink() {
+    return _deeplink;
+  }
+
+  void setDeeplink(String? deeplink) {
+    _deeplink = deeplink;
+  }
+
+  bool onDeeplinkFlow() {
+    return _hasDeeplink;
+  }
+
+  void setOnDeeplinkFlow(bool isOnDeeplinkFlow) {
+    _hasDeeplink = isOnDeeplinkFlow;
   }
 }

@@ -146,7 +146,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                         padding: EdgeInsets.all(24.0),
                         child: TextWidget(
                           text: "Event information",
-                          style: Style.title,
+                          style: Style.subtitle,
                         ),
                       ),
                     ],

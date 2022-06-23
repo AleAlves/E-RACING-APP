@@ -2,9 +2,12 @@ import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/chip_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/share_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/share_model.dart';
+import '../../../tools/routes.dart';
 import 'spacing_widget.dart';
 import 'class_collection_widget.dart';
 
@@ -27,7 +30,9 @@ class EventCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
-      marked: false,
+      marked: true,
+      markWidth: 45,
+      padding: EdgeInsets.zero,
       markColor: getTypeColor(event?.type),
       child: content(context),
       onPressed: onPressed,
@@ -37,16 +42,25 @@ class EventCardWidget extends StatelessWidget {
 
   Widget content(BuildContext context) {
     return Stack(
-      alignment: Alignment.center,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            ShareWidget(
+              model: ShareModel(
+                  route: Routes.event,
+                  leagueId: event?.leagueId,
+                  eventId: event?.id,
+                  message: "Check out this event",
+                  name: event?.title),
+              iconColor: Theme.of(context).colorScheme.onSecondary,
+            ),
+            const SpacingWidget(LayoutSize.size16),
             progress(context),
             const SpacingWidget(LayoutSize.size16),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                padding: const EdgeInsets.only(top: 16, bottom: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -69,16 +83,14 @@ class EventCardWidget extends StatelessWidget {
                 ),
               ),
             ),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.chevron_right,
+              ),
+            )
           ],
         ),
-        Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Icon(
-                Icons.chevron_right,
-              )
-            ]),
       ],
     );
   }
@@ -105,8 +117,8 @@ class EventCardWidget extends StatelessWidget {
       color: Colors.transparent,
     );
     var track = Theme.of(context).colorScheme.secondary;
-    var bar1Width = 5.0;
-    var bar2Width = 5.0;
+    var bar1Width = 3.0;
+    var bar2Width = 3.0;
 
     switch (event?.state) {
       case EventState.idle:
@@ -295,11 +307,7 @@ class EventCardWidget extends StatelessWidget {
 
   Widget membership(BuildContext context) {
     return Row(
-      children: const [
-        ChipWidget(
-          label: 'Members only'
-        )
-      ],
+      children: const [ChipWidget(label: 'Members only')],
     );
   }
 }

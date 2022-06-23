@@ -32,7 +32,7 @@ class _ChipWidgetState extends State<ChipWidget> {
             children: [
               TextWidget(
                   text: widget.label ?? '',
-                  style: Style.note,
+                  style: Style.label,
                   color: Theme.of(context).colorScheme.onPrimary),
             ],
           ),

@@ -32,7 +32,7 @@ abstract class _LoginViewModel with Store {
   ViewState state = ViewState.ready;
 
   @observable
-  LoginWidgetFlow flow = LoginWidgetFlow.enviroment;
+  LoginWidgetFlow flow = LoginWidgetFlow.login;
 
   @observable
   UserModel? user;
@@ -58,7 +58,7 @@ abstract class _LoginViewModel with Store {
   final getUserUseCase = Modular.get<GetUserUseCase<UserModel?>>();
   final saveUserUseCase = Modular.get<SaveUserUseCase>();
 
-  void getPublickey() async {
+  void getPublicKey() async {
     state = ViewState.loading;
     await publicKeyUseCase.invoke(success: (response) {
       Session.instance.setKeyChain(CryptoService.instance.generateAESKeys());
@@ -79,7 +79,12 @@ abstract class _LoginViewModel with Store {
           if (data.required2FA) {
             flow = LoginWidgetFlow.login2fa;
           } else {
-            Modular.to.pushNamed(Routes.home);
+            if (Session.instance.onDeeplinkFlow()) {
+              Session.instance.setOnDeeplinkFlow(false);
+              Modular.to.pushNamed(Session.instance.getDeeplink() ?? '');
+            } else {
+              Modular.to.pushNamed(Routes.home);
+            }
           }
         },
         error: onError);
@@ -109,10 +114,16 @@ abstract class _LoginViewModel with Store {
             error: onError);
   }
 
-  void signIn(String name, String surname, String mail, String password, String country) async {
+  void signIn(String name, String surname, String mail, String password,
+      String country) async {
     state = ViewState.loading;
     await signInUseCase
-        .params(name: name, surname: surname, email: mail, password: password, country: country)
+        .params(
+            name: name,
+            surname: surname,
+            email: mail,
+            password: password,
+            country: country)
         .invoke(
             success: (data) {
               status = data;

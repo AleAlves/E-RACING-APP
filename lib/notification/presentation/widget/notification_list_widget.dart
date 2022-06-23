@@ -115,7 +115,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                                 child: Row(children: [
                                   TextWidget(
                                     text: element?['action'],
-                                    style: Style.note,
+                                    style: Style.label,
                                       color: Theme.of(context).colorScheme.onPrimary
                                   ),
                                   Icon(Icons.arrow_forward, color: Theme.of(context).colorScheme.onPrimary, size: 10,)
@@ -130,7 +130,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                         padding: const EdgeInsets.all(16.0),
                         child: TextWidget(
                           text: element?['date'],
-                          style: Style.note,
+                          style: Style.label,
                         ),
                       ),
                     ],

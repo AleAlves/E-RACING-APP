@@ -38,7 +38,7 @@ class _StepWidgetState extends State<StepWidget> {
                 children: const [
                   TextWidget(
                     text: "Pending",
-                    style: Style.note,
+                    style: Style.label,
                   ),
                   SpacingWidget(LayoutSize.size8),
                   Icon(

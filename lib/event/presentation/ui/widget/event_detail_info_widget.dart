@@ -49,7 +49,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
   Widget content() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [rules(), settings(), teams(), scoring()],
         ),
@@ -140,6 +140,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                             child: ButtonWidget(
                               label: "Create new team",
                               type: ButtonType.primary,
+                              labelColor: Theme.of(context).colorScheme.onPrimary,
                               icon: Icons.add,
                               onPressed: () {
                                 widget.viewModel.setFlow(EventFlow.createTeam);
