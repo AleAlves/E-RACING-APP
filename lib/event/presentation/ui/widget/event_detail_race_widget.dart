@@ -12,7 +12,6 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/data/race_standings_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -160,6 +159,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
               CardWidget(
                 marked: true,
                 markWidth: 40,
+                markColor: Theme.of(context).chipTheme.backgroundColor,
                 ready: true,
                 onPressed: () {},
                 child: Stack(

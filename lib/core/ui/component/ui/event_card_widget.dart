@@ -1,4 +1,3 @@
-import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/chip_widget.dart';
@@ -33,7 +32,7 @@ class EventCardWidget extends StatelessWidget {
       marked: true,
       markWidth: 45,
       padding: EdgeInsets.zero,
-      markColor: getTypeColor(event?.type),
+      markColor: Theme.of(context).chipTheme.backgroundColor,
       child: content(context),
       onPressed: onPressed,
       ready: true,
@@ -53,7 +52,6 @@ class EventCardWidget extends StatelessWidget {
                   eventId: event?.id,
                   message: "Check out this event",
                   name: event?.title),
-              iconColor: Theme.of(context).colorScheme.onSecondary,
             ),
             const SpacingWidget(LayoutSize.size16),
             progress(context),

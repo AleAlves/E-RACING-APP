@@ -4,7 +4,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-enum ButtonType { primary,  secondary, important,link, iconButton, iconPure }
+enum ButtonType { primary, secondary, important, link, iconButton, iconPure }
 
 class ButtonWidget extends StatefulWidget {
   final String? label;
@@ -97,16 +97,23 @@ class _ButtonWidgetState extends State<ButtonWidget> {
               padding: const EdgeInsets.only(top: 16, bottom: 16),
               child: TextWidget(
                 text: widget.label ?? '',
-                color: widget.labelColor ?? Theme.of(context).colorScheme.onPrimary,
+                color: widget.labelColor ??
+                    Theme.of(context).colorScheme.onPrimary,
                 style: Style.button,
               ),
             ),
-            widget.icon == null ? Container() : Row(
-              children: [
-                const SpacingWidget(LayoutSize.size16),
-                Icon(widget.icon, color: widget.iconColor ?? Theme.of(context).colorScheme.onPrimary,),
-              ],
-            )
+            widget.icon == null
+                ? Container()
+                : Row(
+                    children: [
+                      const SpacingWidget(LayoutSize.size16),
+                      Icon(
+                        widget.icon,
+                        color: widget.iconColor ??
+                            Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ],
+                  )
           ],
         ),
       ),
@@ -118,8 +125,8 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(const Color(0xff2a7522)),
-          foregroundColor: MaterialStateProperty.all(const Color(0xff246b1c)),
+          backgroundColor: MaterialStateProperty.all(
+              Theme.of(context).chipTheme.backgroundColor),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
@@ -142,12 +149,16 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),
-            widget.icon == null ? Container() : Row(
-              children: [
-                const SpacingWidget(LayoutSize.size16),
-                Icon(widget.icon, color: widget.iconColor ?? Theme.of(context).colorScheme.onSecondary),
-              ],
-            )
+            widget.icon == null
+                ? Container()
+                : Row(
+                    children: [
+                      const SpacingWidget(LayoutSize.size16),
+                      Icon(widget.icon,
+                          color: widget.iconColor ??
+                              Theme.of(context).colorScheme.onSecondary),
+                    ],
+                  )
           ],
         ),
       ),
@@ -159,8 +170,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
-              Theme.of(context).colorScheme.background),
+          backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.background),
           foregroundColor: MaterialStateProperty.all(
               Theme.of(context).colorScheme.onBackground),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -184,12 +194,17 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 style: Style.button,
               ),
             ),
-            widget.icon == null ? Container() : Row(
-              children: [
-                const SpacingWidget(LayoutSize.size16),
-                Icon(widget.icon, color: widget.iconColor,),
-              ],
-            )
+            widget.icon == null
+                ? Container()
+                : Row(
+                    children: [
+                      const SpacingWidget(LayoutSize.size16),
+                      Icon(
+                        widget.icon,
+                        color: widget.iconColor,
+                      ),
+                    ],
+                  )
           ],
         ),
       ),
@@ -201,11 +216,15 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       children: [
         CircleAvatar(
           radius: 24,
-          backgroundColor: widget.color,
+          backgroundColor: widget.color ?? Theme.of(context).chipTheme.backgroundColor,
           child: SizedBox(
             width: double.infinity,
             child: IconButton(
-              icon: FaIcon(widget.icon, color: widget.iconColor,),
+              icon: FaIcon(
+                widget.icon,
+                color: widget.iconColor ??
+                    Theme.of(context).colorScheme.onBackground,
+              ),
               iconSize: 24,
               onPressed: widget.enabled ? widget.onPressed : null,
             ),

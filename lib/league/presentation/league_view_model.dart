@@ -95,6 +95,7 @@ abstract class _LeagueViewModel with Store {
 
   void fetchLeagues() async {
     state = ViewState.loading;
+    share = null;
     getMenu();
     fetchTags();
     fetchSocialMedias();

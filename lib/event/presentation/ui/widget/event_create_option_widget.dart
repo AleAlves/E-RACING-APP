@@ -7,7 +7,6 @@ import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
 import '../../../event_view_model.dart';
 
 class EventCreateOptionWidget extends StatefulWidget {

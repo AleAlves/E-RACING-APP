@@ -7,11 +7,10 @@ import '../../../domain/share_model.dart';
 
 class ShareWidget extends StatefulWidget {
   final ShareModel? model;
-  final Color? iconColor;
+  final Color? color;
   final VoidCallback? onPressed;
 
-  const ShareWidget(
-      {required this.model, this.iconColor, this.onPressed, Key? key})
+  const ShareWidget({required this.model, this.color, this.onPressed, Key? key})
       : super(key: key);
 
   @override
@@ -32,13 +31,14 @@ class _ShareWidgetState extends State<ShareWidget> {
   }
 
   @override
-  Widget build(BuildContext context) => content();
+  Widget build(BuildContext context) =>
+      widget.model == null ? Container() : content();
 
   Widget content() {
     return ButtonWidget(
         icon: Icons.share,
         enabled: true,
-        iconColor: widget.iconColor ?? Theme.of(context).colorScheme.primary,
+        iconColor: widget.color ?? Theme.of(context).colorScheme.primary,
         type: ButtonType.iconPure,
         onPressed: () {
           if (onSharing == false) {

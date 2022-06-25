@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:convert';
-
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
@@ -17,7 +16,6 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../../event_view_model.dart';
 
 class EventCreateSingleRaceWidget extends StatefulWidget {

@@ -29,7 +29,7 @@ class EventsCardWidget extends StatelessWidget {
             children: [
               Icon(
                 Icons.sports_score_outlined,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).chipTheme.backgroundColor,
                 size: 32,
               ),
               Column(

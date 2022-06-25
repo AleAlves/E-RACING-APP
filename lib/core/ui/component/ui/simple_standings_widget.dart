@@ -48,7 +48,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
               SpacingWidget(LayoutSize.size16),
               TextWidget(
                 text: "Standings",
-                style: Style.title,
+                style: Style.subtitle,
                 align: TextAlign.start,
               ),
             ],
@@ -99,9 +99,9 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
             Expanded(
               child: Column(
                 children: [
-                  const SpacingWidget(LayoutSize.size8),
                   Row(
                     children: [
+                      const SpacingWidget(LayoutSize.size8),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -109,9 +109,8 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                           children: [
                             TextWidget(
                               text: clazz?.className,
-                              style: Style.subtitle,
+                              style: Style.label,
                               align: TextAlign.start,
-                              color: getClassColor(_index),
                             ),
                           ],
                         ),

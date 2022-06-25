@@ -24,6 +24,8 @@ import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
+import '../core/domain/share_model.dart';
+import '../core/tools/routes.dart';
 import 'data/event_standings_model.dart';
 import 'data/event_teams_standings_model.dart';
 import 'data/race_standings_model.dart';
@@ -70,6 +72,9 @@ abstract class _EventViewModel with Store {
   StatusModel? status;
 
   @observable
+  ShareModel? share;
+
+  @observable
   RaceStandingsModel? raceStandings;
 
   @observable
@@ -110,8 +115,10 @@ abstract class _EventViewModel with Store {
   final _getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
   final _getTagUseCase = Modular.get<GetTagUseCase>();
   final _getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
-  final _fetchEventHomeUseCase = Modular.get<FetchEventsUseCase<List<EventModel>>>();
-  final _fetchFilteredEventHomeUseCase = Modular.get<FetchFilteredEventsUseCase<List<EventModel>>>();
+  final _fetchEventHomeUseCase =
+      Modular.get<FetchEventsUseCase<List<EventModel>>>();
+  final _fetchFilteredEventHomeUseCase =
+      Modular.get<FetchFilteredEventsUseCase<List<EventModel>>>();
   final _createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
   final _updateEventUseCase = Modular.get<UpdateEventUseCase<StatusModel>>();
   final _doSubscribeEventUseCase =
@@ -146,6 +153,7 @@ abstract class _EventViewModel with Store {
 
   void fetchEvents() async {
     state = ViewState.loading;
+    share = null;
     _fetchEventHomeUseCase.invoke(
         success: (data) {
           events = ObservableList.of(data);
@@ -171,6 +179,12 @@ abstract class _EventViewModel with Store {
     _getEventUseCase.params(id: Session.instance.getEventId() ?? '').invoke(
         success: (data) {
           event = data?.event;
+          share = ShareModel(
+              route: Routes.event,
+              leagueId: event?.leagueId,
+              eventId: event?.id,
+              name: event?.title,
+              message: "Check out this racing event");
           users = ObservableList.of(data?.users ?? []);
           if (data?.event.type == EventType.race) {
             setFlow(EventFlow.detailRace);
@@ -497,12 +511,11 @@ abstract class _EventViewModel with Store {
 
   void onError(ApiException error) {
     status = StatusModel(
-      message: error.message,
-      action: "Ok",
-      next: EventFlow.list,
-      previous: flow,
-      error: error.isBusiness()
-    );
+        message: error.message,
+        action: "Ok",
+        next: EventFlow.list,
+        previous: flow,
+        error: error.isBusiness());
     if (error.isBusiness()) {
       state = ViewState.ready;
       flow = EventFlow.status;

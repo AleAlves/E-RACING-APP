@@ -29,7 +29,7 @@ class LeaguesCardWidget extends StatelessWidget {
             children: [
               Icon(
                 Icons.emoji_events_sharp,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).chipTheme.backgroundColor,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,

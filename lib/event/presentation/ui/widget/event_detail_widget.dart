@@ -102,7 +102,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
             media: widget.viewModel.media,
           ),
           title(),
-          status(),
+          const SpacingWidget(LayoutSize.size16),
           subscription(),
         ],
       ),
@@ -123,7 +123,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
     return CardWidget(
       marked: true,
       markWidth: 45,
-      markColor: Theme.of(context).colorScheme.primary,
+      markColor: Theme.of(context).chipTheme.backgroundColor,
       onPressed: () {
         widget.viewModel.setFlow(EventFlow.eventDetailInfo);
       },
@@ -153,6 +153,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                   ),
                 ],
               ),
+              status(),
               const Icon(Icons.chevron_right)
             ],
           ),

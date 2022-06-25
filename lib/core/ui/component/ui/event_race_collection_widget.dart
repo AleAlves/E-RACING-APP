@@ -38,7 +38,7 @@ class EventRaceCollection extends StatelessWidget {
         CardWidget(
           marked: true,
           markWidth: 45,
-          markColor: Theme.of(context).colorScheme.primary,
+          markColor: Theme.of(context).chipTheme.backgroundColor,
           ready: true,
           onPressed: () {
             onRaceCardPressed.call(race?.id ?? '');

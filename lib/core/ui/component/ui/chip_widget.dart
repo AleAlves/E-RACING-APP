@@ -4,8 +4,17 @@ import 'package:flutter/material.dart';
 class ChipWidget extends StatefulWidget {
   final String? label;
   final VoidCallback? onPressed;
+  final EdgeInsets? padding;
+  final Color? color;
+  final Color? textColor;
 
-  const ChipWidget({required this.label, this.onPressed, Key? key})
+  const ChipWidget(
+      {required this.label,
+      this.padding,
+      this.color,
+      this.textColor,
+      this.onPressed,
+      Key? key})
       : super(key: key);
 
   @override
@@ -26,18 +35,20 @@ class _ChipWidgetState extends State<ChipWidget> {
       borderRadius: const BorderRadius.all(Radius.circular(14.0)),
       child: Container(
         child: Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
+          padding: widget.padding ??
+              const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextWidget(
                   text: widget.label ?? '',
                   style: Style.label,
-                  color: Theme.of(context).colorScheme.onPrimary),
+                  color: widget.textColor ??
+                      Theme.of(context).colorScheme.onBackground),
             ],
           ),
         ),
-        color: Theme.of(context).colorScheme.primary,
+        color: widget.color ?? Theme.of(context).chipTheme.backgroundColor,
       ),
     );
   }
