@@ -146,10 +146,9 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                 Row(
                   children: [
                     Container(
-                      height: 35,
                       color: getPodiumColor(position).first,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+                        padding: const EdgeInsets.all(8.0),
                         child: TextWidget(
                           text: "$positionº",
                           style: Style.paragraph,
@@ -159,7 +158,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                     ),
                   ],
                 ),
-                const SpacingWidget(LayoutSize.size8),
+                const SpacingWidget(LayoutSize.size16),
                 Expanded(
                   child: Wrap(
                     children: [
@@ -195,7 +194,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                     ),
                   ],
                 ),
-                const Icon(Icons.chevron_right_sharp),
+                Icon(Icons.chevron_right_sharp, color: Theme.of(context).chipTheme.selectedColor,),
                 const SpacingWidget(LayoutSize.size4),
               ],
             ),

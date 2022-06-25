@@ -13,7 +13,7 @@ class FetchLeagueMenuUseCase<T> extends BaseUseCase<T?> {
     menu.add(ShortcutModel(
         title: "Members", icon: Icons.supervised_user_circle, flow: LeagueFlow.members));
     menu.add(ShortcutModel(
-        title: "Historic", icon: Icons.flag_sharp, deepLink: ""));
+        title: "Trophy room", icon: Icons.military_tech_sharp, deepLink: ""));
     menu.add(ShortcutModel(
         title: "Chat", icon: Icons.chat, deepLink: ""));
     success.call(menu as T);

@@ -91,52 +91,47 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
 
   Widget raceCard(
       BuildContext context, EventStandingsClassesModel? clazz, Color color) {
-    return Stack(
-      alignment: Alignment.center,
+    return Row(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: Column(
+        Expanded(
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      const SpacingWidget(LayoutSize.size8),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextWidget(
-                              text: clazz?.className,
-                              style: Style.caption,
-                              align: TextAlign.start,
-                            ),
-                          ],
+                  const SpacingWidget(LayoutSize.size8),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextWidget(
+                          text: clazz?.className,
+                          style: Style.caption,
+                          align: TextAlign.start,
                         ),
-                      )
-                    ],
-                  ),
-                  const SpacingWidget(LayoutSize.size16),
-                  Column(
-                    children: summaryWidget(clazz?.summaries, color),
+                      ],
+                    ),
                   )
                 ],
               ),
-            )
-          ],
-        ),
+              Column(
+                children: summaryWidget(clazz?.summaries, color),
+              )
+            ],
+          ),
+        )
       ],
     );
   }
 
-  List<Widget> summaryWidget(List<EventStandingSummaryModel?>? summaries, Color color) {
+  List<Widget> summaryWidget(
+      List<EventStandingSummaryModel?>? summaries, Color color) {
     var position = 0;
     return summaries?.map((driver) {
           return Column(
             children: [
               driverCard(driver, color, ++position),
-              const SpacingWidget(LayoutSize.size2),
+              const SpacingWidget(LayoutSize.size8),
             ],
           );
         }).toList() ??
@@ -145,72 +140,63 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
 
   Widget driverCard(
       EventStandingSummaryModel? standing, Color color, int position) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            const SpacingWidget(LayoutSize.size8),
-            Row(
-              children: [
-                Container(
-                  height: 35,
-                  color: getPodiumColor(position).first,
-                  child: Padding(
-                    padding:
-                    const EdgeInsets.only(left: 16, right: 16, top: 8),
-                    child: TextWidget(
-                      text: "$positionº",
-                      style: Style.paragraph,
-                      color: getPodiumColor(position).second,
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, right: 8),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    color: getPodiumColor(position).first,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8, top: 4, right: 8, bottom: 4),
+                      child: TextWidget(
+                        text: "$positionº",
+                        style: Style.paragraph,
+                        color: getPodiumColor(position).second,
+                      ),
                     ),
                   ),
-                ),
-                const SpacingWidget(LayoutSize.size2),
-                Container(
-                  height: 35,
-                  width: 5,
-                  color: getClassColor(_index),
-                )
-              ],
-            ),
-            const SpacingWidget(LayoutSize.size16),
-            Expanded(
-              child: Wrap(
-                children: [
-                  TextWidget(
-                    text:
-                    "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
-                    style: Style.paragraph,
-                    align: TextAlign.center,
-                  ),
+                  const SpacingWidget(LayoutSize.size16),
+                  Icon(Icons.circle, color: getClassColor(_index), size: 12,)
                 ],
               ),
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextWidget(
-                    text: "${standing?.points} pts",
-                    style: Style.paragraph,
-                    align: TextAlign.start,
-                  ),
+              const SpacingWidget(LayoutSize.size16),
+              Expanded(
+                child: Wrap(
+                  children: [
+                    TextWidget(
+                      text:
+                          "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
+                      style: Style.paragraph,
+                      align: TextAlign.center,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            CountryCodePicker(
-              onChanged: print,
-              showCountryOnly: true,
-              enabled: false,
-              initialSelection: standing?.user?.profile?.country,
-              hideMainText: true,
-              showFlagMain: true,
-              showFlag: false,
-            ),
-          ],
-        ),
-        Container(height: 1, color: Colors.black26,)
-      ],
+              ),
+              const SpacingWidget(LayoutSize.size8),
+              CountryCodePicker(
+                onChanged: print,
+                showCountryOnly: true,
+                padding: EdgeInsets.zero,
+                enabled: false,
+                initialSelection: standing?.user?.profile?.country,
+                hideMainText: true,
+                showFlagMain: true,
+                showFlag: false,
+              ),
+              TextWidget(
+                text: "${standing?.points} pts",
+                style: Style.paragraph,
+                align: TextAlign.start,
+              ),
+            ],
+          ),
+          Container(height: 1, color: Theme.of(context).hoverColor, padding: EdgeInsets.zero,),
+        ],
+      ),
     );
   }
 }

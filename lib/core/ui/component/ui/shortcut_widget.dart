@@ -60,13 +60,14 @@ class ShortcutWidget extends StatelessWidget {
         onPressed.call(shortcut);
       },
       ready: true,
-      color: Theme.of(context).chipTheme.backgroundColor,
+      color: Theme.of(context).colorScheme.primary,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Icon(
             shortcut?.icon,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
           const SpacingWidget(LayoutSize.size24),
           Row(
@@ -75,11 +76,13 @@ class ShortcutWidget extends StatelessWidget {
               TextWidget(
                 text: shortcut?.title ?? "",
                 style: Style.paragraph,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
               const SpacingWidget(LayoutSize.size8),
-              const Icon(
+              Icon(
                 Icons.arrow_forward,
                 size: 10,
+                color: Theme.of(context).colorScheme.onPrimary,
               )
             ],
           )

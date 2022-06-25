@@ -48,7 +48,7 @@ class _ChipWidgetState extends State<ChipWidget> {
             ],
           ),
         ),
-        color: widget.color ?? Theme.of(context).chipTheme.backgroundColor,
+        color: widget.color ?? Theme.of(context).hoverColor,
       ),
     );
   }

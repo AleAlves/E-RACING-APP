@@ -29,7 +29,7 @@ class _EventProgressWidgetState extends State<EventProgressWidget> {
   Widget getStatusChip() {
     return ChipWidget(
       label: getEventStatus(widget.event?.state),
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
       color: Theme.of(context).colorScheme.primary,
       textColor: Theme.of(context).colorScheme.onPrimary,
     );

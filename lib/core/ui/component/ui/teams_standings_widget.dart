@@ -85,10 +85,9 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                 Row(
                   children: [
                     Container(
-                      height: 35,
                       color: getPodiumColor(position).first,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+                        padding: const EdgeInsets.all(8.0),
                         child: TextWidget(
                           text: "$positionº",
                           style: Style.paragraph,
@@ -98,6 +97,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                     ),
                   ],
                 ),
+                const SpacingWidget(LayoutSize.size8),
                 Expanded(
                   child: Wrap(
                     children: [
@@ -125,7 +125,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                     ),
                   ],
                 ),
-                const Icon(Icons.chevron_right_sharp),
+                Icon(Icons.chevron_right_sharp, color: Theme.of(context).chipTheme.selectedColor,),
               ],
             ),
           ],

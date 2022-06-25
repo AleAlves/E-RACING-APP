@@ -38,7 +38,7 @@ class CardWidget extends StatelessWidget {
                   shape: shapeLess
                       ? null
                       : RoundedRectangleBorder(
-                          side: const BorderSide(width: 0.3),
+                          side: BorderSide(width: 0.1, color: Theme.of(context).hoverColor),
                           borderRadius: BorderRadius.circular(5),
                         ),
                   color: color,

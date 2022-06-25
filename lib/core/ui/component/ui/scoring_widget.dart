@@ -62,7 +62,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                     child: CardWidget(
                       ready: true,
                       marked: true,
-                      markColor: Theme.of(context).chipTheme.backgroundColor,
+                      markColor: Theme.of(context).hoverColor,
                       markWidth: MediaQuery.of(context).size.width / 10 - 8,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

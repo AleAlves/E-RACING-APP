@@ -126,7 +126,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(
-              Theme.of(context).chipTheme.backgroundColor),
+              Theme.of(context).colorScheme.secondaryContainer),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
@@ -216,7 +216,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       children: [
         CircleAvatar(
           radius: 24,
-          backgroundColor: widget.color ?? Theme.of(context).chipTheme.backgroundColor,
+          backgroundColor: widget.color ?? Theme.of(context).hoverColor,
           child: SizedBox(
             width: double.infinity,
             child: IconButton(

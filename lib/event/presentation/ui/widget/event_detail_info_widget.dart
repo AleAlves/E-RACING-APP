@@ -68,11 +68,14 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children: const [
-                      Icon(Icons.sports),
-                      SpacingWidget(LayoutSize.size8),
-                      TextWidget(
-                          text: "Rules", style: Style.title, align: TextAlign.start),
+                    children: [
+                      Icon(Icons.sports,
+                          color: Theme.of(context).chipTheme.selectedColor),
+                      const SpacingWidget(LayoutSize.size8),
+                      const TextWidget(
+                          text: "Rules",
+                          style: Style.title,
+                          align: TextAlign.justify),
                     ],
                   ),
                   const SpacingWidget(LayoutSize.size16),
@@ -104,10 +107,13 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children: const [
-                      Icon(Icons.group),
-                      SpacingWidget(LayoutSize.size8),
-                      TextWidget(
+                    children: [
+                      Icon(
+                        Icons.group,
+                        color: Theme.of(context).chipTheme.selectedColor,
+                      ),
+                      const SpacingWidget(LayoutSize.size8),
+                      const TextWidget(
                           text: "Teams",
                           style: Style.title,
                           align: TextAlign.start),
@@ -140,7 +146,8 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                             child: ButtonWidget(
                               label: "Create new team",
                               type: ButtonType.primary,
-                              labelColor: Theme.of(context).colorScheme.onPrimary,
+                              labelColor:
+                                  Theme.of(context).colorScheme.onPrimary,
                               icon: Icons.add,
                               onPressed: () {
                                 widget.viewModel.setFlow(EventFlow.createTeam);
@@ -168,10 +175,13 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              children: const [
-                Icon(Icons.format_list_numbered),
-                SpacingWidget(LayoutSize.size8),
-                TextWidget(
+              children: [
+                Icon(
+                  Icons.format_list_numbered,
+                  color: Theme.of(context).chipTheme.selectedColor,
+                ),
+                const SpacingWidget(LayoutSize.size8),
+                const TextWidget(
                     text: "Score system",
                     style: Style.title,
                     align: TextAlign.start),
@@ -202,10 +212,13 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children: const [
-                      Icon(Icons.tune),
-                      SpacingWidget(LayoutSize.size8),
-                      TextWidget(
+                    children: [
+                      Icon(
+                        Icons.tune,
+                        color: Theme.of(context).chipTheme.selectedColor,
+                      ),
+                      const SpacingWidget(LayoutSize.size8),
+                      const TextWidget(
                           text: "Settings",
                           style: Style.title,
                           align: TextAlign.start),

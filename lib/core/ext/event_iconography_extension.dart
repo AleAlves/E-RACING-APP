@@ -38,3 +38,34 @@ String? getSesionTypeFirstLetter(SessionType? type) {
       return "";
   }
 }
+
+Widget getSesionIcon(SessionType? type) {
+  switch (type) {
+    case SessionType.race:
+      return const Icon(
+        Icons.circle,
+        color: Color(0xFF378F1B),
+        size: 12,
+      );
+    case SessionType.practice:
+      return const Icon(
+        Icons.circle,
+        color: Color(0xFF136091),
+        size: 12,
+      );
+    case SessionType.qualify:
+      return const Icon(
+        Icons.circle,
+        color: Color(0xFFE06E3D),
+        size: 12,
+      );
+    case SessionType.warmup:
+      return const Icon(
+        Icons.circle,
+        color: Color(0xFF9B2222),
+        size: 12,
+      );
+    default:
+      return const Icon(Icons.error);
+  }
+}

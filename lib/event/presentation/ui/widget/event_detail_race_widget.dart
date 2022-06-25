@@ -114,24 +114,24 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                 ),
               ],
             ),
-            const SpacingWidget(LayoutSize.size16),
+            const SpacingWidget(LayoutSize.size24),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.schedule),
+                    Icon(Icons.schedule, color: Theme.of(context).chipTheme.selectedColor),
                     const SpacingWidget(LayoutSize.size8),
                     TextWidget(
                         text: formatHour(widget.viewModel.race?.date),
-                        style: Style.subtitle),
+                        style: Style.paragraph),
                   ],
                 ),
                 Container(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Icon(Icons.date_range),
+                    Icon(Icons.date_range, color: Theme.of(context).chipTheme.selectedColor),
                     const SpacingWidget(LayoutSize.size8),
                     TextWidget(
                         text: formatDate(widget.viewModel.race?.date),
@@ -159,24 +159,28 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
               CardWidget(
                 marked: true,
                 markWidth: 40,
-                markColor: Theme.of(context).chipTheme.backgroundColor,
+                markColor: Theme.of(context).hoverColor,
+                padding: const EdgeInsets.only(left: 16, right: 16),
                 ready: true,
                 onPressed: () {},
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
+                    Positioned(
+                      child: Icon(Icons.tune, color: Theme.of(context).chipTheme.selectedColor),
+                      top: 0,
+                      bottom: 0,
+                      right: 0,
+                    ),
                     Row(
                       children: [
-                        const SpacingWidget(LayoutSize.size4),
-                        TextWidget(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            text: getSesionTypeFirstLetter(
-                                widget.viewModel.race?.sessions?[index]?.type),
-                            style: Style.title),
+                        getSesionIcon(
+                            widget.viewModel.race?.sessions?[index]?.type),
                         const SpacingWidget(LayoutSize.size24),
                         Expanded(
                           child: Column(
                             children: [
+                              const SpacingWidget(LayoutSize.size8),
                               Row(
                                 children: [
                                   Expanded(
@@ -189,22 +193,12 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                         TextWidget(
                                           text: widget.viewModel.race
                                               ?.sessions?[index]?.name,
-                                          style: Style.subtitle,
+                                          style: Style.paragraph,
                                           align: TextAlign.start,
                                         ),
                                       ],
                                     ),
                                   )
-                                ],
-                              ),
-                              const SpacingWidget(LayoutSize.size16),
-                              Row(
-                                children: const [
-                                  Icon(Icons.tune),
-                                  SpacingWidget(LayoutSize.size8),
-                                  TextWidget(
-                                      text: "session settings:",
-                                      style: Style.subtitle),
                                 ],
                               ),
                               const SpacingWidget(LayoutSize.size16),
@@ -237,9 +231,8 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SpacingWidget(LayoutSize.size16),
                 TextWidget(
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                     text:
                         "${widget.viewModel.race?.sessions?[sessionIndex]?.settings?[index]?.name}:"),
                 const SpacingWidget(LayoutSize.size8),
@@ -274,24 +267,25 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
               itemBuilder: (context, index) {
                 return CardWidget(
                   ready: true,
-                  child: Column(
-                    children: [
-                      const SpacingWidget(LayoutSize.size8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          TextWidget(
-                            text: widget.viewModel.raceStandings
-                                ?.classes?[index]?.className,
-                            style: Style.title,
-                            align: TextAlign.start,
-                          ),
-                        ],
-                      ),
-                      const SpacingWidget(LayoutSize.size8),
-                      classes(widget
-                          .viewModel.raceStandings?.classes?[index]?.sessions)
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            TextWidget(
+                              text: widget.viewModel.raceStandings
+                                  ?.classes?[index]?.className,
+                              style: Style.subtitle,
+                              align: TextAlign.start,
+                            ),
+                          ],
+                        ),
+                        const SpacingWidget(LayoutSize.size8),
+                        classes(widget.viewModel.raceStandings?.classes?[index]?.sessions)
+                      ],
+                    ),
                   ),
                 );
               },
@@ -319,11 +313,11 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
         const SpacingWidget(LayoutSize.size16),
         Row(
           children: [
-            const Icon(Icons.sports_score),
+            Icon(Icons.sports_score, color: Theme.of(context).chipTheme.selectedColor,),
             const SpacingWidget(LayoutSize.size8),
             TextWidget(
               text: sessions?.sessionName,
-              style: Style.subtitle,
+              style: Style.paragraph,
             ),
           ],
         ),
@@ -368,14 +362,13 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                   SizedBox(
                     child: Container(
                       height: 35,
-                      color:
-                      getPodiumColor(standing?.summary?.position).first,
+                      color: getPodiumColor(standing?.summary?.position).first,
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 16, right: 16, top: 8),
+                        padding:
+                            const EdgeInsets.only(left: 16, right: 16, top: 8),
                         child: TextWidget(
                           text: "${standing?.summary?.position}º",
-                          style: Style.subtitle,
+                          style: Style.paragraph,
                           color: getPodiumColor(standing?.summary?.position)
                               .second,
                         ),
@@ -391,7 +384,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                     TextWidget(
                       text:
                           "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
-                      style: Style.subtitle,
+                      style: Style.paragraph,
                       align: TextAlign.center,
                     ),
                   ],
@@ -405,13 +398,13 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                     padding: const EdgeInsets.all(8.0),
                     child: TextWidget(
                       text: "${standing?.summary?.points} pts",
-                      style: Style.subtitle,
+                      style: Style.paragraph,
                       align: TextAlign.start,
                     ),
                   ),
                 ],
               ),
-              const Icon(Icons.chevron_right_sharp),
+              Icon(Icons.chevron_right_sharp, color: Theme.of(context).chipTheme.selectedColor,),
               const SpacingWidget(LayoutSize.size4),
             ],
           ),
@@ -446,7 +439,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                 TextWidget(
                                   text:
                                       "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
-                                  style: Style.subtitle,
+                                  style: Style.paragraph,
                                   align: TextAlign.start,
                                 ),
                               ],
@@ -468,7 +461,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                   const SpacingWidget(LayoutSize.size8),
                                   TextWidget(
                                     text: "${standing?.team?.name}",
-                                    style: Style.subtitle,
+                                    style: Style.paragraph,
                                     align: TextAlign.start,
                                   ),
                                 ],
@@ -478,7 +471,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const TextWidget(
-                                    style: Style.subtitle, text: "Position"),
+                                    style: Style.paragraph, text: "Position"),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                     style: Style.paragraph,
@@ -490,7 +483,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const TextWidget(
-                                    style: Style.subtitle, text: "Points"),
+                                    style: Style.paragraph, text: "Points"),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                     style: Style.paragraph,
@@ -502,7 +495,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const TextWidget(
-                                    style: Style.subtitle, text: "Bonus"),
+                                    style: Style.paragraph, text: "Bonus"),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                     style: Style.paragraph,
@@ -514,7 +507,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const TextWidget(
-                                    style: Style.subtitle, text: "Penalty"),
+                                    style: Style.paragraph, text: "Penalty"),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                     style: Style.paragraph,
@@ -526,7 +519,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const TextWidget(
-                                    style: Style.subtitle,
+                                    style: Style.paragraph,
                                     text: "Fastest lap time"),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
@@ -544,7 +537,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   const TextWidget(
-                                      style: Style.subtitle, text: "Laps"),
+                                      style: Style.paragraph, text: "Laps"),
                                   const SpacingWidget(LayoutSize.size8),
                                   TextWidget(
                                       style: Style.paragraph,
@@ -562,7 +555,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: const [
                                       TextWidget(
-                                          style: Style.subtitle,
+                                          style: Style.paragraph,
                                           text: "Notes:"),
                                     ],
                                   ),

@@ -33,98 +33,96 @@ class EventRaceCollection extends StatelessWidget {
   }
 
   Widget raceCard(BuildContext context, RaceModel? race, int index) {
-    return Column(
-      children: [
-        CardWidget(
-          marked: true,
-          markWidth: 45,
-          markColor: Theme.of(context).chipTheme.backgroundColor,
-          ready: true,
-          onPressed: () {
-            onRaceCardPressed.call(race?.id ?? '');
-          },
-          child: Stack(
-            alignment: Alignment.center,
+    return CardWidget(
+      marked: true,
+      markWidth: 45,
+      markColor: Theme.of(context).hoverColor,
+      ready: true,
+      onPressed: () {
+        onRaceCardPressed.call(race?.id ?? '');
+      },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  SizedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextWidget(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                          text: index.toString(),
-                          style: Style.title),
-                    ),
-                  ),
-                  const SpacingWidget(LayoutSize.size16),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.sports_score),
-                            const SpacingWidget(LayoutSize.size8),
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextWidget(
-                                    text: race?.title,
-                                    style: Style.subtitle,
-                                    align: TextAlign.start,
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        const SpacingWidget(LayoutSize.size16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Icon(Icons.date_range),
-                            const SpacingWidget(LayoutSize.size8),
-                            TextWidget(
-                                text: formatDate(race?.date),
-                                style: Style.paragraph),
-                          ],
-                        ),
-                        const SpacingWidget(LayoutSize.size16),
-                        Row(
-                          children: [
-                            const Icon(Icons.schedule),
-                            const SpacingWidget(LayoutSize.size8),
-                            TextWidget(
-                                text: formatHour(race?.date),
-                                style: Style.paragraph),
-                          ],
-                        ),
-                        const SpacingWidget(LayoutSize.size8),
-                      ],
-                    ),
-                  )
-                ],
+              SizedBox(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextWidget(
+                      color: Theme.of(context).colorScheme.onBackground,
+                      text: index.toString(),
+                      style: Style.subtitle),
+                ),
               ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+              const SpacingWidget(LayoutSize.size24),
+              Expanded(
+                child: Column(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        SpacingWidget(LayoutSize.size16),
-                        Icon(
-                          Icons.chevron_right,
-                        ),
+                    const SpacingWidget(LayoutSize.size8),
+                    Row(
+                      children: [
+                        Icon(Icons.sports_score, color: Theme.of(context).chipTheme.selectedColor,),
+                        const SpacingWidget(LayoutSize.size8),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextWidget(
+                                text: race?.title,
+                                style: Style.paragraph,
+                                align: TextAlign.start,
+                              ),
+                            ],
+                          ),
+                        )
                       ],
-                    )
-                  ]),
+                    ),
+                    const SpacingWidget(LayoutSize.size8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(Icons.date_range, color: Theme.of(context).chipTheme.selectedColor,),
+                        const SpacingWidget(LayoutSize.size8),
+                        TextWidget(
+                            text: formatDate(race?.date),
+                            style: Style.paragraph),
+                      ],
+                    ),
+                    const SpacingWidget(LayoutSize.size8),
+                    Row(
+                      children: [
+                        Icon(Icons.schedule, color: Theme.of(context).chipTheme.selectedColor,),
+                        const SpacingWidget(LayoutSize.size8),
+                        TextWidget(
+                            text: formatHour(race?.date),
+                            style: Style.paragraph),
+                      ],
+                    ),
+                    const SpacingWidget(LayoutSize.size8),
+                  ],
+                ),
+              )
             ],
           ),
-        ),
-      ],
+          Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SpacingWidget(LayoutSize.size16),
+                    Icon(
+                      Icons.chevron_right,
+                      color: Theme.of(context).chipTheme.selectedColor,
+                    ),
+                  ],
+                )
+              ]),
+        ],
+      ),
     );
   }
 }

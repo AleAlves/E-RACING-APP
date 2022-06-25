@@ -123,7 +123,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
     return CardWidget(
       marked: true,
       markWidth: 45,
-      markColor: Theme.of(context).chipTheme.backgroundColor,
+      markColor: Theme.of(context).hoverColor,
       onPressed: () {
         widget.viewModel.setFlow(EventFlow.eventDetailInfo);
       },
@@ -141,7 +141,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                       const SpacingWidget(LayoutSize.size2),
                       Icon(
                         Icons.info_outline,
-                        color: Theme.of(context).colorScheme.onPrimary,
+                        color: Theme.of(context).colorScheme.onBackground,
                       ),
                       const Padding(
                         padding: EdgeInsets.all(24.0),
@@ -154,8 +154,16 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                   ),
                 ],
               ),
-              status(),
-              const Icon(Icons.chevron_right)
+              Row(
+                children: [
+                  status(),
+                  const SpacingWidget(LayoutSize.size8),
+                  Icon(
+                    Icons.chevron_right,
+                    color: Theme.of(context).chipTheme.selectedColor,
+                  ),
+                ],
+              )
             ],
           ),
         ],
@@ -166,12 +174,12 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   FloatActionButtonWidget<EventFlow>? adminOption() {
     return isEventHost(widget.viewModel.event)
         ? FloatActionButtonWidget<EventFlow>(
-      flow: EventFlow.manager,
-      icon: Icons.manage_accounts,
-      onPressed: (flow) {
-        widget.viewModel.setFlow(flow);
-      },
-    )
+            flow: EventFlow.manager,
+            icon: Icons.manage_accounts,
+            onPressed: (flow) {
+              widget.viewModel.setFlow(flow);
+            },
+          )
         : null;
   }
 
@@ -185,8 +193,8 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   Widget subscription() {
     return widget.viewModel.event?.joinable == true
         ? Column(
-          children: [
-            SubscriptionWidget(
+            children: [
+              SubscriptionWidget(
                 classes: widget.viewModel.event?.classes,
                 onSubscribe: (id) {
                   widget.viewModel.subscribe(id);
@@ -195,9 +203,9 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                   widget.viewModel.unsubscribe(id);
                 },
               ),
-            const SpacingWidget(LayoutSize.size16),
-          ],
-        )
+              const SpacingWidget(LayoutSize.size16),
+            ],
+          )
         : Container();
   }
 

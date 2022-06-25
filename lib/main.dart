@@ -56,10 +56,13 @@ class _ERacingAppState extends State<ERacingApp> {
       print('######## Dynamic Link #########');
       print(dynamicLinkData.link);
       print(dynamicLinkData.link.path);
-      Session.instance.setLeagueId(dynamicLinkData.link.queryParameters['leagueId']);
-      Session.instance.setEventId(dynamicLinkData.link.queryParameters['eventId']);
+      Session.instance
+          .setLeagueId(dynamicLinkData.link.queryParameters['leagueId']);
+      Session.instance
+          .setEventId(dynamicLinkData.link.queryParameters['eventId']);
       if (Session.instance.getBearerToken() != null) {
-        Modular.to.pushNamed(dynamicLinkData.link.queryParameters['route'] ?? '');
+        Modular.to
+            .pushNamed(dynamicLinkData.link.queryParameters['route'] ?? '');
       } else {
         Session.instance.setOnDeeplinkFlow(true);
         Session.instance.setDeeplink(Routes.event);
@@ -108,11 +111,13 @@ class _ERacingAppState extends State<ERacingApp> {
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
         colors: _myFlexScheme.light,
-        appBarElevation: 0.5,
-      ).copyWith(cardColor: const Color(0xFFF5F5F5)),
+        appBarElevation: 0.1,
+      ).copyWith(
+          cardColor: const Color(0xFFEFEFEF),
+          hoverColor: const Color(0xFFD7D7D7)),
       darkTheme: FlexThemeData.dark(
         colors: _myFlexScheme.dark,
-        appBarElevation: 2,
+        appBarElevation: 0.1,
       ).copyWith(cardColor: const Color(0xFF1C1C1C)),
       themeMode: themeMode,
       title: 'E-Racing',
