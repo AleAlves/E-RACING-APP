@@ -90,9 +90,8 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                           children: [
                             TextWidget(
                               text: clazz?.className,
-                              style: Style.subtitle,
-                              align: TextAlign.start,
-                              color: getClassColor(_index),
+                              style: Style.caption,
+                              align: TextAlign.start
                             ),
                           ],
                         ),
@@ -153,7 +152,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                         padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
                         child: TextWidget(
                           text: "$positionº",
-                          style: Style.subtitle,
+                          style: Style.paragraph,
                           color: getPodiumColor(position).second,
                         ),
                       ),
@@ -167,7 +166,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                       TextWidget(
                         text:
                             "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
-                        style: Style.subtitle,
+                        style: Style.paragraph,
                         align: TextAlign.center,
                       ),
                     ],
@@ -190,7 +189,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextWidget(
                         text: "${standing?.points} pts",
-                        style: Style.subtitle,
+                        style: Style.paragraph,
                         align: TextAlign.start,
                       ),
                     ),
@@ -234,49 +233,49 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                       const SpacingWidget(LayoutSize.size16),
                       TextWidget(
                         text: "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
-                        style: Style.subtitle,
+                        style: Style.paragraph,
                       ),
                     ],
                   ),
                   const SpacingWidget(LayoutSize.size16),
                   TextWidget(
                     text: "${standing?.bonus} bonus points",
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                   ),
                   const SpacingWidget(LayoutSize.size4),
                   TextWidget(
                     text: "${standing?.penalties} penalty points",
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                   ),
                   const SpacingWidget(LayoutSize.size4),
                   TextWidget(
                     text: "${standing?.wins} wins",
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                   ),
                   const SpacingWidget(LayoutSize.size4),
                   TextWidget(
                     text: "${standing?.top5} top 5",
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                   ),
                   const SpacingWidget(LayoutSize.size4),
                   TextWidget(
                     text: "${standing?.top5} top 10",
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                   ),
                   const SpacingWidget(LayoutSize.size4),
                   TextWidget(
                     text: "${standing?.bestPosition} place, best position",
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                   ),
                   const SpacingWidget(LayoutSize.size4),
                   TextWidget(
                     text: "${standing?.worstPosition} place, worst position",
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                   ),
                   const SpacingWidget(LayoutSize.size4),
                   TextWidget(
                     text: "${standing?.desqualifies} Desqualifications",
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                   ),
                   const SpacingWidget(LayoutSize.size48),
                 ],

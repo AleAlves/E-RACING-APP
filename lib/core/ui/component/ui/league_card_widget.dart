@@ -31,12 +31,9 @@ class LeagueCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
-      padding: const EdgeInsets.only(left: 4, right: 8, bottom: 8),
+      padding: EdgeInsets.zero,
       onPressed: onPressed,
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: content(context),
-      ),
+      child: content(context),
       ready: leagueTags != null,
     );
   }

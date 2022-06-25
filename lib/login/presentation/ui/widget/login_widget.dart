@@ -127,7 +127,7 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
           const SpacingWidget(LayoutSize.size48),
           const TextWidget(
             text: "Join us",
-            style: Style.description,
+            style: Style.paragraph,
           ),
           const SpacingWidget(LayoutSize.size16),
           ButtonWidget(

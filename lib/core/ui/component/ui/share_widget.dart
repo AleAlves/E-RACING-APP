@@ -38,7 +38,7 @@ class _ShareWidgetState extends State<ShareWidget> {
     return ButtonWidget(
         icon: Icons.share,
         enabled: true,
-        iconColor: widget.color ?? Theme.of(context).colorScheme.primary,
+        iconColor: widget.color ?? Theme.of(context).cardTheme.color,
         type: ButtonType.iconPure,
         onPressed: () {
           if (onSharing == false) {

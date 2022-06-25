@@ -56,15 +56,15 @@ class LeagueMemberCardWidget extends StatelessWidget {
               children: [
                 Row(children: [
                   TextWidget(
-                      text: member?.user.profile?.name, style: Style.subtitle),
+                      text: member?.user.profile?.name, style: Style.paragraph),
                   const SpacingWidget(LayoutSize.size4),
                   TextWidget(
-                      text: member?.user.profile?.surname, style: Style.subtitle),
+                      text: member?.user.profile?.surname, style: Style.paragraph),
                 ],),
                 const SpacingWidget(LayoutSize.size8),
                 TextWidget(
                     text: "Since ${formatDate(member?.membership.since)}",
-                    style: Style.label),
+                    style: Style.caption),
               ],
             )
           ],

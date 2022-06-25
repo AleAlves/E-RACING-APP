@@ -34,8 +34,7 @@ class _EventScreenState extends State<EventScreen> implements BaseScreen {
           title: const Text('Events'),
           actions: [
             ShareWidget(
-              model: viewModel.share,
-              color: Theme.of(context).colorScheme.secondary
+              model: viewModel.share
             )
           ],
         ),

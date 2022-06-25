@@ -61,21 +61,24 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                     width: MediaQuery.of(context).size.width / 5,
                     child: CardWidget(
                       ready: true,
+                      marked: true,
+                      markColor: Theme.of(context).chipTheme.backgroundColor,
+                      markWidth: MediaQuery.of(context).size.width / 10 - 8,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           TextWidget(
                             text: "${position.toString()}°",
-                            style: Style.label
+                            style: Style.caption
                           ),
                           const SpacingWidget(LayoutSize.size8),
                           Column(
                             children: [
                               TextWidget(
                                 text: score.first.toString(),
-                                style: Style.label,
+                                style: Style.caption,
                               ),
-                              const TextWidget(text: "pts", style: Style.label)
+                              const TextWidget(text: "pts", style: Style.caption)
                             ],
                           ),
                         ],
@@ -100,7 +103,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
   Widget editting() {
     return Column(
       children: const [
-        TextWidget(text: "Tap to edit", style: Style.description),
+        TextWidget(text: "Tap to edit", style: Style.paragraph),
         SpacingWidget(LayoutSize.size48)
       ],
     );

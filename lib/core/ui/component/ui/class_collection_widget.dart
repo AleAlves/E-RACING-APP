@@ -49,7 +49,7 @@ class _ClassCollectionWidgetState extends State<ClassCollectionWidget> {
                               padding: const EdgeInsets.only(
                                   left: 2.0, right: 2.0, top: 2.0, bottom: 2.0),
                               child: TextWidget(
-                                  text: tag?.name ?? '', style: Style.label),
+                                  text: tag?.name ?? '', style: Style.caption),
                             ),
                           ),
                         );

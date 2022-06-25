@@ -46,7 +46,7 @@ class _LoginStatusWidgetState extends State<LoginStatusWidget>
         children: [
           TextWidget(
               text: widget.viewModel.status?.message ?? '',
-              style: Style.description),
+              style: Style.paragraph),
           const SpacingWidget(LayoutSize.size16),
           ButtonWidget(
             enabled: true,

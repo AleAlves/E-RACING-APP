@@ -12,8 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../core/domain/share_model.dart';
-import '../../../core/ui/component/ui/share_widget.dart';
 import '../home_view_model.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -78,7 +76,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
                 children: [
                   Icon(
                     Icons.notifications,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).chipTheme.selectedColor,
                   ),
                   const SpacingWidget(LayoutSize.size8),
                   const TextWidget(text: "Notifications", style: Style.title),
@@ -99,7 +97,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
                               borderRadius: BorderRadius.circular(100.0),
                               child: TextWidget(
                                 text: widget.vm.notificationsCount,
-                                style: Style.description,
+                                style: Style.paragraph,
                                 color:
                                     Theme.of(context).colorScheme.onSecondary,
                                 weight: FontWeight.w900,

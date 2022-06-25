@@ -109,7 +109,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                           children: [
                             TextWidget(
                               text: clazz?.className,
-                              style: Style.label,
+                              style: Style.caption,
                               align: TextAlign.start,
                             ),
                           ],
@@ -160,7 +160,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                     const EdgeInsets.only(left: 16, right: 16, top: 8),
                     child: TextWidget(
                       text: "$positionº",
-                      style: Style.subtitle,
+                      style: Style.paragraph,
                       color: getPodiumColor(position).second,
                     ),
                   ),
@@ -180,7 +180,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                   TextWidget(
                     text:
                     "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                     align: TextAlign.center,
                   ),
                 ],
@@ -192,7 +192,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextWidget(
                     text: "${standing?.points} pts",
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                     align: TextAlign.start,
                   ),
                 ),

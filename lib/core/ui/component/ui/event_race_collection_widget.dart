@@ -88,7 +88,7 @@ class EventRaceCollection extends StatelessWidget {
                             const SpacingWidget(LayoutSize.size8),
                             TextWidget(
                                 text: formatDate(race?.date),
-                                style: Style.description),
+                                style: Style.paragraph),
                           ],
                         ),
                         const SpacingWidget(LayoutSize.size16),
@@ -98,7 +98,7 @@ class EventRaceCollection extends StatelessWidget {
                             const SpacingWidget(LayoutSize.size8),
                             TextWidget(
                                 text: formatHour(race?.date),
-                                style: Style.description),
+                                style: Style.paragraph),
                           ],
                         ),
                         const SpacingWidget(LayoutSize.size8),

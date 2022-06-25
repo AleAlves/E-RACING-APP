@@ -138,7 +138,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
                           const TextWidget(
                               text:
                                   "I did read the event's rules and settings and I agree",
-                              style: Style.label)
+                              style: Style.caption)
                         ],
                       ),
                     )

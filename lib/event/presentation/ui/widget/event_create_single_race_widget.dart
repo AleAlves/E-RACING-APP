@@ -200,7 +200,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
         const SpacingWidget(LayoutSize.size32),
         const TextWidget(
           text: "Banner: 1000x1000",
-          style: Style.description,
+          style: Style.paragraph,
           align: TextAlign.start,
         ),
       ],
@@ -221,7 +221,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
               },
             ),
             const TextWidget(
-                text: "Allow racing teams", style: Style.description)
+                text: "Allow racing teams", style: Style.paragraph)
           ],
         ),
         Row(
@@ -235,7 +235,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
               },
             ),
             const TextWidget(
-                text: "Allow members only", style: Style.description)
+                text: "Allow members only", style: Style.paragraph)
           ],
         )
       ],
@@ -359,7 +359,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
               },
             ),
             const TextWidget(
-                text: "Live broadcasting", style: Style.description),
+                text: "Live broadcasting", style: Style.paragraph),
           ],
         ),
         if (hasBroadcasting)

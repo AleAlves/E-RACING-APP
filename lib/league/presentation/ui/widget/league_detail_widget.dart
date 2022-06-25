@@ -130,7 +130,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
           padding: const EdgeInsets.all(16.0),
           child: TextWidget(
             text: widget.viewModel.league?.description ?? '',
-            style: Style.description,
+            style: Style.paragraph,
             align: TextAlign.justify,
           ),
         ),
@@ -158,7 +158,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
         const SpacingWidget(LayoutSize.size16),
         const Padding(
           padding: EdgeInsets.only(left: 8.0),
-          child: TextWidget(text: "Social media", style: Style.description),
+          child: TextWidget(text: "Social media", style: Style.paragraph),
         ),
         const SpacingWidget(LayoutSize.size4),
         SocialCollectionWidget(
@@ -177,7 +177,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
         const SpacingWidget(LayoutSize.size16),
         const Padding(
           padding: EdgeInsets.only(left: 8.0),
-          child: TextWidget(text: "Quick Access", style: Style.description),
+          child: TextWidget(text: "Quick Access", style: Style.paragraph),
         ),
         const SpacingWidget(LayoutSize.size4),
         ShortcutCollectionWidget(
@@ -226,7 +226,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
               const Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: TextWidget(
-                    text: "Your competitions", style: Style.description),
+                    text: "Your competitions", style: Style.paragraph),
               ),
               const SpacingWidget(LayoutSize.size4),
               ListView.builder(

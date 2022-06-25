@@ -80,7 +80,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                     padding: const EdgeInsets.all(4.0),
                     child: TextWidget(
                       text: widget.viewModel.event?.rules ?? '',
-                      style: Style.description,
+                      style: Style.paragraph,
                       align: TextAlign.justify,
                     ),
                   ),

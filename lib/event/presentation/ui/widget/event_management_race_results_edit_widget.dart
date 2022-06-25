@@ -425,7 +425,7 @@ class _EventManagementEditRaceResultsWidgetState
                                         ),
                                         const TextWidget(
                                             text: "Didn't finish the race",
-                                            style: Style.description)
+                                            style: Style.paragraph)
                                       ],
                                     ),
                                     const SpacingWidget(LayoutSize.size8),
@@ -445,7 +445,7 @@ class _EventManagementEditRaceResultsWidgetState
                                         ),
                                         const TextWidget(
                                             text: "Desqualified",
-                                            style: Style.description)
+                                            style: Style.paragraph)
                                       ],
                                     ),
                                   ],

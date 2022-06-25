@@ -59,7 +59,7 @@ class _SwitchWidgetState extends State<SwitchWidget> {
                 text: widget.enabled == true
                     ? widget.positiveLabel
                     : widget.negativeLabel,
-                style: Style.description),
+                style: Style.paragraph),
             Switch(
               activeColor: Theme.of(context).colorScheme.primary,
               onChanged: (bool value) {

@@ -97,7 +97,7 @@ class EventRaceResultsCollection extends StatelessWidget {
                             const SpacingWidget(LayoutSize.size8),
                             TextWidget(
                                 text: formatDate(race?.date),
-                                style: Style.description),
+                                style: Style.paragraph),
                           ],
                         ),
                       ],

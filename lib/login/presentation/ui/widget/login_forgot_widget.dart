@@ -68,7 +68,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
               child: Column(
                 children: [
                   const TextWidget(
-                      text: "Recuperação de senha", style: Style.description),
+                      text: "Recuperação de senha", style: Style.paragraph),
                   const SpacingWidget(LayoutSize.size24),
                   InputTextWidget(
                       enabled: true,

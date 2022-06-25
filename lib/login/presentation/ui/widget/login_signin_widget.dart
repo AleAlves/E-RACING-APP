@@ -68,7 +68,7 @@ class _LoginSigninWidgetState extends State<LoginSigninWidget>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const TextWidget(text: "Create Account", style: Style.description),
+          const TextWidget(text: "Create Account", style: Style.paragraph),
           const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
               enabled: true,

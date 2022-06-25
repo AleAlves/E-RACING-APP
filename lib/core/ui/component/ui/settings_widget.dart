@@ -47,8 +47,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextWidget(text: "${score?.name}:", style: Style.description),
-                              TextWidget(text: score?.value, style: Style.description)
+                              TextWidget(text: "${score?.name}:", style: Style.paragraph),
+                              TextWidget(text: score?.value, style: Style.paragraph)
                             ],
                           ),
                           const SpacingWidget(LayoutSize.size16),

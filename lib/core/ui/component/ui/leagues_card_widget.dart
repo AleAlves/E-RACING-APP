@@ -29,7 +29,7 @@ class LeaguesCardWidget extends StatelessWidget {
             children: [
               Icon(
                 Icons.emoji_events_sharp,
-                color: Theme.of(context).chipTheme.backgroundColor,
+                color: Theme.of(context).chipTheme.selectedColor,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -47,7 +47,7 @@ class LeaguesCardWidget extends StatelessWidget {
                     padding: EdgeInsets.only(left: 16),
                     child: TextWidget(
                       text: "Racing communities",
-                      style: Style.description,
+                      style: Style.paragraph,
                     ),
                   ),
                 ],

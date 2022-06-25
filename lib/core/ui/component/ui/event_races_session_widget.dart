@@ -87,12 +87,12 @@ class _EventCreateRaceSessionWidgetState
                               TextWidget(
                                   text:
                                       "${widget.model!.sessions![index]!.settings![settingsIndex]?.name}:",
-                                  style: Style.description),
+                                  style: Style.paragraph),
                               const SpacingWidget(LayoutSize.size8),
                               TextWidget(
                                   text:
                                       "${widget.model!.sessions![index]!.settings![settingsIndex]?.value}",
-                                  style: Style.description),
+                                  style: Style.paragraph),
                             ],
                           );
                         },
@@ -261,7 +261,7 @@ class _EventCreateRaceSessionWidgetState
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const TextWidget(text: "Setting", style: Style.description),
+                  const TextWidget(text: "Setting", style: Style.paragraph),
                   const SpacingWidget(LayoutSize.size16),
                   Row(
                     children: [

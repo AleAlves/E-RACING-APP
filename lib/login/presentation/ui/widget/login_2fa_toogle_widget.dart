@@ -42,7 +42,7 @@ class _LoginToogle2FAWidgetState extends State<LoginToogle2FAWidget>
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const TextWidget(
-            text: "Ativar/desativar 2FA", style: Style.description),
+            text: "Ativar/desativar 2FA", style: Style.paragraph),
         Switch(
           value: isSwitched,
           onChanged: (value) {

@@ -68,7 +68,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         child: TextWidget(
           text: widget.label ?? '',
           color: widget.labelColor,
-          style: Style.label,
+          style: Style.caption,
         ),
       ),
     );
@@ -233,7 +233,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         const SpacingWidget(LayoutSize.size8),
         widget.label == null
             ? Container()
-            : TextWidget(text: widget.label ?? '', style: Style.label)
+            : TextWidget(text: widget.label ?? '', style: Style.caption)
       ],
     );
   }
@@ -261,7 +261,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         const SpacingWidget(LayoutSize.size8),
         widget.label == null
             ? Container()
-            : TextWidget(text: widget.label ?? '', style: Style.label)
+            : TextWidget(text: widget.label ?? '', style: Style.caption)
       ],
     );
   }

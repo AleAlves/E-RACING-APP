@@ -39,7 +39,7 @@ confirmationDialogExt(
                                 },
                               ),
                               TextWidget(
-                                  text: consentMessage, style: Style.label),
+                                  text: consentMessage, style: Style.caption),
                               const SpacingWidget(LayoutSize.size48),
                             ],
                           ),

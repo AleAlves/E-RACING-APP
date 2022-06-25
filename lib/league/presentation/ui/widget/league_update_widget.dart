@@ -254,7 +254,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
             ),
             const TextWidget(
               text: "Thumbnail: 100x100",
-              style: Style.label,
+              style: Style.caption,
               align: TextAlign.start,
             )
           ],
@@ -301,7 +301,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
         ),
         const TextWidget(
           text: "Banner: 700x100",
-          style: Style.label,
+          style: Style.caption,
           align: TextAlign.start,
         ),
       ],

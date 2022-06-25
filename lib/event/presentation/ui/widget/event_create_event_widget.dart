@@ -217,7 +217,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
         const SpacingWidget(LayoutSize.size32),
         const TextWidget(
           text: "Banner: 1000x1000",
-          style: Style.description,
+          style: Style.paragraph,
           align: TextAlign.start,
         ),
       ],
@@ -238,7 +238,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
               },
             ),
             const TextWidget(
-                text: "Allow racing teams", style: Style.description)
+                text: "Allow racing teams", style: Style.paragraph)
           ],
         ),
         Row(
@@ -252,7 +252,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
               },
             ),
             const TextWidget(
-                text: "Allow members only", style: Style.description)
+                text: "Allow members only", style: Style.paragraph)
           ],
         )
       ],

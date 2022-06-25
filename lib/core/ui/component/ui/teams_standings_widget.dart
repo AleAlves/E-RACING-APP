@@ -91,7 +91,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                         padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
                         child: TextWidget(
                           text: "$positionº",
-                          style: Style.subtitle,
+                          style: Style.paragraph,
                           color: getPodiumColor(position).second,
                         ),
                       ),
@@ -106,7 +106,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                         child: TextWidget(
                           text:
                           "${teamStanding?.team?.name}",
-                          style: Style.subtitle,
+                          style: Style.paragraph,
                           align: TextAlign.center,
                         ),
                       ),
@@ -119,7 +119,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextWidget(
                         text: "${teamStanding?.points} pts",
-                        style: Style.subtitle,
+                        style: Style.paragraph,
                         align: TextAlign.start,
                       ),
                     ),
@@ -158,7 +158,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                   const SpacingWidget(LayoutSize.size32),
                   TextWidget(
                     text: "${teamStanding?.team?.name}",
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                   ),
                 ],
               ),
@@ -168,7 +168,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                   const SpacingWidget(LayoutSize.size32),
                   TextWidget(
                     text: "${teamStanding?.points} pts",
-                    style: Style.subtitle,
+                    style: Style.paragraph,
                   ),
                 ],
               ),
@@ -205,7 +205,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
             const SpacingWidget(LayoutSize.size8),
             TextWidget(
               text: "${users?[index]?.profile?.name} ${users?[index]?.profile?.surname}",
-              style: Style.subtitle,
+              style: Style.paragraph,
             ),
           ],
         );

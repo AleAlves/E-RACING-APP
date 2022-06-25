@@ -29,10 +29,7 @@ class EventCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
-      marked: true,
-      markWidth: 45,
       padding: EdgeInsets.zero,
-      markColor: Theme.of(context).chipTheme.backgroundColor,
       child: content(context),
       onPressed: onPressed,
       ready: true,
@@ -42,18 +39,23 @@ class EventCardWidget extends StatelessWidget {
   Widget content(BuildContext context) {
     return Stack(
       children: [
+        Positioned(
+          top: 0.0,
+          right: 0.0,
+          child: ShareWidget(
+            model: ShareModel(
+                route: Routes.event,
+                leagueId: event?.leagueId,
+                eventId: event?.id,
+                message: "Check out this event",
+                name: event?.title),
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ShareWidget(
-              model: ShareModel(
-                  route: Routes.event,
-                  leagueId: event?.leagueId,
-                  eventId: event?.id,
-                  message: "Check out this event",
-                  name: event?.title),
-            ),
-            const SpacingWidget(LayoutSize.size16),
+            const SpacingWidget(LayoutSize.size8),
             progress(context),
             const SpacingWidget(LayoutSize.size16),
             Expanded(
@@ -81,14 +83,18 @@ class EventCardWidget extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.chevron_right,
-              ),
-            )
           ],
         ),
+        const Positioned(
+            bottom: 0.0,
+            top: 0.0,
+            right: 0.0,
+            child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Icon(
+            Icons.chevron_right,
+          ),
+        ))
       ],
     );
   }
@@ -245,7 +251,7 @@ class EventCardWidget extends StatelessWidget {
             const SpacingWidget(LayoutSize.size8),
             const TextWidget(
               text: "Championship",
-              style: Style.description,
+              style: Style.paragraph,
               align: TextAlign.start,
             )
           ],
@@ -257,7 +263,7 @@ class EventCardWidget extends StatelessWidget {
             const SpacingWidget(LayoutSize.size8),
             const TextWidget(
               text: "Race",
-              style: Style.description,
+              style: Style.paragraph,
               align: TextAlign.start,
             )
           ],
@@ -282,7 +288,7 @@ class EventCardWidget extends StatelessWidget {
         const SpacingWidget(LayoutSize.size8),
         TextWidget(
           text: '$entries/$max',
-          style: Style.description,
+          style: Style.paragraph,
           align: TextAlign.start,
         ),
       ],

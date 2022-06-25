@@ -53,7 +53,7 @@ class _LoginOtpQRWidgetState extends State<LoginOtpQRWidget>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const TextWidget(text: "Scaneie o QR", style: Style.description),
+        const TextWidget(text: "Scaneie o QR", style: Style.paragraph),
         const SpacingWidget(LayoutSize.size8),
         QrImage(
           data: widget.viewModel.otpQR ?? '',

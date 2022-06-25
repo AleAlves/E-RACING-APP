@@ -76,7 +76,7 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
         children: [
           const TextWidget(
               text: "Use the code we've sent you by email",
-              style: Style.description),
+              style: Style.paragraph),
           const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
               enabled: true,

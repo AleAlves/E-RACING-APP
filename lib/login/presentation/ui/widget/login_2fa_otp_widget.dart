@@ -54,7 +54,7 @@ class _Login2FAWidgetState extends State<Login2FAWidget>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const TextWidget(text: "Second Step Verification", style: Style.description),
+        const TextWidget(text: "Second Step Verification", style: Style.paragraph),
         const SpacingWidget(LayoutSize.size16),
         OtpTextField(
           autoFocus: true,

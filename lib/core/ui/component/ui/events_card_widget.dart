@@ -29,7 +29,7 @@ class EventsCardWidget extends StatelessWidget {
             children: [
               Icon(
                 Icons.sports_score_outlined,
-                color: Theme.of(context).chipTheme.backgroundColor,
+                color: Theme.of(context).chipTheme.selectedColor,
                 size: 32,
               ),
               Column(
@@ -48,7 +48,7 @@ class EventsCardWidget extends StatelessWidget {
                     padding: EdgeInsets.only(left: 16),
                     child: TextWidget(
                       text: "Drivers needed",
-                      style: Style.description,
+                      style: Style.paragraph,
                     ),
                   ),
                 ],

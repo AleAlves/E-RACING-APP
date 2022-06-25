@@ -31,14 +31,14 @@ class _StepWidgetState extends State<StepWidget> {
       children: [
         TextWidget(
           text: widget.title,
-          style: Style.description,
+          style: Style.paragraph,
         ),
         widget.pending
             ? Row(
                 children: const [
                   TextWidget(
                     text: "Pending",
-                    style: Style.label,
+                    style: Style.caption,
                   ),
                   SpacingWidget(LayoutSize.size8),
                   Icon(

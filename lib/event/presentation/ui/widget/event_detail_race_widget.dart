@@ -135,7 +135,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                     const SpacingWidget(LayoutSize.size8),
                     TextWidget(
                         text: formatDate(widget.viewModel.race?.date),
-                        style: Style.description),
+                        style: Style.paragraph),
                   ],
                 ),
               ],
@@ -244,7 +244,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                         "${widget.viewModel.race?.sessions?[sessionIndex]?.settings?[index]?.name}:"),
                 const SpacingWidget(LayoutSize.size8),
                 TextWidget(
-                    style: Style.description,
+                    style: Style.paragraph,
                     text: widget.viewModel.race?.sessions?[sessionIndex]
                         ?.settings?[index]?.name),
               ],
@@ -481,7 +481,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                     style: Style.subtitle, text: "Position"),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
-                                    style: Style.description,
+                                    style: Style.paragraph,
                                     text: "${standing?.summary?.position} th"),
                               ],
                             ),
@@ -493,7 +493,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                     style: Style.subtitle, text: "Points"),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
-                                    style: Style.description,
+                                    style: Style.paragraph,
                                     text: "${standing?.summary?.points} pts"),
                               ],
                             ),
@@ -505,7 +505,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                     style: Style.subtitle, text: "Bonus"),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
-                                    style: Style.description,
+                                    style: Style.paragraph,
                                     text: "${standing?.summary?.bonus} pts"),
                               ],
                             ),
@@ -517,7 +517,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                     style: Style.subtitle, text: "Penalty"),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
-                                    style: Style.description,
+                                    style: Style.paragraph,
                                     text: "${standing?.summary?.penalty} pts"),
                               ],
                             ),
@@ -530,7 +530,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                     text: "Fastest lap time"),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
-                                    style: Style.description,
+                                    style: Style.paragraph,
                                     text:
                                         "${standing?.summary?.fastestLapTime}"),
                               ],
@@ -547,7 +547,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                       style: Style.subtitle, text: "Laps"),
                                   const SpacingWidget(LayoutSize.size8),
                                   TextWidget(
-                                      style: Style.description,
+                                      style: Style.paragraph,
                                       text: "${standing?.summary?.laps}"),
                                 ],
                               ),
@@ -568,7 +568,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                                   ),
                                   const SpacingWidget(LayoutSize.size8),
                                   TextWidget(
-                                      style: Style.description,
+                                      style: Style.paragraph,
                                       text: "${standing?.summary?.notes}"),
                                 ],
                               ),
@@ -579,7 +579,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                               TextWidget(
                                   color:
                                       Theme.of(context).colorScheme.secondary,
-                                  style: Style.label,
+                                  style: Style.caption,
                                   text: "Disqualified"),
                             if (standing?.summary?.didntFinish == null ||
                                 standing?.summary?.didntFinish == false)
@@ -588,7 +588,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                               TextWidget(
                                   color:
                                       Theme.of(context).colorScheme.secondary,
-                                  style: Style.label,
+                                  style: Style.caption,
                                   text: "DNF"),
                           ],
                         ),

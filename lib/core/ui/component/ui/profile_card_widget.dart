@@ -35,7 +35,7 @@ class ProfileCardWidget extends StatelessWidget {
                   Icon(
                     Icons.account_circle,
                     size: 48,
-                    color: Theme.of(context).chipTheme.backgroundColor,
+                    color: Theme.of(context).chipTheme.selectedColor,
                   ),
                   const SpacingWidget(LayoutSize.size8),
                   Column(
@@ -50,7 +50,7 @@ class ProfileCardWidget extends StatelessWidget {
                       const SpacingWidget(LayoutSize.size8),
                       TextWidget(
                         text: profileModel?.email,
-                        style: Style.description,
+                        style: Style.paragraph,
                       ),
                       const SpacingWidget(LayoutSize.size16),
                     ],

@@ -249,7 +249,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
         const SpacingWidget(LayoutSize.size32),
         const TextWidget(
           text: "Banner: 1000x1000",
-          style: Style.description,
+          style: Style.paragraph,
           align: TextAlign.start,
         ),
       ],

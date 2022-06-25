@@ -228,7 +228,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
             ),
             const TextWidget(
               text: "Thumbnail: 100x100",
-              style: Style.label,
+              style: Style.caption,
               align: TextAlign.start,
             )
           ],
@@ -271,7 +271,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
         ),
         const TextWidget(
           text: "Banner: 700x100",
-          style: Style.label,
+          style: Style.caption,
           align: TextAlign.start,
         ),
       ],
@@ -407,7 +407,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
           },
         ),
         const TextWidget(
-            text: "I read and accept the terms", style: Style.label)
+            text: "I read and accept the terms", style: Style.caption)
       ],
     );
   }

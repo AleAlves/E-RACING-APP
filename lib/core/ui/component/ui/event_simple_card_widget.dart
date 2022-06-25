@@ -84,7 +84,7 @@ class EventSimpleCardWidget extends StatelessWidget {
             const SpacingWidget(LayoutSize.size8),
             const TextWidget(
               text: "Championship",
-              style: Style.description,
+              style: Style.paragraph,
               align: TextAlign.start,
             )
           ],
@@ -96,7 +96,7 @@ class EventSimpleCardWidget extends StatelessWidget {
             const SpacingWidget(LayoutSize.size8),
             const TextWidget(
               text: "Race",
-              style: Style.description,
+              style: Style.paragraph,
               align: TextAlign.start,
             )
           ],

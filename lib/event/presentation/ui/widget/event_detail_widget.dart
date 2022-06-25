@@ -138,6 +138,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                 children: [
                   Row(
                     children: [
+                      const SpacingWidget(LayoutSize.size2),
                       Icon(
                         Icons.info_outline,
                         color: Theme.of(context).colorScheme.onPrimary,

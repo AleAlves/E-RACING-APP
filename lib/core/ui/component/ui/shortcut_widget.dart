@@ -40,7 +40,7 @@ class ShortcutWidget extends StatelessWidget {
             children: [
               TextWidget(
                 text: shortcut?.title ?? "",
-                style: Style.description,
+                style: Style.paragraph,
               ),
               const SpacingWidget(LayoutSize.size8),
               const Icon(
@@ -74,7 +74,7 @@ class ShortcutWidget extends StatelessWidget {
             children: [
               TextWidget(
                 text: shortcut?.title ?? "",
-                style: Style.description,
+                style: Style.paragraph,
               ),
               const SpacingWidget(LayoutSize.size8),
               const Icon(

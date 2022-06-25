@@ -81,12 +81,12 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                                 TextWidget(
                                     text:
                                     "(${team?.crew?.length.toString()}/${widget.maxCrew.toString()})",
-                                    style: Style.description),
+                                    style: Style.paragraph),
                               ],
                             ),
                           ),
                           TextWidget(
-                              text: "${team?.name}", style: Style.description),
+                              text: "${team?.name}", style: Style.paragraph),
                           const Icon(Icons.chevron_right)
                         ],
                       ),
@@ -143,7 +143,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                                 const SpacingWidget(LayoutSize.size16),
                                 TextWidget(
                                     text: getName(crew),
-                                    style: Style.description),
+                                    style: Style.paragraph),
                               ],
                             ),
                           );

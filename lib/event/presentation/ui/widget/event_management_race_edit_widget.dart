@@ -197,7 +197,7 @@ class _EventManagementEditRaceWidgetState
         const SpacingWidget(LayoutSize.size32),
         const TextWidget(
           text: "Banner: 1000x1000",
-          style: Style.description,
+          style: Style.paragraph,
           align: TextAlign.start,
         ),
       ],
@@ -241,7 +241,7 @@ class _EventManagementEditRaceWidgetState
   Widget broadcasting() {
     return Column(
       children: [
-        const TextWidget(text: "Settings", style: Style.description),
+        const TextWidget(text: "Settings", style: Style.paragraph),
         Row(
           children: [
             Checkbox(
@@ -253,7 +253,7 @@ class _EventManagementEditRaceWidgetState
               },
             ),
             const TextWidget(
-                text: "Live broadcasting", style: Style.description),
+                text: "Live broadcasting", style: Style.paragraph),
           ],
         ),
         if (model?.hasBroadcasting == true)
