@@ -113,12 +113,16 @@ class _ERacingAppState extends State<ERacingApp> {
         colors: _myFlexScheme.light,
         appBarElevation: 0.1,
       ).copyWith(
+          iconTheme: const IconThemeData(color: Color(0xFFA9A9A9)),
           cardColor: const Color(0xFFEFEFEF),
-          hoverColor: const Color(0xFFD7D7D7)),
+          focusColor: const Color(0xFFD7D7D7)),
       darkTheme: FlexThemeData.dark(
         colors: _myFlexScheme.dark,
         appBarElevation: 0.1,
-      ).copyWith(cardColor: const Color(0xFF1C1C1C)),
+      ).copyWith(
+          iconTheme: const IconThemeData(color: Color(0xFF545454)),
+          cardColor: const Color(0xFF1C1C1C),
+          focusColor: const Color(0xFF2C2A2A)),
       themeMode: themeMode,
       title: 'E-Racing',
       routeInformationParser: Modular.routeInformationParser,

@@ -6,6 +6,8 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/event/data/event_standings_model.dart';
 import 'package:flutter/material.dart';
 
+import 'icon_widget.dart';
+
 class FullStandingsWidget extends StatefulWidget {
   final EventStandingsModel? standings;
   final Function(String) onRaceCardPressed;
@@ -194,7 +196,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                     ),
                   ],
                 ),
-                Icon(Icons.chevron_right_sharp, color: Theme.of(context).chipTheme.selectedColor,),
+                const IconWidget(icon: Icons.chevron_right),
                 const SpacingWidget(LayoutSize.size4),
               ],
             ),

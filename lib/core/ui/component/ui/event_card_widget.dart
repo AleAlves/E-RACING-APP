@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/share_model.dart';
 import '../../../tools/routes.dart';
+import 'icon_widget.dart';
 import 'spacing_widget.dart';
 import 'class_collection_widget.dart';
 
@@ -86,16 +87,13 @@ class EventCardWidget extends StatelessWidget {
             ),
           ],
         ),
-        Positioned(
+        const Positioned(
             bottom: 0.0,
             top: 0.0,
             right: 0.0,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.chevron_right,
-                color: Theme.of(context).chipTheme.selectedColor,
-              ),
+              padding: EdgeInsets.all(8.0),
+              child: IconWidget(icon: Icons.chevron_right),
             ))
       ],
     );
@@ -122,7 +120,7 @@ class EventCardWidget extends StatelessWidget {
       size: 18,
       color: Colors.transparent,
     );
-    var track = Theme.of(context).chipTheme.selectedColor;
+    var track = Theme.of(context).focusColor;
     var bar1Width = 3.0;
     var bar2Width = 3.0;
 
@@ -197,12 +195,12 @@ class EventCardWidget extends StatelessWidget {
             children: [
               idle,
               Icon(Icons.radio_button_unchecked,
-                  size: 18, color: Theme.of(context).chipTheme.selectedColor),
+                  size: 18, color: Theme.of(context).focusColor),
             ],
           ),
           Container(
               decoration: BoxDecoration(
-                  color: Theme.of(context).chipTheme.selectedColor,
+                  color: Theme.of(context).focusColor,
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
               width: bar1Width,
               height: 15),
@@ -210,12 +208,12 @@ class EventCardWidget extends StatelessWidget {
             children: [
               ready,
               Icon(Icons.radio_button_unchecked,
-                  size: 18, color: Theme.of(context).chipTheme.selectedColor),
+                  size: 18, color: Theme.of(context).focusColor),
             ],
           ),
           Container(
               decoration: BoxDecoration(
-                  color: Theme.of(context).chipTheme.selectedColor,
+                  color: Theme.of(context).focusColor,
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
               width: bar1Width,
               height: 15),
@@ -223,12 +221,12 @@ class EventCardWidget extends StatelessWidget {
             children: [
               onGoing,
               Icon(Icons.radio_button_unchecked,
-                  size: 18, color: Theme.of(context).chipTheme.selectedColor),
+                  size: 18, color: Theme.of(context).focusColor),
             ],
           ),
           Container(
               decoration: BoxDecoration(
-                  color: Theme.of(context).chipTheme.selectedColor,
+                  color: Theme.of(context).focusColor,
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
               width: bar2Width,
               height: 15),
@@ -236,7 +234,7 @@ class EventCardWidget extends StatelessWidget {
             children: [
               finished,
               Icon(Icons.radio_button_unchecked,
-                  size: 18, color: Theme.of(context).chipTheme.selectedColor),
+                  size: 18, color: Theme.of(context).focusColor),
             ],
           ),
         ],

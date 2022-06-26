@@ -7,6 +7,7 @@ import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
+import 'icon_widget.dart';
 
 class EventRaceCollection extends StatelessWidget {
   final List<RaceModel?>? races;
@@ -21,22 +22,25 @@ class EventRaceCollection extends StatelessWidget {
   Widget build(BuildContext context) => raceList(context);
 
   Widget raceList(BuildContext context) {
-    return Column(children: racesSteps(context),);
+    return Column(
+      children: racesSteps(context),
+    );
   }
 
   List<Widget> racesSteps(BuildContext context) {
     var index = 0;
-    return races?.map((race){
-      ++index;
-      return raceCard(context, race, index);
-    }).toList() ?? [];
+    return races?.map((race) {
+          ++index;
+          return raceCard(context, race, index);
+        }).toList() ??
+        [];
   }
 
   Widget raceCard(BuildContext context, RaceModel? race, int index) {
     return CardWidget(
       marked: true,
       markWidth: 45,
-      markColor: Theme.of(context).hoverColor,
+      markColor: Theme.of(context).focusColor,
       ready: true,
       onPressed: () {
         onRaceCardPressed.call(race?.id ?? '');
@@ -62,7 +66,10 @@ class EventRaceCollection extends StatelessWidget {
                     const SpacingWidget(LayoutSize.size8),
                     Row(
                       children: [
-                        Icon(Icons.sports_score, color: Theme.of(context).chipTheme.selectedColor,),
+                        Icon(
+                          Icons.sports_score,
+                          color: Theme.of(context).focusColor,
+                        ),
                         const SpacingWidget(LayoutSize.size8),
                         Expanded(
                           child: Column(
@@ -83,7 +90,10 @@ class EventRaceCollection extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(Icons.date_range, color: Theme.of(context).chipTheme.selectedColor,),
+                        Icon(
+                          Icons.date_range,
+                          color: Theme.of(context).focusColor,
+                        ),
                         const SpacingWidget(LayoutSize.size8),
                         TextWidget(
                             text: formatDate(race?.date),
@@ -93,7 +103,10 @@ class EventRaceCollection extends StatelessWidget {
                     const SpacingWidget(LayoutSize.size8),
                     Row(
                       children: [
-                        Icon(Icons.schedule, color: Theme.of(context).chipTheme.selectedColor,),
+                        Icon(
+                          Icons.schedule,
+                          color: Theme.of(context).focusColor,
+                        ),
                         const SpacingWidget(LayoutSize.size8),
                         TextWidget(
                             text: formatHour(race?.date),
@@ -112,12 +125,9 @@ class EventRaceCollection extends StatelessWidget {
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SpacingWidget(LayoutSize.size16),
-                    Icon(
-                      Icons.chevron_right,
-                      color: Theme.of(context).chipTheme.selectedColor,
-                    ),
+                  children: const [
+                    SpacingWidget(LayoutSize.size16),
+                    IconWidget(icon: Icons.chevron_right),
                   ],
                 )
               ]),

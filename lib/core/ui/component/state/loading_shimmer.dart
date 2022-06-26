@@ -20,7 +20,7 @@ class LoadingShimmer extends StatelessWidget {
             height: height ?? 75,
           ),
         ),
-        baseColor: Theme.of(context).hoverColor,
-        highlightColor: Colors.white24);
+        baseColor: Theme.of(context).cardColor,
+        highlightColor:Theme.of(context).hoverColor);
   }
 }

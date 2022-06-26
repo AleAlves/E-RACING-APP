@@ -70,7 +70,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                   Row(
                     children: [
                       Icon(Icons.sports,
-                          color: Theme.of(context).chipTheme.selectedColor),
+                          color: Theme.of(context).focusColor),
                       const SpacingWidget(LayoutSize.size8),
                       const TextWidget(
                           text: "Rules",
@@ -110,7 +110,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                     children: [
                       Icon(
                         Icons.group,
-                        color: Theme.of(context).chipTheme.selectedColor,
+                        color: Theme.of(context).focusColor,
                       ),
                       const SpacingWidget(LayoutSize.size8),
                       const TextWidget(
@@ -178,7 +178,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
               children: [
                 Icon(
                   Icons.format_list_numbered,
-                  color: Theme.of(context).chipTheme.selectedColor,
+                  color: Theme.of(context).focusColor,
                 ),
                 const SpacingWidget(LayoutSize.size8),
                 const TextWidget(
@@ -215,7 +215,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                     children: [
                       Icon(
                         Icons.tune,
-                        color: Theme.of(context).chipTheme.selectedColor,
+                        color: Theme.of(context).focusColor,
                       ),
                       const SpacingWidget(LayoutSize.size8),
                       const TextWidget(

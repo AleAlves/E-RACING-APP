@@ -12,6 +12,7 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/data/race_standings_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import '../../../../core/ui/component/ui/icon_widget.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -120,7 +121,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
               children: [
                 Row(
                   children: [
-                    Icon(Icons.schedule, color: Theme.of(context).chipTheme.selectedColor),
+                    Icon(Icons.schedule, color: Theme.of(context).focusColor),
                     const SpacingWidget(LayoutSize.size8),
                     TextWidget(
                         text: formatHour(widget.viewModel.race?.date),
@@ -131,7 +132,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Icon(Icons.date_range, color: Theme.of(context).chipTheme.selectedColor),
+                    Icon(Icons.date_range, color: Theme.of(context).focusColor),
                     const SpacingWidget(LayoutSize.size8),
                     TextWidget(
                         text: formatDate(widget.viewModel.race?.date),
@@ -159,7 +160,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
               CardWidget(
                 marked: true,
                 markWidth: 40,
-                markColor: Theme.of(context).hoverColor,
+                markColor: Theme.of(context).focusColor,
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 ready: true,
                 onPressed: () {},
@@ -167,7 +168,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                   alignment: Alignment.center,
                   children: [
                     Positioned(
-                      child: Icon(Icons.tune, color: Theme.of(context).chipTheme.selectedColor),
+                      child: Icon(Icons.tune, color: Theme.of(context).focusColor),
                       top: 0,
                       bottom: 0,
                       right: 0,
@@ -313,7 +314,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
         const SpacingWidget(LayoutSize.size16),
         Row(
           children: [
-            Icon(Icons.sports_score, color: Theme.of(context).chipTheme.selectedColor,),
+            Icon(Icons.sports_score, color: Theme.of(context).focusColor,),
             const SpacingWidget(LayoutSize.size8),
             TextWidget(
               text: sessions?.sessionName,
@@ -404,7 +405,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                   ),
                 ],
               ),
-              Icon(Icons.chevron_right_sharp, color: Theme.of(context).chipTheme.selectedColor,),
+              const IconWidget(icon: Icons.chevron_right),
               const SpacingWidget(LayoutSize.size4),
             ],
           ),

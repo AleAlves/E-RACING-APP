@@ -35,7 +35,7 @@ class InputTextWidget extends StatelessWidget {
         border = InputDecoration(
           labelText: label,
           filled: true,
-          fillColor: Theme.of(context).hoverColor,
+          fillColor: Theme.of(context).focusColor,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
             borderSide: const BorderSide(

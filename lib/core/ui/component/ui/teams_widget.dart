@@ -8,6 +8,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
 
+import 'icon_widget.dart';
 import 'spacing_widget.dart';
 import 'button_widget.dart';
 
@@ -87,7 +88,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                           ),
                           TextWidget(
                               text: "${team?.name}", style: Style.paragraph),
-                          const Icon(Icons.chevron_right)
+                          const IconWidget(icon: Icons.chevron_right),
                         ],
                       ),
                     );

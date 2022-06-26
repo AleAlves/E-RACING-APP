@@ -41,7 +41,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               children: widget.settings!
                   .map((score) {
                     return Padding(
-                      padding: const EdgeInsets.only(left: 48, right: 16),
+                      padding: const EdgeInsets.only(left: 8, right: 8),
                       child: Column(
                         children: [
                           Row(

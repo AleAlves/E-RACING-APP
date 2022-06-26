@@ -6,6 +6,8 @@ import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
+import 'icon_widget.dart';
+
 class LeagueCardWidget extends StatelessWidget {
   final String? label;
   final String? emblem;
@@ -94,11 +96,8 @@ class LeagueCardWidget extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.chevron_right,
-              color: Theme.of(context).colorScheme.onBackground,
-            )
+          children: const [
+            IconWidget(icon: Icons.chevron_right),
           ],
         )
       ],

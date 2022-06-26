@@ -194,7 +194,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
               ),
             ],
           ),
-          Container(height: 1, color: Theme.of(context).hoverColor, padding: EdgeInsets.zero,),
+          Container(height: 1, color: Theme.of(context).focusColor, padding: EdgeInsets.zero,),
         ],
       ),
     );

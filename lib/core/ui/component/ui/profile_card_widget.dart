@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/login/domain/model/profile_model.dart';
@@ -32,11 +33,7 @@ class ProfileCardWidget extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.account_circle,
-                    size: 48,
-                    color: Theme.of(context).chipTheme.selectedColor,
-                  ),
+                  const IconWidget(icon: Icons.account_circle, size: 48,),
                   const SpacingWidget(LayoutSize.size8),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,

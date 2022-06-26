@@ -13,6 +13,7 @@ import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
+import '../../../../core/ui/component/ui/icon_widget.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -123,7 +124,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
     return CardWidget(
       marked: true,
       markWidth: 45,
-      markColor: Theme.of(context).hoverColor,
+      markColor: Theme.of(context).focusColor,
       onPressed: () {
         widget.viewModel.setFlow(EventFlow.eventDetailInfo);
       },
@@ -158,10 +159,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                 children: [
                   status(),
                   const SpacingWidget(LayoutSize.size8),
-                  Icon(
-                    Icons.chevron_right,
-                    color: Theme.of(context).chipTheme.selectedColor,
-                  ),
+                  const IconWidget(icon: Icons.chevron_right),
                 ],
               )
             ],

@@ -7,6 +7,8 @@ import 'package:e_racing_app/event/data/event_teams_standings_model.dart';
 import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
 
+import 'icon_widget.dart';
+
 class TeamsStandingsWidget extends StatefulWidget {
   final EventTeamsStandingsModel? standings;
 
@@ -125,7 +127,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                     ),
                   ],
                 ),
-                Icon(Icons.chevron_right_sharp, color: Theme.of(context).chipTheme.selectedColor,),
+                const IconWidget(icon: Icons.chevron_right),
               ],
             ),
           ],

@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/ui/component/ui/icon_widget.dart';
 import '../home_view_model.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -73,18 +74,15 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                children: [
-                  Icon(
-                    Icons.notifications,
-                    color: Theme.of(context).chipTheme.selectedColor,
-                  ),
-                  const SpacingWidget(LayoutSize.size8),
-                  const TextWidget(text: "Notifications", style: Style.title),
+                children: const [
+                  IconWidget(icon: Icons.notifications,),
+                  SpacingWidget(LayoutSize.size8),
+                  TextWidget(text: "Notifications", style: Style.title),
                 ],
               ),
               widget.vm.notificationsCount == null ||
                       widget.vm.notificationsCount == "0"
-                  ? const Icon(Icons.chevron_right)
+                  ?  const IconWidget(icon: Icons.chevron_right)
                   : Row(
                       children: [
                         SizedBox(

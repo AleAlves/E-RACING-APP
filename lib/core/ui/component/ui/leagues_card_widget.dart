@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,7 @@ class LeaguesCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                Icons.emoji_events_sharp,
-                color: Theme.of(context).chipTheme.selectedColor,
-              ),
+              const IconWidget(icon: Icons.emoji_events_sharp,),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,11 +53,7 @@ class LeaguesCardWidget extends StatelessWidget {
             ],
           ),
           const SpacingWidget(LayoutSize.size8),
-          Icon(
-            Icons.chevron_right,
-            color: Theme.of(context).colorScheme.onBackground,
-            size: 24,
-          ),
+          const IconWidget(icon: Icons.chevron_right),
         ],
       ),
     );

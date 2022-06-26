@@ -10,6 +10,8 @@ import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../core/ui/component/ui/icon_widget.dart';
+
 class EventManagementRaceListWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
@@ -104,7 +106,7 @@ class _EventManagementRaceListWidgetState extends State<EventManagementRaceListW
                   ),
                 ],
               ),
-              const Icon(Icons.chevron_right)
+              const IconWidget(icon: Icons.chevron_right),
             ],
           ),
         ],
