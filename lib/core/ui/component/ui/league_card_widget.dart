@@ -72,13 +72,14 @@ class LeagueCardWidget extends StatelessWidget {
                     Row(
                       children: [
                         const SpacingWidget(LayoutSize.size4),
-                        const Icon(
-                          Icons.groups,
+                        const IconWidget(
+                          icon: Icons.groups,
+                          borderless: true,
                         ),
                         const SpacingWidget(LayoutSize.size8),
                         TextWidget(
                           text: "${members.toString()}/$capacity",
-                          style: Style.subtitle,
+                          style: Style.paragraph,
                           align: TextAlign.start,
                         )
                       ],
@@ -97,7 +98,10 @@ class LeagueCardWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            IconWidget(icon: Icons.chevron_right),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: IconWidget(icon: Icons.chevron_right, borderless: false,),
+            ),
           ],
         )
       ],

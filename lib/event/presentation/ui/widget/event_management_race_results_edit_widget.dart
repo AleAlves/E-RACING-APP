@@ -8,6 +8,7 @@ import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
@@ -297,7 +298,7 @@ class _EventManagementEditRaceResultsWidgetState
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(Icons.sports_motorsports),
+                                const IconWidget(icon: Icons.sports_motorsports),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                   text:

@@ -7,6 +7,7 @@ import 'package:e_racing_app/core/ui/component/ui/event_race_results_collection_
 import 'package:e_racing_app/core/ui/component/ui/event_subscribers_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_subscriptions_panel_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -98,7 +99,7 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
             children: [
               Row(
                 children: const [
-                  Icon(Icons.build),
+                  IconWidget(icon: Icons.build),
                   SpacingWidget(LayoutSize.size8),
                   TextWidget(
                     text: "Edit",
@@ -180,7 +181,7 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
           children: [
             Row(
               children: const [
-                Icon(Icons.sports_score),
+                IconWidget(icon: Icons.sports_score),
                 SpacingWidget(LayoutSize.size8),
                 TextWidget(
                   text: "State",

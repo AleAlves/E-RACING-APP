@@ -66,9 +66,8 @@ class EventRaceCollection extends StatelessWidget {
                     const SpacingWidget(LayoutSize.size8),
                     Row(
                       children: [
-                        Icon(
-                          Icons.sports_score,
-                          color: Theme.of(context).focusColor,
+                        const IconWidget(
+                          icon: Icons.sports_score,
                         ),
                         const SpacingWidget(LayoutSize.size8),
                         Expanded(
@@ -90,9 +89,8 @@ class EventRaceCollection extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(
-                          Icons.date_range,
-                          color: Theme.of(context).focusColor,
+                        const IconWidget(
+                          icon: Icons.date_range,
                         ),
                         const SpacingWidget(LayoutSize.size8),
                         TextWidget(
@@ -103,9 +101,8 @@ class EventRaceCollection extends StatelessWidget {
                     const SpacingWidget(LayoutSize.size8),
                     Row(
                       children: [
-                        Icon(
-                          Icons.schedule,
-                          color: Theme.of(context).focusColor,
+                        const IconWidget(
+                          icon: Icons.schedule,
                         ),
                         const SpacingWidget(LayoutSize.size8),
                         TextWidget(
@@ -127,7 +124,7 @@ class EventRaceCollection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const [
                     SpacingWidget(LayoutSize.size16),
-                    IconWidget(icon: Icons.chevron_right),
+                    IconWidget(icon: Icons.chevron_right, borderless: false,),
                   ],
                 )
               ]),

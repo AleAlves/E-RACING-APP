@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,13 @@ class ShortcutWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Icon(shortcut?.icon),
+          Row(
+            children: [
+              IconWidget(
+                icon: shortcut?.icon,
+              ),
+            ],
+          ),
           const SpacingWidget(LayoutSize.size24),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -43,9 +50,10 @@ class ShortcutWidget extends StatelessWidget {
                 style: Style.paragraph,
               ),
               const SpacingWidget(LayoutSize.size8),
-              const Icon(
-                Icons.arrow_forward,
+              const IconWidget(
+                icon: Icons.arrow_forward,
                 size: 10,
+                borderless: true,
               )
             ],
           )
@@ -65,9 +73,13 @@ class ShortcutWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Icon(
-            shortcut?.icon,
-            color: Theme.of(context).colorScheme.onPrimary,
+          Row(
+            children: [
+              IconWidget(
+                icon: shortcut?.icon,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+            ],
           ),
           const SpacingWidget(LayoutSize.size24),
           Row(

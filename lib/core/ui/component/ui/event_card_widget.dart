@@ -93,7 +93,7 @@ class EventCardWidget extends StatelessWidget {
             right: 0.0,
             child: Padding(
               padding: EdgeInsets.all(8.0),
-              child: IconWidget(icon: Icons.chevron_right),
+              child: IconWidget(icon: Icons.chevron_right, borderless: false,),
             ))
       ],
     );
@@ -105,6 +105,7 @@ class EventCardWidget extends StatelessWidget {
       size: 10,
       color: Colors.transparent,
     );
+
     Icon ready = const Icon(
       Icons.circle,
       size: 18,
@@ -194,8 +195,7 @@ class EventCardWidget extends StatelessWidget {
           Stack(
             children: [
               idle,
-              Icon(Icons.radio_button_unchecked,
-                  size: 18, color: Theme.of(context).focusColor),
+              const IconWidget(icon: Icons.radio_button_unchecked, size: 18)
             ],
           ),
           Container(
@@ -207,8 +207,7 @@ class EventCardWidget extends StatelessWidget {
           Stack(
             children: [
               ready,
-              Icon(Icons.radio_button_unchecked,
-                  size: 18, color: Theme.of(context).focusColor),
+              const IconWidget(icon: Icons.radio_button_unchecked, size: 18)
             ],
           ),
           Container(
@@ -220,8 +219,7 @@ class EventCardWidget extends StatelessWidget {
           Stack(
             children: [
               onGoing,
-              Icon(Icons.radio_button_unchecked,
-                  size: 18, color: Theme.of(context).focusColor),
+              const IconWidget(icon: Icons.radio_button_unchecked, size: 18)
             ],
           ),
           Container(
@@ -233,8 +231,7 @@ class EventCardWidget extends StatelessWidget {
           Stack(
             children: [
               finished,
-              Icon(Icons.radio_button_unchecked,
-                  size: 18, color: Theme.of(context).focusColor),
+              const IconWidget(icon: Icons.radio_button_unchecked, size: 18)
             ],
           ),
         ],
@@ -247,7 +244,7 @@ class EventCardWidget extends StatelessWidget {
       case EventType.championship:
         return Row(
           children: [
-            Icon(icon),
+            IconWidget(icon: icon),
             const SpacingWidget(LayoutSize.size8),
             const TextWidget(
               text: "Championship",
@@ -259,7 +256,7 @@ class EventCardWidget extends StatelessWidget {
       case EventType.race:
         return Row(
           children: [
-            Icon(icon),
+            IconWidget(icon: icon),
             const SpacingWidget(LayoutSize.size8),
             const TextWidget(
               text: "Race",
@@ -284,7 +281,7 @@ class EventCardWidget extends StatelessWidget {
 
     return Row(
       children: [
-        const Icon(Icons.sports_motorsports),
+        const IconWidget(icon: Icons.sports_motorsports),
         const SpacingWidget(LayoutSize.size8),
         TextWidget(
           text: '$entries/$max',

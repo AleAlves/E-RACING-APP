@@ -159,7 +159,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
                 children: [
                   status(),
                   const SpacingWidget(LayoutSize.size8),
-                  const IconWidget(icon: Icons.chevron_right),
+                  const IconWidget(icon: Icons.chevron_right, borderless: false,),
                 ],
               )
             ],

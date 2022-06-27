@@ -2,6 +2,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ext/date_extensions.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/league/data/league_members_model.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +99,7 @@ class LeagueMemberCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: const [Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Icon(Icons.manage_accounts),
+                  child: IconWidget(icon: Icons.manage_accounts),
                 )])
             : Container(),
       ],

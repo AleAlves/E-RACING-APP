@@ -196,7 +196,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                     ),
                   ],
                 ),
-                const IconWidget(icon: Icons.chevron_right),
+                const IconWidget(icon: Icons.chevron_right, borderless: false,),
                 const SpacingWidget(LayoutSize.size4),
               ],
             ),
@@ -230,7 +230,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                   const SpacingWidget(LayoutSize.size16),
                   Row(
                     children: [
-                      const Icon(Icons.sports_motorsports),
+                      const IconWidget(icon: Icons.sports_motorsports),
                       const SpacingWidget(LayoutSize.size16),
                       TextWidget(
                         text: "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",

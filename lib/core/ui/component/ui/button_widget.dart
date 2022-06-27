@@ -56,7 +56,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       case ButtonType.iconPure:
         return iconButtonBorderless();
       case ButtonType.secondary:
-        return discret(context);
+        return secondary(context);
     }
   }
 
@@ -83,7 +83,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
               side: const BorderSide(
-                width: 0.5,
+                width: 0.1,
               ),
             ),
           ),
@@ -131,7 +131,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
               side: const BorderSide(
-                width: 0.5,
+                width: 0.1,
               ),
             ),
           ),
@@ -165,19 +165,17 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     );
   }
 
-  Widget discret(BuildContext context) {
+  Widget secondary(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.background),
-          foregroundColor: MaterialStateProperty.all(
-              Theme.of(context).colorScheme.onBackground),
+          backgroundColor: MaterialStateProperty.all(Theme.of(context).focusColor),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
               side: const BorderSide(
-                width: 0.5,
+                width: 0.1,
               ),
             ),
           ),

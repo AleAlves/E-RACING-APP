@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/ext/dialog_extension.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/swtich_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -27,7 +28,7 @@ class EventSubscriptionsPanelWidget extends StatelessWidget {
       children: [
         Row(
           children: const [
-            Icon(Icons.assignment_ind),
+            IconWidget(icon: Icons.assignment_ind),
             SpacingWidget(LayoutSize.size8),
             TextWidget(
               text: "Subscriptions",

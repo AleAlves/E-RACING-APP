@@ -7,6 +7,8 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/event/data/event_standings_model.dart';
 import 'package:flutter/material.dart';
 
+import 'icon_widget.dart';
+
 class SimpleStandingsWidget extends StatefulWidget {
   final EventStandingsModel? standings;
   final Function(String) onRaceCardPressed;
@@ -160,7 +162,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                     ),
                   ),
                   const SpacingWidget(LayoutSize.size16),
-                  Icon(Icons.circle, color: getClassColor(_index), size: 12,)
+                  IconWidget(icon: Icons.circle, color: getClassColor(_index), size: 12,)
                 ],
               ),
               const SpacingWidget(LayoutSize.size16),

@@ -67,7 +67,7 @@ class EventSimpleCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: const [
-              IconWidget(icon: Icons.chevron_right),
+              IconWidget(icon: Icons.chevron_right, borderless: false,),
             ]),
       ],
     );

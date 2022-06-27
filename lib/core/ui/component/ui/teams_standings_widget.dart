@@ -127,7 +127,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                     ),
                   ],
                 ),
-                const IconWidget(icon: Icons.chevron_right),
+                const IconWidget(icon: Icons.chevron_right, borderless: false,),
               ],
             ),
           ],
@@ -203,7 +203,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
               showFlag: false,
             ),
             const SpacingWidget(LayoutSize.size16),
-            const Icon(Icons.sports_motorsports),
+            const IconWidget(icon: Icons.sports_motorsports),
             const SpacingWidget(LayoutSize.size8),
             TextWidget(
               text: "${users?[index]?.profile?.name} ${users?[index]?.profile?.surname}",

@@ -121,7 +121,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
               children: [
                 Row(
                   children: [
-                    Icon(Icons.schedule, color: Theme.of(context).focusColor),
+                    const IconWidget(icon: Icons.schedule),
                     const SpacingWidget(LayoutSize.size8),
                     TextWidget(
                         text: formatHour(widget.viewModel.race?.date),
@@ -132,7 +132,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Icon(Icons.date_range, color: Theme.of(context).focusColor),
+                    const IconWidget(icon: Icons.date_range),
                     const SpacingWidget(LayoutSize.size8),
                     TextWidget(
                         text: formatDate(widget.viewModel.race?.date),
@@ -167,8 +167,8 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Positioned(
-                      child: Icon(Icons.tune, color: Theme.of(context).focusColor),
+                    const Positioned(
+                      child: IconWidget(icon: Icons.tune),
                       top: 0,
                       bottom: 0,
                       right: 0,
@@ -314,7 +314,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
         const SpacingWidget(LayoutSize.size16),
         Row(
           children: [
-            Icon(Icons.sports_score, color: Theme.of(context).focusColor,),
+            const IconWidget(icon: Icons.sports_score),
             const SpacingWidget(LayoutSize.size8),
             TextWidget(
               text: sessions?.sessionName,
@@ -405,7 +405,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                   ),
                 ],
               ),
-              const IconWidget(icon: Icons.chevron_right),
+              const IconWidget(icon: Icons.chevron_right, borderless: false,),
               const SpacingWidget(LayoutSize.size4),
             ],
           ),
@@ -435,7 +435,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(Icons.sports_motorsports),
+                                const IconWidget(icon: Icons.sports_motorsports),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                   text:

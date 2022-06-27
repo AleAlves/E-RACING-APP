@@ -77,7 +77,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                               children: [
                                 const Padding(
                                   padding: EdgeInsets.all(8),
-                                  child: Icon(Icons.sports_motorsports),
+                                  child: IconWidget(icon: Icons.sports_motorsports),
                                 ),
                                 TextWidget(
                                     text:
@@ -88,7 +88,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                           ),
                           TextWidget(
                               text: "${team?.name}", style: Style.paragraph),
-                          const IconWidget(icon: Icons.chevron_right),
+                          const IconWidget(icon: Icons.chevron_right, borderless: false,),
                         ],
                       ),
                     );
@@ -138,8 +138,8 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                const Icon(
-                                  Icons.sports_motorsports,
+                                const IconWidget(
+                                  icon: Icons.sports_motorsports,
                                 ),
                                 const SpacingWidget(LayoutSize.size16),
                                 TextWidget(

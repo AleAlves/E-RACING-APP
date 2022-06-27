@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/tools/routes.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _DefaulErrorWidgetState extends State<DefaulErrorWidget> {
                         shape: CircleBorder(),
                       ),
                       child: IconButton(
-                        icon: const Icon(Icons.refresh),
+                        icon: const IconWidget(icon: Icons.refresh),
                         onPressed: () {
                           Modular.to.pushNamed(Routes.home);
                         },

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -118,7 +119,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                                     style: Style.caption,
                                       color: Theme.of(context).colorScheme.onPrimary
                                   ),
-                                  Icon(Icons.arrow_forward, color: Theme.of(context).colorScheme.onPrimary, size: 10,)
+                                  IconWidget(icon: Icons.arrow_forward, color: Theme.of(context).colorScheme.onPrimary, size: 10,)
                                 ],),
                               ),
                               color: Theme.of(context).colorScheme.primary,

@@ -106,7 +106,7 @@ class _EventManagementRaceListWidgetState extends State<EventManagementRaceListW
                   ),
                 ],
               ),
-              const IconWidget(icon: Icons.chevron_right),
+              const IconWidget(icon: Icons.chevron_right, borderless: false,),
             ],
           ),
         ],

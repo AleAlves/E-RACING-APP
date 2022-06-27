@@ -28,7 +28,7 @@ class LeaguesCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const IconWidget(icon: Icons.emoji_events_sharp,),
+              const IconWidget(icon: Icons.emoji_events_sharp, borderless: true,),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +53,7 @@ class LeaguesCardWidget extends StatelessWidget {
             ],
           ),
           const SpacingWidget(LayoutSize.size8),
-          const IconWidget(icon: Icons.chevron_right),
+          const IconWidget(icon: Icons.chevron_right, borderless: false,),
         ],
       ),
     );

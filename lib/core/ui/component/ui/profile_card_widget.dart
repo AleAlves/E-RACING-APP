@@ -33,7 +33,7 @@ class ProfileCardWidget extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const IconWidget(icon: Icons.account_circle, size: 48,),
+                  const IconWidget(icon: Icons.account_circle, size: 48, borderless: false,),
                   const SpacingWidget(LayoutSize.size8),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -59,8 +59,9 @@ class ProfileCardWidget extends StatelessWidget {
                 children: [
                   Row(
                     children: const [
-                      Icon(
-                        Icons.settings
+                      IconWidget(
+                        icon: Icons.settings,
+                        borderless: true,
                       ),
                     ],
                   ),

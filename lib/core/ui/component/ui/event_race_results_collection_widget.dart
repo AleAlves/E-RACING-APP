@@ -3,10 +3,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/ext/date_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
-
 
 class EventRaceResultsCollection extends StatelessWidget {
   final List<RaceModel?>? races;
@@ -29,7 +29,9 @@ class EventRaceResultsCollection extends StatelessWidget {
             children: [
               Row(
                 children: const [
-                  Icon(Icons.manage_accounts),
+                  IconWidget(
+                    icon: Icons.manage_accounts,
+                  ),
                   SpacingWidget(LayoutSize.size8),
                   TextWidget(
                     text: "Race director",
@@ -72,7 +74,7 @@ class EventRaceResultsCollection extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            const Icon(Icons.sports_score_outlined),
+                            const IconWidget(icon: Icons.sports_score_outlined),
                             const SpacingWidget(LayoutSize.size8),
                             Expanded(
                               child: Column(
@@ -93,7 +95,7 @@ class EventRaceResultsCollection extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Icon(Icons.date_range),
+                            const IconWidget(icon: Icons.date_range),
                             const SpacingWidget(LayoutSize.size8),
                             TextWidget(
                                 text: formatDate(race?.date),
@@ -109,8 +111,8 @@ class EventRaceResultsCollection extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.build,
+                    IconWidget(
+                      icon: Icons.build,
                       color: Theme.of(context).colorScheme.secondary,
                     )
                   ]),

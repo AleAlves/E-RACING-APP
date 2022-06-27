@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
@@ -68,11 +69,10 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children: [
-                      Icon(Icons.sports,
-                          color: Theme.of(context).focusColor),
-                      const SpacingWidget(LayoutSize.size8),
-                      const TextWidget(
+                    children: const [
+                      IconWidget(icon: Icons.sports),
+                      SpacingWidget(LayoutSize.size8),
+                      TextWidget(
                           text: "Rules",
                           style: Style.title,
                           align: TextAlign.justify),
@@ -107,13 +107,10 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children: [
-                      Icon(
-                        Icons.group,
-                        color: Theme.of(context).focusColor,
-                      ),
-                      const SpacingWidget(LayoutSize.size8),
-                      const TextWidget(
+                    children: const [
+                      IconWidget(icon: Icons.group),
+                      SpacingWidget(LayoutSize.size8),
+                      TextWidget(
                           text: "Teams",
                           style: Style.title,
                           align: TextAlign.start),
@@ -175,13 +172,12 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              children: [
-                Icon(
-                  Icons.format_list_numbered,
-                  color: Theme.of(context).focusColor,
+              children: const [
+                IconWidget(
+                  icon: Icons.format_list_numbered,
                 ),
-                const SpacingWidget(LayoutSize.size8),
-                const TextWidget(
+                SpacingWidget(LayoutSize.size8),
+                TextWidget(
                     text: "Score system",
                     style: Style.title,
                     align: TextAlign.start),
@@ -212,13 +208,10 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children: [
-                      Icon(
-                        Icons.tune,
-                        color: Theme.of(context).focusColor,
-                      ),
-                      const SpacingWidget(LayoutSize.size8),
-                      const TextWidget(
+                    children: const [
+                      IconWidget(icon: Icons.tune),
+                      SpacingWidget(LayoutSize.size8),
+                      TextWidget(
                           text: "Settings",
                           style: Style.title,
                           align: TextAlign.start),

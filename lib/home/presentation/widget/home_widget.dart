@@ -75,14 +75,14 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
             children: [
               Row(
                 children: const [
-                  IconWidget(icon: Icons.notifications,),
+                  IconWidget(icon: Icons.notifications, borderless: true,),
                   SpacingWidget(LayoutSize.size8),
                   TextWidget(text: "Notifications", style: Style.title),
                 ],
               ),
               widget.vm.notificationsCount == null ||
                       widget.vm.notificationsCount == "0"
-                  ?  const IconWidget(icon: Icons.chevron_right)
+                  ?  const IconWidget(icon: Icons.chevron_right, borderless: false,)
                   : Row(
                       children: [
                         SizedBox(

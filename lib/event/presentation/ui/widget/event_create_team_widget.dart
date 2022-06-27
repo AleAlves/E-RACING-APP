@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
@@ -134,7 +135,7 @@ class _EventCreateTeamWidgetState extends State<EventCreateTeamWidget>
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.sports_motorsports),
+                          const IconWidget(icon: Icons.sports_motorsports),
                           TextWidget(
                             text: "${index + 1}# driver",
                             style: Style.subtitle,
