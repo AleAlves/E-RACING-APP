@@ -32,15 +32,15 @@ class TextWidget extends StatelessWidget {
   TextStyle? _getStyle(BuildContext context) {
     switch (style) {
       case Style.title:
-        return Theme.of(context).textTheme.headline4?.copyWith(color: color);
-      case Style.subtitle:
         return Theme.of(context).textTheme.headline5?.copyWith(color: color);
+      case Style.subtitle:
+        return Theme.of(context).textTheme.headline6?.copyWith(color: color);
       case Style.paragraph:
         return Theme.of(context).textTheme.bodyLarge?.copyWith(color: color);
       case Style.caption:
         return Theme.of(context).textTheme.overline?.copyWith(color: color, fontSize: 12);
       case Style.button:
-        return Theme.of(context).textTheme.button?.copyWith(color: color);
+        return Theme.of(context).textTheme.button?.copyWith(color: color, fontSize: 18);
     }
   }
 }

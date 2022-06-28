@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/ui/component/state/loading_ripple.dart';
+import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -107,8 +108,9 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 : Row(
                     children: [
                       const SpacingWidget(LayoutSize.size16),
-                      Icon(
-                        widget.icon,
+                      IconWidget(
+                        icon: widget.icon,
+                        size: 18,
                         color: widget.iconColor ??
                             Theme.of(context).colorScheme.onPrimary,
                       ),
@@ -154,7 +156,9 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 : Row(
                     children: [
                       const SpacingWidget(LayoutSize.size16),
-                      Icon(widget.icon,
+                      IconWidget(
+                          icon: widget.icon,
+                          size: 18,
                           color: widget.iconColor ??
                               Theme.of(context).colorScheme.onSecondary),
                     ],
@@ -170,7 +174,8 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Theme.of(context).focusColor),
+          backgroundColor:
+              MaterialStateProperty.all(Theme.of(context).focusColor),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
@@ -197,8 +202,9 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 : Row(
                     children: [
                       const SpacingWidget(LayoutSize.size16),
-                      Icon(
-                        widget.icon,
+                      IconWidget(
+                        icon: widget.icon,
+                        size: 18,
                         color: widget.iconColor,
                       ),
                     ],

@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../../core/ui/component/ui/icon_widget.dart';
+import '../../../../core/ui/component/ui/status_widget.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -132,29 +133,27 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       child: Stack(
         alignment: Alignment.center,
         children: [
+          Positioned(
+            top: 0,
+            bottom: 0,
+            left: 0,
+            child: Icon(
+              Icons.info_outline,
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      const SpacingWidget(LayoutSize.size2),
-                      Icon(
-                        Icons.info_outline,
-                        color: Theme.of(context).colorScheme.onBackground,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(24.0),
-                        child: TextWidget(
-                          text: "Event information",
-                          style: Style.subtitle,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              const SpacingWidget(LayoutSize.size16),
+              const Padding(
+                padding: EdgeInsets.only(top: 16, bottom: 16),
+                child: TextWidget(
+                  text: "Event",
+                  style: Style.subtitle,
+                ),
               ),
+              StatusWidget(state: widget.viewModel.event?.state, orientation: StatusOrientation.horizontal,),
               Row(
                 children: [
                   status(),

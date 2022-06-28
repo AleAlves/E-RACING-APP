@@ -2,6 +2,7 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/chip_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/share_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/status_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -58,7 +59,7 @@ class EventCardWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SpacingWidget(LayoutSize.size8),
-            progress(context),
+            StatusWidget(state: event?.state, orientation: StatusOrientation.vertical,),
             const SpacingWidget(LayoutSize.size16),
             Expanded(
               child: Padding(
@@ -108,17 +109,17 @@ class EventCardWidget extends StatelessWidget {
 
     Icon ready = const Icon(
       Icons.circle,
-      size: 18,
+      size: 10,
       color: Colors.transparent,
     );
     Icon onGoing = const Icon(
       Icons.circle,
-      size: 18,
+      size: 10,
       color: Colors.transparent,
     );
     Icon finished = const Icon(
       Icons.circle,
-      size: 18,
+      size: 10,
       color: Colors.transparent,
     );
     var track = Theme.of(context).focusColor;
@@ -190,26 +191,17 @@ class EventCardWidget extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
+      child: Stack(
         children: [
-          Stack(
-            children: [
-              idle,
-              const IconWidget(icon: Icons.radio_button_unchecked, size: 18)
-            ],
-          ),
+          const IconWidget(icon: Icons.radio_button_unchecked, size: 18),
+          const IconWidget(icon: Icons.radio_button_unchecked, size: 18),
+          const IconWidget(icon: Icons.radio_button_unchecked, size: 18),
           Container(
               decoration: BoxDecoration(
                   color: Theme.of(context).focusColor,
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
               width: bar1Width,
               height: 15),
-          Stack(
-            children: [
-              ready,
-              const IconWidget(icon: Icons.radio_button_unchecked, size: 18)
-            ],
-          ),
           Container(
               decoration: BoxDecoration(
                   color: Theme.of(context).focusColor,
@@ -219,7 +211,6 @@ class EventCardWidget extends StatelessWidget {
           Stack(
             children: [
               onGoing,
-              const IconWidget(icon: Icons.radio_button_unchecked, size: 18)
             ],
           ),
           Container(
