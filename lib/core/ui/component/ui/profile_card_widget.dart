@@ -24,7 +24,7 @@ class ProfileCardWidget extends StatelessWidget {
 
   Widget content(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(left: 0, right: 8, top: 8, bottom: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

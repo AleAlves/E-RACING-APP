@@ -145,9 +145,8 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SpacingWidget(LayoutSize.size16),
               const Padding(
-                padding: EdgeInsets.only(top: 16, bottom: 16),
+                padding: EdgeInsets.only(top: 16, bottom: 16, left: 48),
                 child: TextWidget(
                   text: "Event",
                   style: Style.subtitle,
