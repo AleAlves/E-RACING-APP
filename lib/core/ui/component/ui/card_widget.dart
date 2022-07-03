@@ -1,14 +1,17 @@
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:flutter/material.dart';
 
+import 'icon_widget.dart';
+
 class CardWidget extends StatelessWidget {
   final Widget? child;
+  final Widget? childLeft;
+  final Widget? childRight;
   final bool ready;
+  final bool arrowed;
   final Color? color;
-  final Color? markColor;
+  final Color? childLeftColor;
   final bool shapeLess;
-  final bool marked;
-  final double markWidth;
   final EdgeInsetsGeometry padding;
   final double? placeholderWidth;
   final double? placeholderHeight;
@@ -16,14 +19,15 @@ class CardWidget extends StatelessWidget {
 
   const CardWidget(
       {required this.child,
+      this.childLeft,
+      this.childRight,
       this.onPressed,
       required this.ready,
       this.color,
-      this.markWidth = 10.0,
-      this.markColor,
+      this.childLeftColor,
       this.padding = const EdgeInsets.all(8.0),
       this.shapeLess = false,
-      this.marked = false,
+      this.arrowed = false,
       this.placeholderHeight = 100,
       this.placeholderWidth,
       Key? key})
@@ -32,43 +36,66 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ready
-        ? Stack(
-            children: [
-              Card(
-                  shape: shapeLess
-                      ? null
-                      : RoundedRectangleBorder(
-                          side: BorderSide(width: 0.1, color: Theme.of(context).focusColor),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                  color: color,
-                  shadowColor: shapeLess ? Colors.transparent : null,
-                  child: Stack(
+        ? Center(
+            child: Card(
+              shape: shapeLess
+                  ? null
+                  : RoundedRectangleBorder(
+                      side: BorderSide(
+                          width: 0.1, color: Theme.of(context).focusColor),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+              color: color,
+              shadowColor: shapeLess ? Colors.transparent : null,
+              child: IntrinsicHeight(
+                child: InkWell(
+                  onTap: onPressed,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      if(marked) Positioned(
-                        child: Container(
-                          width: markWidth,
-                          decoration: BoxDecoration(
-                            color: markColor ?? Theme.of(context).colorScheme.primary,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(5.0),
-                                bottomLeft: Radius.circular(5.0)),
-                          ),
-                        ),
-                        top: 0.0,
-                        left: 0.0,
-                        bottom: 0.0,
-                      ) else Container(),
-                      InkWell(
-                        onTap: onPressed,
-                        child: Padding(
-                          padding: padding,
-                          child: child,
-                        ),
-                      ),
+                      childLeft == null
+                          ? Container()
+                          : Container(
+                              padding: EdgeInsets.zero,
+                              decoration: BoxDecoration(
+                                color: childLeftColor ??
+                                    Theme.of(context).focusColor,
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(5.0),
+                                    bottomLeft: Radius.circular(5.0)),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width /
+                                          10,
+                                      child: childLeft)
+                                ],
+                              ),
+                            ),
+                      Expanded(child: Padding(padding: padding, child: child)),
+                      childRight == null
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: childRight,
+                            ),
+                      arrowed
+                          ? const Padding(
+                              padding: EdgeInsets.only(right: 8),
+                              child: IconWidget(
+                                icon: Icons.chevron_right,
+                                borderless: false,
+                              ),
+                            )
+                          : Container(),
                     ],
-                  )),
-            ],
+                  ),
+                ),
+              ),
+            ),
           )
         : loading(context);
   }

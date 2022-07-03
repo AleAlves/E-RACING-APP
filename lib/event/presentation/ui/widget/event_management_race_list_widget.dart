@@ -81,7 +81,7 @@ class _EventManagementRaceListWidgetState extends State<EventManagementRaceListW
 
   Widget raceCard(RaceModel? raceModel) {
     return CardWidget(
-      marked: true,
+      childLeft: const SizedBox(width: 8, height: 8,),
       onPressed: () {
         Session.instance.setRaceId(raceModel?.id);
         widget.viewModel.editRace();

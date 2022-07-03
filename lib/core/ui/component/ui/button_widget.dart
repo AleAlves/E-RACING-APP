@@ -15,6 +15,7 @@ class ButtonWidget extends StatefulWidget {
   final Color? color;
   final Color? iconColor;
   final Color? labelColor;
+  final double? iconRadius;
   final VoidCallback? onPressed;
 
   const ButtonWidget(
@@ -25,6 +26,7 @@ class ButtonWidget extends StatefulWidget {
       this.color,
       this.iconColor,
       this.labelColor,
+      this.iconRadius = 24,
       this.icon,
       Key? key})
       : super(key: key);
@@ -49,7 +51,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       case ButtonType.primary:
         return primary(context);
       case ButtonType.link:
-        return borderless();
+        return link();
       case ButtonType.iconButton:
         return iconButton();
       case ButtonType.important:
@@ -61,15 +63,20 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     }
   }
 
-  Widget borderless() {
+  Widget link() {
     return Align(
       alignment: Alignment.center,
       child: TextButton(
         onPressed: widget.enabled ? widget.onPressed : null,
-        child: TextWidget(
-          text: widget.label ?? '',
-          color: widget.labelColor,
-          style: Style.caption,
+        child: Row(
+          children: [
+            TextWidget(
+              text: widget.label ?? '',
+              color: widget.labelColor ?? Theme.of(context).colorScheme.primary,
+              style: Style.caption,
+            ),
+            IconWidget(icon: widget.icon ?? Icons.arrow_forward_sharp, size: 14,)
+          ],
         ),
       ),
     );
@@ -218,22 +225,24 @@ class _ButtonWidgetState extends State<ButtonWidget> {
   Widget iconButton() {
     return Column(
       children: [
-        CircleAvatar(
-          radius: 24,
-          backgroundColor: widget.color ?? Theme.of(context).focusColor,
-          child: SizedBox(
-            width: double.infinity,
-            child: IconButton(
-              icon: FaIcon(
-                widget.icon,
-                color: widget.iconColor ??
-                    Theme.of(context).colorScheme.onBackground,
-              ),
-              iconSize: 24,
-              onPressed: widget.enabled ? widget.onPressed : null,
-            ),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+          CircleAvatar(
+            radius: widget.iconRadius,
+            backgroundColor: widget.color ?? Theme.of(context).focusColor,
+            child: Container(),
           ),
-        ),
+          IconButton(
+            icon: FaIcon(
+              widget.icon,
+              color: widget.iconColor ??
+                  Theme.of(context).colorScheme.onBackground,
+            ),
+            iconSize: widget.iconRadius,
+            onPressed: widget.enabled ? widget.onPressed : null,
+          ),
+        ],),
         const SpacingWidget(LayoutSize.size8),
         widget.label == null
             ? Container()
@@ -252,15 +261,14 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             color: Colors.transparent,
             shape: CircleBorder(),
           ),
-          child: Center(
-            child: IconButton(
-                icon: Icon(
-                  widget.icon,
-                  size: 24,
-                  color: widget.iconColor,
-                ),
-                onPressed: widget.enabled ? widget.onPressed : null),
-          ),
+          child:  IconButton(
+              alignment: Alignment.center,
+              icon: Icon(
+                widget.icon,
+                size: widget.iconRadius,
+                color: widget.iconColor,
+              ),
+              onPressed: widget.enabled ? widget.onPressed : null),
         ),
         const SpacingWidget(LayoutSize.size8),
         widget.label == null

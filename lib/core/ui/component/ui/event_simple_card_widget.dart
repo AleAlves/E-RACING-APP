@@ -26,7 +26,7 @@ class EventSimpleCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
-      markColor: Colors.green,
+      arrowed: true,
       child: content(context),
       onPressed: onPressed,
       ready: true,
@@ -34,45 +34,32 @@ class EventSimpleCardWidget extends StatelessWidget {
   }
 
   Widget content(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const SpacingWidget(LayoutSize.size16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SpacingWidget(LayoutSize.size8),
-                  TextWidget(
-                    text: event?.title ?? event?.races?.first?.title ?? '',
-                    style: Style.title,
-                    align: TextAlign.start,
-                  ),
-                  const SpacingWidget(LayoutSize.size8),
-                  ClassCollectionWidget(
-                    onPressed: (w) {},
-                    classes: event?.classes,
-                  ),
-                  _getType(event?.type),
-                  const SpacingWidget(LayoutSize.size8),
-                ],
+        const SpacingWidget(LayoutSize.size16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SpacingWidget(LayoutSize.size8),
+              TextWidget(
+                text: event?.title ?? event?.races?.first?.title ?? '',
+                style: Style.title,
+                align: TextAlign.start,
               ),
-            )
-          ],
-        ),
-        Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              IconWidget(icon: Icons.chevron_right, borderless: false,),
-            ]),
+              const SpacingWidget(LayoutSize.size8),
+              ClassCollectionWidget(
+                onPressed: (w) {},
+                classes: event?.classes,
+              ),
+              _getType(event?.type),
+            ],
+          ),
+        )
       ],
     );
   }
-
 
   Widget _getType(EventType? state) {
     switch (state) {

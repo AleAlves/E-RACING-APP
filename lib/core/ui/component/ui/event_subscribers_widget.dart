@@ -93,7 +93,7 @@ class _EventSubscribersWidgetState extends State<EventSubscribersWidget> {
         var profile = getProfile(classes?.drivers?[index]?.driverId);
         return CardWidget(
           ready: true,
-          marked: true,
+          childLeft: const SizedBox(width: 8, height: 8,),
           shapeLess: true,
           child: SizedBox(
             width: MediaQuery.of(context).size.width,

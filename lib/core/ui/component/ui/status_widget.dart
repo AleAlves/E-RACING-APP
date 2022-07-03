@@ -37,24 +37,24 @@ class _StatusWidgetState extends State<StatusWidget> {
     double setp3 = 0.0;
     double setp4 = 0.0;
 
-    switch (widget?.state) {
+    switch (widget.state) {
       case EventState.idle:
-        setp1 = 10.0;
+        setp1 = 5.0;
         break;
       case EventState.ready:
-        setp1 = 10.0;
-        setp2 = 10.0;
+        setp1 = 5.0;
+        setp2 = 5.0;
         break;
       case EventState.ongoing:
-        setp1 = 10.0;
-        setp2 = 10.0;
-        setp3 = 10.0;
+        setp1 = 6.0;
+        setp2 = 6.0;
+        setp3 = 6.0;
         break;
       case EventState.finished:
-        setp1 = 10.0;
-        setp2 = 10.0;
-        setp3 = 10.0;
-        setp4 = 10.0;
+        setp1 = 7.0;
+        setp2 = 7.0;
+        setp3 = 7.0;
+        setp4 = 7.0;
         break;
       default:
         break;
@@ -95,7 +95,7 @@ class _StatusWidgetState extends State<StatusWidget> {
               Container(
                   decoration: BoxDecoration(color: frame),
                   width: 2,
-                  height: 15),
+                  height: 10),
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -114,7 +114,7 @@ class _StatusWidgetState extends State<StatusWidget> {
               Container(
                   decoration: BoxDecoration(color: frame),
                   width: 2,
-                  height: 15),
+                  height: 10),
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -133,7 +133,7 @@ class _StatusWidgetState extends State<StatusWidget> {
               Container(
                   decoration: BoxDecoration(color: frame),
                   width: 2,
-                  height: 15),
+                  height: 10),
               Stack(
                 alignment: Alignment.center,
                 children: [

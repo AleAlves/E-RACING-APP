@@ -83,8 +83,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
   List<Widget> notifications() {
     return widget.vm.notifications!
         .map((element) => CardWidget(
-            marked: element?['important'],
-            markColor: Theme.of(context).colorScheme.primary,
+            childLeft: element?['important'] == true ? const Icon(Icons.warning) : Container(),
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Row(

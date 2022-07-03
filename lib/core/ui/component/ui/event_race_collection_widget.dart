@@ -38,9 +38,14 @@ class EventRaceCollection extends StatelessWidget {
 
   Widget raceCard(BuildContext context, RaceModel? race, int index) {
     return CardWidget(
-      marked: true,
-      markWidth: 45,
-      markColor: Theme.of(context).focusColor,
+      arrowed: true,
+      childLeft: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextWidget(
+            color: Theme.of(context).colorScheme.onBackground,
+            text: index.toString(),
+            style: Style.subtitle),
+      ),
       ready: true,
       onPressed: () {
         onRaceCardPressed.call(race?.id ?? '');
@@ -50,16 +55,6 @@ class EventRaceCollection extends StatelessWidget {
         children: [
           Row(
             children: [
-              SizedBox(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextWidget(
-                      color: Theme.of(context).colorScheme.onBackground,
-                      text: index.toString(),
-                      style: Style.subtitle),
-                ),
-              ),
-              const SpacingWidget(LayoutSize.size24),
               Expanded(
                 child: Column(
                   children: [
@@ -116,18 +111,6 @@ class EventRaceCollection extends StatelessWidget {
               )
             ],
           ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    SpacingWidget(LayoutSize.size16),
-                    IconWidget(icon: Icons.chevron_right, borderless: false,),
-                  ],
-                )
-              ]),
         ],
       ),
     );

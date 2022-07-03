@@ -33,6 +33,7 @@ class LeagueCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
+      arrowed: true,
       padding: EdgeInsets.zero,
       onPressed: onPressed,
       child: content(context),
@@ -54,7 +55,7 @@ class LeagueCardWidget extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 4),
@@ -94,16 +95,6 @@ class LeagueCardWidget extends StatelessWidget {
             ],
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: IconWidget(icon: Icons.chevron_right, borderless: false,),
-            ),
-          ],
-        )
       ],
     );
   }

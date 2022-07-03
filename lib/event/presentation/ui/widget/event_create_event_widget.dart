@@ -327,7 +327,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
         const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.primary,
+            type: ButtonType.iconButton,
             icon: Icons.add,
             onPressed: () async {
               setState(() {
@@ -435,7 +435,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
         const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.primary,
+            type: ButtonType.iconButton,
             icon: Icons.add,
             onPressed: () async {
               setState(() {

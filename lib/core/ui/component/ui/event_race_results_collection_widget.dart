@@ -57,7 +57,7 @@ class EventRaceResultsCollection extends StatelessWidget {
     return Column(
       children: [
         CardWidget(
-          marked: true,
+          childLeft: const SizedBox(width: 8, height: 8,),
           ready: true,
           shapeLess: true,
           onPressed: () {

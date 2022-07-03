@@ -32,11 +32,6 @@ class _EventScreenState extends State<EventScreen> implements BaseScreen {
         key: _scaffoldKey,
         appBar: AppBar(
           title: const Text('Events'),
-          actions: [
-            ShareWidget(
-              model: viewModel.share
-            )
-          ],
         ),
         body: navigate(),
       );

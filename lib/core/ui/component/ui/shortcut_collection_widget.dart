@@ -28,25 +28,17 @@ class _ShortcutCollectionWidgetState extends State<ShortcutCollectionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Expanded(
-          child: SizedBox(
-            height: 100,
-            child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: widget.shortcuts?.length,
-                itemBuilder: (context, index) {
-                  return ShortcutWidget(
+    return Wrap(
+        direction: Axis.horizontal,
+        children: widget.shortcuts
+            ?.map((e) => SizedBox(
+          width: MediaQuery.of(context).size.width / 3 - 8,
+              child: ShortcutWidget(
                     onPressed: widget.onPressed,
-                    shortcut: widget.shortcuts?[index],
-                  );
-                }),
-          ),
-        ),
-      ],
-    );
+                    shortcut: e,
+                  ),
+            ))
+            .toList()
+            .cast<Widget>() as List<Widget>);
   }
 }

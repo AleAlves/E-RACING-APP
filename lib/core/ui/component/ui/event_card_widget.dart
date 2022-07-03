@@ -31,6 +31,11 @@ class EventCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
+      childLeft: StatusWidget(
+        state: event?.state,
+        orientation: StatusOrientation.vertical,
+      ),
+      arrowed: true,
       padding: EdgeInsets.zero,
       child: content(context),
       onPressed: onPressed,
@@ -39,63 +44,38 @@ class EventCardWidget extends StatelessWidget {
   }
 
   Widget content(BuildContext context) {
-    return Stack(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Positioned(
-          top: 0.0,
-          right: 0.0,
-          child: ShareWidget(
-            color: Theme.of(context).colorScheme.primary,
-            model: ShareModel(
-                route: Routes.event,
-                leagueId: event?.leagueId,
-                eventId: event?.id,
-                message: "Check out this event",
-                name: event?.title),
+        const SpacingWidget(LayoutSize.size8),
+        Expanded(
+          child:  Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SpacingWidget(LayoutSize.size16),
+              Wrap(
+                children: [
+                  TextWidget(
+                    text: event?.title ?? event?.races?.first?.title ?? '',
+                    style: Style.subtitle,
+                    align: TextAlign.start,
+                  ),
+                ],
+              ),
+              const SpacingWidget(LayoutSize.size8),
+              ClassCollectionWidget(
+                onPressed: (w) {},
+                classes: event?.classes,
+              ),
+              _getType(event?.type),
+              const SpacingWidget(LayoutSize.size4),
+              drivers(),
+              const SpacingWidget(LayoutSize.size4),
+              subscriptionsStatus(context),
+            ],
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SpacingWidget(LayoutSize.size8),
-            StatusWidget(state: event?.state, orientation: StatusOrientation.vertical,),
-            const SpacingWidget(LayoutSize.size16),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16, bottom: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextWidget(
-                      text: event?.title ?? event?.races?.first?.title ?? '',
-                      style: Style.subtitle,
-                      align: TextAlign.start,
-                    ),
-                    const SpacingWidget(LayoutSize.size8),
-                    ClassCollectionWidget(
-                      onPressed: (w) {},
-                      classes: event?.classes,
-                    ),
-                    _getType(event?.type),
-                    const SpacingWidget(LayoutSize.size4),
-                    drivers(),
-                    const SpacingWidget(LayoutSize.size8),
-                    subscriptionsStatus(context),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-        const Positioned(
-            bottom: 0.0,
-            top: 0.0,
-            right: 0.0,
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: IconWidget(icon: Icons.chevron_right, borderless: false,),
-            ))
       ],
     );
   }

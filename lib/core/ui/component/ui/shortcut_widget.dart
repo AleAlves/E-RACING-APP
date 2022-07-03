@@ -17,15 +17,14 @@ class ShortcutWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      width: 150,
-      child: shortcut?.highlight == true ? highlighted(context) : normal(),
-    );
+    return normal(context);
   }
 
-  Widget normal() {
+  Widget normal(BuildContext context) {
     return CardWidget(
+      color: shortcut?.highlight == null
+          ? null
+          : Theme.of(context).colorScheme.primary,
       onPressed: () {
         onPressed.call(shortcut);
       },
@@ -38,63 +37,27 @@ class ShortcutWidget extends StatelessWidget {
             children: [
               IconWidget(
                 icon: shortcut?.icon,
+                color: shortcut?.highlight == null
+                    ? null
+                    : Theme.of(context).colorScheme.onPrimary,
               ),
             ],
           ),
-          const SpacingWidget(LayoutSize.size24),
+          const SpacingWidget(LayoutSize.size48),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               TextWidget(
                 text: shortcut?.title ?? "",
                 style: Style.paragraph,
+                color: shortcut?.highlight == null
+                    ? null : Theme.of(context).colorScheme.onPrimary,
               ),
               const SpacingWidget(LayoutSize.size8),
               const IconWidget(
                 icon: Icons.arrow_forward,
                 size: 10,
                 borderless: true,
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget highlighted(BuildContext context) {
-    return CardWidget(
-      onPressed: () {
-        onPressed.call(shortcut);
-      },
-      ready: true,
-      color: Theme.of(context).colorScheme.primary,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Row(
-            children: [
-              IconWidget(
-                icon: shortcut?.icon,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            ],
-          ),
-          const SpacingWidget(LayoutSize.size24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              TextWidget(
-                text: shortcut?.title ?? "",
-                style: Style.paragraph,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-              const SpacingWidget(LayoutSize.size8),
-              Icon(
-                Icons.arrow_forward,
-                size: 10,
-                color: Theme.of(context).colorScheme.onPrimary,
               )
             ],
           )

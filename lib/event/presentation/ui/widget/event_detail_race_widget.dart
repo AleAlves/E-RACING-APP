@@ -68,7 +68,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
         banner(),
         sessionsWidget(),
         standings(),
-        const SpacingWidget(LayoutSize.size16),
+        const SpacingWidget(LayoutSize.size8),
       ],
     );
   }
@@ -158,58 +158,42 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
           return Column(
             children: [
               CardWidget(
-                marked: true,
-                markWidth: 40,
-                markColor: Theme.of(context).focusColor,
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 ready: true,
-                onPressed: () {},
-                child: Stack(
-                  alignment: Alignment.center,
+                childRight: const IconWidget(icon: Icons.tune),
+                child: Row(
                   children: [
-                    const Positioned(
-                      child: IconWidget(icon: Icons.tune),
-                      top: 0,
-                      bottom: 0,
-                      right: 0,
-                    ),
-                    Row(
-                      children: [
-                        getSesionIcon(
-                            widget.viewModel.race?.sessions?[index]?.type),
-                        const SpacingWidget(LayoutSize.size24),
-                        Expanded(
-                          child: Column(
+                    getSesionIcon(
+                        widget.viewModel.race?.sessions?[index]?.type),
+                    const SpacingWidget(LayoutSize.size24),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const SpacingWidget(LayoutSize.size8),
+                          Row(
                             children: [
-                              const SpacingWidget(LayoutSize.size8),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        TextWidget(
-                                          text: widget.viewModel.race
-                                              ?.sessions?[index]?.name,
-                                          style: Style.paragraph,
-                                          align: TextAlign.start,
-                                        ),
-                                      ],
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextWidget(
+                                      text: widget.viewModel.race
+                                          ?.sessions?[index]?.name,
+                                      style: Style.paragraph,
+                                      align: TextAlign.start,
                                     ),
-                                  )
-                                ],
-                              ),
-                              const SpacingWidget(LayoutSize.size16),
-                              sessionSettings(index),
-                              const SpacingWidget(LayoutSize.size16),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
-                        )
-                      ],
-                    ),
+                          const SpacingWidget(LayoutSize.size16),
+                          sessionSettings(index),
+                          const SpacingWidget(LayoutSize.size16),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -221,31 +205,19 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   }
 
   Widget sessionSettings(int sessionIndex) {
-    return ListView.builder(
-      physics: const ClampingScrollPhysics(),
-      shrinkWrap: true,
-      itemCount:
-          widget.viewModel.race?.sessions?[sessionIndex]?.settings?.length,
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+    return Wrap(
+      children: widget.viewModel.race?.sessions?[sessionIndex]?.settings
+          ?.map((e) {
+            return Row(
               children: [
-                TextWidget(
-                    style: Style.paragraph,
-                    text:
-                        "${widget.viewModel.race?.sessions?[sessionIndex]?.settings?[index]?.name}:"),
+                TextWidget(style: Style.paragraph, text: "${e?.name}:"),
                 const SpacingWidget(LayoutSize.size8),
-                TextWidget(
-                    style: Style.paragraph,
-                    text: widget.viewModel.race?.sessions?[sessionIndex]
-                        ?.settings?[index]?.name),
+                TextWidget(style: Style.paragraph, text: e?.name),
               ],
-            ),
-          ],
-        );
-      },
+            );
+          })
+          .toList()
+          .cast<Widget>() as List<Widget>,
     );
   }
 
@@ -256,16 +228,11 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
         child: LoadingShimmer(),
       );
     } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              itemCount: widget.viewModel.raceStandings?.classes?.length,
-              itemBuilder: (context, index) {
+      return Padding(
+        padding: const EdgeInsets.only(left: 8, right: 8),
+        child: Wrap(
+          children: widget.viewModel.raceStandings?.classes
+              ?.map((e) {
                 return CardWidget(
                   ready: true,
                   child: Padding(
@@ -276,35 +243,34 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             TextWidget(
-                              text: widget.viewModel.raceStandings
-                                  ?.classes?[index]?.className,
+                              text: e?.className,
                               style: Style.subtitle,
                               align: TextAlign.start,
                             ),
                           ],
                         ),
                         const SpacingWidget(LayoutSize.size8),
-                        classes(widget.viewModel.raceStandings?.classes?[index]?.sessions)
+                        classes(e?.sessions)
                       ],
                     ),
                   ),
                 );
-              },
-            ),
-          ),
-        ],
+              })
+              .toList()
+              .cast<Widget>() as List<Widget>,
+        ),
       );
     }
   }
 
   Widget classes(List<RaceStandingsSessionModel?>? sessions) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      itemCount: sessions?.length,
-      itemBuilder: (context, index) {
-        return session(sessions?[index]);
-      },
+    return Wrap(
+      children: sessions
+          ?.map((e) {
+            return session(e);
+          })
+          .toList()
+          .cast<Widget>() as List<Widget>,
     );
   }
 
@@ -329,91 +295,70 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   }
 
   Widget driversContainer(List<RaceStandingsSummaryModel>? standings) {
-    return ListView.builder(
-      shrinkWrap: true,
-      padding: EdgeInsets.zero,
-      physics: const ClampingScrollPhysics(),
-      itemCount: standings?.length,
-      itemBuilder: (context, sessionsIndex) {
-        return driverCard(standings?[sessionsIndex]);
-      },
+    return Wrap(
+      children: standings
+          ?.map((e) {
+            return driverCard(e);
+          })
+          .toList()
+          .cast<Widget>() as List<Widget>,
     );
   }
 
   Widget driverCard(RaceStandingsSummaryModel? standing) {
-    if (teamColors
-            .where((element) => element.first == standing?.team?.id)
-            .isEmpty ==
-        true) {
+    if (teamColors.where((element) => element.first == standing?.team?.id).isEmpty == true) {
       teamColors.add(Pair(standing?.team?.id, getTeamColor(teamColors.length)));
     }
     return CardWidget(
       ready: true,
-      shapeLess: true,
+      childLeftColor: getPodiumColor(standing?.summary?.position).first,
+      childLeft: TextWidget(
+        text: "${standing?.summary?.position}º",
+        style: Style.paragraph,
+        color: getPodiumColor(standing?.summary?.position)
+            .second,
+      ),
       padding: EdgeInsets.zero,
       onPressed: () {
         showDriverSummary(standing);
       },
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                    child: Container(
-                      height: 35,
-                      color: getPodiumColor(standing?.summary?.position).first,
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.only(left: 16, right: 16, top: 8),
-                        child: TextWidget(
-                          text: "${standing?.summary?.position}º",
-                          style: Style.paragraph,
-                          color: getPodiumColor(standing?.summary?.position)
-                              .second,
-                        ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                const SpacingWidget(LayoutSize.size16),
+                Expanded(
+                  child: Wrap(
+                    children: [
+                      TextWidget(
+                        text:
+                            "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
+                        style: Style.paragraph,
+                        align: TextAlign.center,
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-              const SpacingWidget(LayoutSize.size16),
-              Expanded(
-                child: Wrap(
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextWidget(
-                      text:
-                          "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
-                      style: Style.paragraph,
-                      align: TextAlign.center,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextWidget(
+                        text: "${standing?.summary?.points} pts",
+                        style: Style.paragraph,
+                        align: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextWidget(
-                      text: "${standing?.summary?.points} pts",
-                      style: Style.paragraph,
-                      align: TextAlign.start,
-                    ),
-                  ),
-                ],
-              ),
-              const IconWidget(icon: Icons.chevron_right, borderless: false,),
-              const SpacingWidget(LayoutSize.size4),
-            ],
-          ),
-          Container(
-            height: 1,
-            color: Colors.black26,
-          )
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -435,7 +380,8 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const IconWidget(icon: Icons.sports_motorsports),
+                                const IconWidget(
+                                    icon: Icons.sports_motorsports),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                   text:

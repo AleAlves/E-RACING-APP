@@ -60,25 +60,21 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                   return SizedBox(
                     width: MediaQuery.of(context).size.width / 5,
                     child: CardWidget(
+                      childLeft: TextWidget(
+                          text: "${position.toString()}°",
+                          style: Style.caption),
                       ready: true,
-                      marked: true,
-                      markColor: Theme.of(context).focusColor,
-                      markWidth: MediaQuery.of(context).size.width / 10 - 8,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          TextWidget(
-                            text: "${position.toString()}°",
-                            style: Style.caption
-                          ),
-                          const SpacingWidget(LayoutSize.size8),
                           Column(
                             children: [
                               TextWidget(
                                 text: score.first.toString(),
                                 style: Style.caption,
                               ),
-                              const TextWidget(text: "pts", style: Style.caption)
+                              const TextWidget(
+                                  text: "pts", style: Style.caption)
                             ],
                           ),
                         ],

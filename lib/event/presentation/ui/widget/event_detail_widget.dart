@@ -13,7 +13,7 @@ import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
-import '../../../../core/ui/component/ui/icon_widget.dart';
+import '../../../../core/ui/component/ui/share_widget.dart';
 import '../../../../core/ui/component/ui/status_widget.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
@@ -100,9 +100,23 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       ready: true,
       child: Column(
         children: [
-          BannerWidget(
-            media: widget.viewModel.media,
+          Stack(
+            children: [
+              BannerWidget(
+                media: widget.viewModel.media,
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: ShareWidget(
+                    size: 16.0,
+                    background: Theme.of(context).colorScheme.secondary,
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    model: widget.viewModel.share),
+              )
+            ],
           ),
+          const SpacingWidget(LayoutSize.size8),
           title(),
           const SpacingWidget(LayoutSize.size16),
           subscription(),
@@ -112,20 +126,24 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   }
 
   Widget title() {
-    return SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16),
+    return Wrap(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
           child: TextWidget(
               text: widget.viewModel.event?.title, style: Style.title),
-        ));
+        ),
+      ],
+    );
   }
 
   Widget eventInfo() {
     return CardWidget(
-      marked: true,
-      markWidth: 45,
-      markColor: Theme.of(context).focusColor,
+      arrowed: true,
+      childLeft: Icon(
+        Icons.info_outline,
+        color: Theme.of(context).colorScheme.onBackground,
+      ),
       onPressed: () {
         widget.viewModel.setFlow(EventFlow.eventDetailInfo);
       },
@@ -133,34 +151,28 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Positioned(
-            top: 0,
-            bottom: 0,
-            left: 0,
-            child: Icon(
-              Icons.info_outline,
-              color: Theme.of(context).colorScheme.onBackground,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 16, bottom: 16, left: 48),
-                child: TextWidget(
-                  text: "Event",
-                  style: Style.subtitle,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                const SpacingWidget(LayoutSize.size8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const TextWidget(
+                      text: "Event",
+                      style: Style.subtitle,
+                    ),
+                    StatusWidget(
+                      state: widget.viewModel.event?.state,
+                      orientation: StatusOrientation.horizontal,
+                    ),
+                    Container()
+                  ],
                 ),
-              ),
-              StatusWidget(state: widget.viewModel.event?.state, orientation: StatusOrientation.horizontal,),
-              Row(
-                children: [
-                  status(),
-                  const SpacingWidget(LayoutSize.size8),
-                  const IconWidget(icon: Icons.chevron_right, borderless: false,),
-                ],
-              )
-            ],
+                const SpacingWidget(LayoutSize.size8),
+              ],
+            ),
           ),
         ],
       ),

@@ -38,6 +38,7 @@ class _EventCreateOptionWidgetState extends State<EventCreateOptionWidget>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         content: content(),
+        scrollable: false,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }
