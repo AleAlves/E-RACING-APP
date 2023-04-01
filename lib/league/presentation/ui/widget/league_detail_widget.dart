@@ -6,11 +6,11 @@ import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_simple_card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/membership_action_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/shortcut_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/social_collection_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -77,11 +77,11 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
-          child: social(),
+          child: panel(),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
-          child: panel(),
+          child: social(),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
@@ -109,35 +109,38 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
             padding: const EdgeInsets.all(8.0),
             child: membership(),
           ),
-          const SpacingWidget(LayoutSize.size8),
         ],
       ),
     );
   }
 
   Widget description() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextWidget(
-            text: widget.viewModel.league?.name ?? '',
-            style: Style.title,
-            align: TextAlign.center,
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, right: 8),
+      child: Column(
+        children: [
+          Wrap(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextWidget(
+                  text: widget.viewModel.league?.name ?? '',
+                  style: Style.title,
+                  align: TextAlign.left,
+                ),
+              ),
+            ],
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: TextWidget(
-            text: widget.viewModel.league?.description ?? '',
-            style: Style.paragraph,
-            align: TextAlign.justify,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextWidget(
+              text: widget.viewModel.league?.description ?? '',
+              style: Style.paragraph,
+              align: TextAlign.justify,
+            ),
           ),
-        ),
-        const SpacingWidget(LayoutSize.size16),
-        tags(),
-        const SpacingWidget(LayoutSize.size16),
-      ],
+        ],
+      ),
     );
   }
 
@@ -174,12 +177,6 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SpacingWidget(LayoutSize.size16),
-        const Padding(
-          padding: EdgeInsets.only(left: 8.0),
-          child: TextWidget(text: "Quick Access", style: Style.paragraph),
-        ),
-        const SpacingWidget(LayoutSize.size4),
         ShortcutCollectionWidget(
           shortcuts: widget.viewModel.menus?.toList(),
           onPressed: widget.viewModel.deeplink,
@@ -212,13 +209,19 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   }
 
   Widget playersEvent() {
-    return widget.viewModel.playerEvents?.isNotEmpty == false
+    return widget.viewModel.playerEvents == null
         ? CardWidget(
             child: SizedBox(
               height: 100,
               width: MediaQuery.of(context).size.width,
             ),
             ready: false)
+        : playerContentWidget();
+  }
+
+  Widget playerContentWidget() {
+    return widget.viewModel.playerEvents?.isEmpty == true
+        ? Container()
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

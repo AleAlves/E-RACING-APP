@@ -1,16 +1,17 @@
 import 'package:e_racing_app/core/tools/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:i18n_extension/i18n_widget.dart';
+
+import './firebase_options.dart';
 import 'core/tools/session.dart';
 import 'login/di/login_di.dart';
-import 'package:firebase_core/firebase_core.dart';
-import './firebase_options.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -78,17 +79,17 @@ class _ERacingAppState extends State<ERacingApp> {
     FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
     const FlexSchemeColor colorDark = FlexSchemeColor(
-      primary: Color(0xFFFFA94C),
-      primaryVariant: Color(0xFFF68D1C),
-      secondary: Color(0xFF7A2491),
-      secondaryVariant: Color(0xFF7A2491),
+      primary: Color(0xFFCFAF86),
+      primaryVariant: Color(0xFFB08C68),
+      secondary: Color(0xFF308579),
+      secondaryVariant: Color(0xFF27796D),
     );
 
     const FlexSchemeColor colorLight = FlexSchemeColor(
-      primary: Color(0xFFFF9E37),
-      primaryVariant: Color(0xFFF68D1C),
-      secondary: Color(0xFF7A2491),
-      secondaryVariant: Color(0xFF7A2491),
+      primary: Color(0xFFCFAF86),
+      primaryVariant: Color(0xFFB08C68),
+      secondary: Color(0xFF308579),
+      secondaryVariant: Color(0xFF27796D),
     );
 
     const FlexSchemeData _myFlexScheme = FlexSchemeData(
@@ -110,17 +111,17 @@ class _ERacingAppState extends State<ERacingApp> {
       ],
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
-        colors: _myFlexScheme.light,
+        colors: _myFlexScheme.dark,
         appBarElevation: 0.1,
       ).copyWith(
-          iconTheme: const IconThemeData(color: Color(0xFF676767)),
-          cardColor: const Color(0xFFEFEFEF),
-          focusColor: const Color(0xFFD7D7D7)),
+          iconTheme: const IconThemeData(color: Color(0xFF1C1C1C)),
+          cardColor: const Color(0xFFF6F6F6),
+          focusColor: const Color(0xFFE5E1E1)),
       darkTheme: FlexThemeData.dark(
         colors: _myFlexScheme.dark,
         appBarElevation: 0.1,
       ).copyWith(
-          iconTheme: const IconThemeData(color: Color(0xFF676767)),
+          iconTheme: const IconThemeData(color: Color(0xFF6B6B6B)),
           cardColor: const Color(0xFF1C1C1C),
           focusColor: const Color(0xFF2C2A2A)),
       themeMode: themeMode,

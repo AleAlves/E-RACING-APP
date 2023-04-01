@@ -38,9 +38,15 @@ class TextWidget extends StatelessWidget {
       case Style.paragraph:
         return Theme.of(context).textTheme.bodyLarge?.copyWith(color: color);
       case Style.caption:
-        return Theme.of(context).textTheme.overline?.copyWith(color: color, fontSize: 12);
+        return Theme.of(context)
+            .textTheme
+            .overline
+            ?.copyWith(color: color, fontSize: 14);
       case Style.button:
-        return Theme.of(context).textTheme.button?.copyWith(color: color, fontSize: 18);
+        return Theme.of(context)
+            .textTheme
+            .button
+            ?.copyWith(color: color, fontSize: 20);
     }
   }
 }

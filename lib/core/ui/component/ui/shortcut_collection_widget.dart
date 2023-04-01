@@ -28,16 +28,12 @@ class _ShortcutCollectionWidgetState extends State<ShortcutCollectionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-        direction: Axis.horizontal,
+    return Column(
         children: widget.shortcuts
-            ?.map((e) => SizedBox(
-          width: MediaQuery.of(context).size.width / 3 - 8,
-              child: ShortcutWidget(
-                    onPressed: widget.onPressed,
-                    shortcut: e,
-                  ),
-            ))
+            ?.map((e) => ShortcutWidget(
+                  onPressed: widget.onPressed,
+                  shortcut: e,
+                ))
             .toList()
             .cast<Widget>() as List<Widget>);
   }

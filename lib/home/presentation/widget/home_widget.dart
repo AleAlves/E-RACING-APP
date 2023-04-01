@@ -2,7 +2,6 @@ import 'package:e_racing_app/core/tools/routes.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/events_card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/league_thumb_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/leagues_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/profile_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -12,7 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/tools/session.dart';
 import '../../../core/ui/component/ui/icon_widget.dart';
+import '../../../core/ui/component/ui/league_card_small_widget.dart';
 import '../home_view_model.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -75,14 +76,21 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
             children: [
               Row(
                 children: [
-                  IconWidget(icon: Icons.notifications, borderless: true, color: Theme.of(context).colorScheme.primary,),
+                  IconWidget(
+                    icon: Icons.notifications,
+                    borderless: true,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                   const SpacingWidget(LayoutSize.size8),
                   const TextWidget(text: "Notifications", style: Style.title),
                 ],
               ),
               widget.vm.notificationsCount == null ||
                       widget.vm.notificationsCount == "0"
-                  ?  const IconWidget(icon: Icons.chevron_right, borderless: false,)
+                  ? const IconWidget(
+                      icon: Icons.chevron_right,
+                      borderless: false,
+                    )
                   : Row(
                       children: [
                         SizedBox(
@@ -135,7 +143,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
       children: [
         const Padding(
           padding: EdgeInsets.all(16),
-          child: TextWidget(text: "Discover", style: Style.subtitle),
+          child: TextWidget(text: "Start racing", style: Style.subtitle),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
@@ -154,24 +162,34 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
   }
 
   Widget communitiesWidget() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
-            child: TextWidget(text: "Your communities", style: Style.subtitle),
-          ),
-          LeagueThumbCollectionWidget(
-            onPressed: () {
-              Modular.to.pushNamed(Routes.league);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        widget.vm.leagues == null
+            ? Container()
+            : const Padding(
+                padding: EdgeInsets.all(16),
+                child:
+                    TextWidget(text: "Your communities", style: Style.subtitle),
+              ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: widget.vm.leagues?.length,
+            itemBuilder: (context, index) {
+              return LeagueCardSmallWidget(
+                  label: widget.vm.leagues?[index]?.name,
+                  emblem: widget.vm.leagues?[index]?.emblem,
+                  onPressed: () {
+                    Session.instance.setLeagueId(widget.vm.leagues?[index]?.id);
+                    Modular.to.pushNamed(Routes.league);
+                  });
             },
-            leagues: widget.vm.leagues,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

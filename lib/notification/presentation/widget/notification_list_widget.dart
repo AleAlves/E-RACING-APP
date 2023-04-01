@@ -6,6 +6,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import '../../../core/ui/component/state/view_state_widget.dart';
 import '../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../core/ui/view_state.dart';
@@ -83,74 +84,82 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
   List<Widget> notifications() {
     return widget.vm.notifications!
         .map((element) => CardWidget(
-            childLeft: element?['important'] == true ? const Icon(Icons.warning) : Container(),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width / 1.5,
-                          child: TextWidget(
-                            text: element?['message'],
-                            style: Style.subtitle,
-                            align: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          const SpacingWidget(LayoutSize.size16),
-                          ClipRRect(
-                            borderRadius: const BorderRadius.all(Radius.circular(14.0)),
-                            child: Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(children: [
-                                  TextWidget(
-                                    text: element?['action'],
-                                    style: Style.caption,
-                                      color: Theme.of(context).colorScheme.onPrimary
-                                  ),
-                                  IconWidget(icon: Icons.arrow_forward, color: Theme.of(context).colorScheme.onPrimary, size: 10,)
-                                ],),
-                              ),
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
+            // childLeft: element?['important'] == true
+            //     ? const Icon(Icons.warning)
+            //     : Container(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.5,
                         child: TextWidget(
-                          text: element?['date'],
-                          style: Style.caption,
+                          text: element?['message'],
+                          style: Style.subtitle,
+                          align: TextAlign.start,
                         ),
                       ),
-                    ],
-                  ),
-                  ButtonWidget(
-                    enabled: true,
-                    type: ButtonType.iconPure,
-                    onPressed: () {
-                      FirebaseFirestore.instance
-                          .runTransaction((Transaction myTransaction) async {
-                        myTransaction.delete(element!.reference);
-                        widget.vm.fetchNotifications();
-                      });
-                    },
-                    icon: Icons.delete,
-                  )
-                ],
-              ),
+                    ),
+                    Row(
+                      children: [
+                        const SpacingWidget(LayoutSize.size16),
+                        ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(14.0)),
+                          child: Container(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  TextWidget(
+                                      text: element?['action'],
+                                      style: Style.caption,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary),
+                                  IconWidget(
+                                    icon: Icons.arrow_forward,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                    size: 10,
+                                  )
+                                ],
+                              ),
+                            ),
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: TextWidget(
+                        text: element?['date'],
+                        style: Style.caption,
+                      ),
+                    ),
+                  ],
+                ),
+                ButtonWidget(
+                  enabled: true,
+                  type: ButtonType.iconPure,
+                  onPressed: () {
+                    FirebaseFirestore.instance
+                        .runTransaction((Transaction myTransaction) async {
+                      myTransaction.delete(element!.reference);
+                      widget.vm.fetchNotifications();
+                    });
+                  },
+                  icon: Icons.delete,
+                )
+              ],
             ),
-            onPressed: (){
+            onPressed: () {
               widget.vm.doNavigate(element?['source']);
             },
             ready: true))
@@ -159,8 +168,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
   }
 
   @override
-  observers() {
-  }
+  observers() {}
 
   @override
   Future<bool> onBackPressed() async {

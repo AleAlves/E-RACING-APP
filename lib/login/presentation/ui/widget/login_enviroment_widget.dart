@@ -4,9 +4,9 @@ import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 
 import '../../login_view_model.dart';
 
@@ -21,8 +21,8 @@ class LoginEnviromentWidget extends StatefulWidget {
 
 class _LoginEnviromentWidgetState extends State<LoginEnviromentWidget>
     implements BaseSateWidget {
-  final String devLocal = "http://192.168.0.15:8084/";
-  final String prod = "https://e-racing-api-dev.herokuapp.com/";
+  final String devLocal = "http://192.168.0.16:8084/";
+  final String prod = "https://e-racing-api.azurewebsites.net/";
 
   @override
   Widget build(BuildContext context) => mainObserver();
@@ -69,7 +69,7 @@ class _LoginEnviromentWidgetState extends State<LoginEnviromentWidget>
             ),
             const SpacingWidget(LayoutSize.size16),
             ListTile(
-              title: const Text('Heroku'),
+              title: const Text('Azure'),
               leading: Radio<String>(
                 groupValue: group,
                 value: prod,

@@ -9,11 +9,21 @@ class FetchLeagueMenuUseCase<T> extends BaseUseCase<T?> {
   void invoke({required Function(T?) success, required Function error}) async {
     List<ShortcutModel> menu = [];
     menu.add(ShortcutModel(
-        title: "All events", icon: Icons.emoji_events, deepLink: Routes.events, highlight: true));
+        title: "All events",
+        subtitle: "Racing events such as tournaments, cups or single races",
+        icon: Icons.emoji_events,
+        deepLink: Routes.events,
+        highlight: true));
     menu.add(ShortcutModel(
-        title: "Members", icon: Icons.supervised_user_circle, flow: LeagueFlow.members));
+        title: "Members",
+        subtitle: "Drivers of this community",
+        icon: Icons.supervised_user_circle,
+        flow: LeagueFlow.members));
     menu.add(ShortcutModel(
-        title: "Trophy room", icon: Icons.military_tech_sharp, deepLink: ""));
+        title: "Trophy room",
+        subtitle: "The hall of honor of the champions of this community",
+        icon: Icons.military_tech_sharp,
+        deepLink: ""));
     success.call(menu as T);
   }
 }

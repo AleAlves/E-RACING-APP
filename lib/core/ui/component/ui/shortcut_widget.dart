@@ -31,11 +31,12 @@ class ShortcutWidget extends StatelessWidget {
       ready: true,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
             children: [
               IconWidget(
+                size: 48,
                 icon: shortcut?.icon,
                 color: shortcut?.highlight == null
                     ? null
@@ -43,24 +44,41 @@ class ShortcutWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SpacingWidget(LayoutSize.size48),
+          const SpacingWidget(LayoutSize.size16),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              const SpacingWidget(LayoutSize.size8),
               TextWidget(
                 text: shortcut?.title ?? "",
-                style: Style.paragraph,
+                style: Style.subtitle,
                 color: shortcut?.highlight == null
-                    ? null : Theme.of(context).colorScheme.onPrimary,
+                    ? null
+                    : Theme.of(context).colorScheme.onPrimary,
               ),
               const SpacingWidget(LayoutSize.size8),
-              const IconWidget(
+              IconWidget(
                 icon: Icons.arrow_forward,
-                size: 10,
+                size: 12,
                 borderless: true,
+                color: shortcut?.highlight == null
+                    ? null
+                    : Theme.of(context).colorScheme.onPrimary,
               )
             ],
-          )
+          ),
+          const SpacingWidget(LayoutSize.size8),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextWidget(
+              text: shortcut?.subtitle ?? "",
+              style: Style.caption,
+              align: TextAlign.start,
+              color: shortcut?.highlight == null
+                  ? null
+                  : Theme.of(context).colorScheme.onPrimary,
+            ),
+          ),
         ],
       ),
     );

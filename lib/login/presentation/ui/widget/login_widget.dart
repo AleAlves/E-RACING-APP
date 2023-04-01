@@ -1,13 +1,14 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/domain/model/user_model.dart';
+import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../login_view_model.dart';
@@ -53,7 +54,8 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
 
   @override
   observers() {
-    _disposers.add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
+    _disposers
+        .add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
       _emailController.text = widget.viewModel.user?.profile?.email ?? "";
       _passwordController.text = widget.viewModel.user?.auth?.password ?? "";
     }));
@@ -74,6 +76,9 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
       padding: const EdgeInsets.all(24.0),
       child: Column(
         children: [
+          Lottie.asset('assets/checkred-flag.json',
+              width: MediaQuery.of(context).size.width / 3, repeat: false),
+          const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
               enabled: true,
               label: 'Email',
@@ -103,7 +108,16 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
                 return null;
               },
               inputType: InputType.password),
-          const SpacingWidget(LayoutSize.size48),
+          const SpacingWidget(LayoutSize.size16),
+          ButtonWidget(
+            enabled: true,
+            type: ButtonType.link,
+            onPressed: () {
+              widget.viewModel.flow = LoginWidgetFlow.resetCode;
+            },
+            label: "Preciso de ajuda",
+          ),
+          const SpacingWidget(LayoutSize.size16),
           ButtonWidget(
             enabled: true,
             type: ButtonType.secondary,
@@ -114,15 +128,6 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
               }
             },
             label: "Entrar",
-          ),
-          const SpacingWidget(LayoutSize.size48),
-          ButtonWidget(
-            enabled: true,
-            type: ButtonType.link,
-            onPressed: () {
-              widget.viewModel.flow = LoginWidgetFlow.resetCode;
-            },
-            label: "Esqueci a senha",
           ),
           const SpacingWidget(LayoutSize.size48),
           const TextWidget(
@@ -145,7 +150,7 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.flow = LoginWidgetFlow.login;
+    widget.viewModel.flow = LoginWidgetFlow.enviroment;
     return false;
   }
 }

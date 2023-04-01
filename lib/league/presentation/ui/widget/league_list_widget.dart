@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../core/ext/access_extension.dart';
+
 class LeagueListWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
 
@@ -71,6 +73,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
               emblem: widget.viewModel.leagues?[index]?.emblem,
               members: widget.viewModel.leagues?[index]?.members?.length,
               capacity: widget.viewModel.leagues?[index]?.capacity,
+              hasMembership: isLeagueMember(widget.viewModel.leagues?[index]),
               tags: widget.viewModel.tags,
               leagueTags: widget.viewModel.leagues?[index]?.tags,
               onPressed: () {

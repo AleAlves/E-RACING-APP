@@ -6,13 +6,13 @@ import 'package:e_racing_app/core/tools/routes.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/data/model/login_response.dart';
+import 'package:e_racing_app/login/domain/model/public_key_model.dart';
+import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:e_racing_app/login/domain/usecase/forgot_password_usecase.dart';
 import 'package:e_racing_app/login/domain/usecase/get_public_key_usecase.dart';
 import 'package:e_racing_app/login/domain/usecase/get_user_usecase.dart';
 import 'package:e_racing_app/login/domain/usecase/login_2fa_usecase.dart';
 import 'package:e_racing_app/login/domain/usecase/login_usecase.dart';
-import 'package:e_racing_app/login/domain/model/public_key_model.dart';
-import 'package:e_racing_app/login/domain/model/user_model.dart';
 import 'package:e_racing_app/login/domain/usecase/reset_password_usecase.dart';
 import 'package:e_racing_app/login/domain/usecase/save_user_usecase.dart';
 import 'package:e_racing_app/login/domain/usecase/sign_in_usecase.dart';
@@ -32,7 +32,7 @@ abstract class _LoginViewModel with Store {
   ViewState state = ViewState.ready;
 
   @observable
-  LoginWidgetFlow flow = LoginWidgetFlow.login;
+  LoginWidgetFlow flow = LoginWidgetFlow.enviroment;
 
   @observable
   UserModel? user;

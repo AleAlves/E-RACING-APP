@@ -1,13 +1,14 @@
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
+
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/model/session_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
@@ -16,19 +17,23 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../../core/tools/session.dart';
 import '../../../event_view_model.dart';
 
 class EventCreateSingleRaceWidget extends StatefulWidget {
   final EventViewModel viewModel;
 
-  const EventCreateSingleRaceWidget(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateSingleRaceWidget(this.viewModel, {Key? key})
+      : super(key: key);
 
   @override
-  _EventCreateSingleRaceWidgetState createState() => _EventCreateSingleRaceWidgetState();
+  _EventCreateSingleRaceWidgetState createState() =>
+      _EventCreateSingleRaceWidgetState();
 }
 
-class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidget>
-    implements BaseSateWidget {
+class _EventCreateSingleRaceWidgetState
+    extends State<EventCreateSingleRaceWidget> implements BaseSateWidget {
   int _index = 0;
   bool allowTeams = false;
   bool allowMembersOnly = false;
@@ -220,8 +225,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
                 });
               },
             ),
-            const TextWidget(
-                text: "Allow racing teams", style: Style.paragraph)
+            const TextWidget(text: "Allow racing teams", style: Style.paragraph)
           ],
         ),
         Row(
@@ -234,8 +238,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
                 });
               },
             ),
-            const TextWidget(
-                text: "Allow members only", style: Style.paragraph)
+            const TextWidget(text: "Allow members only", style: Style.paragraph)
           ],
         )
       ],
@@ -358,8 +361,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
                 });
               },
             ),
-            const TextWidget(
-                text: "Live broadcasting", style: Style.paragraph),
+            const TextWidget(text: "Live broadcasting", style: Style.paragraph),
           ],
         ),
         if (hasBroadcasting)
@@ -502,6 +504,7 @@ class _EventCreateSingleRaceWidgetState extends State<EventCreateSingleRaceWidge
             sessions: sessionModel);
 
         var event = EventModel(
+          leagueId: Session.instance.getLeagueId(),
           races: [race],
           classes: classesModel,
           teamsEnabled: allowTeams,

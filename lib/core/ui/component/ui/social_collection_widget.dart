@@ -91,7 +91,7 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
       case "site":
       case "blog":
       default:
-        return Pair(Icons.language_outlined, const Color(0xFF6D9CFF));
+        return Pair(Icons.language_outlined, const Color(0xFF8C8C8C));
     }
   }
 }
