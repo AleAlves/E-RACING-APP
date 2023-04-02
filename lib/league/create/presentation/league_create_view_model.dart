@@ -26,9 +26,6 @@ abstract class _LeagueCreateViewModel
   LeagueCreateNavigator flow = LeagueCreateNavigator.terms;
 
   @observable
-  LeagueModel? league;
-
-  @observable
   StatusModel? status;
 
   @observable
@@ -39,6 +36,24 @@ abstract class _LeagueCreateViewModel
 
   @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
+
+  @observable
+  String? name;
+
+  @observable
+  String? description;
+
+  @observable
+  String? banner;
+
+  @observable
+  bool? termsAgreement;
+
+  @observable
+  List<String?>? leagueTags;
+
+  @observable
+  List<LinkModel?>? socialPlatforms;
 
   final createUseCase = Modular.get<CreateLeagueUseCase<StatusModel>>();
   final getTagUseCase = Modular.get<GetTagUseCase>();
@@ -59,14 +74,41 @@ abstract class _LeagueCreateViewModel
         .invoke(
             success: (data) {
               status = data;
-              // setFlow(LeagueFlow.status);
             },
             error: onError);
   }
 
   void fetchTerms() {}
 
-  void setName(String name) {}
+  void setAgreement(bool termsAgreement) {
+    this.termsAgreement = termsAgreement;
+    onNavigate(LeagueCreateNavigator.name);
+  }
+
+  void setName(String name) {
+    this.name = name;
+    onNavigate(LeagueCreateNavigator.description);
+  }
+
+  void setDescription(String description) {
+    this.description = description;
+    onNavigate(LeagueCreateNavigator.banner);
+  }
+
+  void setBanner(String banner) {
+    this.banner = banner;
+    onNavigate(LeagueCreateNavigator.tags);
+  }
+
+  void setTags(List<String?> leagueTags) {
+    this.leagueTags = leagueTags;
+    onNavigate(LeagueCreateNavigator.socialMedia);
+  }
+
+  void setSocialMedia(List<LinkModel?> socialPlatforms) {
+    this.socialPlatforms = socialPlatforms;
+    onNavigate(LeagueCreateNavigator.finish);
+  }
 
   void fetchTags() async {
     state = ViewState.loading;

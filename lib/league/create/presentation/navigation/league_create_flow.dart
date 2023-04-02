@@ -2,6 +2,10 @@ import 'package:e_racing_app/league/create/presentation/ui/view/league_create_na
 import 'package:flutter/cupertino.dart';
 
 import '../league_create_view_model.dart';
+import '../ui/view/league_create_banner_view.dart';
+import '../ui/view/league_create_description_view.dart';
+import '../ui/view/league_create_social_media_view.dart';
+import '../ui/view/league_create_tags_view.dart';
 import '../ui/view/league_create_terms_view.dart';
 
 enum LeagueCreateNavigator {
@@ -23,13 +27,13 @@ extension LeagueCreateNavigation on LeagueCreateNavigator {
       case LeagueCreateNavigator.name:
         return LeagueCreateNameView(vm);
       case LeagueCreateNavigator.description:
-        return LeagueCreateTermsView(vm);
+        return LeagueCreateDescriptionView(vm);
       case LeagueCreateNavigator.banner:
-        return LeagueCreateTermsView(vm);
+        return LeagueCreateBannerView(vm);
       case LeagueCreateNavigator.tags:
-        return LeagueCreateTermsView(vm);
+        return LeagueCreateTagsView(vm);
       case LeagueCreateNavigator.socialMedia:
-        return LeagueCreateTermsView(vm);
+        return LeagueCreateSocialMediaView(vm);
       case LeagueCreateNavigator.finish:
         return LeagueCreateTermsView(vm);
       default:

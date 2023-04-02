@@ -1,23 +1,32 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../../core/ui/component/state/view_state_widget.dart';
+import '../../../../../core/ui/component/ui/button_widget.dart';
+import '../../../../../core/ui/component/ui/spacing_widget.dart';
+import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
 import '../../league_create_view_model.dart';
+import '../../navigation/league_create_flow.dart';
 
-class LeagueCreateNameView extends StatefulWidget {
+class LeagueCreateBannerView extends StatefulWidget {
   final LeagueCreateViewModel viewModel;
 
-  const LeagueCreateNameView(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueCreateBannerView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _LeagueCreateNameViewState createState() => _LeagueCreateNameViewState();
+  _LeagueCreateBannerViewState createState() => _LeagueCreateBannerViewState();
 }
 
-class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
+class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
     implements BaseSateWidget {
   var isSwitched = false;
+  File bannerFile = File('');
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
@@ -40,7 +49,8 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
       body: content(),
-      scrollable: true,
+      bottom: button(),
+      scrollable: false,
       onBackPressed: onBackPressed,
       state: ViewState.ready,
     );
@@ -48,7 +58,77 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
 
   @override
   Widget content() {
-    return Container();
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          guideLines(),
+          const SpacingWidget(LayoutSize.size48),
+          bannerPicker(),
+          const SpacingWidget(LayoutSize.size16),
+          imageSizeHint()
+        ],
+      ),
+    );
+  }
+
+  Widget guideLines() {
+    return const TextWidget(
+        text: "Pick a banner for you league, this is welcome card",
+        style: Style.subtitle);
+  }
+
+  Widget imageSizeHint() {
+    return const TextWidget(
+      text: "Image suggested size: 700x100",
+      style: Style.caption,
+      align: TextAlign.start,
+    );
+  }
+
+  Widget bannerPicker() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4.0),
+          child: SizedBox(
+            height: 200,
+            width: MediaQuery.of(context).size.height,
+            child: bannerFile.path == ''
+                ? Container()
+                : Image.file(
+                    bannerFile,
+                    fit: BoxFit.fill,
+                  ),
+          ),
+        ),
+        ButtonWidget(
+            type: ButtonType.iconButton,
+            icon: Icons.image_search,
+            enabled: true,
+            onPressed: () async {
+              var image = await _picker.pickImage(source: ImageSource.gallery);
+              setState(() {
+                bannerFile = File(image?.path ?? '');
+              });
+            })
+      ],
+    );
+  }
+
+  Widget button() {
+    return ButtonWidget(
+      enabled: bannerFile.path.isNotEmpty,
+      type: ButtonType.primary,
+      onPressed: () {
+        widget.viewModel.setBanner(base64Encode(bannerFile.readAsBytesSync()));
+      },
+      label: "Next",
+    );
   }
 
   @override
@@ -56,7 +136,7 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
 
   @override
   Future<bool> onBackPressed() async {
-    Modular.to.pop();
+    widget.viewModel.onNavigate(LeagueCreateNavigator.description);
     return false;
   }
 }

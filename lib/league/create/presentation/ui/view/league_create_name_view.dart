@@ -29,6 +29,7 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
   void initState() {
     observers();
     super.initState();
+    _nameController.text = widget.viewModel.name ?? '';
     _nameController.addListener(observers);
     widget.viewModel.fetchTerms();
   }
@@ -50,7 +51,7 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
       bottom: button(),
       scrollable: false,
       onBackPressed: onBackPressed,
-      state: ViewState.ready,
+      state: widget.viewModel.state,
     );
   }
 

@@ -47,6 +47,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
     return ViewStateWidget(
         scrollable: false,
         body: content(),
+        bottom: buttonUpdateWidget(),
         state: widget.vm.state,
         onBackPressed: onBackPressed);
   }
@@ -99,19 +100,22 @@ class _ProfileWidgetState extends State<ProfileWidget>
               ),
             ],
           ),
-          ButtonWidget(
-            enabled: true,
-            type: ButtonType.primary,
-            onPressed: () {
-              if (_formKey.currentState?.validate() == true) {
-                widget.vm.udpate(_nameController.text, _surnameController.text,
-                    _mailController.text, country ?? '');
-              }
-            },
-            label: "Update",
-          )
         ],
       ),
+    );
+  }
+
+  Widget buttonUpdateWidget() {
+    return ButtonWidget(
+      enabled: true,
+      type: ButtonType.primary,
+      onPressed: () {
+        if (_formKey.currentState?.validate() == true) {
+          widget.vm.udpate(_nameController.text, _surnameController.text,
+              _mailController.text, country ?? '');
+        }
+      },
+      label: "Update",
     );
   }
 

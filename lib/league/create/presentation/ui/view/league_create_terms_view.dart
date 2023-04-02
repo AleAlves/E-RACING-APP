@@ -1,5 +1,4 @@
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
-import 'package:e_racing_app/league/create/presentation/navigation/league_create_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -27,6 +26,7 @@ class _LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
   void initState() {
     observers();
     super.initState();
+    termsAccepted = widget.viewModel.termsAgreement ?? false;
     widget.viewModel.fetchTerms();
   }
 
@@ -137,7 +137,7 @@ class _LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
         label: "Accept and continue",
         type: ButtonType.primary,
         onPressed: () {
-          widget.viewModel.onNavigate(LeagueCreateNavigator.name);
+          widget.viewModel.setAgreement(termsAccepted);
         });
   }
 
