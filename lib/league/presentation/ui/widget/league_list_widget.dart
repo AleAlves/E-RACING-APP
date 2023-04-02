@@ -4,12 +4,13 @@ import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dar
 import 'package:e_racing_app/core/ui/component/ui/league_card_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
-import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
+import 'package:e_racing_app/league/presentation/ui/navigation/league_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/ext/access_extension.dart';
+import '../../../../core/tools/routes.dart';
 
 class LeagueListWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
@@ -45,12 +46,12 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
         scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed,
-        floatAction: FloatActionButtonWidget<LeagueFlow>(
-          flow: LeagueFlow.create,
+        floatAction: FloatActionButtonWidget(
           icon: Icons.add,
           title: "Create new",
-          onPressed: (flow) {
-            widget.viewModel.setFlow(flow);
+          onPressed: () {
+            // widget.viewModel.setFlow(LeagueFlow.create);
+            Modular.to.pushNamed(Routes.leagueCreation);
           },
         ));
   }
@@ -72,7 +73,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
         itemBuilder: (context, index) {
           return LeagueCardWidget(
               label: widget.viewModel.leagues?[index]?.name,
-              emblem: widget.viewModel.leagues?[index]?.emblem,
+              emblem: widget.viewModel.leagues?[index]?.banner,
               members: widget.viewModel.leagues?[index]?.members?.length,
               capacity: widget.viewModel.leagues?[index]?.capacity,
               hasMembership: isLeagueMember(widget.viewModel.leagues?[index]),

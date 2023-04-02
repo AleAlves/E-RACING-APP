@@ -10,14 +10,8 @@ import 'icon_widget.dart';
 
 class FullStandingsWidget extends StatefulWidget {
   final EventStandingsModel? standings;
-  final Function(String) onRaceCardPressed;
-  final Function onFullStandingsPressed;
 
-  const FullStandingsWidget(
-      {Key? key,
-      required this.standings,
-      required this.onRaceCardPressed,
-      required this.onFullStandingsPressed})
+  const FullStandingsWidget({Key? key, required this.standings})
       : super(key: key);
 
   @override
@@ -91,10 +85,9 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextWidget(
-                              text: clazz?.className,
-                              style: Style.caption,
-                              align: TextAlign.start
-                            ),
+                                text: clazz?.className,
+                                style: Style.caption,
+                                align: TextAlign.start),
                           ],
                         ),
                       )
@@ -122,7 +115,8 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
         [Container()];
   }
 
-  Widget driverContainer(EventStandingSummaryModel? standing, Color color, int position) {
+  Widget driverContainer(
+      EventStandingSummaryModel? standing, Color color, int position) {
     return Column(
       children: [
         driverCard(standing, color, position),
@@ -130,12 +124,13 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
     );
   }
 
-  Widget driverCard(EventStandingSummaryModel? standing, Color color, int position) {
+  Widget driverCard(
+      EventStandingSummaryModel? standing, Color color, int position) {
     return CardWidget(
       ready: true,
       shapeLess: true,
       padding: EdgeInsets.zero,
-      onPressed: (){
+      onPressed: () {
         showResume(standing);
       },
       child: Container(
@@ -196,7 +191,10 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                     ),
                   ],
                 ),
-                const IconWidget(icon: Icons.chevron_right, borderless: false,),
+                const IconWidget(
+                  icon: Icons.chevron_right,
+                  borderless: false,
+                ),
                 const SpacingWidget(LayoutSize.size4),
               ],
             ),
@@ -206,7 +204,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
     );
   }
 
-  showResume(EventStandingSummaryModel? standing){
+  showResume(EventStandingSummaryModel? standing) {
     showModalBottomSheet(
         isScrollControlled: false,
         context: context,
@@ -233,7 +231,8 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                       const IconWidget(icon: Icons.sports_motorsports),
                       const SpacingWidget(LayoutSize.size16),
                       TextWidget(
-                        text: "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
+                        text:
+                            "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
                         style: Style.paragraph,
                       ),
                     ],

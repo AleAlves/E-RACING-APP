@@ -14,7 +14,8 @@ class EventFullStandingsWidget extends StatefulWidget {
   const EventFullStandingsWidget(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventFullStandingsWidgetState createState() => _EventFullStandingsWidgetState();
+  _EventFullStandingsWidgetState createState() =>
+      _EventFullStandingsWidgetState();
 }
 
 class _EventFullStandingsWidgetState extends State<EventFullStandingsWidget>
@@ -65,16 +66,11 @@ class _EventFullStandingsWidgetState extends State<EventFullStandingsWidget>
     );
   }
 
-  Widget generalStandings(){
-    return FullStandingsWidget(
-      standings: widget.viewModel.standings,
-      onRaceCardPressed: (id) {}, onFullStandingsPressed: (){},
-    );
+  Widget generalStandings() {
+    return FullStandingsWidget(standings: widget.viewModel.standings);
   }
 
-  Widget teamsStandings(){
-    return TeamsStandingsWidget(
-      standings: widget.viewModel.raceTeamsStandings
-    );
+  Widget teamsStandings() {
+    return TeamsStandingsWidget(standings: widget.viewModel.raceTeamsStandings);
   }
 }

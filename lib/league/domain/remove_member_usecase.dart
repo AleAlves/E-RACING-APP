@@ -1,9 +1,9 @@
-import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/data/http_request.dart';
+import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/league/data/remove_member_model.dart';
-import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
+import 'package:e_racing_app/league/presentation/ui/navigation/league_flow.dart';
 
 class RemoveMemberUseCase<T> extends BaseUseCase<T> {
   late String _memberId;

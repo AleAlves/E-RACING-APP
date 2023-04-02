@@ -1,7 +1,7 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/tools/routes.dart';
-import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
+import 'package:e_racing_app/league/presentation/ui/navigation/league_flow.dart';
 import 'package:flutter/material.dart';
 
 class FetchLeagueMenuUseCase<T> extends BaseUseCase<T?> {

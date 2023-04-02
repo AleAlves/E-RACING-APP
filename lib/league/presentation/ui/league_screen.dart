@@ -3,8 +3,9 @@ import 'package:e_racing_app/league/presentation/league_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import '../../../core/ui/component/ui/share_widget.dart';
-import 'league_flow.dart';
+import 'navigation/league_flow.dart';
 
 class LeagueScreen extends StatefulWidget {
   final LeagueFlow flow;

@@ -15,7 +15,7 @@ import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
-import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
+import 'package:e_racing_app/league/presentation/ui/navigation/league_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -57,12 +57,11 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
       state: widget.viewModel.state,
       onBackPressed: onBackPressed,
       scrollable: true,
-      floatAction: FloatActionButtonWidget<LeagueFlow>(
-        flow: LeagueFlow.edit,
+      floatAction: FloatActionButtonWidget(
         icon: Icons.build,
         title: "Edit",
-        onPressed: (flow) {
-          widget.viewModel.setFlow(flow);
+        onPressed: () {
+          widget.viewModel.setFlow(LeagueFlow.edit);
         },
       ),
     );

@@ -3,20 +3,21 @@ import 'dart:io';
 
 import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/dropdown_menu_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/step_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/stepper_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/league/presentation/league_view_model.dart';
-import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:e_racing_app/league/presentation/ui/navigation/league_flow.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../league_view_model.dart';
 
 class LeagueCreateWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
@@ -414,7 +415,7 @@ class _LeagueCreateWidgetState extends State<LeagueCreateWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(LeagueFlow.list);
+    widget.viewModel.setFlow(LeagueFlow.delete);
     return false;
   }
 }

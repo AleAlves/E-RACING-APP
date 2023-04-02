@@ -3,17 +3,15 @@ import 'package:flutter/material.dart';
 
 import '../state/loading_shimmer.dart';
 
-class FloatActionButtonWidget<T> extends StatefulWidget {
-  final T flow;
+class FloatActionButtonWidget extends StatefulWidget {
   final IconData icon;
   final String title;
-  final Function(T)? onPressed;
+  final Function onPressed;
 
   const FloatActionButtonWidget(
       {required this.icon,
       required this.title,
-      required this.flow,
-      this.onPressed,
+      required this.onPressed,
       Key? key})
       : super(key: key);
 
@@ -60,7 +58,7 @@ class _FloatActionButtonWidgetState extends State<FloatActionButtonWidget> {
                 ),
                 FloatingActionButton(
                   onPressed: () {
-                    widget.onPressed?.call(widget.flow);
+                    widget.onPressed.call();
                   },
                   child: Icon(
                     widget.icon,

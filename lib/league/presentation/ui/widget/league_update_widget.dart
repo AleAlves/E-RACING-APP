@@ -21,7 +21,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../league_flow.dart';
+import '../navigation/league_flow.dart';
 
 class LeagueUpdateWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
@@ -67,12 +67,11 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
       scrollable: true,
       state: widget.viewModel.state,
       onBackPressed: onBackPressed,
-      floatAction: FloatActionButtonWidget<LeagueFlow>(
-        flow: LeagueFlow.delete,
+      floatAction: FloatActionButtonWidget(
         icon: Icons.delete,
         title: "Delete",
-        onPressed: (flow) {
-          widget.viewModel.setFlow(flow);
+        onPressed: () {
+          widget.viewModel.setFlow(LeagueFlow.delete);
         },
       ),
     );
@@ -231,7 +230,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
                     width: 100,
                     child: emblemFile.path.isEmpty
                         ? Image.memory(
-                            base64Decode(widget.viewModel.league?.emblem ?? ''),
+                            base64Decode(widget.viewModel.league?.banner ?? ''),
                             fit: BoxFit.fill,
                           )
                         : Image.file(
@@ -430,7 +429,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
               owner: widget.viewModel.league?.owner,
               name: _nameController.text,
               description: _descriptionController.text,
-              emblem: emblem64Image,
+              banner: emblem64Image,
               capacity: widget.viewModel.league?.capacity,
               members: widget.viewModel.league?.members,
               tags: tags,

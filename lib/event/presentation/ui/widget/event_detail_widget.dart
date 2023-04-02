@@ -180,14 +180,13 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
     );
   }
 
-  FloatActionButtonWidget<EventFlow>? adminOption() {
+  FloatActionButtonWidget? adminOption() {
     return isEventHost(widget.viewModel.event)
-        ? FloatActionButtonWidget<EventFlow>(
-            flow: EventFlow.manager,
+        ? FloatActionButtonWidget(
             icon: Icons.manage_accounts,
             title: "Manage",
-            onPressed: (flow) {
-              widget.viewModel.setFlow(flow);
+            onPressed: () {
+              widget.viewModel.setFlow(EventFlow.manager);
             },
           )
         : null;

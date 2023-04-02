@@ -8,19 +8,19 @@ import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/data/league_members_model.dart';
-import 'package:e_racing_app/league/domain/fetch_player_events_use_case.dart';
-import 'package:e_racing_app/league/domain/model/league_model.dart';
-import 'package:e_racing_app/league/domain/fetch_league_usecase.dart';
-import 'package:e_racing_app/league/domain/get_members_usecase.dart';
-import 'package:e_racing_app/league/domain/remove_member_usecase.dart';
-import 'package:e_racing_app/league/domain/start_membership_usecase.dart';
-import 'package:e_racing_app/league/domain/stop_membership_usecase.dart';
 import 'package:e_racing_app/league/domain/create_league_usecase.dart';
 import 'package:e_racing_app/league/domain/delete_league_usecase.dart';
 import 'package:e_racing_app/league/domain/fetch_league_menu_usecase.dart';
+import 'package:e_racing_app/league/domain/fetch_league_usecase.dart';
+import 'package:e_racing_app/league/domain/fetch_player_events_use_case.dart';
 import 'package:e_racing_app/league/domain/get_league_usecase.dart';
+import 'package:e_racing_app/league/domain/get_members_usecase.dart';
+import 'package:e_racing_app/league/domain/model/league_model.dart';
+import 'package:e_racing_app/league/domain/remove_member_usecase.dart';
+import 'package:e_racing_app/league/domain/start_membership_usecase.dart';
+import 'package:e_racing_app/league/domain/stop_membership_usecase.dart';
 import 'package:e_racing_app/league/domain/upate_league_usecase.dart';
-import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
+import 'package:e_racing_app/league/presentation/ui/navigation/league_flow.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
@@ -115,7 +115,7 @@ abstract class _LeagueViewModel with Store {
             league: LeagueModel(
                 name: name,
                 description: description,
-                emblem: emblem,
+                banner: emblem,
                 tags: tags,
                 links: links),
             media: MediaModel(banner))

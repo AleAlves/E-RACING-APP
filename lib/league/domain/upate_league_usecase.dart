@@ -1,11 +1,11 @@
+import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
-import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/league/data/league_create_model.dart';
 import 'package:e_racing_app/league/domain/model/league_model.dart';
-import 'package:e_racing_app/league/presentation/ui/league_flow.dart';
+import 'package:e_racing_app/league/presentation/ui/navigation/league_flow.dart';
 
 class UpdateLeagueUseCase<T> extends BaseUseCase<T?> {
   late MediaModel _media;
@@ -27,7 +27,9 @@ class UpdateLeagueUseCase<T> extends BaseUseCase<T?> {
         params: HTTPRequesParams(data: LeagueCreateModel(_media, _league))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "League Updated", action: "Ok", next: LeagueFlow.detail) as T);
+          message: "League Updated",
+          action: "Ok",
+          next: LeagueFlow.detail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

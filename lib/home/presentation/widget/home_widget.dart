@@ -183,7 +183,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
             itemBuilder: (context, index) {
               return LeagueCardSmallWidget(
                   label: widget.vm.leagues?[index]?.name,
-                  emblem: widget.vm.leagues?[index]?.emblem,
+                  emblem: widget.vm.leagues?[index]?.banner,
                   onPressed: () {
                     Session.instance.setLeagueId(widget.vm.leagues?[index]?.id);
                     Modular.to.pushNamed(Routes.league);

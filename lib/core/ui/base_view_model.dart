@@ -1,4 +1,5 @@
-abstract class BaseViewModel {
-  void onNavigate(String route);
-  void onError();
+abstract class BaseViewModel<T> {
+  void onNavigate(T route);
+
+  void onError(T route);
 }

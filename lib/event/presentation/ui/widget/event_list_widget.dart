@@ -45,12 +45,11 @@ class _EventListWidgetState extends State<EventListWidget>
       scrollable: true,
       state: widget.viewModel.state,
       onBackPressed: onBackPressed,
-      floatAction: FloatActionButtonWidget<EventFlow>(
-        flow: EventFlow.create,
+      floatAction: FloatActionButtonWidget(
         icon: Icons.add,
         title: "Create new",
-        onPressed: (flow) {
-          widget.viewModel.setFlow(flow);
+        onPressed: () {
+          widget.viewModel.setFlow(EventFlow.create);
         },
       ),
     );

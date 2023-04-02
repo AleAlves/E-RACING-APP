@@ -3,6 +3,7 @@ class Routes {
   static String home = "/home/";
   static String leagues = "/leagues/";
   static String league = "/leagues/detail";
+  static String leagueCreation = "/leagues/create";
   static String events = "/events/";
   static String race = "/race/";
   static String event = "/events/detail";

@@ -54,14 +54,15 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
       state: widget.viewModel.state,
       scrollable: true,
       onBackPressed: onBackPressed,
-      floatAction: FloatActionButtonWidget<EventFlow>(
-        flow: EventFlow.delete,
+      floatAction: FloatActionButtonWidget(
         icon: Icons.delete_forever,
         title: "Delete",
-        onPressed: (flow) {
+        onPressed: () {
           confirmationDialogExt(
               context: context,
-              onPositive: () {},
+              onPositive: () {
+                // EventFlow.delete
+              },
               consentMessage: "Yes, I do",
               issueMessage: "Do you want to delete this event?");
         },
