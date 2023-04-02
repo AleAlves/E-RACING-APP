@@ -5,21 +5,22 @@ import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/dropdown_menu_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/step_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/stepper_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/domain/model/league_model.dart';
 import 'package:e_racing_app/league/presentation/league_view_model.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:image_picker/image_picker.dart';
+
 import '../league_flow.dart';
 
 class LeagueUpdateWidget extends StatefulWidget {
@@ -69,6 +70,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
       floatAction: FloatActionButtonWidget<LeagueFlow>(
         flow: LeagueFlow.delete,
         icon: Icons.delete,
+        title: "Delete",
         onPressed: (flow) {
           widget.viewModel.setFlow(flow);
         },

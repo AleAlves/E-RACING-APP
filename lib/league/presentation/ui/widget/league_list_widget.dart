@@ -48,6 +48,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
         floatAction: FloatActionButtonWidget<LeagueFlow>(
           flow: LeagueFlow.create,
           icon: Icons.add,
+          title: "Create new",
           onPressed: (flow) {
             widget.viewModel.setFlow(flow);
           },

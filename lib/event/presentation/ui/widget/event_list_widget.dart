@@ -1,9 +1,9 @@
 import 'package:e_racing_app/core/ext/event_iconography_extension.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -48,6 +48,7 @@ class _EventListWidgetState extends State<EventListWidget>
       floatAction: FloatActionButtonWidget<EventFlow>(
         flow: EventFlow.create,
         icon: Icons.add,
+        title: "Create new",
         onPressed: (flow) {
           widget.viewModel.setFlow(flow);
         },

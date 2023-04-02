@@ -2,18 +2,19 @@ import 'package:e_racing_app/core/ext/dialog_extension.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_race_results_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_subscribers_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_subscriptions_panel_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
@@ -56,6 +57,7 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
       floatAction: FloatActionButtonWidget<EventFlow>(
         flow: EventFlow.delete,
         icon: Icons.delete_forever,
+        title: "Delete",
         onPressed: (flow) {
           confirmationDialogExt(
               context: context,

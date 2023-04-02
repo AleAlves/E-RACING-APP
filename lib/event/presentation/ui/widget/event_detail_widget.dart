@@ -1,17 +1,18 @@
 import 'package:e_racing_app/core/ext/access_extension.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_race_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/simple_standings_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/subscription_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../../core/ui/component/ui/share_widget.dart';
 import '../../../../core/ui/component/ui/status_widget.dart';
@@ -184,6 +185,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
         ? FloatActionButtonWidget<EventFlow>(
             flow: EventFlow.manager,
             icon: Icons.manage_accounts,
+            title: "Manage",
             onPressed: (flow) {
               widget.viewModel.setFlow(flow);
             },

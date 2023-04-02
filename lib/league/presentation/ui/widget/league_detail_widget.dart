@@ -60,6 +60,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
       floatAction: FloatActionButtonWidget<LeagueFlow>(
         flow: LeagueFlow.edit,
         icon: Icons.build,
+        title: "Edit",
         onPressed: (flow) {
           widget.viewModel.setFlow(flow);
         },
