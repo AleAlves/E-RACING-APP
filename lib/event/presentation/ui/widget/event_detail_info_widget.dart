@@ -5,6 +5,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+
 import '../../../../core/ext/access_extension.dart';
 import '../../../../core/ui/component/ui/button_widget.dart';
 import '../../../../core/ui/component/ui/scoring_widget.dart';
@@ -40,7 +41,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        content: content(),
+        body: content(),
         scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);

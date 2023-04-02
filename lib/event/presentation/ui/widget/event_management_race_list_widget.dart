@@ -23,7 +23,8 @@ class EventManagementRaceListWidget extends StatefulWidget {
       _EventManagementRaceListWidgetState();
 }
 
-class _EventManagementRaceListWidgetState extends State<EventManagementRaceListWidget> implements BaseSateWidget {
+class _EventManagementRaceListWidgetState
+    extends State<EventManagementRaceListWidget> implements BaseSateWidget {
   @override
   void initState() {
     observers();
@@ -42,7 +43,7 @@ class _EventManagementRaceListWidgetState extends State<EventManagementRaceListW
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        content: content(),
+        body: content(),
         state: widget.viewModel.state,
         scrollable: true,
         onBackPressed: onBackPressed);
@@ -81,7 +82,10 @@ class _EventManagementRaceListWidgetState extends State<EventManagementRaceListW
 
   Widget raceCard(RaceModel? raceModel) {
     return CardWidget(
-      childLeft: const SizedBox(width: 8, height: 8,),
+      childLeft: const SizedBox(
+        width: 8,
+        height: 8,
+      ),
       onPressed: () {
         Session.instance.setRaceId(raceModel?.id);
         widget.viewModel.editRace();
@@ -106,7 +110,10 @@ class _EventManagementRaceListWidgetState extends State<EventManagementRaceListW
                   ),
                 ],
               ),
-              const IconWidget(icon: Icons.chevron_right, borderless: false,),
+              const IconWidget(
+                icon: Icons.chevron_right,
+                borderless: false,
+              ),
             ],
           ),
         ],

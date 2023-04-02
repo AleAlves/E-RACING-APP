@@ -1,13 +1,13 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/domain/model/user_model.dart';
+import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../login_view_model.dart';
@@ -47,7 +47,7 @@ class _LoginResetWidgetState extends State<LoginResetWidget>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         scrollable: false,
-        content: content(),
+        body: content(),
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }

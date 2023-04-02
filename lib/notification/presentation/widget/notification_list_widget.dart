@@ -44,7 +44,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-      content: content(),
+      body: content(),
       scrollable: true,
       onBackPressed: onBackPressed,
       state: ViewState.ready,

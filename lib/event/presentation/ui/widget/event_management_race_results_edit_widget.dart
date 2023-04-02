@@ -1,5 +1,3 @@
-
-
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ext/dialog_extension.dart';
@@ -7,17 +5,18 @@ import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/data/race_standings_model.dart';
 import 'package:e_racing_app/event/data/set_summary_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -35,7 +34,7 @@ class EventManagementEditRaceResultsWidget extends StatefulWidget {
 class _EventManagementEditRaceResultsWidgetState
     extends State<EventManagementEditRaceResultsWidget>
     implements BaseSateWidget {
-  List<String> positions = ['','0'];
+  List<String> positions = ['', '0'];
   List<Pair<String, Color>> teamColors = [];
   bool dnf = false;
   bool dqf = false;
@@ -66,7 +65,7 @@ class _EventManagementEditRaceResultsWidgetState
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        content: content(),
+        body: content(),
         state: widget.viewModel.state,
         scrollable: true,
         onBackPressed: onBackPressed);
@@ -127,13 +126,15 @@ class _EventManagementEditRaceResultsWidgetState
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextWidget(
-                          text: widget.viewModel.raceStandings?.classes?[index]?.className,
+                          text: widget.viewModel.raceStandings?.classes?[index]
+                              ?.className,
                           style: Style.subtitle,
                           align: TextAlign.start,
                         ),
                       ),
                       const SpacingWidget(LayoutSize.size8),
-                      classes(widget.viewModel.raceStandings?.classes?[index]?.sessions)
+                      classes(widget
+                          .viewModel.raceStandings?.classes?[index]?.sessions)
                     ],
                   ),
                 );
@@ -156,7 +157,7 @@ class _EventManagementEditRaceResultsWidgetState
     );
   }
 
-  Widget session(RaceStandingsSessionModel? sessions){
+  Widget session(RaceStandingsSessionModel? sessions) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -171,7 +172,7 @@ class _EventManagementEditRaceResultsWidgetState
     );
   }
 
-  Widget driversContainer(List<RaceStandingsSummaryModel>? standings){
+  Widget driversContainer(List<RaceStandingsSummaryModel>? standings) {
     var sessionIndex = 0;
     return ListView.builder(
       shrinkWrap: true,
@@ -298,7 +299,8 @@ class _EventManagementEditRaceResultsWidgetState
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const IconWidget(icon: Icons.sports_motorsports),
+                                const IconWidget(
+                                    icon: Icons.sports_motorsports),
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                   text:
@@ -461,8 +463,9 @@ class _EventManagementEditRaceResultsWidgetState
                                 setState(() {
                                   widget.viewModel.setSummaryResult(
                                       SetSummaryModel(
-                                        summaryId: standing?.summary?.id,
-                                          sessionId: standing?.summary?.sessionId,
+                                          summaryId: standing?.summary?.id,
+                                          sessionId: standing
+                                              ?.summary?.sessionId,
                                           position: int.parse(
                                               positionController.text),
                                           penalty:
@@ -575,8 +578,8 @@ class _EventManagementEditRaceResultsWidgetState
     notesController.text = standing?.summary?.notes ?? "";
   }
 
-  addPosition(int position){
-    if(!positions.contains(position.toString())) {
+  addPosition(int position) {
+    if (!positions.contains(position.toString())) {
       positions.add(position.toString());
     }
   }

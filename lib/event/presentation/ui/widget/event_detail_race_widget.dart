@@ -12,6 +12,7 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/data/race_standings_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+
 import '../../../../core/ui/component/ui/icon_widget.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
@@ -48,7 +49,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        content: content(),
+        body: content(),
         scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
@@ -306,7 +307,10 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
   }
 
   Widget driverCard(RaceStandingsSummaryModel? standing) {
-    if (teamColors.where((element) => element.first == standing?.team?.id).isEmpty == true) {
+    if (teamColors
+            .where((element) => element.first == standing?.team?.id)
+            .isEmpty ==
+        true) {
       teamColors.add(Pair(standing?.team?.id, getTeamColor(teamColors.length)));
     }
     return CardWidget(
@@ -315,8 +319,7 @@ class _EventDetailRaceWidgetState extends State<EventDetailRaceWidget>
       childLeft: TextWidget(
         text: "${standing?.summary?.position}º",
         style: Style.paragraph,
-        color: getPodiumColor(standing?.summary?.position)
-            .second,
+        color: getPodiumColor(standing?.summary?.position).second,
       ),
       padding: EdgeInsets.zero,
       onPressed: () {

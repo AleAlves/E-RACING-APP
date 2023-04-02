@@ -53,7 +53,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-      content: content(),
+      body: content(),
       state: widget.viewModel.state,
       onBackPressed: onBackPressed,
       scrollable: true,

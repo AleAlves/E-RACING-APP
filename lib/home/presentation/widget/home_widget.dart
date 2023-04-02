@@ -47,7 +47,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        content: content(),
+        body: content(),
         state: widget.vm.state,
         onBackPressed: onBackPressed,
         scrollable: true);

@@ -38,7 +38,7 @@ class _EventFullStandingsWidgetState extends State<EventFullStandingsWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        content: content(),
+        body: content(),
         scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);

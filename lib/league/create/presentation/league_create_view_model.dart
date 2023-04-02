@@ -66,6 +66,8 @@ abstract class _LeagueCreateViewModel
 
   void fetchTerms() {}
 
+  void setName(String name) {}
+
   void fetchTags() async {
     state = ViewState.loading;
     await getTagUseCase.invoke(

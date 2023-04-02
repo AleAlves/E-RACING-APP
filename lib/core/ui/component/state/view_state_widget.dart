@@ -7,16 +7,18 @@ import '../ui/float_action_button_widget.dart';
 import 'loading_ripple.dart';
 
 class ViewStateWidget extends StatelessWidget {
-  final Widget content;
+  final Widget body;
+  final Widget? bottom;
   final ViewState state;
   final FloatActionButtonWidget? floatAction;
   final WillPopCallback onBackPressed;
   final bool scrollable;
 
   const ViewStateWidget(
-      {required this.content,
+      {required this.body,
       required this.state,
       required this.onBackPressed,
+      this.bottom,
       this.scrollable = true,
       this.floatAction,
       Key? key})
@@ -28,7 +30,7 @@ class ViewStateWidget extends StatelessWidget {
   Widget _content(BuildContext context) {
     switch (state) {
       case ViewState.ready:
-        return _scaffold(context, content);
+        return _scaffold(context, body);
       case ViewState.loading:
         return const LoadingRipple();
       case ViewState.error:
@@ -40,8 +42,22 @@ class ViewStateWidget extends StatelessWidget {
   Widget _scaffold(BuildContext context, Widget content) {
     return Scaffold(
       body: _scope(context, content),
+      bottomNavigationBar: bottomSheetWidget(context),
       floatingActionButton: floatAction,
     );
+  }
+
+  Widget? bottomSheetWidget(BuildContext context) {
+    return bottom == null
+        ? bottom
+        : Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: SizedBox(
+              child: bottom,
+              height: MediaQuery.of(context).size.height * 0.05,
+              width: MediaQuery.of(context).size.width,
+            ),
+          );
   }
 
   Widget _scope(BuildContext context, Widget content) {

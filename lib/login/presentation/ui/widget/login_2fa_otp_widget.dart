@@ -1,10 +1,10 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:flutter/material.dart';
 import 'package:e_racing_app/login/presentation/ui/login_flow.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
@@ -33,7 +33,7 @@ class _Login2FAWidgetState extends State<Login2FAWidget>
   ViewStateWidget viewState() {
     return ViewStateWidget(
       scrollable: false,
-      content: content(),
+      body: content(),
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
@@ -54,7 +54,8 @@ class _Login2FAWidgetState extends State<Login2FAWidget>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const TextWidget(text: "Second Step Verification", style: Style.paragraph),
+        const TextWidget(
+            text: "Second Step Verification", style: Style.paragraph),
         const SpacingWidget(LayoutSize.size16),
         OtpTextField(
           autoFocus: true,

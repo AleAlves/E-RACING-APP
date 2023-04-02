@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../core/ui/component/state/view_state_widget.dart';
+import '../../../../../core/ui/component/ui/button_widget.dart';
+import '../../../../../core/ui/component/ui/input_text_widget.dart';
+import '../../../../../core/ui/component/ui/spacing_widget.dart';
+import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
 import '../../league_create_view_model.dart';
 
@@ -17,12 +21,15 @@ class LeagueCreateNameView extends StatefulWidget {
 
 class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
     implements BaseSateWidget {
-  var isSwitched = false;
+  var isValid = false;
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
 
   @override
   void initState() {
     observers();
     super.initState();
+    _nameController.addListener(observers);
     widget.viewModel.fetchTerms();
   }
 
@@ -39,8 +46,9 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-      content: content(),
-      scrollable: true,
+      body: content(),
+      bottom: button(),
+      scrollable: false,
       onBackPressed: onBackPressed,
       state: ViewState.ready,
     );
@@ -48,11 +56,63 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
 
   @override
   Widget content() {
-    return Container();
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          guideLines(),
+          const SpacingWidget(LayoutSize.size48),
+          Form(
+            child: leagueNameForm(),
+            key: _formKey,
+          ),
+        ],
+      ),
+    );
   }
 
   @override
-  observers() {}
+  observers() {
+    setState(() {
+      isValid = _formKey.currentState?.validate() == true;
+    });
+  }
+
+  Widget guideLines() {
+    return const TextWidget(
+        text: "What will your league be named?", style: Style.subtitle);
+  }
+
+  Widget leagueNameForm() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: InputTextWidget(
+          enabled: true,
+          label: 'Name',
+          icon: Icons.person,
+          controller: _nameController,
+          validator: (value) {
+            if (value == null || value.isEmpty == true) {
+              return 'valid name needed';
+            }
+            return null;
+          }),
+    );
+  }
+
+  Widget button() {
+    return ButtonWidget(
+      enabled: isValid,
+      type: ButtonType.primary,
+      onPressed: () {
+        widget.viewModel.setName(_nameController.text);
+      },
+      label: "Next",
+    );
+  }
 
   @override
   Future<bool> onBackPressed() async {

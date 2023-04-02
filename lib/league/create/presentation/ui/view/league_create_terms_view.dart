@@ -21,7 +21,7 @@ class LeagueCreateTermsView extends StatefulWidget {
 
 class _LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
     implements BaseSateWidget {
-  var isSwitched = false;
+  bool termsAccepted = false;
 
   @override
   void initState() {
@@ -43,8 +43,9 @@ class _LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-      content: content(),
+      body: content(),
       onBackPressed: onBackPressed,
+      bottom: acceptButtonWidget(),
       state: ViewState.ready,
     );
   }
@@ -109,9 +110,11 @@ class _LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Checkbox(
-              value: false,
+              value: termsAccepted,
               onChanged: (bool? value) {
-                setState(() {});
+                setState(() {
+                  termsAccepted = !termsAccepted;
+                });
               },
             ),
             Wrap(
@@ -124,16 +127,18 @@ class _LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
           ],
         ),
         const SpacingWidget(LayoutSize.size48),
-        ButtonWidget(
-            enabled: true,
-            label: "Accept and continue",
-            type: ButtonType.primary,
-            onPressed: () {
-              widget.viewModel.onNavigate(LeagueCreateNavigator.name);
-            }),
-        const SpacingWidget(LayoutSize.size48),
       ],
     );
+  }
+
+  Widget acceptButtonWidget() {
+    return ButtonWidget(
+        enabled: termsAccepted,
+        label: "Accept and continue",
+        type: ButtonType.primary,
+        onPressed: () {
+          widget.viewModel.onNavigate(LeagueCreateNavigator.name);
+        });
   }
 
   @override

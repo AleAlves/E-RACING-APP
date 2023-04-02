@@ -50,7 +50,7 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-      content: content(),
+      body: content(),
       state: widget.viewModel.state,
       scrollable: true,
       onBackPressed: onBackPressed,

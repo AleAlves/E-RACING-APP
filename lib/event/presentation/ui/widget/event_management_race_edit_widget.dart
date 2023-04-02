@@ -5,10 +5,10 @@ import 'package:e_racing_app/core/ext/date_extensions.dart';
 import 'package:e_racing_app/core/model/session_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/event_races_session_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_races_session_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
@@ -17,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:image_picker/image_picker.dart';
+
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -75,7 +76,7 @@ class _EventManagementEditRaceWidgetState
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        content: content(),
+        body: content(),
         state: widget.viewModel.state,
         scrollable: true,
         onBackPressed: onBackPressed);
@@ -179,7 +180,8 @@ class _EventManagementEditRaceWidgetState
                 width: MediaQuery.of(context).size.height,
                 child: _editingImage
                     ? Image.file(model?.posterFile ?? File(''))
-                    : Image.memory(base64Decode(model?.poster.toString() ?? '')),
+                    : Image.memory(
+                        base64Decode(model?.poster.toString() ?? '')),
               ),
             ),
             ButtonWidget(
@@ -252,8 +254,7 @@ class _EventManagementEditRaceWidgetState
                 });
               },
             ),
-            const TextWidget(
-                text: "Live broadcasting", style: Style.paragraph),
+            const TextWidget(text: "Live broadcasting", style: Style.paragraph),
           ],
         ),
         if (model?.hasBroadcasting == true)

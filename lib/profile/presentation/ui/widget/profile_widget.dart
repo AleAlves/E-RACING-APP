@@ -46,7 +46,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         scrollable: false,
-        content: content(),
+        body: content(),
         state: widget.vm.state,
         onBackPressed: onBackPressed);
   }

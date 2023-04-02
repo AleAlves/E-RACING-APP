@@ -35,7 +35,7 @@ class _LeagueStatusWidgetState extends State<LeagueStatusWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        content: content(),
+        body: content(),
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }

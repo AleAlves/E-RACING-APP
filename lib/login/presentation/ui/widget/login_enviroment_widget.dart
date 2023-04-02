@@ -37,7 +37,7 @@ class _LoginEnviromentWidgetState extends State<LoginEnviromentWidget>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         scrollable: false,
-        content: content(),
+        body: content(),
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }

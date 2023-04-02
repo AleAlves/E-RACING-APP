@@ -1,21 +1,23 @@
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
+
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/scoring_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/scoring_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:image_picker/image_picker.dart';
+
 import '../../../event_view_model.dart';
 
 class EventEditWidget extends StatefulWidget {
@@ -107,7 +109,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        content: content(),
+        body: content(),
         state: widget.viewModel.state,
         scrollable: true,
         onBackPressed: onBackPressed);

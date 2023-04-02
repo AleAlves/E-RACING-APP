@@ -41,7 +41,7 @@ class _LoginOtpQRWidgetState extends State<LoginOtpQRWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-      content: content(),
+      body: content(),
       scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,

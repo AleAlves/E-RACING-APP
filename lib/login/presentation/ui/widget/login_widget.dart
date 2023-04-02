@@ -46,7 +46,7 @@ class _LoginWidgetState extends State<LoginWidget> implements BaseSateWidget {
   ViewStateWidget viewState() {
     return ViewStateWidget(
       scrollable: false,
-      content: content(),
+      body: content(),
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );

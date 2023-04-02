@@ -48,7 +48,7 @@ class _EventDetailWidgetState extends State<EventDetailWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-      content: content(),
+      body: content(),
       scrollable: true,
       state: widget.viewModel.state,
       onBackPressed: onBackPressed,
