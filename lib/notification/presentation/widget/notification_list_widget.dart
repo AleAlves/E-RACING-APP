@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -83,86 +82,69 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
 
   List<Widget> notifications() {
     return widget.vm.notifications!
-        .map((element) => CardWidget(
-            // childLeft: element?['important'] == true
-            //     ? const Icon(Icons.warning)
-            //     : Container(),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.5,
+        .map((element) => Dismissible(
+              key: UniqueKey(),
+              onDismissed: (direction) {
+                setState(() {
+                  widget.vm.notifications?.remove(element);
+                  FirebaseFirestore.instance
+                      .runTransaction((Transaction myTransaction) async {
+                    myTransaction.delete(element!.reference);
+                    widget.vm.fetchNotifications();
+                  });
+                });
+              },
+              background: Container(color: Colors.red),
+              child: CardWidget(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: TextWidget(
                           text: element?['message'],
-                          style: Style.subtitle,
+                          style: Style.paragraph,
                           align: TextAlign.start,
                         ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        const SpacingWidget(LayoutSize.size16),
-                        ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(14.0)),
-                          child: Container(
-                            child: Padding(
+                      element?['action'].toString().isEmpty == true
+                          ? Container()
+                          : Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
                                   TextWidget(
                                       text: element?['action'],
-                                      style: Style.caption,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary),
+                                      style: Style.subtitle),
+                                  const SpacingWidget(LayoutSize.size8),
                                   IconWidget(
                                     icon: Icons.arrow_forward,
+                                    size: 20,
                                     color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    size: 10,
+                                        Theme.of(context).colorScheme.primary,
                                   )
                                 ],
                               ),
                             ),
-                            color: Theme.of(context).colorScheme.primary,
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextWidget(
+                              text: element?['date'],
+                              style: Style.caption,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: TextWidget(
-                        text: element?['date'],
-                        style: Style.caption,
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                ButtonWidget(
-                  enabled: true,
-                  type: ButtonType.iconPure,
+                    ],
+                  ),
                   onPressed: () {
-                    FirebaseFirestore.instance
-                        .runTransaction((Transaction myTransaction) async {
-                      myTransaction.delete(element!.reference);
-                      widget.vm.fetchNotifications();
-                    });
+                    widget.vm.doNavigate(element?['source']);
                   },
-                  icon: Icons.delete,
-                )
-              ],
-            ),
-            onPressed: () {
-              widget.vm.doNavigate(element?['source']);
-            },
-            ready: true))
+                  ready: true),
+            ))
         .toList()
         .cast<Widget>();
   }

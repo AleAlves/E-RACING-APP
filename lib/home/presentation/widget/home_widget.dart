@@ -12,6 +12,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../core/tools/session.dart';
+import '../../../core/ui/component/state/loading_shimmer.dart';
 import '../../../core/ui/component/ui/icon_widget.dart';
 import '../../../core/ui/component/ui/league_card_small_widget.dart';
 import '../home_view_model.dart';
@@ -126,7 +127,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
 
   Widget profileWidget() {
     return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8, top: 16),
+      padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
       child: ProfileCardWidget(
         onPressed: () {
           Modular.to.pushNamed(Routes.profile);
@@ -167,7 +168,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         widget.vm.leagues == null
-            ? Container()
+            ? const LoadingShimmer()
             : const Padding(
                 padding: EdgeInsets.all(16),
                 child:
@@ -177,6 +178,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
           padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
           child: ListView.builder(
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: widget.vm.leagues?.length,
             itemBuilder: (context, index) {
               return LeagueCardSmallWidget(

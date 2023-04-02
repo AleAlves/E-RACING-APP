@@ -20,7 +20,7 @@ class LeagueCardSmallWidget extends StatelessWidget {
       padding: EdgeInsets.zero,
       onPressed: onPressed,
       child: header(),
-      ready: true,
+      ready: label != null,
     );
   }
 
