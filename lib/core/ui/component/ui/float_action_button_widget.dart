@@ -1,7 +1,9 @@
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
-class FloatActionButtonWidget<T> extends StatelessWidget {
+import '../state/loading_shimmer.dart';
+
+class FloatActionButtonWidget<T> extends StatefulWidget {
   final T flow;
   final IconData icon;
   final String title;
@@ -15,8 +17,25 @@ class FloatActionButtonWidget<T> extends StatelessWidget {
       Key? key})
       : super(key: key);
 
+  Widget loading(BuildContext context) {
+    return const Card(child: LoadingShimmer());
+  }
+
+  @override
+  _FloatActionButtonWidgetState createState() =>
+      _FloatActionButtonWidgetState();
+}
+
+class _FloatActionButtonWidgetState extends State<FloatActionButtonWidget> {
+  bool _showWidget = true;
+
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 3)).then((value) {
+      setState(() {
+        _showWidget = false;
+      });
+    });
     return normal(context);
   }
 
@@ -29,19 +48,22 @@ class FloatActionButtonWidget<T> extends StatelessWidget {
             alignment: Alignment.bottomRight,
             child: Wrap(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: TextWidget(
-                    text: title,
-                    style: Style.caption,
+                Visibility(
+                  visible: _showWidget,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextWidget(
+                      text: widget.title,
+                      style: Style.caption,
+                    ),
                   ),
                 ),
                 FloatingActionButton(
                   onPressed: () {
-                    onPressed?.call(flow);
+                    widget.onPressed?.call(widget.flow);
                   },
                   child: Icon(
-                    icon,
+                    widget.icon,
                     color: Colors.white,
                   ),
                 ),
