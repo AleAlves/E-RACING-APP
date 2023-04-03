@@ -1,5 +1,4 @@
 import 'package:e_racing_app/core/model/link_model.dart';
-import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
@@ -59,21 +58,20 @@ abstract class _LeagueCreateViewModel
   final getTagUseCase = Modular.get<GetTagUseCase>();
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
 
-  Future<void> create(String name, String description, String banner,
-      String emblem, List<String?> tags, List<LinkModel?> links) async {
+  Future<void> create() async {
     state = ViewState.loading;
     await createUseCase
         .build(
             league: LeagueModel(
                 name: name,
                 description: description,
-                banner: emblem,
-                tags: tags,
-                links: links),
-            media: MediaModel(banner))
+                banner: banner,
+                tags: leagueTags,
+                links: socialPlatforms))
         .invoke(
             success: (data) {
               status = data;
+              state = ViewState.ready;
             },
             error: onError);
   }

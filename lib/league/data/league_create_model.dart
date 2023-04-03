@@ -5,10 +5,9 @@ part 'league_create_model.g.dart';
 
 @JsonSerializable()
 class LeagueCreateModel {
-  late MediaModel media;
   late LeagueModel league;
 
-  LeagueCreateModel(this.media, this.league);
+  LeagueCreateModel(this.league);
 
   factory LeagueCreateModel.fromJson(Map<String, dynamic> json) => _$LeagueCreateModelFromJson(json);
 

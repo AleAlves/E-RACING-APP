@@ -24,7 +24,7 @@ class UpdateLeagueUseCase<T> extends BaseUseCase<T?> {
     var response = await super.remote(Request(
         endpoint: "api/v1/league",
         verb: HTTPVerb.put,
-        params: HTTPRequesParams(data: LeagueCreateModel(_media, _league))));
+        params: HTTPRequesParams(data: LeagueCreateModel(_league))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
           message: "League Updated",

@@ -93,7 +93,6 @@ class _LeagueCreateSocialMediaViewState
             shrinkWrap: true,
             itemCount: socialPlatforms.length,
             itemBuilder: (context, index) {
-              socialControllers.add(TextEditingController());
               return Column(
                 children: [
                   Row(
@@ -101,8 +100,9 @@ class _LeagueCreateSocialMediaViewState
                       DropdownMenuWidget(
                         widget.viewModel.socialMedias,
                         (item) {
-                          socialPlatforms[index] = LinkModel(
-                              item?.id, socialControllers[index].text);
+                          socialPlatforms[index]?.platformId = item?.id;
+                          socialPlatforms[index]?.link =
+                              socialControllers[index].text;
                         },
                         hint: "Platform",
                         currentModel: null,
@@ -118,10 +118,8 @@ class _LeagueCreateSocialMediaViewState
                             icon: Icons.add_link,
                             controller: socialControllers[index],
                             validator: (value) {
-                              socialPlatforms[index] = LinkModel(
-                                  widget.viewModel.socialMedias?[index]?.id ??
-                                      '',
-                                  socialControllers[index].text);
+                              socialPlatforms[index]?.link =
+                                  socialControllers[index].text;
                               return null;
                             }),
                       ),
@@ -132,8 +130,10 @@ class _LeagueCreateSocialMediaViewState
                           onPressed: () async {
                             Clipboard.getData(Clipboard.kTextPlain)
                                 .then((value) {
-                              socialControllers[index].text =
+                              var paste =
                                   value?.text?.trim().replaceAll(' ', '') ?? '';
+                              socialPlatforms[index]?.link = paste;
+                              socialControllers[index].text = paste;
                             });
                           },
                           label: 'paste',
@@ -164,6 +164,7 @@ class _LeagueCreateSocialMediaViewState
               onPressed: () async {
                 setState(() {
                   socialPlatforms.add(LinkModel('', ''));
+                  socialControllers.add(TextEditingController());
                 });
               },
               label: 'New media'),

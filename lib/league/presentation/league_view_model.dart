@@ -117,8 +117,7 @@ abstract class _LeagueViewModel with Store {
                 description: description,
                 banner: emblem,
                 tags: tags,
-                links: links),
-            media: MediaModel(banner))
+                links: links))
         .invoke(
             success: (data) {
               status = data;
