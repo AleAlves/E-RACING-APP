@@ -1,12 +1,10 @@
 import 'package:e_racing_app/core/tools/routes.dart';
-import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import '../../../../main.dart';
 
 class DefaulErrorWidget extends StatefulWidget {
   const DefaulErrorWidget({Key? key}) : super(key: key);
@@ -27,21 +25,19 @@ class _DefaulErrorWidgetState extends State<DefaulErrorWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const TextWidget(
-                    text: "An error occurred", style: Style.subtitle),
-                const SpacingWidget(LayoutSize.size16),
+                    text: "Something went wrong", style: Style.subtitle),
+                const SpacingWidget(LayoutSize.size48),
                 Material(
                   color: Colors.transparent,
-                  child: Center(
-                    child: Ink(
-                      decoration: const ShapeDecoration(
-                        shape: CircleBorder(),
-                      ),
-                      child: IconButton(
-                        icon: const IconWidget(icon: Icons.refresh),
-                        onPressed: () {
-                          Modular.to.pushNamed(Routes.home);
-                        },
-                      ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ButtonWidget(
+                      type: ButtonType.iconButton,
+                      icon: Icons.refresh,
+                      onPressed: () {
+                        Modular.to.pushNamed(Routes.home);
+                      },
+                      enabled: true,
                     ),
                   ),
                 ),
