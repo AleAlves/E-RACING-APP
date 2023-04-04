@@ -4,8 +4,6 @@ import 'package:e_racing_app/core/tools/routes.dart';
 import 'package:e_racing_app/event/di/event_di.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:e_racing_app/home/di/home_di.dart';
-import 'package:e_racing_app/league/di/league_di.dart';
-import 'package:e_racing_app/league/presentation/ui/navigation/league_flow.dart';
 import 'package:e_racing_app/login/data/model/login_response.dart';
 import 'package:e_racing_app/login/domain/model/public_key_model.dart';
 import 'package:e_racing_app/login/domain/model/user_model.dart';
@@ -24,6 +22,8 @@ import 'package:e_racing_app/profile/di/profile_di.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../league/create/di/league_create_di.dart';
+import '../../league/home/di/league_di.dart';
+import '../../league/home/presentation/ui/navigation/league_flow.dart';
 import '../../notification/di/notification_di.dart';
 
 class LoginModule extends Module {

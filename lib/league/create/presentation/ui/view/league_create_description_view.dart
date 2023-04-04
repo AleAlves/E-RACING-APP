@@ -98,6 +98,7 @@ class _LeagueCreateDescriptionViewState
           enabled: true,
           label: 'Description',
           icon: Icons.person,
+          inputType: InputType.multilines,
           controller: _descriptionController,
           validator: (value) {
             if (value == null || value.isEmpty == true) {

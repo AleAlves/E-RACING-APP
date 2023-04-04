@@ -17,6 +17,7 @@ enum LeagueCreateNavigator {
   tags,
   socialMedia,
   finish,
+  update,
   error
 }
 

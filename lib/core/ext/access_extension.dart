@@ -1,13 +1,15 @@
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
-import 'package:e_racing_app/league/domain/model/league_model.dart';
+
+import '../../league/home/domain/model/league_model.dart';
 
 bool isSubscriber(List<ClassesModel?>? classes) {
-  if(classes == null) return false;
+  if (classes == null) return false;
   for (var i = 0; i < classes.length; i++) {
     for (var j = 0; j < classes[i]!.drivers!.length; j++) {
-      var isSus = classes[i]?.drivers?[j]?.driverId == Session.instance.getUser()?.id;
+      var isSus =
+          classes[i]?.drivers?[j]?.driverId == Session.instance.getUser()?.id;
       if (isSus) return true;
     }
   }

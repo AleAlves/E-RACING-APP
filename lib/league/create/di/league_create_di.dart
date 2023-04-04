@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/model/status_model.dart';
-import 'package:e_racing_app/league/domain/create_league_usecase.dart';
+import 'package:e_racing_app/league/create/domain/create_league_usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';

@@ -4,13 +4,15 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/league/create/domain/create_league_usecase.dart';
 import 'package:e_racing_app/league/create/presentation/navigation/league_create_flow.dart';
-import 'package:e_racing_app/league/domain/create_league_usecase.dart';
-import 'package:e_racing_app/league/domain/model/league_model.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../../core/service/api_exception.dart';
+import '../../home/domain/model/league_model.dart';
 
 part 'league_create_view_model.g.dart';
 
@@ -129,14 +131,8 @@ abstract class _LeagueCreateViewModel
   }
 
   @override
-  void onError(LeagueCreateNavigator route) {
-    status = StatusModel(
-      message: "Something went wrong",
-      action: "Ok",
-      next: route.name,
-      previous: route.name,
-    );
-    state = ViewState.ready;
+  void onError(ApiException route) {
+    state = ViewState.error;
   }
 
   @override

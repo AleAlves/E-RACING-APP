@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
-import 'package:e_racing_app/league/domain/model/league_model.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../league/home/domain/model/league_model.dart';
 import 'button_widget.dart';
 
 class MembershipActionWidget extends StatefulWidget {
@@ -33,7 +34,11 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.leagueModel == null ? const LoadingShimmer( height: 50,) : content();
+    return widget.leagueModel == null
+        ? const LoadingShimmer(
+            height: 50,
+          )
+        : content();
   }
 
   Widget content() {
@@ -41,7 +46,7 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
   }
 
   Widget startMembershipButton() {
-    return  SizedBox(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: ButtonWidget(
         icon: Icons.person_add_outlined,
