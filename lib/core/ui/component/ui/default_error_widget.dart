@@ -1,4 +1,4 @@
-import 'package:e_racing_app/core/tools/routes.dart';
+import 'package:e_racing_app/core/navigation/routes.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';

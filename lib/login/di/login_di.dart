@@ -1,6 +1,6 @@
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
-import 'package:e_racing_app/core/tools/routes.dart';
+import 'package:e_racing_app/core/navigation/routes.dart';
 import 'package:e_racing_app/event/di/event_di.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:e_racing_app/home/di/home_di.dart';
@@ -21,6 +21,7 @@ import 'package:e_racing_app/login/presentation/ui/login_screen.dart';
 import 'package:e_racing_app/profile/di/profile_di.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../event/create/di/event_create_di.dart';
 import '../../league/create/di/league_create_di.dart';
 import '../../league/home/di/league_di.dart';
 import '../../league/home/presentation/ui/navigation/league_flow.dart';
@@ -53,6 +54,7 @@ class LoginModule extends Module {
             module: EventModule(flow: EventFlow.eventDetail)),
         ModuleRoute(Routes.eventFilter,
             module: EventModule(flow: EventFlow.listFiltered)),
+        ModuleRoute(Routes.eventCreate, module: EventCreateModule()),
         ModuleRoute(Routes.events, module: EventModule()),
         ModuleRoute(Routes.profile, module: ProfileModule()),
         ModuleRoute(Routes.notifications, module: NotificationModule()),

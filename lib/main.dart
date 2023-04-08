@@ -1,4 +1,4 @@
-import 'package:e_racing_app/core/tools/routes.dart';
+import 'package:e_racing_app/core/navigation/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -79,23 +79,16 @@ class _ERacingAppState extends State<ERacingApp> {
     FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
     const FlexSchemeColor colorDark = FlexSchemeColor(
-      primary: Color(0xFFCFAF86),
-      primaryVariant: Color(0xFFB08C68),
-      secondary: Color(0xFF308579),
-      secondaryVariant: Color(0xFF27796D),
-    );
-
-    const FlexSchemeColor colorLight = FlexSchemeColor(
-      primary: Color(0xFFCFAF86),
-      primaryVariant: Color(0xFFB08C68),
-      secondary: Color(0xFF308579),
-      secondaryVariant: Color(0xFF27796D),
+      primary: Color(0xFFf68d1c),
+      primaryVariant: Color(0xFFFF6E00),
+      secondary: Color(0xFF458666),
+      secondaryVariant: Color(0xFF458666),
     );
 
     const FlexSchemeData _myFlexScheme = FlexSchemeData(
-      name: 'Midnight blue',
-      description: 'Midnight blue theme, custom definition of all colors',
-      light: colorLight,
+      name: '',
+      description: '',
+      light: colorDark,
       dark: colorDark,
     );
 

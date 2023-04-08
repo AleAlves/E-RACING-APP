@@ -11,7 +11,6 @@ import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../core/service/api_exception.dart';
 import '../../home/domain/model/league_model.dart';
 
 part 'league_create_view_model.g.dart';
@@ -24,19 +23,14 @@ abstract class _LeagueCreateViewModel
   _LeagueCreateViewModel();
 
   @observable
-  LeagueCreateNavigator flow = LeagueCreateNavigator.terms;
-
-  @observable
-  StatusModel? status;
-
-  @observable
-  ViewState state = ViewState.ready;
-
-  @observable
   ObservableList<TagModel?>? tags = ObservableList();
 
   @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
+
+  @override
+  @observable
+  LeagueCreateNavigator? flow;
 
   @observable
   String? name;
@@ -61,7 +55,6 @@ abstract class _LeagueCreateViewModel
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
 
   Future<void> create() async {
-    state = ViewState.loading;
     await createUseCase
         .build(
             league: LeagueModel(
@@ -128,15 +121,5 @@ abstract class _LeagueCreateViewModel
           state = ViewState.ready;
         },
         error: onError);
-  }
-
-  @override
-  void onError(ApiException route) {
-    state = ViewState.error;
-  }
-
-  @override
-  void onNavigate(LeagueCreateNavigator route) {
-    flow = route;
   }
 }

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../core/navigation/routes.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -50,7 +51,7 @@ class _EventListFilteredWidgetState extends State<EventListFilteredWidget>
         icon: Icons.add,
         title: "Create Event",
         onPressed: () {
-          widget.viewModel.setFlow(EventFlow.create);
+          Modular.to.pushNamed(Routes.eventCreate);
         },
       ),
     );

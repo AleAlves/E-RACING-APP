@@ -1,8 +1,8 @@
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
+import 'package:e_racing_app/core/navigation/routes.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
-import 'package:e_racing_app/core/tools/routes.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/data/model/login_response.dart';

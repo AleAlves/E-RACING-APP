@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
-import 'package:e_racing_app/core/tools/routes.dart';
+import 'package:e_racing_app/core/navigation/routes.dart';
 
 import '../../core/tools/session.dart';
 import 'model/notification_model.dart';
@@ -42,13 +41,13 @@ class GetNotificationsFlowUseCase<T> extends BaseUseCase<T?> {
           break;
       }
     });
-    if(leagueAction != null){
+    if (leagueAction != null) {
       action = leagueAction;
     }
-    if(eventAction != null && leagueAction != null){
+    if (eventAction != null && leagueAction != null) {
       action = eventAction;
     }
-    if(raceAction != null && eventAction != null && leagueAction != null){
+    if (raceAction != null && eventAction != null && leagueAction != null) {
       action = raceAction;
     }
     success(action as T);

@@ -26,7 +26,7 @@ class _LeagueScreenState extends State<LeagueCreateScreen>
       return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: const Text('Create League'),
+          title: const Text('League Creation'),
         ),
         body: navigate(),
       );

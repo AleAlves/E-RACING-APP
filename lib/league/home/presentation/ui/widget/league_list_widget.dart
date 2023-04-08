@@ -8,7 +8,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../core/ext/access_extension.dart';
-import '../../../../../core/tools/routes.dart';
+import '../../../../../core/navigation/routes.dart';
 import '../../league_view_model.dart';
 import '../navigation/league_flow.dart';
 

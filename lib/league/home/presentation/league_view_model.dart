@@ -18,7 +18,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/domain/share_model.dart';
-import '../../../core/tools/routes.dart';
+import '../../../core/navigation/routes.dart';
 import '../data/league_members_model.dart';
 import '../domain/fetch_league_menu_usecase.dart';
 import '../domain/fetch_league_usecase.dart';

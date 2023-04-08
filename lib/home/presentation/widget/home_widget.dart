@@ -1,4 +1,4 @@
-import 'package:e_racing_app/core/tools/routes.dart';
+import 'package:e_racing_app/core/navigation/routes.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/events_card_widget.dart';

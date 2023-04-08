@@ -1,6 +1,6 @@
 import 'package:e_racing_app/core/ext/access_extension.dart';
 import 'package:e_racing_app/core/ext/event_iconography_extension.dart';
-import 'package:e_racing_app/core/tools/routes.dart';
+import 'package:e_racing_app/core/navigation/routes.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';

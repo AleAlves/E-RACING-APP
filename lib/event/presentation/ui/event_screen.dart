@@ -3,7 +3,7 @@ import 'package:e_racing_app/event/event_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import '../../../core/ui/component/ui/share_widget.dart';
+
 import 'event_flow.dart';
 
 class EventScreen extends StatefulWidget {

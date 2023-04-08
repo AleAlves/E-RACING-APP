@@ -1,16 +1,13 @@
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/chip_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/share_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/status_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/share_model.dart';
-import '../../../tools/routes.dart';
+import 'class_collection_widget.dart';
 import 'icon_widget.dart';
 import 'spacing_widget.dart';
-import 'class_collection_widget.dart';
 
 class EventCardWidget extends StatelessWidget {
   final EventModel? event;
@@ -50,7 +47,7 @@ class EventCardWidget extends StatelessWidget {
       children: [
         const SpacingWidget(LayoutSize.size8),
         Expanded(
-          child:  Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SpacingWidget(LayoutSize.size16),
