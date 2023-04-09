@@ -45,7 +45,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
   ViewStateWidget viewState() {
     return ViewStateWidget(
       body: content(),
-      scrollable: true,
+      scrollable: widget.vm.notifications!.isNotEmpty,
       onBackPressed: onBackPressed,
       state: ViewState.ready,
     );
@@ -54,29 +54,34 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
   @override
   Widget content() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: widget.vm.notifications!.isNotEmpty
-          ? Column(
-              children: notifications(),
-            )
-          : Align(
-              alignment: Alignment.center,
-              child: Column(
-                children: [
-                  const SpacingWidget(LayoutSize.size256),
-                  const TextWidget(
-                    text: "Inbox empty",
-                    style: Style.title,
-                  ),
-                  const SpacingWidget(LayoutSize.size24),
-                  Icon(
-                    Icons.manage_search_outlined,
-                    size: 56,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ],
-              ),
-            ),
+        padding: const EdgeInsets.all(8.0),
+        child: widget.vm.notifications!.isNotEmpty
+            ? Column(
+                children: notifications(),
+              )
+            : emptyBoxWidget());
+  }
+
+  Widget emptyBoxWidget() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const TextWidget(
+            text: "Inbox empty",
+            style: Style.title,
+          ),
+          const SpacingWidget(LayoutSize.size24),
+          Icon(
+            Icons.manage_search_outlined,
+            size: 56,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ],
+      ),
     );
   }
 

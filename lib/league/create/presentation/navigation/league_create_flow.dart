@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import '../league_create_view_model.dart';
 import '../ui/view/league_create_banner_view.dart';
 import '../ui/view/league_create_description_view.dart';
-import '../ui/view/league_create_finish_view.dart';
+import '../ui/view/league_create_review_view.dart';
 import '../ui/view/league_create_social_media_view.dart';
 import '../ui/view/league_create_tags_view.dart';
 import '../ui/view/league_create_terms_view.dart';
@@ -16,7 +16,7 @@ enum LeagueCreateNavigator {
   banner,
   tags,
   socialMedia,
-  finish,
+  review,
   update,
   error
 }
@@ -36,8 +36,8 @@ extension LeagueCreateNavigation on LeagueCreateNavigator {
         return LeagueCreateTagsView(vm);
       case LeagueCreateNavigator.socialMedia:
         return LeagueCreateSocialMediaView(vm);
-      case LeagueCreateNavigator.finish:
-        return LeagueCreateFinishView(vm);
+      case LeagueCreateNavigator.review:
+        return LeagueCreateReviewView(vm);
       default:
         return LeagueCreateTermsView(vm);
     }

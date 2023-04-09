@@ -75,7 +75,10 @@ class _ButtonWidgetState extends State<ButtonWidget> {
               color: widget.labelColor ?? Theme.of(context).colorScheme.primary,
               style: Style.caption,
             ),
-            IconWidget(icon: widget.icon ?? Icons.arrow_forward_sharp, size: 14,)
+            IconWidget(
+              icon: widget.icon ?? Icons.arrow_forward_sharp,
+              size: 14,
+            )
           ],
         ),
       ),
@@ -83,47 +86,24 @@ class _ButtonWidgetState extends State<ButtonWidget> {
   }
 
   Widget primary(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width / 2,
-      child: ElevatedButton(
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              side: const BorderSide(
-                width: 0.1,
-              ),
+    return ElevatedButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.0),
+            side: const BorderSide(
+              width: 0.1,
             ),
           ),
         ),
-        onPressed: widget.enabled ? widget.onPressed : null,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(),
-            Padding(
-              padding: const EdgeInsets.only(top: 16, bottom: 16),
-              child: TextWidget(
-                text: widget.label ?? '',
-                color: widget.labelColor ??
-                    Theme.of(context).colorScheme.onPrimary,
-                style: Style.button,
-              ),
-            ),
-            widget.icon == null
-                ? Container()
-                : Row(
-                    children: [
-                      const SpacingWidget(LayoutSize.size16),
-                      IconWidget(
-                        icon: widget.icon,
-                        size: 18,
-                        color: widget.iconColor ??
-                            Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ],
-                  )
-          ],
+      ),
+      onPressed: widget.enabled ? widget.onPressed : null,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: TextWidget(
+          text: widget.label ?? '',
+          color: widget.labelColor ?? Theme.of(context).colorScheme.onPrimary,
+          style: Style.button,
         ),
       ),
     );
@@ -181,8 +161,6 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor:
-              MaterialStateProperty.all(Theme.of(context).focusColor),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
@@ -193,30 +171,9 @@ class _ButtonWidgetState extends State<ButtonWidget> {
           ),
         ),
         onPressed: widget.enabled ? widget.onPressed : null,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(),
-            Padding(
-              padding: const EdgeInsets.only(top: 16, bottom: 16),
-              child: TextWidget(
-                text: widget.label ?? '',
-                style: Style.button,
-              ),
-            ),
-            widget.icon == null
-                ? Container()
-                : Row(
-                    children: [
-                      const SpacingWidget(LayoutSize.size16),
-                      IconWidget(
-                        icon: widget.icon,
-                        size: 18,
-                        color: widget.iconColor,
-                      ),
-                    ],
-                  )
-          ],
+        child: TextWidget(
+          text: widget.label ?? '',
+          style: Style.button,
         ),
       ),
     );
@@ -228,21 +185,22 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         Stack(
           alignment: Alignment.center,
           children: [
-          CircleAvatar(
-            radius: widget.iconRadius,
-            backgroundColor: widget.color ?? Theme.of(context).focusColor,
-            child: Container(),
-          ),
-          IconButton(
-            icon: FaIcon(
-              widget.icon,
-              color: widget.iconColor ??
-                  Theme.of(context).colorScheme.onBackground,
+            CircleAvatar(
+              radius: widget.iconRadius,
+              backgroundColor: widget.color ?? Theme.of(context).focusColor,
+              child: Container(),
             ),
-            iconSize: widget.iconRadius,
-            onPressed: widget.enabled ? widget.onPressed : null,
-          ),
-        ],),
+            IconButton(
+              icon: FaIcon(
+                widget.icon,
+                color: widget.iconColor ??
+                    Theme.of(context).colorScheme.onBackground,
+              ),
+              iconSize: widget.iconRadius,
+              onPressed: widget.enabled ? widget.onPressed : null,
+            ),
+          ],
+        ),
         const SpacingWidget(LayoutSize.size8),
         widget.label == null
             ? Container()
@@ -261,7 +219,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             color: Colors.transparent,
             shape: CircleBorder(),
           ),
-          child:  IconButton(
+          child: IconButton(
               alignment: Alignment.center,
               icon: Icon(
                 widget.icon,

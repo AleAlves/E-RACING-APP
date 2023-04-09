@@ -32,8 +32,8 @@ class _LeagueCreateSocialMediaViewState
   @override
   void initState() {
     observers();
-    super.initState();
     widget.viewModel.fetchSocialMedias();
+    super.initState();
   }
 
   @override
@@ -114,7 +114,7 @@ class _LeagueCreateSocialMediaViewState
                       Expanded(
                         child: InputTextWidget(
                             enabled: true,
-                            label: "Link",
+                            label: "Url",
                             icon: Icons.add_link,
                             controller: socialControllers[index],
                             validator: (value) {

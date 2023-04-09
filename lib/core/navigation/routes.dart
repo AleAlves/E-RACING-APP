@@ -13,3 +13,5 @@ class Routes {
   static String profile = "/profile/";
   static String notifications = "/notifications/";
 }
+
+class LeagueRouter extends Routes {}

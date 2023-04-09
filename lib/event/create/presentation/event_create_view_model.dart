@@ -1,6 +1,8 @@
 import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../core/model/status_model.dart';
+import '../../../core/ui/view_state.dart';
 import 'navigation/event_create_flow.dart';
 
 part 'event_create_view_model.g.dart';
@@ -14,6 +16,14 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   @override
   @observable
   EventCreateNavigator? flow;
+
+  @override
+  @observable
+  ViewState state = ViewState.ready;
+
+  @override
+  @observable
+  StatusModel? status;
 
   @observable
   String? name;

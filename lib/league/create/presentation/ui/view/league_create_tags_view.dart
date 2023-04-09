@@ -26,8 +26,8 @@ class _LeagueCreateTagsViewState extends State<LeagueCreateTagsView>
   @override
   void initState() {
     observers();
-    super.initState();
     widget.viewModel.fetchTags();
+    super.initState();
   }
 
   @override
@@ -47,7 +47,7 @@ class _LeagueCreateTagsViewState extends State<LeagueCreateTagsView>
       bottom: button(),
       scrollable: false,
       onBackPressed: onBackPressed,
-      state: ViewState.ready,
+      state: widget.viewModel.state,
     );
   }
 

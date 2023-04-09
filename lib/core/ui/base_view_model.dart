@@ -9,10 +9,10 @@ abstract class BaseViewModel<T> with Store {
   abstract T? flow;
 
   @observable
-  StatusModel? status;
+  abstract StatusModel? status;
 
   @observable
-  ViewState state = ViewState.ready;
+  abstract ViewState state;
 
   void onError(ApiException route) {
     state = ViewState.error;

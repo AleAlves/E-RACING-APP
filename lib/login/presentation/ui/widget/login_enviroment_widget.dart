@@ -21,7 +21,7 @@ class LoginEnviromentWidget extends StatefulWidget {
 
 class _LoginEnviromentWidgetState extends State<LoginEnviromentWidget>
     implements BaseSateWidget {
-  final String devLocal = "http://192.168.0.18:8084/";
+  final String devLocal = "http://192.168.0.14:8084/";
   final String prod = "https://e-racing-api.azurewebsites.net/";
 
   @override

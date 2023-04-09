@@ -32,6 +32,14 @@ abstract class _LeagueCreateViewModel
   @observable
   LeagueCreateNavigator? flow;
 
+  @override
+  @observable
+  ViewState state = ViewState.ready;
+
+  @override
+  @observable
+  StatusModel? status;
+
   @observable
   String? name;
 
@@ -49,6 +57,12 @@ abstract class _LeagueCreateViewModel
 
   @observable
   List<LinkModel?>? socialPlatforms;
+
+  @observable
+  double? maxSteps = 8;
+
+  @observable
+  double? currentStep;
 
   final createUseCase = Modular.get<CreateLeagueUseCase<StatusModel>>();
   final getTagUseCase = Modular.get<GetTagUseCase>();
@@ -100,7 +114,7 @@ abstract class _LeagueCreateViewModel
 
   void setSocialMedia(List<LinkModel?> socialPlatforms) {
     this.socialPlatforms = socialPlatforms;
-    onNavigate(LeagueCreateNavigator.finish);
+    onNavigate(LeagueCreateNavigator.review);
   }
 
   void fetchTags() async {

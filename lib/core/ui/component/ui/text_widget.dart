@@ -46,7 +46,7 @@ class TextWidget extends StatelessWidget {
         return Theme.of(context)
             .textTheme
             .button
-            ?.copyWith(color: color, fontSize: 20);
+            ?.copyWith(color: color, fontSize: 16);
     }
   }
 }

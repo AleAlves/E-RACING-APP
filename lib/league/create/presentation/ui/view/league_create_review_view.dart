@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/button_widget.dart';
@@ -8,23 +7,23 @@ import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
 import '../../league_create_view_model.dart';
+import '../../navigation/league_create_flow.dart';
 
-class LeagueCreateFinishView extends StatefulWidget {
+class LeagueCreateReviewView extends StatefulWidget {
   final LeagueCreateViewModel viewModel;
 
-  const LeagueCreateFinishView(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueCreateReviewView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _LeagueCreateFinishViewState createState() => _LeagueCreateFinishViewState();
+  _LeagueCreateReviewViewState createState() => _LeagueCreateReviewViewState();
 }
 
-class _LeagueCreateFinishViewState extends State<LeagueCreateFinishView>
+class _LeagueCreateReviewViewState extends State<LeagueCreateReviewView>
     implements BaseSateWidget {
   @override
   void initState() {
     observers();
     super.initState();
-    widget.viewModel.create();
   }
 
   @override
@@ -42,7 +41,6 @@ class _LeagueCreateFinishViewState extends State<LeagueCreateFinishView>
     return ViewStateWidget(
       body: content(),
       bottom: buttonWidget(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
@@ -50,14 +48,36 @@ class _LeagueCreateFinishViewState extends State<LeagueCreateFinishView>
 
   @override
   Widget content() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [statusMessage()],
+        children: [
+          const SpacingWidget(LayoutSize.size16),
+          leagueNameWidget(),
+          const SpacingWidget(LayoutSize.size16),
+          leagueDescriptionsWidget(),
+        ],
       ),
+    );
+  }
+
+  Widget leagueNameWidget() {
+    return Row(
+      children: [
+        const TextWidget(text: "Name:", style: Style.subtitle),
+        const SpacingWidget(LayoutSize.size16),
+        TextWidget(text: widget.viewModel.name, style: Style.subtitle)
+      ],
+    );
+  }
+
+  Widget leagueDescriptionsWidget() {
+    return Row(
+      children: [
+        const TextWidget(text: "Description:", style: Style.subtitle),
+        const SpacingWidget(LayoutSize.size16),
+        TextWidget(text: widget.viewModel.description, style: Style.subtitle)
+      ],
     );
   }
 
@@ -88,9 +108,9 @@ class _LeagueCreateFinishViewState extends State<LeagueCreateFinishView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        Modular.to.pop();
+        widget.viewModel.create();
       },
-      label: widget.viewModel.status?.action ?? '',
+      label: widget.viewModel.status?.action ?? 'Create League',
     );
   }
 
@@ -99,7 +119,7 @@ class _LeagueCreateFinishViewState extends State<LeagueCreateFinishView>
 
   @override
   Future<bool> onBackPressed() async {
-    Modular.to.pop();
+    widget.viewModel.onNavigate(LeagueCreateNavigator.socialMedia);
     return false;
   }
 }
