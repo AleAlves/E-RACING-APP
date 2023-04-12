@@ -79,14 +79,14 @@ class _ERacingAppState extends State<ERacingApp> {
     FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
     const FlexSchemeColor colorDark = FlexSchemeColor(
-      primary: Color(0xffffa900),
-      primaryVariant: Color(0xffffa53c),
+      primary: Color(0xffff9c1e),
+      primaryVariant: Color(0xffd2821d),
       secondary: Color(0xff4388e3),
       secondaryVariant: Color(0xff4388e3),
     );
 
     const FlexSchemeData _myFlexScheme = FlexSchemeData(
-      name: '',
+      name: 'bigStone',
       description: '',
       light: colorDark,
       dark: colorDark,
@@ -116,10 +116,10 @@ class _ERacingAppState extends State<ERacingApp> {
         appBarElevation: 0.1,
         appBarBackground: Colors.black,
       ).copyWith(
-          scaffoldBackgroundColor: Colors.black,
+          scaffoldBackgroundColor: Colors.black26,
           iconTheme: const IconThemeData(color: Color(0xFF6B6B6B)),
-          cardColor: const Color(0xFF0A0A0A),
-          focusColor: const Color(0xFF171717)),
+          cardColor: const Color(0xFF101010),
+          focusColor: const Color(0xFF262626)),
       themeMode: themeMode,
       title: 'E-Racing',
       routeInformationParser: Modular.routeInformationParser,

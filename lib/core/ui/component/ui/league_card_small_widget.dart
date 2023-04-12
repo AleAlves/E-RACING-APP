@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -16,11 +17,16 @@ class LeagueCardSmallWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CardWidget(
-      padding: EdgeInsets.zero,
-      onPressed: onPressed,
-      child: header(),
-      ready: label != null,
+    return Column(
+      children: [
+        CardWidget(
+          padding: EdgeInsets.zero,
+          onPressed: onPressed,
+          child: header(),
+          ready: label != null,
+        ),
+        const SpacingWidget(LayoutSize.size16),
+      ],
     );
   }
 
@@ -39,15 +45,19 @@ class LeagueCardSmallWidget extends StatelessWidget {
   }
 
   Widget titleWidget() {
-    return Wrap(
+    return Row(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextWidget(
-            text: label,
-            style: Style.title,
-            align: TextAlign.left,
-          ),
+        Wrap(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextWidget(
+                text: label,
+                style: Style.title,
+                align: TextAlign.left,
+              ),
+            ),
+          ],
         ),
       ],
     );
