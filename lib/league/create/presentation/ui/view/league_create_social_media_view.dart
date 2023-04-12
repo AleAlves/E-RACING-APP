@@ -26,13 +26,18 @@ class LeagueCreateSocialMediaView extends StatefulWidget {
 
 class _LeagueCreateSocialMediaViewState
     extends State<LeagueCreateSocialMediaView> implements BaseSateWidget {
-  List<LinkModel?> socialPlatforms = [];
-  List<TextEditingController> socialControllers = [];
+  List<LinkModel?> links = [];
+  List<TextEditingController> linksControllers = [];
 
   @override
   void initState() {
     observers();
     widget.viewModel.fetchSocialMedias();
+    links = widget.viewModel.linkModels?.toList() ?? [];
+    widget.viewModel.linkModels?.forEach((element) {
+      linksControllers.add(TextEditingController());
+      linksControllers.last.text = element?.link ?? "";
+    });
     super.initState();
   }
 
@@ -91,7 +96,7 @@ class _LeagueCreateSocialMediaViewState
           ListView.builder(
             physics: const ClampingScrollPhysics(),
             shrinkWrap: true,
-            itemCount: socialPlatforms.length,
+            itemCount: links.length,
             itemBuilder: (context, index) {
               return Column(
                 children: [
@@ -100,9 +105,8 @@ class _LeagueCreateSocialMediaViewState
                       DropdownMenuWidget(
                         widget.viewModel.socialMedias,
                         (item) {
-                          socialPlatforms[index]?.platformId = item?.id;
-                          socialPlatforms[index]?.link =
-                              socialControllers[index].text;
+                          links[index]?.platformId = item?.id;
+                          links[index]?.link = linksControllers[index].text;
                         },
                         hint: "Platform",
                         currentModel: null,
@@ -116,10 +120,9 @@ class _LeagueCreateSocialMediaViewState
                             enabled: true,
                             label: "Url",
                             icon: Icons.add_link,
-                            controller: socialControllers[index],
+                            controller: linksControllers[index],
                             validator: (value) {
-                              socialPlatforms[index]?.link =
-                                  socialControllers[index].text;
+                              links[index]?.link = linksControllers[index].text;
                               return null;
                             }),
                       ),
@@ -132,8 +135,8 @@ class _LeagueCreateSocialMediaViewState
                                 .then((value) {
                               var paste =
                                   value?.text?.trim().replaceAll(' ', '') ?? '';
-                              socialPlatforms[index]?.link = paste;
-                              socialControllers[index].text = paste;
+                              links[index]?.link = paste;
+                              linksControllers[index].text = paste;
                             });
                           },
                           label: 'paste',
@@ -144,8 +147,8 @@ class _LeagueCreateSocialMediaViewState
                           type: ButtonType.iconButton,
                           onPressed: () async {
                             setState(() {
-                              socialPlatforms.removeAt(index);
-                              socialControllers.removeAt(index);
+                              links.removeAt(index);
+                              linksControllers.removeAt(index);
                             });
                           },
                           label: 'delete',
@@ -163,8 +166,8 @@ class _LeagueCreateSocialMediaViewState
               type: ButtonType.iconButton,
               onPressed: () async {
                 setState(() {
-                  socialPlatforms.add(LinkModel('', ''));
-                  socialControllers.add(TextEditingController());
+                  links.add(LinkModel('', ''));
+                  linksControllers.add(TextEditingController());
                 });
               },
               label: 'New media'),
@@ -175,12 +178,12 @@ class _LeagueCreateSocialMediaViewState
 
   Widget button() {
     return ButtonWidget(
-      enabled: socialPlatforms.isNotEmpty,
+      enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setSocialMedia(socialPlatforms);
+        widget.viewModel.setSocialMedia(links);
       },
-      label: "Next",
+      label: widget.viewModel.linkModels?.isEmpty == true ? "Skip" : "Next",
     );
   }
 

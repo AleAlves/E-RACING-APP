@@ -6,6 +6,7 @@ import '../ui/view/league_create_banner_view.dart';
 import '../ui/view/league_create_description_view.dart';
 import '../ui/view/league_create_review_view.dart';
 import '../ui/view/league_create_social_media_view.dart';
+import '../ui/view/league_create_status_view.dart';
 import '../ui/view/league_create_tags_view.dart';
 import '../ui/view/league_create_terms_view.dart';
 
@@ -17,6 +18,7 @@ enum LeagueCreateNavigator {
   tags,
   socialMedia,
   review,
+  status,
   update,
   error
 }
@@ -38,6 +40,8 @@ extension LeagueCreateNavigation on LeagueCreateNavigator {
         return LeagueCreateSocialMediaView(vm);
       case LeagueCreateNavigator.review:
         return LeagueCreateReviewView(vm);
+      case LeagueCreateNavigator.status:
+        return LeagueCreateStatusView(vm);
       default:
         return LeagueCreateTermsView(vm);
     }

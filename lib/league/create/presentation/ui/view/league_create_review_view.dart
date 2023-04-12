@@ -1,9 +1,13 @@
+import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../core/ui/component/state/view_state_widget.dart';
+import '../../../../../core/ui/component/ui/banner_widget.dart';
 import '../../../../../core/ui/component/ui/button_widget.dart';
+import '../../../../../core/ui/component/ui/social_collection_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
+import '../../../../../core/ui/component/ui/tag_collection_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
 import '../../league_create_view_model.dart';
@@ -53,19 +57,37 @@ class _LeagueCreateReviewViewState extends State<LeagueCreateReviewView>
       child: Column(
         children: [
           const SpacingWidget(LayoutSize.size16),
+          leagueReviewTitle(),
+          const SpacingWidget(LayoutSize.size32),
+          leagueBannerWidget(),
+          const SpacingWidget(LayoutSize.size16),
           leagueNameWidget(),
           const SpacingWidget(LayoutSize.size16),
           leagueDescriptionsWidget(),
+          const SpacingWidget(LayoutSize.size16),
+          tagsWidget(),
+          const SpacingWidget(LayoutSize.size16),
+          socialWidget(),
+          const SpacingWidget(LayoutSize.size16),
         ],
       ),
+    );
+  }
+
+  Widget leagueReviewTitle() {
+    return const TextWidget(text: "Preview", style: Style.title);
+  }
+
+  Widget leagueBannerWidget() {
+    return BannerWidget(
+      media: MediaModel(widget.viewModel.banner ?? ''),
     );
   }
 
   Widget leagueNameWidget() {
     return Row(
       children: [
-        const TextWidget(text: "Name:", style: Style.subtitle),
-        const SpacingWidget(LayoutSize.size16),
+        const SpacingWidget(LayoutSize.size32),
         TextWidget(text: widget.viewModel.name, style: Style.subtitle)
       ],
     );
@@ -74,10 +96,39 @@ class _LeagueCreateReviewViewState extends State<LeagueCreateReviewView>
   Widget leagueDescriptionsWidget() {
     return Row(
       children: [
-        const TextWidget(text: "Description:", style: Style.subtitle),
-        const SpacingWidget(LayoutSize.size16),
+        const SpacingWidget(LayoutSize.size32),
         TextWidget(text: widget.viewModel.description, style: Style.subtitle)
       ],
+    );
+  }
+
+  Widget tagsWidget() {
+    return TagCollectionWidget(
+      tagIds: widget.viewModel.leagueTags,
+      tags: widget.viewModel.tags,
+      singleLined: false,
+    );
+  }
+
+  Widget socialWidget() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SpacingWidget(LayoutSize.size16),
+          const Padding(
+            padding: EdgeInsets.only(left: 8.0),
+            child: TextWidget(text: "Social media", style: Style.paragraph),
+          ),
+          const SpacingWidget(LayoutSize.size4),
+          SocialCollectionWidget(
+            hide: widget.viewModel.linkModels == null,
+            links: widget.viewModel.linkModels,
+            socialPlatforms: widget.viewModel.socialMedias,
+          ),
+        ],
+      ),
     );
   }
 

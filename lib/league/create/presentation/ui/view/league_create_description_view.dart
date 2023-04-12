@@ -79,8 +79,11 @@ class _LeagueCreateDescriptionViewState
 
   @override
   observers() {
-    setState(() {
-      isValid = _formKey.currentState?.validate() == true;
+    _descriptionController.addListener(() {
+      final String text = _descriptionController.text;
+      setState(() {
+        isValid = text.isNotEmpty;
+      });
     });
   }
 

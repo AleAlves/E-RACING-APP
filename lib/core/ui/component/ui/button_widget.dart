@@ -187,15 +187,12 @@ class _ButtonWidgetState extends State<ButtonWidget> {
           children: [
             CircleAvatar(
               radius: widget.iconRadius,
-              backgroundColor: widget.color ?? Theme.of(context).focusColor,
               child: Container(),
             ),
             IconButton(
-              icon: FaIcon(
-                widget.icon,
-                color: widget.iconColor ??
-                    Theme.of(context).colorScheme.onBackground,
-              ),
+              icon: FaIcon(widget.icon,
+                  color: widget.iconColor ??
+                      Theme.of(context).colorScheme.onPrimary),
               iconSize: widget.iconRadius,
               onPressed: widget.enabled ? widget.onPressed : null,
             ),

@@ -56,7 +56,7 @@ abstract class _LeagueCreateViewModel
   List<String?>? leagueTags;
 
   @observable
-  List<LinkModel?>? socialPlatforms;
+  List<LinkModel?>? linkModels;
 
   @observable
   double? maxSteps = 8;
@@ -67,23 +67,6 @@ abstract class _LeagueCreateViewModel
   final createUseCase = Modular.get<CreateLeagueUseCase<StatusModel>>();
   final getTagUseCase = Modular.get<GetTagUseCase>();
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
-
-  Future<void> create() async {
-    await createUseCase
-        .build(
-            league: LeagueModel(
-                name: name,
-                description: description,
-                banner: banner,
-                tags: leagueTags,
-                links: socialPlatforms))
-        .invoke(
-            success: (data) {
-              status = data;
-              state = ViewState.ready;
-            },
-            error: onError);
-  }
 
   void fetchTerms() {}
 
@@ -104,16 +87,14 @@ abstract class _LeagueCreateViewModel
 
   void setBanner(String banner) {
     this.banner = banner;
-    onNavigate(LeagueCreateNavigator.tags);
   }
 
-  void setTags(List<String?> leagueTags) {
+  void setTags(List<String?>? leagueTags) {
     this.leagueTags = leagueTags;
-    onNavigate(LeagueCreateNavigator.socialMedia);
   }
 
-  void setSocialMedia(List<LinkModel?> socialPlatforms) {
-    this.socialPlatforms = socialPlatforms;
+  void setSocialMedia(List<LinkModel?> linkModels) {
+    this.linkModels = linkModels;
     onNavigate(LeagueCreateNavigator.review);
   }
 
@@ -135,5 +116,23 @@ abstract class _LeagueCreateViewModel
           state = ViewState.ready;
         },
         error: onError);
+  }
+
+  Future<void> create() async {
+    await createUseCase
+        .build(
+            league: LeagueModel(
+                name: name,
+                description: description,
+                banner: banner,
+                tags: leagueTags,
+                links: linkModels))
+        .invoke(
+            success: (data) {
+              status = data;
+              state = ViewState.ready;
+              onNavigate(LeagueCreateNavigator.status);
+            },
+            error: onError);
   }
 }

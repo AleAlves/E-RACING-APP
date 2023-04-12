@@ -27,6 +27,7 @@ class _LeagueCreateTagsViewState extends State<LeagueCreateTagsView>
   void initState() {
     observers();
     widget.viewModel.fetchTags();
+    tags = widget.viewModel.leagueTags?.toList() ?? [];
     super.initState();
   }
 
@@ -100,6 +101,7 @@ class _LeagueCreateTagsViewState extends State<LeagueCreateTagsView>
                             selected
                                 ? tags.remove(item?.id)
                                 : tags.add(item?.id);
+                            widget.viewModel.setTags(tags);
                           });
                         });
                   })
@@ -111,12 +113,12 @@ class _LeagueCreateTagsViewState extends State<LeagueCreateTagsView>
 
   Widget button() {
     return ButtonWidget(
-      enabled: tags.isNotEmpty,
+      enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setTags(tags);
+        widget.viewModel.onNavigate(LeagueCreateNavigator.socialMedia);
       },
-      label: "Next",
+      label: widget.viewModel.leagueTags?.isEmpty == true ? "Skip" : "Next",
     );
   }
 

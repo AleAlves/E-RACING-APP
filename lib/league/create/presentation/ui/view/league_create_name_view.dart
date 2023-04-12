@@ -28,10 +28,10 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
   @override
   void initState() {
     observers();
-    super.initState();
     _nameController.text = widget.viewModel.name ?? '';
     _nameController.addListener(observers);
     widget.viewModel.fetchTerms();
+    super.initState();
   }
 
   @override
@@ -42,6 +42,16 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
   @override
   Observer mainObserver() {
     return Observer(builder: (_) => viewState());
+  }
+
+  @override
+  observers() {
+    _nameController.addListener(() {
+      final String text = _nameController.text;
+      setState(() {
+        isValid = text.isNotEmpty;
+      });
+    });
   }
 
   @override
@@ -75,13 +85,6 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
     );
   }
 
-  @override
-  observers() {
-    setState(() {
-      isValid = _formKey.currentState?.validate() == true;
-    });
-  }
-
   Widget guideLines() {
     return const TextWidget(
         text: "What will your league be named?", style: Style.subtitle);
@@ -97,6 +100,7 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
           controller: _nameController,
           validator: (value) {
             if (value == null || value.isEmpty == true) {
+              isValid = false;
               return 'valid name needed';
             }
             return null;
@@ -106,7 +110,7 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
 
   Widget button() {
     return ButtonWidget(
-      enabled: isValid,
+      enabled: _nameController.value.text.isNotEmpty,
       type: ButtonType.primary,
       onPressed: () {
         widget.viewModel.setName(_nameController.text);

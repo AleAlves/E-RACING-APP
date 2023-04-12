@@ -98,8 +98,13 @@ class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
           child: SizedBox(
             height: 200,
             width: MediaQuery.of(context).size.height,
-            child: bannerFile.path == ''
-                ? Container()
+            child: bannerFile.path.isEmpty
+                ? widget.viewModel.banner == null
+                    ? Container()
+                    : Image.memory(
+                        base64Decode(widget.viewModel.banner ?? ''),
+                        fit: BoxFit.fill,
+                      )
                 : Image.file(
                     bannerFile,
                     fit: BoxFit.fill,
@@ -114,6 +119,8 @@ class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
               var image = await _picker.pickImage(source: ImageSource.gallery);
               setState(() {
                 bannerFile = File(image?.path ?? '');
+                widget.viewModel
+                    .setBanner(base64Encode(bannerFile.readAsBytesSync()));
               });
             })
       ],
@@ -122,10 +129,10 @@ class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
 
   Widget button() {
     return ButtonWidget(
-      enabled: bannerFile.path.isNotEmpty,
+      enabled: bannerFile.path.isNotEmpty || widget.viewModel.banner != null,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setBanner(base64Encode(bannerFile.readAsBytesSync()));
+        widget.viewModel.onNavigate(LeagueCreateNavigator.tags);
       },
       label: "Next",
     );
