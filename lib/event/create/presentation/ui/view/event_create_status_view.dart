@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../../core/navigation/routes.dart';
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/button_widget.dart';
-import '../../../../../core/ui/component/ui/scoring_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
 import '../../event_create_view_model.dart';
-import '../../navigation/event_create_flow.dart';
 
-class EventCreateScoreView extends StatefulWidget {
+class EventCreateStatusView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateScoreView(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateStatusView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventCreateScoreViewState createState() => _EventCreateScoreViewState();
+  _EventCreateStatusViewState createState() => _EventCreateStatusViewState();
 }
 
-class _EventCreateScoreViewState extends State<EventCreateScoreView>
+class _EventCreateStatusViewState extends State<EventCreateStatusView>
     implements BaseSateWidget {
-  List<int?> scoreSchema = [];
-
   @override
   void initState() {
     observers();
@@ -44,6 +42,7 @@ class _EventCreateScoreViewState extends State<EventCreateScoreView>
     return ViewStateWidget(
       body: content(),
       bottom: buttonWidget(),
+      scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
@@ -54,34 +53,32 @@ class _EventCreateScoreViewState extends State<EventCreateScoreView>
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      child: Center(
-        child: Column(
-          children: [
-            const SpacingWidget(LayoutSize.size32),
-            titleWidget(),
-            const SpacingWidget(LayoutSize.size32),
-            scoringWidget(),
-          ],
-        ),
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: statusMessage(),
       ),
     );
   }
 
-  @override
-  observers() {}
-
-  Widget titleWidget() {
-    return const TextWidget(
-        text: "You can change the score system of your event",
-        style: Style.subtitle);
-  }
-
-  Widget scoringWidget() {
-    return ScoringWidget(
-      editing: true,
-      onScore: (scoring) {
-        scoreSchema = scoring;
-      },
+  Widget statusMessage() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextWidget(
+              text: widget.viewModel.status?.message ?? '', style: Style.title),
+          const SpacingWidget(LayoutSize.size48),
+          Icon(
+            widget.viewModel.status?.error == true
+                ? Icons.cancel
+                : Icons.check_circle,
+            size: 64,
+            color: widget.viewModel.status?.error == true
+                ? Colors.red
+                : Colors.green,
+          ),
+        ],
+      ),
     );
   }
 
@@ -90,15 +87,18 @@ class _EventCreateScoreViewState extends State<EventCreateScoreView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setEventScore(scoreSchema);
+        Modular.to.pushNamed(Routes.league);
       },
-      label: "Next",
+      label: widget.viewModel.status?.action,
     );
   }
 
   @override
+  observers() {}
+
+  @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.rules);
+    Modular.to.pop();
     return false;
   }
 }

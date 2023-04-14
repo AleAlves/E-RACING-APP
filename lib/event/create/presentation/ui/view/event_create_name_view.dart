@@ -43,6 +43,16 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
   }
 
   @override
+  observers() {
+    _nameController.addListener(() {
+      final String text = _nameController.text;
+      setState(() {
+        isValid = text.isNotEmpty;
+      });
+    });
+  }
+
+  @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
       body: content(),
@@ -62,30 +72,24 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          guideLines(),
+          titleWidget(),
           const SpacingWidget(LayoutSize.size48),
           Form(
-            child: leagueNameForm(),
+            child: nameWidget(),
             key: _formKey,
           ),
+          optionsWidget()
         ],
       ),
     );
   }
 
-  @override
-  observers() {
-    setState(() {
-      isValid = _formKey.currentState?.validate() == true;
-    });
-  }
-
-  Widget guideLines() {
+  Widget titleWidget() {
     return const TextWidget(
         text: "What is the name of the event?", style: Style.subtitle);
   }
 
-  Widget leagueNameForm() {
+  Widget nameWidget() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: InputTextWidget(
@@ -99,6 +103,44 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
             }
             return null;
           }),
+    );
+  }
+
+  Widget optionsWidget() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Checkbox(
+                value: widget.viewModel.allowTeams,
+                onChanged: (bool? value) {
+                  setState(() {
+                    widget.viewModel.setToggleEventAllowTeamsOption(value);
+                  });
+                },
+              ),
+              const TextWidget(
+                  text: "Allow racing teams", style: Style.paragraph)
+            ],
+          ),
+          Row(
+            children: [
+              Checkbox(
+                value: widget.viewModel.allowMembersOnly,
+                onChanged: (bool? value) {
+                  setState(() {
+                    widget.viewModel.setToggleEventAllowMembersOnly(value);
+                  });
+                },
+              ),
+              const TextWidget(
+                  text: "Allow members only", style: Style.paragraph)
+            ],
+          )
+        ],
+      ),
     );
   }
 

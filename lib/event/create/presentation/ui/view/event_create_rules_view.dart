@@ -75,8 +75,11 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
 
   @override
   observers() {
-    setState(() {
-      isValid = _formKey.currentState?.validate() == true;
+    _descriptionController.addListener(() {
+      final String text = _descriptionController.text;
+      setState(() {
+        isValid = text.isNotEmpty;
+      });
     });
   }
 
@@ -108,7 +111,7 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
       enabled: isValid,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setEventRules(_descriptionController.text);
+        widget.viewModel.onNavigate(EventCreateNavigator.score);
       },
       label: "Next",
     );

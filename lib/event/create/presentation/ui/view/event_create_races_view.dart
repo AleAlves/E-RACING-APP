@@ -1,12 +1,13 @@
+import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/button_widget.dart';
-import '../../../../../core/ui/component/ui/input_text_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
+import '../../../../presentation/ui/model/championship_races_model.dart';
 import '../../event_create_view_model.dart';
 import '../../navigation/event_create_flow.dart';
 
@@ -21,15 +22,10 @@ class EventCreateRacesView extends StatefulWidget {
 
 class _EventCreateRacesViewState extends State<EventCreateRacesView>
     implements BaseSateWidget {
-  var isValid = false;
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-
   @override
   void initState() {
     observers();
     super.initState();
-    _nameController.addListener(observers);
   }
 
   @override
@@ -47,7 +43,6 @@ class _EventCreateRacesViewState extends State<EventCreateRacesView>
     return ViewStateWidget(
       body: content(),
       bottom: button(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
@@ -62,60 +57,88 @@ class _EventCreateRacesViewState extends State<EventCreateRacesView>
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          guideLines(),
+          titleWidget(),
           const SpacingWidget(LayoutSize.size48),
-          Form(
-            child: leagueNameForm(),
-            key: _formKey,
-          ),
+          racesWidget(),
+          const SpacingWidget(LayoutSize.size48),
+          addRaceWidget()
         ],
       ),
     );
   }
 
   @override
-  observers() {
-    setState(() {
-      isValid = _formKey.currentState?.validate() == true;
-    });
-  }
+  observers() {}
 
-  Widget guideLines() {
+  Widget titleWidget() {
     return const TextWidget(
-        text: "What is the name of the event?", style: Style.subtitle);
+        text: "Create the races of your competion", style: Style.subtitle);
   }
 
-  Widget leagueNameForm() {
+  Widget racesWidget() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: InputTextWidget(
-          enabled: true,
-          label: 'Name',
-          icon: Icons.person,
-          controller: _nameController,
-          validator: (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'valid name needed';
-            }
-            return null;
-          }),
+      padding: const EdgeInsets.all(8.0),
+      child: Wrap(
+        children: widget.viewModel.racesModel
+            .map((race) {
+              return CardWidget(
+                ready: true,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      TextWidget(
+                          text: "${race?.titleController?.text}",
+                          style: Style.paragraph),
+                    ],
+                  ),
+                ),
+                childRight: removeWidget(race),
+              );
+            })
+            .toList()
+            .cast<Widget>(),
+      ),
     );
+  }
+
+  Widget removeWidget(ChampionshipRacesModel? racesModel) {
+    return ButtonWidget(
+        enabled: true,
+        type: ButtonType.iconPure,
+        icon: Icons.delete,
+        onPressed: () {
+          setState(() {
+            widget.viewModel.removeRace(racesModel);
+          });
+        });
+  }
+
+  Widget addRaceWidget() {
+    return ButtonWidget(
+        enabled: true,
+        type: ButtonType.iconButton,
+        icon: Icons.add,
+        onPressed: () {
+          widget.viewModel.onNavigate(EventCreateNavigator.raceCreation);
+        },
+        label: 'New Race');
   }
 
   Widget button() {
     return ButtonWidget(
-      enabled: isValid,
+      enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setEventName(_nameController.text);
+        widget.viewModel.createEvent();
       },
-      label: "Next",
+      label: "Finish",
     );
   }
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.terms);
+    widget.viewModel.onNavigate(EventCreateNavigator.settings);
     return false;
   }
 }

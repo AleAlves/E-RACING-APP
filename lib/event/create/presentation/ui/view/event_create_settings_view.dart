@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../../core/model/pair_model.dart';
+import '../../../../../core/model/settings_model.dart';
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/button_widget.dart';
 import '../../../../../core/ui/component/ui/input_text_widget.dart';
@@ -22,15 +24,14 @@ class EventCreateSettingsView extends StatefulWidget {
 
 class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
     implements BaseSateWidget {
-  var isValid = false;
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
+  List<SettingsModel?> settingsModel = [];
+  List<Pair<TextEditingController, TextEditingController>> settingsControllers =
+      [];
 
   @override
   void initState() {
     observers();
     super.initState();
-    _nameController.addListener(observers);
   }
 
   @override
@@ -48,7 +49,6 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
     return ViewStateWidget(
       body: content(),
       bottom: button(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
@@ -65,50 +65,105 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
         children: [
           guideLines(),
           const SpacingWidget(LayoutSize.size48),
-          Form(
-            child: leagueNameForm(),
-            key: _formKey,
-          ),
+          settingsWidget()
         ],
       ),
     );
   }
 
   @override
-  observers() {
-    setState(() {
-      isValid = _formKey.currentState?.validate() == true;
-    });
-  }
+  observers() {}
 
   Widget guideLines() {
     return const TextWidget(
-        text: "What is the name of the event?", style: Style.subtitle);
+        text: "You can create the events settings", style: Style.subtitle);
   }
 
-  Widget leagueNameForm() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: InputTextWidget(
-          enabled: true,
-          label: 'Name',
-          icon: Icons.person,
-          controller: _nameController,
-          validator: (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'valid name needed';
-            }
-            return null;
-          }),
+  Widget settingsWidget() {
+    return Column(
+      children: [
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+          itemCount: settingsModel.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ButtonWidget(
+                        enabled: true,
+                        type: ButtonType.iconButton,
+                        icon: Icons.delete,
+                        onPressed: () {
+                          setState(() {
+                            settingsModel.removeAt(index);
+                            settingsControllers.removeAt(index);
+                          });
+                        }),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        InputTextWidget(
+                            enabled: true,
+                            label: "Name",
+                            icon: Icons.settings,
+                            controller: settingsControllers[index].first,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "required";
+                              }
+                              return null;
+                            }),
+                        const SpacingWidget(LayoutSize.size16),
+                        InputTextWidget(
+                            enabled: true,
+                            label: "Value",
+                            icon: Icons.settings,
+                            controller: settingsControllers[index].second,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "required";
+                              }
+                              return null;
+                            }),
+                        const SpacingWidget(LayoutSize.size16),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+        const SpacingWidget(LayoutSize.size48),
+        ButtonWidget(
+            enabled: true,
+            type: ButtonType.iconButton,
+            icon: Icons.add,
+            onPressed: () async {
+              setState(() {
+                var name = TextEditingController();
+                var value = TextEditingController();
+                settingsModel
+                    .add(SettingsModel(name: name.text, value: value.text));
+                settingsControllers.add(Pair(name, value));
+              });
+            },
+            label: 'New setting'),
+      ],
     );
   }
 
   Widget button() {
     return ButtonWidget(
-      enabled: isValid,
+      enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setEventName(_nameController.text);
+        widget.viewModel.setEventSettings(settingsModel);
       },
       label: "Next",
     );
@@ -116,7 +171,7 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.terms);
+    widget.viewModel.onNavigate(EventCreateNavigator.tags);
     return false;
   }
 }

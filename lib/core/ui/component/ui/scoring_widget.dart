@@ -5,8 +5,8 @@ import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'spacing_widget.dart';
 import 'button_widget.dart';
+import 'spacing_widget.dart';
 
 class ScoringWidget extends StatefulWidget {
   final bool editing;
@@ -49,7 +49,10 @@ class _ScoringWidgetState extends State<ScoringWidget> {
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: Column(
         children: [
-          if (widget.editing) editting() else Container(),
+          if (widget.editing && scoringEdit.isNotEmpty)
+            editting()
+          else
+            Container(),
           Wrap(
             spacing: 0.0,
             children: scoringEdit

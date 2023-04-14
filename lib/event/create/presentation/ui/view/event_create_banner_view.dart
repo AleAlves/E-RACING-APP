@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/button_widget.dart';
-import '../../../../../core/ui/component/ui/input_text_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
@@ -21,15 +23,13 @@ class EventCreateBannerView extends StatefulWidget {
 
 class _EventCreateBannerViewState extends State<EventCreateBannerView>
     implements BaseSateWidget {
-  var isValid = false;
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
+  File bannerFile = File('');
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
     observers();
     super.initState();
-    _nameController.addListener(observers);
   }
 
   @override
@@ -46,7 +46,7 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
       body: content(),
-      bottom: button(),
+      bottom: buttonWidget(),
       scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
@@ -62,52 +62,70 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          guideLines(),
+          titleWidget(),
           const SpacingWidget(LayoutSize.size48),
-          Form(
-            child: leagueNameForm(),
-            key: _formKey,
-          ),
+          bannerWidget()
         ],
       ),
     );
   }
 
   @override
-  observers() {
-    setState(() {
-      isValid = _formKey.currentState?.validate() == true;
-    });
-  }
+  observers() {}
 
-  Widget guideLines() {
+  Widget titleWidget() {
     return const TextWidget(
         text: "What is the name of the event?", style: Style.subtitle);
   }
 
-  Widget leagueNameForm() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: InputTextWidget(
-          enabled: true,
-          label: 'Name',
-          icon: Icons.person,
-          controller: _nameController,
-          validator: (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'valid name needed';
-            }
-            return null;
-          }),
+  Widget bannerWidget() {
+    return Column(
+      children: [
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4.0),
+              child: SizedBox(
+                height: 300,
+                width: MediaQuery.of(context).size.height,
+                child: bannerFile.path == ''
+                    ? Container()
+                    : Image.file(
+                        bannerFile,
+                        fit: BoxFit.fill,
+                      ),
+              ),
+            ),
+            ButtonWidget(
+                enabled: true,
+                type: ButtonType.iconButton,
+                icon: Icons.image_search,
+                onPressed: () async {
+                  var image =
+                      await _picker.pickImage(source: ImageSource.gallery);
+                  setState(() {
+                    bannerFile = File(image?.path ?? '');
+                  });
+                })
+          ],
+        ),
+        const SpacingWidget(LayoutSize.size32),
+        const TextWidget(
+          text: "Banner: 1000x1000",
+          style: Style.paragraph,
+          align: TextAlign.start,
+        ),
+      ],
     );
   }
 
-  Widget button() {
+  Widget buttonWidget() {
     return ButtonWidget(
-      enabled: isValid,
+      enabled: bannerFile.path.isNotEmpty,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setEventName(_nameController.text);
+        widget.viewModel.onNavigate(EventCreateNavigator.classes);
       },
       label: "Next",
     );
@@ -115,7 +133,7 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.terms);
+    widget.viewModel.onNavigate(EventCreateNavigator.score);
     return false;
   }
 }

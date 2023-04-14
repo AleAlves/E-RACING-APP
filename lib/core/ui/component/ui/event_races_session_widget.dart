@@ -5,6 +5,7 @@ import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../event/presentation/ui/model/championship_races_model.dart';
 import 'button_widget.dart';
 import 'spacing_widget.dart';
@@ -45,7 +46,31 @@ class _EventCreateRaceSessionWidgetState
           itemCount: widget.model?.sessions?.length,
           itemBuilder: (context, index) {
             return CardWidget(
+                childLeft: Column(
+                  children: [
+                    ButtonWidget(
+                        enabled: true,
+                        type: ButtonType.iconPure,
+                        icon: Icons.add,
+                        onPressed: () async {
+                          newSettings(index);
+                        }),
+                    const SpacingWidget(LayoutSize.size16),
+                    ButtonWidget(
+                        enabled: true,
+                        type: ButtonType.iconPure,
+                        icon: Icons.remove,
+                        onPressed: () async {
+                          setState(() {
+                            widget.model!.sessions?[index]?.settings
+                                ?.removeLast();
+                          });
+                        }),
+                  ],
+                ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,18 +80,6 @@ class _EventCreateRaceSessionWidgetState
                               widget.model?.sessions?[index]?.type),
                           style: Style.subtitle,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ButtonWidget(
-                              enabled: true,
-                              type: ButtonType.iconPure,
-                              icon: Icons.delete,
-                              onPressed: () {
-                                setState(() {
-                                  widget.model?.sessions?.removeAt(index);
-                                });
-                              }),
-                        )
                       ],
                     ),
                     if (widget.model?.sessions?[index] == null ||
@@ -75,62 +88,46 @@ class _EventCreateRaceSessionWidgetState
                             true)
                       Container()
                     else
-                      ListView.builder(
-                        physics: const ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount:
-                            widget.model!.sessions![index]!.settings!.length,
-                        itemBuilder: (context, settingsIndex) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              TextWidget(
-                                  text:
-                                      "${widget.model!.sessions![index]!.settings![settingsIndex]?.name}:",
-                                  style: Style.paragraph),
-                              const SpacingWidget(LayoutSize.size8),
-                              TextWidget(
-                                  text:
-                                      "${widget.model!.sessions![index]!.settings![settingsIndex]?.value}",
-                                  style: Style.paragraph),
-                            ],
-                          );
-                        },
+                      Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        alignment: WrapAlignment.spaceEvenly,
+                        direction: Axis.vertical,
+                        children: widget.model!.sessions![index]!.settings!
+                            .map((session) {
+                              return Column(
+                                children: [
+                                  const SpacingWidget(LayoutSize.size8),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      TextWidget(
+                                          text: "${session?.name}:",
+                                          style: Style.paragraph),
+                                      const SpacingWidget(LayoutSize.size8),
+                                      TextWidget(
+                                          text: "${session?.value}",
+                                          style: Style.paragraph),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            })
+                            .toList()
+                            .cast<Widget>(),
                       ),
                     const SpacingWidget(LayoutSize.size16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ButtonWidget(
-                            enabled: true,
-                            type: ButtonType.iconPure,
-                            icon: Icons.add,
-                            label: "new setting",
-                            onPressed: () async {
-                              newSettings(index);
-                            }),
-                        const SpacingWidget(LayoutSize.size24),
-                        if (widget.model?.sessions?[index] == null ||
-                            widget.model?.sessions?[index]?.settings == null ||
-                            widget.model!.sessions?[index]?.settings?.isEmpty ==
-                                true)
-                          Container()
-                        else
-                          ButtonWidget(
-                              enabled: true,
-                              type: ButtonType.iconPure,
-                              icon: Icons.remove,
-                              label: "Delete",
-                              onPressed: () async {
-                                setState(() {
-                                  widget.model!.sessions?[index]?.settings
-                                      ?.removeLast();
-                                });
-                              }),
-                      ],
-                    ),
                   ],
                 ),
+                childRight: ButtonWidget(
+                    enabled: true,
+                    type: ButtonType.iconPure,
+                    icon: Icons.delete,
+                    onPressed: () {
+                      setState(() {
+                        widget.model?.sessions?.removeAt(index);
+                      });
+                    }),
                 ready: true);
           },
         ),

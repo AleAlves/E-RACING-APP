@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/button_widget.dart';
-import '../../../../../core/ui/component/ui/input_text_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
@@ -21,15 +20,13 @@ class EventCreateTagsView extends StatefulWidget {
 
 class _EventCreateTagsViewState extends State<EventCreateTagsView>
     implements BaseSateWidget {
-  var isValid = false;
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
+  List<String?> tags = [];
 
   @override
   void initState() {
     observers();
     super.initState();
-    _nameController.addListener(observers);
+    widget.viewModel.fetchTags();
   }
 
   @override
@@ -62,52 +59,59 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          guideLines(),
+          titleWidget(),
           const SpacingWidget(LayoutSize.size48),
-          Form(
-            child: leagueNameForm(),
-            key: _formKey,
-          ),
+          tagWidget()
         ],
       ),
     );
   }
 
   @override
-  observers() {
-    setState(() {
-      isValid = _formKey.currentState?.validate() == true;
-    });
-  }
+  observers() {}
 
-  Widget guideLines() {
+  Widget titleWidget() {
     return const TextWidget(
-        text: "What is the name of the event?", style: Style.subtitle);
+        text: "Pick some tags for the event", style: Style.subtitle);
   }
 
-  Widget leagueNameForm() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: InputTextWidget(
-          enabled: true,
-          label: 'Name',
-          icon: Icons.person,
-          controller: _nameController,
-          validator: (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'valid name needed';
-            }
-            return null;
-          }),
-    );
+  Widget tagWidget() {
+    return widget.viewModel.tags!.isEmpty
+        ? Container()
+        : Padding(
+            padding: EdgeInsets.zero,
+            child: Wrap(
+              children: widget.viewModel.tags!
+                  .map((item) {
+                    final selected = tags.contains(item?.id);
+                    return ActionChip(
+                        avatar: CircleAvatar(
+                          backgroundColor: selected
+                              ? Theme.of(context).colorScheme.secondary
+                              : null,
+                          child: selected ? const Text('-') : const Text('+'),
+                        ),
+                        label: Text(item?.name ?? ''),
+                        onPressed: () {
+                          setState(() {
+                            selected
+                                ? tags.remove(item?.id)
+                                : tags.add(item?.id);
+                          });
+                        });
+                  })
+                  .toList()
+                  .cast<Widget>(),
+            ),
+          );
   }
 
   Widget button() {
     return ButtonWidget(
-      enabled: isValid,
+      enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setEventName(_nameController.text);
+        widget.viewModel.setEventTags(tags);
       },
       label: "Next",
     );
@@ -115,7 +119,7 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.terms);
+    widget.viewModel.onNavigate(EventCreateNavigator.classes);
     return false;
   }
 }
