@@ -20,8 +20,6 @@ class EventCreateTagsView extends StatefulWidget {
 
 class _EventCreateTagsViewState extends State<EventCreateTagsView>
     implements BaseSateWidget {
-  List<String?> tags = [];
-
   @override
   void initState() {
     observers();
@@ -44,7 +42,6 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
     return ViewStateWidget(
       body: content(),
       bottom: button(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
@@ -52,18 +49,15 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
 
   @override
   Widget content() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          titleWidget(),
-          const SpacingWidget(LayoutSize.size48),
-          tagWidget()
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SpacingWidget(LayoutSize.size128),
+        titleWidget(),
+        const SpacingWidget(LayoutSize.size48),
+        tagWidget()
+      ],
     );
   }
 
@@ -83,7 +77,8 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
             child: Wrap(
               children: widget.viewModel.tags!
                   .map((item) {
-                    final selected = tags.contains(item?.id);
+                    final selected =
+                        widget.viewModel.eventTags.contains(item?.id);
                     return ActionChip(
                         avatar: CircleAvatar(
                           backgroundColor: selected
@@ -95,8 +90,8 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
                         onPressed: () {
                           setState(() {
                             selected
-                                ? tags.remove(item?.id)
-                                : tags.add(item?.id);
+                                ? widget.viewModel.eventTags.remove(item?.id)
+                                : widget.viewModel.eventTags.add(item?.id);
                           });
                         });
                   })
@@ -111,7 +106,7 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setEventTags(tags);
+        widget.viewModel.onFinishEventTags();
       },
       label: "Next",
     );
@@ -119,7 +114,7 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.classes);
+    widget.viewModel.onNavigate(EventCreateNavigator.eventClasses);
     return false;
   }
 }

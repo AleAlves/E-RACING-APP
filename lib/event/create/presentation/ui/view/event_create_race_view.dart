@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
@@ -32,27 +33,33 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
   var isValid = false;
   final _titleController = TextEditingController();
   final _broadcastLinkController = TextEditingController();
-  File posterFile = File('');
   final ImagePicker _picker = ImagePicker();
+  File posterFile = File('');
   DateTime? eventDate = DateTime.now();
-  bool? hasBroadcasting = false;
-  ChampionshipRacesModel? model;
+  ChampionshipRacesModel? raceModel;
 
   @override
   void initState() {
     observers();
-    model = ChampionshipRacesModel(
-      hasBroadcasting: hasBroadcasting,
-      eventDate: eventDate,
-      sessions: [],
-      picker: _picker,
-      posterFile: posterFile,
-      titleController: _titleController,
-      broadcastingLinkController: _broadcastLinkController,
-      poster: null,
-      id: null,
-    );
     super.initState();
+    raceModel = ChampionshipRacesModel(
+        title: _titleController.text,
+        hasBroadcasting: false,
+        broadcastLink: _broadcastLinkController.text,
+        eventDate: eventDate?.toIso8601String(),
+        sessions: []);
+    if (widget.viewModel.editingRaceModel != null) {
+      setState(() {
+        _titleController.text =
+            widget.viewModel.editingRaceModel?.title.toString() ?? "";
+        raceModel?.hasBroadcasting =
+            widget.viewModel.editingRaceModel?.hasBroadcasting;
+        raceModel?.poster = widget.viewModel.editingRaceModel?.poster;
+        _broadcastLinkController.text =
+            widget.viewModel.editingRaceModel?.broadcastLink ?? "";
+        raceModel?.sessions = widget.viewModel.editingRaceModel?.sessions;
+      });
+    }
   }
 
   @override
@@ -77,7 +84,7 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.racesList);
+    widget.viewModel.onNavigate(EventCreateNavigator.eventRaceList);
     return false;
   }
 
@@ -85,9 +92,15 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
   observers() {
     _titleController.addListener(() {
       final String text = _titleController.text;
+      raceModel?.title = text;
       setState(() {
         isValid = text.isNotEmpty;
       });
+    });
+
+    _broadcastLinkController.addListener(() {
+      final String text = _broadcastLinkController.text;
+      raceModel?.broadcastLink = text;
     });
   }
 
@@ -120,7 +133,7 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
         ),
         Step(
           title: const Text('Poster'),
-          content: banner(),
+          content: posterBanner(),
         ),
         Step(
           title: const Text('Date'),
@@ -184,7 +197,7 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
     );
   }
 
-  Widget banner() {
+  Widget posterBanner() {
     return Column(
       children: [
         Stack(
@@ -196,7 +209,14 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
                 height: 300,
                 width: MediaQuery.of(context).size.height,
                 child: posterFile.path == ''
-                    ? Container()
+                    ? widget.viewModel.editingRaceModel?.poster == null
+                        ? Container()
+                        : Image.memory(
+                            base64Decode(
+                                widget.viewModel.editingRaceModel?.poster ??
+                                    ''),
+                            fit: BoxFit.fill,
+                          )
                     : Image.file(
                         posterFile,
                         fit: BoxFit.fill,
@@ -212,6 +232,8 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
                       await _picker.pickImage(source: ImageSource.gallery);
                   setState(() {
                     posterFile = File(image?.path ?? '');
+                    raceModel?.poster =
+                        base64Encode(posterFile.readAsBytesSync());
                   });
                 })
           ],
@@ -228,7 +250,7 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
 
   Widget sessions() {
     return EventCreateRaceSessionWidget(
-      model: model,
+      model: raceModel,
     );
   }
 
@@ -239,17 +261,17 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
         Row(
           children: [
             Checkbox(
-              value: hasBroadcasting,
+              value: raceModel?.hasBroadcasting == true,
               onChanged: (bool? value) {
                 setState(() {
-                  hasBroadcasting = value ?? false;
+                  raceModel?.hasBroadcasting = value ?? false;
                 });
               },
             ),
             const TextWidget(text: "Live broadcasting", style: Style.paragraph),
           ],
         ),
-        if (hasBroadcasting == true)
+        if (raceModel?.hasBroadcasting == true)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -292,9 +314,13 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.addRace(model);
+        if (widget.viewModel.editingRaceModel == null) {
+          widget.viewModel.addRace(raceModel);
+        } else {
+          widget.viewModel.updateRace(raceModel);
+        }
       },
-      label: "Add Race",
+      label: widget.viewModel.editingRaceModel == null ? "Create" : "Update",
     );
   }
 }

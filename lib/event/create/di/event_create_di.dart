@@ -10,7 +10,7 @@ import '../presentation/ui/event_create_screen.dart';
 class EventCreateModule extends Module {
   final EventCreateNavigator flow;
 
-  EventCreateModule({this.flow = EventCreateNavigator.terms});
+  EventCreateModule({this.flow = EventCreateNavigator.eventTerms});
 
   @override
   List<Bind> get binds => [

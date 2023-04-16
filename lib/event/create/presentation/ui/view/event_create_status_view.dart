@@ -74,8 +74,8 @@ class _EventCreateStatusViewState extends State<EventCreateStatusView>
                 : Icons.check_circle,
             size: 64,
             color: widget.viewModel.status?.error == true
-                ? Colors.red
-                : Colors.green,
+                ? Colors.red[900]
+                : Colors.green[600],
           ),
         ],
       ),

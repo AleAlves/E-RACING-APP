@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
@@ -11,7 +9,6 @@ import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../event_view_model.dart';
 
@@ -100,12 +97,9 @@ class _EventCreateRacesWidgetState extends State<EventCreateRacesWidget>
                   onPressed: () async {
                     setState(() {
                       racesModel.add(ChampionshipRacesModel(
-                          eventDate: DateTime.now(),
+                          eventDate: DateTime.now().toIso8601String(),
                           hasBroadcasting: false,
-                          picker: ImagePicker(),
-                          posterFile: File(''),
-                          titleController: TextEditingController(),
-                          broadcastingLinkController: TextEditingController(),
+                          title: TextEditingController().text,
                           sessions: []));
 
                       widget.viewModel.updateChampionshipRaces(racesModel);

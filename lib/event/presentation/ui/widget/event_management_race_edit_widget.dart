@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:e_racing_app/core/ext/date_extensions.dart';
 import 'package:e_racing_app/core/model/session_model.dart';
@@ -16,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
@@ -62,13 +60,10 @@ class _EventManagementEditRaceWidgetState
     linkController.text = race?.broadcastLink ?? '';
 
     model = ChampionshipRacesModel(
-        eventDate: toDatetime(race?.date),
+        eventDate: toDatetime(race?.date).toIso8601String(),
         poster: race?.poster,
         hasBroadcasting: false,
-        picker: ImagePicker(),
-        posterFile: File(''),
-        titleController: titleController,
-        broadcastingLinkController: linkController,
+        title: titleController.text,
         sessions: race?.sessions,
         id: race?.id);
   }
@@ -178,10 +173,8 @@ class _EventManagementEditRaceWidgetState
               child: SizedBox(
                 height: 300,
                 width: MediaQuery.of(context).size.height,
-                child: _editingImage
-                    ? Image.file(model?.posterFile ?? File(''))
-                    : Image.memory(
-                        base64Decode(model?.poster.toString() ?? '')),
+                child:
+                    Image.memory(base64Decode(model?.poster.toString() ?? '')),
               ),
             ),
             ButtonWidget(
@@ -189,10 +182,9 @@ class _EventManagementEditRaceWidgetState
                 type: ButtonType.iconButton,
                 icon: Icons.image_search,
                 onPressed: () async {
-                  var image = await model?.picker
-                      ?.pickImage(source: ImageSource.gallery);
-                  model?.posterFile = File(image?.path ?? '');
-                  _editingImage = true;
+                  // var image = await model?.picker?.pickImage(source: ImageSource.gallery);
+                  // model?.posterFile = File(image?.path ?? '');
+                  // _editingImage = true;
                 })
           ],
         ),
@@ -213,7 +205,7 @@ class _EventManagementEditRaceWidgetState
       children: [
         TextWidget(
             text:
-                "${formatHour(model?.eventDate?.toIso8601String())} - ${formatDate(model?.eventDate?.toIso8601String())}",
+                "${formatHour(model?.eventDate)} - ${formatDate(model?.eventDate)}",
             style: Style.subtitle),
         const SpacingWidget(LayoutSize.size32),
         ButtonWidget(
@@ -223,10 +215,9 @@ class _EventManagementEditRaceWidgetState
             onPressed: () {
               DatePicker.showDateTimePicker(context,
                   showTitleActions: false,
-                  minTime: toDatetime(model?.eventDate?.toIso8601String()),
-                  onChanged: (date) {
+                  minTime: toDatetime(model?.eventDate), onChanged: (date) {
                 setState(() {
-                  model?.eventDate = date;
+                  // model?.eventDate = date;
                 });
               }, currentTime: DateTime.now());
             }),

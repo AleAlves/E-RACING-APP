@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/model/classes_model.dart';
+import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/base_view_model.dart';
@@ -8,6 +9,7 @@ import 'package:mobx/mobx.dart';
 import '../../../core/model/event_model.dart';
 import '../../../core/model/status_model.dart';
 import '../../../core/model/tag_model.dart';
+import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
 import '../../../tag/get_tag_usecase.dart';
 import '../../domain/create_event_usecase.dart';
@@ -35,25 +37,25 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   StatusModel? status;
 
   @observable
-  String? name;
+  int editingRaceIndex = 0;
 
   @observable
-  String? rules;
+  String? eventName = "";
 
   @observable
-  String? banner;
+  String? eventRules = "";
 
   @observable
-  String? date;
+  String? eventBanner;
 
   @observable
-  bool? allowTeams = false;
+  bool? eventAllowTeams = false;
 
   @observable
-  bool? allowMembersOnly = false;
+  bool? eventAllowMembersOnly = false;
 
   @observable
-  ObservableList<String?>? eventTags;
+  ObservableList<String?> eventTags = ObservableList();
 
   @observable
   ObservableList<TagModel?>? tags = ObservableList();
@@ -68,57 +70,88 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   ObservableList<int?> eventScore = ObservableList();
 
   @observable
-  List<ChampionshipRacesModel?> racesModel = [];
+  List<ChampionshipRacesModel?> racesModel = ObservableList();
+
+  @observable
+  ChampionshipRacesModel? editingRaceModel;
 
   final _getTagUseCase = Modular.get<GetTagUseCase>();
   final _createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
 
   void setAgreement(bool termsAgreement) {
-    onNavigate(EventCreateNavigator.name);
+    onNavigate(EventCreateNavigator.eventName);
   }
 
   void setEventName(String name) {
-    onNavigate(EventCreateNavigator.rules);
+    eventName = name;
+    onNavigate(EventCreateNavigator.eventRules);
   }
 
   void setEventRules(String rules) {
-    onNavigate(EventCreateNavigator.score);
+    eventRules = rules;
+    onNavigate(EventCreateNavigator.eventScore);
   }
 
-  void setEventTags(List<String?> tags) {
-    eventTags?.addAll(tags);
-    onNavigate(EventCreateNavigator.settings);
+  void setEventBanner(String base64encodedBanner) {
+    eventBanner = base64encodedBanner;
   }
 
-  void setEventSettings(List<SettingsModel?> settingsModel) {
-    eventSettings.clear();
-    eventSettings.addAll(settingsModel);
-    onNavigate(EventCreateNavigator.racesList);
+  void onFinishEventBanner() {
+    onNavigate(EventCreateNavigator.eventClasses);
   }
 
-  void setEventClasses(List<ClassesModel?> classesModel) {
-    eventClasses.clear();
-    eventClasses.addAll(classesModel);
-    onNavigate(EventCreateNavigator.tags);
+  void onFinishEventTags() {
+    onNavigate(EventCreateNavigator.eventSettings);
   }
 
-  void setEventScore(List<int?> scoreSchema) {
-    eventScore.clear();
-    eventScore.addAll(scoreSchema);
-    onNavigate(EventCreateNavigator.banner);
+  void onFinishEventSettings() {
+    onNavigate(EventCreateNavigator.eventRaceList);
+  }
+
+  void addEventClasses(ClassesModel classesModel) {
+    eventClasses.add(classesModel);
+  }
+
+  void removeClasses(int index) {
+    eventClasses.removeAt(index);
+  }
+
+  void onFinishClasses() {
+    onNavigate(EventCreateNavigator.eventTags);
+  }
+
+  void onFinishScore() {
+    onNavigate(EventCreateNavigator.eventBanner);
   }
 
   void setToggleEventAllowTeamsOption(bool? allowTeams) {
-    this.allowTeams = allowTeams;
+    eventAllowTeams = allowTeams;
   }
 
   void setToggleEventAllowMembersOnly(bool? allowMembersOnly) {
-    this.allowMembersOnly = allowMembersOnly;
+    eventAllowMembersOnly = allowMembersOnly;
+  }
+
+  void onCreateNewRace() {
+    editingRaceModel = null;
+    onNavigate(EventCreateNavigator.eventRaceCreation);
+  }
+
+  void onRaceEditing(ChampionshipRacesModel? race) {
+    editingRaceModel = race;
+    editingRaceIndex = racesModel.indexOf(race);
+    onNavigate(EventCreateNavigator.eventRaceEditing);
   }
 
   void addRace(ChampionshipRacesModel? model) {
     racesModel.add(model);
-    onNavigate(EventCreateNavigator.racesList);
+    onNavigate(EventCreateNavigator.eventRaceList);
+  }
+
+  void updateRace(ChampionshipRacesModel? model) {
+    racesModel.removeAt(editingRaceIndex);
+    racesModel.insert(editingRaceIndex, model);
+    onNavigate(EventCreateNavigator.eventRaceList);
   }
 
   void removeRace(ChampionshipRacesModel? racesModel) {
@@ -129,27 +162,38 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
     state = ViewState.loading;
 
     var races = racesModel.map((race) => RaceModel(
-        date: race?.eventDate.toString(),
-        title: race?.titleController?.text,
-        broadcasting: race?.hasBroadcasting));
+        date: race?.eventDate,
+        title: race?.title,
+        poster: race?.poster,
+        sessions: race?.sessions,
+        broadcasting: race?.hasBroadcasting,
+        broadcastLink: race?.broadcastLink));
 
     var event = EventModel(
         races: races.toList(),
         tags: eventTags,
         settings: eventSettings,
         classes: eventClasses,
-        teamsEnabled: allowTeams,
-        membersOnly: allowMembersOnly,
-        title: name,
-        rules: rules,
+        teamsEnabled: eventAllowTeams,
+        membersOnly: eventAllowMembersOnly,
+        title: eventName,
+        rules: eventRules,
         scoring: eventScore);
 
-    await _createEventUseCase.build(event: event).invoke(
-        success: (data) {
-          status = data;
-          state = ViewState.ready;
-        },
-        error: onError);
+    var media = MediaModel(eventBanner.toString());
+
+    await _createEventUseCase
+        .build(
+            event: event,
+            leagueId: Session.instance.getLeagueId(),
+            media: media)
+        .invoke(
+            success: (data) {
+              status = data;
+              state = ViewState.ready;
+              onNavigate(EventCreateNavigator.eventStatus);
+            },
+            error: onError);
   }
 
   void fetchTags() async {

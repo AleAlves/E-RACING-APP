@@ -5,7 +5,14 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-enum ButtonType { primary, secondary, important, link, iconButton, iconPure }
+enum ButtonType {
+  primary,
+  secondary,
+  important,
+  link,
+  iconButton,
+  iconBorderless
+}
 
 class ButtonWidget extends StatefulWidget {
   final String? label;
@@ -56,7 +63,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         return iconButton();
       case ButtonType.important:
         return important(context);
-      case ButtonType.iconPure:
+      case ButtonType.iconBorderless:
         return iconButtonBorderless();
       case ButtonType.secondary:
         return secondary(context);

@@ -314,16 +314,16 @@ abstract class _EventViewModel with Store {
     for (var element in racesModel) {
       var poster;
       try {
-        List<int> posterBytes =
-            element.posterFile?.readAsBytesSync() as List<int>;
-        poster = base64Encode(posterBytes);
+        // List<int> posterBytes =
+        //     element.posterFile?.readAsBytesSync() as List<int>;
+        // poster = base64Encode(posterBytes);
       } catch (e) {}
-      races.add(RaceModel(
-          poster: poster,
-          sessions: element.sessions,
-          broadcasting: element.hasBroadcasting,
-          date: element.eventDate?.toIso8601String(),
-          title: element.titleController?.text));
+      // races.add(RaceModel(
+      //     poster: poster,
+      //     sessions: element.sessions,
+      //     broadcasting: element.hasBroadcasting,
+      //     date: element.eventDate?.toIso8601String(),
+      //     title: element.titleController?.text));
     }
     var banner;
     try {
@@ -479,19 +479,19 @@ abstract class _EventViewModel with Store {
   void updateRace(ChampionshipRacesModel? model) {
     event?.races?.forEach((race) {
       if (race?.id == model?.id) {
-        race?.broadcastLink = model?.broadcastingLinkController?.text;
-        race?.date = model?.eventDate?.toIso8601String();
-        race?.broadcasting = model?.hasBroadcasting;
-        race?.title = model?.titleController?.text;
-        if (model?.posterFile != null) {
-          try {
-            List<int> posterBytes =
-                model?.posterFile?.readAsBytesSync() as List<int>;
-            race?.poster = base64Encode(posterBytes);
-          } catch (e) {}
-        } else {
-          race?.poster = model?.poster;
-        }
+        // race?.broadcastLink = model?.broadcastingLinkController?.text;
+        // race?.date = model?.eventDate?.toIso8601String();
+        // race?.broadcasting = model?.hasBroadcasting;
+        // race?.title = model?.titleController?.text;
+        // if (model?.posterFile != null) {
+        //   try {
+        //     List<int> posterBytes =
+        //         model?.posterFile?.readAsBytesSync() as List<int>;
+        //     race?.poster = base64Encode(posterBytes);
+        //   } catch (e) {}
+        // } else {
+        //   race?.poster = model?.poster;
+        // }
         race?.leagueId = event?.leagueId;
         race?.sessions = model?.sessions;
         race?.finished = false;

@@ -119,8 +119,12 @@ class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
               var image = await _picker.pickImage(source: ImageSource.gallery);
               setState(() {
                 bannerFile = File(image?.path ?? '');
-                widget.viewModel
-                    .setBanner(base64Encode(bannerFile.readAsBytesSync()));
+
+                var raw = base64Encode(bannerFile.readAsBytesSync());
+                List<int> binary = base64.decode(raw);
+                List<int> compressedData = gzip.encode(binary);
+                String ziped = base64.encode(compressedData);
+                widget.viewModel.setBanner(ziped);
               });
             })
       ],

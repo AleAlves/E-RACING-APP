@@ -35,7 +35,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
   bool allowTeams = false;
   bool allowMembersOnly = false;
   File bannerFile = File('');
-  List<int?> score = [];
+  List<int?> scoreSchema = [];
   List<String?> tags = [];
   List<ClassesModel?> classesModel = [];
   List<SettingsModel?> settingsModel = [];
@@ -43,6 +43,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
   final ImagePicker _picker = ImagePicker();
   final _titleController = TextEditingController();
   final _rulesController = TextEditingController();
+  final _scoreController = TextEditingController();
   List<Pair<TextEditingController, TextEditingController>> settingsControllers =
       [];
   List<Pair<TextEditingController, TextEditingController>> classesControllers =
@@ -261,9 +262,76 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
   Widget scoring() {
     return ScoringWidget(
       editing: true,
-      onScore: (scoring) {
-        score = scoring;
-      },
+      scoring: scoreSchema,
+    );
+  }
+
+  void createScoreBottomSheet() {
+    _scoreController.clear();
+    showModalBottomSheet(
+      isDismissible: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) =>
+          StatefulBuilder(builder: (BuildContext context, modelState) {
+        return Wrap(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  children: [
+                    const SpacingWidget(LayoutSize.size16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const TextWidget(
+                            text: "Set the points worthy for this new position",
+                            style: Style.paragraph),
+                        ButtonWidget(
+                            enabled: true,
+                            type: ButtonType.iconBorderless,
+                            icon: Icons.delete_forever,
+                            label: "Delete",
+                            onPressed: () async {
+                              setState(() {
+                                scoreSchema.removeLast();
+                              });
+                            }),
+                      ],
+                    ),
+                    const SpacingWidget(LayoutSize.size48),
+                    InputTextWidget(
+                        enabled: true,
+                        label: "Score",
+                        controller: _scoreController,
+                        inputType: InputType.number,
+                        validator: (value) {
+                          if (value == null || double.tryParse(value) == null) {
+                            return "invalid score value";
+                          }
+                        }),
+                    const SpacingWidget(LayoutSize.size48),
+                    ButtonWidget(
+                        enabled: _scoreController.text.isNotEmpty,
+                        label: "apply",
+                        type: ButtonType.primary,
+                        onPressed: () async {
+                          setState(() {
+                            scoreSchema.add(int.parse(_scoreController.text));
+                            Navigator.of(context).pop();
+                          });
+                        }),
+                    const SpacingWidget(LayoutSize.size16),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 
@@ -473,7 +541,7 @@ class _EventCreateEventWidgetState extends State<EventCreateEventWidget>
             membersOnly: allowMembersOnly,
             title: _titleController.text,
             rules: _rulesController.text,
-            scoring: score);
+            scoring: scoreSchema);
         List<int> bannerBytes = [];
         try {
           bannerBytes = bannerFile.readAsBytesSync();

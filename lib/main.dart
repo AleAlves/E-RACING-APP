@@ -79,7 +79,7 @@ class _ERacingAppState extends State<ERacingApp> {
     FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
     const FlexSchemeColor colorDark = FlexSchemeColor(
-      primary: Color(0xffff9c1e),
+      primary: Color(0xfff39012),
       primaryVariant: Color(0xffd2821d),
       secondary: Color(0xff4388e3),
       secondaryVariant: Color(0xff4388e3),

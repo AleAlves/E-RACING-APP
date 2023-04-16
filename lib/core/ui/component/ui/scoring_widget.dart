@@ -1,20 +1,17 @@
-import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'button_widget.dart';
+import 'input_text_widget.dart';
 import 'spacing_widget.dart';
 
 class ScoringWidget extends StatefulWidget {
   final bool editing;
   final List<int?>? scoring;
-  final Function(List<int?>) onScore;
 
-  const ScoringWidget(
-      {required this.onScore, required this.editing, this.scoring, Key? key})
+  const ScoringWidget({required this.editing, required this.scoring, Key? key})
       : super(key: key);
 
   Widget loading(BuildContext context) {
@@ -26,65 +23,52 @@ class ScoringWidget extends StatefulWidget {
 }
 
 class _ScoringWidgetState extends State<ScoringWidget> {
-  List<Pair<int, TextEditingController>> scoringEdit = [];
+  var isValid = false;
+  final _scoreController = TextEditingController();
 
   @override
   void initState() {
-    if (widget.scoring == null && widget.editing == false) {
-      defaultScore();
-      updateScore();
-    } else {
-      scoringEdit.clear();
-      widget.scoring?.forEach((element) {
-        scoringEdit.add(Pair(element, TextEditingController()));
-        updateScore();
-      });
-    }
     super.initState();
+    _scoreController.addListener(() {
+      final String text = _scoreController.text;
+      setState(() {
+        isValid = text.isNotEmpty;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    var position = -1;
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: Column(
         children: [
-          if (widget.editing && scoringEdit.isNotEmpty)
-            editting()
-          else
-            Container(),
           Wrap(
             spacing: 0.0,
-            children: scoringEdit
+            children: widget.scoring!
                 .map((score) {
-                  score.second?.text = score.first.toString();
-                  var position = scoringEdit.indexOf(score);
-                  ++position;
+                  var pos = ++position;
                   return SizedBox(
                     width: MediaQuery.of(context).size.width / 5,
                     child: CardWidget(
                       childLeft: TextWidget(
-                          text: "${position.toString()}°",
-                          style: Style.caption),
+                          text: "${position + 1}°", style: Style.caption),
                       ready: true,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Column(
-                            children: [
-                              TextWidget(
-                                text: score.first.toString(),
-                                style: Style.caption,
-                              ),
-                              const TextWidget(
-                                  text: "pts", style: Style.caption)
-                            ],
+                          TextWidget(
+                            text: score.toString(),
+                            style: Style.caption,
                           ),
                         ],
                       ),
                       onPressed: () {
                         setState(() {
-                          if (widget.editing) actionTooltip(score);
+                          if (widget.editing) {
+                            createScoreBottomSheet(score!, pos);
+                          }
                         });
                       },
                     ),
@@ -93,7 +77,8 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                 .toList()
                 .cast<Widget>(),
           ),
-          if (widget.editing) actionsWidget() else Container()
+          if (widget.editing) editting() else Container(),
+          // if (widget.editing) actionsWidget() else Container()
         ],
       ),
     );
@@ -101,108 +86,86 @@ class _ScoringWidgetState extends State<ScoringWidget> {
 
   Widget editting() {
     return Column(
-      children: const [
-        TextWidget(text: "Tap to edit", style: Style.paragraph),
-        SpacingWidget(LayoutSize.size48)
-      ],
-    );
-  }
-
-  Widget actionsWidget() {
-    return Column(
       children: [
         const SpacingWidget(LayoutSize.size48),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ButtonWidget(
-                enabled: true,
-                type: ButtonType.iconButton,
-                icon: Icons.remove,
-                onPressed: () async {
-                  setState(() {
-                    scoringEdit.removeAt(scoringEdit.length - 1);
-                    updateScore();
-                  });
-                }),
-            const SpacingWidget(LayoutSize.size48),
-            ButtonWidget(
-                enabled: true,
-                type: ButtonType.iconButton,
-                icon: Icons.add,
-                onPressed: () async {
-                  setState(() {
-                    scoringEdit.add(Pair(0, TextEditingController()));
-                    updateScore();
-                  });
-                }),
-          ],
-        ),
+        widget.scoring?.isEmpty == true
+            ? Container()
+            : const TextWidget(text: "Tap to edit", style: Style.paragraph),
+        const SpacingWidget(LayoutSize.size48)
       ],
     );
   }
 
-  void actionTooltip(Pair<int, TextEditingController> score) {
+  void createScoreBottomSheet(int score, int position) {
+    _scoreController.clear();
+    _scoreController.text = score == null ? "" : score.toString();
     showModalBottomSheet(
+      isDismissible: true,
       isScrollControlled: true,
       context: context,
-      builder: (context) => SizedBox(
-        height: MediaQuery.of(context).size.height / 5 +
-            MediaQuery.of(context).viewInsets.bottom,
-        child: Column(
+      builder: (context) =>
+          StatefulBuilder(builder: (BuildContext context, modelState) {
+        return Wrap(
           children: [
-            const SpacingWidget(LayoutSize.size16),
             Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: InputTextWidget(
-                  enabled: true,
-                  label: "Set Score",
-                  controller: score.second,
-                  inputType: InputType.number,
-                  validator: (value) {
-                    if (value == null || double.tryParse(value) == null) {
-                      return "invalid score value";
-                    }
-                  }),
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  children: [
+                    const SpacingWidget(LayoutSize.size16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextWidget(
+                            text:
+                                "Set the points worthy for the ${widget.scoring?.length} position",
+                            style: Style.paragraph),
+                        ButtonWidget(
+                            enabled: true,
+                            type: ButtonType.iconBorderless,
+                            icon: Icons.delete_forever,
+                            label: "Delete",
+                            onPressed: () async {
+                              setState(() {
+                                widget.scoring?.removeLast();
+                                Navigator.of(context).pop();
+                              });
+                            }),
+                      ],
+                    ),
+                    const SpacingWidget(LayoutSize.size48),
+                    InputTextWidget(
+                        enabled: true,
+                        label: "Score",
+                        controller: _scoreController,
+                        inputType: InputType.number,
+                        validator: (value) {
+                          if (value == null || double.tryParse(value) == null) {
+                            return "invalid score value";
+                          }
+                        }),
+                    const SpacingWidget(LayoutSize.size48),
+                    ButtonWidget(
+                        enabled: _scoreController.text.isNotEmpty,
+                        label: "Update",
+                        type: ButtonType.primary,
+                        onPressed: () async {
+                          setState(() {
+                            widget.scoring?[position] =
+                                (int.parse(_scoreController.text));
+                            Navigator.of(context).pop();
+                          });
+                        }),
+                    const SpacingWidget(LayoutSize.size16),
+                  ],
+                ),
+              ),
             ),
-            const SpacingWidget(LayoutSize.size16),
-            ButtonWidget(
-                enabled: true,
-                label: "apply",
-                type: ButtonType.primary,
-                icon: Icons.remove,
-                onPressed: () async {
-                  setState(() {
-                    score.first = int.parse(score.second?.text ?? "0");
-                    updateScore();
-                    Navigator.of(context).pop();
-                  });
-                }),
           ],
-        ),
-      ),
+        );
+      }),
     );
-  }
-
-  void defaultScore() {
-    scoringEdit.add(Pair(25, TextEditingController()));
-    scoringEdit.add(Pair(22, TextEditingController()));
-    scoringEdit.add(Pair(20, TextEditingController()));
-    scoringEdit.add(Pair(18, TextEditingController()));
-    scoringEdit.add(Pair(16, TextEditingController()));
-    scoringEdit.add(Pair(14, TextEditingController()));
-    scoringEdit.add(Pair(12, TextEditingController()));
-    scoringEdit.add(Pair(10, TextEditingController()));
-    scoringEdit.add(Pair(8, TextEditingController()));
-    scoringEdit.add(Pair(6, TextEditingController()));
-    scoringEdit.add(Pair(4, TextEditingController()));
-    scoringEdit.add(Pair(2, TextEditingController()));
-    scoringEdit.add(Pair(1, TextEditingController()));
-  }
-
-  void updateScore() {
-    var score = scoringEdit.map((e) => e.first);
-    widget.onScore.call(score.toList());
   }
 }

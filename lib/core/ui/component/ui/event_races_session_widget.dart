@@ -50,7 +50,7 @@ class _EventCreateRaceSessionWidgetState
                   children: [
                     ButtonWidget(
                         enabled: true,
-                        type: ButtonType.iconPure,
+                        type: ButtonType.iconBorderless,
                         icon: Icons.add,
                         onPressed: () async {
                           newSettings(index);
@@ -58,7 +58,7 @@ class _EventCreateRaceSessionWidgetState
                     const SpacingWidget(LayoutSize.size16),
                     ButtonWidget(
                         enabled: true,
-                        type: ButtonType.iconPure,
+                        type: ButtonType.iconBorderless,
                         icon: Icons.remove,
                         onPressed: () async {
                           setState(() {
@@ -121,7 +121,7 @@ class _EventCreateRaceSessionWidgetState
                 ),
                 childRight: ButtonWidget(
                     enabled: true,
-                    type: ButtonType.iconPure,
+                    type: ButtonType.iconBorderless,
                     icon: Icons.delete,
                     onPressed: () {
                       setState(() {

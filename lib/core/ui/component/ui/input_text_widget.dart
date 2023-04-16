@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 enum BorderType { normal, none }
 
-enum InputType { text, number, multilines, password }
+enum InputType { text, capital, number, multilines, password }
 
 class InputTextWidget extends StatelessWidget {
   final String label;
@@ -69,6 +69,17 @@ class InputTextWidget extends StatelessWidget {
 
     switch (inputType) {
       case InputType.text:
+        return Align(
+          alignment: Alignment.center,
+          child: TextFormField(
+            enabled: enabled,
+            controller: controller,
+            validator: validator,
+            onChanged: onChange,
+            decoration: border,
+          ),
+        );
+      case InputType.capital:
         return Align(
           alignment: Alignment.center,
           child: TextFormField(

@@ -1,3 +1,4 @@
+import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -23,9 +24,10 @@ class EventCreateClassesView extends StatefulWidget {
 
 class _EventCreateClassesViewState extends State<EventCreateClassesView>
     implements BaseSateWidget {
-  List<ClassesModel?> classesModel = [];
-  List<Pair<TextEditingController, TextEditingController>> classesControllers =
-      [];
+  var hasName = false;
+  var hasEntries = false;
+  final Pair<TextEditingController, TextEditingController> _classesControllers =
+      Pair(TextEditingController(), TextEditingController());
 
   @override
   void initState() {
@@ -48,7 +50,6 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
     return ViewStateWidget(
       body: content(),
       bottom: buttonWidget(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
@@ -58,7 +59,7 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
   Widget content() {
     return Column(
       children: [
-        const SpacingWidget(LayoutSize.size48),
+        const SpacingWidget(LayoutSize.size128),
         titleWidget(),
         const SpacingWidget(LayoutSize.size32),
         classesWidget()
@@ -67,7 +68,18 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
   }
 
   @override
-  observers() {}
+  observers() {
+    _classesControllers.first?.addListener(() {
+      setState(() {
+        hasName = _classesControllers.first?.text.isNotEmpty ?? false;
+      });
+    });
+    _classesControllers.second?.addListener(() {
+      setState(() {
+        hasEntries = _classesControllers.second?.text.isNotEmpty ?? false;
+      });
+    });
+  }
 
   Widget titleWidget() {
     return const TextWidget(
@@ -79,58 +91,51 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
       children: [
         ListView.builder(
           shrinkWrap: true,
-          itemCount: classesModel.length,
+          physics: const ClampingScrollPhysics(),
+          itemCount: widget.viewModel.eventClasses.length,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ButtonWidget(
-                        enabled: true,
-                        type: ButtonType.iconButton,
-                        icon: Icons.delete,
-                        onPressed: () {
-                          setState(() {
-                            classesModel.removeAt(index);
-                            classesControllers.removeAt(index);
-                          });
-                        }),
+              child: CardWidget(
+                ready: true,
+                childLeft: ButtonWidget(
+                    enabled: true,
+                    type: ButtonType.iconBorderless,
+                    icon: Icons.delete,
+                    onPressed: () {
+                      setState(() {
+                        widget.viewModel.removeClasses(index);
+                      });
+                    }),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          const TextWidget(
+                              text: "Class:  ", style: Style.paragraph),
+                          TextWidget(
+                              text:
+                                  widget.viewModel.eventClasses[index]?.name ??
+                                      "",
+                              style: Style.caption),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const TextWidget(
+                              text: "Entries:  ", style: Style.paragraph),
+                          TextWidget(
+                              text: widget
+                                  .viewModel.eventClasses[index]?.maxEntries
+                                  .toString(),
+                              style: Style.caption),
+                        ],
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        InputTextWidget(
-                            enabled: true,
-                            label: "Name",
-                            icon: Icons.settings,
-                            controller: classesControllers[index].first,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "required";
-                              }
-                              return null;
-                            }),
-                        const SpacingWidget(LayoutSize.size16),
-                        InputTextWidget(
-                          enabled: true,
-                          label: "Max entries",
-                          icon: Icons.settings,
-                          controller: classesControllers[index].second,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "required";
-                            }
-                            return null;
-                          },
-                          inputType: InputType.number,
-                        ),
-                        const SpacingWidget(LayoutSize.size16),
-                      ],
-                    ),
-                  ),
-                ],
+                ),
               ),
             );
           },
@@ -142,10 +147,9 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
             icon: Icons.add,
             onPressed: () async {
               setState(() {
-                var name = TextEditingController();
-                var value = TextEditingController();
-                classesModel.add(ClassesModel(name: name.text));
-                classesControllers.add(Pair(name, value));
+                _classesControllers.first?.clear();
+                _classesControllers.second?.clear();
+                newClassWidget();
               });
             },
             label: 'Create class'),
@@ -153,12 +157,91 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
     );
   }
 
+  newClassWidget() {
+    showModalBottomSheet(
+      isDismissible: false,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) =>
+          StatefulBuilder(builder: (BuildContext context, modelState) {
+        return SizedBox(
+          child: Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const TextWidget(text: "Class", style: Style.paragraph),
+                  const SpacingWidget(LayoutSize.size16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            InputTextWidget(
+                                enabled: true,
+                                label: "Name",
+                                inputType: InputType.capital,
+                                controller: _classesControllers.first,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "required";
+                                  }
+                                  return null;
+                                }),
+                            const SpacingWidget(LayoutSize.size8),
+                            InputTextWidget(
+                                enabled: true,
+                                label: "Entries",
+                                inputType: InputType.number,
+                                controller: _classesControllers.second,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "required";
+                                  }
+                                  return null;
+                                }),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SpacingWidget(LayoutSize.size16),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: ButtonWidget(
+                        enabled: hasName && hasEntries,
+                        type: ButtonType.primary,
+                        label: "Create",
+                        onPressed: () {
+                          setState(() {
+                            widget.viewModel.addEventClasses(ClassesModel(
+                                name: _classesControllers.first?.text,
+                                maxEntries: int.parse(_classesControllers
+                                        .second?.text
+                                        .toString() ??
+                                    "")));
+                            Navigator.pop(context);
+                          });
+                        }),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }),
+    );
+  }
+
   Widget buttonWidget() {
     return ButtonWidget(
-      enabled: true,
+      enabled: widget.viewModel.eventClasses.isNotEmpty,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setEventClasses(classesModel);
+        widget.viewModel.onFinishClasses();
       },
       label: "Next",
     );
@@ -166,7 +249,7 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.banner);
+    widget.viewModel.onNavigate(EventCreateNavigator.eventBanner);
     return false;
   }
 }

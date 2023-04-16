@@ -50,7 +50,7 @@ class _ShareWidgetState extends State<ShareWidget> {
         iconColor: widget.color ?? Theme.of(context).cardTheme.color,
         color: widget.background,
         type: widget.background == null
-            ? ButtonType.iconPure
+            ? ButtonType.iconBorderless
             : ButtonType.iconButton,
         onPressed: () {
           if (onSharing == false) {

@@ -1,9 +1,9 @@
-import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/button_widget.dart';
+import '../../../../../core/ui/component/ui/card_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
@@ -11,16 +11,17 @@ import '../../../../presentation/ui/model/championship_races_model.dart';
 import '../../event_create_view_model.dart';
 import '../../navigation/event_create_flow.dart';
 
-class EventCreateRacesView extends StatefulWidget {
+class EventCreateRaceListView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateRacesView(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateRaceListView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventCreateRacesViewState createState() => _EventCreateRacesViewState();
+  _EventCreateRaceListViewState createState() =>
+      _EventCreateRaceListViewState();
 }
 
-class _EventCreateRacesViewState extends State<EventCreateRacesView>
+class _EventCreateRaceListViewState extends State<EventCreateRaceListView>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -42,7 +43,7 @@ class _EventCreateRacesViewState extends State<EventCreateRacesView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
       body: content(),
-      bottom: button(),
+      bottom: buttonWidget(),
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
@@ -50,13 +51,10 @@ class _EventCreateRacesViewState extends State<EventCreateRacesView>
 
   @override
   Widget content() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
+    return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SpacingWidget(LayoutSize.size128),
           titleWidget(),
           const SpacingWidget(LayoutSize.size48),
           racesWidget(),
@@ -72,7 +70,8 @@ class _EventCreateRacesViewState extends State<EventCreateRacesView>
 
   Widget titleWidget() {
     return const TextWidget(
-        text: "Create the races of your competion", style: Style.subtitle);
+        text: "Create at least 2 races for your competition",
+        style: Style.subtitle);
   }
 
   Widget racesWidget() {
@@ -83,17 +82,32 @@ class _EventCreateRacesViewState extends State<EventCreateRacesView>
             .map((race) {
               return CardWidget(
                 ready: true,
+                onPressed: () {
+                  widget.viewModel.onRaceEditing(race);
+                },
+                childLeft: removeWidget(race),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
                     children: [
-                      TextWidget(
-                          text: "${race?.titleController?.text}",
-                          style: Style.paragraph),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextWidget(
+                            text: "${race?.title}",
+                            style: Style.paragraph,
+                            align: TextAlign.start,
+                          ),
+                          const SpacingWidget(LayoutSize.size16),
+                          TextWidget(
+                              text: "${race?.eventDate}",
+                              style: Style.paragraph),
+                        ],
+                      ),
                     ],
                   ),
                 ),
-                childRight: removeWidget(race),
               );
             })
             .toList()
@@ -105,7 +119,7 @@ class _EventCreateRacesViewState extends State<EventCreateRacesView>
   Widget removeWidget(ChampionshipRacesModel? racesModel) {
     return ButtonWidget(
         enabled: true,
-        type: ButtonType.iconPure,
+        type: ButtonType.iconBorderless,
         icon: Icons.delete,
         onPressed: () {
           setState(() {
@@ -120,14 +134,14 @@ class _EventCreateRacesViewState extends State<EventCreateRacesView>
         type: ButtonType.iconButton,
         icon: Icons.add,
         onPressed: () {
-          widget.viewModel.onNavigate(EventCreateNavigator.raceCreation);
+          widget.viewModel.onCreateNewRace();
         },
         label: 'New Race');
   }
 
-  Widget button() {
+  Widget buttonWidget() {
     return ButtonWidget(
-      enabled: true,
+      enabled: widget.viewModel.racesModel.length > 1,
       type: ButtonType.primary,
       onPressed: () {
         widget.viewModel.createEvent();
@@ -138,7 +152,7 @@ class _EventCreateRacesViewState extends State<EventCreateRacesView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.settings);
+    widget.viewModel.onNavigate(EventCreateNavigator.eventSettings);
     return false;
   }
 }

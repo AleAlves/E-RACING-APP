@@ -1,14 +1,11 @@
-import 'dart:io';
-
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'event_races_session_widget.dart';
 
@@ -24,6 +21,8 @@ class EventEditRacesWidget extends StatefulWidget {
 class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
   int _stepIndex = 0;
   final _formKey = GlobalKey<FormState>();
+  final _titleController = TextEditingController();
+  final _linkController = TextEditingController();
 
   @override
   void initState() {
@@ -94,7 +93,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
         InputTextWidget(
             enabled: true,
             label: "Race Title",
-            controller: widget.model.titleController,
+            controller: _titleController,
             validator: (value) {
               if (value == null || value.isEmpty == true) {
                 return 'Required';
@@ -112,30 +111,30 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
         Stack(
           alignment: Alignment.center,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4.0),
-              child: SizedBox(
-                height: 300,
-                width: MediaQuery.of(context).size.height,
-                child: widget.model.posterFile?.path == ''
-                    ? Container()
-                    : Image.file(
-                        widget.model.posterFile ?? File(''),
-                        fit: BoxFit.fill,
-                      ),
-              ),
-            ),
-            ButtonWidget(
-                enabled: true,
-                type: ButtonType.iconButton,
-                icon: Icons.image_search,
-                onPressed: () async {
-                  var image = await widget.model.picker
-                      ?.pickImage(source: ImageSource.gallery);
-                  setState(() {
-                    widget.model.posterFile = File(image?.path ?? '');
-                  });
-                })
+            // ClipRRect(
+            //   borderRadius: BorderRadius.circular(4.0),
+            //   child: SizedBox(
+            //     height: 300,
+            //     width: MediaQuery.of(context).size.height,
+            //     child: widget.model.posterFile?.path == ''
+            //         ? Container()
+            //         : Image.file(
+            //             widget.model.posterFile ?? File(''),
+            //             fit: BoxFit.fill,
+            //           ),
+            //   ),
+            // ),
+            // ButtonWidget(
+            //     enabled: true,
+            //     type: ButtonType.iconButton,
+            //     icon: Icons.image_search,
+            //     onPressed: () async {
+            //       var image = await widget.model.picker
+            //           ?.pickImage(source: ImageSource.gallery);
+            //       setState(() {
+            //         widget.model.posterFile = File(image?.path ?? '');
+            //       });
+            //     })
           ],
         ),
         const SpacingWidget(LayoutSize.size32),
@@ -153,10 +152,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        TextWidget(
-            text:
-                "${widget.model.eventDate?.hour}:${widget.model.eventDate?.minute}, ${widget.model.eventDate?.day}/${widget.model.eventDate?.month}/${widget.model.eventDate?.year} ",
-            style: Style.subtitle),
+        TextWidget(text: "${widget.model.eventDate}", style: Style.subtitle),
         const SpacingWidget(LayoutSize.size32),
         ButtonWidget(
             icon: Icons.date_range,
@@ -167,7 +163,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                   showTitleActions: false,
                   minTime: DateTime.now(), onChanged: (date) {
                 setState(() {
-                  widget.model.eventDate = date;
+                  widget.model.eventDate = date.toIso8601String();
                 });
               }, currentTime: DateTime.now());
             }),
@@ -195,8 +191,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                 });
               },
             ),
-            const TextWidget(
-                text: "Live broadcasting", style: Style.paragraph),
+            const TextWidget(text: "Live broadcasting", style: Style.paragraph),
           ],
         ),
         if (widget.model.hasBroadcasting == true)
@@ -208,7 +203,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                     enabled: true,
                     label: "link",
                     icon: Icons.settings,
-                    controller: widget.model.broadcastingLinkController,
+                    controller: _linkController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "required";
@@ -223,7 +218,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                     type: ButtonType.iconButton,
                     onPressed: () async {
                       Clipboard.getData(Clipboard.kTextPlain).then((value) {
-                        widget.model.broadcastingLinkController?.text =
+                        _linkController.text =
                             value?.text?.trim().replaceAll(' ', '') ?? '';
                       });
                     },

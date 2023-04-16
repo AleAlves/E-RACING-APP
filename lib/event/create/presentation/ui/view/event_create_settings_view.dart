@@ -1,7 +1,7 @@
+import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../core/model/pair_model.dart';
 import '../../../../../core/model/settings_model.dart';
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/button_widget.dart';
@@ -24,9 +24,8 @@ class EventCreateSettingsView extends StatefulWidget {
 
 class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
     implements BaseSateWidget {
-  List<SettingsModel?> settingsModel = [];
-  List<Pair<TextEditingController, TextEditingController>> settingsControllers =
-      [];
+  final _settingsNameController = TextEditingController();
+  final _settingsValueController = TextEditingController();
 
   @override
   void initState() {
@@ -56,18 +55,17 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
 
   @override
   Widget content() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          guideLines(),
-          const SpacingWidget(LayoutSize.size48),
-          settingsWidget()
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SpacingWidget(LayoutSize.size128),
+        guideLines(),
+        const SpacingWidget(LayoutSize.size48),
+        settingsWidget(),
+        const SpacingWidget(LayoutSize.size48),
+        createSettingButton()
+      ],
     );
   }
 
@@ -80,81 +78,114 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
   }
 
   Widget settingsWidget() {
-    return Column(
+    return Wrap(
       children: [
         ListView.builder(
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
-          itemCount: settingsModel.length,
+          itemCount: widget.viewModel.eventSettings.length,
           itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ButtonWidget(
-                        enabled: true,
-                        type: ButtonType.iconButton,
-                        icon: Icons.delete,
-                        onPressed: () {
-                          setState(() {
-                            settingsModel.removeAt(index);
-                            settingsControllers.removeAt(index);
-                          });
-                        }),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        InputTextWidget(
-                            enabled: true,
-                            label: "Name",
-                            icon: Icons.settings,
-                            controller: settingsControllers[index].first,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "required";
-                              }
-                              return null;
-                            }),
-                        const SpacingWidget(LayoutSize.size16),
-                        InputTextWidget(
-                            enabled: true,
-                            label: "Value",
-                            icon: Icons.settings,
-                            controller: settingsControllers[index].second,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "required";
-                              }
-                              return null;
-                            }),
-                        const SpacingWidget(LayoutSize.size16),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
+            return CardWidget(
+                childLeft: ButtonWidget(
+                    enabled: true,
+                    type: ButtonType.iconBorderless,
+                    icon: Icons.delete,
+                    onPressed: () {
+                      setState(() {
+                        widget.viewModel.eventSettings.removeAt(index);
+                        // settingsControllers.removeAt(index);
+                      });
+                    }),
+                child: Row(
+                  children: [
+                    TextWidget(
+                        text: widget.viewModel.eventSettings[index]?.name,
+                        style: Style.caption),
+                    const SpacingWidget(LayoutSize.size8),
+                    const TextWidget(text: ":", style: Style.caption),
+                    const SpacingWidget(LayoutSize.size8),
+                    TextWidget(
+                        text: widget.viewModel.eventSettings[index]?.value,
+                        style: Style.caption)
+                  ],
+                ),
+                ready: true);
           },
         ),
         const SpacingWidget(LayoutSize.size48),
-        ButtonWidget(
-            enabled: true,
-            type: ButtonType.iconButton,
-            icon: Icons.add,
-            onPressed: () async {
-              setState(() {
-                var name = TextEditingController();
-                var value = TextEditingController();
-                settingsModel
-                    .add(SettingsModel(name: name.text, value: value.text));
-                settingsControllers.add(Pair(name, value));
-              });
-            },
-            label: 'New setting'),
       ],
+    );
+  }
+
+  Widget createSettingButton() {
+    return ButtonWidget(
+        enabled: true,
+        type: ButtonType.iconButton,
+        icon: Icons.add,
+        onPressed: () async {
+          setState(() {
+            createSettingBottomSheet();
+          });
+        },
+        label: 'New setting');
+  }
+
+  createSettingBottomSheet() {
+    _settingsNameController.clear();
+    showModalBottomSheet(
+      isDismissible: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) =>
+          StatefulBuilder(builder: (BuildContext context, modelState) {
+        return Wrap(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  children: [
+                    const SpacingWidget(LayoutSize.size48),
+                    InputTextWidget(
+                        enabled: true,
+                        label: "Name",
+                        controller: _settingsNameController,
+                        inputType: InputType.text,
+                        validator: (value) {
+                          return null;
+                        }),
+                    const SpacingWidget(LayoutSize.size16),
+                    InputTextWidget(
+                        enabled: true,
+                        label: "Value",
+                        controller: _settingsValueController,
+                        inputType: InputType.text,
+                        validator: (value) {
+                          return null;
+                        }),
+                    const SpacingWidget(LayoutSize.size48),
+                    ButtonWidget(
+                        enabled: _settingsNameController.text.isNotEmpty,
+                        label: "apply",
+                        type: ButtonType.primary,
+                        onPressed: () async {
+                          setState(() {
+                            widget.viewModel.eventSettings.add(SettingsModel(
+                                name: _settingsNameController.text,
+                                value: _settingsValueController.text));
+                            Navigator.of(context).pop();
+                          });
+                        }),
+                    const SpacingWidget(LayoutSize.size16),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 
@@ -163,7 +194,7 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setEventSettings(settingsModel);
+        widget.viewModel.onFinishEventSettings();
       },
       label: "Next",
     );
@@ -171,7 +202,7 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.tags);
+    widget.viewModel.onNavigate(EventCreateNavigator.eventTags);
     return false;
   }
 }

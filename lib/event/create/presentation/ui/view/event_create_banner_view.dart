@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -89,8 +90,13 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
               child: SizedBox(
                 height: 300,
                 width: MediaQuery.of(context).size.height,
-                child: bannerFile.path == ''
-                    ? Container()
+                child: bannerFile.path.isEmpty
+                    ? widget.viewModel.eventBanner == null
+                        ? Container()
+                        : Image.memory(
+                            base64Decode(widget.viewModel.eventBanner ?? ''),
+                            fit: BoxFit.fill,
+                          )
                     : Image.file(
                         bannerFile,
                         fit: BoxFit.fill,
@@ -106,6 +112,8 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
                       await _picker.pickImage(source: ImageSource.gallery);
                   setState(() {
                     bannerFile = File(image?.path ?? '');
+                    widget.viewModel.setEventBanner(
+                        base64Encode(bannerFile.readAsBytesSync()));
                   });
                 })
           ],
@@ -122,10 +130,11 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
 
   Widget buttonWidget() {
     return ButtonWidget(
-      enabled: bannerFile.path.isNotEmpty,
+      enabled:
+          bannerFile.path.isNotEmpty || widget.viewModel.eventBanner != null,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.onNavigate(EventCreateNavigator.classes);
+        widget.viewModel.onFinishEventBanner();
       },
       label: "Next",
     );
@@ -133,7 +142,7 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.score);
+    widget.viewModel.onNavigate(EventCreateNavigator.eventScore);
     return false;
   }
 }

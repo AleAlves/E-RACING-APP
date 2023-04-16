@@ -188,7 +188,6 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
             ScoringWidget(
               scoring: widget.viewModel.event?.scoring,
               editing: false,
-              onScore: (wow) {},
             ),
             const SpacingWidget(LayoutSize.size16),
           ],

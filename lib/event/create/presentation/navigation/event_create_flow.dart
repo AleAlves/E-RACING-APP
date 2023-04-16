@@ -1,4 +1,4 @@
-import 'package:e_racing_app/event/create/presentation/ui/view/event_create_races_view.dart';
+import 'package:e_racing_app/event/create/presentation/ui/view/event_create_race_list_view.dart';
 import 'package:e_racing_app/event/create/presentation/ui/view/event_create_settings_view.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -14,43 +14,46 @@ import '../ui/view/event_create_tags_view.dart';
 import '../ui/view/event_create_terms_view.dart';
 
 enum EventCreateNavigator {
-  terms,
-  name,
-  rules,
-  score,
-  banner,
-  classes,
-  tags,
-  settings,
-  racesList,
-  raceCreation,
-  status
+  eventTerms,
+  eventName,
+  eventRules,
+  eventScore,
+  eventBanner,
+  eventClasses,
+  eventTags,
+  eventSettings,
+  eventRaceList,
+  eventRaceCreation,
+  eventRaceEditing,
+  eventStatus
 }
 
 extension EventCreateNavigation on EventCreateNavigator {
   static Widget flow(EventCreateViewModel viewModel) {
     switch (viewModel.flow) {
-      case EventCreateNavigator.terms:
+      case EventCreateNavigator.eventTerms:
         return EventCreateTermsView(viewModel);
-      case EventCreateNavigator.name:
+      case EventCreateNavigator.eventName:
         return EventCreateNameView(viewModel);
-      case EventCreateNavigator.rules:
+      case EventCreateNavigator.eventRules:
         return LeagueEventRulesView(viewModel);
-      case EventCreateNavigator.score:
+      case EventCreateNavigator.eventScore:
         return EventCreateScoreView(viewModel);
-      case EventCreateNavigator.banner:
+      case EventCreateNavigator.eventBanner:
         return EventCreateBannerView(viewModel);
-      case EventCreateNavigator.classes:
+      case EventCreateNavigator.eventClasses:
         return EventCreateClassesView(viewModel);
-      case EventCreateNavigator.tags:
+      case EventCreateNavigator.eventTags:
         return EventCreateTagsView(viewModel);
-      case EventCreateNavigator.settings:
+      case EventCreateNavigator.eventSettings:
         return EventCreateSettingsView(viewModel);
-      case EventCreateNavigator.racesList:
-        return EventCreateRacesView(viewModel);
-      case EventCreateNavigator.raceCreation:
+      case EventCreateNavigator.eventRaceList:
+        return EventCreateRaceListView(viewModel);
+      case EventCreateNavigator.eventRaceCreation:
         return EventCreateRaceView(viewModel);
-      case EventCreateNavigator.status:
+      case EventCreateNavigator.eventRaceEditing:
+        return EventCreateRaceView(viewModel);
+      case EventCreateNavigator.eventStatus:
         return EventCreateStatusView(viewModel);
       default:
         return EventCreateNameView(viewModel);

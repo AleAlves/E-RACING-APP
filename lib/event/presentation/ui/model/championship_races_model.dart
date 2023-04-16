@@ -1,29 +1,20 @@
-import 'dart:io';
-
 import 'package:e_racing_app/core/model/session_model.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ChampionshipRacesModel {
   String? id;
-  File? posterFile;
   String? poster;
-  DateTime? eventDate;
-  ImagePicker? picker;
+  String? title;
+  String? eventDate;
+  String? broadcastLink;
   bool? hasBroadcasting;
   List<SessionModel?>? sessions;
-  TextEditingController? titleController;
-  TextEditingController? broadcastingLinkController;
 
-  ChampionshipRacesModel({
-    required this.hasBroadcasting,
-    required this.eventDate,
-    required this.sessions,
-    required this.picker,
-    required this.posterFile,
-    required this.titleController,
-    required this.broadcastingLinkController,
-    this.poster,
-    this.id,
-  });
+  ChampionshipRacesModel(
+      {required this.title,
+      required this.hasBroadcasting,
+      required this.eventDate,
+      required this.sessions,
+      this.broadcastLink,
+      this.poster,
+      this.id});
 }

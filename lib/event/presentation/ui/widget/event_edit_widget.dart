@@ -260,12 +260,7 @@ class _EventEditWidgetState extends State<EventEditWidget>
 
   Widget scoring() {
     return ScoringWidget(
-      editing: true,
-      scoring: widget.viewModel.event?.scoring,
-      onScore: (scoring) {
-        score = scoring;
-      },
-    );
+        editing: true, scoring: widget.viewModel.event?.scoring);
   }
 
   Widget settings() {

@@ -28,8 +28,8 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
   @override
   void initState() {
     observers();
+    _nameController.text = widget.viewModel.eventName.toString();
     super.initState();
-    _nameController.addListener(observers);
   }
 
   @override
@@ -57,7 +57,6 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
     return ViewStateWidget(
       body: content(),
       bottom: button(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
@@ -65,22 +64,19 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
 
   @override
   Widget content() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          titleWidget(),
-          const SpacingWidget(LayoutSize.size48),
-          Form(
-            child: nameWidget(),
-            key: _formKey,
-          ),
-          optionsWidget()
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SpacingWidget(LayoutSize.size128),
+        titleWidget(),
+        const SpacingWidget(LayoutSize.size48),
+        Form(
+          child: nameWidget(),
+          key: _formKey,
+        ),
+        optionsWidget()
+      ],
     );
   }
 
@@ -114,7 +110,7 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
           Row(
             children: [
               Checkbox(
-                value: widget.viewModel.allowTeams,
+                value: widget.viewModel.eventAllowTeams,
                 onChanged: (bool? value) {
                   setState(() {
                     widget.viewModel.setToggleEventAllowTeamsOption(value);
@@ -128,7 +124,7 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
           Row(
             children: [
               Checkbox(
-                value: widget.viewModel.allowMembersOnly,
+                value: widget.viewModel.eventAllowMembersOnly,
                 onChanged: (bool? value) {
                   setState(() {
                     widget.viewModel.setToggleEventAllowMembersOnly(value);
@@ -157,7 +153,7 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.terms);
+    widget.viewModel.onNavigate(EventCreateNavigator.eventTerms);
     return false;
   }
 }

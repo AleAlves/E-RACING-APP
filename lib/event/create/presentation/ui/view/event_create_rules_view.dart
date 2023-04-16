@@ -29,7 +29,7 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
   void initState() {
     observers();
     super.initState();
-    _descriptionController.addListener(observers);
+    _descriptionController.text = widget.viewModel.eventRules ?? "";
   }
 
   @override
@@ -47,7 +47,6 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
     return ViewStateWidget(
       body: content(),
       bottom: button(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: ViewState.ready,
     );
@@ -55,21 +54,18 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
 
   @override
   Widget content() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          guideLines(),
-          const SpacingWidget(LayoutSize.size48),
-          Form(
-            child: leagueNameForm(),
-            key: _formKey,
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SpacingWidget(LayoutSize.size128),
+        guideLines(),
+        const SpacingWidget(LayoutSize.size48),
+        Form(
+          child: leagueNameForm(),
+          key: _formKey,
+        ),
+      ],
     );
   }
 
@@ -111,7 +107,7 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
       enabled: isValid,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.onNavigate(EventCreateNavigator.score);
+        widget.viewModel.setEventRules(_descriptionController.text);
       },
       label: "Next",
     );
@@ -119,7 +115,7 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.name);
+    widget.viewModel.onNavigate(EventCreateNavigator.eventName);
     return false;
   }
 }
