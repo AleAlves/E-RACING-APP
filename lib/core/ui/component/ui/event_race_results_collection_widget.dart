@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/ext/date_extensions.dart';
+import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -57,7 +57,6 @@ class EventRaceResultsCollection extends StatelessWidget {
     return Column(
       children: [
         CardWidget(
-          childLeft: const SizedBox(width: 8, height: 8,),
           ready: true,
           shapeLess: true,
           onPressed: () {

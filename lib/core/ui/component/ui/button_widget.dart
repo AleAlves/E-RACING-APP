@@ -193,6 +193,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
           alignment: Alignment.center,
           children: [
             CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
               radius: widget.iconRadius,
               child: Container(),
             ),

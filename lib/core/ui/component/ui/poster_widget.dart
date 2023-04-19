@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:flutter/material.dart';
 
@@ -30,8 +28,8 @@ class _PosterWidgetState extends State<PosterWidget> {
     loaded = widget.post == null;
 
     if (!loaded && image == null) {
-      image = Image.memory(
-        base64Decode(widget.post ?? ''),
+      image = Image.asset(
+        "assets/poster-default.png",
         fit: BoxFit.fill,
       );
     }

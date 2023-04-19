@@ -1,4 +1,4 @@
-import 'package:e_racing_app/login/domain/model/user_model.dart';
+import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'event_standings_model.g.dart';

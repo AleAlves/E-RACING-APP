@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:crypton/crypton.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:crypto/crypto.dart';
-import 'package:e_racing_app/login/domain/model/keychain_model.dart';
+import 'package:e_racing_app/login/legacy/domain/model/keychain_model.dart';
 
 import '../session.dart';
 import 'aes_tools.dart';

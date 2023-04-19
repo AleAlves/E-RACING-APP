@@ -3,6 +3,7 @@ import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
+import '../../../core/model/pair_model.dart';
 import '../../home/presentation/ui/navigation/league_flow.dart';
 
 class DeleteLeagueUseCase<T> extends BaseUseCase {
@@ -18,7 +19,7 @@ class DeleteLeagueUseCase<T> extends BaseUseCase {
     var response = await super.remote(Request(
         endpoint: "api/v1/league",
         verb: HTTPVerb.delete,
-        params: HTTPRequesParams(query: _id)));
+        params: HTTPRequesParams(query: Pair("id", _id))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
           message: "League Deleted", action: "Ok", next: LeagueFlow.list) as T);

@@ -17,7 +17,7 @@ import 'package:e_racing_app/event/data/set_summary_model.dart';
 import 'package:e_racing_app/event/domain/fetch_events_use_case.dart';
 import 'package:e_racing_app/event/domain/set_result_event_usecase.dart';
 import 'package:e_racing_app/event/presentation/ui/model/championship_races_model.dart';
-import 'package:e_racing_app/login/domain/model/user_model.dart';
+import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
 import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';

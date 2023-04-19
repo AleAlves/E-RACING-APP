@@ -31,19 +31,15 @@ class _CountryPickerWidgetState extends State<CountryPickerWidget> {
     return CardWidget(
       ready: true,
       child: Center(
-          child: Column(
-        children: <Widget>[
-          CountryCodePicker(
-            padding: EdgeInsets.only(left: 128, right: 128),
-            onChanged: (e) => widget.onCountrySelected.call(e.code),
-            initialSelection: '+55',
-            showCountryOnly: false,
-            showOnlyCountryWhenClosed: true,
-            backgroundColor: Theme.of(context).colorScheme.background,
-            dialogBackgroundColor: Theme.of(context).colorScheme.background,
-            favorite: const ['+55', 'BR'],
-          ),
-        ],
+          child: CountryCodePicker(
+        padding: const EdgeInsets.only(left: 16, right: 16),
+        onChanged: (e) => widget.onCountrySelected.call(e.code),
+        initialSelection: '+55',
+        showCountryOnly: false,
+        showOnlyCountryWhenClosed: true,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        dialogBackgroundColor: Theme.of(context).colorScheme.background,
+        favorite: const ['+55', 'BR'],
       )),
     );
   }

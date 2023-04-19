@@ -52,7 +52,6 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
     return ViewStateWidget(
       body: content(),
       state: widget.viewModel.state,
-      scrollable: true,
       onBackPressed: onBackPressed,
       floatAction: FloatActionButtonWidget(
         icon: Icons.delete_forever,
@@ -88,7 +87,6 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
           editEvent(),
           racesWidget(),
           subscribers(),
-          const SpacingWidget(LayoutSize.size48)
         ],
       ),
     );
@@ -98,52 +96,50 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
     return CardWidget(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Row(
-                children: const [
-                  IconWidget(icon: Icons.build),
-                  SpacingWidget(LayoutSize.size8),
-                  TextWidget(
-                    text: "Edit",
-                    style: Style.title,
-                    align: TextAlign.left,
-                  ),
-                ],
-              ),
-              const SpacingWidget(LayoutSize.size16),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ButtonWidget(
-                    label: "Event",
-                    type: ButtonType.primary,
-                    onPressed: () {
-                      widget.viewModel.setFlow(EventFlow.managementEditEvent);
-                    },
-                    enabled: widget.viewModel.event?.state == EventState.idle,
-                  ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Row(
+                  children: const [
+                    IconWidget(icon: Icons.build),
+                    SpacingWidget(LayoutSize.size8),
+                    TextWidget(
+                      text: "Edit",
+                      style: Style.title,
+                      align: TextAlign.left,
+                    ),
+                  ],
                 ),
-              ),
-              const SpacingWidget(LayoutSize.size16),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ButtonWidget(
-                    label: "Races",
-                    type: ButtonType.primary,
-                    onPressed: () {
-                      widget.viewModel
-                          .setFlow(EventFlow.managementEditRaceList);
-                    },
-                    enabled: widget.viewModel.event?.state == EventState.idle,
-                  ),
-                ),
-              ),
-              const SpacingWidget(LayoutSize.size8),
-            ],
+                const SpacingWidget(LayoutSize.size16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ButtonWidget(
+                      label: "Event",
+                      type: ButtonType.iconButton,
+                      icon: Icons.emoji_events,
+                      onPressed: () {
+                        widget.viewModel.setFlow(EventFlow.managementEditEvent);
+                      },
+                      enabled: widget.viewModel.event?.state == EventState.idle,
+                    ),
+                    const SpacingWidget(LayoutSize.size48),
+                    ButtonWidget(
+                      label: "Races",
+                      type: ButtonType.iconButton,
+                      icon: Icons.sports_esports,
+                      onPressed: () {
+                        widget.viewModel
+                            .setFlow(EventFlow.managementEditRaceList);
+                      },
+                      enabled: widget.viewModel.event?.state == EventState.idle,
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
         ready: true);
@@ -183,20 +179,20 @@ class _EventManagementRaceWidgetState extends State<EventManagementRaceWidget>
         child: Column(
           children: [
             Row(
-              children: const [
-                IconWidget(icon: Icons.sports_score),
-                SpacingWidget(LayoutSize.size8),
-                TextWidget(
-                  text: "State",
+              children: [
+                const IconWidget(icon: Icons.sports_score),
+                const SpacingWidget(LayoutSize.size8),
+                const TextWidget(
+                  text: "Current state: ",
                   style: Style.title,
                   align: TextAlign.left,
                 ),
+                const SpacingWidget(LayoutSize.size8),
+                EventProgressWidget(
+                  shapeless: true,
+                  event: widget.viewModel.event,
+                ),
               ],
-            ),
-            const SpacingWidget(LayoutSize.size8),
-            EventProgressWidget(
-              shapeless: true,
-              event: widget.viewModel.event,
             ),
             const SpacingWidget(LayoutSize.size16),
             Padding(

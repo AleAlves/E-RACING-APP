@@ -36,6 +36,7 @@ class _EventStatusWidgetState extends State<EventStatusWidget>
     return ViewStateWidget(
         body: content(),
         scrollable: false,
+        bottom: buttonWidget(),
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }
@@ -58,17 +59,19 @@ class _EventStatusWidgetState extends State<EventStatusWidget>
                 ? Colors.red
                 : Colors.green,
           ),
-          const SpacingWidget(LayoutSize.size48),
-          ButtonWidget(
-            enabled: true,
-            type: ButtonType.primary,
-            onPressed: () {
-              widget.viewModel.setFlow(widget.viewModel.status?.next);
-            },
-            label: widget.viewModel.status?.action ?? '',
-          )
         ],
       ),
+    );
+  }
+
+  Widget buttonWidget() {
+    return ButtonWidget(
+      enabled: true,
+      type: ButtonType.primary,
+      onPressed: () {
+        widget.viewModel.setFlow(widget.viewModel.status?.next);
+      },
+      label: widget.viewModel.status?.action ?? '',
     );
   }
 

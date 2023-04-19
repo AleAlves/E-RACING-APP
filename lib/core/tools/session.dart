@@ -1,7 +1,7 @@
-import 'package:e_racing_app/login/domain/model/bearer_token_model.dart';
-import 'package:e_racing_app/login/domain/model/keychain_model.dart';
-import 'package:e_racing_app/login/domain/model/public_key_model.dart';
-import 'package:e_racing_app/login/domain/model/user_model.dart';
+import 'package:e_racing_app/login/legacy/domain/model/bearer_token_model.dart';
+import 'package:e_racing_app/login/legacy/domain/model/keychain_model.dart';
+import 'package:e_racing_app/login/legacy/domain/model/public_key_model.dart';
+import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
 
 import '../model/pair_model.dart';
 

@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 
+import '../model/pair_model.dart';
+
 enum HTTPVerb { get, post, delete, put }
+
 enum CypherSchema { rsa, aes }
 
 class Request {
@@ -16,7 +19,7 @@ class Request {
 
 class HTTPRequesParams {
   late dynamic data;
-  late dynamic query;
+  late Pair<dynamic, dynamic>? query;
   bool safe;
   bool jsonEncoded;
   CypherSchema? cypherSchema = CypherSchema.aes;
@@ -31,7 +34,8 @@ class HTTPRequesParams {
       if (safe) {
         switch (cypherSchema) {
           case CypherSchema.rsa:
-            data = CryptoService.instance.rsaEncrypt(Session.instance.getRSAKey()?.publicKey, _encode());
+            data = CryptoService.instance
+                .rsaEncrypt(Session.instance.getRSAKey()?.publicKey, _encode());
             break;
           case CypherSchema.aes:
           default:
@@ -44,16 +48,16 @@ class HTTPRequesParams {
         }
       }
     }
-    if (query != null) {
+    if (query?.second != null) {
       if (safe) {
         switch (cypherSchema) {
           case CypherSchema.rsa:
-            query = CryptoService.instance
-                .rsaEncrypt(Session.instance.getRSAKey()?.publicKey, query);
+            query?.second = CryptoService.instance.rsaEncrypt(
+                Session.instance.getRSAKey()?.publicKey, query?.second);
             break;
           case CypherSchema.aes:
           default:
-            query = CryptoService.instance.aesEncrypt(query);
+            query?.second = CryptoService.instance.aesEncrypt(query?.second);
             break;
         }
       }

@@ -1,27 +1,29 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/data/http_response.dart';
+import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
 import 'package:e_racing_app/core/tools/session.dart';
-
 import 'package:http/http.dart' as http;
 
 import 'base/base_service.dart';
 
-
-
 class ApiService extends BaseService {
-
-  Uri parseRequestParams(String endpoint, String? query) {
-    if(query != null){
-      var encoded = base64Encode(utf8.encode(query));
-      endpoint += '?id=$encoded';
+  Uri parseRequestParams(String endpoint, Pair<dynamic, dynamic>? query) {
+    if (query != null) {
+      var encoded = base64Encode(utf8.encode(query.second));
+      endpoint += '?${query.first}=$encoded';
+      print(" *** Request query (base64): $encoded \n");
     }
+    print(" *** Request query (raw): ${query?.second} \n");
+    print(" *** Request endpoint: $endpoint \n");
     return parseRequest(endpoint);
   }
 
   Uri parseRequest(String endpoint) {
+    print(" *** Request URL: ${Session.instance.getURL() + endpoint} \n");
     return Uri.parse(Session.instance.getURL() + endpoint);
   }
 
@@ -30,7 +32,7 @@ class ApiService extends BaseService {
       'Content-Type': 'application/json; charset=UTF-8',
       'authorization': Session.instance.getBearerToken()?.token ?? ''
     };
-    print("Autorization:  $headers \n");
+    print(" *** Autorization:  $headers \n");
     return headers;
   }
 
@@ -41,7 +43,8 @@ class ApiService extends BaseService {
       data = CryptoService.instance.aesDecrypt(data);
     }
 
-    return HTTPResponse.onResponse(data, Response.fromJson(response['response']), isSafe, true);
+    return HTTPResponse.onResponse(
+        data, Response.fromJson(response['response']), isSafe, true);
   }
 
   @override
@@ -55,10 +58,8 @@ class ApiService extends BaseService {
               headers: headers());
           break;
         case HTTPVerb.post:
-          response = await http.post(
-              parseRequest(request.endpoint),
-              headers: headers(),
-              body: jsonEncode(request.params));
+          response = await http.post(parseRequest(request.endpoint),
+              headers: headers(), body: jsonEncode(request.params));
           break;
         case HTTPVerb.delete:
           response = await http.delete(
@@ -66,16 +67,14 @@ class ApiService extends BaseService {
               headers: headers());
           break;
         case HTTPVerb.put:
-          response = await http.put(
-              parseRequest(request.endpoint),
-              headers: headers(),
-              body: jsonEncode(request.params));
+          response = await http.put(parseRequest(request.endpoint),
+              headers: headers(), body: jsonEncode(request.params));
           break;
       }
-      print("Response URL: ${response.request?.url.path} \n");
-      print("Response Head: ${response.request?.headers} \n");
-      print("Response Status: ${response.statusCode} \n");
-      print("Response body: ${response.body} \n");
+      print(" *** Response URL: ${response.request?.url.path} \n");
+      print(" *** Response Head: ${response.request?.headers} \n");
+      print(" *** Response Status: ${response.statusCode} \n");
+      print(" *** Response body: ${response.body} \n");
     } on SocketException {
       return HTTPResponse();
     }
@@ -102,8 +101,11 @@ class ApiService extends BaseService {
       case 503:
       default:
         dynamic responseJson = jsonDecode(response.body);
-        return HTTPResponse.onResponse(responseJson['data'],
-            Response.fromJson(responseJson['response']), responseJson['safe'] ?? false, false);
+        return HTTPResponse.onResponse(
+            responseJson['data'],
+            Response.fromJson(responseJson['response']),
+            responseJson['safe'] ?? false,
+            false);
     }
   }
 }

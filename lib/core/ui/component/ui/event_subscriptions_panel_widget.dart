@@ -56,7 +56,8 @@ class EventSubscriptionsPanelWidget extends StatelessWidget {
           } else {
             showAlertExt(
               context: context,
-              message: 'Event must be on going to allow subscriptions',
+              message:
+                  'Event not started, start it to allow the drivers to join',
             );
           }
         },

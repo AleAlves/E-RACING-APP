@@ -10,8 +10,8 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 
 import './firebase_options.dart';
+import 'app/di/app_main_di.dart';
 import 'core/tools/session.dart';
-import 'login/di/login_di.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -133,5 +133,5 @@ class AppModule extends Module {
   List<Bind> get binds => [];
 
   @override
-  List<ModularRoute> get routes => [ModuleRoute("/", module: LoginModule())];
+  List<ModularRoute> get routes => [ModuleRoute("/", module: AppMainModule())];
 }
