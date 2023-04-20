@@ -4,21 +4,21 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'login_password_reset_view_model.dart';
-import 'navigation/login_password_reset_navigation.dart';
+import 'login_recovery_password_view_model.dart';
+import 'navigation/login_recovery_password_navigation.dart';
 
-class LoginPasswordResetScreen extends StatefulWidget {
-  const LoginPasswordResetScreen({Key? key}) : super(key: key);
+class LoginRecoveryPasswordScreen extends StatefulWidget {
+  const LoginRecoveryPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginPasswordResetScreenState createState() =>
-      _LoginPasswordResetScreenState();
+  _LoginRecoveryPasswordScreenState createState() =>
+      _LoginRecoveryPasswordScreenState();
 }
 
-class _LoginPasswordResetScreenState extends State<LoginPasswordResetScreen>
-    implements BaseScreen {
+class _LoginRecoveryPasswordScreenState
+    extends State<LoginRecoveryPasswordScreen> implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final viewModel = Modular.get<LoginPasswordResetViewModel>();
+  final viewModel = Modular.get<LoginRecoveryPasswordViewModel>();
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _LoginPasswordResetScreenState extends State<LoginPasswordResetScreen>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Reset'),
+        title: const Text('Recovery'),
       ),
       body: Stack(
         children: [
@@ -45,6 +45,6 @@ class _LoginPasswordResetScreenState extends State<LoginPasswordResetScreen>
 
   @override
   Widget navigate() {
-    return LoginPasswordResetNavigation.flow(viewModel);
+    return LoginRecoveryPasswordNavigation.flow(viewModel);
   }
 }

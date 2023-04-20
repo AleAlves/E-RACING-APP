@@ -1,6 +1,4 @@
 class Routes {
-  static String login = "/login/";
-  static String loginOnboarding = "/login/onboarding";
   static String home = "/home/";
   static String leagues = "/leagues/";
   static String league = "/leagues/detail";

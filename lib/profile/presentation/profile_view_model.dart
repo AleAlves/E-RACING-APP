@@ -3,7 +3,7 @@ import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/legacy/domain/model/profile_model.dart';
-import 'package:e_racing_app/login/legacy/domain/usecase/sign_in_usecase.dart';
+import 'package:e_racing_app/login/legacy/domain/usecase/sign_up_usecase.dart';
 import 'package:e_racing_app/profile/presentation/ui/profile_flow.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -15,7 +15,7 @@ class ProfileViewModel = _ProfileViewModel with _$ProfileViewModel;
 abstract class _ProfileViewModel with Store {
   _ProfileViewModel();
 
-  final signInUseCase = Modular.get<SignInUseCase<StatusModel>>();
+  final signInUseCase = Modular.get<SignUpUseCase<StatusModel>>();
 
   @observable
   ProfileFlow flow = ProfileFlow.error;

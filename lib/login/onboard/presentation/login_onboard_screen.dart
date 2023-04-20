@@ -4,21 +4,20 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'login_password_reset_view_model.dart';
-import 'navigation/login_password_reset_navigation.dart';
+import 'login_onboard_view_model.dart';
+import 'navigation/login_onboard_navigation.dart';
 
-class LoginPasswordResetScreen extends StatefulWidget {
-  const LoginPasswordResetScreen({Key? key}) : super(key: key);
+class LoginOnboardScreen extends StatefulWidget {
+  const LoginOnboardScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginPasswordResetScreenState createState() =>
-      _LoginPasswordResetScreenState();
+  _LoginOnboardScreenState createState() => _LoginOnboardScreenState();
 }
 
-class _LoginPasswordResetScreenState extends State<LoginPasswordResetScreen>
+class _LoginOnboardScreenState extends State<LoginOnboardScreen>
     implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final viewModel = Modular.get<LoginPasswordResetViewModel>();
+  final viewModel = Modular.get<LoginOnboardViewModel>();
 
   @override
   void initState() {
@@ -31,7 +30,7 @@ class _LoginPasswordResetScreenState extends State<LoginPasswordResetScreen>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Reset'),
+        title: const Text('E-racing'),
       ),
       body: Stack(
         children: [
@@ -45,6 +44,6 @@ class _LoginPasswordResetScreenState extends State<LoginPasswordResetScreen>
 
   @override
   Widget navigate() {
-    return LoginPasswordResetNavigation.flow(viewModel);
+    return LoginOnboardNavigation.flow(viewModel);
   }
 }

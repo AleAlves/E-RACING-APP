@@ -9,7 +9,12 @@ import '../../event/create/di/event_create_di.dart';
 import '../../league/create/di/league_create_di.dart';
 import '../../league/home/di/league_di.dart';
 import '../../league/home/presentation/ui/navigation/league_flow.dart';
-import '../../login/onboarding/di/login_onboarding_di.dart';
+import '../../login/login_router.dart';
+import '../../login/onboard/di/login_onboard_di.dart';
+import '../../login/recovery/di/login_recovery_password_di.dart';
+import '../../login/reset/di/login_password_reset_di.dart';
+import '../../login/signin/di/login_sign_in_di.dart';
+import '../../login/signup/di/login_sign_up_di.dart';
 import '../../notification/di/notification_di.dart';
 import '../presentation/app_screen.dart';
 import '../presentation/app_view_model.dart';
@@ -25,7 +30,12 @@ class AppMainModule extends Module {
         ChildRoute('/', child: (context, args) => const AppScreen()),
 
         //Login
-        ModuleRoute(Routes.loginOnboarding, module: LoginOnboardingModule()),
+        ModuleRoute(LoginRouter.onboard, module: LoginOnboardModule()),
+        ModuleRoute(LoginRouter.signUp, module: LoginSignUpModule()),
+        ModuleRoute(LoginRouter.signIn, module: LoginSignInModule()),
+        ModuleRoute(LoginRouter.reset, module: LoginPasswordResetModule()),
+        ModuleRoute(LoginRouter.recovery,
+            module: LoginRecoveryPasswordModule()),
 
         ModuleRoute(Routes.home, module: HomeModule()),
         ModuleRoute(Routes.leagues, module: LeagueModule()),

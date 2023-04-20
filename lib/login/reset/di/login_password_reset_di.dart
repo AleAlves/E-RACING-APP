@@ -1,7 +1,9 @@
-import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/model/status_model.dart';
+import '../../legacy/domain/usecase/reset_password_usecase.dart';
 import '../presentation/login_password_reset_screen.dart';
+import '../presentation/login_password_reset_view_model.dart';
 import '../presentation/navigation/login_password_reset_navigation.dart';
 
 class LoginPasswordResetModule extends Module {
@@ -11,7 +13,8 @@ class LoginPasswordResetModule extends Module {
 
   @override
   List<Bind> get binds => [
-        Bind.factory((i) => GetTagUseCase()),
+        Bind.factory((i) => ResetPasswordUseCase<StatusModel>()),
+        Bind.factory((i) => LoginPasswordResetViewModel()),
       ];
 
   @override

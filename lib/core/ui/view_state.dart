@@ -4,14 +4,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'component/state/view_state_widget.dart';
 
-enum ViewState { ready, loading, error }
+enum ViewState { ready, loading, error, status }
 
 abstract class BaseScreen {
   Widget navigate();
 }
 
 abstract class BaseSateWidget {
-
   Observer mainObserver();
 
   ViewStateWidget viewState();

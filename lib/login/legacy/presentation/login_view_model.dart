@@ -15,7 +15,7 @@ import 'package:e_racing_app/login/legacy/domain/usecase/login_2fa_usecase.dart'
 import 'package:e_racing_app/login/legacy/domain/usecase/login_usecase.dart';
 import 'package:e_racing_app/login/legacy/domain/usecase/reset_password_usecase.dart';
 import 'package:e_racing_app/login/legacy/domain/usecase/save_user_usecase.dart';
-import 'package:e_racing_app/login/legacy/domain/usecase/sign_in_usecase.dart';
+import 'package:e_racing_app/login/legacy/domain/usecase/sign_up_usecase.dart';
 import 'package:e_racing_app/login/legacy/domain/usecase/toogle_2fa_usecase.dart';
 import 'package:e_racing_app/login/legacy/presentation/ui/login_navigation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -32,7 +32,7 @@ abstract class _LoginViewModel with Store {
   ViewState state = ViewState.ready;
 
   @observable
-  LoginWidgetFlow flow = LoginWidgetFlow.loginEnviroment;
+  LoginWidgetFlow flow = LoginWidgetFlow.login;
 
   @observable
   UserModel? user;
@@ -51,7 +51,7 @@ abstract class _LoginViewModel with Store {
   final toogleUseCase =
       Modular.get<Toogle2FAUseCase<Pair<StatusModel, String>>>();
   final login2FAUseCase = Modular.get<Login2FAUseCase<StatusModel>>();
-  final signInUseCase = Modular.get<SignInUseCase<StatusModel>>();
+  final signInUseCase = Modular.get<SignUpUseCase<StatusModel>>();
   final forgotPasswordUseCase =
       Modular.get<ForgotPasswordUseCase<StatusModel>>();
   final resetPasswordUseCase = Modular.get<ResetPasswordUseCase<StatusModel>>();

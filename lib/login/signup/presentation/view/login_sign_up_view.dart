@@ -1,39 +1,42 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/country_picker_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-import '../login_password_reset_view_model.dart';
+import '../login_sign_up_view_model.dart';
 
-class LoginPasswordResetView extends StatefulWidget {
-  final LoginPasswordResetViewModel viewModel;
+class LoginSignUpView extends StatefulWidget {
+  final LoginSignUpViewModel viewModel;
 
-  const LoginPasswordResetView(this.viewModel, {Key? key}) : super(key: key);
+  const LoginSignUpView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _LoginForgotWidgetState createState() => _LoginForgotWidgetState();
+  _LoginSignUpViewState createState() => _LoginSignUpViewState();
 }
 
-class _LoginForgotWidgetState extends State<LoginPasswordResetView>
+class _LoginSignUpViewState extends State<LoginSignUpView>
     implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
-  final _passwordConfirmationController = TextEditingController();
   final _mailController = TextEditingController();
-  final _codeController = TextEditingController();
-  final List<ReactionDisposer> _disposers = [];
+  final _nameController = TextEditingController();
+  final _surnameController = TextEditingController();
   late String password = "";
+  late String? country = "BR";
 
   @override
   void initState() {
+    _nameController.text = '';
     _mailController.text = '';
     _passwordController.text = '';
+    _surnameController.text = '';
+    widget.viewModel.getPublicKey();
     super.initState();
   }
 
@@ -53,40 +56,56 @@ class _LoginForgotWidgetState extends State<LoginPasswordResetView>
   }
 
   @override
-  observers() {
-    _disposers
-        .add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
-      _mailController.text = widget.viewModel.user?.profile?.email ?? '';
-    }));
-  }
-
-  @override
   Widget content() {
     return Form(
-      child: resetForm(),
+      child: signinForm(),
       key: _formKey,
     );
   }
 
-  Widget resetForm() {
+  Widget signinForm() {
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SpacingWidget(LayoutSize.size128),
-          const TextWidget(
-              text: "Use the code we've sent you by email",
-              style: Style.paragraph),
           const SpacingWidget(LayoutSize.size48),
+          const TextWidget(text: "Create Account", style: Style.paragraph),
+          const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
               enabled: true,
-              label: 'Validation code',
-              icon: Icons.security,
-              controller: _codeController,
+              label: 'Name',
+              icon: Icons.person,
+              controller: _nameController,
               validator: (value) {
                 if (value == null || value.isEmpty == true) {
-                  return 'Validation code needed';
+                  return 'valid name needed';
+                }
+                return null;
+              }),
+          const SpacingWidget(LayoutSize.size16),
+          InputTextWidget(
+              enabled: true,
+              label: 'Surname',
+              icon: Icons.person,
+              controller: _surnameController,
+              validator: (value) {
+                if (value == null || value.isEmpty == true) {
+                  return 'valid surname needed';
+                }
+                return null;
+              }),
+          const SpacingWidget(LayoutSize.size16),
+          InputTextWidget(
+              enabled: true,
+              label: 'Email',
+              icon: Icons.mail,
+              controller: _mailController,
+              validator: (value) {
+                if (value == null ||
+                    value.isEmpty == true ||
+                    !value.contains("@")) {
+                  return 'valid email needed';
                 }
                 return null;
               }),
@@ -114,7 +133,7 @@ class _LoginForgotWidgetState extends State<LoginPasswordResetView>
             enabled: true,
             label: 'Confirm password',
             icon: Icons.vpn_key,
-            controller: _passwordConfirmationController,
+            controller: _passwordController,
             validator: (value) {
               if (value == null || value.isEmpty == true) {
                 return 'Password needed';
@@ -124,6 +143,12 @@ class _LoginForgotWidgetState extends State<LoginPasswordResetView>
               return null;
             },
             inputType: InputType.password,
+          ),
+          const SpacingWidget(LayoutSize.size16),
+          CountryPickerWidget(
+            onCountrySelected: (code) {
+              country = code;
+            },
           ),
         ],
       ),
@@ -135,18 +160,19 @@ class _LoginForgotWidgetState extends State<LoginPasswordResetView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        if (_formKey.currentState?.validate() == true) {
-          widget.viewModel.reset(_mailController.text, _passwordController.text,
-              _codeController.text);
-        }
+        widget.viewModel.signIn(_nameController.text, _surnameController.text,
+            _mailController.text, _passwordController.text, country ?? '');
       },
-      label: 'Create new password',
+      label: "Create account",
     );
   }
 
   @override
+  observers() {}
+
+  @override
   Future<bool> onBackPressed() async {
-    // widget.viewModel.flow = LoginWidgetFlow.login;
+    Modular.to.pop();
     return false;
   }
 }

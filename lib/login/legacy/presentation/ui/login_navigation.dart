@@ -2,7 +2,6 @@ import 'package:e_racing_app/login/legacy/presentation/login_view_model.dart';
 import 'package:e_racing_app/login/legacy/presentation/ui/widget/login_2fa_otp_qr_widget.dart';
 import 'package:e_racing_app/login/legacy/presentation/ui/widget/login_2fa_otp_widget.dart';
 import 'package:e_racing_app/login/legacy/presentation/ui/widget/login_2fa_toogle_widget.dart';
-import 'package:e_racing_app/login/legacy/presentation/ui/widget/login_enviroment_widget.dart';
 import 'package:e_racing_app/login/legacy/presentation/ui/widget/login_forgot_widget.dart';
 import 'package:e_racing_app/login/legacy/presentation/ui/widget/login_reset_widget.dart';
 import 'package:e_racing_app/login/legacy/presentation/ui/widget/login_signin_widget.dart';
@@ -12,7 +11,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 enum LoginWidgetFlow {
-  loginEnviroment,
   login,
   signin,
   login2fa,
@@ -48,8 +46,6 @@ extension LoginNavigation on LoginWidgetFlow {
         return LoginForgotWidget(vm);
       case LoginWidgetFlow.status:
         return LoginStatusWidget(vm);
-      case LoginWidgetFlow.loginEnviroment:
-        return LoginEnviromentWidget(vm);
     }
   }
 }

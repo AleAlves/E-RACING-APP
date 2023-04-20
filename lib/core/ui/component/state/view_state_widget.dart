@@ -1,4 +1,4 @@
-import 'package:e_racing_app/core/ui/component/ui/default_error_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/default_error_view.dart';
 import 'package:e_racing_app/core/ui/component/ui/scroll_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class ViewStateWidget extends StatelessWidget {
         return const LoadingRipple();
       case ViewState.error:
       default:
-        return const DefaulErrorWidget();
+        return const DefaulErrorView();
     }
   }
 
@@ -52,7 +52,7 @@ class ViewStateWidget extends StatelessWidget {
         ? bottom
         : Padding(
             padding: const EdgeInsets.all(8),
-            child: Container(
+            child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
                 child: bottom),
           );

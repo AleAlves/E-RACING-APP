@@ -3,7 +3,7 @@ import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/login/legacy/presentation/ui/login_navigation.dart';
+import 'package:e_racing_app/login/login_router.dart';
 
 class ForgotPasswordUseCase<T> extends BaseUseCase<T> {
   late String _email;
@@ -25,7 +25,7 @@ class ForgotPasswordUseCase<T> extends BaseUseCase<T> {
       var status = StatusModel(
           message: "A new code was sent to your email",
           action: "Ok",
-          next: LoginWidgetFlow.reset);
+          next: LoginRouter.reset);
       success.call(status as T);
     } else {
       error.call(ApiException(

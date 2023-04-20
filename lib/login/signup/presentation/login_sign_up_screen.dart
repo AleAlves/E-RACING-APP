@@ -4,21 +4,20 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'login_password_reset_view_model.dart';
-import 'navigation/login_password_reset_navigation.dart';
+import 'login_sign_up_view_model.dart';
+import 'navigation/login_sign_up_navigation.dart';
 
-class LoginPasswordResetScreen extends StatefulWidget {
-  const LoginPasswordResetScreen({Key? key}) : super(key: key);
+class LoginSignUpScreen extends StatefulWidget {
+  const LoginSignUpScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginPasswordResetScreenState createState() =>
-      _LoginPasswordResetScreenState();
+  _LoginSignUpScreenState createState() => _LoginSignUpScreenState();
 }
 
-class _LoginPasswordResetScreenState extends State<LoginPasswordResetScreen>
+class _LoginSignUpScreenState extends State<LoginSignUpScreen>
     implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final viewModel = Modular.get<LoginPasswordResetViewModel>();
+  final viewModel = Modular.get<LoginSignUpViewModel>();
 
   @override
   void initState() {
@@ -31,7 +30,7 @@ class _LoginPasswordResetScreenState extends State<LoginPasswordResetScreen>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Reset'),
+        title: const Text('Sign Up'),
       ),
       body: Stack(
         children: [
@@ -45,6 +44,6 @@ class _LoginPasswordResetScreenState extends State<LoginPasswordResetScreen>
 
   @override
   Widget navigate() {
-    return LoginPasswordResetNavigation.flow(viewModel);
+    return LoginSignUpNavigation.flow(viewModel);
   }
 }
