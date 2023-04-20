@@ -4,15 +4,13 @@ import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 
-import '../login_password_reset_view_model.dart';
+import '../login_password_recovery_view_model.dart';
 
 class LoginPasswordResetView extends StatefulWidget {
-  final LoginPasswordResetViewModel viewModel;
+  final LoginPasswordRecoveryViewModel viewModel;
 
   const LoginPasswordResetView(this.viewModel, {Key? key}) : super(key: key);
 
@@ -27,7 +25,6 @@ class _LoginForgotWidgetState extends State<LoginPasswordResetView>
   final _passwordConfirmationController = TextEditingController();
   final _mailController = TextEditingController();
   final _codeController = TextEditingController();
-  final List<ReactionDisposer> _disposers = [];
   late String password = "";
 
   @override
@@ -53,12 +50,7 @@ class _LoginForgotWidgetState extends State<LoginPasswordResetView>
   }
 
   @override
-  observers() {
-    _disposers
-        .add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
-      _mailController.text = widget.viewModel.user?.profile?.email ?? '';
-    }));
-  }
+  observers() {}
 
   @override
   Widget content() {
@@ -136,8 +128,8 @@ class _LoginForgotWidgetState extends State<LoginPasswordResetView>
       type: ButtonType.primary,
       onPressed: () {
         if (_formKey.currentState?.validate() == true) {
-          widget.viewModel.reset(_mailController.text, _passwordController.text,
-              _codeController.text);
+          widget.viewModel
+              .reset(_passwordController.text, _codeController.text);
         }
       },
       label: 'Create new password',

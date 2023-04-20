@@ -11,8 +11,7 @@ import '../../league/home/di/league_di.dart';
 import '../../league/home/presentation/ui/navigation/league_flow.dart';
 import '../../login/login_router.dart';
 import '../../login/onboard/di/login_onboard_di.dart';
-import '../../login/recovery/di/login_recovery_password_di.dart';
-import '../../login/reset/di/login_password_reset_di.dart';
+import '../../login/recovery/di/login_password_recovery_di.dart';
 import '../../login/signin/di/login_sign_in_di.dart';
 import '../../login/signup/di/login_sign_up_di.dart';
 import '../../notification/di/notification_di.dart';
@@ -33,9 +32,8 @@ class AppMainModule extends Module {
         ModuleRoute(LoginRouter.onboard, module: LoginOnboardModule()),
         ModuleRoute(LoginRouter.signUp, module: LoginSignUpModule()),
         ModuleRoute(LoginRouter.signIn, module: LoginSignInModule()),
-        ModuleRoute(LoginRouter.reset, module: LoginPasswordResetModule()),
         ModuleRoute(LoginRouter.recovery,
-            module: LoginRecoveryPasswordModule()),
+            module: LoginPasswordRecoveryModule()),
 
         ModuleRoute(Routes.home, module: HomeModule()),
         ModuleRoute(Routes.leagues, module: LeagueModule()),

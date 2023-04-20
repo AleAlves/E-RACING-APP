@@ -7,26 +7,23 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobx/mobx.dart';
 
-import '../../../legacy/domain/model/user_model.dart';
-import '../login_recovery_password_view_model.dart';
+import '../login_password_recovery_view_model.dart';
 
-class LoginRecoveryPasswordView extends StatefulWidget {
-  final LoginRecoveryPasswordViewModel viewModel;
+class LoginPasswordRecoveryView extends StatefulWidget {
+  final LoginPasswordRecoveryViewModel viewModel;
 
-  const LoginRecoveryPasswordView(this.viewModel, {Key? key}) : super(key: key);
+  const LoginPasswordRecoveryView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _LoginRecoveryPasswordViewState createState() =>
-      _LoginRecoveryPasswordViewState();
+  _LoginPasswordRecoveryViewState createState() =>
+      _LoginPasswordRecoveryViewState();
 }
 
-class _LoginRecoveryPasswordViewState extends State<LoginRecoveryPasswordView>
+class _LoginPasswordRecoveryViewState extends State<LoginPasswordRecoveryView>
     implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  final List<ReactionDisposer> _disposers = [];
 
   @override
   void initState() {
@@ -51,12 +48,7 @@ class _LoginRecoveryPasswordViewState extends State<LoginRecoveryPasswordView>
   }
 
   @override
-  observers() {
-    _disposers
-        .add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
-      _emailController.text = widget.viewModel.user?.profile?.email ?? "";
-    }));
-  }
+  observers() {}
 
   @override
   Widget content() {
@@ -85,15 +77,6 @@ class _LoginRecoveryPasswordViewState extends State<LoginRecoveryPasswordView>
                         }
                         return null;
                       }),
-                  const SpacingWidget(LayoutSize.size16),
-                  ButtonWidget(
-                    enabled: true,
-                    type: ButtonType.link,
-                    onPressed: () {
-                      // widget.viewModel.flow = LoginWidgetFlow.reset;
-                    },
-                    label: "Already have the code?",
-                  ),
                   const SpacingWidget(LayoutSize.size48),
                   Row(
                     children: const [
@@ -105,7 +88,7 @@ class _LoginRecoveryPasswordViewState extends State<LoginRecoveryPasswordView>
                     enabled: true,
                     type: ButtonType.link,
                     onPressed: () {
-                      // widget.viewModel.flow = LoginWidgetFlow.resetCode;
+                      // Modular.to.navigate(LoginRouter.reset, arguments: {});
                     },
                     label: "Generate new validation code",
                   ),

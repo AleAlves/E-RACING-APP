@@ -4,21 +4,21 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'login_recovery_password_view_model.dart';
-import 'navigation/login_recovery_password_navigation.dart';
+import 'login_password_recovery_view_model.dart';
+import 'navigation/login_password_recovery_navigation.dart';
 
-class LoginRecoveryPasswordScreen extends StatefulWidget {
-  const LoginRecoveryPasswordScreen({Key? key}) : super(key: key);
+class LoginPasswordRecoveryScreen extends StatefulWidget {
+  const LoginPasswordRecoveryScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginRecoveryPasswordScreenState createState() =>
-      _LoginRecoveryPasswordScreenState();
+  _LoginPasswordRecoveryScreenState createState() =>
+      _LoginPasswordRecoveryScreenState();
 }
 
-class _LoginRecoveryPasswordScreenState
-    extends State<LoginRecoveryPasswordScreen> implements BaseScreen {
+class _LoginPasswordRecoveryScreenState
+    extends State<LoginPasswordRecoveryScreen> implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final viewModel = Modular.get<LoginRecoveryPasswordViewModel>();
+  final viewModel = Modular.get<LoginPasswordRecoveryViewModel>();
 
   @override
   void initState() {
@@ -45,6 +45,6 @@ class _LoginRecoveryPasswordScreenState
 
   @override
   Widget navigate() {
-    return LoginRecoveryPasswordNavigation.flow(viewModel);
+    return LoginPasswordRecoveryNavigation.flow(viewModel);
   }
 }

@@ -72,7 +72,11 @@ class _StatusViewState extends State<StatusView> implements BaseSateWidget {
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        Modular.to.pushNamed(widget.viewModel.status?.next);
+        if (widget.viewModel.status?.externalLink == true) {
+          Modular.to.pushNamed(widget.viewModel.status?.next);
+        } else {
+          widget.viewModel.onNavigate(widget.viewModel.status?.next);
+        }
       },
       label: widget.viewModel.status?.action ?? '',
     );
