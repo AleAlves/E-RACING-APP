@@ -6,7 +6,7 @@ class DeleteUserUseCase<T> extends BaseUseCase<T> {
   @override
   Future<void> invoke(
       {required Function(T) success, required Function error}) async {
-    var response = await super.local(StoreRequest("user", Operation.delete));
+    var response = await super.local(StoreRequest("user", Operation.erase));
     if (response.isSuccessfully) {
       success.call(response.data as T);
     } else {

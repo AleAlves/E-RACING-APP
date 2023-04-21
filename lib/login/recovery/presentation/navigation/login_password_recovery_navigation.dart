@@ -6,8 +6,14 @@ import '../../../../core/ui/component/ui/status_view.dart';
 import '../login_password_recovery_view_model.dart';
 import '../view/login_password_recovery_view.dart';
 import '../view/login_password_reset_view.dart';
+import '../view/login_retry_email_validation_view.dart';
 
-enum LoginPasswordRecoveryNavigationSet { recover, reset, status }
+enum LoginPasswordRecoveryNavigationSet {
+  recover,
+  reset,
+  retryValidation,
+  status
+}
 
 extension LoginPasswordRecoveryNavigation
     on LoginPasswordRecoveryNavigationSet {
@@ -17,6 +23,8 @@ extension LoginPasswordRecoveryNavigation
         return LoginPasswordRecoveryView(viewModel);
       case LoginPasswordRecoveryNavigationSet.reset:
         return LoginPasswordResetView(viewModel);
+      case LoginPasswordRecoveryNavigationSet.retryValidation:
+        return LoginRetryEmailValidationView(viewModel);
       case LoginPasswordRecoveryNavigationSet.status:
         return StatusView(viewModel);
       default:

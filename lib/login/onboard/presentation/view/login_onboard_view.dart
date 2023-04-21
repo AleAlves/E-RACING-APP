@@ -3,7 +3,6 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/ui/component/ui/button_widget.dart';
 import '../../../../core/ui/component/ui/spacing_widget.dart';
@@ -29,6 +28,11 @@ class _LoginOnboardViewState extends State<LoginOnboardView>
 
   @override
   observers() {}
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   ViewStateWidget viewState() {
@@ -66,7 +70,7 @@ class _LoginOnboardViewState extends State<LoginOnboardView>
               icon: Icons.people,
               type: ButtonType.iconButton,
               onPressed: () {
-                Modular.to.pushNamed(LoginRouter.signIn);
+                widget.viewModel.saveTutorialExhibition(LoginRouter.signIn);
               },
               label: "Login",
             )
@@ -81,7 +85,7 @@ class _LoginOnboardViewState extends State<LoginOnboardView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        Modular.to.pushNamed(LoginRouter.signUp);
+        widget.viewModel.saveTutorialExhibition(LoginRouter.signUp);
       },
       label: "Create an account",
     );

@@ -4,28 +4,27 @@ import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
-import 'package:e_racing_app/login/legacy/presentation/ui/login_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 
-import '../../login_view_model.dart';
+import '../login_password_recovery_view_model.dart';
+import '../navigation/login_password_recovery_navigation.dart';
 
-class LoginForgotWidget extends StatefulWidget {
-  final LoginViewModel viewModel;
+class LoginRetryEmailValidationView extends StatefulWidget {
+  final LoginPasswordRecoveryViewModel viewModel;
 
-  const LoginForgotWidget(this.viewModel, {Key? key}) : super(key: key);
+  const LoginRetryEmailValidationView(this.viewModel, {Key? key})
+      : super(key: key);
 
   @override
-  _LoginForgotWidgetState createState() => _LoginForgotWidgetState();
+  _LoginRetryEmailValidationViewState createState() =>
+      _LoginRetryEmailValidationViewState();
 }
 
-class _LoginForgotWidgetState extends State<LoginForgotWidget>
-    implements BaseSateWidget {
+class _LoginRetryEmailValidationViewState
+    extends State<LoginRetryEmailValidationView> implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  final List<ReactionDisposer> _disposers = [];
 
   @override
   void initState() {
@@ -50,12 +49,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
   }
 
   @override
-  observers() {
-    _disposers
-        .add(reaction((_) => widget.viewModel.user, (UserModel? userModel) {
-      _emailController.text = widget.viewModel.user?.profile?.email ?? "";
-    }));
-  }
+  observers() {}
 
   @override
   Widget content() {
@@ -69,7 +63,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
               child: Column(
                 children: [
                   const TextWidget(
-                      text: "Password recovery", style: Style.paragraph),
+                      text: "Resend email validation", style: Style.paragraph),
                   const SpacingWidget(LayoutSize.size48),
                   InputTextWidget(
                       enabled: true,
@@ -84,30 +78,6 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
                         }
                         return null;
                       }),
-                  const SpacingWidget(LayoutSize.size16),
-                  ButtonWidget(
-                    enabled: true,
-                    type: ButtonType.link,
-                    onPressed: () {
-                      widget.viewModel.flow = LoginWidgetFlow.reset;
-                    },
-                    label: "Already have the code?",
-                  ),
-                  const SpacingWidget(LayoutSize.size48),
-                  Row(
-                    children: const [
-                      TextWidget(
-                          text: "Other problem?", style: Style.paragraph),
-                    ],
-                  ),
-                  ButtonWidget(
-                    enabled: true,
-                    type: ButtonType.link,
-                    onPressed: () {
-                      widget.viewModel.flow = LoginWidgetFlow.resetCode;
-                    },
-                    label: "Generate new validation code",
-                  ),
                 ],
               ),
               key: _formKey),
@@ -122,7 +92,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
       type: ButtonType.primary,
       onPressed: () {
         if (_formKey.currentState?.validate() == true) {
-          widget.viewModel.forgot(_emailController.text);
+          widget.viewModel.retryMailValidation(_emailController.text);
         }
       },
       label: "Recover",
@@ -131,7 +101,7 @@ class _LoginForgotWidgetState extends State<LoginForgotWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.flow = LoginWidgetFlow.login;
+    widget.viewModel.onNavigate(LoginPasswordRecoveryNavigationSet.recover);
     return false;
   }
 }

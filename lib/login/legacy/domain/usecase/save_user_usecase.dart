@@ -18,7 +18,7 @@ class SaveUserUseCase<T> extends BaseUseCase<T> {
   @override
   Future<void> invoke(
       {required Function(T) success, required Function error}) async {
-    var response = await super.local(StoreRequest("user", Operation.create,
+    var response = await super.local(StoreRequest("user", Operation.save,
         data: UserModel(
             profile: ProfileModel(email: _email),
             auth: AuthModel(password: _password))));

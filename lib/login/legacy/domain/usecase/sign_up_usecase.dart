@@ -5,7 +5,6 @@ import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/login/legacy/data/model/signin_request.dart';
-import 'package:e_racing_app/login/legacy/presentation/ui/login_navigation.dart';
 
 import '../model/auth_model.dart';
 import '../model/profile_model.dart';
@@ -49,7 +48,7 @@ class SignUpUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Account created, check your email to confirm it",
           action: "Ok",
-          next: LoginWidgetFlow.login) as T);
+          next: "") as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

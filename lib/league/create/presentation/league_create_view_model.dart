@@ -38,6 +38,10 @@ abstract class _LeagueCreateViewModel
 
   @override
   @observable
+  String? title = "";
+
+  @override
+  @observable
   StatusModel? status;
 
   @observable

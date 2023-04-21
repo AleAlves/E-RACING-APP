@@ -9,6 +9,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../login_password_recovery_view_model.dart';
+import '../navigation/login_password_recovery_navigation.dart';
 
 class LoginPasswordRecoveryView extends StatefulWidget {
   final LoginPasswordRecoveryViewModel viewModel;
@@ -88,9 +89,10 @@ class _LoginPasswordRecoveryViewState extends State<LoginPasswordRecoveryView>
                     enabled: true,
                     type: ButtonType.link,
                     onPressed: () {
-                      // Modular.to.navigate(LoginRouter.reset, arguments: {});
+                      widget.viewModel.onNavigate(
+                          LoginPasswordRecoveryNavigationSet.retryValidation);
                     },
-                    label: "Generate new validation code",
+                    label: "Resend email validation code",
                   ),
                 ],
               ),
@@ -109,7 +111,7 @@ class _LoginPasswordRecoveryViewState extends State<LoginPasswordRecoveryView>
           widget.viewModel.forgot(_emailController.text);
         }
       },
-      label: "Recover",
+      label: "Resend email validation",
     );
   }
 

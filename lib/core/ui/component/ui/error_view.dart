@@ -4,7 +4,6 @@ import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/login/legacy/presentation/ui/login_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -57,8 +56,7 @@ class _ErrorViewState extends State<ErrorView> implements BaseSateWidget {
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.flow =
-            widget.viewModel.status?.next ?? LoginWidgetFlow.login;
+        widget.viewModel.flow = widget.viewModel.status?.next;
       },
       label: widget.viewModel.status?.action ?? '',
     );

@@ -9,6 +9,9 @@ abstract class BaseViewModel<T> with Store {
   abstract T? flow;
 
   @observable
+  abstract String? title;
+
+  @observable
   abstract StatusModel? status;
 
   @observable

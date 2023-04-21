@@ -34,6 +34,10 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
 
   @override
   @observable
+  String? title = "";
+
+  @override
+  @observable
   StatusModel? status;
 
   @observable

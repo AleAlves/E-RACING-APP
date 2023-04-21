@@ -1,10 +1,10 @@
 import 'package:e_racing_app/core/ui/base_view_model.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/model/status_model.dart';
-import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
-import '../../legacy/domain/model/user_model.dart';
+import '../domain/set_tutorial_exhibition_usecase.dart';
 import 'navigation/login_onboard_navigation.dart';
 
 part 'login_onboard_view_model.g.dart';
@@ -28,10 +28,17 @@ abstract class _LoginOnboardViewModel
   @observable
   StatusModel? status;
 
+  @override
   @observable
-  UserModel? user;
+  String? title = "";
 
-  setUrl(String? value) {
-    Session.instance.setURL(value ?? '');
+  final _setExhibition = Modular.get<SetTutorialExhibitionUserUseCase<void>>();
+
+  saveTutorialExhibition(String route) async {
+    await _setExhibition.invoke(
+        success: (data) {
+          Modular.to.pushNamed(route);
+        },
+        error: onError);
   }
 }

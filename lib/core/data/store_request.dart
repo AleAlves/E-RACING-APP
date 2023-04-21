@@ -1,5 +1,4 @@
-
-enum Operation { select, create, delete }
+enum Operation { fetch, save, erase }
 
 class StoreRequest<T> {
   late T? data;

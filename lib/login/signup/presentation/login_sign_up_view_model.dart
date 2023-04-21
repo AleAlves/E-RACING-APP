@@ -7,7 +7,6 @@ import '../../../core/tools/crypto/crypto_service.dart';
 import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
 import '../../legacy/domain/model/public_key_model.dart';
-import '../../legacy/domain/model/user_model.dart';
 import '../../legacy/domain/usecase/get_public_key_usecase.dart';
 import '../../legacy/domain/usecase/sign_up_usecase.dart';
 import 'navigation/login_sign_up_navigation.dart';
@@ -28,8 +27,9 @@ abstract class _LoginSignUpViewModel
   @observable
   ViewState state = ViewState.ready;
 
+  @override
   @observable
-  UserModel? user;
+  String? title = "";
 
   @override
   @observable

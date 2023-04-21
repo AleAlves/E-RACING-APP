@@ -1,3 +1,4 @@
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -30,7 +31,10 @@ class _LoginSignInScreenState extends State<LoginSignInScreen>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Sign In'),
+        title: TextWidget(
+          text: viewModel.title,
+          style: Style.caption,
+        ),
       ),
       body: Stack(
         children: [

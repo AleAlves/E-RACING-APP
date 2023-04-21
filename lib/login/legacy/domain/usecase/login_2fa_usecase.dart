@@ -3,7 +3,6 @@ import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/login/legacy/data/model/login_2fa_request.dart';
-import 'package:e_racing_app/login/legacy/presentation/ui/login_navigation.dart';
 
 import '../model/user_model.dart';
 
@@ -30,9 +29,7 @@ class Login2FAUseCase<T> extends BaseUseCase<T?> {
       var data =
           response.data == null ? null : UserModel.fromJson(response.data) as T;
       var wow = StatusModel(
-          message: "2FA Logged successfuly",
-          action: "ok",
-          next: LoginWidgetFlow.login);
+          message: "2FA Logged successfuly", action: "ok", next: "");
       success.call(wow as T);
     } else {
       error.call(ApiException(

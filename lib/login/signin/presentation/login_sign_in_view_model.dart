@@ -12,8 +12,8 @@ import '../../legacy/domain/model/public_key_model.dart';
 import '../../legacy/domain/model/user_model.dart';
 import '../../legacy/domain/usecase/get_public_key_usecase.dart';
 import '../../legacy/domain/usecase/get_user_usecase.dart';
-import '../../legacy/domain/usecase/login_usecase.dart';
 import '../../legacy/domain/usecase/save_user_usecase.dart';
+import '../../legacy/domain/usecase/sign_in_usecase.dart';
 import 'navigation/login_sign_in_navigation.dart';
 
 part 'login_sign_in_view_model.g.dart';
@@ -38,6 +38,10 @@ abstract class _LoginSignInViewModel
   @override
   @observable
   StatusModel? status;
+
+  @override
+  @observable
+  String? title = "";
 
   @observable
   bool loginAutomatically = true;

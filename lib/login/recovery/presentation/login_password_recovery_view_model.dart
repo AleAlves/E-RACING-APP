@@ -6,6 +6,7 @@ import '../../../core/model/status_model.dart';
 import '../../../core/ui/view_state.dart';
 import '../../legacy/domain/usecase/forgot_password_usecase.dart';
 import '../../legacy/domain/usecase/reset_password_usecase.dart';
+import '../domain/retry_mail_validation_usecase.dart';
 import 'navigation/login_password_recovery_navigation.dart';
 
 part 'login_password_recovery_view_model.g.dart';
@@ -30,16 +31,33 @@ abstract class _LoginPasswordRecoveryViewModel
   @observable
   StatusModel? status;
 
+  @override
+  @observable
+  String? title = "";
+
   @observable
   String email = '';
 
-  final forgotUC = Modular.get<ForgotPasswordUseCase<StatusModel>>();
-  final resetPasswordUseCase = Modular.get<ResetPasswordUseCase<StatusModel>>();
+  final forgotPassword = Modular.get<ForgotPasswordUseCase<StatusModel>>();
+  final resetPassword = Modular.get<ResetPasswordUseCase<StatusModel>>();
+  final retryMail = Modular.get<RetryMailValidationUseCase<StatusModel>>();
+
+  retryMailValidation(String email) async {
+    this.email = email;
+    state = ViewState.loading;
+    await retryMail.params(email: email).invoke(
+        success: (data) {
+          status = data;
+          state = ViewState.ready;
+          onNavigate(LoginPasswordRecoveryNavigationSet.status);
+        },
+        error: onError);
+  }
 
   forgot(String email) async {
     this.email = email;
     state = ViewState.loading;
-    await forgotUC.params(email: email).invoke(
+    await forgotPassword.params(email: email).invoke(
         success: (data) {
           status = data;
           state = ViewState.ready;
@@ -50,7 +68,7 @@ abstract class _LoginPasswordRecoveryViewModel
 
   reset(String password, String code) async {
     state = ViewState.loading;
-    await resetPasswordUseCase
+    await resetPassword
         .params(code: code, email: email, password: password)
         .invoke(
             success: (data) {

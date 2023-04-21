@@ -1,22 +1,15 @@
 import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
+import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/login/legacy/data/model/reset_request.dart';
 import 'package:e_racing_app/login/login_router.dart';
 
-import '../../../../core/tools/crypto/crypto_service.dart';
-
-class ResetPasswordUseCase<T> extends BaseUseCase<T> {
-  late String _code;
+class RetryMailValidationUseCase<T> extends BaseUseCase<T> {
   late String _email;
-  late String _password;
 
-  ResetPasswordUseCase<T> params(
-      {required String code, required String email, required String password}) {
-    _code = code;
+  RetryMailValidationUseCase<T> params({required String email}) {
     _email = email;
-    _password = password;
     return this;
   }
 
@@ -24,15 +17,15 @@ class ResetPasswordUseCase<T> extends BaseUseCase<T> {
   Future<void> invoke(
       {required Function(T) success, required Function error}) async {
     var response = await super.remote(Request(
-        endpoint: "api/v1/auth/password/reset",
-        verb: HTTPVerb.post,
+        endpoint: "api/v1/auth/mail/resend/code",
+        verb: HTTPVerb.get,
         params: HTTPRequesParams(
-            data: ResetRequest(
-                _email, CryptoService.instance.sha256(_password), _code),
-            cypherSchema: CypherSchema.rsa)));
+            query: Pair("email", _email), cypherSchema: CypherSchema.rsa)));
     if (response.isSuccessfully) {
       var status = StatusModel(
-          message: "Password reseted", action: "Ok", next: LoginRouter.signIn);
+          message: "A new validation link was sent to your email",
+          action: "Ok",
+          next: LoginRouter.onboard);
       success.call(status as T);
     } else {
       error.call(ApiException(

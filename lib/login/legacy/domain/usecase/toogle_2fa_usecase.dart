@@ -3,7 +3,6 @@ import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/login/legacy/presentation/ui/login_navigation.dart';
 
 class Toogle2FAUseCase<T> extends BaseUseCase<T> {
   @override
@@ -19,8 +18,7 @@ class Toogle2FAUseCase<T> extends BaseUseCase<T> {
         message = "2FA desabilitado";
       }
       success.call(Pair<StatusModel, bool>(
-          StatusModel(
-              message: message, action: "Ok", next: LoginWidgetFlow.otpQr),
+          StatusModel(message: message, action: "Ok", next: ""),
           response.data) as T);
     } else {
       error.call(ApiException(

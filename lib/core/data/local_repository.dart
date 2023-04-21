@@ -1,4 +1,3 @@
-
 import 'package:e_racing_app/core/data/store_request.dart';
 import 'package:e_racing_app/core/data/store_response.dart';
 import 'package:flutter/material.dart';
@@ -12,27 +11,27 @@ class LocalRepository {
   final LocalStorage storage = LocalStorage('localstorage_app');
 
   Future<StoreResponse> save({@required key, @required data}) async {
-    try{
+    try {
       await storage.setItem(key, data);
       return StoreResponse(null, true);
-    }catch(e){
+    } catch (e) {
       return StoreResponse(null, false);
     }
   }
 
   Future<StoreResponse> get({@required key}) async {
-    try{
+    try {
       return StoreResponse(await storage.getItem(key), true);
-    }catch(e){
+    } catch (e) {
       return StoreResponse(null, false);
     }
   }
 
   Future<StoreResponse> delete({@required key}) async {
-    try{
+    try {
       await storage.deleteItem(key);
       return StoreResponse(null, true);
-    }catch(e){
+    } catch (e) {
       return StoreResponse(null, false);
     }
   }
@@ -40,11 +39,11 @@ class LocalRepository {
   call(StoreRequest query) async {
     await storage.ready;
     switch (query.operation) {
-      case Operation.select:
+      case Operation.fetch:
         return get(key: query.key);
-      case Operation.create:
+      case Operation.save:
         return save(key: query.key, data: query.data);
-      case Operation.delete:
+      case Operation.erase:
         return delete(key: query.key);
     }
   }

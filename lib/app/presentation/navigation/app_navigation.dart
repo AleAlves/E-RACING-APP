@@ -11,6 +11,8 @@ extension AppNavigation on AppNavigationSet {
     switch (viewModel.flow) {
       case AppNavigationSet.appEnviroment:
         return AppEnviromentView(viewModel);
+      default:
+        return Container();
     }
   }
 }
