@@ -1,12 +1,13 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
-import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:flutter/material.dart';
 
 class CountryPickerWidget extends StatefulWidget {
+  final String? country;
   final Function(String?) onCountrySelected;
 
-  const CountryPickerWidget({required this.onCountrySelected, Key? key})
+  const CountryPickerWidget(
+      {this.country, required this.onCountrySelected, Key? key})
       : super(key: key);
 
   Widget loading(BuildContext context) {
@@ -28,19 +29,15 @@ class _CountryPickerWidgetState extends State<CountryPickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return CardWidget(
-      ready: true,
-      child: Center(
-          child: CountryCodePicker(
-        padding: const EdgeInsets.only(left: 16, right: 16),
-        onChanged: (e) => widget.onCountrySelected.call(e.code),
-        initialSelection: '+55',
-        showCountryOnly: false,
-        showOnlyCountryWhenClosed: true,
-        backgroundColor: Theme.of(context).colorScheme.background,
-        dialogBackgroundColor: Theme.of(context).colorScheme.background,
-        favorite: const ['+55', 'BR'],
-      )),
+    return CountryCodePicker(
+      padding: const EdgeInsets.all(24),
+      onChanged: (e) => widget.onCountrySelected.call(e.code),
+      initialSelection: widget.country ?? 'BR',
+      showCountryOnly: false,
+      showOnlyCountryWhenClosed: true,
+      backgroundColor: Theme.of(context).colorScheme.background,
+      dialogBackgroundColor: Theme.of(context).colorScheme.background,
+      favorite: const ['+55', 'BR'],
     );
   }
 }

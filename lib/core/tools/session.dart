@@ -3,8 +3,6 @@ import 'package:e_racing_app/login/legacy/domain/model/keychain_model.dart';
 import 'package:e_racing_app/login/legacy/domain/model/public_key_model.dart';
 import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
 
-import '../model/pair_model.dart';
-
 class Session {
   static UserModel? _userModel;
   static late KeyChainModel _keyChain;

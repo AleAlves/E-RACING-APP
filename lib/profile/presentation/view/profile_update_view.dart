@@ -9,30 +9,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ProfileWidget extends StatefulWidget {
+import '../../../core/ui/component/ui/text_widget.dart';
+
+class ProfileUpdateView extends StatefulWidget {
   final ProfileViewModel vm;
 
-  const ProfileWidget(this.vm, {Key? key}) : super(key: key);
+  const ProfileUpdateView(this.vm, {Key? key}) : super(key: key);
 
   @override
-  _ProfileWidgetState createState() => _ProfileWidgetState();
+  _ProfileUpdateViewState createState() => _ProfileUpdateViewState();
 }
 
-class _ProfileWidgetState extends State<ProfileWidget>
+class _ProfileUpdateViewState extends State<ProfileUpdateView>
     implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
-  final _mailController = TextEditingController();
   final _nameController = TextEditingController();
   final _surnameController = TextEditingController();
   late String password = "";
   late String? country = "BR";
+  bool hasChanges = false;
 
   @override
   void initState() {
     widget.vm.fetchProfile();
+    _nameController.addListener(observers);
+    _surnameController.addListener(observers);
     _nameController.text = widget.vm.profileModel?.name ?? '';
     _surnameController.text = widget.vm.profileModel?.surname ?? '';
-    _mailController.text = widget.vm.profileModel?.email ?? '';
     super.initState();
   }
 
@@ -45,7 +48,6 @@ class _ProfileWidgetState extends State<ProfileWidget>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        scrollable: false,
         body: content(),
         bottom: buttonUpdateWidget(),
         state: widget.vm.state,
@@ -54,10 +56,23 @@ class _ProfileWidgetState extends State<ProfileWidget>
 
   @override
   Widget content() {
-    return Form(
-      child: signinForm(),
-      key: _formKey,
+    return Column(
+      children: [
+        const SpacingWidget(LayoutSize.size128),
+        titleWidget(),
+        const SpacingWidget(LayoutSize.size48),
+        Form(
+          child: signinForm(),
+          key: _formKey,
+        ),
+      ],
     );
+  }
+
+  Widget titleWidget() {
+    return const TextWidget(
+        text: "You can update your name, surname and your country",
+        style: Style.subtitle);
   }
 
   Widget signinForm() {
@@ -68,7 +83,6 @@ class _ProfileWidgetState extends State<ProfileWidget>
         children: [
           Column(
             children: [
-              const SpacingWidget(LayoutSize.size16),
               InputTextWidget(
                   enabled: true,
                   label: 'Name',
@@ -94,8 +108,12 @@ class _ProfileWidgetState extends State<ProfileWidget>
                   }),
               const SpacingWidget(LayoutSize.size16),
               CountryPickerWidget(
+                country: widget.vm.profileModel?.country,
                 onCountrySelected: (code) {
-                  country = code;
+                  setState(() {
+                    country = code;
+                    hasChanges = hasAnyChange();
+                  });
                 },
               ),
             ],
@@ -107,20 +125,37 @@ class _ProfileWidgetState extends State<ProfileWidget>
 
   Widget buttonUpdateWidget() {
     return ButtonWidget(
-      enabled: true,
+      enabled: hasChanges,
       type: ButtonType.primary,
       onPressed: () {
         if (_formKey.currentState?.validate() == true) {
-          widget.vm.udpate(_nameController.text, _surnameController.text,
-              _mailController.text, country ?? '');
+          widget.vm.update(
+              _nameController.text, _surnameController.text, country ?? '');
         }
       },
       label: "Update",
     );
   }
 
+  bool hasAnyChange() {
+    return widget.vm.profileModel?.name != _nameController.text ||
+        widget.vm.profileModel?.surname != _surnameController.text ||
+        widget.vm.profileModel?.country != country;
+  }
+
   @override
-  observers() {}
+  observers() {
+    _nameController.addListener(() {
+      setState(() {
+        hasChanges = hasAnyChange();
+      });
+    });
+    _surnameController.addListener(() {
+      setState(() {
+        hasChanges = hasAnyChange();
+      });
+    });
+  }
 
   @override
   Future<bool> onBackPressed() async {
