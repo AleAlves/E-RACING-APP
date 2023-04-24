@@ -37,7 +37,7 @@ abstract class _LeagueMemberViewModel
 
   @override
   @observable
-  ViewState state = ViewState.ready;
+  ViewState state = ViewState.loading;
 
   @observable
   ObservableList<LeagueMembersModel?>? members = ObservableList();
@@ -46,7 +46,7 @@ abstract class _LeagueMemberViewModel
   final _fetchMembersUC =
       Modular.get<FetchMembersUseCase<List<LeagueMembersModel?>>>();
 
-  void fetchMembers() {
+  fetchMembers() {
     var leagueId = Session.instance.getLeagueId();
     state = ViewState.loading;
     _fetchMembersUC.req(id: leagueId ?? '').invoke(
@@ -57,12 +57,13 @@ abstract class _LeagueMemberViewModel
         error: onError);
   }
 
-  void removeMember(String id) {
+  removeMember(String id) {
     var leagueId = Session.instance.getLeagueId();
     state = ViewState.loading;
     _removeMemberUC.req(memberId: id, leagueId: leagueId ?? '').invoke(
         success: (data) {
           status = data;
+          fetchMembers();
           onNavigate(LeagueMemberNavigationSet.status);
         },
         error: onError);
