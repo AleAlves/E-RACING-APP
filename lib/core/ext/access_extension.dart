@@ -24,7 +24,7 @@ bool isLeagueManager(LeagueModel? league) {
   return league?.owner == Session.instance.getUser()?.id;
 }
 
-bool isLeagueMember(LeagueModel? league) {
+bool hasLeagueMembership(LeagueModel? league) {
   return league?.members
           ?.where(
               (element) => element?.memberId == Session.instance.getUser()?.id)

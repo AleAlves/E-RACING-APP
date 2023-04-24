@@ -1,18 +1,17 @@
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../league/list/data/league_model.dart';
 import 'button_widget.dart';
 
 class MembershipActionWidget extends StatefulWidget {
-  final LeagueModel? leagueModel;
-  final bool isMember;
+  final bool? hasMembership;
+  final bool? isReady;
   final Function onStartMembership;
   final Function onStopMembership;
 
   const MembershipActionWidget(
-      {required this.isMember,
-      required this.leagueModel,
+      {required this.hasMembership,
+      required this.isReady,
       required this.onStartMembership,
       required this.onStopMembership,
       Key? key})
@@ -34,7 +33,7 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.leagueModel == null
+    return widget.isReady == false
         ? const LoadingShimmer(
             height: 50,
           )
@@ -42,7 +41,9 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
   }
 
   Widget content() {
-    return widget.isMember ? stopMembershipAction() : startMembershipButton();
+    return widget.hasMembership == true
+        ? stopMembershipAction()
+        : startMembershipButton();
   }
 
   Widget startMembershipButton() {
@@ -55,7 +56,7 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
         onPressed: () {
           widget.onStartMembership.call();
         },
-        enabled: widget.leagueModel?.members != null,
+        enabled: widget.isReady == true,
       ),
     );
   }
@@ -71,7 +72,7 @@ class _MembershipActionWidgetState extends State<MembershipActionWidget> {
         onPressed: () {
           widget.onStopMembership.call();
         },
-        enabled: widget.leagueModel?.members != null,
+        enabled: widget.isReady == true,
       ),
     );
   }

@@ -73,7 +73,8 @@ class _LeagueListViewState extends State<LeagueListView>
               emblem: widget.viewModel.leagues?[index]?.banner,
               members: widget.viewModel.leagues?[index]?.members?.length,
               capacity: widget.viewModel.leagues?[index]?.capacity,
-              hasMembership: isLeagueMember(widget.viewModel.leagues?[index]),
+              hasMembership:
+                  hasLeagueMembership(widget.viewModel.leagues?[index]),
               tags: widget.viewModel.tags,
               leagueTags: widget.viewModel.leagues?[index]?.tags,
               onPressed: () {

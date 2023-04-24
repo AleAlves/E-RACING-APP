@@ -16,6 +16,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/domain/share_model.dart';
+import '../../../core/ext/access_extension.dart';
 import '../../LeagueRouter.dart';
 import '../../list/data/league_model.dart';
 import '../../member/data/league_members_model.dart';
@@ -53,6 +54,12 @@ abstract class _LeagueDetailViewModel
   @override
   @observable
   String? title = "";
+
+  @observable
+  bool hasMembership = false;
+
+  @observable
+  bool membershipIsReady = false;
 
   @override
   @observable
@@ -103,7 +110,7 @@ abstract class _LeagueDetailViewModel
     await updateUseCase.params(league: league, media: media).invoke(
         success: (data) {
           status = data;
-          // setFlow(LeagueFlow.status);
+          onNavigate(LeagueDetailNavigationSet.status);
         },
         error: onError);
   }
@@ -136,6 +143,8 @@ abstract class _LeagueDetailViewModel
         .invoke(
             success: (data) {
               league = data;
+              membershipIsReady = true;
+              hasMembership = hasLeagueMembership(league);
               share = ShareModel(
                   route: LeagueRouter.detail,
                   leagueId: league?.id,
@@ -152,33 +161,37 @@ abstract class _LeagueDetailViewModel
     deleteUseCase.params(id: Session.instance.getLeagueId().toString()).invoke(
         success: (data) {
           status = data;
-          // setFlow(LeagueFlow.status);
         },
         error: onError);
   }
 
   Future<void> startMembership() async {
-    state = ViewState.loading;
+    membershipIsReady = false;
     startMembershipUseCase
         .build(leagueId: Session.instance.getLeagueId().toString())
         .invoke(
             success: (data) {
               status = data;
-              // setFlow(LeagueFlow.status);
+              _updateMembership(true);
             },
             error: onError);
   }
 
   Future<void> stopMembership() async {
-    state = ViewState.loading;
+    membershipIsReady = false;
     stopMembershipUseCase
         .build(leagueId: Session.instance.getLeagueId().toString())
         .invoke(
             success: (data) {
               status = data;
-              // setFlow(LeagueFlow.status);
+              _updateMembership(false);
             },
             error: onError);
+  }
+
+  _updateMembership(bool isMember) {
+    hasMembership = isMember;
+    membershipIsReady = true;
   }
 
   void getMenu() {
@@ -204,7 +217,7 @@ abstract class _LeagueDetailViewModel
     removeMemberUseCase.req(memberId: id, leagueId: league?.id ?? '').invoke(
         success: (data) {
           status = data;
-          // setFlow(LeagueFlow.status);
+          onNavigate(LeagueDetailNavigationSet.status);
         },
         error: onError);
   }
@@ -213,7 +226,7 @@ abstract class _LeagueDetailViewModel
     if (shortcut?.deepLink != null) {
       Modular.to.pushNamed(shortcut?.deepLink);
     } else if (shortcut?.flow != null) {
-      // setFlow(shortcut?.flow);
+      onNavigate(shortcut?.flow);
     }
   }
 

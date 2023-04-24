@@ -1,4 +1,3 @@
-import 'package:e_racing_app/core/ext/access_extension.dart';
 import 'package:e_racing_app/core/ext/event_iconography_extension.dart';
 import 'package:e_racing_app/core/navigation/routes.dart';
 import 'package:e_racing_app/core/tools/session.dart';
@@ -188,9 +187,10 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 4, bottom: 8),
       child: MembershipActionWidget(
-        leagueModel: widget.viewModel.league,
+        hasMembership: widget.viewModel.hasMembership,
+        isReady: widget.viewModel.membershipIsReady,
         onStartMembership: () {
-          widget.viewModel.stopMembership();
+          widget.viewModel.startMembership();
         },
         onStopMembership: () {
           confirmationDialogExt(
@@ -202,7 +202,6 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
             },
           );
         },
-        isMember: isLeagueMember(widget.viewModel.league),
       ),
     );
   }
