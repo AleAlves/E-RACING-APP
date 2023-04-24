@@ -5,10 +5,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/ui/component/ui/share_widget.dart';
 import '../league_view_model.dart';
-import 'navigation/league_flow.dart';
+import 'navigation/league_member_navigation.dart';
 
 class LeagueScreen extends StatefulWidget {
-  final LeagueFlow flow;
+  final LeagueDetailNavigationSet flow;
 
   const LeagueScreen(this.flow, {Key? key}) : super(key: key);
 
@@ -46,6 +46,6 @@ class _LeagueScreenState extends State<LeagueScreen> implements BaseScreen {
 
   @override
   Widget navigate() {
-    return LeagueNavigation.flow(viewModel);
+    return LeagueMemberNavigation.flow(viewModel);
   }
 }

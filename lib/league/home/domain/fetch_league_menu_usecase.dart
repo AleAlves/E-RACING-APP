@@ -1,9 +1,8 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/navigation/routes.dart';
+import 'package:e_racing_app/league/LeagueRouter.dart';
 import 'package:flutter/material.dart';
-
-import '../presentation/ui/navigation/league_flow.dart';
 
 class FetchLeagueMenuUseCase<T> extends BaseUseCase<T?> {
   @override
@@ -19,7 +18,7 @@ class FetchLeagueMenuUseCase<T> extends BaseUseCase<T?> {
         title: "Members",
         subtitle: "Drivers of this community",
         icon: Icons.supervised_user_circle,
-        flow: LeagueFlow.members));
+        deepLink: LeagueRouter.members));
     menu.add(ShortcutModel(
         title: "Trophy room",
         subtitle: "The hall of honor of the champions of this community",

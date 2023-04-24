@@ -1,23 +1,22 @@
-import 'package:e_racing_app/core/ext/access_extension.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/league_member_card_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../league_view_model.dart';
-import '../navigation/league_member_navigation.dart';
+import '../league_member_view_model.dart';
 
-class LeagueMembersWidget extends StatefulWidget {
-  final LeagueViewModel viewModel;
+class LeagueMembersView extends StatefulWidget {
+  final LeagueMemberViewModel viewModel;
 
-  const LeagueMembersWidget(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueMembersView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _LeagueMembersWidgetState createState() => _LeagueMembersWidgetState();
+  _LeagueMembersViewState createState() => _LeagueMembersViewState();
 }
 
-class _LeagueMembersWidgetState extends State<LeagueMembersWidget>
+class _LeagueMembersViewState extends State<LeagueMembersView>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -45,7 +44,7 @@ class _LeagueMembersWidgetState extends State<LeagueMembersWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(LeagueDetailNavigationSet.detail);
+    Modular.to.pop();
     return false;
   }
 
@@ -61,7 +60,7 @@ class _LeagueMembersWidgetState extends State<LeagueMembersWidget>
             itemBuilder: (context, index) {
               return LeagueMemberCardWidget(
                 member: widget.viewModel.members?[index],
-                isHost: isLeagueManager(widget.viewModel.league),
+                isHost: true,
                 onRemove: (id) {
                   widget.viewModel.removeMember(id ?? '');
                 },

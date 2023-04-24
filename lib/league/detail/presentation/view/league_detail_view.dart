@@ -19,19 +19,18 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../core/ext/dialog_extension.dart';
-import '../../league_view_model.dart';
-import '../navigation/league_flow.dart';
+import '../league_detail_view_model.dart';
 
-class LeagueDetailWidget extends StatefulWidget {
-  final LeagueViewModel viewModel;
+class LeagueDetailView extends StatefulWidget {
+  final LeagueDetailViewModel viewModel;
 
-  const LeagueDetailWidget(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueDetailView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _LeagueDetailWidgetState createState() => _LeagueDetailWidgetState();
+  _LeagueDetailViewState createState() => _LeagueDetailViewState();
 }
 
-class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
+class _LeagueDetailViewState extends State<LeagueDetailView>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -61,7 +60,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
         icon: Icons.build,
         title: "Edit",
         onPressed: () {
-          widget.viewModel.setFlow(LeagueFlow.edit);
+          // widget.viewModel.setFlow(LeagueFlow.edit);
         },
       ),
     );
@@ -256,7 +255,7 @@ class _LeagueDetailWidgetState extends State<LeagueDetailWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(LeagueFlow.list);
+    // widget.viewModel.setFlow(LeagueFlow.list);
     return true;
   }
 }

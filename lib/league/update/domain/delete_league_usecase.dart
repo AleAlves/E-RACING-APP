@@ -4,7 +4,6 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
 import '../../../core/model/pair_model.dart';
-import '../../home/presentation/ui/navigation/league_flow.dart';
 
 class DeleteLeagueUseCase<T> extends BaseUseCase {
   late String _id;
@@ -21,8 +20,9 @@ class DeleteLeagueUseCase<T> extends BaseUseCase {
         verb: HTTPVerb.delete,
         params: HTTPRequesParams(query: Pair("id", _id))));
     if (response.isSuccessfully) {
-      success.call(StatusModel(
-          message: "League Deleted", action: "Ok", next: LeagueFlow.list) as T);
+      success.call(
+          StatusModel(message: "League Deleted", action: "Ok", next: null)
+              as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

@@ -1,14 +1,12 @@
 import 'package:e_racing_app/core/model/event_model.dart';
-import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/shortcut_model.dart';
 import 'package:e_racing_app/core/model/social_platform_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
+import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/league/create/domain/create_league_usecase.dart';
-import 'package:e_racing_app/league/home/presentation/ui/navigation/league_member_navigation.dart';
 import 'package:e_racing_app/league/update/domain/delete_league_usecase.dart';
 import 'package:e_racing_app/league/update/domain/upate_league_usecase.dart';
 import 'package:e_racing_app/media/get_media.usecase.dart';
@@ -19,23 +17,25 @@ import 'package:mobx/mobx.dart';
 
 import '../../../core/domain/share_model.dart';
 import '../../LeagueRouter.dart';
-import '../../list/domain/fetch_league_usecase.dart';
-import '../data/league_members_model.dart';
-import '../domain/fetch_league_menu_usecase.dart';
-import '../domain/fetch_player_events_use_case.dart';
-import '../domain/get_league_usecase.dart';
-import '../domain/get_members_usecase.dart';
-import '../domain/model/league_model.dart';
-import '../domain/remove_member_usecase.dart';
-import '../domain/start_membership_usecase.dart';
-import '../domain/stop_membership_usecase.dart';
+import '../../home/data/league_members_model.dart';
+import '../../home/domain/fetch_league_menu_usecase.dart';
+import '../../home/domain/fetch_player_events_use_case.dart';
+import '../../home/domain/get_league_usecase.dart';
+import '../../home/domain/get_members_usecase.dart';
+import '../../home/domain/model/league_model.dart';
+import '../../home/domain/remove_member_usecase.dart';
+import '../../home/domain/start_membership_usecase.dart';
+import '../../home/domain/stop_membership_usecase.dart';
+import 'navigation/league_detail_navigation.dart';
 
-part 'league_view_model.g.dart';
+part 'league_detail_view_model.g.dart';
 
-class LeagueViewModel = _LeagueViewModel with _$LeagueViewModel;
+class LeagueDetailViewModel = _LeagueDetailViewModel
+    with _$LeagueDetailViewModel;
 
-abstract class _LeagueViewModel with Store {
-  _LeagueViewModel();
+abstract class _LeagueDetailViewModel
+    extends BaseViewModel<LeagueDetailNavigationSet> with Store {
+  _LeagueDetailViewModel();
 
   @observable
   LeagueModel? league;
@@ -46,12 +46,19 @@ abstract class _LeagueViewModel with Store {
   @observable
   MediaModel? media;
 
+  @override
   @observable
   StatusModel? status;
 
+  @override
   @observable
-  LeagueDetailNavigationSet flow = LeagueDetailNavigationSet.edit;
+  String? title = "";
 
+  @override
+  @observable
+  LeagueDetailNavigationSet? flow = LeagueDetailNavigationSet.main;
+
+  @override
   @observable
   ViewState state = ViewState.ready;
 
@@ -73,8 +80,6 @@ abstract class _LeagueViewModel with Store {
   @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
 
-  final fetchUseCase = Modular.get<FetchLeagueUseCase<List<LeagueModel>>>();
-  final createUseCase = Modular.get<CreateLeagueUseCase<StatusModel>>();
   final updateUseCase = Modular.get<UpdateLeagueUseCase<StatusModel>>();
   final removeMemberUseCase = Modular.get<RemoveMemberUseCase<StatusModel>>();
   final getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
@@ -93,31 +98,12 @@ abstract class _LeagueViewModel with Store {
   final fetchPlayersEventUseCase =
       Modular.get<FetchPlayerEventsUseCase<List<EventModel>>>();
 
-  Future<void> create(String name, String description, String banner,
-      String emblem, List<String?> tags, List<LinkModel?> links) async {
-    state = ViewState.loading;
-    await createUseCase
-        .build(
-            league: LeagueModel(
-                name: name,
-                description: description,
-                banner: emblem,
-                tags: tags,
-                links: links))
-        .invoke(
-            success: (data) {
-              status = data;
-              setFlow(LeagueDetailNavigationSet.status);
-            },
-            error: onError);
-  }
-
   void update(LeagueModel league, MediaModel media) async {
     state = ViewState.loading;
     await updateUseCase.params(league: league, media: media).invoke(
         success: (data) {
           status = data;
-          setFlow(LeagueDetailNavigationSet.status);
+          // setFlow(LeagueFlow.status);
         },
         error: onError);
   }
@@ -166,7 +152,7 @@ abstract class _LeagueViewModel with Store {
     deleteUseCase.params(id: Session.instance.getLeagueId().toString()).invoke(
         success: (data) {
           status = data;
-          setFlow(LeagueDetailNavigationSet.status);
+          // setFlow(LeagueFlow.status);
         },
         error: onError);
   }
@@ -178,7 +164,7 @@ abstract class _LeagueViewModel with Store {
         .invoke(
             success: (data) {
               status = data;
-              setFlow(LeagueDetailNavigationSet.status);
+              // setFlow(LeagueFlow.status);
             },
             error: onError);
   }
@@ -190,7 +176,7 @@ abstract class _LeagueViewModel with Store {
         .invoke(
             success: (data) {
               status = data;
-              setFlow(LeagueDetailNavigationSet.status);
+              // setFlow(LeagueFlow.status);
             },
             error: onError);
   }
@@ -218,16 +204,16 @@ abstract class _LeagueViewModel with Store {
     removeMemberUseCase.req(memberId: id, leagueId: league?.id ?? '').invoke(
         success: (data) {
           status = data;
-          setFlow(LeagueDetailNavigationSet.status);
+          // setFlow(LeagueFlow.status);
         },
         error: onError);
   }
 
   void deeplink(ShortcutModel? shortcut) {
     if (shortcut?.deepLink != null) {
-      Modular.to.pushNamed(shortcut?.deepLink ?? '');
+      Modular.to.pushNamed(shortcut?.deepLink);
     } else if (shortcut?.flow != null) {
-      setFlow(shortcut?.flow);
+      // setFlow(shortcut?.flow);
     }
   }
 
@@ -239,20 +225,5 @@ abstract class _LeagueViewModel with Store {
               playerEvents = ObservableList.of(data);
             },
             error: onError);
-  }
-
-  void onError() {
-    status = StatusModel(
-      message: "Something went wrong",
-      action: "Ok",
-      next: LeagueDetailNavigationSet.edit,
-      previous: flow,
-    );
-    state = ViewState.ready;
-    flow = LeagueDetailNavigationSet.status;
-  }
-
-  void setFlow(LeagueDetailNavigationSet flow) {
-    this.flow = flow;
   }
 }

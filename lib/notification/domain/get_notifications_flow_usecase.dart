@@ -2,6 +2,7 @@ import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/navigation/routes.dart';
 
 import '../../core/tools/session.dart';
+import '../../league/LeagueRouter.dart';
 import 'model/notification_model.dart';
 
 class GetNotificationsFlowUseCase<T> extends BaseUseCase<T?> {
@@ -34,7 +35,7 @@ class GetNotificationsFlowUseCase<T> extends BaseUseCase<T?> {
           break;
         case NotificationTypeModel.league:
           Session.instance.setLeagueId(doc.sourceId);
-          leagueAction = Routes.league;
+          leagueAction = LeagueRouter.detail;
           break;
         case NotificationTypeModel.profile:
           action = Routes.profile;

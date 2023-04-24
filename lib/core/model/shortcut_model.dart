@@ -5,7 +5,7 @@ class ShortcutModel {
   final String subtitle;
   final IconData icon;
   final dynamic flow;
-  final String? deepLink;
+  final dynamic deepLink;
   final bool? highlight;
 
   ShortcutModel(

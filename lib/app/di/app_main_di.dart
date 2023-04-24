@@ -2,13 +2,15 @@ import 'package:e_racing_app/core/navigation/routes.dart';
 import 'package:e_racing_app/event/di/event_di.dart';
 import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
 import 'package:e_racing_app/home/di/home_di.dart';
+import 'package:e_racing_app/league/detail/di/league_detail_di.dart';
 import 'package:e_racing_app/profile/di/profile_di.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../event/create/di/event_create_di.dart';
+import '../../league/LeagueRouter.dart';
 import '../../league/create/di/league_create_di.dart';
-import '../../league/home/di/league_di.dart';
-import '../../league/home/presentation/ui/navigation/league_flow.dart';
+import '../../league/list/di/league_list_di.dart';
+import '../../league/member/di/league_member_di.dart';
 import '../../login/login_router.dart';
 import '../../login/onboard/di/login_onboard_di.dart';
 import '../../login/recovery/di/login_password_recovery_di.dart';
@@ -38,10 +40,13 @@ class AppMainModule extends Module {
             module: LoginPasswordRecoveryModule()),
 
         ModuleRoute(Routes.home, module: HomeModule()),
-        ModuleRoute(Routes.leagues, module: LeagueModule()),
-        ModuleRoute(Routes.leagueCreation, module: LeagueCreateModule()),
-        ModuleRoute(Routes.league,
-            module: LeagueModule(flow: LeagueFlow.detail)),
+
+        //League
+        ModuleRoute(LeagueRouter.list, module: LeagueListModule()),
+        ModuleRoute(LeagueRouter.create, module: LeagueCreateModule()),
+        ModuleRoute(LeagueRouter.detail, module: LeagueDetailModule()),
+        ModuleRoute(LeagueRouter.members, module: LeagueMemberModule()),
+
         ModuleRoute(Routes.event,
             module: EventModule(flow: EventFlow.eventDetail)),
         ModuleRoute(Routes.eventFilter,

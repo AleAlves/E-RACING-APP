@@ -10,9 +10,9 @@ import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../list/domain/fetch_league_usecase.dart';
 import '../data/league_members_model.dart';
 import '../domain/fetch_league_menu_usecase.dart';
-import '../domain/fetch_league_usecase.dart';
 import '../domain/fetch_player_events_use_case.dart';
 import '../domain/get_league_usecase.dart';
 import '../domain/get_members_usecase.dart';
@@ -22,12 +22,12 @@ import '../domain/start_membership_usecase.dart';
 import '../domain/stop_membership_usecase.dart';
 import '../presentation/league_view_model.dart';
 import '../presentation/ui/league_screen.dart';
-import '../presentation/ui/navigation/league_flow.dart';
+import '../presentation/ui/navigation/league_member_navigation.dart';
 
 class LeagueModule extends Module {
-  final LeagueFlow flow;
+  final LeagueDetailNavigationSet flow;
 
-  LeagueModule({this.flow = LeagueFlow.list});
+  LeagueModule({this.flow = LeagueDetailNavigationSet.detail});
 
   @override
   List<Bind> get binds => [

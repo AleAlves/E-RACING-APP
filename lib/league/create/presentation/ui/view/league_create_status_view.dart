@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../../../core/navigation/routes.dart';
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/button_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
+import '../../../../LeagueRouter.dart';
 import '../../league_create_view_model.dart';
 
 class LeagueCreateStatusView extends StatefulWidget {
@@ -87,7 +87,7 @@ class _LeagueCreateStatusViewState extends State<LeagueCreateStatusView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        Modular.to.pushNamed(Routes.leagues);
+        Modular.to.pushNamed(LeagueRouter.list);
       },
       label: widget.viewModel.status?.action,
     );

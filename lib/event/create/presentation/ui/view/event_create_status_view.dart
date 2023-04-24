@@ -1,8 +1,8 @@
+import 'package:e_racing_app/league/LeagueRouter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../../../core/navigation/routes.dart';
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/button_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
@@ -87,7 +87,7 @@ class _EventCreateStatusViewState extends State<EventCreateStatusView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        Modular.to.pushNamed(Routes.league);
+        Modular.to.pushNamed(LeagueRouter.detail);
       },
       label: widget.viewModel.status?.action,
     );

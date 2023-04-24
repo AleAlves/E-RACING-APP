@@ -21,7 +21,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../home/domain/model/league_model.dart';
 import '../../home/presentation/league_view_model.dart';
-import '../../home/presentation/ui/navigation/league_flow.dart';
+import '../../home/presentation/ui/navigation/league_member_navigation.dart';
 
 class LeagueUpdateWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
@@ -70,7 +70,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
         icon: Icons.delete,
         title: "Delete",
         onPressed: () {
-          widget.viewModel.setFlow(LeagueFlow.delete);
+          widget.viewModel.setFlow(LeagueDetailNavigationSet.delete);
         },
       ),
     );
@@ -445,7 +445,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(LeagueFlow.detail);
+    widget.viewModel.setFlow(LeagueDetailNavigationSet.detail);
     return false;
   }
 }

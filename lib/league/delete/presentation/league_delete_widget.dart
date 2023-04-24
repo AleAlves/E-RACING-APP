@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../home/presentation/league_view_model.dart';
-import '../../home/presentation/ui/navigation/league_flow.dart';
+import '../../home/presentation/ui/navigation/league_member_navigation.dart';
 
 class LeagueDeleteWidget extends StatefulWidget {
   final LeagueViewModel viewModel;
@@ -59,7 +59,7 @@ class _LeagueDeleteWidgetState extends State<LeagueDeleteWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(LeagueFlow.detail);
+    widget.viewModel.setFlow(LeagueDetailNavigationSet.detail);
     return false;
   }
 

@@ -1,32 +1,30 @@
-import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/league_card_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../../../core/ext/access_extension.dart';
-import '../../../../../core/navigation/routes.dart';
-import '../../league_view_model.dart';
-import '../navigation/league_flow.dart';
+import '../../../../core/ext/access_extension.dart';
+import '../../../../core/tools/session.dart';
+import '../../../../core/ui/component/ui/float_action_button_widget.dart';
+import '../../../../core/ui/component/ui/league_card_widget.dart';
+import '../../../LeagueRouter.dart';
+import '../league_list_view_model.dart';
 
-class LeagueListWidget extends StatefulWidget {
-  final LeagueViewModel viewModel;
+class LeagueListView extends StatefulWidget {
+  final LeagueListViewModel viewModel;
 
-  const LeagueListWidget(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueListView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _LeagueListWidgetState createState() => _LeagueListWidgetState();
+  _LeagueListViewState createState() => _LeagueListViewState();
 }
 
-class _LeagueListWidgetState extends State<LeagueListWidget>
+class _LeagueListViewState extends State<LeagueListView>
     implements BaseSateWidget {
   @override
   void initState() {
     widget.viewModel.fetchLeagues();
-    widget.viewModel.fetchTags();
     super.initState();
   }
 
@@ -50,8 +48,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
           icon: Icons.add,
           title: "Create new",
           onPressed: () {
-            // widget.viewModel.setFlow(LeagueFlow.create);
-            Modular.to.pushNamed(Routes.leagueCreation);
+            Modular.to.pushNamed(LeagueRouter.create);
           },
         ));
   }
@@ -80,9 +77,9 @@ class _LeagueListWidgetState extends State<LeagueListWidget>
               tags: widget.viewModel.tags,
               leagueTags: widget.viewModel.leagues?[index]?.tags,
               onPressed: () {
-                Session.instance
-                    .setLeagueId(widget.viewModel.leagues?[index]?.id);
-                widget.viewModel.setFlow(LeagueFlow.detail);
+                var id = widget.viewModel.leagues?[index]?.id;
+                Session.instance.setLeagueId(id);
+                Modular.to.pushNamed(LeagueRouter.detail);
               });
         },
       ),

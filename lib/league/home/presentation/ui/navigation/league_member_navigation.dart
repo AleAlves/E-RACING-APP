@@ -3,13 +3,9 @@ import 'package:e_racing_app/league/update/presentation/league_update_widget.dar
 import 'package:flutter/cupertino.dart';
 
 import '../../league_view_model.dart';
-import '../widget/league_detail_widget.dart';
-import '../widget/league_list_widget.dart';
 import '../widget/league_members_widget.dart';
-import '../widget/league_status_widget.dart';
 
-enum LeagueFlow {
-  list,
+enum LeagueDetailNavigationSet {
   create,
   edit,
   delete,
@@ -20,23 +16,19 @@ enum LeagueFlow {
   members
 }
 
-extension LeagueNavigation on LeagueFlow {
+extension LeagueMemberNavigation on LeagueDetailNavigationSet {
   static Widget flow(LeagueViewModel vm) {
     switch (vm.flow) {
-      case LeagueFlow.list:
-        return LeagueListWidget(vm);
-      case LeagueFlow.detail:
-        return LeagueDetailWidget(vm);
-      case LeagueFlow.edit:
+      case LeagueDetailNavigationSet.edit:
         return LeagueUpdateWidget(vm);
-      case LeagueFlow.delete:
+      case LeagueDetailNavigationSet.delete:
         return LeagueDeleteWidget(vm);
-      case LeagueFlow.status:
-        return LeagueStatusWidget(vm);
-      case LeagueFlow.members:
+      case LeagueDetailNavigationSet.members:
         return LeagueMembersWidget(vm);
+      case LeagueDetailNavigationSet.status:
+        return Container();
       default:
-        return LeagueListWidget(vm);
+        return Container();
     }
   }
 }

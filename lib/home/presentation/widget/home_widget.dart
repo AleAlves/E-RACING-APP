@@ -15,6 +15,7 @@ import '../../../core/tools/session.dart';
 import '../../../core/ui/component/state/loading_shimmer.dart';
 import '../../../core/ui/component/ui/icon_widget.dart';
 import '../../../core/ui/component/ui/league_card_small_widget.dart';
+import '../../../league/LeagueRouter.dart';
 import '../home_view_model.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -149,7 +150,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: LeaguesCardWidget(onPressed: () {
-            Modular.to.pushNamed(Routes.leagues);
+            Modular.to.pushNamed(LeagueRouter.list);
           }),
         ),
         Padding(
@@ -186,7 +187,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
                   emblem: widget.vm.leagues?[index]?.banner,
                   onPressed: () {
                     Session.instance.setLeagueId(widget.vm.leagues?[index]?.id);
-                    Modular.to.pushNamed(Routes.league);
+                    Modular.to.pushNamed(LeagueRouter.detail);
                   });
             },
           ),
