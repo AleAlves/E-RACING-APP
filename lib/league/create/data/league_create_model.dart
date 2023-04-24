@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../home/domain/model/league_model.dart';
+import '../../list/data/league_model.dart';
 
 part 'league_create_model.g.dart';
 

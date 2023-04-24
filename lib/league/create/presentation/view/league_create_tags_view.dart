@@ -6,8 +6,8 @@ import '../../../../../core/ui/component/ui/button_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
-import '../../league_create_view_model.dart';
-import '../../navigation/league_create_flow.dart';
+import '../league_create_view_model.dart';
+import '../navigation/league_create_flow.dart';
 
 class LeagueCreateTagsView extends StatefulWidget {
   final LeagueCreateViewModel viewModel;

@@ -1,10 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../core/model/status_model.dart';
-import '../../home/data/league_members_model.dart';
-import '../../home/domain/get_members_usecase.dart';
-import '../../home/domain/remove_member_usecase.dart';
-import '../../home/presentation/league_member_screen.dart';
+import '../data/league_members_model.dart';
+import '../domain/get_members_usecase.dart';
+import '../domain/remove_member_usecase.dart';
+import '../presentation/league_member_screen.dart';
 import '../presentation/league_member_view_model.dart';
 import '../presentation/navigation/league_member_navigation.dart';
 

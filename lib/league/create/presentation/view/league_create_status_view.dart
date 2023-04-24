@@ -7,8 +7,8 @@ import '../../../../../core/ui/component/ui/button_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
-import '../../../../LeagueRouter.dart';
-import '../../league_create_view_model.dart';
+import '../../../LeagueRouter.dart';
+import '../league_create_view_model.dart';
 
 class LeagueCreateStatusView extends StatefulWidget {
   final LeagueCreateViewModel viewModel;

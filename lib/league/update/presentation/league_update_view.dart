@@ -19,20 +19,20 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../home/domain/model/league_model.dart';
-import '../../home/presentation/league_view_model.dart';
-import '../../home/presentation/ui/navigation/league_member_navigation.dart';
+import '../../detail/presentation/league_detail_view_model.dart';
+import '../../detail/presentation/navigation/league_detail_navigation.dart';
+import '../../list/data/league_model.dart';
 
-class LeagueUpdateWidget extends StatefulWidget {
-  final LeagueViewModel viewModel;
+class LeagueUpdateView extends StatefulWidget {
+  final LeagueDetailViewModel viewModel;
 
-  const LeagueUpdateWidget(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueUpdateView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _LeagueUpdateWidgetState createState() => _LeagueUpdateWidgetState();
+  _LeagueUpdateViewState createState() => _LeagueUpdateViewState();
 }
 
-class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
+class _LeagueUpdateViewState extends State<LeagueUpdateView>
     implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
@@ -70,7 +70,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
         icon: Icons.delete,
         title: "Delete",
         onPressed: () {
-          widget.viewModel.setFlow(LeagueDetailNavigationSet.delete);
+          widget.viewModel.onNavigate(LeagueDetailNavigationSet.main);
         },
       ),
     );
@@ -445,7 +445,7 @@ class _LeagueUpdateWidgetState extends State<LeagueUpdateWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(LeagueDetailNavigationSet.detail);
+    widget.viewModel.onNavigate(LeagueDetailNavigationSet.main);
     return false;
   }
 }

@@ -2,9 +2,9 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
+import 'package:e_racing_app/league/member/presentation/navigation/league_member_navigation.dart';
 
 import '../data/remove_member_model.dart';
-import '../presentation/ui/navigation/league_member_navigation.dart';
 
 class RemoveMemberUseCase<T> extends BaseUseCase<T> {
   late String _memberId;
@@ -28,7 +28,7 @@ class RemoveMemberUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Member successfully removed",
           action: "Ok",
-          next: LeagueDetailNavigationSet.members) as T);
+          next: LeagueMemberNavigationSet.main) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

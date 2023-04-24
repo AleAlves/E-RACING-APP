@@ -17,15 +17,15 @@ import 'package:mobx/mobx.dart';
 
 import '../../../core/domain/share_model.dart';
 import '../../LeagueRouter.dart';
-import '../../home/data/league_members_model.dart';
-import '../../home/domain/fetch_league_menu_usecase.dart';
-import '../../home/domain/fetch_player_events_use_case.dart';
-import '../../home/domain/get_league_usecase.dart';
-import '../../home/domain/get_members_usecase.dart';
-import '../../home/domain/model/league_model.dart';
-import '../../home/domain/remove_member_usecase.dart';
-import '../../home/domain/start_membership_usecase.dart';
-import '../../home/domain/stop_membership_usecase.dart';
+import '../../list/data/league_model.dart';
+import '../../member/data/league_members_model.dart';
+import '../../member/domain/get_members_usecase.dart';
+import '../../member/domain/remove_member_usecase.dart';
+import '../domain/fetch_league_menu_usecase.dart';
+import '../domain/fetch_player_events_use_case.dart';
+import '../domain/get_league_usecase.dart';
+import '../domain/start_membership_usecase.dart';
+import '../domain/stop_membership_usecase.dart';
 import 'navigation/league_detail_navigation.dart';
 
 part 'league_detail_view_model.g.dart';

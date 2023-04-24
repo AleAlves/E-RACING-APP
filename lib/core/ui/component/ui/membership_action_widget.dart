@@ -1,7 +1,7 @@
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../league/home/domain/model/league_model.dart';
+import '../../../../league/list/data/league_model.dart';
 import 'button_widget.dart';
 
 class MembershipActionWidget extends StatefulWidget {

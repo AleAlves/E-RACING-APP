@@ -11,7 +11,7 @@ import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../home/domain/model/league_model.dart';
+import '../../list/data/league_model.dart';
 
 part 'league_create_view_model.g.dart';
 

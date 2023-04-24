@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../tag/get_tag_usecase.dart';
-import '../../home/domain/model/league_model.dart';
+import '../data/league_model.dart';
 import '../domain/fetch_league_usecase.dart';
 import '../presentation/league_list_screen.dart';
 import '../presentation/league_list_view_model.dart';

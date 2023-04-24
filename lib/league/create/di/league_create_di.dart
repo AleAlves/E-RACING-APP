@@ -4,9 +4,9 @@ import 'package:e_racing_app/social/get_social_media_usecase.dart';
 import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../presentation/league_create_screen.dart';
 import '../presentation/league_create_view_model.dart';
 import '../presentation/navigation/league_create_flow.dart';
-import '../presentation/ui/league_create_screen.dart';
 
 class LeagueCreateModule extends Module {
   final LeagueCreateNavigator flow;

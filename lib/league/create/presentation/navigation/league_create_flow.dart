@@ -1,14 +1,14 @@
-import 'package:e_racing_app/league/create/presentation/ui/view/league_create_name_view.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../league_create_view_model.dart';
-import '../ui/view/league_create_banner_view.dart';
-import '../ui/view/league_create_description_view.dart';
-import '../ui/view/league_create_review_view.dart';
-import '../ui/view/league_create_social_media_view.dart';
-import '../ui/view/league_create_status_view.dart';
-import '../ui/view/league_create_tags_view.dart';
-import '../ui/view/league_create_terms_view.dart';
+import '../view/league_create_banner_view.dart';
+import '../view/league_create_description_view.dart';
+import '../view/league_create_name_view.dart';
+import '../view/league_create_review_view.dart';
+import '../view/league_create_social_media_view.dart';
+import '../view/league_create_status_view.dart';
+import '../view/league_create_tags_view.dart';
+import '../view/league_create_terms_view.dart';
 
 enum LeagueCreateNavigator {
   terms,

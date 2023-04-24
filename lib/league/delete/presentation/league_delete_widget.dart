@@ -7,11 +7,11 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../home/presentation/league_view_model.dart';
-import '../../home/presentation/ui/navigation/league_member_navigation.dart';
+import '../../detail/presentation/league_detail_view_model.dart';
+import '../../detail/presentation/navigation/league_detail_navigation.dart';
 
 class LeagueDeleteWidget extends StatefulWidget {
-  final LeagueViewModel viewModel;
+  final LeagueDetailViewModel viewModel;
 
   const LeagueDeleteWidget(this.viewModel, {Key? key}) : super(key: key);
 
@@ -59,7 +59,7 @@ class _LeagueDeleteWidgetState extends State<LeagueDeleteWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(LeagueDetailNavigationSet.detail);
+    widget.viewModel.onNavigate(LeagueDetailNavigationSet.main);
     return false;
   }
 

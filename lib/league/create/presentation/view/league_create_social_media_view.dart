@@ -10,8 +10,8 @@ import '../../../../../core/ui/component/ui/input_text_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
-import '../../league_create_view_model.dart';
-import '../../navigation/league_create_flow.dart';
+import '../league_create_view_model.dart';
+import '../navigation/league_create_flow.dart';
 
 class LeagueCreateSocialMediaView extends StatefulWidget {
   final LeagueCreateViewModel viewModel;

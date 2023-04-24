@@ -2,7 +2,7 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
-import '../../home/domain/model/league_model.dart';
+import '../data/league_model.dart';
 
 class FetchLeagueUseCase<T> extends BaseUseCase<T?> {
   @override

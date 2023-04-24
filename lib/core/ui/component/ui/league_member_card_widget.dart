@@ -6,7 +6,7 @@ import 'package:e_racing_app/core/ui/component/ui/chip_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../league/home/data/league_members_model.dart';
+import '../../../../league/member/data/league_members_model.dart';
 import '../../../ext/dialog_extension.dart';
 import 'button_widget.dart';
 import 'spacing_widget.dart';

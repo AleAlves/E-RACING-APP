@@ -4,7 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/view_state.dart';
-import '../../league_create_view_model.dart';
+import '../league_create_view_model.dart';
 
 class LeagueCreateNameView extends StatefulWidget {
   final LeagueCreateViewModel viewModel;

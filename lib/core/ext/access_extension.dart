@@ -2,7 +2,7 @@ import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 
-import '../../league/home/domain/model/league_model.dart';
+import '../../league/list/data/league_model.dart';
 
 bool isSubscriber(List<ClassesModel?>? classes) {
   if (classes == null) return false;

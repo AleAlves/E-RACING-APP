@@ -7,7 +7,7 @@ import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
-import '../../league_create_view_model.dart';
+import '../league_create_view_model.dart';
 
 class LeagueCreateTermsView extends StatefulWidget {
   final LeagueCreateViewModel viewModel;

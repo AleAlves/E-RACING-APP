@@ -6,9 +6,9 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../home/data/league_members_model.dart';
-import '../../home/domain/get_members_usecase.dart';
-import '../../home/domain/remove_member_usecase.dart';
+import '../data/league_members_model.dart';
+import '../domain/get_members_usecase.dart';
+import '../domain/remove_member_usecase.dart';
 import 'navigation/league_member_navigation.dart';
 
 part 'league_member_view_model.g.dart';

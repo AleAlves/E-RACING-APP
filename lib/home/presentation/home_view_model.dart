@@ -7,7 +7,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../core/service/api_exception.dart';
-import '../../league/home/domain/model/league_model.dart';
+import '../../league/list/data/league_model.dart';
 import '../../league/list/domain/fetch_league_usecase.dart';
 import '../../notification/domain/get_notifications_count_usecase.dart';
 

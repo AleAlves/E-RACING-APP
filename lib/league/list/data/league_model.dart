@@ -1,7 +1,7 @@
 import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'membership_model.dart';
+import '../../member/data/membership_model.dart';
 
 part 'league_model.g.dart';
 

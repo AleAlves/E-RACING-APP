@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../league_create_view_model.dart';
-import '../navigation/league_create_flow.dart';
+import 'league_create_view_model.dart';
+import 'navigation/league_create_flow.dart';
 
 class LeagueCreateScreen extends StatefulWidget {
   final LeagueCreateNavigator flow;
