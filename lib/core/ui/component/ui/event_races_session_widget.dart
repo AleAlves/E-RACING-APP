@@ -6,7 +6,7 @@ import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../event/presentation/ui/model/championship_races_model.dart';
+import '../../../../event/core/presentation/ui/model/championship_races_model.dart';
 import 'button_widget.dart';
 import 'spacing_widget.dart';
 

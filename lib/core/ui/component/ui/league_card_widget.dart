@@ -82,10 +82,14 @@ class LeagueCardWidget extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TextWidget(
-            text: label,
-            style: Style.title,
-            align: TextAlign.left,
+          child: Row(
+            children: [
+              TextWidget(
+                text: label,
+                style: Style.title,
+                align: TextAlign.left,
+              ),
+            ],
           ),
         ),
       ],

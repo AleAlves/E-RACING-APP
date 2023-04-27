@@ -70,6 +70,7 @@ class EventCardWidget extends StatelessWidget {
               drivers(),
               const SpacingWidget(LayoutSize.size4),
               subscriptionsStatus(context),
+              const SpacingWidget(LayoutSize.size16),
             ],
           ),
         ),

@@ -3,18 +3,16 @@ import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/event/data/event_teams_standings_model.dart';
 import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../event/core/data/event_teams_standings_model.dart';
 import 'icon_widget.dart';
 
 class TeamsStandingsWidget extends StatefulWidget {
   final EventTeamsStandingsModel? standings;
 
-  const TeamsStandingsWidget(
-      {Key? key,
-      required this.standings})
+  const TeamsStandingsWidget({Key? key, required this.standings})
       : super(key: key);
 
   @override
@@ -74,7 +72,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
       ready: true,
       shapeLess: true,
       padding: EdgeInsets.zero,
-      onPressed: (){
+      onPressed: () {
         showResume(teamStanding);
       },
       child: Container(
@@ -104,10 +102,10 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                   child: Wrap(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 16, bottom: 16, left: 8),
+                        padding:
+                            const EdgeInsets.only(top: 16, bottom: 16, left: 8),
                         child: TextWidget(
-                          text:
-                          "${teamStanding?.team?.name}",
+                          text: "${teamStanding?.team?.name}",
                           style: Style.paragraph,
                           align: TextAlign.center,
                         ),
@@ -127,7 +125,10 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                     ),
                   ],
                 ),
-                const IconWidget(icon: Icons.chevron_right, borderless: false,),
+                const IconWidget(
+                  icon: Icons.chevron_right,
+                  borderless: false,
+                ),
               ],
             ),
           ],
@@ -136,7 +137,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
     );
   }
 
-  showResume(TeamsStandingsModel? teamStanding){
+  showResume(TeamsStandingsModel? teamStanding) {
     showModalBottomSheet(
         isScrollControlled: false,
         context: context,
@@ -184,7 +185,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
     );
   }
 
-  Widget teamCrew(List<UserModel?>? users){
+  Widget teamCrew(List<UserModel?>? users) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: users?.length,
@@ -206,7 +207,8 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
             const IconWidget(icon: Icons.sports_motorsports),
             const SpacingWidget(LayoutSize.size8),
             TextWidget(
-              text: "${users?[index]?.profile?.name} ${users?[index]?.profile?.surname}",
+              text:
+                  "${users?[index]?.profile?.name} ${users?[index]?.profile?.surname}",
               style: Style.paragraph,
             ),
           ],

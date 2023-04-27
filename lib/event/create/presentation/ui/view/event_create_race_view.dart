@@ -14,7 +14,7 @@ import '../../../../../core/ui/component/ui/input_text_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
-import '../../../../presentation/ui/model/championship_races_model.dart';
+import '../../../../core/presentation/ui/model/championship_races_model.dart';
 import '../../event_create_view_model.dart';
 import '../../navigation/event_create_flow.dart';
 

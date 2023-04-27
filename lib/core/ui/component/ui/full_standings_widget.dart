@@ -3,9 +3,9 @@ import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/event/data/event_standings_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../event/core/data/event_standings_model.dart';
 import 'icon_widget.dart';
 
 class FullStandingsWidget extends StatefulWidget {
@@ -218,71 +218,110 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
     return Wrap(
       children: [
         Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
             children: [
-              const SpacingWidget(LayoutSize.size32),
-              Column(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SpacingWidget(LayoutSize.size16),
-                  Row(
-                    children: [
-                      const IconWidget(icon: Icons.sports_motorsports),
-                      const SpacingWidget(LayoutSize.size16),
-                      TextWidget(
-                        text:
-                            "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
-                        style: Style.paragraph,
-                      ),
-                    ],
-                  ),
-                  const SpacingWidget(LayoutSize.size16),
+                  const IconWidget(icon: Icons.sports_motorsports),
+                  const SpacingWidget(LayoutSize.size8),
                   TextWidget(
-                    text: "${standing?.bonus} bonus points",
+                    text:
+                        "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
                     style: Style.paragraph,
+                    align: TextAlign.start,
                   ),
-                  const SpacingWidget(LayoutSize.size4),
-                  TextWidget(
-                    text: "${standing?.penalties} penalty points",
-                    style: Style.paragraph,
-                  ),
-                  const SpacingWidget(LayoutSize.size4),
-                  TextWidget(
-                    text: "${standing?.wins} wins",
-                    style: Style.paragraph,
-                  ),
-                  const SpacingWidget(LayoutSize.size4),
-                  TextWidget(
-                    text: "${standing?.top5} top 5",
-                    style: Style.paragraph,
-                  ),
-                  const SpacingWidget(LayoutSize.size4),
-                  TextWidget(
-                    text: "${standing?.top5} top 10",
-                    style: Style.paragraph,
-                  ),
-                  const SpacingWidget(LayoutSize.size4),
-                  TextWidget(
-                    text: "${standing?.bestPosition} place, best position",
-                    style: Style.paragraph,
-                  ),
-                  const SpacingWidget(LayoutSize.size4),
-                  TextWidget(
-                    text: "${standing?.worstPosition} place, worst position",
-                    style: Style.paragraph,
-                  ),
-                  const SpacingWidget(LayoutSize.size4),
-                  TextWidget(
-                    text: "${standing?.desqualifies} Desqualifications",
-                    style: Style.paragraph,
-                  ),
-                  const SpacingWidget(LayoutSize.size48),
                 ],
               ),
+              const SpacingWidget(LayoutSize.size16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const TextWidget(
+                      style: Style.paragraph, text: "Bonus points"),
+                  const SpacingWidget(LayoutSize.size8),
+                  TextWidget(
+                      style: Style.paragraph, text: "${standing?.bonus} pts"),
+                ],
+              ),
+              const SpacingWidget(LayoutSize.size8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const TextWidget(style: Style.paragraph, text: "Penalties"),
+                  const SpacingWidget(LayoutSize.size8),
+                  TextWidget(
+                      style: Style.paragraph,
+                      text: "${standing?.penalties} pts"),
+                ],
+              ),
+              const SpacingWidget(LayoutSize.size8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const TextWidget(style: Style.paragraph, text: "Wins"),
+                  const SpacingWidget(LayoutSize.size8),
+                  TextWidget(
+                      style: Style.paragraph, text: "${standing?.wins} pts"),
+                ],
+              ),
+              const SpacingWidget(LayoutSize.size8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const TextWidget(style: Style.paragraph, text: "Top 5"),
+                  const SpacingWidget(LayoutSize.size8),
+                  TextWidget(style: Style.paragraph, text: "${standing?.top5}"),
+                ],
+              ),
+              const SpacingWidget(LayoutSize.size8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const TextWidget(style: Style.paragraph, text: "Top 10"),
+                  const SpacingWidget(LayoutSize.size8),
+                  TextWidget(
+                      style: Style.paragraph, text: "${standing?.top10}"),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const TextWidget(
+                      style: Style.paragraph, text: "Best position"),
+                  const SpacingWidget(LayoutSize.size8),
+                  TextWidget(
+                      style: Style.paragraph,
+                      text: "${standing?.bestPosition}"),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const TextWidget(
+                      style: Style.paragraph, text: "Worst position"),
+                  const SpacingWidget(LayoutSize.size8),
+                  TextWidget(
+                      style: Style.paragraph,
+                      text: "${standing?.worstPosition}"),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const TextWidget(
+                      style: Style.paragraph, text: "Disqualification"),
+                  const SpacingWidget(LayoutSize.size8),
+                  TextWidget(
+                      style: Style.paragraph,
+                      text: "${standing?.desqualifies}"),
+                ],
+              ),
+              const SpacingWidget(LayoutSize.size8),
             ],
           ),
-        )
+        ),
       ],
     );
   }

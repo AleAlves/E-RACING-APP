@@ -8,7 +8,6 @@ import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../ext/dialog_extension.dart';
-import 'button_widget.dart';
 
 class EventSubscribersWidget extends StatefulWidget {
   final List<ClassesModel?>? classes;
@@ -36,30 +35,28 @@ class _EventSubscribersWidgetState extends State<EventSubscribersWidget> {
   Widget build(BuildContext context) => subscribers(context);
 
   Widget subscribers(BuildContext context) {
-    return CardWidget(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: const [
-                IconWidget(icon: Icons.sports_motorsports),
-                SpacingWidget(LayoutSize.size16),
-                TextWidget(
-                  text: "Drivers",
-                  style: Style.title,
-                  align: TextAlign.left,
-                ),
-              ],
-            ),
-            const SpacingWidget(LayoutSize.size16),
-            classesWidget()
-          ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SpacingWidget(LayoutSize.size48),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: const [
+              IconWidget(icon: Icons.sports_motorsports),
+              SpacingWidget(LayoutSize.size16),
+              TextWidget(
+                text: "Drivers",
+                style: Style.title,
+                align: TextAlign.left,
+              ),
+            ],
+          ),
         ),
-      ),
-      ready: true,
+        const SpacingWidget(LayoutSize.size16),
+        classesWidget()
+      ],
     );
   }
 
@@ -72,12 +69,15 @@ class _EventSubscribersWidgetState extends State<EventSubscribersWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 32, top: 16, bottom: 16),
-                  child: TextWidget(
-                      text: "${classes?.name}", style: Style.subtitle),
+                Row(
+                  children: [
+                    const SpacingWidget(LayoutSize.size16),
+                    TextWidget(text: "${classes?.name}", style: Style.subtitle),
+                  ],
                 ),
-                drivers(classes)
+                const SpacingWidget(LayoutSize.size16),
+                drivers(classes),
+                const SpacingWidget(LayoutSize.size48),
               ],
             );
           })
@@ -99,55 +99,59 @@ class _EventSubscribersWidgetState extends State<EventSubscribersWidget> {
             ),
           )
         : Wrap(
+            direction: Axis.vertical,
             children: classes.drivers!
                 .map((driver) {
                   var profile = getProfile(driver?.driverId);
-                  return CardWidget(
-                    ready: true,
-                    childLeft: const SizedBox(
-                      width: 8,
-                      height: 8,
-                    ),
-                    shapeLess: true,
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 48),
-                            child: TextWidget(
-                                text: "${profile?.name} ${profile?.surname}",
-                                style: Style.subtitle),
-                          ),
-                          const SpacingWidget(LayoutSize.size24),
-                          ButtonWidget(
-                            enabled: true,
-                            type: ButtonType.iconButton,
-                            onPressed: () {
-                              confirmationDialogExt(
-                                context: context,
-                                issueMessage:
-                                    "Are you sure you want to remove this subscription?",
-                                consentMessage: "Yes, I do",
-                                onPositive: () {
-                                  widget.onRemove.call(
-                                    classes.id ?? '',
-                                    driver?.driverId ?? '',
-                                  );
-                                },
-                              );
-                            },
-                            icon: Icons.person_remove,
-                          )
-                        ],
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width -
+                        (MediaQuery.of(context).size.width * 0.05),
+                    child: CardWidget(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          children: [
+                            Wrap(
+                              children: [
+                                TextWidget(
+                                    text:
+                                        "${profile?.name} ${profile?.surname}",
+                                    style: Style.subtitle),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
+                      childRight: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: IconWidget(
+                          icon: Icons.person_remove,
+                        ),
+                      ),
+                      ready: true,
+                      onPressed: () {
+                        _showRemoveDriver(driver?.driverId, classes);
+                      },
                     ),
                   );
                 })
                 .toList()
                 .cast<Widget>(),
           );
+  }
+
+  _showRemoveDriver(String? driverId, ClassesModel classes) {
+    confirmationDialogExt(
+      context: context,
+      issueMessage: "Are you sure you want to remove this subscription?",
+      consentMessage: "Yes, I do",
+      onPositive: () {
+        widget.onRemove.call(
+          classes.id ?? '',
+          driverId ?? '',
+        );
+      },
+    );
   }
 
   ProfileModel? getProfile(id) {

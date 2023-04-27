@@ -12,8 +12,8 @@ import '../../../core/model/tag_model.dart';
 import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
 import '../../../tag/get_tag_usecase.dart';
-import '../../domain/create_event_usecase.dart';
-import '../../presentation/ui/model/championship_races_model.dart';
+import '../../core/presentation/ui/model/championship_races_model.dart';
+import '../../detail/domain/create_event_usecase.dart';
 import 'navigation/event_create_flow.dart';
 
 part 'event_create_view_model.g.dart';

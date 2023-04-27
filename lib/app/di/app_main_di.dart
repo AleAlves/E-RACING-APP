@@ -1,12 +1,15 @@
 import 'package:e_racing_app/core/navigation/routes.dart';
-import 'package:e_racing_app/event/di/event_di.dart';
-import 'package:e_racing_app/event/presentation/ui/event_flow.dart';
+import 'package:e_racing_app/event/event_router.dart';
+import 'package:e_racing_app/event/list/di/event_list_di.dart';
 import 'package:e_racing_app/home/di/home_di.dart';
 import 'package:e_racing_app/league/detail/di/league_detail_di.dart';
 import 'package:e_racing_app/profile/di/profile_di.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../event/core/di/event_di.dart';
+import '../../event/core/presentation/ui/event_flow.dart';
 import '../../event/create/di/event_create_di.dart';
+import '../../event/detail/di/event_detail_di.dart';
 import '../../league/LeagueRouter.dart';
 import '../../league/create/di/league_create_di.dart';
 import '../../league/list/di/league_list_di.dart';
@@ -46,6 +49,11 @@ class AppMainModule extends Module {
         ModuleRoute(LeagueRouter.create, module: LeagueCreateModule()),
         ModuleRoute(LeagueRouter.detail, module: LeagueDetailModule()),
         ModuleRoute(LeagueRouter.members, module: LeagueMemberModule()),
+
+        //Event
+        ModuleRoute(EventRouter.list, module: EventListModule()),
+        ModuleRoute(EventRouter.detail, module: EventDetailModule()),
+        ModuleRoute(EventRouter.create, module: EventCreateModule()),
 
         ModuleRoute(Routes.event,
             module: EventModule(flow: EventFlow.eventDetail)),

@@ -4,9 +4,9 @@ import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/event/data/event_standings_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../event/core/data/event_standings_model.dart';
 import 'icon_widget.dart';
 
 class SimpleStandingsWidget extends StatefulWidget {
@@ -69,8 +69,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
               padding: const EdgeInsets.only(left: 24, right: 24),
               child: ButtonWidget(
                   enabled: true,
-                  type: ButtonType.iconButton,
-                  icon: Icons.format_list_numbered,
+                  type: ButtonType.link,
                   label: "Full standings",
                   onPressed: () {
                     widget.onFullStandingsPressed();
@@ -153,7 +152,8 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                   Container(
                     color: getPodiumColor(position).first,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 8, top: 4, right: 8, bottom: 4),
+                      padding: const EdgeInsets.only(
+                          left: 8, top: 4, right: 8, bottom: 4),
                       child: TextWidget(
                         text: "$positionº",
                         style: Style.paragraph,
@@ -162,7 +162,11 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                     ),
                   ),
                   const SpacingWidget(LayoutSize.size16),
-                  IconWidget(icon: Icons.circle, color: getClassColor(_index), size: 12,)
+                  IconWidget(
+                    icon: Icons.circle,
+                    color: getClassColor(_index),
+                    size: 12,
+                  )
                 ],
               ),
               const SpacingWidget(LayoutSize.size16),
@@ -196,7 +200,11 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
               ),
             ],
           ),
-          Container(height: 1, color: Theme.of(context).focusColor, padding: EdgeInsets.zero,),
+          Container(
+            height: 1,
+            color: Theme.of(context).focusColor,
+            padding: EdgeInsets.zero,
+          ),
         ],
       ),
     );

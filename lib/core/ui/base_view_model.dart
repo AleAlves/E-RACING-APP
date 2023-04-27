@@ -4,9 +4,9 @@ import 'package:mobx/mobx.dart';
 import '../model/status_model.dart';
 import '../service/api_exception.dart';
 
-abstract class BaseViewModel<T> with Store {
+abstract class BaseViewModel<Router> with Store {
   @observable
-  abstract T? flow;
+  abstract Router? flow;
 
   @observable
   abstract String? title;
@@ -21,7 +21,7 @@ abstract class BaseViewModel<T> with Store {
     state = ViewState.error;
   }
 
-  void onNavigate(T route) {
+  void onNavigate(Router route) {
     flow = route;
   }
 }
