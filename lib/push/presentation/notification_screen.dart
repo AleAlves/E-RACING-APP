@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import 'notification_flow.dart';
-import '../notification_view_model.dart';
+import 'notification_view_model.dart';
+import 'ui/notification_flow.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -12,7 +12,6 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<NotificationScreen> {
-
   final NotificationViewModel vm = NotificationViewModel();
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -24,7 +23,6 @@ class _HomeScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -41,6 +39,6 @@ class _HomeScreenState extends State<NotificationScreen> {
   }
 
   Widget navigation() {
-    return NotificationsNavigation.flow(vm);
+    return PushNotificationNavigation.flow(vm);
   }
 }

@@ -21,7 +21,7 @@ import '../../login/onboard/di/login_onboard_di.dart';
 import '../../login/recovery/di/login_password_recovery_di.dart';
 import '../../login/signin/di/login_sign_in_di.dart';
 import '../../login/signup/di/login_sign_up_di.dart';
-import '../../notification/di/notification_di.dart';
+import '../../push/di/push_notification_di.dart';
 import '../domain/get_tutorial_exhibition_usecase.dart';
 import '../presentation/app_screen.dart';
 import '../presentation/app_view_model.dart';

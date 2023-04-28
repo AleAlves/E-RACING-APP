@@ -1,7 +1,7 @@
-import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../core/model/status_model.dart';
+import '../../../shared/tag/get_tag_usecase.dart';
 import '../domain/create_event_usecase.dart';
 import '../presentation/event_create_view_model.dart';
 import '../presentation/navigation/event_create_flow.dart';

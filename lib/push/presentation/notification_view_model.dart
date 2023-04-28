@@ -3,7 +3,7 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/login/legacy/domain/model/profile_model.dart';
-import 'package:e_racing_app/notification/presentation/ui/notification_flow.dart';
+import 'package:e_racing_app/push/presentation/ui/notification_flow.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -20,7 +20,7 @@ abstract class _NotificationViewModel with Store {
   _NotificationViewModel();
 
   @observable
-  NotificationsFlow flow = NotificationsFlow.home;
+  PushNotificationRouter flow = PushNotificationRouter.home;
 
   @observable
   ViewState state = ViewState.ready;

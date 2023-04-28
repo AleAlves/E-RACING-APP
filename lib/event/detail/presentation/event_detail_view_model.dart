@@ -13,7 +13,7 @@ import '../../../core/model/team_model.dart';
 import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
 import '../../../login/legacy/domain/model/user_model.dart';
-import '../../../media/get_media.usecase.dart';
+import '../../../shared/media/get_media.usecase.dart';
 import '../../core/data/event_home_model.dart';
 import '../../core/data/event_standings_model.dart';
 import '../../core/data/event_teams_standings_model.dart';

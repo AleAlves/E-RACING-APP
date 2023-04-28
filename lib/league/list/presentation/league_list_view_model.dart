@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 import '../../../core/model/status_model.dart';
 import '../../../core/model/tag_model.dart';
 import '../../../core/ui/view_state.dart';
-import '../../../tag/get_tag_usecase.dart';
+import '../../../shared/tag/get_tag_usecase.dart';
 import '../data/league_model.dart';
 import '../domain/fetch_league_usecase.dart';
 import 'navigation/league_list_navigation.dart';

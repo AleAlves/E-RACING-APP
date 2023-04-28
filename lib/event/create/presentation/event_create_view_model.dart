@@ -11,7 +11,7 @@ import '../../../core/model/status_model.dart';
 import '../../../core/model/tag_model.dart';
 import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
-import '../../../tag/get_tag_usecase.dart';
+import '../../../shared/tag/get_tag_usecase.dart';
 import '../../core/presentation/ui/model/championship_races_model.dart';
 import '../domain/create_event_usecase.dart';
 import 'navigation/event_create_flow.dart';

@@ -3,14 +3,12 @@ import 'package:flutter/cupertino.dart';
 import '../notification_view_model.dart';
 import '../widget/notification_list_widget.dart';
 
-enum NotificationsFlow {
-  home
-}
+enum PushNotificationRouter { home }
 
-extension NotificationsNavigation on NotificationsFlow {
+extension PushNotificationNavigation on PushNotificationRouter {
   static Widget flow(NotificationViewModel vm) {
     switch (vm.flow) {
-      case NotificationsFlow.home:
+      case PushNotificationRouter.home:
         return NotificationListWidget(vm);
       default:
         return NotificationListWidget(vm);

@@ -3,7 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../core/model/media_model.dart';
 import '../../../core/model/status_model.dart';
-import '../../../media/get_media.usecase.dart';
+import '../../../shared/media/get_media.usecase.dart';
 import '../../core/data/event_home_model.dart';
 import '../../core/data/event_standings_model.dart';
 import '../../core/data/event_teams_standings_model.dart';

@@ -3,7 +3,7 @@ import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
-import '../core/model/pair_model.dart';
+import '../../core/model/pair_model.dart';
 
 class GetMediaUseCase<T> extends BaseUseCase<T> {
   late String _id;

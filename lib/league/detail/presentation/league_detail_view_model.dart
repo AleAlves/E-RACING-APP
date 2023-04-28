@@ -9,14 +9,14 @@ import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/league/update/domain/delete_league_usecase.dart';
 import 'package:e_racing_app/league/update/domain/upate_league_usecase.dart';
-import 'package:e_racing_app/media/get_media.usecase.dart';
-import 'package:e_racing_app/social/get_social_media_usecase.dart';
-import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/domain/share_model.dart';
 import '../../../core/ext/access_extension.dart';
+import '../../../shared/media/get_media.usecase.dart';
+import '../../../shared/social/get_social_media_usecase.dart';
+import '../../../shared/tag/get_tag_usecase.dart';
 import '../../LeagueRouter.dart';
 import '../../list/data/league_model.dart';
 import '../../member/data/league_members_model.dart';

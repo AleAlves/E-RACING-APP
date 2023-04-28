@@ -9,7 +9,7 @@ import 'package:mobx/mobx.dart';
 import '../../core/service/api_exception.dart';
 import '../../league/list/data/league_model.dart';
 import '../../league/list/domain/fetch_league_usecase.dart';
-import '../../notification/domain/get_notifications_count_usecase.dart';
+import '../../push/domain/get_notifications_count_usecase.dart';
 
 part 'home_view_model.g.dart';
 

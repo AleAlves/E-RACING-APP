@@ -4,7 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../league/list/data/league_model.dart';
 import '../../league/list/domain/fetch_league_usecase.dart';
-import '../../notification/domain/get_notifications_count_usecase.dart';
+import '../../push/domain/get_notifications_count_usecase.dart';
 
 class HomeModule extends Module {
   @override

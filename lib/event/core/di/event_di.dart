@@ -5,11 +5,11 @@ import 'package:e_racing_app/event/create/domain/create_event_usecase.dart';
 import 'package:e_racing_app/event/detail/domain/delete_team_usecase.dart';
 import 'package:e_racing_app/event/detail/domain/join_team_usecase.dart';
 import 'package:e_racing_app/event/list/domain/fetch_events_use_case.dart';
-import 'package:e_racing_app/media/get_media.usecase.dart';
-import 'package:e_racing_app/social/get_social_media_usecase.dart';
-import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../shared/media/get_media.usecase.dart';
+import '../../../shared/social/get_social_media_usecase.dart';
+import '../../../shared/tag/get_tag_usecase.dart';
 import '../../detail/domain/create_team_usecase.dart';
 import '../../detail/domain/get_event_usecase.dart';
 import '../../detail/domain/get_standing_usecase.dart';
