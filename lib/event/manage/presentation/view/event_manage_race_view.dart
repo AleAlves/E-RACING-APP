@@ -153,7 +153,7 @@ class _EventManageRaceViewState extends State<EventManageRaceView>
                               "Are you sure you want to start this event? you won't be able to edit the event nor the races settings",
                           consentMessage: "Yes, I do",
                           onPositive: () {
-                            // widget.viewModel.startEvent();
+                            widget.viewModel.startEvent();
                           },
                         );
                         break;
@@ -164,7 +164,7 @@ class _EventManageRaceViewState extends State<EventManageRaceView>
                               "Are you sure you want to finish this event?",
                           consentMessage: "Yes, I do",
                           onPositive: () {
-                            // widget.viewModel.finishEvent();
+                            widget.viewModel.finishEvent();
                           },
                         );
                         break;

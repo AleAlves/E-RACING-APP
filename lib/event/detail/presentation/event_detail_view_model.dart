@@ -94,7 +94,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
   final _raceStandingsUC =
       Modular.get<RaceStandingsUseCase<RaceStandingsModel>>();
 
-  void getEvent() async {
+  getEvent() async {
     state = ViewState.loading;
     media = null;
     _getEventUseCase.params(id: Session.instance.getEventId() ?? '').invoke(
@@ -107,11 +107,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
               name: event?.title,
               message: "Check out this racing event");
           users = ObservableList.of(data?.users ?? []);
-          if (data?.event.type == EventType.race) {
-            // setFlow(EventFlow.detailRace);
-          } else {
-            getMedia(data?.event.id ?? '');
-          }
+          getMedia(data?.event.id ?? '');
           _getStandings();
           state = ViewState.ready;
         },
@@ -159,6 +155,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
           status = data;
           state = ViewState.ready;
           onRoute(EventDetailRouter.status);
+          getEvent();
         },
         error: onError);
   }

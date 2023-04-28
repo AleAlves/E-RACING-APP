@@ -16,7 +16,11 @@ import '../../core/data/set_summary_model.dart';
 import '../../detail/domain/get_event_usecase.dart';
 import '../../detail/domain/race_standing_usecase.dart';
 import '../../detail/domain/remove_subcription_usecase.dart';
+import '../domain/cancel_race_use_case.dart';
+import '../domain/finish_event_usecase.dart';
+import '../domain/finish_race_use_case.dart';
 import '../domain/set_result_event_usecase.dart';
+import '../domain/start_event_usecase.dart';
 import '../domain/toogle_members_only_usecase.dart';
 import '../domain/toogle_subscriptions_usecase.dart';
 
@@ -71,6 +75,10 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
   final _setSummaryUseCase = Modular.get<SetSummaryUseCase<StatusModel>>();
   final _toggleSubsUC = Modular.get<ToogleSubscriptionsUseCase<StatusModel>>();
   final _toggleMembersUC = Modular.get<ToogleMembersOnlyUseCase<StatusModel>>();
+  final _startEventUseCase = Modular.get<StartEventUseCase<StatusModel>>();
+  final _finishEventUseCase = Modular.get<FinishEventUseCase<StatusModel>>();
+  final _finishRaceUseCase = Modular.get<CancelRaceUseCase<StatusModel>>();
+  final _cancelRaceUseCase = Modular.get<FinishRaceUseCase<StatusModel>>();
 
   void getEvent() async {
     state = ViewState.loading;
@@ -145,6 +153,48 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
           status = data;
           state = ViewState.ready;
           onRoute(EventManageRouter.status);
+        },
+        error: onError);
+  }
+
+  startEvent() async {
+    state = ViewState.loading;
+    await _startEventUseCase.build(id: event?.id ?? '').invoke(
+        success: (data) {
+          status = data;
+          state = ViewState.ready;
+          onRoute(EventManageRouter.status);
+        },
+        error: onError);
+  }
+
+  finishEvent() async {
+    state = ViewState.loading;
+    await _finishEventUseCase.build(id: event?.id ?? '').invoke(
+        success: (data) {
+          status = data;
+          state = ViewState.ready;
+          onRoute(EventManageRouter.status);
+        },
+        error: onError);
+  }
+
+  finishRace() async {
+    state = ViewState.loading;
+    await _finishRaceUseCase.build(raceId: Session.instance.getRaceId()).invoke(
+        success: (data) {
+          status = data;
+          state = ViewState.ready;
+        },
+        error: onError);
+  }
+
+  cancelRace() async {
+    state = ViewState.loading;
+    await _cancelRaceUseCase.build(raceId: Session.instance.getRaceId()).invoke(
+        success: (data) {
+          status = data;
+          state = ViewState.ready;
         },
         error: onError);
   }

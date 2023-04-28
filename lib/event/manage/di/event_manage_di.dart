@@ -6,7 +6,11 @@ import '../../detail/domain/delete_team_usecase.dart';
 import '../../detail/domain/join_team_usecase.dart';
 import '../../detail/domain/leave_team_usecase.dart';
 import '../../detail/domain/remove_subcription_usecase.dart';
+import '../domain/cancel_race_use_case.dart';
+import '../domain/finish_event_usecase.dart';
+import '../domain/finish_race_use_case.dart';
 import '../domain/set_result_event_usecase.dart';
+import '../domain/start_event_usecase.dart';
 import '../domain/toogle_members_only_usecase.dart';
 import '../domain/toogle_subscriptions_usecase.dart';
 import '../presentation/event_manage_screen.dart';
@@ -29,6 +33,10 @@ class EventManageModule extends Module {
         Bind.factory((i) => SetSummaryUseCase<StatusModel>()),
         Bind.factory((i) => ToogleSubscriptionsUseCase<StatusModel>()),
         Bind.factory((i) => ToogleMembersOnlyUseCase<StatusModel>()),
+        Bind.factory((i) => StartEventUseCase<StatusModel>()),
+        Bind.factory((i) => FinishEventUseCase<StatusModel>()),
+        Bind.factory((i) => FinishRaceUseCase<StatusModel>()),
+        Bind.factory((i) => CancelRaceUseCase<StatusModel>()),
       ];
 
   @override

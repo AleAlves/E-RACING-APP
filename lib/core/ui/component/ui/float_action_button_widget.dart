@@ -1,4 +1,4 @@
-import 'package:e_racing_app/core/ui/component/ui/chip_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../state/loading_shimmer.dart';
@@ -46,10 +46,12 @@ class _FloatActionButtonWidgetState extends State<FloatActionButtonWidget> {
           children: [
             Visibility(
               visible: _showWidget,
-              child: ChipWidget(
-                text: widget.title,
-                color: Theme.of(context).colorScheme.secondary,
-                padding: const EdgeInsets.all(8),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: TextWidget(
+                  text: widget.title,
+                  style: Style.caption,
+                ),
               ),
             ),
             FloatingActionButton(

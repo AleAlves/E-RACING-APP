@@ -13,6 +13,7 @@ import '../../core/data/event_home_model.dart';
 import '../../core/data/event_standings_model.dart';
 import '../../core/data/race_standings_model.dart';
 import '../../core/data/set_summary_model.dart';
+import '../../core/presentation/ui/model/championship_races_model.dart';
 import '../../detail/domain/get_event_usecase.dart';
 import '../../detail/domain/race_standing_usecase.dart';
 import '../../detail/domain/remove_subcription_usecase.dart';
@@ -147,5 +148,28 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
           onRoute(EventUpdateRouter.status);
         },
         error: onError);
+  }
+
+  updateRace(ChampionshipRacesModel? model) {
+    event?.races?.forEach((race) {
+      if (race?.id == model?.id) {
+        // race?.broadcastLink = model?.broadcastLink;
+        // race?.date = model?.eventDate?.toIso8601String();
+        // race?.broadcasting = model?.hasBroadcasting;
+        // race?.title = model?.titleController?.text;
+        // if (model?.posterFile != null) {
+        //   try {
+        //     List<int> posterBytes =
+        //         model?.posterFile?.readAsBytesSync() as List<int>;
+        //     race?.poster = base64Encode(posterBytes);
+        //   } catch (e) {}
+        // } else {
+        //   race?.poster = model?.poster;
+        // }
+        race?.leagueId = event?.leagueId;
+        race?.sessions = model?.sessions;
+        race?.finished = false;
+      }
+    });
   }
 }

@@ -7,6 +7,7 @@ import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -66,6 +67,8 @@ class _EventManagementEditRaceResultsWidgetState
   ViewStateWidget viewState() {
     return ViewStateWidget(
         body: content(),
+        bottom: finishButton(),
+        floatAction: cancelButton(),
         state: widget.viewModel.state,
         scrollable: true,
         onBackPressed: onBackPressed);
@@ -99,7 +102,6 @@ class _EventManagementEditRaceResultsWidgetState
               TextWidget(style: Style.title, text: "Race status"),
             ],
           ),
-          finishRace(),
         ],
       ),
     );
@@ -498,62 +500,36 @@ class _EventManagementEditRaceResultsWidgetState
             }));
   }
 
-  Widget finishRace() {
-    return CardWidget(
-        child: Column(
-          children: [
-            Row(
-              children: const [
-                Icon(
-                  Icons.check_circle_outline,
-                  color: Colors.green,
-                ),
-                SpacingWidget(LayoutSize.size8),
-                TextWidget(
-                  text: "Conclusion",
-                  style: Style.subtitle,
-                  align: TextAlign.left,
-                ),
-              ],
-            ),
-            const SpacingWidget(LayoutSize.size24),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: ButtonWidget(
-                label: "Cancel",
-                type: ButtonType.important,
-                onPressed: () {
-                  confirmationDialogExt(
-                      onPositive: () {},
-                      context: context,
-                      issueMessage:
-                          "By canceling this race any result will be invalidated. Are you sure you want to proceed?",
-                      consentMessage: "Yes, I do");
-                },
-                enabled: true,
-              ),
-            ),
-            const SpacingWidget(LayoutSize.size24),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: ButtonWidget(
-                label: "Finish",
-                type: ButtonType.primary,
-                onPressed: () {
-                  confirmationDialogExt(
-                      onPositive: () {},
-                      context: context,
-                      issueMessage:
-                          "By finishing this race you won't be able to edit the results anymore. Are you sure you want to proceed?",
-                      consentMessage: "Yes, I do");
-                },
-                enabled: true,
-              ),
-            ),
-            const SpacingWidget(LayoutSize.size8),
-          ],
-        ),
-        ready: true);
+  FloatActionButtonWidget cancelButton() {
+    return FloatActionButtonWidget(
+        icon: Icons.cancel,
+        title: "Cancel event",
+        onPressed: () {
+          confirmationDialogExt(
+              onPositive: () {},
+              context: context,
+              issueMessage:
+                  "By canceling this race any result will be invalidated. Are you sure you want to proceed?",
+              consentMessage: "Yes, I do");
+        });
+  }
+
+  Widget finishButton() {
+    return ButtonWidget(
+      label: "Finish",
+      type: ButtonType.primary,
+      onPressed: () {
+        confirmationDialogExt(
+            onPositive: () {
+              widget.viewModel.finishEvent();
+            },
+            context: context,
+            issueMessage:
+                "By finishing this race you won't be able to edit the results anymore. Are you sure you want to proceed?",
+            consentMessage: "Yes, I do");
+      },
+      enabled: true,
+    );
   }
 
   clear() {

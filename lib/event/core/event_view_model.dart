@@ -22,7 +22,6 @@ import './data/event_standings_model.dart';
 import './data/event_teams_standings_model.dart';
 import './data/race_standings_model.dart';
 import './domain/fetch_filtered_events_use_case.dart';
-import './domain/finish_event_usecase.dart';
 import './presentation/ui/event_flow.dart';
 import '../../core/domain/share_model.dart';
 import '../../core/navigation/routes.dart';
@@ -41,6 +40,7 @@ import '../detail/domain/remove_subcription_usecase.dart';
 import '../detail/domain/subscribe_event_usecase.dart';
 import '../detail/domain/teams_standing_usecase.dart';
 import '../detail/domain/unsubscribe_event_usecase.dart';
+import '../manage/domain/finish_event_usecase.dart';
 import '../manage/domain/set_result_event_usecase.dart';
 import '../manage/domain/start_event_usecase.dart';
 import '../manage/domain/toogle_members_only_usecase.dart';
@@ -417,7 +417,7 @@ abstract class _EventViewModel with Store {
         error: onError);
   }
 
-  Future<void> finishEvent() async {
+  finishEvent() async {
     state = ViewState.loading;
     await _finishEventUseCase.build(id: event?.id ?? '').invoke(
         success: (data) {
