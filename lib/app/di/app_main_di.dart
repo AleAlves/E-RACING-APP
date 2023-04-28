@@ -31,29 +31,79 @@ class AppMainModule extends Module {
         Bind.factory((i) => GetTutorialExhibitionUserUseCase<bool>()),
       ];
 
+  var primaryTransition = TransitionType.fadeIn;
+  var secondaryTransition = TransitionType.rightToLeftWithFade;
+
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (context, args) => const AppScreen()),
 
         //Login
-        ModuleRoute(LoginRouter.onboard, module: LoginOnboardModule()),
-        ModuleRoute(LoginRouter.signUp, module: LoginSignUpModule()),
-        ModuleRoute(LoginRouter.signIn, module: LoginSignInModule()),
+        ModuleRoute(
+          LoginRouter.onboard,
+          module: LoginOnboardModule(),
+          transition: primaryTransition,
+        ),
+        ModuleRoute(
+          LoginRouter.signUp,
+          module: LoginSignUpModule(),
+          transition: secondaryTransition,
+        ),
+        ModuleRoute(
+          LoginRouter.signIn,
+          module: LoginSignInModule(),
+          transition: secondaryTransition,
+        ),
         ModuleRoute(LoginRouter.recovery,
             module: LoginPasswordRecoveryModule()),
 
         ModuleRoute(Routes.home, module: HomeModule()),
 
         //League
-        ModuleRoute(LeagueRouter.list, module: LeagueListModule()),
-        ModuleRoute(LeagueRouter.create, module: LeagueCreateModule()),
-        ModuleRoute(LeagueRouter.detail, module: LeagueDetailModule()),
-        ModuleRoute(LeagueRouter.members, module: LeagueMemberModule()),
+        ModuleRoute(
+          LeagueRouter.list,
+          module: LeagueListModule(),
+          transition: primaryTransition,
+        ),
+        ModuleRoute(
+          LeagueRouter.create,
+          module: LeagueCreateModule(),
+          transition: secondaryTransition,
+        ),
+        ModuleRoute(
+          LeagueRouter.detail,
+          module: LeagueDetailModule(),
+          transition: secondaryTransition,
+        ),
+        ModuleRoute(
+          LeagueRouter.members,
+          module: LeagueMemberModule(),
+          transition: secondaryTransition,
+        ),
 
         //Event
-        ModuleRoute(EventRouter.list, module: EventListModule()),
-        ModuleRoute(EventRouter.detail, module: EventDetailModule()),
-        ModuleRoute(EventRouter.create, module: EventCreateModule()),
+        ModuleRoute(
+          EventRouter.list,
+          module: EventListModule(),
+          transition: primaryTransition,
+        ),
+        ModuleRoute(
+          EventRouter.detail,
+          module: EventDetailModule(),
+          transition: secondaryTransition,
+        ),
+        ModuleRoute(
+          EventRouter.create,
+          module: EventCreateModule(),
+          transition: secondaryTransition,
+        ),
+
+        //Profile
+        ModuleRoute(
+          Routes.profile,
+          module: ProfileModule(),
+          transition: primaryTransition,
+        ),
 
         ModuleRoute(Routes.event,
             module: EventModule(flow: EventFlow.eventDetail)),
@@ -61,7 +111,7 @@ class AppMainModule extends Module {
             module: EventModule(flow: EventFlow.listFiltered)),
         ModuleRoute(Routes.eventCreate, module: EventCreateModule()),
         ModuleRoute(Routes.events, module: EventModule()),
-        ModuleRoute(Routes.profile, module: ProfileModule()),
+
         ModuleRoute(Routes.notifications, module: NotificationModule()),
       ];
 }

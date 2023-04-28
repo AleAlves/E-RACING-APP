@@ -56,7 +56,7 @@ class _ErrorViewState extends State<ErrorView> implements BaseSateWidget {
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.flow = widget.viewModel.status?.next;
+        widget.viewModel.flow = widget.viewModel.status?.route;
       },
       label: widget.viewModel.status?.action ?? '',
     );

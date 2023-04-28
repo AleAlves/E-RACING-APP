@@ -189,7 +189,7 @@ class _LeagueCreateSocialMediaViewState
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(LeagueCreateNavigator.tags);
+    widget.viewModel.onRoute(LeagueCreateNavigator.tags);
     return false;
   }
 }

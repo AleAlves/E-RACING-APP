@@ -115,7 +115,7 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.eventName);
+    widget.viewModel.onRoute(EventCreateNavigator.eventName);
     return false;
   }
 }

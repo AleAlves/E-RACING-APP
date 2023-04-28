@@ -4,7 +4,9 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../core/ui/component/ui/teams_standings_widget.dart';
 import '../event_detail_view_model.dart';
+import '../router/event_detail_router.dart';
 
 class EventDetailStandingsView extends StatefulWidget {
   final EventDetailViewModel viewModel;
@@ -20,7 +22,7 @@ class _EventDetailStandingsViewState extends State<EventDetailStandingsView>
     implements BaseSateWidget {
   @override
   void initState() {
-    // widget.viewModel.getRaceTeamsStandings();
+    widget.viewModel.getTeamsStandings();
     super.initState();
   }
 
@@ -44,7 +46,7 @@ class _EventDetailStandingsViewState extends State<EventDetailStandingsView>
 
   @override
   Future<bool> onBackPressed() async {
-    // widget.viewModel.setFlow(EventFlow.eventDetail);
+    widget.viewModel.onRoute(EventDetailRouter.main);
     return false;
   }
 
@@ -69,7 +71,6 @@ class _EventDetailStandingsViewState extends State<EventDetailStandingsView>
   }
 
   Widget teamsStandings() {
-    // return TeamsStandingsWidget(standings: widget.viewModel.raceTeamsStandings);
-    return Container();
+    return TeamsStandingsWidget(standings: widget.viewModel.teamsStandings);
   }
 }

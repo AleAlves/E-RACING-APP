@@ -64,7 +64,7 @@ abstract class _LeagueMemberViewModel
         success: (data) {
           status = data;
           fetchMembers();
-          onNavigate(LeagueMemberNavigationSet.status);
+          onRoute(LeagueMemberNavigationSet.status);
         },
         error: onError);
   }

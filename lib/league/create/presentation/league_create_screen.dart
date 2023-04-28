@@ -35,7 +35,7 @@ class _LeagueScreenState extends State<LeagueCreateScreen>
 
   @override
   void initState() {
-    viewModel.onNavigate(widget.flow);
+    viewModel.onRoute(widget.flow);
     super.initState();
   }
 

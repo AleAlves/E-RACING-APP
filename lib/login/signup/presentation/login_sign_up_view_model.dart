@@ -64,7 +64,7 @@ abstract class _LoginSignUpViewModel
             success: (data) {
               status = data;
               state = ViewState.ready;
-              onNavigate(LoginSignUpNavigationSet.status);
+              onRoute(LoginSignUpNavigationSet.status);
             },
             error: onError);
   }

@@ -110,7 +110,7 @@ abstract class _LeagueDetailViewModel
     await updateUseCase.params(league: league, media: media).invoke(
         success: (data) {
           status = data;
-          onNavigate(LeagueDetailNavigationSet.status);
+          onRoute(LeagueDetailNavigationSet.status);
         },
         error: onError);
   }
@@ -150,7 +150,7 @@ abstract class _LeagueDetailViewModel
                   leagueId: league?.id,
                   message: "Check out this community",
                   name: league?.name);
-              getMedia(data?.id ?? '');
+              // getMedia(data?.id ?? '');
               state = ViewState.ready;
             },
             error: onError);
@@ -217,7 +217,7 @@ abstract class _LeagueDetailViewModel
     removeMemberUseCase.req(memberId: id, leagueId: league?.id ?? '').invoke(
         success: (data) {
           status = data;
-          onNavigate(LeagueDetailNavigationSet.status);
+          onRoute(LeagueDetailNavigationSet.status);
         },
         error: onError);
   }
@@ -226,7 +226,7 @@ abstract class _LeagueDetailViewModel
     if (shortcut?.deepLink != null) {
       Modular.to.pushNamed(shortcut?.deepLink);
     } else if (shortcut?.flow != null) {
-      onNavigate(shortcut?.flow);
+      onRoute(shortcut?.flow);
     }
   }
 

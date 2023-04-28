@@ -59,7 +59,7 @@ class _LeagueDeleteWidgetState extends State<LeagueDeleteWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(LeagueDetailNavigationSet.main);
+    widget.viewModel.onRoute(LeagueDetailNavigationSet.main);
     return false;
   }
 

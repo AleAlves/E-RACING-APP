@@ -170,7 +170,7 @@ class _LeagueCreateReviewViewState extends State<LeagueCreateReviewView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(LeagueCreateNavigator.socialMedia);
+    widget.viewModel.onRoute(LeagueCreateNavigator.socialMedia);
     return false;
   }
 }

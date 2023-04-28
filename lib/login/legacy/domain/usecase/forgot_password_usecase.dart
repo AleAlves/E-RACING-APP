@@ -26,8 +26,7 @@ class ForgotPasswordUseCase<T> extends BaseUseCase<T> {
       var status = StatusModel(
           message: "A new code was sent to your email",
           action: "Ok",
-          externalLink: false,
-          next: LoginPasswordRecoveryNavigationSet.reset);
+          route: LoginPasswordRecoveryNavigationSet.reset);
       success.call(status as T);
     } else {
       error.call(ApiException(

@@ -101,7 +101,7 @@ class _LoginRetryEmailValidationViewState
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(LoginPasswordRecoveryNavigationSet.recover);
+    widget.viewModel.onRoute(LoginPasswordRecoveryNavigationSet.recover);
     return false;
   }
 }

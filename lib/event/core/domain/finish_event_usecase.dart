@@ -25,7 +25,7 @@ class FinishEventUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Event finished",
           action: "Ok",
-          next: EventFlow.eventDetail) as T);
+          route: EventFlow.eventDetail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

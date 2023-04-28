@@ -8,8 +8,9 @@ import '../event_detail_view_model.dart';
 import '../view/event_detail_info_view.dart';
 import '../view/event_detail_race_view.dart';
 import '../view/event_detail_standings_view.dart';
+import '../view/event_detail_team_widget.dart';
 
-enum EventDetailRouter { main, standings, info, race, status }
+enum EventDetailRouter { main, standings, info, race, team, status }
 
 extension EventDetailNavigation on EventDetailRouter {
   static Widget flow(EventDetailViewModel viewModel) {
@@ -18,6 +19,8 @@ extension EventDetailNavigation on EventDetailRouter {
         return EventDetailView(viewModel);
       case EventDetailRouter.info:
         return EventDetailInfoView(viewModel);
+      case EventDetailRouter.team:
+        return EventDetailTeamWidget(viewModel);
       case EventDetailRouter.standings:
         return EventDetailStandingsView(viewModel);
       case EventDetailRouter.race:

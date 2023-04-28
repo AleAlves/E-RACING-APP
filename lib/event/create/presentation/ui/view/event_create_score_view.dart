@@ -161,7 +161,7 @@ class _EventCreateScoreViewState extends State<EventCreateScoreView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.eventRules);
+    widget.viewModel.onRoute(EventCreateNavigator.eventRules);
     return false;
   }
 }

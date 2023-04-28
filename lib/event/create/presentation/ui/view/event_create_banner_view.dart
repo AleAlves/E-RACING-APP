@@ -142,7 +142,7 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.eventScore);
+    widget.viewModel.onRoute(EventCreateNavigator.eventScore);
     return false;
   }
 }

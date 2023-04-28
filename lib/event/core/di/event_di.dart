@@ -1,7 +1,7 @@
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
-import 'package:e_racing_app/event/detail/domain/create_event_usecase.dart';
+import 'package:e_racing_app/event/create/domain/create_event_usecase.dart';
 import 'package:e_racing_app/event/detail/domain/delete_team_usecase.dart';
 import 'package:e_racing_app/event/detail/domain/join_team_usecase.dart';
 import 'package:e_racing_app/event/list/domain/fetch_events_use_case.dart';
@@ -11,24 +11,24 @@ import 'package:e_racing_app/tag/get_tag_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../detail/domain/create_team_usecase.dart';
+import '../../detail/domain/get_event_usecase.dart';
+import '../../detail/domain/get_standing_usecase.dart';
+import '../../detail/domain/leave_team_usecase.dart';
+import '../../detail/domain/race_standing_usecase.dart';
+import '../../detail/domain/remove_subcription_usecase.dart';
+import '../../detail/domain/subscribe_event_usecase.dart';
+import '../../detail/domain/teams_standing_usecase.dart';
+import '../../detail/domain/unsubscribe_event_usecase.dart';
 import '../data/event_home_model.dart';
 import '../data/event_standings_model.dart';
 import '../data/event_teams_standings_model.dart';
 import '../data/race_standings_model.dart';
 import '../domain/fetch_filtered_events_use_case.dart';
 import '../domain/finish_event_usecase.dart';
-import '../domain/get_event_standing_usecase.dart';
-import '../domain/get_event_usecase.dart';
-import '../domain/get_race_standing_usecase.dart';
-import '../domain/get_race_teams_standing_usecase.dart';
-import '../domain/leave_team_usecase.dart';
-import '../domain/remove_subcription_usecase.dart';
 import '../domain/set_result_event_usecase.dart';
 import '../domain/start_event_usecase.dart';
-import '../domain/subscribe_event_usecase.dart';
 import '../domain/toogle_members_only_usecase.dart';
 import '../domain/toogle_subscriptions_usecase.dart';
-import '../domain/unsubscribe_event_usecase.dart';
 import '../domain/update_event_usecase.dart';
 import '../event_view_model.dart';
 import '../presentation/ui/event_flow.dart';
@@ -55,10 +55,9 @@ class EventModule extends Module {
         Bind.factory((i) => DeleteTeamUseCase<StatusModel>()),
         Bind.factory((i) => ToogleSubscriptionsUseCase<StatusModel>()),
         Bind.factory((i) => GetEventUseCase<EventHomeModel>()),
-        Bind.factory((i) => GetEventStandingUseCase<EventStandingsModel>()),
-        Bind.factory((i) => GetRaceStandingsUseCase<RaceStandingsModel>()),
-        Bind.factory(
-            (i) => GetRaceTeamsStandingsUseCase<EventTeamsStandingsModel>()),
+        Bind.factory((i) => GetStandingUseCase<EventStandingsModel>()),
+        Bind.factory((i) => RaceStandingsUseCase<RaceStandingsModel>()),
+        Bind.factory((i) => TeamsStandingUseCase<EventTeamsStandingsModel>()),
         Bind.factory((i) => StartEventUseCase<StatusModel>()),
         Bind.factory((i) => FinishEventUseCase<StatusModel>()),
         Bind.factory((i) => ToogleMembersOnlyUseCase<StatusModel>()),

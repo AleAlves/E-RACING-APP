@@ -64,7 +64,8 @@ class ApiService extends BaseService {
         case HTTPVerb.delete:
           response = await http.delete(
               parseRequestParams(request.endpoint, request.params?.query),
-              headers: headers());
+              headers: headers(),
+              body: jsonEncode(request.params));
           break;
         case HTTPVerb.put:
           response = await http.put(parseRequest(request.endpoint),

@@ -48,7 +48,7 @@ class SignUpUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Account created, check your email to confirm it",
           action: "Ok",
-          next: "") as T);
+          route: "") as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

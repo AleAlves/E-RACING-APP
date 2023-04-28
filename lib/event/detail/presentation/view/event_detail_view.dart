@@ -9,6 +9,7 @@ import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/subscription_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/event/detail/presentation/router/event_detail_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -32,6 +33,9 @@ class _EventDetailViewState extends State<EventDetailView>
   @override
   void initState() {
     super.initState();
+    if (widget.viewModel.event == null) {
+      widget.viewModel.getEvent();
+    }
   }
 
   @override
@@ -144,7 +148,7 @@ class _EventDetailViewState extends State<EventDetailView>
         color: Theme.of(context).colorScheme.onBackground,
       ),
       onPressed: () {
-        // widget.viewModel.setFlow(EventFlow.eventDetailInfo);
+        widget.viewModel.onRoute(EventDetailRouter.info);
       },
       ready: true,
       child: Stack(
@@ -204,10 +208,10 @@ class _EventDetailViewState extends State<EventDetailView>
               SubscriptionWidget(
                 classes: widget.viewModel.event?.classes,
                 onSubscribe: (id) {
-                  // widget.viewModel.subscribe(id);
+                  widget.viewModel.subscribe(id);
                 },
                 onUnsubscribe: (id) {
-                  // widget.viewModel.unsubscribe(id);
+                  widget.viewModel.unsubscribe(id);
                 },
               ),
               const SpacingWidget(LayoutSize.size16),
@@ -219,7 +223,7 @@ class _EventDetailViewState extends State<EventDetailView>
   Widget races() {
     return EventRaceCollection(
         onRaceCardPressed: (id) {
-          // widget.viewModel.toRaceDetail(id);
+          widget.viewModel.goToRace(id);
         },
         races: widget.viewModel.event?.races);
   }
@@ -229,7 +233,7 @@ class _EventDetailViewState extends State<EventDetailView>
       standings: widget.viewModel.standings,
       onRaceCardPressed: (id) {},
       onFullStandingsPressed: () {
-        // widget.viewModel.setFlow(EventFlow.fullStandings);
+        widget.viewModel.onRoute(EventDetailRouter.standings);
       },
     );
   }

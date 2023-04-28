@@ -21,7 +21,7 @@ abstract class BaseViewModel<Router> with Store {
     state = ViewState.error;
   }
 
-  void onNavigate(Router route) {
+  void onRoute(Router route) {
     flow = route;
   }
 }

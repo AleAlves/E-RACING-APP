@@ -26,25 +26,25 @@ import './data/event_teams_standings_model.dart';
 import './data/race_standings_model.dart';
 import './domain/fetch_filtered_events_use_case.dart';
 import './domain/finish_event_usecase.dart';
-import './domain/get_event_standing_usecase.dart';
-import './domain/get_event_usecase.dart';
-import './domain/get_race_standing_usecase.dart';
-import './domain/get_race_teams_standing_usecase.dart';
-import './domain/leave_team_usecase.dart';
-import './domain/remove_subcription_usecase.dart';
 import './domain/start_event_usecase.dart';
-import './domain/subscribe_event_usecase.dart';
 import './domain/toogle_members_only_usecase.dart';
 import './domain/toogle_subscriptions_usecase.dart';
-import './domain/unsubscribe_event_usecase.dart';
 import './domain/update_event_usecase.dart';
 import './presentation/ui/event_flow.dart';
 import '../../core/domain/share_model.dart';
 import '../../core/navigation/routes.dart';
-import '../detail/domain/create_event_usecase.dart';
+import '../create/domain/create_event_usecase.dart';
 import '../detail/domain/create_team_usecase.dart';
 import '../detail/domain/delete_team_usecase.dart';
+import '../detail/domain/get_event_usecase.dart';
+import '../detail/domain/get_standing_usecase.dart';
 import '../detail/domain/join_team_usecase.dart';
+import '../detail/domain/leave_team_usecase.dart';
+import '../detail/domain/race_standing_usecase.dart';
+import '../detail/domain/remove_subcription_usecase.dart';
+import '../detail/domain/subscribe_event_usecase.dart';
+import '../detail/domain/teams_standing_usecase.dart';
+import '../detail/domain/unsubscribe_event_usecase.dart';
 import 'data/event_home_model.dart';
 import 'data/set_summary_model.dart';
 import 'domain/set_result_event_usecase.dart';
@@ -133,9 +133,9 @@ abstract class _EventViewModel with Store {
   final _deleteTeamUseCase = Modular.get<DeleteTeamUseCase<StatusModel>>();
   final _startEventUseCase = Modular.get<StartEventUseCase<StatusModel>>();
   final _getRaceStandingdUseCase =
-      Modular.get<GetRaceStandingsUseCase<RaceStandingsModel>>();
+      Modular.get<RaceStandingsUseCase<RaceStandingsModel>>();
   final _getRaceTeamsStandingsUseCase =
-      Modular.get<GetRaceTeamsStandingsUseCase<EventTeamsStandingsModel>>();
+      Modular.get<TeamsStandingUseCase<EventTeamsStandingsModel>>();
   final _finishEventUseCase = Modular.get<FinishEventUseCase<StatusModel>>();
   final _toogleSubscriptionsUseCase =
       Modular.get<ToogleSubscriptionsUseCase<StatusModel>>();
@@ -144,7 +144,7 @@ abstract class _EventViewModel with Store {
   final _getEventUseCase = Modular.get<GetEventUseCase<EventHomeModel>>();
   final _setSumaryUseCase = Modular.get<SetSummaryUseCase<StatusModel>>();
   final _getEventStandingsUseCase =
-      Modular.get<GetEventStandingUseCase<EventStandingsModel>>();
+      Modular.get<GetStandingUseCase<EventStandingsModel>>();
 
   @action
   init() async {
@@ -513,8 +513,7 @@ abstract class _EventViewModel with Store {
     status = StatusModel(
         message: error.message,
         action: "Ok",
-        next: EventFlow.list,
-        previous: flow,
+        route: EventFlow.list,
         error: error.isBusiness());
     if (error.isBusiness()) {
       state = ViewState.ready;

@@ -26,7 +26,7 @@ class CreateLeagueUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "League Created",
           action: "Ok",
-          next: LeagueRouter.detail) as T);
+          route: LeagueRouter.detail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

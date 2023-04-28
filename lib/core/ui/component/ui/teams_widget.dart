@@ -8,11 +8,12 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
 import 'package:flutter/material.dart';
 
+import 'button_widget.dart';
 import 'icon_widget.dart';
 import 'spacing_widget.dart';
-import 'button_widget.dart';
 
 class TeamsWidget extends StatefulWidget {
+  final bool isHost;
   final List<TeamModel?>? teams;
   final List<UserModel?>? users;
   final List<ClassesModel?>? classes;
@@ -22,7 +23,8 @@ class TeamsWidget extends StatefulWidget {
   final Function(String?) onDelete;
 
   const TeamsWidget(
-      {required this.teams,
+      {required this.isHost,
+      required this.teams,
       required this.users,
       required this.classes,
       required this.maxCrew,
@@ -77,18 +79,22 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                               children: [
                                 const Padding(
                                   padding: EdgeInsets.all(8),
-                                  child: IconWidget(icon: Icons.sports_motorsports),
+                                  child: IconWidget(
+                                      icon: Icons.sports_motorsports),
                                 ),
                                 TextWidget(
                                     text:
-                                    "(${team?.crew?.length.toString()}/${widget.maxCrew.toString()})",
+                                        "(${team?.crew?.length.toString()}/${widget.maxCrew.toString()})",
                                     style: Style.paragraph),
                               ],
                             ),
                           ),
                           TextWidget(
                               text: "${team?.name}", style: Style.paragraph),
-                          const IconWidget(icon: Icons.chevron_right, borderless: false,),
+                          const IconWidget(
+                            icon: Icons.chevron_right,
+                            borderless: false,
+                          ),
                         ],
                       ),
                     );
@@ -153,12 +159,12 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                         .cast<Widget>(),
                   ),
                   const SpacingWidget(LayoutSize.size48),
-                  alreadyInTeam
-                      ? Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ButtonWidget(
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      alreadyInTeam
+                          ? ButtonWidget(
                               label: "Leave",
                               type: ButtonType.iconButton,
                               icon: Icons.exit_to_app,
@@ -166,9 +172,22 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                                 widget.onLeave(team.id);
                               },
                               enabled: true,
-                            ),
-                            const SpacingWidget(LayoutSize.size16),
-                            ButtonWidget(
+                            )
+                          : Container(),
+                      !alreadyInTeam && isSubscriber(widget.classes)
+                          ? ButtonWidget(
+                              label: "Join",
+                              type: ButtonType.iconButton,
+                              icon: Icons.person_add,
+                              onPressed: () {
+                                widget.onJoin(team.id);
+                              },
+                              enabled: true,
+                            )
+                          : Container(),
+                      const SpacingWidget(LayoutSize.size16),
+                      widget.isHost || alreadyInTeam
+                          ? ButtonWidget(
                               label: "Delete",
                               type: ButtonType.iconButton,
                               icon: Icons.delete,
@@ -176,18 +195,10 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                                 widget.onDelete(team.id);
                               },
                               enabled: true,
-                            ),
-                          ],
-                        )
-                      : isSubscriber(widget.classes) ? ButtonWidget(
-                          label: "Join",
-                          type: ButtonType.iconButton,
-                          icon: Icons.person_add,
-                          onPressed: () {
-                            widget.onJoin(team.id);
-                          },
-                          enabled: true,
-                        ) : Container(),
+                            )
+                          : Container(),
+                    ],
+                  ),
                 ],
               )
             ],

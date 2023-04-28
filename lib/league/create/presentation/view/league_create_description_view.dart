@@ -125,7 +125,7 @@ class _LeagueCreateDescriptionViewState
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(LeagueCreateNavigator.name);
+    widget.viewModel.onRoute(LeagueCreateNavigator.name);
     return false;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:e_racing_app/event/detail/presentation/router/event_detail_router.dart';
+import 'package:e_racing_app/event/event_router.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -9,14 +10,24 @@ import '../../../core/model/media_model.dart';
 import '../../../core/model/race_model.dart';
 import '../../../core/model/status_model.dart';
 import '../../../core/model/team_model.dart';
+import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
 import '../../../login/legacy/domain/model/user_model.dart';
+import '../../../media/get_media.usecase.dart';
+import '../../core/data/event_home_model.dart';
 import '../../core/data/event_standings_model.dart';
+import '../../core/data/event_teams_standings_model.dart';
 import '../../core/data/race_standings_model.dart';
-import '../../core/domain/leave_team_usecase.dart';
 import '../domain/create_team_usecase.dart';
 import '../domain/delete_team_usecase.dart';
+import '../domain/get_event_usecase.dart';
+import '../domain/get_standing_usecase.dart';
 import '../domain/join_team_usecase.dart';
+import '../domain/leave_team_usecase.dart';
+import '../domain/race_standing_usecase.dart';
+import '../domain/subscribe_event_usecase.dart';
+import '../domain/teams_standing_usecase.dart';
+import '../domain/unsubscribe_event_usecase.dart';
 
 part 'event_detail_view_model.g.dart';
 
@@ -32,7 +43,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
 
   @override
   @observable
-  ViewState state = ViewState.ready;
+  ViewState state = ViewState.loading;
 
   @override
   @observable
@@ -61,23 +72,118 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
   RaceStandingsModel? raceStandings;
 
   @observable
+  EventTeamsStandingsModel? teamsStandings;
+
+  @observable
   ObservableList<EventModel?>? events = ObservableList();
 
   @observable
   ObservableList<UserModel?>? users = ObservableList();
 
-  final _createTeamEventUseCase = Modular.get<CreateTeamUseCase<StatusModel>>();
+  final _createTeamUC = Modular.get<CreateTeamUseCase<StatusModel>>();
   final _leaveTeamUseCase = Modular.get<LeaveTeamUseCase<StatusModel>>();
   final _joinTeamUseCase = Modular.get<JoinTeamUseCase<StatusModel>>();
   final _deleteTeamUseCase = Modular.get<DeleteTeamUseCase<StatusModel>>();
+  final _getEventUseCase = Modular.get<GetEventUseCase<EventHomeModel>>();
+  final _standingsUC = Modular.get<GetStandingUseCase<EventStandingsModel>>();
+  final _doSubscribeUC = Modular.get<SubscribeEventUseCase<StatusModel>>();
+  final _unsubscribeUC = Modular.get<UnsubscribeEventUseCase<StatusModel>>();
+  final _getMediaUC = Modular.get<GetMediaUseCase<MediaModel>>();
+  final _teamStandingsUC =
+      Modular.get<TeamsStandingUseCase<EventTeamsStandingsModel>>();
+  final _raceStandingsUC =
+      Modular.get<RaceStandingsUseCase<RaceStandingsModel>>();
+
+  void getEvent() async {
+    state = ViewState.loading;
+    media = null;
+    _getEventUseCase.params(id: Session.instance.getEventId() ?? '').invoke(
+        success: (data) {
+          event = data?.event;
+          share = ShareModel(
+              route: EventRouter.detail,
+              leagueId: event?.leagueId,
+              eventId: event?.id,
+              name: event?.title,
+              message: "Check out this racing event");
+          users = ObservableList.of(data?.users ?? []);
+          if (data?.event.type == EventType.race) {
+            // setFlow(EventFlow.detailRace);
+          } else {
+            getMedia(data?.event.id ?? '');
+          }
+          _getStandings();
+          state = ViewState.ready;
+        },
+        error: onError);
+  }
+
+  Future<void> getRaceStandings() async {
+    raceStandings = null;
+    await _raceStandingsUC.build(id: race?.id ?? '').invoke(
+        success: (data) {
+          raceStandings = data;
+        },
+        error: onError);
+  }
+
+  Future<void> getTeamsStandings() async {
+    teamsStandings = null;
+    await _teamStandingsUC.build(id: event?.id ?? '').invoke(
+        success: (data) {
+          teamsStandings = data;
+        },
+        error: onError);
+  }
+
+  void getMedia(String id) async {
+    await _getMediaUC.params(id: id).invoke(
+        success: (data) {
+          media = data;
+        },
+        error: onError);
+  }
+
+  _getStandings() async {
+    _standingsUC.build(id: event?.id ?? '').invoke(
+        success: (data) {
+          standings = data;
+        },
+        error: onError);
+  }
+
+  void subscribe(String? classId) async {
+    state = ViewState.loading;
+    await _doSubscribeUC.build(classId: classId, eventId: event?.id).invoke(
+        success: (data) {
+          status = data;
+          state = ViewState.ready;
+          onRoute(EventDetailRouter.status);
+        },
+        error: onError);
+  }
+
+  void unsubscribe(String? classId) async {
+    state = ViewState.loading;
+    await _unsubscribeUC.build(classId: classId, eventId: event?.id).invoke(
+        success: (data) {
+          getEvent();
+          status = data;
+          state = ViewState.ready;
+          onRoute(EventDetailRouter.status);
+        },
+        error: onError);
+  }
 
   void createTeam(String name, List<String?> ids) async {
     state = ViewState.loading;
     var team = TeamModel(name: name, crew: ids);
-    await _createTeamEventUseCase.build(id: event?.id, team: team).invoke(
+    await _createTeamUC.build(id: event?.id, team: team).invoke(
         success: (data) {
+          getEvent();
           status = data;
-          // setFlow(EventFlow.status);
+          state = ViewState.ready;
+          onRoute(EventDetailRouter.status);
         },
         error: onError);
   }
@@ -86,8 +192,10 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
     state = ViewState.loading;
     await _joinTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
         success: (data) {
+          getEvent();
           status = data;
-          // setFlow(EventFlow.status);
+          state = ViewState.ready;
+          onRoute(EventDetailRouter.status);
         },
         error: onError);
   }
@@ -96,8 +204,10 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
     state = ViewState.loading;
     await _leaveTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
         success: (data) {
+          getEvent();
           status = data;
-          // setFlow(EventFlow.status);
+          state = ViewState.ready;
+          onRoute(EventDetailRouter.status);
         },
         error: onError);
   }
@@ -106,9 +216,16 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
     state = ViewState.loading;
     await _deleteTeamUseCase.build(teamId: id, eventId: event?.id).invoke(
         success: (data) {
+          getEvent();
           status = data;
-          // setFlow(EventFlow.status);
+          state = ViewState.ready;
+          onRoute(EventDetailRouter.status);
         },
         error: onError);
+  }
+
+  goToRace(String id) {
+    race = event?.races?.firstWhere((element) => element?.id == id);
+    onRoute(EventDetailRouter.race);
   }
 }

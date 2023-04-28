@@ -22,7 +22,7 @@ class _EventCreateScreenState extends State<EventCreateScreen>
 
   @override
   void initState() {
-    viewModel.onNavigate(widget.flow);
+    viewModel.onRoute(widget.flow);
     super.initState();
   }
 

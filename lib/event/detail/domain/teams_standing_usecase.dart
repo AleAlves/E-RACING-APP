@@ -3,12 +3,12 @@ import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
 import '../../../core/model/pair_model.dart';
-import '../data/race_standings_model.dart';
+import '../../core/data/event_teams_standings_model.dart';
 
-class GetRaceStandingsUseCase<T> extends BaseUseCase<T> {
+class TeamsStandingUseCase<T> extends BaseUseCase<T> {
   late String _id;
 
-  GetRaceStandingsUseCase<T> build({required String id}) {
+  TeamsStandingUseCase<T> build({required String id}) {
     _id = id;
     return this;
   }
@@ -17,11 +17,11 @@ class GetRaceStandingsUseCase<T> extends BaseUseCase<T> {
   Future<void> invoke(
       {required Function(T) success, required Function error}) async {
     var response = await super.remote(Request(
-        endpoint: "api/v1/event/race/standings",
+        endpoint: "api/v1/event/teams/standings",
         params: HTTPRequesParams(query: Pair("id", _id)),
         verb: HTTPVerb.get));
     if (response.isSuccessfully) {
-      success.call(RaceStandingsModel.fromJson(response.data) as T);
+      success.call(EventTeamsStandingsModel.fromJson(response.data) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

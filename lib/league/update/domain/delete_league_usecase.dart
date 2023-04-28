@@ -21,7 +21,7 @@ class DeleteLeagueUseCase<T> extends BaseUseCase {
         params: HTTPRequesParams(query: Pair("id", _id))));
     if (response.isSuccessfully) {
       success.call(
-          StatusModel(message: "League Deleted", action: "Ok", next: null)
+          StatusModel(message: "League Deleted", action: "Ok", route: null)
               as T);
     } else {
       error.call(ApiException(

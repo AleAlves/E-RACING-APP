@@ -25,7 +25,7 @@ class StartEventUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Event started",
           action: "Ok",
-          next: EventFlow.eventDetail) as T);
+          route: EventFlow.eventDetail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

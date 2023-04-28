@@ -15,6 +15,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../core/ui/component/ui/icon_widget.dart';
 import '../../../core/data/race_standings_model.dart';
 import '../event_detail_view_model.dart';
+import '../router/event_detail_router.dart';
 
 class EventDetailRaceView extends StatefulWidget {
   final EventDetailViewModel viewModel;
@@ -32,7 +33,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
   @override
   void initState() {
     observers();
-    // widget.viewModel.getRaceStandings();
+    widget.viewModel.getRaceStandings();
     super.initState();
   }
 
@@ -56,7 +57,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
 
   @override
   Future<bool> onBackPressed() async {
-    // widget.viewModel.setFlow(EventFlow.eventDetail);
+    widget.viewModel.onRoute(EventDetailRouter.main);
     return false;
   }
 
@@ -148,77 +149,85 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
   }
 
   Widget sessionsWidget() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
-        itemCount: widget.viewModel.race?.sessions?.length,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              CardWidget(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                ready: true,
-                childRight: const IconWidget(icon: Icons.tune),
-                child: Row(
+    return widget.viewModel.race == null
+        ? const LoadingShimmer(
+            height: 100,
+          )
+        : Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              itemCount: widget.viewModel.race?.sessions?.length,
+              itemBuilder: (context, index) {
+                return Column(
                   children: [
-                    getSesionIcon(
-                        widget.viewModel.race?.sessions?[index]?.type),
-                    const SpacingWidget(LayoutSize.size24),
-                    Expanded(
-                      child: Column(
+                    CardWidget(
+                      padding: const EdgeInsets.only(left: 16, right: 16),
+                      ready: true,
+                      childRight: const IconWidget(icon: Icons.tune),
+                      child: Row(
                         children: [
-                          const SpacingWidget(LayoutSize.size8),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                          getSesionIcon(
+                              widget.viewModel.race?.sessions?[index]?.type),
+                          const SpacingWidget(LayoutSize.size24),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                const SpacingWidget(LayoutSize.size8),
+                                Row(
                                   children: [
-                                    TextWidget(
-                                      text: widget.viewModel.race
-                                          ?.sessions?[index]?.name,
-                                      style: Style.paragraph,
-                                      align: TextAlign.start,
-                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TextWidget(
+                                            text: widget.viewModel.race
+                                                ?.sessions?[index]?.name,
+                                            style: Style.paragraph,
+                                            align: TextAlign.start,
+                                          ),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 ),
-                              )
-                            ],
-                          ),
-                          const SpacingWidget(LayoutSize.size16),
-                          sessionSettings(index),
-                          const SpacingWidget(LayoutSize.size16),
+                                const SpacingWidget(LayoutSize.size16),
+                                sessionSettings(index),
+                                const SpacingWidget(LayoutSize.size16),
+                              ],
+                            ),
+                          )
                         ],
                       ),
-                    )
+                    ),
                   ],
-                ),
-              ),
-            ],
+                );
+              },
+            ),
           );
-        },
-      ),
-    );
   }
 
   Widget sessionSettings(int sessionIndex) {
-    return Wrap(
-      children: widget.viewModel.race?.sessions?[sessionIndex]?.settings
-          ?.map((e) {
-            return Row(
-              children: [
-                TextWidget(style: Style.paragraph, text: "${e?.name}:"),
-                const SpacingWidget(LayoutSize.size8),
-                TextWidget(style: Style.paragraph, text: e?.name),
-              ],
-            );
-          })
-          .toList()
-          .cast<Widget>() as List<Widget>,
-    );
+    return widget.viewModel.race?.sessions?[sessionIndex]?.settings == null
+        ? Container()
+        : Wrap(
+            children: widget.viewModel.race?.sessions?[sessionIndex]?.settings
+                ?.map((e) {
+                  return Row(
+                    children: [
+                      TextWidget(style: Style.paragraph, text: "${e?.name}:"),
+                      const SpacingWidget(LayoutSize.size8),
+                      TextWidget(style: Style.paragraph, text: e?.name),
+                    ],
+                  );
+                })
+                .toList()
+                .cast<Widget>() as List<Widget>,
+          );
   }
 
   Widget standings() {

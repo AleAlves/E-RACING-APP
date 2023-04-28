@@ -32,7 +32,7 @@ class ResetPasswordUseCase<T> extends BaseUseCase<T> {
             cypherSchema: CypherSchema.rsa)));
     if (response.isSuccessfully) {
       var status = StatusModel(
-          message: "Password reseted", action: "Ok", next: LoginRouter.signIn);
+          message: "Password reseted", action: "Ok", route: LoginRouter.signIn);
       success.call(status as T);
     } else {
       error.call(ApiException(

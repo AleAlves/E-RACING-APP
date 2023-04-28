@@ -3,9 +3,9 @@ import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/model/team_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
+import 'package:e_racing_app/event/detail/presentation/router/event_detail_router.dart';
 
 import '../../core/data/team_create_model.dart';
-import '../../core/presentation/ui/event_flow.dart';
 
 class CreateTeamUseCase<T> extends BaseUseCase<T> {
   late String? _eventId;
@@ -29,7 +29,7 @@ class CreateTeamUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Team Created",
           action: "Ok",
-          next: EventFlow.eventDetail) as T);
+          route: EventDetailRouter.info) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

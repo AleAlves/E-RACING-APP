@@ -52,8 +52,7 @@ abstract class _ProfileViewModel extends BaseViewModel<ProfileNavigationSet>
           status = StatusModel(
               message: "Profile updated",
               action: "Ok",
-              externalLink: false,
-              next: ProfileNavigationSet.home);
+              route: ProfileNavigationSet.home);
           state = ViewState.ready;
           flow = ProfileNavigationSet.status;
         },
@@ -62,10 +61,7 @@ abstract class _ProfileViewModel extends BaseViewModel<ProfileNavigationSet>
 
   void onError(ApiException error) {
     status = StatusModel(
-        message: error.message,
-        action: "Ok",
-        next: ProfileNavigationSet.home,
-        previous: flow);
+        message: error.message, action: "Ok", route: ProfileNavigationSet.home);
 
     state = ViewState.ready;
     flow = ProfileNavigationSet.home;

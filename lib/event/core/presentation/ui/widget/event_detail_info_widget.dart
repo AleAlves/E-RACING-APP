@@ -119,6 +119,7 @@ class _EventDetailInfoWidgetState extends State<EventDetailInfoWidget>
                   ),
                   const SpacingWidget(LayoutSize.size16),
                   TeamsWidget(
+                    isHost: true,
                     users: widget.viewModel.users,
                     teams: widget.viewModel.event?.teams,
                     maxCrew: widget.viewModel.event?.teamsMaxCrew,

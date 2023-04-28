@@ -27,7 +27,7 @@ class ToogleSubscriptionsUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Event subscriptions updated",
           action: "Ok",
-          next: EventFlow.manager) as T);
+          route: EventFlow.manager) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

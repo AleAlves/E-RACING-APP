@@ -76,17 +76,17 @@ abstract class _LeagueCreateViewModel
 
   void setAgreement(bool termsAgreement) {
     this.termsAgreement = termsAgreement;
-    onNavigate(LeagueCreateNavigator.name);
+    onRoute(LeagueCreateNavigator.name);
   }
 
   void setName(String name) {
     this.name = name;
-    onNavigate(LeagueCreateNavigator.description);
+    onRoute(LeagueCreateNavigator.description);
   }
 
   void setDescription(String description) {
     this.description = description;
-    onNavigate(LeagueCreateNavigator.banner);
+    onRoute(LeagueCreateNavigator.banner);
   }
 
   void setBanner(String banner) {
@@ -99,7 +99,7 @@ abstract class _LeagueCreateViewModel
 
   void setSocialMedia(List<LinkModel?> linkModels) {
     this.linkModels = linkModels;
-    onNavigate(LeagueCreateNavigator.review);
+    onRoute(LeagueCreateNavigator.review);
   }
 
   void fetchTags() async {
@@ -135,7 +135,7 @@ abstract class _LeagueCreateViewModel
             success: (data) {
               status = data;
               state = ViewState.ready;
-              onNavigate(LeagueCreateNavigator.status);
+              onRoute(LeagueCreateNavigator.status);
             },
             error: onError);
   }

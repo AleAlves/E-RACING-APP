@@ -49,7 +49,7 @@ abstract class _LoginPasswordRecoveryViewModel
         success: (data) {
           status = data;
           state = ViewState.ready;
-          onNavigate(LoginPasswordRecoveryNavigationSet.status);
+          onRoute(LoginPasswordRecoveryNavigationSet.status);
         },
         error: onError);
   }
@@ -61,7 +61,7 @@ abstract class _LoginPasswordRecoveryViewModel
         success: (data) {
           status = data;
           state = ViewState.ready;
-          onNavigate(LoginPasswordRecoveryNavigationSet.status);
+          onRoute(LoginPasswordRecoveryNavigationSet.status);
         },
         error: onError);
   }
@@ -74,7 +74,7 @@ abstract class _LoginPasswordRecoveryViewModel
             success: (data) {
               status = data;
               state = ViewState.ready;
-              onNavigate(LoginPasswordRecoveryNavigationSet.status);
+              onRoute(LoginPasswordRecoveryNavigationSet.status);
             },
             error: onError);
   }

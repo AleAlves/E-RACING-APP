@@ -249,7 +249,7 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.eventBanner);
+    widget.viewModel.onRoute(EventCreateNavigator.eventBanner);
     return false;
   }
 }

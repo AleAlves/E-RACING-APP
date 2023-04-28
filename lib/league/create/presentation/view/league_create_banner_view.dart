@@ -136,7 +136,7 @@ class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
       enabled: bannerFile.path.isNotEmpty || widget.viewModel.banner != null,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.onNavigate(LeagueCreateNavigator.tags);
+        widget.viewModel.onRoute(LeagueCreateNavigator.tags);
       },
       label: "Next",
     );
@@ -147,7 +147,7 @@ class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(LeagueCreateNavigator.description);
+    widget.viewModel.onRoute(LeagueCreateNavigator.description);
     return false;
   }
 }

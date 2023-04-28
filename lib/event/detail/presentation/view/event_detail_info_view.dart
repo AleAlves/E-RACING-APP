@@ -3,6 +3,7 @@ import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/event/detail/presentation/router/event_detail_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -52,7 +53,7 @@ class _EventDetailInfoViewState extends State<EventDetailInfoView>
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: [rules(), settings(), teams(), scoring()],
+          children: [settings(), teams(), scoring(), rules()],
         ),
       ),
     );
@@ -118,6 +119,7 @@ class _EventDetailInfoViewState extends State<EventDetailInfoView>
                   ),
                   const SpacingWidget(LayoutSize.size16),
                   TeamsWidget(
+                    isHost: isEventHost(widget.viewModel.event),
                     users: widget.viewModel.users,
                     teams: widget.viewModel.event?.teams,
                     maxCrew: widget.viewModel.event?.teamsMaxCrew,
@@ -147,7 +149,8 @@ class _EventDetailInfoViewState extends State<EventDetailInfoView>
                                   Theme.of(context).colorScheme.onPrimary,
                               icon: Icons.add,
                               onPressed: () {
-                                // widget.viewModel.setFlow(EventFlow.createTeam);
+                                widget.viewModel
+                                    .onRoute(EventDetailRouter.team);
                               },
                               enabled: widget.viewModel.event != null,
                             ),
@@ -230,7 +233,7 @@ class _EventDetailInfoViewState extends State<EventDetailInfoView>
 
   @override
   Future<bool> onBackPressed() async {
-    // widget.viewModel.setFlow(EventFlow.eventDetail);
+    widget.viewModel.onRoute(EventDetailRouter.main);
     return false;
   }
 }

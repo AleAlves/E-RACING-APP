@@ -152,7 +152,7 @@ class _EventCreateRaceListViewState extends State<EventCreateRaceListView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.eventSettings);
+    widget.viewModel.onRoute(EventCreateNavigator.eventSettings);
     return false;
   }
 }

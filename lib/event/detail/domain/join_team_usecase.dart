@@ -4,7 +4,7 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
 import '../../core/data/team_request_model.dart';
-import '../../core/presentation/ui/event_flow.dart';
+import '../presentation/router/event_detail_router.dart';
 
 class JoinTeamUseCase<T> extends BaseUseCase<T> {
   late String? _teamId;
@@ -31,7 +31,7 @@ class JoinTeamUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Added to the team",
           action: "Ok",
-          next: EventFlow.eventDetail) as T);
+          route: EventDetailRouter.info) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

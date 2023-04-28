@@ -69,7 +69,7 @@ class _EventStatusWidgetState extends State<EventStatusWidget>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.setFlow(widget.viewModel.status?.next);
+        widget.viewModel.setFlow(widget.viewModel.status?.route);
       },
       label: widget.viewModel.status?.action ?? '',
     );
@@ -80,7 +80,7 @@ class _EventStatusWidgetState extends State<EventStatusWidget>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.setFlow(widget.viewModel.status?.next);
+    widget.viewModel.setFlow(widget.viewModel.status?.route);
     return false;
   }
 }

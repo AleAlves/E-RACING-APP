@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../navigation/routes.dart';
+
 class StatusView extends StatefulWidget {
   final BaseViewModel viewModel;
 
@@ -73,10 +75,10 @@ class _StatusViewState extends State<StatusView> implements BaseSateWidget {
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        if (widget.viewModel.status?.externalLink == true) {
-          Modular.to.pushNamed(widget.viewModel.status?.next);
+        if (widget.viewModel.status?.route is Routes) {
+          Modular.to.pushNamed(widget.viewModel.status?.route);
         } else {
-          widget.viewModel.onNavigate(widget.viewModel.status?.next);
+          widget.viewModel.onRoute(widget.viewModel.status?.route);
         }
       },
       label: widget.viewModel.status?.action ?? '',

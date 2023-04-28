@@ -114,7 +114,7 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(EventCreateNavigator.eventClasses);
+    widget.viewModel.onRoute(EventCreateNavigator.eventClasses);
     return false;
   }
 }

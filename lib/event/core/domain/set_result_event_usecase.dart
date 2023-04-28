@@ -25,7 +25,7 @@ class SetSummaryUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "",
           action: "",
-          next: EventFlow.managementEditRaceResultsEdit) as T);
+          route: EventFlow.managementEditRaceResultsEdit) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

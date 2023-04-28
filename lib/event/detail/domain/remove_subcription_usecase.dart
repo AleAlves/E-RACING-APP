@@ -3,17 +3,21 @@ import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
-import '../data/event_do_subscribe_model.dart';
-import '../presentation/ui/event_flow.dart';
+import '../../core/data/remove_subscription_model.dart';
+import '../../core/presentation/ui/event_flow.dart';
 
-class SubscribeEventUseCase<T> extends BaseUseCase<T> {
+class RemoveSubscriptionUseCase<T> extends BaseUseCase<T> {
   late String? _classId;
   late String? _eventId;
+  late String? _userId;
 
-  SubscribeEventUseCase<T> build(
-      {required String? classId, required String? eventId}) {
+  RemoveSubscriptionUseCase<T> build(
+      {required String? classId,
+      required String? eventId,
+      required String? userId}) {
     _classId = classId;
     _eventId = eventId;
+    _userId = userId;
     return this;
   }
 
@@ -21,16 +25,18 @@ class SubscribeEventUseCase<T> extends BaseUseCase<T> {
   Future<void> invoke(
       {required Function(T) success, required Function error}) async {
     var response = await super.remote(Request(
-        endpoint: "api/v1/event/subscribe",
+        endpoint: "api/v1/event/remove/subscription",
         verb: HTTPVerb.post,
         params: HTTPRequesParams(
-            data: EventDoSubscribeCreateModel(
-                classId: _classId ?? '', eventId: _eventId ?? ''))));
+            data: RemoveSubscriptionModel(
+                classId: _classId ?? '',
+                eventId: _eventId ?? '',
+                userId: _userId ?? ''))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Subscribed in the event, good luck!",
+          message: "Subscription removed from the event",
           action: "Ok",
-          next: EventFlow.eventDetail) as T);
+          route: EventFlow.manager) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

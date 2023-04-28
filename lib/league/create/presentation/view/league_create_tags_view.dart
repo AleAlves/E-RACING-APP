@@ -116,7 +116,7 @@ class _LeagueCreateTagsViewState extends State<LeagueCreateTagsView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.onNavigate(LeagueCreateNavigator.socialMedia);
+        widget.viewModel.onRoute(LeagueCreateNavigator.socialMedia);
       },
       label: widget.viewModel.leagueTags?.isEmpty == true ? "Skip" : "Next",
     );
@@ -124,7 +124,7 @@ class _LeagueCreateTagsViewState extends State<LeagueCreateTagsView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(LeagueCreateNavigator.banner);
+    widget.viewModel.onRoute(LeagueCreateNavigator.banner);
     return false;
   }
 }

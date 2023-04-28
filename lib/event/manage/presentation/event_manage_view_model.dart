@@ -13,10 +13,10 @@ import '../../../core/ui/view_state.dart';
 import '../../../login/legacy/domain/model/user_model.dart';
 import '../../core/data/event_standings_model.dart';
 import '../../core/data/race_standings_model.dart';
-import '../../core/domain/leave_team_usecase.dart';
 import '../../detail/domain/create_team_usecase.dart';
 import '../../detail/domain/delete_team_usecase.dart';
 import '../../detail/domain/join_team_usecase.dart';
+import '../../detail/domain/leave_team_usecase.dart';
 
 part 'event_manage_view_model.g.dart';
 

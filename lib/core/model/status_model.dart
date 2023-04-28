@@ -7,17 +7,13 @@ class StatusModel {
   final String? message;
   final String? action;
   final bool? error;
-  final bool? externalLink;
-  final dynamic next;
-  final dynamic previous;
+  final dynamic route;
 
   StatusModel(
       {required this.message,
       required this.action,
-      required this.next,
-      this.previous,
-      this.error = false,
-      this.externalLink = true});
+      this.route,
+      this.error = false});
 
   factory StatusModel.fromJson(Map<String, dynamic> json) =>
       _$StatusModelFromJson(json);

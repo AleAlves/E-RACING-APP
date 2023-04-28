@@ -121,7 +121,7 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(LeagueCreateNavigator.terms);
+    widget.viewModel.onRoute(LeagueCreateNavigator.terms);
     return false;
   }
 }

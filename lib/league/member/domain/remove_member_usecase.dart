@@ -28,8 +28,7 @@ class RemoveMemberUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Member successfully removed",
           action: "Ok",
-          externalLink: false,
-          next: LeagueMemberNavigationSet.main) as T);
+          route: LeagueMemberNavigationSet.main) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

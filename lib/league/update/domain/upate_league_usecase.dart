@@ -30,7 +30,7 @@ class UpdateLeagueUseCase<T> extends BaseUseCase<T?> {
       success.call(StatusModel(
           message: "League Updated",
           action: "Ok",
-          next: LeagueDetailNavigationSet.main) as T);
+          route: LeagueDetailNavigationSet.main) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

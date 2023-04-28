@@ -89,7 +89,7 @@ class _LoginPasswordRecoveryViewState extends State<LoginPasswordRecoveryView>
                     enabled: true,
                     type: ButtonType.link,
                     onPressed: () {
-                      widget.viewModel.onNavigate(
+                      widget.viewModel.onRoute(
                           LoginPasswordRecoveryNavigationSet.retryValidation);
                     },
                     label: "Resend email validation code",

@@ -13,7 +13,7 @@ import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
 import '../../../tag/get_tag_usecase.dart';
 import '../../core/presentation/ui/model/championship_races_model.dart';
-import '../../detail/domain/create_event_usecase.dart';
+import '../domain/create_event_usecase.dart';
 import 'navigation/event_create_flow.dart';
 
 part 'event_create_view_model.g.dart';
@@ -83,17 +83,17 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   final _createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
 
   void setAgreement(bool termsAgreement) {
-    onNavigate(EventCreateNavigator.eventName);
+    onRoute(EventCreateNavigator.eventName);
   }
 
   void setEventName(String name) {
     eventName = name;
-    onNavigate(EventCreateNavigator.eventRules);
+    onRoute(EventCreateNavigator.eventRules);
   }
 
   void setEventRules(String rules) {
     eventRules = rules;
-    onNavigate(EventCreateNavigator.eventScore);
+    onRoute(EventCreateNavigator.eventScore);
   }
 
   void setEventBanner(String base64encodedBanner) {
@@ -101,15 +101,15 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   }
 
   void onFinishEventBanner() {
-    onNavigate(EventCreateNavigator.eventClasses);
+    onRoute(EventCreateNavigator.eventClasses);
   }
 
   void onFinishEventTags() {
-    onNavigate(EventCreateNavigator.eventSettings);
+    onRoute(EventCreateNavigator.eventSettings);
   }
 
   void onFinishEventSettings() {
-    onNavigate(EventCreateNavigator.eventRaceList);
+    onRoute(EventCreateNavigator.eventRaceList);
   }
 
   void addEventClasses(ClassesModel classesModel) {
@@ -121,11 +121,11 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   }
 
   void onFinishClasses() {
-    onNavigate(EventCreateNavigator.eventTags);
+    onRoute(EventCreateNavigator.eventTags);
   }
 
   void onFinishScore() {
-    onNavigate(EventCreateNavigator.eventBanner);
+    onRoute(EventCreateNavigator.eventBanner);
   }
 
   void setToggleEventAllowTeamsOption(bool? allowTeams) {
@@ -138,24 +138,24 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
 
   void onCreateNewRace() {
     editingRaceModel = null;
-    onNavigate(EventCreateNavigator.eventRaceCreation);
+    onRoute(EventCreateNavigator.eventRaceCreation);
   }
 
   void onRaceEditing(ChampionshipRacesModel? race) {
     editingRaceModel = race;
     editingRaceIndex = racesModel.indexOf(race);
-    onNavigate(EventCreateNavigator.eventRaceEditing);
+    onRoute(EventCreateNavigator.eventRaceEditing);
   }
 
   void addRace(ChampionshipRacesModel? model) {
     racesModel.add(model);
-    onNavigate(EventCreateNavigator.eventRaceList);
+    onRoute(EventCreateNavigator.eventRaceList);
   }
 
   void updateRace(ChampionshipRacesModel? model) {
     racesModel.removeAt(editingRaceIndex);
     racesModel.insert(editingRaceIndex, model);
-    onNavigate(EventCreateNavigator.eventRaceList);
+    onRoute(EventCreateNavigator.eventRaceList);
   }
 
   void removeRace(ChampionshipRacesModel? racesModel) {
@@ -195,7 +195,7 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
             success: (data) {
               status = data;
               state = ViewState.ready;
-              onNavigate(EventCreateNavigator.eventStatus);
+              onRoute(EventCreateNavigator.eventStatus);
             },
             error: onError);
   }

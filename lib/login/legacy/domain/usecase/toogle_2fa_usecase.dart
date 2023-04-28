@@ -18,7 +18,7 @@ class Toogle2FAUseCase<T> extends BaseUseCase<T> {
         message = "2FA desabilitado";
       }
       success.call(Pair<StatusModel, bool>(
-          StatusModel(message: message, action: "Ok", next: ""),
+          StatusModel(message: message, action: "Ok", route: ""),
           response.data) as T);
     } else {
       error.call(ApiException(

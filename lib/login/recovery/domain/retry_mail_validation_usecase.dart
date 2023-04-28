@@ -25,7 +25,7 @@ class RetryMailValidationUseCase<T> extends BaseUseCase<T> {
       var status = StatusModel(
           message: "A new validation link was sent to your email",
           action: "Ok",
-          next: LoginRouter.onboard);
+          route: LoginRouter.onboard);
       success.call(status as T);
     } else {
       error.call(ApiException(

@@ -70,7 +70,7 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
         icon: Icons.delete,
         title: "Delete",
         onPressed: () {
-          widget.viewModel.onNavigate(LeagueDetailNavigationSet.main);
+          widget.viewModel.onRoute(LeagueDetailNavigationSet.main);
         },
       ),
     );
@@ -445,7 +445,7 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
 
   @override
   Future<bool> onBackPressed() async {
-    widget.viewModel.onNavigate(LeagueDetailNavigationSet.main);
+    widget.viewModel.onRoute(LeagueDetailNavigationSet.main);
     return false;
   }
 }
