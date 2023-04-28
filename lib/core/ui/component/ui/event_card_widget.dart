@@ -266,7 +266,7 @@ class EventCardWidget extends StatelessWidget {
         ? Row(
             children: [
               const ChipWidget(
-                label: 'Drivers wanted',
+                text: 'Drivers wanted',
               ),
               const SpacingWidget(LayoutSize.size4),
               event?.membersOnly == true ? membership(context) : Container()
@@ -277,7 +277,7 @@ class EventCardWidget extends StatelessWidget {
 
   Widget membership(BuildContext context) {
     return Row(
-      children: const [ChipWidget(label: 'Members only')],
+      children: const [ChipWidget(text: 'Members only')],
     );
   }
 }

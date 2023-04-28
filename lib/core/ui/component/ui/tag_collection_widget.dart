@@ -45,7 +45,7 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
             runSpacing: 5.0,
             children: widget.tagIds!
                 .map((item) {
-                  return ChipWidget(label: name(item));
+                  return ChipWidget(text: name(item));
                 })
                 .toList()
                 .cast<Widget>(),
@@ -89,7 +89,7 @@ class _TagCollectionWidgetState extends State<TagCollectionWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ChipWidget(label: name(widget.tagIds?[index])),
+                      ChipWidget(text: name(widget.tagIds?[index])),
                       const SpacingWidget(LayoutSize.size4)
                     ],
                   );

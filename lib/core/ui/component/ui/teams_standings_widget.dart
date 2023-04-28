@@ -71,6 +71,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
     return CardWidget(
       ready: true,
       shapeLess: true,
+      arrowed: true,
       padding: EdgeInsets.zero,
       onPressed: () {
         showResume(teamStanding);
@@ -124,10 +125,6 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
                       ),
                     ),
                   ],
-                ),
-                const IconWidget(
-                  icon: Icons.chevron_right,
-                  borderless: false,
                 ),
               ],
             ),

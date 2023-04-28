@@ -1,5 +1,5 @@
 import 'package:e_racing_app/core/ui/base_view_model.dart';
-import 'package:e_racing_app/event/manage/presentation/router/event_manage_router.dart';
+import 'package:e_racing_app/event/update/presentation/router/event_update_router.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -16,21 +16,21 @@ import '../../core/data/set_summary_model.dart';
 import '../../detail/domain/get_event_usecase.dart';
 import '../../detail/domain/race_standing_usecase.dart';
 import '../../detail/domain/remove_subcription_usecase.dart';
-import '../domain/set_result_event_usecase.dart';
-import '../domain/toogle_members_only_usecase.dart';
-import '../domain/toogle_subscriptions_usecase.dart';
+import '../../manage/domain/set_result_event_usecase.dart';
+import '../../manage/domain/toogle_members_only_usecase.dart';
+import '../../manage/domain/toogle_subscriptions_usecase.dart';
 
-part 'event_manage_view_model.g.dart';
+part 'event_update_view_model.g.dart';
 
-class EventManageViewModel = _EventManageViewModel with _$EventManageViewModel;
+class EventUpdateViewModel = _EventUpdateViewModel with _$EventUpdateViewModel;
 
-abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
+abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
     with Store {
-  _EventManageViewModel();
+  _EventUpdateViewModel();
 
   @override
   @observable
-  EventManageRouter? flow = EventManageRouter.main;
+  EventUpdateRouter? flow = EventUpdateRouter.main;
 
   @override
   @observable
@@ -133,7 +133,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
         success: (data) {
           status = data;
           state = ViewState.ready;
-          onRoute(EventManageRouter.status);
+          onRoute(EventUpdateRouter.status);
         },
         error: onError);
   }
@@ -144,7 +144,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
         success: (data) {
           status = data;
           state = ViewState.ready;
-          onRoute(EventManageRouter.status);
+          onRoute(EventUpdateRouter.status);
         },
         error: onError);
   }

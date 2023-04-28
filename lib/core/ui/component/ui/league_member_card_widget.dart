@@ -93,7 +93,7 @@ class LeagueMemberCardWidget extends StatelessWidget {
                     children: [
                       const SpacingWidget(LayoutSize.size8),
                       ChipWidget(
-                        label: "Community manager",
+                        text: "Community manager",
                         color: Theme.of(context).colorScheme.primary,
                         textColor: Theme.of(context).colorScheme.onPrimary,
                       ),

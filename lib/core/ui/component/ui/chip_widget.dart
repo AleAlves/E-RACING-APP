@@ -2,14 +2,14 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
 class ChipWidget extends StatefulWidget {
-  final String? label;
+  final String? text;
   final VoidCallback? onPressed;
   final EdgeInsets? padding;
   final Color? color;
   final Color? textColor;
 
   const ChipWidget(
-      {required this.label,
+      {required this.text,
       this.padding,
       this.color,
       this.textColor,
@@ -41,7 +41,7 @@ class _ChipWidgetState extends State<ChipWidget> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextWidget(
-                  text: widget.label ?? '',
+                  text: widget.text ?? '',
                   style: Style.caption,
                   color: widget.textColor ??
                       Theme.of(context).colorScheme.onBackground),

@@ -8,7 +8,6 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../core/ui/component/ui/icon_widget.dart';
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
 
@@ -82,6 +81,7 @@ class _EventManagementRaceListWidgetState
 
   Widget raceCard(RaceModel? raceModel) {
     return CardWidget(
+      arrowed: true,
       childLeft: const SizedBox(
         width: 8,
         height: 8,
@@ -109,10 +109,6 @@ class _EventManagementRaceListWidgetState
                     ],
                   ),
                 ],
-              ),
-              const IconWidget(
-                icon: Icons.chevron_right,
-                borderless: false,
               ),
             ],
           ),

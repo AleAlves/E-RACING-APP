@@ -18,6 +18,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/tools/session.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
+import '../../../event_router.dart';
 import '../event_manage_view_model.dart';
 import '../router/event_manage_router.dart';
 
@@ -55,16 +56,10 @@ class _EventManageRaceViewState extends State<EventManageRaceView>
       state: widget.viewModel.state,
       onBackPressed: onBackPressed,
       floatAction: FloatActionButtonWidget(
-        icon: Icons.delete_forever,
-        title: "Delete",
+        icon: Icons.edit,
+        title: "Edit",
         onPressed: () {
-          confirmationDialogExt(
-              context: context,
-              onPositive: () {
-                // EventFlow.delete
-              },
-              consentMessage: "Yes, I do",
-              issueMessage: "Do you want to delete this event?");
+          Modular.to.pushNamed(EventRouter.update);
         },
       ),
     );
@@ -85,64 +80,11 @@ class _EventManageRaceViewState extends State<EventManageRaceView>
           const SpacingWidget(LayoutSize.size8),
           eventStatus(),
           eventSubscriptions(),
-          editEvent(),
           racesWidget(),
           subscribers(),
         ],
       ),
     );
-  }
-
-  Widget editEvent() {
-    return CardWidget(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Row(
-                  children: const [
-                    IconWidget(icon: Icons.build),
-                    SpacingWidget(LayoutSize.size8),
-                    TextWidget(
-                      text: "Edit",
-                      style: Style.title,
-                      align: TextAlign.left,
-                    ),
-                  ],
-                ),
-                const SpacingWidget(LayoutSize.size16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ButtonWidget(
-                      label: "Event",
-                      type: ButtonType.iconButton,
-                      icon: Icons.emoji_events,
-                      onPressed: () {
-                        // widget.viewModel.setFlow(EventFlow.managementEditEvent);
-                      },
-                      enabled: widget.viewModel.event?.state == EventState.idle,
-                    ),
-                    const SpacingWidget(LayoutSize.size48),
-                    ButtonWidget(
-                      label: "Races",
-                      type: ButtonType.iconButton,
-                      icon: Icons.sports_esports,
-                      onPressed: () {
-                        // widget.viewModel.setFlow(EventFlow.managementEditRaceList);
-                      },
-                      enabled: widget.viewModel.event?.state == EventState.idle,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-        ready: true);
   }
 
   Widget eventSubscriptions() {

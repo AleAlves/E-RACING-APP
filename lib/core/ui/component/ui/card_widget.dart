@@ -87,7 +87,7 @@ class CardWidget extends StatelessWidget {
                               padding: EdgeInsets.only(right: 8),
                               child: IconWidget(
                                 icon: Icons.chevron_right,
-                                borderless: false,
+                                borderless: true,
                               ),
                             )
                           : Container(),

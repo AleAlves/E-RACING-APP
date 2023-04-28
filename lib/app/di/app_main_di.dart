@@ -11,6 +11,7 @@ import '../../event/core/presentation/ui/event_flow.dart';
 import '../../event/create/di/event_create_di.dart';
 import '../../event/detail/di/event_detail_di.dart';
 import '../../event/manage/di/event_manage_di.dart';
+import '../../event/update/di/event_update_di.dart';
 import '../../league/LeagueRouter.dart';
 import '../../league/create/di/league_create_di.dart';
 import '../../league/list/di/league_list_di.dart';
@@ -101,6 +102,11 @@ class AppMainModule extends Module {
         ModuleRoute(
           EventRouter.manage,
           module: EventManageModule(),
+          transition: secondaryTransition,
+        ),
+        ModuleRoute(
+          EventRouter.update,
+          module: EventUpdateModule(),
           transition: secondaryTransition,
         ),
 

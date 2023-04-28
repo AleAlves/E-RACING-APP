@@ -66,6 +66,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                   .map((team) {
                     return CardWidget(
                       ready: true,
+                      arrowed: true,
                       onPressed: () {
                         details(team);
                       },
@@ -91,10 +92,6 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                           ),
                           TextWidget(
                               text: "${team?.name}", style: Style.paragraph),
-                          const IconWidget(
-                            icon: Icons.chevron_right,
-                            borderless: false,
-                          ),
                         ],
                       ),
                     );

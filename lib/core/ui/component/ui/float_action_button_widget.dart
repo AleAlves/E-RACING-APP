@@ -1,4 +1,4 @@
-import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/chip_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../state/loading_shimmer.dart';
@@ -38,36 +38,30 @@ class _FloatActionButtonWidgetState extends State<FloatActionButtonWidget> {
   }
 
   Widget normal(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16.0, bottom: 16.0),
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height - 120,
-        child: Align(
-            alignment: Alignment.bottomRight,
-            child: Wrap(
-              children: [
-                Visibility(
-                  visible: _showWidget,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: TextWidget(
-                      text: widget.title,
-                      style: Style.caption,
-                    ),
-                  ),
-                ),
-                FloatingActionButton(
-                  onPressed: () {
-                    widget.onPressed.call();
-                  },
-                  child: Icon(
-                    widget.icon,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            )),
-      ),
-    );
+    return Align(
+        alignment: Alignment.bottomRight,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Visibility(
+              visible: _showWidget,
+              child: ChipWidget(
+                text: widget.title,
+                color: Theme.of(context).colorScheme.secondary,
+                padding: const EdgeInsets.all(8),
+              ),
+            ),
+            FloatingActionButton(
+              onPressed: () {
+                widget.onPressed.call();
+              },
+              child: Icon(
+                widget.icon,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ));
   }
 }

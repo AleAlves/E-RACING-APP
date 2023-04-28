@@ -12,6 +12,7 @@ class EventsCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
+      arrowed: true,
       child: content(context),
       onPressed: onPressed,
       ready: true,
@@ -28,7 +29,10 @@ class EventsCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const IconWidget(icon: Icons.sports_score_outlined, borderless: true,),
+              const IconWidget(
+                icon: Icons.sports_score_outlined,
+                borderless: true,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,8 +56,6 @@ class EventsCardWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SpacingWidget(LayoutSize.size8),
-          const IconWidget(icon: Icons.chevron_right, borderless: false,),
         ],
       ),
     );

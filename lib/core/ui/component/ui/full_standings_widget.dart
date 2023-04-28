@@ -129,6 +129,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
     return CardWidget(
       ready: true,
       shapeLess: true,
+      arrowed: true,
       padding: EdgeInsets.zero,
       onPressed: () {
         showResume(standing);
@@ -191,11 +192,6 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                     ),
                   ],
                 ),
-                const IconWidget(
-                  icon: Icons.chevron_right,
-                  borderless: false,
-                ),
-                const SpacingWidget(LayoutSize.size4),
               ],
             ),
           ],
