@@ -6,7 +6,7 @@ part 'share_model.g.dart';
 class ShareModel {
   final String? eventId;
   final String? leagueId;
-  final String? route;
+  final dynamic route;
   final String? message;
   final String? name;
 

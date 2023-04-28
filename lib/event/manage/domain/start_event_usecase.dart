@@ -4,7 +4,7 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
 import '../../../core/model/pair_model.dart';
-import '../presentation/ui/event_flow.dart';
+import '../../core/presentation/ui/event_flow.dart';
 
 class StartEventUseCase<T> extends BaseUseCase<T> {
   late String _id;

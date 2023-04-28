@@ -14,9 +14,12 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../core/tools/session.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../event_manage_view_model.dart';
+import '../router/event_manage_router.dart';
 
 class EventManageRaceView extends StatefulWidget {
   final EventManageViewModel viewModel;
@@ -32,7 +35,7 @@ class _EventManageRaceViewState extends State<EventManageRaceView>
   @override
   void initState() {
     observers();
-    // widget.viewModel.getEvent();
+    widget.viewModel.getEvent();
     super.initState();
   }
 
@@ -69,7 +72,7 @@ class _EventManageRaceViewState extends State<EventManageRaceView>
 
   @override
   Future<bool> onBackPressed() async {
-    // widget.viewModel.setFlow(EventFlow.eventDetail);
+    Modular.to.pop();
     return false;
   }
 
@@ -155,10 +158,10 @@ class _EventManageRaceViewState extends State<EventManageRaceView>
                 minWidth: MediaQuery.of(context).size.width,
                 event: widget.viewModel.event,
                 onToogle: () {
-                  // widget.viewModel.toogleSubscriptions();
+                  widget.viewModel.toggleSubscriptions();
                 },
                 onToogleMembership: () {
-                  // widget.viewModel.toogleMembersOnly();
+                  widget.viewModel.toggleMembersOnly();
                 },
               ),
             ),
@@ -243,7 +246,7 @@ class _EventManageRaceViewState extends State<EventManageRaceView>
   Widget subscribers() {
     return EventSubscribersWidget(
       onRemove: (classId, userId) {
-        // widget.viewModel.removeSubscription(classId, userId);
+        widget.viewModel.removeRegister(classId, userId);
       },
       classes: widget.viewModel.event?.classes,
       users: widget.viewModel.users,
@@ -253,7 +256,8 @@ class _EventManageRaceViewState extends State<EventManageRaceView>
   Widget racesWidget() {
     return EventRaceResultsCollection(
         onRaceCardPressed: (id) {
-          // widget.viewModel.toRaceResults(id);
+          Session.instance.setRaceId(id);
+          widget.viewModel.onRoute(EventManageRouter.race);
         },
         races: widget.viewModel.event?.races);
   }

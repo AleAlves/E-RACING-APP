@@ -26,10 +26,6 @@ import './data/event_teams_standings_model.dart';
 import './data/race_standings_model.dart';
 import './domain/fetch_filtered_events_use_case.dart';
 import './domain/finish_event_usecase.dart';
-import './domain/start_event_usecase.dart';
-import './domain/toogle_members_only_usecase.dart';
-import './domain/toogle_subscriptions_usecase.dart';
-import './domain/update_event_usecase.dart';
 import './presentation/ui/event_flow.dart';
 import '../../core/domain/share_model.dart';
 import '../../core/navigation/routes.dart';
@@ -45,9 +41,13 @@ import '../detail/domain/remove_subcription_usecase.dart';
 import '../detail/domain/subscribe_event_usecase.dart';
 import '../detail/domain/teams_standing_usecase.dart';
 import '../detail/domain/unsubscribe_event_usecase.dart';
+import '../manage/domain/set_result_event_usecase.dart';
+import '../manage/domain/start_event_usecase.dart';
+import '../manage/domain/toogle_members_only_usecase.dart';
+import '../manage/domain/toogle_subscriptions_usecase.dart';
+import '../manage/domain/update_event_usecase.dart';
 import 'data/event_home_model.dart';
 import 'data/set_summary_model.dart';
-import 'domain/set_result_event_usecase.dart';
 
 part 'event_view_model.g.dart';
 
@@ -126,7 +126,7 @@ abstract class _EventViewModel with Store {
   final _unsubscribeEventUseCase =
       Modular.get<UnsubscribeEventUseCase<StatusModel>>();
   final _removeSubscriptiontUseCase =
-      Modular.get<RemoveSubscriptionUseCase<StatusModel>>();
+      Modular.get<RemoveRegisterUseCase<StatusModel>>();
   final _createTeamEventUseCase = Modular.get<CreateTeamUseCase<StatusModel>>();
   final _leaveTeamUseCase = Modular.get<LeaveTeamUseCase<StatusModel>>();
   final _joinTeamUseCase = Modular.get<JoinTeamUseCase<StatusModel>>();

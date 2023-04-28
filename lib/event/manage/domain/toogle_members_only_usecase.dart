@@ -3,14 +3,16 @@ import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
-import '../data/set_summary_model.dart';
-import '../presentation/ui/event_flow.dart';
+import '../../../core/model/pair_model.dart';
+import '../presentation/router/event_manage_router.dart';
 
-class SetSummaryUseCase<T> extends BaseUseCase<T> {
-  late SetSummaryModel? _summaryModel;
+class ToogleMembersOnlyUseCase<T> extends BaseUseCase<T> {
+  late String? _eventId;
 
-  SetSummaryUseCase<T> build({SetSummaryModel? summaryModel}) {
-    _summaryModel = summaryModel;
+  ToogleMembersOnlyUseCase<T> build({
+    required String? eventId,
+  }) {
+    _eventId = eventId;
     return this;
   }
 
@@ -18,14 +20,14 @@ class SetSummaryUseCase<T> extends BaseUseCase<T> {
   Future<void> invoke(
       {required Function(T) success, required Function error}) async {
     var response = await super.remote(Request(
-        endpoint: "api/v1/event/result",
-        verb: HTTPVerb.post,
-        params: HTTPRequesParams(data: _summaryModel)));
+        endpoint: "api/v1/event/members-only/toogle",
+        verb: HTTPVerb.get,
+        params: HTTPRequesParams(query: Pair("id", _eventId))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "",
-          action: "",
-          route: EventFlow.managementEditRaceResultsEdit) as T);
+          message: "Event membership option updated",
+          action: "Ok",
+          route: EventManageRouter.main) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

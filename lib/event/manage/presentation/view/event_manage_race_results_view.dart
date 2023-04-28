@@ -12,10 +12,13 @@ import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/manage/presentation/event_manage_view_model.dart';
+import 'package:e_racing_app/event/manage/presentation/router/event_manage_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../core/tools/session.dart';
 import '../../../core/data/race_standings_model.dart';
+import '../../../core/data/set_summary_model.dart';
 
 class EventManageRaceResultsView extends StatefulWidget {
   final EventManageViewModel viewModel;
@@ -43,7 +46,7 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
   @override
   void initState() {
     observers();
-    // widget.viewModel.getRaceStandings();
+    widget.viewModel.getStandings();
     super.initState();
   }
 
@@ -69,7 +72,7 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
 
   @override
   Future<bool> onBackPressed() async {
-    // widget.viewModel.setFlow(EventFlow.manager);
+    widget.viewModel.onRoute(EventManageRouter.main);
     return false;
   }
 
@@ -271,8 +274,7 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
           ],
         ),
         placeholderHeight: 40,
-        ready: false);
-    // ready: widget.viewModel.isUpdatingDriverResult == false);
+        ready: widget.viewModel.isUpdatingResults == false);
   }
 
   showDriverSummary(RaceStandingsSummaryModel? standing) {
@@ -445,28 +447,28 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
                               icon: Icons.check_circle,
                               onPressed: () {
                                 setState(() {
-                                  // widget.viewModel.setSummaryResult(
-                                  //     SetSummaryModel(
-                                  //         summaryId: standing?.summary?.id,
-                                  //         sessionId: standing
-                                  //             ?.summary?.sessionId,
-                                  //         position: int.parse(
-                                  //             positionController.text),
-                                  //         penalty:
-                                  //             int.parse(penaltyController.text),
-                                  //         bonus:
-                                  //             int.parse(bonusController.text),
-                                  //         lap:
-                                  //             int.parse(fastestController.text),
-                                  //         dnf: dnf,
-                                  //         dqf: dqf,
-                                  //         notes: notesController.text,
-                                  //         driverId: standing?.user?.id,
-                                  //         classId: standing?.summary?.classId,
-                                  //         eventId:
-                                  //             Session.instance.getEventId(),
-                                  //         raceId:
-                                  //             Session.instance.getRaceId()));
+                                  widget.viewModel.setSummaryResult(
+                                      SetSummaryModel(
+                                          summaryId: standing?.summary?.id,
+                                          sessionId: standing
+                                              ?.summary?.sessionId,
+                                          position: int.parse(
+                                              positionController.text),
+                                          penalty:
+                                              int.parse(penaltyController.text),
+                                          bonus:
+                                              int.parse(bonusController.text),
+                                          lap:
+                                              int.parse(fastestController.text),
+                                          dnf: dnf,
+                                          dqf: dqf,
+                                          notes: notesController.text,
+                                          driverId: standing?.user?.id,
+                                          classId: standing?.summary?.classId,
+                                          eventId:
+                                              Session.instance.getEventId(),
+                                          raceId:
+                                              Session.instance.getRaceId()));
                                   Navigator.of(context).pop();
                                 });
                               },

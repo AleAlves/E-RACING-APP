@@ -6,12 +6,12 @@ import 'package:e_racing_app/core/service/api_exception.dart';
 import '../../core/data/remove_subscription_model.dart';
 import '../../core/presentation/ui/event_flow.dart';
 
-class RemoveSubscriptionUseCase<T> extends BaseUseCase<T> {
+class RemoveRegisterUseCase<T> extends BaseUseCase<T> {
   late String? _classId;
   late String? _eventId;
   late String? _userId;
 
-  RemoveSubscriptionUseCase<T> build(
+  RemoveRegisterUseCase<T> build(
       {required String? classId,
       required String? eventId,
       required String? userId}) {

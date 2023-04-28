@@ -5,8 +5,8 @@ import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
-import '../data/event_create_model.dart';
-import '../presentation/ui/event_flow.dart';
+import '../../core/data/event_create_model.dart';
+import '../../core/presentation/ui/event_flow.dart';
 
 class UpdateEventUseCase<T> extends BaseUseCase<T> {
   late MediaModel? _media;
