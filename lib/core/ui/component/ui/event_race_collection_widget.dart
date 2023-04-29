@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/ext/date_extensions.dart';
+import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -61,9 +61,7 @@ class EventRaceCollection extends StatelessWidget {
                     const SpacingWidget(LayoutSize.size8),
                     Row(
                       children: [
-                        const IconWidget(
-                          icon: Icons.sports_score,
-                        ),
+                        raceStatusWidget(race),
                         const SpacingWidget(LayoutSize.size8),
                         Expanded(
                           child: Column(
@@ -108,11 +106,30 @@ class EventRaceCollection extends StatelessWidget {
                     const SpacingWidget(LayoutSize.size8),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget raceStatusWidget(RaceModel? race) {
+    var color = Colors.amber;
+    if (race?.finished == true) {
+      color = Colors.green;
+    } else if (race?.canceled == true) {
+      color = Colors.red;
+    }
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconWidget(
+          icon: Icons.flag,
+          color: color,
+        ),
+      ],
     );
   }
 }

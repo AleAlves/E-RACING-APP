@@ -12,6 +12,7 @@ class RaceModel {
   String? poster;
   String? leagueId;
   bool? finished;
+  bool? canceled;
   bool? broadcasting;
   String? broadcastLink;
   List<SessionModel?>? sessions;
@@ -25,6 +26,7 @@ class RaceModel {
     this.leagueId,
     this.sessions,
     this.finished,
+    this.canceled,
     this.broadcastLink,
   });
 
