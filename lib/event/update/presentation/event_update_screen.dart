@@ -4,7 +4,6 @@ import 'package:e_racing_app/event/update/presentation/router/event_update_route
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class EventUpdateScreen extends StatefulWidget {
   const EventUpdateScreen({Key? key}) : super(key: key);
@@ -20,7 +19,6 @@ class _EventUpdateScreenState extends State<EventUpdateScreen>
 
   @override
   void initState() {
-    FlutterNativeSplash.remove();
     super.initState();
   }
 

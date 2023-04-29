@@ -77,18 +77,20 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
   final _toggleMembersUC = Modular.get<ToogleMembersOnlyUseCase<StatusModel>>();
   final _startEventUseCase = Modular.get<StartEventUseCase<StatusModel>>();
   final _finishEventUseCase = Modular.get<FinishEventUseCase<StatusModel>>();
-  final _finishRaceUseCase = Modular.get<CancelRaceUseCase<StatusModel>>();
-  final _cancelRaceUseCase = Modular.get<FinishRaceUseCase<StatusModel>>();
+  final _finishRaceUseCase = Modular.get<FinishRaceUseCase<StatusModel>>();
+  final _cancelRaceUseCase = Modular.get<CancelRaceUseCase<StatusModel>>();
 
   void getEvent() async {
     state = ViewState.loading;
-    _getEventUseCase.params(id: Session.instance.getEventId() ?? '').invoke(
-        success: (data) {
-          event = data?.event;
-          users = ObservableList.of(data?.users ?? []);
-          state = ViewState.ready;
-        },
-        error: onError);
+    _getEventUseCase
+        .params(eventId: Session.instance.getEventId() ?? '')
+        .invoke(
+            success: (data) {
+              event = data?.event;
+              users = ObservableList.of(data?.users ?? []);
+              state = ViewState.ready;
+            },
+            error: onError);
   }
 
   getStandings() async {

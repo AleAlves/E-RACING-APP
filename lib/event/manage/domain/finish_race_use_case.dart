@@ -18,7 +18,7 @@ class FinishRaceUseCase<T> extends BaseUseCase<T> {
   Future<void> invoke(
       {required Function(T?) success, required Function error}) async {
     var response = await super.remote(Request(
-        endpoint: 'v1/event/race/finish',
+        endpoint: 'api/v1/event/race/finish',
         params: HTTPRequesParams(query: Pair("id", _raceId)),
         verb: HTTPVerb.put));
     if (response.isSuccessfully) {

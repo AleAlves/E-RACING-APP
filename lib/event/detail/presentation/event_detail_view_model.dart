@@ -97,21 +97,23 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
   getEvent() async {
     state = ViewState.loading;
     media = null;
-    _getEventUseCase.params(id: Session.instance.getEventId() ?? '').invoke(
-        success: (data) {
-          event = data?.event;
-          share = ShareModel(
-              route: EventRouter.detail,
-              leagueId: event?.leagueId,
-              eventId: event?.id,
-              name: event?.title,
-              message: "Check out this racing event");
-          users = ObservableList.of(data?.users ?? []);
-          getMedia(data?.event.id ?? '');
-          _getStandings();
-          state = ViewState.ready;
-        },
-        error: onError);
+    _getEventUseCase
+        .params(eventId: Session.instance.getEventId() ?? '')
+        .invoke(
+            success: (data) {
+              event = data?.event;
+              share = ShareModel(
+                  route: EventRouter.detail,
+                  leagueId: event?.leagueId,
+                  eventId: event?.id,
+                  name: event?.title,
+                  message: "Check out this racing event");
+              users = ObservableList.of(data?.users ?? []);
+              getMedia(data?.event.id ?? '');
+              _getStandings();
+              state = ViewState.ready;
+            },
+            error: onError);
   }
 
   Future<void> getRaceStandings() async {

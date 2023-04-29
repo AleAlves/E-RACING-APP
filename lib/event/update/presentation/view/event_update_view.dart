@@ -2,13 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:e_racing_app/core/model/classes_model.dart';
-import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/scoring_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/stepper_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -25,6 +23,7 @@ import '../../../../core/tools/session.dart';
 import '../../../../core/ui/component/ui/card_widget.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../../core/ui/component/ui/icon_widget.dart';
+import '../../../../core/ui/component/ui/scoring_widget.dart';
 import '../event_update_view_model.dart';
 
 class EventUpdateView extends StatefulWidget {
@@ -38,80 +37,35 @@ class EventUpdateView extends StatefulWidget {
 
 class _EventUpdateViewState extends State<EventUpdateView>
     implements BaseSateWidget {
-  int _index = 0;
-  bool allowTeams = false;
-  bool allowMembersOnly = false;
-  File bannerFile = File('');
-  List<int?>? score = [];
-  List<ClassesModel?>? classesModel = [];
-  List<SettingsModel?>? settingsModel = [];
   final _formKey = GlobalKey<FormState>();
-  final ImagePicker _picker = ImagePicker();
-  final _titleController = TextEditingController();
-  final _rulesController = TextEditingController();
-  List<Pair<TextEditingController, TextEditingController>> settingsControllers =
-      [];
-  List<Pair<TextEditingController, TextEditingController>> classesControllers =
-      [];
-
-  bool editingClasses = false;
-  bool editingSettings = false;
 
   @override
   void initState() {
     observers();
     super.initState();
-    widget.viewModel.getEvent();
+    if (widget.viewModel.event == null) {
+      widget.viewModel.getEvent();
+    }
   }
 
   @override
-  Widget build(BuildContext context) => mainObserver();
+  Widget build(BuildContext context) {
+    return mainObserver();
+  }
 
   @override
-  Observer mainObserver() => Observer(builder: (_) => viewState());
+  Observer mainObserver() {
+    return Observer(builder: (_) => viewState());
+  }
 
   @override
   observers() async {
-    settingsModel = [];
-    classesModel = [];
-    classesControllers = [];
-    settingsControllers = [];
-    // bannerFile = widget.viewModel.bannerFile ?? File('');
-    if (_titleController.text.isEmpty) {
-      _titleController.text = widget.viewModel.event?.title ?? '';
-    }
-    if (_rulesController.text.isEmpty) {
-      _rulesController.text = widget.viewModel.event?.rules ?? '';
-    }
-    widget.viewModel.event?.classes?.forEach((clazz) {
-      _setupClassEditor(clazz);
+    widget.viewModel.titleController.addListener(() {
+      widget.viewModel.event?.title = widget.viewModel.titleController.text;
     });
-    widget.viewModel.event?.settings?.forEach((setting) {
-      _setupSettingsEditor(setting);
+    widget.viewModel.rulesController.addListener(() {
+      widget.viewModel.event?.rules = widget.viewModel.rulesController.text;
     });
-    score = widget.viewModel.event?.scoring;
-  }
-
-  void _setupClassEditor(ClassesModel? clazz) {
-    var name = TextEditingController();
-    var value = TextEditingController();
-    name.text = clazz?.name ?? '';
-    value.text = clazz?.maxEntries.toString() ?? "";
-    classesModel?.add(ClassesModel(
-        name: name.text,
-        id: clazz?.id,
-        drivers: clazz?.drivers,
-        maxEntries: clazz?.maxEntries));
-    classesControllers.add(Pair(name, value));
-  }
-
-  void _setupSettingsEditor(SettingsModel? settings) {
-    var name = TextEditingController();
-    var value = TextEditingController();
-    name.text = settings?.name ?? '';
-    value.text = settings?.value ?? '';
-    settingsModel?.add(SettingsModel(name: name.text, value: value.text));
-    settingsControllers.add(Pair(name, value));
   }
 
   @override
@@ -121,7 +75,6 @@ class _EventUpdateViewState extends State<EventUpdateView>
         floatAction: deleteAction(),
         bottom: buttonWidget(),
         state: widget.viewModel.state,
-        scrollable: true,
         onBackPressed: onBackPressed);
   }
 
@@ -158,6 +111,8 @@ class _EventUpdateViewState extends State<EventUpdateView>
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
+          TextWidget(
+              text: widget.viewModel.event?.title, style: Style.paragraph),
           stepper(),
           const SpacingWidget(LayoutSize.size64),
         ],
@@ -206,7 +161,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
             enabled: true,
             label: "Title",
             icon: Icons.title,
-            controller: _titleController,
+            controller: widget.viewModel.titleController,
             validator: (value) {
               if (value == null || value.isEmpty == true) {
                 return 'Required';
@@ -218,7 +173,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
             enabled: true,
             label: "Rules",
             icon: Icons.title,
-            controller: _rulesController,
+            controller: widget.viewModel.rulesController,
             validator: (value) {
               return null;
             },
@@ -239,13 +194,13 @@ class _EventUpdateViewState extends State<EventUpdateView>
               child: SizedBox(
                 height: 300,
                 width: MediaQuery.of(context).size.height,
-                child: bannerFile.path == ''
+                child: widget.viewModel.bannerFile.path == ''
                     ? Image.memory(
-                        base64Decode(''),
+                        base64Decode(widget.viewModel.media?.image ?? ""),
                         fit: BoxFit.fill,
                       )
                     : Image.file(
-                        bannerFile,
+                        widget.viewModel.bannerFile,
                         fit: BoxFit.fill,
                       ),
               ),
@@ -255,10 +210,10 @@ class _EventUpdateViewState extends State<EventUpdateView>
                 type: ButtonType.iconButton,
                 icon: Icons.image_search,
                 onPressed: () async {
-                  var image =
-                      await _picker.pickImage(source: ImageSource.gallery);
+                  var image = await widget.viewModel.picker
+                      .pickImage(source: ImageSource.gallery);
                   setState(() {
-                    bannerFile = File(image?.path ?? '');
+                    widget.viewModel.bannerFile = File(image?.path ?? '');
                   });
                 })
           ],
@@ -274,8 +229,35 @@ class _EventUpdateViewState extends State<EventUpdateView>
   }
 
   Widget scoring() {
-    return ScoringWidget(
-        editing: true, scoring: widget.viewModel.event?.scoring);
+    return Column(
+      children: [
+        ScoringWidget(editing: true, scoring: widget.viewModel.event?.scoring),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ButtonWidget(
+                enabled: true,
+                type: ButtonType.iconBorderless,
+                icon: Icons.remove,
+                onPressed: () {
+                  setState(() {
+                    widget.viewModel.event?.scoring?.removeLast();
+                  });
+                }),
+            const SpacingWidget(LayoutSize.size48),
+            ButtonWidget(
+                enabled: true,
+                type: ButtonType.iconBorderless,
+                icon: Icons.add,
+                onPressed: () {
+                  setState(() {
+                    widget.viewModel.event?.scoring?.add(0);
+                  });
+                }),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget settings() {
@@ -283,7 +265,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
       children: [
         ListView.builder(
           shrinkWrap: true,
-          itemCount: settingsModel!.length,
+          itemCount: widget.viewModel.settingsEdit.length,
           itemBuilder: (context, index) {
             return Row(
               children: [
@@ -294,12 +276,12 @@ class _EventUpdateViewState extends State<EventUpdateView>
                           enabled: true,
                           label: "Name",
                           icon: Icons.settings,
-                          controller: settingsControllers[index].first,
+                          controller:
+                              widget.viewModel.settingsEdit[index].first,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "required";
                             }
-                            editingSettings = true;
                             return null;
                           }),
                       const SpacingWidget(LayoutSize.size16),
@@ -307,12 +289,12 @@ class _EventUpdateViewState extends State<EventUpdateView>
                           enabled: true,
                           label: "Value",
                           icon: Icons.settings,
-                          controller: settingsControllers[index].second,
+                          controller:
+                              widget.viewModel.settingsEdit[index].second,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "required";
                             }
-                            editingSettings = true;
                             return null;
                           }),
                       const SpacingWidget(LayoutSize.size16),
@@ -323,18 +305,47 @@ class _EventUpdateViewState extends State<EventUpdateView>
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonWidget(
                       enabled: true,
-                      type: ButtonType.iconButton,
+                      type: ButtonType.iconBorderless,
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
-                          settingsModel?.removeAt(index);
-                          settingsControllers.removeAt(index);
+                          widget.viewModel.event?.settings?.removeAt(index);
+                          widget.viewModel.settingsEdit.removeAt(index);
                         });
                       }),
                 )
               ],
             );
           },
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SpacingWidget(LayoutSize.size48),
+            ButtonWidget(
+                enabled: true,
+                type: ButtonType.iconBorderless,
+                icon: Icons.remove,
+                onPressed: () {
+                  setState(() {
+                    widget.viewModel.event?.settings?.removeLast();
+                    widget.viewModel.settingsEdit.removeLast();
+                  });
+                }),
+            const SpacingWidget(LayoutSize.size48),
+            ButtonWidget(
+                enabled: true,
+                type: ButtonType.iconBorderless,
+                icon: Icons.add,
+                onPressed: () {
+                  setState(() {
+                    widget.viewModel.settingsEdit.add(
+                        Pair(TextEditingController(), TextEditingController()));
+                    widget.viewModel.event?.settings
+                        ?.add(SettingsModel(name: "", value: ""));
+                  });
+                }),
+          ],
         ),
       ],
     );
@@ -345,7 +356,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
       children: [
         ListView.builder(
           shrinkWrap: true,
-          itemCount: classesModel!.length,
+          itemCount: widget.viewModel.classesEdit.length,
           itemBuilder: (context, index) {
             return Row(
               children: [
@@ -356,12 +367,11 @@ class _EventUpdateViewState extends State<EventUpdateView>
                           enabled: true,
                           label: "Name",
                           icon: Icons.settings,
-                          controller: classesControllers[index].first,
+                          controller: widget.viewModel.classesEdit[index].first,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "required";
                             }
-                            editingClasses = true;
                             return null;
                           }),
                       const SpacingWidget(LayoutSize.size16),
@@ -369,12 +379,11 @@ class _EventUpdateViewState extends State<EventUpdateView>
                         enabled: true,
                         label: "Max entries",
                         icon: Icons.settings,
-                        controller: classesControllers[index].second,
+                        controller: widget.viewModel.classesEdit[index].second,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "required";
                           }
-                          editingClasses = true;
                           return null;
                         },
                         inputType: InputType.number,
@@ -387,18 +396,47 @@ class _EventUpdateViewState extends State<EventUpdateView>
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonWidget(
                       enabled: true,
-                      type: ButtonType.iconButton,
+                      type: ButtonType.iconBorderless,
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
-                          classesModel?.removeAt(index);
-                          classesControllers.removeAt(index);
+                          widget.viewModel.event?.classes?.removeAt(index);
+                          widget.viewModel.classesEdit.removeAt(index);
                         });
                       }),
                 )
               ],
             );
           },
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SpacingWidget(LayoutSize.size48),
+            ButtonWidget(
+                enabled: true,
+                type: ButtonType.iconBorderless,
+                icon: Icons.remove,
+                onPressed: () {
+                  setState(() {
+                    widget.viewModel.classesEdit.removeLast();
+                    widget.viewModel.event?.classes?.removeLast();
+                  });
+                }),
+            const SpacingWidget(LayoutSize.size48),
+            ButtonWidget(
+                enabled: true,
+                type: ButtonType.iconBorderless,
+                icon: Icons.add,
+                onPressed: () {
+                  setState(() {
+                    widget.viewModel.classesEdit.add(
+                        Pair(TextEditingController(), TextEditingController()));
+                    widget.viewModel.event?.classes
+                        ?.add(ClassesModel(name: "", maxEntries: 0));
+                  });
+                }),
+          ],
         ),
       ],
     );
@@ -461,32 +499,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
       enabled: _formKey.currentState?.validate() == true,
       type: ButtonType.primary,
       onPressed: () {
-        if (editingClasses) {
-          for (var i = 0; i < classesControllers.length; i++) {
-            classesModel?[i]?.name = classesControllers[i].first?.text;
-            classesModel?[i]?.maxEntries =
-                int.parse(classesControllers[i].second?.text ?? '');
-          }
-        }
-        if (editingSettings) {
-          for (var i = 0; i < settingsControllers.length; i++) {
-            settingsModel?[i]?.name = settingsControllers[i].first?.text;
-            settingsModel?[i]?.value = settingsControllers[i].second?.text;
-          }
-        }
-        var event = widget.viewModel.event;
-        event?.settings = settingsModel;
-        event?.classes = classesModel;
-        event?.title = _titleController.text;
-        event?.rules = _rulesController.text;
-        event?.scoring = score;
-        List<int> bannerBytes = [];
-        try {
-          bannerBytes = bannerFile.readAsBytesSync();
-        } catch (e) {}
-        String bannerImage = base64Encode(bannerBytes);
-        var media = MediaModel(bannerImage);
-        // widget.viewModel.updateEvent(event as EventModel, media);
+        widget.viewModel.updateEvent();
       },
       label: "Update",
     );

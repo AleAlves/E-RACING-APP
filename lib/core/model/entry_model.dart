@@ -6,9 +6,11 @@ part 'entry_model.g.dart';
 @JsonSerializable()
 class EntryModel {
   String? raceId;
+  String? sessionId;
   SummaryModel? summary;
 
-  EntryModel({required this.raceId, required this.summary});
+  EntryModel(
+      {required this.raceId, required this.sessionId, required this.summary});
 
   factory EntryModel.fromJson(Map<String, dynamic> json) =>
       _$EntryModelFromJson(json);

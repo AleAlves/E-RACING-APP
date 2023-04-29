@@ -68,8 +68,10 @@ class ApiService extends BaseService {
               body: jsonEncode(request.params));
           break;
         case HTTPVerb.put:
-          response = await http.put(parseRequest(request.endpoint),
-              headers: headers(), body: jsonEncode(request.params));
+          response = await http.put(
+              parseRequestParams(request.endpoint, request.params?.query),
+              headers: headers(),
+              body: jsonEncode(request.params));
           break;
       }
       print(" *** Response URL: ${response.request?.url.path} \n");

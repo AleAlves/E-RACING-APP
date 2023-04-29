@@ -6,7 +6,7 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
 import '../../core/data/event_create_model.dart';
-import '../../core/presentation/ui/event_flow.dart';
+import '../../event_router.dart';
 
 class UpdateEventUseCase<T> extends BaseUseCase<T> {
   late MediaModel? _media;
@@ -33,7 +33,7 @@ class UpdateEventUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Event Updated",
           action: "Ok",
-          route: EventFlow.manager) as T);
+          route: EventRouter.manage) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

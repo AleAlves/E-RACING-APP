@@ -176,7 +176,7 @@ abstract class _EventViewModel with Store {
   void getEvent() async {
     state = ViewState.loading;
     media = null;
-    _getEventUseCase.params(id: Session.instance.getEventId() ?? '').invoke(
+    _getEventUseCase.params(eventId: Session.instance.getEventId()).invoke(
         success: (data) {
           event = data?.event;
           share = ShareModel(

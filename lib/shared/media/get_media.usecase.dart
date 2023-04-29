@@ -6,9 +6,9 @@ import 'package:e_racing_app/core/service/api_exception.dart';
 import '../../core/model/pair_model.dart';
 
 class GetMediaUseCase<T> extends BaseUseCase<T> {
-  late String _id;
+  late String? _id;
 
-  GetMediaUseCase<T> params({required String id}) {
+  GetMediaUseCase<T> params({required String? id}) {
     _id = id;
     return this;
   }

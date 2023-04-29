@@ -44,47 +44,50 @@ class _ScoringWidgetState extends State<ScoringWidget> {
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: Column(
         children: [
-          Wrap(
-            spacing: 0.0,
-            children: widget.scoring!
-                .map((score) {
-                  var pos = ++position;
-                  return SizedBox(
-                    width: MediaQuery.of(context).size.width / 5,
-                    child: CardWidget(
-                      childLeft: TextWidget(
-                          text: "${position + 1}°", style: Style.caption),
-                      ready: true,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          TextWidget(
-                            text: score.toString(),
-                            style: Style.caption,
+          widget.scoring == null
+              ? const LoadingShimmer(
+                  height: 100,
+                )
+              : Wrap(
+                  spacing: 0.0,
+                  children: widget.scoring!
+                      .map((score) {
+                        var pos = ++position;
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width / 5,
+                          child: CardWidget(
+                            childLeft: TextWidget(
+                                text: "${position + 1}°", style: Style.caption),
+                            ready: true,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TextWidget(
+                                  text: score.toString(),
+                                  style: Style.caption,
+                                ),
+                              ],
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                if (widget.editing) {
+                                  createScoreBottomSheet(score!, pos);
+                                }
+                              });
+                            },
                           ),
-                        ],
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          if (widget.editing) {
-                            createScoreBottomSheet(score!, pos);
-                          }
-                        });
-                      },
-                    ),
-                  );
-                })
-                .toList()
-                .cast<Widget>(),
-          ),
-          if (widget.editing) editting() else Container(),
-          // if (widget.editing) actionsWidget() else Container()
+                        );
+                      })
+                      .toList()
+                      .cast<Widget>(),
+                ),
+          if (widget.editing) editScore() else Container(),
         ],
       ),
     );
   }
 
-  Widget editting() {
+  Widget editScore() {
     return Column(
       children: [
         const SpacingWidget(LayoutSize.size48),

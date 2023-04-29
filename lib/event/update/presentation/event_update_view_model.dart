@@ -1,14 +1,22 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:e_racing_app/event/update/presentation/router/event_update_router.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/model/event_model.dart';
+import '../../../core/model/media_model.dart';
+import '../../../core/model/pair_model.dart';
 import '../../../core/model/race_model.dart';
 import '../../../core/model/status_model.dart';
 import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
 import '../../../login/legacy/domain/model/user_model.dart';
+import '../../../shared/media/get_media.usecase.dart';
 import '../../core/data/event_home_model.dart';
 import '../../core/data/event_standings_model.dart';
 import '../../core/data/race_standings_model.dart';
@@ -20,6 +28,7 @@ import '../../detail/domain/remove_subcription_usecase.dart';
 import '../../manage/domain/set_result_event_usecase.dart';
 import '../../manage/domain/toogle_members_only_usecase.dart';
 import '../../manage/domain/toogle_subscriptions_usecase.dart';
+import '../../manage/domain/update_event_usecase.dart';
 
 part 'event_update_view_model.g.dart';
 
@@ -41,6 +50,9 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
   @observable
   String? title = "";
 
+  @observable
+  MediaModel? media;
+
   @override
   @observable
   StatusModel? status;
@@ -61,10 +73,25 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
   bool isUpdatingResults = false;
 
   @observable
-  ObservableList<EventModel?>? events = ObservableList();
+  ObservableList<UserModel?>? users = ObservableList();
 
   @observable
-  ObservableList<UserModel?>? users = ObservableList();
+  File bannerFile = File('');
+
+  @observable
+  ImagePicker picker = ImagePicker();
+
+  @observable
+  TextEditingController titleController = TextEditingController();
+
+  @observable
+  TextEditingController rulesController = TextEditingController();
+
+  @observable
+  List<Pair<TextEditingController, TextEditingController>> settingsEdit = [];
+
+  @observable
+  List<Pair<TextEditingController, TextEditingController>> classesEdit = [];
 
   final _getEventUseCase = Modular.get<GetEventUseCase<EventHomeModel>>();
   final _standingsUC = Modular.get<RaceStandingsUseCase<RaceStandingsModel>>();
@@ -72,14 +99,41 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
   final _setSummaryUseCase = Modular.get<SetSummaryUseCase<StatusModel>>();
   final _toggleSubsUC = Modular.get<ToogleSubscriptionsUseCase<StatusModel>>();
   final _toggleMembersUC = Modular.get<ToogleMembersOnlyUseCase<StatusModel>>();
+  final _updateEventUC = Modular.get<UpdateEventUseCase<StatusModel>>();
+  final _getMediaUC = Modular.get<GetMediaUseCase<MediaModel>>();
 
   void getEvent() async {
     state = ViewState.loading;
-    _getEventUseCase.params(id: Session.instance.getEventId() ?? '').invoke(
+    _getEventUseCase.params(eventId: Session.instance.getEventId()).invoke(
         success: (data) {
           event = data?.event;
-          users = ObservableList.of(data?.users ?? []);
+          _getMedia(event?.id);
+          titleController.text = event?.title ?? "";
+          rulesController.text = event?.rules ?? "";
+          settingsEdit = [];
+          event?.settings?.forEach((element) {
+            settingsEdit
+                .add(Pair(TextEditingController(), TextEditingController()));
+            settingsEdit.last.first?.text = element?.name ?? "";
+            settingsEdit.last.second?.text = element?.value ?? "";
+          });
+          classesEdit = [];
+          event?.classes?.forEach((element) {
+            classesEdit
+                .add(Pair(TextEditingController(), TextEditingController()));
+            classesEdit.last.first?.text = element?.name ?? "";
+            classesEdit.last.second?.text =
+                element?.maxEntries.toString() ?? "";
+          });
           state = ViewState.ready;
+        },
+        error: onError);
+  }
+
+  _getMedia(String? id) async {
+    await _getMediaUC.params(id: id).invoke(
+        success: (data) {
+          media = data;
         },
         error: onError);
   }
@@ -142,6 +196,30 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
   toggleMembersOnly() {
     state = ViewState.loading;
     _toggleMembersUC.build(eventId: event?.id ?? '').invoke(
+        success: (data) {
+          status = data;
+          state = ViewState.ready;
+          onRoute(EventUpdateRouter.status);
+        },
+        error: onError);
+  }
+
+  updateEvent() async {
+    state = ViewState.loading;
+    var eventClone = event;
+    eventClone?.classes?.asMap().forEach((index, classes) {
+      classes?.name = classesEdit[index].first?.text;
+      classes?.maxEntries = int.parse(classesEdit[index].second?.text ?? '0');
+    });
+    eventClone?.settings?.asMap().forEach((index, settings) {
+      settings?.name = settingsEdit[index].first?.text;
+      settings?.value = settingsEdit[index].second?.text;
+    });
+    var mediaClone = media;
+    if (bannerFile.path.isNotEmpty) {
+      mediaClone?.image = base64Encode(bannerFile.readAsBytesSync());
+    }
+    await _updateEventUC.build(event: eventClone, media: mediaClone).invoke(
         success: (data) {
           status = data;
           state = ViewState.ready;

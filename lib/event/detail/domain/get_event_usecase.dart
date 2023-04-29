@@ -6,10 +6,10 @@ import '../../../core/model/pair_model.dart';
 import '../../core/data/event_home_model.dart';
 
 class GetEventUseCase<T> extends BaseUseCase<T> {
-  late String _id;
+  late String? _eventId;
 
-  GetEventUseCase<T> params({required String id}) {
-    _id = id;
+  GetEventUseCase<T> params({required String? eventId}) {
+    _eventId = eventId;
     return this;
   }
 
@@ -18,7 +18,7 @@ class GetEventUseCase<T> extends BaseUseCase<T> {
       {required Function(T?) success, required Function error}) async {
     var response = await super.remote(Request(
         endpoint: "api/v1/event/home",
-        params: HTTPRequesParams(query: Pair("id", _id)),
+        params: HTTPRequesParams(query: Pair("id", _eventId)),
         verb: HTTPVerb.get));
     if (response.isSuccessfully) {
       success.call(response.data == null
