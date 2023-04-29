@@ -61,7 +61,9 @@ class EventRaceCollection extends StatelessWidget {
                     const SpacingWidget(LayoutSize.size8),
                     Row(
                       children: [
-                        raceStatusWidget(race),
+                        const IconWidget(
+                          icon: Icons.sports_score,
+                        ),
                         const SpacingWidget(LayoutSize.size8),
                         Expanded(
                           child: Column(
@@ -104,6 +106,8 @@ class EventRaceCollection extends StatelessWidget {
                       ],
                     ),
                     const SpacingWidget(LayoutSize.size8),
+                    raceStatusWidget(race),
+                    const SpacingWidget(LayoutSize.size8),
                   ],
                 ),
               ),
@@ -116,18 +120,28 @@ class EventRaceCollection extends StatelessWidget {
 
   Widget raceStatusWidget(RaceModel? race) {
     var color = Colors.amber;
+    var status = "Scheduled";
     if (race?.finished == true) {
       color = Colors.green;
+      status = "Finished";
     } else if (race?.canceled == true) {
       color = Colors.red;
+      status = "Canceled";
     }
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        IconWidget(
-          icon: Icons.flag,
-          color: color,
+        Row(
+          children: [
+            const SpacingWidget(LayoutSize.size8),
+            IconWidget(
+              size: 12,
+              icon: Icons.circle,
+              color: color,
+            ),
+            const SpacingWidget(LayoutSize.size16),
+            TextWidget(text: status, style: Style.paragraph),
+          ],
         ),
       ],
     );
