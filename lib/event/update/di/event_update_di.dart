@@ -9,6 +9,7 @@ import '../../detail/domain/join_team_usecase.dart';
 import '../../detail/domain/leave_team_usecase.dart';
 import '../../detail/domain/remove_subcription_usecase.dart';
 import '../../manage/domain/update_event_usecase.dart';
+import '../domain/update_race_usecase.dart';
 import '../presentation/event_update_screen.dart';
 import '../presentation/event_update_view_model.dart';
 import '../presentation/router/event_update_router.dart';
@@ -28,6 +29,7 @@ class EventUpdateModule extends Module {
         Bind.factory((i) => RemoveRegisterUseCase<StatusModel>()),
         Bind.factory((i) => GetMediaUseCase<MediaModel>()),
         Bind.factory((i) => UpdateEventUseCase<StatusModel>()),
+        Bind.factory((i) => UpdateRaceUseCase<StatusModel>()),
       ];
 
   @override

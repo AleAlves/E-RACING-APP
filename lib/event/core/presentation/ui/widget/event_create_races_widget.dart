@@ -10,7 +10,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
-import '../model/championship_races_model.dart';
+import '../model/session_race_model.dart';
 
 class EventCreateRacesWidget extends StatefulWidget {
   final EventViewModel viewModel;
@@ -23,7 +23,7 @@ class EventCreateRacesWidget extends StatefulWidget {
 
 class _EventCreateRacesWidgetState extends State<EventCreateRacesWidget>
     implements BaseSateWidget {
-  List<ChampionshipRacesModel> racesModel = [];
+  List<EventRaceModel> racesModel = [];
 
   @override
   void initState() {
@@ -96,7 +96,7 @@ class _EventCreateRacesWidgetState extends State<EventCreateRacesWidget>
                   type: ButtonType.iconButton,
                   onPressed: () async {
                     setState(() {
-                      racesModel.add(ChampionshipRacesModel(
+                      racesModel.add(EventRaceModel(
                           eventDate: DateTime.now().toIso8601String(),
                           hasBroadcasting: false,
                           title: TextEditingController().text,

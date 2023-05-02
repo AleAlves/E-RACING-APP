@@ -66,9 +66,11 @@ class EventCardWidget extends StatelessWidget {
                 classes: event?.classes,
               ),
               _getType(event?.type),
-              const SpacingWidget(LayoutSize.size4),
+              const SpacingWidget(LayoutSize.size8),
               drivers(),
-              const SpacingWidget(LayoutSize.size4),
+              const SpacingWidget(LayoutSize.size8),
+              eventStatusWidget(event?.state),
+              const SpacingWidget(LayoutSize.size8),
               subscriptionsStatus(context),
               const SpacingWidget(LayoutSize.size16),
             ],
@@ -278,6 +280,44 @@ class EventCardWidget extends StatelessWidget {
   Widget membership(BuildContext context) {
     return Row(
       children: const [ChipWidget(text: 'Members only')],
+    );
+  }
+
+  Widget eventStatusWidget(EventState? state) {
+    var color;
+    var status;
+    switch (state) {
+      case EventState.idle:
+        color = Colors.grey;
+        status = "Preparing";
+        break;
+      case EventState.ready:
+        color = Colors.amber;
+        status = "Ready";
+        break;
+      case EventState.ongoing:
+        color = Colors.green;
+        status = "On going";
+        break;
+      case EventState.finished:
+        color = Colors.red;
+        status = "Finished";
+        break;
+    }
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          children: [
+            IconWidget(
+              icon: Icons.circle,
+              color: color,
+            ),
+            const SpacingWidget(LayoutSize.size8),
+            TextWidget(text: status, style: Style.paragraph),
+          ],
+        ),
+      ],
     );
   }
 }

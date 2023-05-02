@@ -7,7 +7,7 @@ import '../../../../../core/ui/component/ui/card_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
-import '../../../../core/presentation/ui/model/championship_races_model.dart';
+import '../../../../core/presentation/ui/model/session_race_model.dart';
 import '../../event_create_view_model.dart';
 import '../../navigation/event_create_flow.dart';
 
@@ -116,7 +116,7 @@ class _EventCreateRaceListViewState extends State<EventCreateRaceListView>
     );
   }
 
-  Widget removeWidget(ChampionshipRacesModel? racesModel) {
+  Widget removeWidget(EventRaceModel? racesModel) {
     return ButtonWidget(
         enabled: true,
         type: ButtonType.iconBorderless,

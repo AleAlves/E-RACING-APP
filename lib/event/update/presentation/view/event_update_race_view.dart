@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:e_racing_app/core/ext/date_extensions.dart';
+import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/model/session_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/event_races_session_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -14,9 +15,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../../../../core/ui/component/ui/race_edit_session_widget.dart';
 import '../../../../core/ui/component/ui/stepper_widget.dart';
-import '../../../core/presentation/ui/model/championship_races_model.dart';
 import '../event_update_view_model.dart';
 import '../router/event_update_router.dart';
 
@@ -31,12 +33,13 @@ class EventUpdateRaceView extends StatefulWidget {
 
 class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
     implements BaseSateWidget {
-  int _stepIndex = 0;
   final _formKey = GlobalKey<FormState>();
   TextEditingController titleController = TextEditingController();
   TextEditingController linkController = TextEditingController();
-  ChampionshipRacesModel? model;
+  RaceModel? model;
   List<SessionModel>? sessions;
+  final ImagePicker _picker = ImagePicker();
+  bool hasBroadcasting = false;
 
   @override
   void initState() {
@@ -56,22 +59,32 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
         ?.firstWhere((element) => element?.id == Session.instance.getRaceId());
     titleController.text = race?.title ?? '';
     linkController.text = race?.broadcastLink ?? '';
-
-    model = ChampionshipRacesModel(
-        eventDate: toDatetime(race?.date).toIso8601String(),
+    hasBroadcasting = race?.broadcasting ?? false;
+    model = RaceModel(
+        date: toDatetime(race?.date).toIso8601String(),
         poster: race?.poster,
-        hasBroadcasting: false,
+        broadcasting: race?.broadcasting,
+        broadcastLink: race?.broadcastLink,
         title: titleController.text,
         sessions: race?.sessions,
-        id: race?.id);
+        id: race?.id,
+        finished: race?.finished,
+        canceled: race?.canceled);
+
+    titleController.addListener(() {
+      model?.title = titleController.text;
+    });
+    linkController.addListener(() {
+      model?.broadcastLink = linkController.text;
+    });
   }
 
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
         body: content(),
+        bottom: finishButton(),
         state: widget.viewModel.state,
-        scrollable: true,
         onBackPressed: onBackPressed);
   }
 
@@ -106,7 +119,7 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
           StepperWidget(
             steps: [
               Step(
-                title: const Text('Basic'),
+                title: const Text('Title'),
                 content: basic(),
               ),
               Step(
@@ -128,7 +141,6 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
             ],
           ),
           const SpacingWidget(LayoutSize.size48),
-          finish()
         ],
       ),
     );
@@ -173,9 +185,12 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
                 type: ButtonType.iconButton,
                 icon: Icons.image_search,
                 onPressed: () async {
-                  // var image = await model?.picker?.pickImage(source: ImageSource.gallery);
-                  // model?.posterFile = File(image?.path ?? '');
-                  // _editingImage = true;
+                  var im = await _picker.pickImage(source: ImageSource.gallery);
+                  var base64Poster = File(im?.path ?? '');
+                  setState(() {
+                    model?.poster =
+                        base64Encode(base64Poster.readAsBytesSync());
+                  });
                 })
           ],
         ),
@@ -195,8 +210,7 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextWidget(
-            text:
-                "${formatHour(model?.eventDate)} - ${formatDate(model?.eventDate)}",
+            text: "${formatHour(model?.date)} - ${formatDate(model?.date)}",
             style: Style.subtitle),
         const SpacingWidget(LayoutSize.size32),
         ButtonWidget(
@@ -206,9 +220,9 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
             onPressed: () {
               DatePicker.showDateTimePicker(context,
                   showTitleActions: false,
-                  minTime: toDatetime(model?.eventDate), onChanged: (date) {
+                  minTime: toDatetime(model?.date), onChanged: (date) {
                 setState(() {
-                  // model?.eventDate = date;
+                  model?.date = date.toIso8601String();
                 });
               }, currentTime: DateTime.now());
             }),
@@ -217,8 +231,8 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
   }
 
   Widget sessionsWidget() {
-    return EventCreateRaceSessionWidget(
-      model: model,
+    return EventEditRaceSessionWidget(
+      sessionModel: model,
     );
   }
 
@@ -229,17 +243,17 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
         Row(
           children: [
             Checkbox(
-              value: model?.hasBroadcasting,
+              value: model?.broadcasting,
               onChanged: (bool? value) {
                 setState(() {
-                  model?.hasBroadcasting = value ?? false;
+                  model?.broadcasting = value ?? false;
                 });
               },
             ),
             const TextWidget(text: "Live broadcasting", style: Style.paragraph),
           ],
         ),
-        if (model?.hasBroadcasting == true)
+        if (model?.broadcasting == true)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -274,12 +288,12 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
     );
   }
 
-  Widget finish() {
+  Widget finishButton() {
     return ButtonWidget(
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        // widget.viewModel.updateRace(model);
+        widget.viewModel.updateRace(model);
       },
       label: "Update",
     );

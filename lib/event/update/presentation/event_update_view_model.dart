@@ -21,7 +21,6 @@ import '../../core/data/event_home_model.dart';
 import '../../core/data/event_standings_model.dart';
 import '../../core/data/race_standings_model.dart';
 import '../../core/data/set_summary_model.dart';
-import '../../core/presentation/ui/model/championship_races_model.dart';
 import '../../detail/domain/get_event_usecase.dart';
 import '../../detail/domain/race_standing_usecase.dart';
 import '../../detail/domain/remove_subcription_usecase.dart';
@@ -29,6 +28,7 @@ import '../../manage/domain/set_result_event_usecase.dart';
 import '../../manage/domain/toogle_members_only_usecase.dart';
 import '../../manage/domain/toogle_subscriptions_usecase.dart';
 import '../../manage/domain/update_event_usecase.dart';
+import '../domain/update_race_usecase.dart';
 
 part 'event_update_view_model.g.dart';
 
@@ -101,6 +101,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
   final _toggleMembersUC = Modular.get<ToogleMembersOnlyUseCase<StatusModel>>();
   final _updateEventUC = Modular.get<UpdateEventUseCase<StatusModel>>();
   final _getMediaUC = Modular.get<GetMediaUseCase<MediaModel>>();
+  final _updateRaceUC = Modular.get<UpdateRaceUseCase<StatusModel>>();
 
   void getEvent() async {
     state = ViewState.loading;
@@ -228,26 +229,16 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
         error: onError);
   }
 
-  updateRace(ChampionshipRacesModel? model) {
-    event?.races?.forEach((race) {
-      if (race?.id == model?.id) {
-        // race?.broadcastLink = model?.broadcastLink;
-        // race?.date = model?.eventDate?.toIso8601String();
-        // race?.broadcasting = model?.hasBroadcasting;
-        // race?.title = model?.titleController?.text;
-        // if (model?.posterFile != null) {
-        //   try {
-        //     List<int> posterBytes =
-        //         model?.posterFile?.readAsBytesSync() as List<int>;
-        //     race?.poster = base64Encode(posterBytes);
-        //   } catch (e) {}
-        // } else {
-        //   race?.poster = model?.poster;
-        // }
-        race?.leagueId = event?.leagueId;
-        race?.sessions = model?.sessions;
-        race?.finished = false;
-      }
-    });
+  updateRace(RaceModel? model) async {
+    state = ViewState.loading;
+    _updateRaceUC
+        .build(raceModel: model, eventId: Session.instance.getEventId())
+        .invoke(
+            success: (data) {
+              status = data;
+              state = ViewState.ready;
+              onRoute(EventUpdateRouter.status);
+            },
+            error: onError);
   }
 }

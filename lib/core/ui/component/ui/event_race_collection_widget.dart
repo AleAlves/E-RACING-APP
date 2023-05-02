@@ -133,9 +133,7 @@ class EventRaceCollection extends StatelessWidget {
       children: [
         Row(
           children: [
-            const SpacingWidget(LayoutSize.size8),
             IconWidget(
-              size: 12,
               icon: Icons.circle,
               color: color,
             ),

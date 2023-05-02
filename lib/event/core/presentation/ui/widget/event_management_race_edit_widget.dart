@@ -17,7 +17,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../event_view_model.dart';
 import '../event_flow.dart';
-import '../model/championship_races_model.dart';
+import '../model/session_race_model.dart';
 
 class EventManagementEditRaceWidget extends StatefulWidget {
   final EventViewModel viewModel;
@@ -36,7 +36,7 @@ class _EventManagementEditRaceWidgetState
   final _formKey = GlobalKey<FormState>();
   TextEditingController titleController = TextEditingController();
   TextEditingController linkController = TextEditingController();
-  ChampionshipRacesModel? model;
+  EventRaceModel? model;
   List<SessionModel>? sessions;
 
   @override
@@ -58,7 +58,7 @@ class _EventManagementEditRaceWidgetState
     titleController.text = race?.title ?? '';
     linkController.text = race?.broadcastLink ?? '';
 
-    model = ChampionshipRacesModel(
+    model = EventRaceModel(
         eventDate: toDatetime(race?.date).toIso8601String(),
         poster: race?.poster,
         hasBroadcasting: false,
@@ -226,7 +226,7 @@ class _EventManagementEditRaceWidgetState
 
   Widget sessionsWidget() {
     return EventCreateRaceSessionWidget(
-      model: model,
+      sessionModel: model,
     );
   }
 

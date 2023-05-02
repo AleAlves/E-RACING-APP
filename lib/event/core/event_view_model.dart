@@ -12,7 +12,7 @@ import 'package:e_racing_app/core/model/team_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/event/core/presentation/ui/model/championship_races_model.dart';
+import 'package:e_racing_app/event/core/presentation/ui/model/session_race_model.dart';
 import 'package:e_racing_app/event/list/domain/fetch_events_use_case.dart';
 import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -110,7 +110,7 @@ abstract class _EventViewModel with Store {
   List<RaceModel>? creatingRaces;
   List<MediaModel>? creatingMedias;
   File? bannerFile;
-  List<ChampionshipRacesModel>? racesModel;
+  List<EventRaceModel>? racesModel;
 
   final _getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
   final _getTagUseCase = Modular.get<GetTagUseCase>();
@@ -303,12 +303,11 @@ abstract class _EventViewModel with Store {
     setFlow(EventFlow.createRaces);
   }
 
-  void updateChampionshipRaces(List<ChampionshipRacesModel> races) async {
+  void updateChampionshipRaces(List<EventRaceModel> races) async {
     racesModel = races;
   }
 
-  void createChampionshipRacesStep(
-      List<ChampionshipRacesModel> racesModel) async {
+  void createChampionshipRacesStep(List<EventRaceModel> racesModel) async {
     state = ViewState.loading;
     List<RaceModel> races = [];
     for (var element in racesModel) {
@@ -476,7 +475,7 @@ abstract class _EventViewModel with Store {
     setFlow(EventFlow.managementEditRace);
   }
 
-  void updateRace(ChampionshipRacesModel? model) {
+  void updateRace(EventRaceModel? model) {
     event?.races?.forEach((race) {
       if (race?.id == model?.id) {
         // race?.broadcastLink = model?.broadcastingLinkController?.text;

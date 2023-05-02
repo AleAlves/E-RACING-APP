@@ -6,23 +6,23 @@ import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../event/core/presentation/ui/model/session_race_model.dart';
+import '../../../model/race_model.dart';
 import 'button_widget.dart';
 import 'spacing_widget.dart';
 
-class EventCreateRaceSessionWidget extends StatefulWidget {
-  final EventRaceModel? sessionModel;
+class EventEditRaceSessionWidget extends StatefulWidget {
+  final RaceModel? sessionModel;
 
-  const EventCreateRaceSessionWidget({required this.sessionModel, Key? key})
+  const EventEditRaceSessionWidget({required this.sessionModel, Key? key})
       : super(key: key);
 
   @override
-  _EventCreateRaceSessionWidgetState createState() =>
-      _EventCreateRaceSessionWidgetState();
+  _EventEditRaceSessionWidgetState createState() =>
+      _EventEditRaceSessionWidgetState();
 }
 
-class _EventCreateRaceSessionWidgetState
-    extends State<EventCreateRaceSessionWidget> {
+class _EventEditRaceSessionWidgetState
+    extends State<EventEditRaceSessionWidget> {
   final _formKey = GlobalKey<FormState>();
 
   @override

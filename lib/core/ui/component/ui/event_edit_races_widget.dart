@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-import '../../../../event/core/presentation/ui/model/championship_races_model.dart';
+import '../../../../event/core/presentation/ui/model/session_race_model.dart';
 import 'event_races_session_widget.dart';
 
 class EventEditRacesWidget extends StatefulWidget {
-  final ChampionshipRacesModel model;
+  final EventRaceModel model;
 
   const EventEditRacesWidget(this.model, {Key? key}) : super(key: key);
 
@@ -173,7 +173,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
 
   Widget sessions() {
     return EventCreateRaceSessionWidget(
-      model: widget.model,
+      sessionModel: widget.model,
     );
   }
 

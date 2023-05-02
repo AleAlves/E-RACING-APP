@@ -1,6 +1,6 @@
 import 'package:e_racing_app/core/model/session_model.dart';
 
-class ChampionshipRacesModel {
+class EventRaceModel {
   String? id;
   String? poster;
   String? title;
@@ -9,7 +9,7 @@ class ChampionshipRacesModel {
   bool? hasBroadcasting;
   List<SessionModel?>? sessions;
 
-  ChampionshipRacesModel(
+  EventRaceModel(
       {required this.title,
       required this.hasBroadcasting,
       required this.eventDate,

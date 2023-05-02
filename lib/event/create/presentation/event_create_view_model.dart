@@ -12,7 +12,7 @@ import '../../../core/model/tag_model.dart';
 import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
 import '../../../shared/tag/get_tag_usecase.dart';
-import '../../core/presentation/ui/model/championship_races_model.dart';
+import '../../core/presentation/ui/model/session_race_model.dart';
 import '../domain/create_event_usecase.dart';
 import 'navigation/event_create_flow.dart';
 
@@ -74,10 +74,10 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   ObservableList<int?> eventScore = ObservableList();
 
   @observable
-  List<ChampionshipRacesModel?> racesModel = ObservableList();
+  List<EventRaceModel?> racesModel = ObservableList();
 
   @observable
-  ChampionshipRacesModel? editingRaceModel;
+  EventRaceModel? editingRaceModel;
 
   final _getTagUseCase = Modular.get<GetTagUseCase>();
   final _createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
@@ -141,24 +141,24 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
     onRoute(EventCreateNavigator.eventRaceCreation);
   }
 
-  void onRaceEditing(ChampionshipRacesModel? race) {
+  void onRaceEditing(EventRaceModel? race) {
     editingRaceModel = race;
     editingRaceIndex = racesModel.indexOf(race);
     onRoute(EventCreateNavigator.eventRaceEditing);
   }
 
-  void addRace(ChampionshipRacesModel? model) {
+  void addRace(EventRaceModel? model) {
     racesModel.add(model);
     onRoute(EventCreateNavigator.eventRaceList);
   }
 
-  void updateRace(ChampionshipRacesModel? model) {
+  void updateRace(EventRaceModel? model) {
     racesModel.removeAt(editingRaceIndex);
     racesModel.insert(editingRaceIndex, model);
     onRoute(EventCreateNavigator.eventRaceList);
   }
 
-  void removeRace(ChampionshipRacesModel? racesModel) {
+  void removeRace(EventRaceModel? racesModel) {
     this.racesModel.remove(racesModel);
   }
 
