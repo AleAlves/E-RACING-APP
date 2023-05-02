@@ -12,7 +12,6 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../event_view_model.dart';
@@ -211,15 +210,7 @@ class _EventManagementEditRaceWidgetState
             icon: Icons.date_range,
             enabled: true,
             type: ButtonType.iconButton,
-            onPressed: () {
-              DatePicker.showDateTimePicker(context,
-                  showTitleActions: false,
-                  minTime: toDatetime(model?.eventDate), onChanged: (date) {
-                setState(() {
-                  // model?.eventDate = date;
-                });
-              }, currentTime: DateTime.now());
-            }),
+            onPressed: () {}),
       ],
     );
   }

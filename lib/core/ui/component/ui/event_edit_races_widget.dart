@@ -4,7 +4,6 @@ import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import '../../../../event/core/presentation/ui/model/session_race_model.dart';
 import 'event_races_session_widget.dart';
@@ -159,16 +158,25 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
             enabled: true,
             type: ButtonType.iconButton,
             onPressed: () {
-              DatePicker.showDateTimePicker(context,
-                  showTitleActions: false,
-                  minTime: DateTime.now(), onChanged: (date) {
-                setState(() {
-                  widget.model.eventDate = date.toIso8601String();
-                });
-              }, currentTime: DateTime.now());
+              _callDatePicker();
             }),
       ],
     );
+  }
+
+  _callDatePicker() async {
+    var date = await getDate();
+    setState(() {
+      widget.model.eventDate = date?.toIso8601String();
+    });
+  }
+
+  Future<DateTime?> getDate() {
+    return showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2099));
   }
 
   Widget sessions() {

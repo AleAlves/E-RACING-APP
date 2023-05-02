@@ -13,7 +13,6 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -124,7 +123,7 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
               ),
               Step(
                 title: const Text('Date'),
-                content: date(),
+                content: date(context),
               ),
               Step(
                 title: const Text('Poster'),
@@ -204,7 +203,7 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
     );
   }
 
-  Widget date() {
+  Widget date(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -218,16 +217,25 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
             enabled: true,
             type: ButtonType.iconButton,
             onPressed: () {
-              DatePicker.showDateTimePicker(context,
-                  showTitleActions: false,
-                  minTime: toDatetime(model?.date), onChanged: (date) {
-                setState(() {
-                  model?.date = date.toIso8601String();
-                });
-              }, currentTime: DateTime.now());
+              _callDatePicker();
             }),
       ],
     );
+  }
+
+  _callDatePicker() async {
+    var date = await getDate();
+    setState(() {
+      model?.date = date?.toIso8601String();
+    });
+  }
+
+  Future<DateTime?> getDate() {
+    return showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2099));
   }
 
   Widget sessionsWidget() {

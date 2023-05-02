@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -137,7 +136,7 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
         ),
         Step(
           title: const Text('Date'),
-          content: date(),
+          content: date(context),
         ),
         Step(
           title: const Text('Sessions'),
@@ -170,7 +169,7 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
     );
   }
 
-  Widget date() {
+  Widget date(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -185,15 +184,31 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
             enabled: true,
             type: ButtonType.iconButton,
             onPressed: () {
-              DatePicker.showDateTimePicker(context,
-                  showTitleActions: false,
-                  minTime: DateTime.now(), onChanged: (date) {
-                setState(() {
-                  eventDate = date;
-                });
-              }, currentTime: DateTime.now());
+              _datePickerRoute(context);
+              // DatePicker.showDateTimePicker(context,
+              //     showTitleActions: false,
+              //     minTime: DateTime.now(), onChanged: (date) {
+              //   setState(() {
+              //     eventDate = date;
+              //   });
+              // }, currentTime: DateTime.now());
             }),
       ],
+    );
+  }
+
+  static Route<DateTime> _datePickerRoute(BuildContext context) {
+    return DialogRoute<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return DatePickerDialog(
+          restorationId: 'date_picker_dialog',
+          initialEntryMode: DatePickerEntryMode.calendarOnly,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2021),
+          lastDate: DateTime(2022),
+        );
+      },
     );
   }
 
