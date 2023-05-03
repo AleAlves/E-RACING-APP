@@ -109,12 +109,7 @@ class EventRaceResultsCollection extends StatelessWidget {
               Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IconWidget(
-                      icon: Icons.build,
-                      color: Theme.of(context).colorScheme.secondary,
-                    )
-                  ]),
+                  children: const [IconWidget(icon: Icons.build)]),
             ],
           ),
         ),

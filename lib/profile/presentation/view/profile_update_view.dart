@@ -9,12 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/ui/component/ui/tag_collection_widget.dart';
 import '../../../core/ui/component/ui/text_widget.dart';
 
 class ProfileUpdateView extends StatefulWidget {
-  final ProfileViewModel vm;
+  final ProfileViewModel viewModel;
 
-  const ProfileUpdateView(this.vm, {Key? key}) : super(key: key);
+  const ProfileUpdateView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
   _ProfileUpdateViewState createState() => _ProfileUpdateViewState();
@@ -31,11 +32,11 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
 
   @override
   void initState() {
-    widget.vm.fetchProfile();
+    widget.viewModel.fetchProfile();
     _nameController.addListener(observers);
     _surnameController.addListener(observers);
-    _nameController.text = widget.vm.profileModel?.name ?? '';
-    _surnameController.text = widget.vm.profileModel?.surname ?? '';
+    _nameController.text = widget.viewModel.profileModel?.name ?? '';
+    _surnameController.text = widget.viewModel.profileModel?.surname ?? '';
     super.initState();
   }
 
@@ -50,7 +51,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
     return ViewStateWidget(
         body: content(),
         bottom: buttonUpdateWidget(),
-        state: widget.vm.state,
+        state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }
 
@@ -62,20 +63,20 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
         titleWidget(),
         const SpacingWidget(LayoutSize.size48),
         Form(
-          child: signinForm(),
+          child: profileForm(),
           key: _formKey,
         ),
+        tagsWidget()
       ],
     );
   }
 
   Widget titleWidget() {
     return const TextWidget(
-        text: "You can update your name, surname and your country",
-        style: Style.subtitle);
+        text: "You can update your basic information", style: Style.subtitle);
   }
 
-  Widget signinForm() {
+  Widget profileForm() {
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -108,7 +109,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
                   }),
               const SpacingWidget(LayoutSize.size16),
               CountryPickerWidget(
-                country: widget.vm.profileModel?.country,
+                country: widget.viewModel.profileModel?.country,
                 onCountrySelected: (code) {
                   setState(() {
                     country = code;
@@ -123,13 +124,23 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
     );
   }
 
+  Widget tagsWidget() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      child: TagCollectionWidget(
+        tagIds: widget.viewModel.profileModel?.tags,
+        tags: widget.viewModel.tags,
+      ),
+    );
+  }
+
   Widget buttonUpdateWidget() {
     return ButtonWidget(
       enabled: hasChanges,
       type: ButtonType.primary,
       onPressed: () {
         if (_formKey.currentState?.validate() == true) {
-          widget.vm.update(
+          widget.viewModel.update(
               _nameController.text, _surnameController.text, country ?? '');
         }
       },
@@ -138,9 +149,9 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
   }
 
   bool hasAnyChange() {
-    return widget.vm.profileModel?.name != _nameController.text ||
-        widget.vm.profileModel?.surname != _surnameController.text ||
-        widget.vm.profileModel?.country != country;
+    return widget.viewModel.profileModel?.name != _nameController.text ||
+        widget.viewModel.profileModel?.surname != _surnameController.text ||
+        widget.viewModel.profileModel?.country != country;
   }
 
   @override

@@ -1,5 +1,4 @@
 import 'package:e_racing_app/core/model/status_model.dart';
-import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -8,7 +7,9 @@ import 'package:e_racing_app/profile/presentation/navigation/profile_navigation.
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../core/model/tag_model.dart';
 import '../../login/legacy/domain/model/user_model.dart';
+import '../../shared/tag/get_tag_usecase.dart';
 import '../domain/update_profile_usecase.dart';
 
 part 'profile_view_model.g.dart';
@@ -22,6 +23,9 @@ abstract class _ProfileViewModel extends BaseViewModel<ProfileNavigationSet>
   @override
   @observable
   ProfileNavigationSet? flow = ProfileNavigationSet.home;
+
+  @observable
+  ObservableList<TagModel?>? tags = ObservableList();
 
   @override
   @observable
@@ -37,11 +41,22 @@ abstract class _ProfileViewModel extends BaseViewModel<ProfileNavigationSet>
   @override
   String? title = "";
 
+  final _getTagUseCase = Modular.get<GetTagUseCase>();
   final profile = Modular.get<UpdateProfileUseCase<UserModel>>();
 
   fetchProfile() {
     profileModel = Session.instance.getUser()?.profile;
-    state = ViewState.ready;
+    state = ViewState.loading;
+    fetchTags();
+  }
+
+  void fetchTags() async {
+    await _getTagUseCase.invoke(
+        success: (data) {
+          tags = ObservableList.of(data);
+          state = ViewState.ready;
+        },
+        error: onError);
   }
 
   update(String name, String surname, String country) async {
@@ -57,14 +72,6 @@ abstract class _ProfileViewModel extends BaseViewModel<ProfileNavigationSet>
           flow = ProfileNavigationSet.status;
         },
         error: onError);
-  }
-
-  void onError(ApiException error) {
-    status = StatusModel(
-        message: error.message, action: "Ok", route: ProfileNavigationSet.home);
-
-    state = ViewState.ready;
-    flow = ProfileNavigationSet.home;
   }
 
   void retry() {

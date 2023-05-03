@@ -1,4 +1,3 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
@@ -7,7 +6,6 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../event/core/data/event_standings_model.dart';
-import 'icon_widget.dart';
 
 class SimpleStandingsWidget extends StatefulWidget {
   final EventStandingsModel? standings;
@@ -38,47 +36,43 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
 
   Widget raceList(BuildContext context) {
     _index = 0;
-    return CardWidget(
-      padding: EdgeInsets.zero,
-      ready: widget.standings != null,
-      child: Column(
-        children: [
-          const SpacingWidget(LayoutSize.size16),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              SpacingWidget(LayoutSize.size16),
-              TextWidget(
-                text: "Standings",
-                style: Style.subtitle,
-                align: TextAlign.start,
-              ),
-            ],
-          ),
-          const SpacingWidget(LayoutSize.size16),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: classesList(context),
+    return Column(
+      children: [
+        const SpacingWidget(LayoutSize.size16),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            SpacingWidget(LayoutSize.size16),
+            TextWidget(
+              text: "Standings",
+              style: Style.subtitle,
+              align: TextAlign.start,
             ),
+          ],
+        ),
+        const SpacingWidget(LayoutSize.size16),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: classesList(context),
           ),
-          const SpacingWidget(LayoutSize.size48),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 24, right: 24),
-              child: ButtonWidget(
-                  enabled: true,
-                  type: ButtonType.link,
-                  label: "Full standings",
-                  onPressed: () {
-                    widget.onFullStandingsPressed();
-                  }),
-            ),
+        ),
+        const SpacingWidget(LayoutSize.size16),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8),
+            child: ButtonWidget(
+                enabled: true,
+                type: ButtonType.link,
+                label: "Full standings",
+                onPressed: () {
+                  widget.onFullStandingsPressed();
+                }),
           ),
-          const SpacingWidget(LayoutSize.size16),
-        ],
-      ),
+        ),
+        const SpacingWidget(LayoutSize.size16),
+      ],
     );
   }
 
@@ -115,6 +109,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                   )
                 ],
               ),
+              const SpacingWidget(LayoutSize.size8),
               Column(
                 children: summaryWidget(clazz?.summaries, color),
               )
@@ -132,7 +127,6 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
           return Column(
             children: [
               driverCard(driver, color, ++position),
-              const SpacingWidget(LayoutSize.size8),
             ],
           );
         }).toList() ??
@@ -141,71 +135,52 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
 
   Widget driverCard(
       EventStandingSummaryModel? standing, Color color, int position) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    color: getPodiumColor(position).first,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 8, top: 4, right: 8, bottom: 4),
-                      child: TextWidget(
-                        text: "$positionº",
+    return CardWidget(
+      ready: true,
+      childLeftColor: getPodiumColor(position).first,
+      childLeft: TextWidget(
+        text: "$position",
+        style: Style.paragraph,
+        color: getPodiumColor(position).second,
+      ),
+      padding: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                const SpacingWidget(LayoutSize.size16),
+                Expanded(
+                  child: Wrap(
+                    children: [
+                      TextWidget(
+                        text:
+                            "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
                         style: Style.paragraph,
-                        color: getPodiumColor(position).second,
+                        align: TextAlign.center,
                       ),
-                    ),
+                    ],
                   ),
-                  const SpacingWidget(LayoutSize.size16),
-                  IconWidget(
-                    icon: Icons.circle,
-                    color: getClassColor(_index),
-                    size: 12,
-                  )
-                ],
-              ),
-              const SpacingWidget(LayoutSize.size16),
-              Expanded(
-                child: Wrap(
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextWidget(
-                      text:
-                          "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
-                      style: Style.paragraph,
-                      align: TextAlign.center,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextWidget(
+                        text: "${standing?.points} pts",
+                        style: Style.paragraph,
+                        align: TextAlign.start,
+                      ),
                     ),
                   ],
                 ),
-              ),
-              const SpacingWidget(LayoutSize.size8),
-              CountryCodePicker(
-                onChanged: print,
-                showCountryOnly: true,
-                padding: EdgeInsets.zero,
-                enabled: false,
-                initialSelection: standing?.user?.profile?.country,
-                hideMainText: true,
-                showFlagMain: true,
-                showFlag: false,
-              ),
-              TextWidget(
-                text: "${standing?.points} pts",
-                style: Style.paragraph,
-                align: TextAlign.start,
-              ),
-            ],
-          ),
-          Container(
-            height: 1,
-            color: Theme.of(context).focusColor,
-            padding: EdgeInsets.zero,
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

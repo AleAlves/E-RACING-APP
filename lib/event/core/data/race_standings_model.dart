@@ -8,9 +8,11 @@ part 'race_standings_model.g.dart';
 
 @JsonSerializable()
 class RaceStandingsModel {
+  String? raceName;
+  bool? isEditable;
   List<RaceStandingsClassesModel?>? classes;
 
-  RaceStandingsModel({required this.classes});
+  RaceStandingsModel({this.raceName, this.isEditable, required this.classes});
 
   factory RaceStandingsModel.fromJson(Map<String, dynamic> json) =>
       _$RaceStandingsModelFromJson(json);
@@ -66,4 +68,3 @@ class RaceStandingsSummaryModel {
 
   Map<String, dynamic> toJson() => _$RaceStandingsSummaryModelToJson(this);
 }
-

@@ -1,4 +1,3 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -128,34 +127,23 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
       EventStandingSummaryModel? standing, Color color, int position) {
     return CardWidget(
       ready: true,
-      shapeLess: true,
       arrowed: true,
+      childLeftColor: getPodiumColor(position).first,
+      childLeft: TextWidget(
+        text: "$position",
+        style: Style.paragraph,
+        color: getPodiumColor(position).second,
+      ),
       padding: EdgeInsets.zero,
       onPressed: () {
         showResume(standing);
       },
-      child: Container(
-        color: Colors.black12,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             Row(
               children: [
-                const SpacingWidget(LayoutSize.size8),
-                Row(
-                  children: [
-                    Container(
-                      color: getPodiumColor(position).first,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextWidget(
-                          text: "$positionº",
-                          style: Style.paragraph,
-                          color: getPodiumColor(position).second,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 const SpacingWidget(LayoutSize.size16),
                 Expanded(
                   child: Wrap(
@@ -171,17 +159,8 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CountryCodePicker(
-                      onChanged: print,
-                      showCountryOnly: true,
-                      enabled: false,
-                      initialSelection: standing?.user?.profile?.country,
-                      hideMainText: true,
-                      showFlagMain: true,
-                      showFlag: false,
-                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextWidget(

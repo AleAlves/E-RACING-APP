@@ -3,7 +3,6 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'league_detail_view_model.dart';
 import 'navigation/league_detail_navigation.dart';
@@ -22,7 +21,6 @@ class _LeagueDetailScreenState extends State<LeagueDetailScreen>
 
   @override
   void initState() {
-    FlutterNativeSplash.remove();
     super.initState();
   }
 

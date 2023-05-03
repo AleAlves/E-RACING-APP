@@ -16,11 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../../core/tools/session.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../event_router.dart';
 import '../event_manage_view_model.dart';
-import '../router/event_manage_router.dart';
 
 class EventManageRaceView extends StatefulWidget {
   final EventManageViewModel viewModel;
@@ -36,8 +34,9 @@ class _EventManageRaceViewState extends State<EventManageRaceView>
   @override
   void initState() {
     observers();
-    widget.viewModel.getEvent();
     super.initState();
+    widget.viewModel.getEvent();
+    widget.viewModel.title = "Management";
   }
 
   @override
@@ -198,8 +197,7 @@ class _EventManageRaceViewState extends State<EventManageRaceView>
   Widget racesWidget() {
     return EventRaceResultsCollection(
         onRaceCardPressed: (id) {
-          Session.instance.setRaceId(id);
-          widget.viewModel.onRoute(EventManageRouter.race);
+          widget.viewModel.goToRace(id);
         },
         races: widget.viewModel.event?.races);
   }

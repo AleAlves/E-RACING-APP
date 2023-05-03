@@ -1,9 +1,9 @@
+import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/event/manage/presentation/router/event_manage_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'event_manage_view_model.dart';
 
@@ -21,25 +21,25 @@ class _EventManageScreenState extends State<EventManageScreen>
 
   @override
   void initState() {
-    FlutterNativeSplash.remove();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: const Text('Events'),
-      ),
-      body: Stack(
-        children: [
-          Observer(builder: (_) {
-            return navigate();
-          })
-        ],
-      ),
-    );
+    return Observer(builder: (_) {
+      return Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: TextWidget(
+            style: Style.subtitle,
+            text: viewModel.title,
+          ),
+        ),
+        body: Stack(
+          children: [navigate()],
+        ),
+      );
+    });
   }
 
   @override

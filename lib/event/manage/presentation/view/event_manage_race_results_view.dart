@@ -67,9 +67,10 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
     return ViewStateWidget(
         body: content(),
         bottom: finishButton(),
-        floatAction: cancelButton(),
+        floatAction: widget.viewModel.raceStandings?.isEditable == true
+            ? cancelButton()
+            : null,
         state: widget.viewModel.state,
-        scrollable: true,
         onBackPressed: onBackPressed);
   }
 
@@ -85,24 +86,8 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
       children: [
         const SpacingWidget(LayoutSize.size8),
         standings(),
-        raceStatus(),
         const SpacingWidget(LayoutSize.size8),
       ],
-    );
-  }
-
-  Widget raceStatus() {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Column(
-        children: [
-          Row(
-            children: const [
-              TextWidget(style: Style.title, text: "Race status"),
-            ],
-          ),
-        ],
-      ),
     );
   }
 
@@ -177,7 +162,7 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
       itemCount: standings?.length,
       itemBuilder: (context, sessionsIndex) {
         ++sessionIndex;
-        addPosition(sessionIndex);
+        _addPosition(sessionIndex);
         return Column(
           children: [
             driverCard(sessionIndex, standings?[sessionsIndex]),
@@ -193,6 +178,15 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
             .isEmpty ==
         true) {
       teamColors.add(Pair(standing?.team?.id, getTeamColor(teamColors.length)));
+    }
+    String positionString = "";
+    var position = standing?.summary?.position;
+    if (position != null) {
+      if (position < 0) {
+        positionString = "-";
+      } else {
+        positionString = (position + 1).toString();
+      }
     }
     return CardWidget(
         onPressed: () {
@@ -219,7 +213,7 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
                     ),
                     const SpacingWidget(LayoutSize.size16),
                     TextWidget(
-                      text: "${standing?.summary?.position}º",
+                      text: positionString,
                       style: Style.subtitle,
                       align: TextAlign.start,
                     ),
@@ -293,7 +287,7 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
                   children: [
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.all(24.0),
+                        padding: const EdgeInsets.all(48.0),
                         child: Column(
                           children: [
                             Row(
@@ -333,149 +327,147 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
                                 ],
                               ),
                             const SpacingWidget(LayoutSize.size16),
-                            CardWidget(
-                              onPressed: () {},
-                              ready: true,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  const TextWidget(
-                                    text: "Position",
-                                    style: Style.subtitle,
-                                    align: TextAlign.start,
-                                  ),
-                                  const SpacingWidget(LayoutSize.size24),
-                                  DropdownButton<String>(
-                                    value: positionController.text,
-                                    elevation: 16,
-                                    onChanged: (String? newValue) {
-                                      myState(() {
-                                        positionController.text = newValue!;
-                                      });
-                                    },
-                                    items: positions
-                                        .map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text("# $value"),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ],
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const TextWidget(
+                                  text: "Position",
+                                  style: Style.subtitle,
+                                  align: TextAlign.start,
+                                ),
+                                const SpacingWidget(LayoutSize.size24),
+                                dropDownPosition(myState)
+                              ],
                             ),
                             const SpacingWidget(LayoutSize.size16),
-                            CardWidget(
-                                child: Column(
-                                  children: [
-                                    InputTextWidget(
-                                        enabled: false,
-                                        inputType: InputType.number,
-                                        label: "Bonus points",
-                                        controller: bonusController,
-                                        validator: (value) {}),
-                                    const SpacingWidget(LayoutSize.size16),
-                                    InputTextWidget(
-                                        enabled: false,
-                                        inputType: InputType.number,
-                                        label: "Penalty points",
-                                        controller: penaltyController,
-                                        validator: (value) {}),
-                                    const SpacingWidget(LayoutSize.size16),
-                                    InputTextWidget(
-                                        enabled: false,
-                                        inputType: InputType.number,
-                                        label: "Fastest Lap time",
-                                        controller: fastestController,
-                                        validator: (value) {}),
-                                    const SpacingWidget(LayoutSize.size16),
-                                    InputTextWidget(
-                                        enabled: false,
-                                        inputType: InputType.multilines,
-                                        label: "Notes",
-                                        controller: notesController,
-                                        validator: (value) {}),
-                                  ],
-                                ),
-                                ready: true),
-                            const SpacingWidget(LayoutSize.size16),
-                            CardWidget(
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Checkbox(
-                                          value: dnf,
-                                          onChanged: (bool? value) {
-                                            if (false) {
-                                              myState(() {
-                                                dnf = value ?? false;
-                                              });
-                                            }
-                                          },
-                                        ),
-                                        const TextWidget(
-                                            text: "Didn't finish the race",
-                                            style: Style.paragraph)
-                                      ],
-                                    ),
-                                    const SpacingWidget(LayoutSize.size8),
-                                    Row(
-                                      children: [
-                                        Checkbox(
-                                          value: dqf,
-                                          onChanged: (bool? value) {
-                                            if (false) {
-                                              myState(() {
-                                                dqf = value ?? false;
-                                              });
-                                            }
-                                          },
-                                        ),
-                                        const TextWidget(
-                                            text: "Desqualified",
-                                            style: Style.paragraph)
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                ready: true),
-                            const SpacingWidget(LayoutSize.size48),
-                            ButtonWidget(
-                              enabled: true,
-                              type: ButtonType.iconButton,
-                              icon: Icons.check_circle,
-                              onPressed: () {
-                                setState(() {
-                                  widget.viewModel.setSummaryResult(
-                                      SetSummaryModel(
-                                          summaryId: standing?.summary?.id,
-                                          sessionId: standing
-                                              ?.summary?.sessionId,
-                                          position: int.parse(
-                                              positionController.text),
-                                          penalty:
-                                              int.parse(penaltyController.text),
-                                          bonus:
-                                              int.parse(bonusController.text),
-                                          lap:
-                                              int.parse(fastestController.text),
-                                          dnf: dnf,
-                                          dqf: dqf,
-                                          notes: notesController.text,
-                                          driverId: standing?.user?.id,
-                                          classId: standing?.summary?.classId,
-                                          eventId:
-                                              Session.instance.getEventId(),
-                                          raceId:
-                                              Session.instance.getRaceId()));
-                                  Navigator.of(context).pop();
-                                });
-                              },
-                              label: "Save",
+                            Column(
+                              children: [
+                                InputTextWidget(
+                                    enabled: widget.viewModel.raceStandings
+                                            ?.isEditable ==
+                                        true,
+                                    inputType: InputType.number,
+                                    label: "Bonus points",
+                                    controller: bonusController,
+                                    validator: (value) {}),
+                                const SpacingWidget(LayoutSize.size16),
+                                InputTextWidget(
+                                    enabled: widget.viewModel.raceStandings
+                                            ?.isEditable ==
+                                        true,
+                                    inputType: InputType.number,
+                                    label: "Penalty points",
+                                    controller: penaltyController,
+                                    validator: (value) {}),
+                                const SpacingWidget(LayoutSize.size16),
+                                InputTextWidget(
+                                    enabled: widget.viewModel.raceStandings
+                                            ?.isEditable ==
+                                        true,
+                                    inputType: InputType.number,
+                                    label: "Fastest Lap time",
+                                    controller: fastestController,
+                                    validator: (value) {}),
+                                const SpacingWidget(LayoutSize.size16),
+                                InputTextWidget(
+                                    enabled: widget.viewModel.raceStandings
+                                            ?.isEditable ==
+                                        true,
+                                    inputType: InputType.multilines,
+                                    label: "Notes",
+                                    controller: notesController,
+                                    validator: (value) {}),
+                              ],
                             ),
+                            const SpacingWidget(LayoutSize.size16),
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value: dnf,
+                                      onChanged: (bool? value) {
+                                        if (widget.viewModel.raceStandings
+                                                ?.isEditable ==
+                                            true) {
+                                          myState(() {
+                                            dnf = value ?? false;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                    const TextWidget(
+                                        text: "Didn't finish the race",
+                                        style: Style.paragraph)
+                                  ],
+                                ),
+                                const SpacingWidget(LayoutSize.size8),
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value: dqf,
+                                      onChanged: (bool? value) {
+                                        if (widget.viewModel.raceStandings
+                                                ?.isEditable ==
+                                            true) {
+                                          myState(() {
+                                            dqf = value ?? false;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                    const TextWidget(
+                                        text: "Desqualified",
+                                        style: Style.paragraph)
+                                  ],
+                                ),
+                              ],
+                            ),
+                            widget.viewModel.raceStandings?.isEditable == true
+                                ? Column(
+                                    children: [
+                                      const SpacingWidget(LayoutSize.size48),
+                                      ButtonWidget(
+                                        enabled: widget.viewModel.raceStandings
+                                                ?.isEditable ==
+                                            true,
+                                        type: ButtonType.primary,
+                                        icon: Icons.check_circle,
+                                        onPressed: () {
+                                          setState(() {
+                                            widget.viewModel.setSummaryResult(
+                                                SetSummaryModel(
+                                                    summaryId:
+                                                        standing?.summary?.id,
+                                                    sessionId: standing
+                                                        ?.summary?.sessionId,
+                                                    position: int.parse(
+                                                        positionController
+                                                            .text),
+                                                    penalty: int.parse(
+                                                        penaltyController.text),
+                                                    bonus: int.parse(
+                                                        bonusController.text),
+                                                    lap: int.parse(
+                                                        fastestController.text),
+                                                    dnf: dnf,
+                                                    dqf: dqf,
+                                                    notes: notesController.text,
+                                                    driverId:
+                                                        standing?.user?.id,
+                                                    classId: standing
+                                                        ?.summary?.classId,
+                                                    eventId: Session.instance
+                                                        .getEventId(),
+                                                    raceId: Session.instance.getRaceId()));
+                                            Navigator.of(context).pop();
+                                          });
+                                        },
+                                        label: "Save",
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
                             const SpacingWidget(LayoutSize.size8),
                           ],
                         ),
@@ -485,6 +477,30 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
                 ),
               );
             }));
+  }
+
+  Widget dropDownPosition(StateSetter myState) {
+    return DropdownButton<String>(
+      value: positionController.text,
+      elevation: 16,
+      onChanged: widget.viewModel.raceStandings?.isEditable == true
+          ? (String? newValue) {
+              myState(() {
+                positionController.text = newValue!;
+              });
+            }
+          : null,
+      items: positions.map<DropdownMenuItem<String>>((String value) {
+        var position = value.isEmpty ? "-" : (int.parse(value) + 1).toString();
+        return DropdownMenuItem<String>(
+          value: value,
+          child: TextWidget(
+            text: position,
+            style: Style.subtitle,
+          ),
+        );
+      }).toList(),
+    );
   }
 
   FloatActionButtonWidget cancelButton() {
@@ -505,7 +521,7 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
 
   Widget finishButton() {
     return ButtonWidget(
-      label: "Finish",
+      label: "Finish ${widget.viewModel.raceStandings?.isEditable}",
       type: ButtonType.primary,
       onPressed: () {
         confirmationDialogExt(
@@ -517,7 +533,7 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
                 "By finishing this race you won't be able to edit the results anymore.\n Are you sure you want to proceed?",
             consentMessage: "Yes, I do");
       },
-      enabled: true,
+      enabled: widget.viewModel.raceStandings?.isEditable == true,
     );
   }
 
@@ -535,16 +551,18 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
     clear();
     dnf = standing?.summary?.didntFinish ?? false;
     dqf = standing?.summary?.disqualified ?? false;
-    positionController.text = standing?.summary?.position.toString() ?? "";
+    positionController.text = standing?.summary?.position == -1
+        ? "0"
+        : standing?.summary?.position.toString() ?? "";
     bonusController.text = standing?.summary?.bonus.toString() ?? "";
     penaltyController.text = standing?.summary?.penalty.toString() ?? "";
     fastestController.text = standing?.summary?.fastestLapTime.toString() ?? "";
     notesController.text = standing?.summary?.notes ?? "";
   }
 
-  addPosition(int position) {
+  _addPosition(int position) {
     if (!positions.contains(position.toString())) {
-      positions.add(position.toString());
+      positions.add((position).toString());
     }
   }
 }

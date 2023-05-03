@@ -242,27 +242,22 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
         child: Wrap(
           children: widget.viewModel.raceStandings?.classes
               ?.map((e) {
-                return CardWidget(
-                  ready: true,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
+                return Column(
+                  children: [
+                    const SpacingWidget(LayoutSize.size16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            TextWidget(
-                              text: e?.className,
-                              style: Style.subtitle,
-                              align: TextAlign.start,
-                            ),
-                          ],
+                        TextWidget(
+                          text: e?.className,
+                          style: Style.subtitle,
+                          align: TextAlign.start,
                         ),
-                        const SpacingWidget(LayoutSize.size8),
-                        classes(e?.sessions)
                       ],
                     ),
-                  ),
+                    const SpacingWidget(LayoutSize.size8),
+                    classes(e?.sessions)
+                  ],
                 );
               })
               .toList()
@@ -321,17 +316,22 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
         true) {
       teamColors.add(Pair(standing?.team?.id, getTeamColor(teamColors.length)));
     }
+    var position = standing?.summary?.position;
+    if (position != null) {
+      position = position + 1;
+    }
     return CardWidget(
       ready: true,
+      arrowed: true,
       childLeftColor: getPodiumColor(standing?.summary?.position).first,
       childLeft: TextWidget(
-        text: "${standing?.summary?.position}º",
+        text: "$position",
         style: Style.paragraph,
         color: getPodiumColor(standing?.summary?.position).second,
       ),
       padding: EdgeInsets.zero,
       onPressed: () {
-        showDriverSummary(standing);
+        showDriverSummary(standing, position);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -374,7 +374,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
     );
   }
 
-  void showDriverSummary(RaceStandingsSummaryModel? standing) {
+  void showDriverSummary(RaceStandingsSummaryModel? standing, int? position) {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -433,7 +433,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                     style: Style.paragraph,
-                                    text: "${standing?.summary?.position} th"),
+                                    text: "$position th"),
                               ],
                             ),
                             const SpacingWidget(LayoutSize.size8),

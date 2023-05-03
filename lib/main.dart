@@ -81,8 +81,8 @@ class _ERacingAppState extends State<ERacingApp> {
     const FlexSchemeColor colorDark = FlexSchemeColor(
       primary: Color(0xfff39012),
       primaryVariant: Color(0xffd2821d),
-      secondary: Color(0xff4388e3),
-      secondaryVariant: Color(0xff4388e3),
+      secondary: Color(0xff44087c),
+      secondaryVariant: Color(0xff44087c),
     );
 
     const FlexSchemeData _myFlexScheme = FlexSchemeData(

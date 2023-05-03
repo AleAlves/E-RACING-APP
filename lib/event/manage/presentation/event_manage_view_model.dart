@@ -4,13 +4,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/model/event_model.dart';
-import '../../../core/model/race_model.dart';
 import '../../../core/model/status_model.dart';
 import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
 import '../../../login/legacy/domain/model/user_model.dart';
 import '../../core/data/event_home_model.dart';
-import '../../core/data/event_standings_model.dart';
 import '../../core/data/race_standings_model.dart';
 import '../../core/data/set_summary_model.dart';
 import '../../detail/domain/get_event_usecase.dart';
@@ -42,7 +40,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
 
   @override
   @observable
-  String? title = "";
+  String? title;
 
   @override
   @observable
@@ -50,12 +48,6 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
 
   @observable
   EventModel? event;
-
-  @observable
-  RaceModel? race;
-
-  @observable
-  EventStandingsModel? standings;
 
   @observable
   RaceStandingsModel? raceStandings;
@@ -100,6 +92,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
         success: (data) {
           raceStandings = data;
           state = ViewState.ready;
+          title = raceStandings?.raceName;
         },
         error: onError);
   }
@@ -109,6 +102,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
     await _standingsUC.build(id: Session.instance.getRaceId() ?? '').invoke(
         success: (data) {
           raceStandings = data;
+          isUpdatingResults = false;
         },
         error: onError);
   }
@@ -132,7 +126,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
     isUpdatingResults = true;
     await _setSummaryUseCase.build(summaryModel: summaryModel).invoke(
         success: (data) {
-          getStandings();
+          updateStandings();
         },
         error: onError);
   }
@@ -157,6 +151,12 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
           onRoute(EventManageRouter.status);
         },
         error: onError);
+  }
+
+  goToRace(String id) {
+    raceStandings = null;
+    Session.instance.setRaceId(id);
+    onRoute(EventManageRouter.race);
   }
 
   startEvent() async {
