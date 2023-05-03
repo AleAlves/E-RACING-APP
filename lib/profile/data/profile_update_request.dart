@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../login/legacy/domain/model/profile_model.dart';
+import 'profile_model.dart';
 
 part 'profile_update_request.g.dart';
 

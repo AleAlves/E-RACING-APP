@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:crypton/crypton.dart';
-import 'package:encrypt/encrypt.dart';
 import 'package:crypto/crypto.dart';
+import 'package:crypton/crypton.dart';
 import 'package:e_racing_app/login/legacy/domain/model/keychain_model.dart';
+import 'package:encrypt/encrypt.dart';
 
 import '../session.dart';
 import 'aes_tools.dart';
@@ -26,13 +26,15 @@ class CryptoService {
   }
 
   String aesEncrypt(String data) {
-    return encrypt(data, Session.instance.getKeyChain().key, Session.instance.getKeyChain().iv);
+    return encrypt(data, Session.instance.getKeyChain().key,
+        Session.instance.getKeyChain().iv);
   }
 
   dynamic aesDecrypt(String data) {
     print(Session.instance.getKeyChain().key);
     print(Session.instance.getKeyChain().iv);
-    var decodedString = decrypt(data, Session.instance.getKeyChain().key, Session.instance.getKeyChain().iv);
+    var decodedString = decrypt(data, Session.instance.getKeyChain().key,
+        Session.instance.getKeyChain().iv);
     return jsonDecode(decodedString);
   }
 
@@ -43,8 +45,7 @@ class CryptoService {
           .replaceAll("-----END PUBLIC KEY-----", "")
           .replaceAll("\n", "")
           .trim();
-      var rsaPublicKey = RSAPublicKey.fromString(cleanKey!);
-      return rsaPublicKey.encrypt(data!);
+      return RSAPublicKey.fromString(cleanKey!).encrypt(data ?? "");
     } catch (e) {
       print(e);
     }

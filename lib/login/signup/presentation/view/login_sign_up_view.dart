@@ -29,6 +29,7 @@ class _LoginSignUpViewState extends State<LoginSignUpView>
   final _surnameController = TextEditingController();
   late String password = "";
   late String? country = "BR";
+  List<String> tags = [];
 
   @override
   void initState() {
@@ -150,9 +151,42 @@ class _LoginSignUpViewState extends State<LoginSignUpView>
               country = code;
             },
           ),
+          const SpacingWidget(LayoutSize.size16),
+          tagPickerWidget()
         ],
       ),
     );
+  }
+
+  Widget tagPickerWidget() {
+    return widget.viewModel.tags!.isEmpty
+        ? Container()
+        : Padding(
+            padding: EdgeInsets.zero,
+            child: Wrap(
+              children: widget.viewModel.tags!
+                  .map((item) {
+                    final selected = tags.contains(item?.id);
+                    return ActionChip(
+                        avatar: CircleAvatar(
+                          backgroundColor: selected
+                              ? Theme.of(context).colorScheme.secondary
+                              : null,
+                          child: selected ? const Text('-') : const Text('+'),
+                        ),
+                        label: Text(item?.name ?? ''),
+                        onPressed: () {
+                          setState(() {
+                            selected
+                                ? tags.remove(item?.id)
+                                : tags.add(item?.id ?? '');
+                          });
+                        });
+                  })
+                  .toList()
+                  .cast<Widget>(),
+            ),
+          );
   }
 
   Widget buttonWidget() {
@@ -160,8 +194,13 @@ class _LoginSignUpViewState extends State<LoginSignUpView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
-        widget.viewModel.signIn(_nameController.text, _surnameController.text,
-            _mailController.text, _passwordController.text, country ?? '');
+        widget.viewModel.signIn(
+            _nameController.text,
+            _surnameController.text,
+            _mailController.text,
+            _passwordController.text,
+            country ?? '',
+            tags);
       },
       label: "Create account",
     );

@@ -3,7 +3,7 @@ import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/login/legacy/domain/model/profile_model.dart';
+import 'package:e_racing_app/profile/data/profile_model.dart';
 import 'package:e_racing_app/profile/presentation/navigation/profile_navigation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';

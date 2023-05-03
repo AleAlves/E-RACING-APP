@@ -3,12 +3,14 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/model/status_model.dart';
+import '../../../core/model/tag_model.dart';
 import '../../../core/tools/crypto/crypto_service.dart';
 import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
+import '../../../shared/tag/get_tag_usecase.dart';
 import '../../legacy/domain/model/public_key_model.dart';
 import '../../legacy/domain/usecase/get_public_key_usecase.dart';
-import '../../legacy/domain/usecase/sign_up_usecase.dart';
+import '../domain/sign_up_usecase.dart';
 import 'navigation/login_sign_up_navigation.dart';
 
 part 'login_sign_up_view_model.g.dart';
@@ -27,6 +29,9 @@ abstract class _LoginSignUpViewModel
   @observable
   ViewState state = ViewState.ready;
 
+  @observable
+  ObservableList<TagModel?>? tags = ObservableList();
+
   @override
   @observable
   String? title = "";
@@ -35,31 +40,42 @@ abstract class _LoginSignUpViewModel
   @observable
   StatusModel? status;
 
-  final signInUseCase = Modular.get<SignUpUseCase<StatusModel>>();
-  final publicKeyUseCase = Modular.get<GetPublicKeyUseCase<PublicKeyModel>>();
+  final _getTagUseCase = Modular.get<GetTagUseCase>();
+  final _signUpUseCase = Modular.get<SignUpUseCase<StatusModel>>();
+  final _publicKeyUseCase = Modular.get<GetPublicKeyUseCase<PublicKeyModel>>();
 
   void getPublicKey() async {
     state = ViewState.loading;
-    await publicKeyUseCase.invoke(
+    await _publicKeyUseCase.invoke(
         success: (response) {
           Session.instance
               .setKeyChain(CryptoService.instance.generateAESKeys());
           Session.instance.setRSAKey(response);
+          fetchTags();
+        },
+        error: onError);
+  }
+
+  void fetchTags() async {
+    await _getTagUseCase.invoke(
+        success: (data) {
+          tags = ObservableList.of(data);
           state = ViewState.ready;
         },
         error: onError);
   }
 
   signIn(String name, String surname, String mail, String password,
-      String country) async {
+      String country, List<String> tags) async {
     state = ViewState.loading;
-    await signInUseCase
+    await _signUpUseCase
         .params(
             name: name,
             surname: surname,
             email: mail,
             password: password,
-            country: country)
+            country: country,
+            tags: tags)
         .invoke(
             success: (data) {
               status = data;

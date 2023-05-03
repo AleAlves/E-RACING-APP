@@ -2,7 +2,7 @@ import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/login/legacy/domain/model/profile_model.dart';
+import 'package:e_racing_app/profile/data/profile_model.dart';
 import 'package:flutter/material.dart';
 
 class ProfileCardWidget extends StatelessWidget {
@@ -33,7 +33,11 @@ class ProfileCardWidget extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const IconWidget(icon: Icons.account_circle, size: 48, borderless: false,),
+                  const IconWidget(
+                    icon: Icons.account_circle,
+                    size: 48,
+                    borderless: false,
+                  ),
                   const SpacingWidget(LayoutSize.size8),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,

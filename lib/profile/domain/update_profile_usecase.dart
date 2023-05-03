@@ -3,7 +3,7 @@ import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
 
-import '../../login/legacy/domain/model/profile_model.dart';
+import '../data/profile_model.dart';
 import '../data/profile_update_request.dart';
 
 class UpdateProfileUseCase<T> extends BaseUseCase<T> {

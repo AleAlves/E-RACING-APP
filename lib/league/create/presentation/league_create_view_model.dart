@@ -68,8 +68,8 @@ abstract class _LeagueCreateViewModel
   @observable
   double? currentStep;
 
-  final createUseCase = Modular.get<CreateLeagueUseCase<StatusModel>>();
-  final getTagUseCase = Modular.get<GetTagUseCase>();
+  final _createUseCase = Modular.get<CreateLeagueUseCase<StatusModel>>();
+  final _getTagUseCase = Modular.get<GetTagUseCase>();
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
 
   void fetchTerms() {}
@@ -104,7 +104,7 @@ abstract class _LeagueCreateViewModel
 
   void fetchTags() async {
     state = ViewState.loading;
-    await getTagUseCase.invoke(
+    await _getTagUseCase.invoke(
         success: (data) {
           tags = ObservableList.of(data);
           state = ViewState.ready;
@@ -123,7 +123,7 @@ abstract class _LeagueCreateViewModel
   }
 
   Future<void> create() async {
-    await createUseCase
+    await _createUseCase
         .build(
             league: LeagueModel(
                 name: name,
