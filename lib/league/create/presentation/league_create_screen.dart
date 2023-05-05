@@ -22,24 +22,28 @@ class _LeagueScreenState extends State<LeagueCreateScreen>
   final viewModel = Modular.get<LeagueCreateViewModel>();
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: const Text('League Creation'),
-        ),
-        body: Stack(
-          children: [
-            progressIndicator(),
-            Padding(
-              padding: const EdgeInsets.only(top: 32),
-              child: navigate(),
-            ),
-          ],
-        ),
-      );
-    });
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => scaffold());
+
+  @override
+  Widget scaffold() {
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: const Text('League Creation'),
+      ),
+      body: Stack(
+        children: [
+          progressIndicator(),
+          Padding(
+            padding: const EdgeInsets.only(top: 32),
+            child: navigate(),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget progressIndicator() {

@@ -62,7 +62,7 @@ class _LeagueListViewState extends State<LeagueListView>
   @override
   Widget content() {
     return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
+      padding: const EdgeInsets.only(left: 8, right: 8, top: 0),
       child: ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,

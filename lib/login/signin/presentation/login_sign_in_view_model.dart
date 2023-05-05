@@ -1,9 +1,9 @@
 import 'package:e_racing_app/core/ui/base_view_model.dart';
+import 'package:e_racing_app/home/HomeRouter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/model/status_model.dart';
-import '../../../core/navigation/routes.dart';
 import '../../../core/tools/crypto/crypto_service.dart';
 import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
@@ -77,7 +77,7 @@ abstract class _LoginSignInViewModel
               Session.instance.setOnDeeplinkFlow(false);
               Modular.to.pushNamed(Session.instance.getDeeplink() ?? '');
             } else {
-              Modular.to.pushNamed(Routes.home);
+              Modular.to.pushNamed(HomeRouter.main);
             }
           }
         },

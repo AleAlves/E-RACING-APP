@@ -1,8 +1,8 @@
-import 'package:e_racing_app/core/ui/component/ui/default_error_view.dart';
 import 'package:e_racing_app/core/ui/component/ui/scroll_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 
+import '../ui/default_error_widget.dart';
 import '../ui/float_action_button_widget.dart';
 import 'loading_ripple.dart';
 
@@ -35,7 +35,7 @@ class ViewStateWidget extends StatelessWidget {
         return const LoadingRipple();
       case ViewState.error:
       default:
-        return const DefaulErrorView();
+        return const DefaultErrorWidget();
     }
   }
 

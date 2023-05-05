@@ -1,4 +1,3 @@
-import 'package:e_racing_app/core/navigation/routes.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -8,14 +7,14 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../login/login_router.dart';
 
-class DefaulErrorView extends StatefulWidget {
-  const DefaulErrorView({Key? key}) : super(key: key);
+class DefaultErrorWidget extends StatefulWidget {
+  const DefaultErrorWidget({Key? key}) : super(key: key);
 
   @override
-  _DefaulErrorViewState createState() => _DefaulErrorViewState();
+  _ErrorWidgetState createState() => _ErrorWidgetState();
 }
 
-class _DefaulErrorViewState extends State<DefaulErrorView> {
+class _ErrorWidgetState extends State<DefaultErrorWidget> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -54,7 +53,7 @@ class _DefaulErrorViewState extends State<DefaulErrorView> {
   }
 
   Future<bool> _onBackPressed() async {
-    Modular.to.pushNamed(Routes.home);
+    Modular.to.pushNamed(LoginRouter.signIn);
     return false;
   }
 }

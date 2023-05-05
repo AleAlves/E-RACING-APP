@@ -7,6 +7,7 @@ import 'package:e_racing_app/core/model/tag_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/event/event_router.dart';
 import 'package:e_racing_app/league/update/domain/delete_league_usecase.dart';
 import 'package:e_racing_app/league/update/domain/upate_league_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -21,9 +22,9 @@ import '../../list/data/league_model.dart';
 import '../../member/data/league_members_model.dart';
 import '../../member/domain/get_members_usecase.dart';
 import '../../member/domain/remove_member_usecase.dart';
-import '../domain/fetch_player_events_use_case.dart';
 import '../domain/get_league_usecase.dart';
 import '../domain/get_menu_usecase.dart';
+import '../domain/get_user_event_use_case.dart';
 import '../domain/start_membership_usecase.dart';
 import '../domain/stop_membership_usecase.dart';
 import 'navigation/league_detail_navigation.dart';
@@ -72,7 +73,7 @@ abstract class _LeagueDetailViewModel
   ViewState state = ViewState.ready;
 
   @observable
-  ObservableList<EventModel?>? playerEvents = ObservableList();
+  ObservableList<EventModel?>? events = ObservableList();
 
   @observable
   ObservableList<LeagueModel?>? leagues = ObservableList();
@@ -99,7 +100,7 @@ abstract class _LeagueDetailViewModel
   final _stopMembershipUC = Modular.get<StopMembershipUseCase<StatusModel>>();
   final _removeMemberUseCase = Modular.get<RemoveMemberUseCase<StatusModel>>();
   final _memberUC = Modular.get<GetMembersUseCase<List<LeagueMembersModel?>>>();
-  final _myEventsUC = Modular.get<FetchPlayerEventsUseCase<List<EventModel>>>();
+  final _myEventsUC = Modular.get<GetUserEventUseCase<List<EventModel>>>();
 
   void update(LeagueModel league, MediaModel media) async {
     state = ViewState.loading;
@@ -235,8 +236,12 @@ abstract class _LeagueDetailViewModel
         .params(leagueId: Session.instance.getLeagueId().toString())
         .invoke(
             success: (data) {
-              playerEvents = ObservableList.of(data);
+              events = ObservableList.of(data);
             },
             error: onError);
+  }
+
+  gotToEvent() {
+    Modular.to.pushNamed(EventRouter.detail);
   }
 }

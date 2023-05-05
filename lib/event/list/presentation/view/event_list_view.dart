@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../core/ui/component/ui/text_widget.dart';
+
 class EventListView extends StatefulWidget {
   final EventListViewModel viewModel;
 
@@ -24,8 +26,10 @@ class _EventListViewState extends State<EventListView>
     implements BaseSateWidget {
   @override
   void initState() {
-    widget.viewModel.fetchEvents();
     super.initState();
+    widget.viewModel.getTags();
+    widget.viewModel.fetchEvents();
+    widget.viewModel.title = "Events";
   }
 
   @override
@@ -55,12 +59,17 @@ class _EventListViewState extends State<EventListView>
 
   @override
   Future<bool> onBackPressed() async {
-    Modular.to.pop();
-    return false;
+    return true;
   }
 
   @override
   Widget content() {
+    return widget.viewModel.events?.isEmpty == true
+        ? emptyBoxWidget()
+        : eventsList();
+  }
+
+  Widget eventsList() {
     return Column(
       children: [
         const SpacingWidget(LayoutSize.size8),
@@ -87,6 +96,28 @@ class _EventListViewState extends State<EventListView>
         ),
         const SpacingWidget(LayoutSize.size8),
       ],
+    );
+  }
+
+  Widget emptyBoxWidget() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SpacingWidget(LayoutSize.size256),
+          const TextWidget(
+            text: "Not events found",
+            style: Style.title,
+          ),
+          const SpacingWidget(LayoutSize.size24),
+          Icon(
+            Icons.playlist_remove_outlined,
+            size: 56,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -20,26 +20,28 @@ class _EventManageScreenState extends State<EventManageScreen>
   final viewModel = Modular.get<EventManageViewModel>();
 
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => scaffold());
+
+  @override
+  Widget scaffold() {
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: TextWidget(
+          style: Style.subtitle,
+          text: viewModel.title,
+        ),
+      ),
+      body: navigate(),
+    );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: TextWidget(
-            style: Style.subtitle,
-            text: viewModel.title,
-          ),
-        ),
-        body: Stack(
-          children: [navigate()],
-        ),
-      );
-    });
+  void initState() {
+    super.initState();
   }
 
   @override

@@ -21,26 +21,25 @@ class _LoginPasswordRecoveryScreenState
   final viewModel = Modular.get<LoginPasswordRecoveryViewModel>();
 
   @override
-  void initState() {
-    FlutterNativeSplash.remove();
-    super.initState();
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => scaffold());
+
+  @override
+  Widget scaffold() {
+    return Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: const Text('Recovery'),
+        ),
+        body: navigate());
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: const Text('Recovery'),
-      ),
-      body: Stack(
-        children: [
-          Observer(builder: (_) {
-            return navigate();
-          })
-        ],
-      ),
-    );
+  void initState() {
+    FlutterNativeSplash.remove();
+    super.initState();
   }
 
   @override

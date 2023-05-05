@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/ui/component/ui/text_widget.dart';
 import 'event_list_view_model.dart';
 
 class EventListScreen extends StatefulWidget {
-  const EventListScreen({Key? key}) : super(key: key);
+  final EventListRouter? router;
+
+  const EventListScreen({this.router, Key? key}) : super(key: key);
 
   @override
   _EventListScreenState createState() => _EventListScreenState();
@@ -19,21 +22,29 @@ class _EventListScreenState extends State<EventListScreen>
   final viewModel = Modular.get<EventListViewModel>();
 
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => scaffold());
+
+  @override
+  Widget scaffold() {
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: TextWidget(
+          style: Style.subtitle,
+          text: viewModel.title,
+        ),
+      ),
+      body: navigate(),
+    );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: const Text('Events'),
-        ),
-        body: navigate(),
-      );
-    });
+  void initState() {
+    super.initState();
+    viewModel.flow = widget.router;
   }
 
   @override

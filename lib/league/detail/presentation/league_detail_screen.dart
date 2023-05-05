@@ -20,24 +20,28 @@ class _LeagueDetailScreenState extends State<LeagueDetailScreen>
   final viewModel = Modular.get<LeagueDetailViewModel>();
 
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => scaffold());
+
+  @override
+  Widget scaffold() {
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: TextWidget(
+          text: viewModel.title,
+          style: Style.subtitle,
+        ),
+      ),
+      body: navigate(),
+    );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: TextWidget(
-            text: viewModel.title,
-            style: Style.caption,
-          ),
-        ),
-        body: navigate(),
-      );
-    });
+  void initState() {
+    super.initState();
   }
 
   @override

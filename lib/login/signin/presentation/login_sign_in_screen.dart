@@ -21,13 +21,13 @@ class _LoginSignInScreenState extends State<LoginSignInScreen>
   final viewModel = Modular.get<LoginSignInViewModel>();
 
   @override
-  void initState() {
-    FlutterNativeSplash.remove();
-    super.initState();
-  }
+  Widget build(BuildContext context) => mainObserver();
 
   @override
-  Widget build(BuildContext context) {
+  Observer mainObserver() => Observer(builder: (_) => scaffold());
+
+  @override
+  Widget scaffold() {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -36,14 +36,14 @@ class _LoginSignInScreenState extends State<LoginSignInScreen>
           style: Style.caption,
         ),
       ),
-      body: Stack(
-        children: [
-          Observer(builder: (_) {
-            return navigate();
-          })
-        ],
-      ),
+      body: navigate(),
     );
+  }
+
+  @override
+  void initState() {
+    FlutterNativeSplash.remove();
+    super.initState();
   }
 
   @override

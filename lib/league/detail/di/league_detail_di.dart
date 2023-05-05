@@ -13,9 +13,9 @@ import '../../member/domain/get_members_usecase.dart';
 import '../../member/domain/remove_member_usecase.dart';
 import '../../update/domain/delete_league_usecase.dart';
 import '../../update/domain/upate_league_usecase.dart';
-import '../domain/fetch_player_events_use_case.dart';
 import '../domain/get_league_usecase.dart';
 import '../domain/get_menu_usecase.dart';
+import '../domain/get_user_event_use_case.dart';
 import '../domain/start_membership_usecase.dart';
 import '../domain/stop_membership_usecase.dart';
 import '../presentation/league_detail_screen.dart';
@@ -31,7 +31,7 @@ class LeagueDetailModule extends Module {
   List<Bind> get binds => [
         Bind.factory((i) => GetTagUseCase()),
         Bind.factory((i) => LeagueDetailViewModel()),
-        Bind.factory((i) => FetchPlayerEventsUseCase<List<EventModel>>()),
+        Bind.factory((i) => GetUserEventUseCase<List<EventModel>>()),
         Bind.factory((i) => UpdateLeagueUseCase<StatusModel>()),
         Bind.factory((i) => StartMembershipUseCase<StatusModel>()),
         Bind.factory((i) => StopMembershipUseCase<StatusModel>()),

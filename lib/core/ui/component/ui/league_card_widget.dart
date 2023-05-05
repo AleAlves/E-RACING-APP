@@ -39,7 +39,6 @@ class LeagueCardWidget extends StatelessWidget {
           child: header(),
           ready: leagueTags != null,
         ),
-        const SpacingWidget(LayoutSize.size16),
       ],
     );
   }

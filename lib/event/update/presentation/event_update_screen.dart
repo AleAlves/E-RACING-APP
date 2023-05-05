@@ -18,25 +18,25 @@ class _EventUpdateScreenState extends State<EventUpdateScreen>
   final viewModel = Modular.get<EventUpdateViewModel>();
 
   @override
-  void initState() {
-    super.initState();
-  }
+  Widget build(BuildContext context) => mainObserver();
 
   @override
-  Widget build(BuildContext context) {
+  Observer mainObserver() => Observer(builder: (_) => scaffold());
+
+  @override
+  Widget scaffold() {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         title: const Text('Edit event'),
       ),
-      body: Stack(
-        children: [
-          Observer(builder: (_) {
-            return navigate();
-          })
-        ],
-      ),
+      body: navigate(),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

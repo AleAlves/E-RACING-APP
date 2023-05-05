@@ -1,5 +1,6 @@
 import 'package:e_racing_app/core/domain/base_usecase.dart';
-import 'package:e_racing_app/core/navigation/routes.dart';
+import 'package:e_racing_app/event/event_router.dart';
+import 'package:e_racing_app/profile/ProfileRouter.dart';
 
 import '../../core/tools/session.dart';
 import '../../league/LeagueRouter.dart';
@@ -27,18 +28,18 @@ class GetNotificationsFlowUseCase<T> extends BaseUseCase<T?> {
       switch (doc.type) {
         case NotificationTypeModel.race:
           Session.instance.setRaceId(doc.sourceId);
-          raceAction = Routes.race;
+          raceAction = EventRouter.detail;
           break;
         case NotificationTypeModel.event:
           Session.instance.setEventId(doc.sourceId);
-          eventAction = Routes.event;
+          eventAction = EventRouter.list;
           break;
         case NotificationTypeModel.league:
           Session.instance.setLeagueId(doc.sourceId);
           leagueAction = LeagueRouter.detail;
           break;
         case NotificationTypeModel.profile:
-          action = Routes.profile;
+          action = ProfileRouter.main;
           break;
       }
     });

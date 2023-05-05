@@ -19,21 +19,25 @@ class _EventDetailScreenState extends State<EventDetailScreen>
   final viewModel = Modular.get<EventDetailViewModel>();
 
   @override
-  void initState() {
-    FlutterNativeSplash.remove();
-    super.initState();
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => scaffold());
+
+  @override
+  Widget scaffold() {
+    return Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: const Text('Events'),
+        ),
+        body: navigate());
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            title: const Text('Events'),
-          ),
-          body: navigate());
-    });
+  void initState() {
+    FlutterNativeSplash.remove();
+    super.initState();
   }
 
   @override

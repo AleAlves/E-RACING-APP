@@ -34,7 +34,7 @@ abstract class _LoginSignUpViewModel
 
   @override
   @observable
-  String? title = "";
+  String? title = "Sign Up";
 
   @override
   @observable

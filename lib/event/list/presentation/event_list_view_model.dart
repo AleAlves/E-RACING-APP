@@ -10,6 +10,7 @@ import '../../../core/model/tag_model.dart';
 import '../../../core/ui/view_state.dart';
 import '../../../shared/tag/get_tag_usecase.dart';
 import '../domain/fetch_events_use_case.dart';
+import '../domain/search_event_use_case.dart';
 
 part 'event_list_view_model.g.dart';
 
@@ -21,7 +22,7 @@ abstract class _EventListViewModel extends BaseViewModel<EventListRouter>
 
   @override
   @observable
-  EventListRouter? flow = EventListRouter.main;
+  EventListRouter? flow;
 
   @override
   @observable
@@ -36,30 +37,43 @@ abstract class _EventListViewModel extends BaseViewModel<EventListRouter>
   StatusModel? status;
 
   @observable
-  ObservableList<EventModel?>? events = ObservableList();
+  ObservableList<EventModel?>? events;
 
   @observable
   ObservableList<TagModel?>? tags = ObservableList();
 
+  @observable
+  List<String>? searchTags = [];
+
   final _getTagUseCase = Modular.get<GetTagUseCase>();
   final _fetchEvents = Modular.get<FetchEventsUseCase<List<EventModel>>>();
+  final _searchEvents = Modular.get<SearchEventsUseCase<List<EventModel>>>();
 
-  void fetchEvents() async {
+  fetchEvents() async {
     state = ViewState.loading;
     _fetchEvents.build(leagueId: Session.instance.getLeagueId()).invoke(
         success: (data) {
           events = ObservableList.of(data);
-          _fetchTags();
+          state = ViewState.ready;
         },
         error: onError);
   }
 
-  _fetchTags() async {
+  searchEvents() async {
+    state = ViewState.loading;
+    _searchEvents.build(tagIds: searchTags).invoke(
+        success: (data) {
+          events = ObservableList.of(data);
+          state = ViewState.ready;
+        },
+        error: onError);
+  }
+
+  getTags() async {
     state = ViewState.loading;
     await _getTagUseCase.invoke(
         success: (data) {
           tags = ObservableList.of(data);
-          state = ViewState.ready;
         },
         error: onError);
   }

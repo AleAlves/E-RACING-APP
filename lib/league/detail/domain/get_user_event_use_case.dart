@@ -5,10 +5,10 @@ import 'package:e_racing_app/core/service/api_exception.dart';
 
 import '../../../core/model/pair_model.dart';
 
-class FetchPlayerEventsUseCase<T> extends BaseUseCase<T> {
+class GetUserEventUseCase<T> extends BaseUseCase<T> {
   late String _leagueId;
 
-  FetchPlayerEventsUseCase<T> params({required String leagueId}) {
+  GetUserEventUseCase<T> params({required String leagueId}) {
     _leagueId = leagueId;
     return this;
   }
@@ -17,7 +17,7 @@ class FetchPlayerEventsUseCase<T> extends BaseUseCase<T> {
   Future<void> invoke(
       {required Function(T) success, required Function error}) async {
     var response = await super.remote(Request(
-        endpoint: "api/v1/player/events",
+        endpoint: "api/v1/event/list/filter/user",
         params: HTTPRequesParams(query: Pair("id", _leagueId)),
         verb: HTTPVerb.get));
     if (response.isSuccessfully) {

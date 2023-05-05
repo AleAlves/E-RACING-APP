@@ -1,16 +1,14 @@
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/league/list/data/league_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../model/media_model.dart';
-import '../../../model/pair_model.dart';
+import '../../../../home/domain/model/community_card_vo.dart';
 import 'banner_widget.dart';
 
 class LeagueCardSmallWidget extends StatefulWidget {
-  final List<Pair<LeagueModel?, MediaModel>?> leagues;
-  final VoidCallback? onPressed;
+  final List<CommunityCardVO?> leagues;
+  final Function(String?) onPressed;
 
   const LeagueCardSmallWidget(
       {required this.leagues, required this.onPressed, Key? key})
@@ -32,25 +30,25 @@ class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
   }
 
   Widget content() {
-    var index = -1;
-    return Wrap(
-      children: widget.leagues
-          .map((element) {
-            index++;
-            return cardWidget(index, element?.first);
-          })
-          .toList()
-          .cast<Widget>(),
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      itemCount: widget.leagues.length,
+      itemBuilder: (context, index) {
+        return cardWidget(index);
+      },
     );
   }
 
-  Widget cardWidget(int index, LeagueModel? league) {
+  Widget cardWidget(int index) {
     return Column(
       children: [
         CardWidget(
           padding: EdgeInsets.zero,
-          onPressed: widget.onPressed,
-          child: header(index, league),
+          onPressed: () {
+            widget.onPressed.call(widget.leagues[index]?.leagueId);
+          },
+          child: header(index),
           ready: widget.leagues.isNotEmpty == true,
         ),
         const SpacingWidget(LayoutSize.size16),
@@ -58,21 +56,21 @@ class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
     );
   }
 
-  Widget header(int index, LeagueModel? league) {
+  Widget header(int index) {
     return Column(
       children: [
         BannerWidget(
-          media: widget.leagues[index]?.second,
+          media: widget.leagues[index]?.media,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8, bottom: 8),
-          child: titleWidget(league),
+          child: titleWidget(index),
         ),
       ],
     );
   }
 
-  Widget titleWidget(LeagueModel? league) {
+  Widget titleWidget(int index) {
     return Row(
       children: [
         Wrap(
@@ -80,7 +78,7 @@ class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextWidget(
-                text: league?.name,
+                text: widget.leagues[index]?.name,
                 style: Style.title,
                 align: TextAlign.left,
               ),

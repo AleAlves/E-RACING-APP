@@ -48,9 +48,6 @@ abstract class _LeagueListViewModel
 
   fetchLeagues() async {
     state = ViewState.loading;
-    // share = null;
-    // getMenu();
-    // fetchSocialMedias();
     _fetchTags();
     fetchListUC.invoke(
         success: (data) {

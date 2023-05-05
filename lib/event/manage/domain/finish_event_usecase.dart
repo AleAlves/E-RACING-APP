@@ -2,7 +2,7 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/event/manage/presentation/router/event_manage_router.dart';
+import 'package:e_racing_app/event/event_router.dart';
 
 import '../../../core/model/pair_model.dart';
 
@@ -25,7 +25,7 @@ class FinishEventUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Event finished",
           action: "Ok",
-          route: EventManageRouter.main) as T);
+          route: EventRouter.manage) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

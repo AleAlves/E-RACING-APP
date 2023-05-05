@@ -1,6 +1,4 @@
 import 'package:e_racing_app/core/ext/event_iconography_extension.dart';
-import 'package:e_racing_app/core/navigation/routes.dart';
-import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
@@ -15,9 +13,9 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../core/ext/dialog_extension.dart';
+import '../../../../core/tools/session.dart';
 import '../league_detail_view_model.dart';
 import '../navigation/league_detail_navigation.dart';
 
@@ -209,7 +207,7 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
   }
 
   Widget playersEvent() {
-    return widget.viewModel.playerEvents == null
+    return widget.viewModel.events == null
         ? CardWidget(
             child: SizedBox(
               height: 100,
@@ -220,7 +218,7 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
   }
 
   Widget playerContentWidget() {
-    return widget.viewModel.playerEvents?.isEmpty == true
+    return widget.viewModel.events?.isEmpty == true
         ? Container()
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -235,17 +233,16 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
               ListView.builder(
                 shrinkWrap: true,
                 physics: const ClampingScrollPhysics(),
-                itemCount: widget.viewModel.playerEvents?.length,
+                itemCount: widget.viewModel.events?.length,
                 itemBuilder: (context, index) {
                   return EventSimpleCardWidget(
-                    icon: getIcon(widget.viewModel.playerEvents?[index]?.type),
-                    color:
-                        getColor(widget.viewModel.playerEvents?[index]?.type),
-                    event: widget.viewModel.playerEvents?[index],
+                    icon: getIcon(widget.viewModel.events?[index]?.type),
+                    color: getColor(widget.viewModel.events?[index]?.type),
+                    event: widget.viewModel.events?[index],
                     onPressed: () {
-                      Session.instance.setEventId(
-                          widget.viewModel.playerEvents?[index]?.id);
-                      Modular.to.pushNamed(Routes.event);
+                      Session.instance
+                          .setEventId(widget.viewModel.events?[index]?.id);
+                      widget.viewModel.gotToEvent();
                     },
                   );
                 },

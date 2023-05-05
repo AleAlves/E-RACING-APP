@@ -1,19 +1,23 @@
-import 'package:e_racing_app/core/navigation/routes.dart';
 import 'package:e_racing_app/event/event_router.dart';
 import 'package:e_racing_app/event/list/di/event_list_di.dart';
+import 'package:e_racing_app/home/HomeRouter.dart';
 import 'package:e_racing_app/home/di/home_di.dart';
 import 'package:e_racing_app/league/detail/di/league_detail_di.dart';
+import 'package:e_racing_app/profile/ProfileRouter.dart';
 import 'package:e_racing_app/profile/di/profile_di.dart';
+import 'package:e_racing_app/push/PushRouter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../event/create/di/event_create_di.dart';
 import '../../event/detail/di/event_detail_di.dart';
+import '../../event/list/presentation/router/event_list_router.dart';
 import '../../event/manage/di/event_manage_di.dart';
 import '../../event/update/di/event_update_di.dart';
 import '../../league/LeagueRouter.dart';
 import '../../league/create/di/league_create_di.dart';
 import '../../league/list/di/league_list_di.dart';
 import '../../league/member/di/league_member_di.dart';
+import '../../league/trophies/di/league_trophies_di.dart';
 import '../../login/login_router.dart';
 import '../../login/onboard/di/login_onboard_di.dart';
 import '../../login/recovery/di/login_password_recovery_di.dart';
@@ -58,7 +62,7 @@ class AppMainModule extends Module {
             module: LoginPasswordRecoveryModule()),
 
         //Home
-        ModuleRoute(Routes.home, module: HomeModule()),
+        ModuleRoute(HomeRouter.main, module: HomeModule()),
 
         //League
         ModuleRoute(
@@ -81,11 +85,21 @@ class AppMainModule extends Module {
           module: LeagueMemberModule(),
           transition: secondaryTransition,
         ),
+        ModuleRoute(
+          LeagueRouter.trophies,
+          module: LeagueTrophiesModule(),
+          transition: secondaryTransition,
+        ),
 
         //Event
         ModuleRoute(
           EventRouter.list,
           module: EventListModule(),
+          transition: primaryTransition,
+        ),
+        ModuleRoute(
+          EventRouter.search,
+          module: EventListModule(router: EventListRouter.search),
           transition: primaryTransition,
         ),
         ModuleRoute(
@@ -111,12 +125,16 @@ class AppMainModule extends Module {
 
         //Profile
         ModuleRoute(
-          Routes.profile,
+          ProfileRouter.main,
           module: ProfileModule(),
           transition: primaryTransition,
         ),
 
         //Push
-        ModuleRoute(Routes.notifications, module: NotificationModule()),
+        ModuleRoute(
+          PushRouter.main,
+          module: NotificationModule(),
+          transition: primaryTransition,
+        ),
       ];
 }

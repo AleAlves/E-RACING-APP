@@ -19,26 +19,26 @@ class _AppScreenState extends State<AppScreen> implements BaseScreen {
   final viewModel = Modular.get<AppViewModel>();
 
   @override
-  void initState() {
-    FlutterNativeSplash.remove();
-    super.initState();
-  }
+  Widget build(BuildContext context) => mainObserver();
 
   @override
-  Widget build(BuildContext context) {
+  Observer mainObserver() => Observer(builder: (_) => scaffold());
+
+  @override
+  Widget scaffold() {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         title: const Text('E-racing'),
       ),
-      body: Stack(
-        children: [
-          Observer(builder: (_) {
-            return navigate();
-          })
-        ],
-      ),
+      body: navigate(),
     );
+  }
+
+  @override
+  void initState() {
+    FlutterNativeSplash.remove();
+    super.initState();
   }
 
   @override

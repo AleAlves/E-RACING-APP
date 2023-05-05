@@ -17,7 +17,7 @@ class GetStandingUseCase<T> extends BaseUseCase<T> {
   Future<void> invoke(
       {required Function(T?) success, required Function error}) async {
     var response = await super.remote(Request(
-        endpoint: "api/v1/event/standings",
+        endpoint: "api/v1/event/general/standings",
         params: HTTPRequesParams(query: Pair("id", _id)),
         verb: HTTPVerb.get));
     if (response.isSuccessfully) {

@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../../event/event_router.dart';
 import '../../../navigation/routes.dart';
 
 class StatusView extends StatefulWidget {
@@ -77,9 +76,9 @@ class _StatusViewState extends State<StatusView> implements BaseSateWidget {
       type: ButtonType.primary,
       onPressed: () {
         if (widget.viewModel.status?.route is Routes) {
-          Modular.to.pushNamed(widget.viewModel.status?.route);
+          Modular.to.popAndPushNamed(widget.viewModel.status?.route);
         } else {
-          widget.viewModel.onRoute(EventRouter.update);
+          widget.viewModel.onRoute(widget.viewModel.status?.route);
         }
       },
       label: widget.viewModel.status?.action ?? '',

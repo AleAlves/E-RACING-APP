@@ -2,7 +2,7 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/event/detail/presentation/router/event_detail_router.dart';
+import 'package:e_racing_app/event/event_router.dart';
 
 import '../../core/data/event_do_subscribe_model.dart';
 
@@ -30,7 +30,7 @@ class SubscribeEventUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Subscribed in the event, good luck!",
           action: "Ok",
-          route: EventDetailRouter.main) as T);
+          route: EventRouter.detail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

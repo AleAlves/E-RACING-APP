@@ -7,6 +7,10 @@ import 'component/state/view_state_widget.dart';
 enum ViewState { ready, loading, error, status }
 
 abstract class BaseScreen {
+  Observer mainObserver();
+
+  Widget scaffold();
+
   Widget navigate();
 }
 

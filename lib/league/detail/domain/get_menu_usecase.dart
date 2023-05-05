@@ -22,8 +22,8 @@ class GetMenuUseCase<T> extends BaseUseCase<T?> {
     menu.add(ShortcutModel(
         title: "Trophy room",
         subtitle: "The hall of honor of the champions of this community",
-        icon: Icons.military_tech_sharp,
-        deepLink: ""));
+        icon: Icons.emoji_events,
+        deepLink: LeagueRouter.trophies));
     success.call(menu as T);
   }
 }

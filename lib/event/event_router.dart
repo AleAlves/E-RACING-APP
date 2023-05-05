@@ -6,4 +6,5 @@ class EventRouter extends Routes {
   static String create = "/event/create";
   static String manage = "/event/manage";
   static String update = "/event/update";
+  static String search = "/event/search";
 }

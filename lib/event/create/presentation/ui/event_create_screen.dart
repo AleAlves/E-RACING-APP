@@ -21,22 +21,25 @@ class _EventCreateScreenState extends State<EventCreateScreen>
   final viewModel = Modular.get<EventCreateViewModel>();
 
   @override
-  void initState() {
-    viewModel.onRoute(widget.flow);
-    super.initState();
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => scaffold());
+
+  @override
+  Widget scaffold() {
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: const Text('Event creation'),
+      ),
+      body: navigate(),
+    );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: const Text('Event creation'),
-        ),
-        body: navigate(),
-      );
-    });
+  void initState() {
+    super.initState();
   }
 
   @override

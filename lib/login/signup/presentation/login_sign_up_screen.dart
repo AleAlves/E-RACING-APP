@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import '../../../core/ui/component/ui/text_widget.dart';
 import 'login_sign_up_view_model.dart';
 import 'navigation/login_sign_up_navigation.dart';
 
@@ -20,25 +21,28 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen>
   final viewModel = Modular.get<LoginSignUpViewModel>();
 
   @override
+  Widget build(BuildContext context) => mainObserver();
+
+  @override
+  Observer mainObserver() => Observer(builder: (_) => scaffold());
+
+  @override
   void initState() {
     FlutterNativeSplash.remove();
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget scaffold() {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Sign Up'),
+        title: TextWidget(
+          text: viewModel.title,
+          style: Style.paragraph,
+        ),
       ),
-      body: Stack(
-        children: [
-          Observer(builder: (_) {
-            return navigate();
-          })
-        ],
-      ),
+      body: navigate(),
     );
   }
 

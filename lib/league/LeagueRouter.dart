@@ -6,4 +6,5 @@ class LeagueRouter extends Routes {
   static String create = "/league/create";
   static String update = "/league/update";
   static String members = "/league/member/list";
+  static String trophies = "/league/trophy/list";
 }

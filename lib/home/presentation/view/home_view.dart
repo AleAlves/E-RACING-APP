@@ -1,4 +1,3 @@
-import 'package:e_racing_app/core/navigation/routes.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/events_card_widget.dart';
@@ -30,8 +29,8 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> implements BaseSateWidget {
   @override
   void initState() {
-    super.initState();
     observers();
+    super.initState();
   }
 
   @override
@@ -121,7 +120,7 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
         ),
         ready: true,
         onPressed: () {
-          Modular.to.pushNamed(Routes.notifications);
+          widget.viewModel.goToPushNotifications();
         },
       ),
     );
@@ -132,7 +131,7 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
       padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
       child: ProfileCardWidget(
         onPressed: () {
-          Modular.to.pushNamed(Routes.profile);
+          widget.viewModel.goToProfile();
         },
         profileModel: widget.viewModel.profileModel,
       ),
@@ -157,7 +156,7 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: EventsCardWidget(onPressed: () {
-            Modular.to.pushNamed(EventRouter.list);
+            Modular.to.pushNamed(EventRouter.search);
           }),
         ),
       ],
@@ -180,9 +179,8 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
           padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
           child: LeagueCardSmallWidget(
               leagues: widget.viewModel.leagues,
-              onPressed: () {
-                // Session.instance.setLeagueId(widget.viewModel.leagues?[index]?.id);
-                Modular.to.pushNamed(LeagueRouter.detail);
+              onPressed: (leagueId) {
+                widget.viewModel.goToLeague(leagueId);
               }),
         ),
       ],
