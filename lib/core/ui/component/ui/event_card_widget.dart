@@ -2,9 +2,11 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/chip_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/status_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../model/tag_model.dart';
 import 'class_collection_widget.dart';
 import 'icon_widget.dart';
 import 'spacing_widget.dart';
@@ -14,12 +16,14 @@ class EventCardWidget extends StatelessWidget {
   final IconData? icon;
   final Color? color;
   final TextAlign align;
+  final List<TagModel?>? tags;
   final VoidCallback? onPressed;
 
   const EventCardWidget(
       {required this.icon,
       required this.color,
       required this.event,
+      this.tags,
       this.onPressed,
       this.align = TextAlign.center,
       Key? key})
@@ -72,6 +76,8 @@ class EventCardWidget extends StatelessWidget {
               eventStatusWidget(event?.state),
               const SpacingWidget(LayoutSize.size8),
               subscriptionsStatus(context),
+              const SpacingWidget(LayoutSize.size8),
+              tagsWidget(),
               const SpacingWidget(LayoutSize.size16),
             ],
           ),
@@ -264,10 +270,12 @@ class EventCardWidget extends StatelessWidget {
   }
 
   Widget subscriptionsStatus(BuildContext context) {
-    return event?.joinable == true
+    return event?.joinable == true && event?.state != EventState.finished
         ? Row(
             children: [
-              const ChipWidget(
+              ChipWidget(
+                textColor: Theme.of(context).colorScheme.onSecondary,
+                color: Theme.of(context).colorScheme.secondary,
                 text: 'Drivers wanted',
               ),
               const SpacingWidget(LayoutSize.size4),
@@ -279,7 +287,13 @@ class EventCardWidget extends StatelessWidget {
 
   Widget membership(BuildContext context) {
     return Row(
-      children: const [ChipWidget(text: 'Members only')],
+      children: [
+        ChipWidget(
+          text: 'Members only',
+          textColor: Theme.of(context).colorScheme.onSecondary,
+          color: Theme.of(context).colorScheme.secondary,
+        )
+      ],
     );
   }
 
@@ -319,5 +333,15 @@ class EventCardWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget tagsWidget() {
+    return event?.tags?.isEmpty == true
+        ? Container()
+        : TagCollectionWidget(
+            tagIds: event?.tags,
+            tags: tags,
+            singleLined: true,
+          );
   }
 }

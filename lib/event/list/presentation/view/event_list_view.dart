@@ -11,8 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../../core/navigation/routes.dart';
-
 class EventListView extends StatefulWidget {
   final EventListViewModel viewModel;
 
@@ -43,14 +41,13 @@ class _EventListViewState extends State<EventListView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
       body: content(),
-      scrollable: true,
       state: widget.viewModel.state,
       onBackPressed: onBackPressed,
       floatAction: FloatActionButtonWidget(
         icon: Icons.add,
         title: "Create new",
         onPressed: () {
-          Modular.to.pushNamed(Routes.eventCreate);
+          Modular.to.pushNamed(EventRouter.create);
         },
       ),
     );
@@ -71,9 +68,11 @@ class _EventListViewState extends State<EventListView>
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: ListView.builder(
             shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
             itemCount: widget.viewModel.events?.length,
             itemBuilder: (context, index) {
               return EventCardWidget(
+                tags: widget.viewModel.tags,
                 icon: getIcon(widget.viewModel.events?[index]?.type),
                 color: getColor(widget.viewModel.events?[index]?.type),
                 event: widget.viewModel.events?[index],
@@ -86,6 +85,7 @@ class _EventListViewState extends State<EventListView>
             },
           ),
         ),
+        const SpacingWidget(LayoutSize.size8),
       ],
     );
   }

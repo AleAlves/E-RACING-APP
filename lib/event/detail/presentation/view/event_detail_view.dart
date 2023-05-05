@@ -107,15 +107,15 @@ class _EventDetailViewState extends State<EventDetailView>
           Stack(
             children: [
               BannerWidget(
-                media: widget.viewModel.media,
+                media: widget.viewModel.eventBanner,
               ),
               Positioned(
                 top: 0,
                 right: 0,
                 child: ShareWidget(
                     size: 16.0,
-                    background: Theme.of(context).colorScheme.secondary,
-                    color: Theme.of(context).colorScheme.onSecondary,
+                    background: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.onPrimary,
                     model: widget.viewModel.share),
               )
             ],

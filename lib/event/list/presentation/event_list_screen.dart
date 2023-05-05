@@ -3,7 +3,6 @@ import 'package:e_racing_app/event/list/presentation/router/event_list_router.da
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'event_list_view_model.dart';
 
@@ -21,25 +20,20 @@ class _EventListScreenState extends State<EventListScreen>
 
   @override
   void initState() {
-    FlutterNativeSplash.remove();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: const Text('Events'),
-      ),
-      body: Stack(
-        children: [
-          Observer(builder: (_) {
-            return navigate();
-          })
-        ],
-      ),
-    );
+    return Observer(builder: (_) {
+      return Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: const Text('Events'),
+        ),
+        body: navigate(),
+      );
+    });
   }
 
   @override

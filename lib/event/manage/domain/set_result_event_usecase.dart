@@ -2,9 +2,9 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
+import 'package:e_racing_app/event/event_router.dart';
 
 import '../../core/data/set_summary_model.dart';
-import '../../core/presentation/ui/event_flow.dart';
 
 class SetSummaryUseCase<T> extends BaseUseCase<T> {
   late SetSummaryModel? _summaryModel;
@@ -22,10 +22,8 @@ class SetSummaryUseCase<T> extends BaseUseCase<T> {
         verb: HTTPVerb.post,
         params: HTTPRequesParams(data: _summaryModel)));
     if (response.isSuccessfully) {
-      success.call(StatusModel(
-          message: "",
-          action: "",
-          route: EventFlow.managementEditRaceResultsEdit) as T);
+      success.call(
+          StatusModel(message: "", action: "", route: EventRouter.manage) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

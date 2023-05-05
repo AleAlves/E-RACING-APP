@@ -1,35 +1,30 @@
 import 'package:e_racing_app/core/model/session_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'race_model.g.dart';
+part 'race_create_model.g.dart';
 
 @JsonSerializable()
-class RaceModel {
-  @JsonKey(name: '_id')
-  String? id;
+class RaceCreateModel {
   String? date;
   String? title;
+  String? poster;
   String? leagueId;
-  bool? finished;
-  bool? canceled;
   bool? broadcasting;
   String? broadcastLink;
   List<SessionModel?>? sessions;
 
-  RaceModel({
+  RaceCreateModel({
     required this.date,
     required this.title,
     required this.broadcasting,
-    this.id,
+    this.poster,
     this.leagueId,
     this.sessions,
-    this.finished,
-    this.canceled,
     this.broadcastLink,
   });
 
-  factory RaceModel.fromJson(Map<String, dynamic> json) =>
-      _$RaceModelFromJson(json);
+  factory RaceCreateModel.fromJson(Map<String, dynamic> json) =>
+      _$RaceCreateModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RaceModelToJson(this);
+  Map<String, dynamic> toJson() => _$RaceCreateModelToJson(this);
 }

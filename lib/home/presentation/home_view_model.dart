@@ -18,9 +18,8 @@ class HomeViewModel = _HomeViewModel with _$HomeViewModel;
 abstract class _HomeViewModel with Store {
   _HomeViewModel();
 
-  final fetchUseCase = Modular.get<FetchLeagueUseCase<List<LeagueModel>>>();
-  final notificationsCountUC =
-      Modular.get<GetNotificationsCountUseCase<String>>();
+  final _fetchUseCase = Modular.get<FetchLeagueUseCase<List<LeagueModel>>>();
+  final _notificationUC = Modular.get<GetNotificationsCountUseCase<String>>();
 
   @observable
   HomeFlow flow = HomeFlow.error;
@@ -46,7 +45,7 @@ abstract class _HomeViewModel with Store {
   }
 
   fetchPlayerLeagues() {
-    fetchUseCase.invoke(
+    _fetchUseCase.invoke(
         success: (data) {
           leagues = ObservableList.of(data!);
           state = ViewState.ready;
@@ -55,7 +54,7 @@ abstract class _HomeViewModel with Store {
   }
 
   fetchNotificationsCount() {
-    notificationsCountUC.invoke(
+    _notificationUC.invoke(
         success: (data) {
           notificationsCount = data;
         },

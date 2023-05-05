@@ -5,7 +5,6 @@ import 'package:e_racing_app/core/model/pair_model.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/poster_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -13,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../core/ui/component/ui/icon_widget.dart';
+import '../../../../core/ui/component/ui/poster_widget.dart';
 import '../../../core/data/race_standings_model.dart';
 import '../event_detail_view_model.dart';
 import '../router/event_detail_router.dart';
@@ -83,7 +83,8 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
         child: Column(
           children: [
             PosterWidget(
-              post: widget.viewModel.race?.poster,
+              post: widget.viewModel.racePoster?.image,
+              loadDefault: widget.viewModel.noRacePoster,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 24),
@@ -187,7 +188,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
                                           TextWidget(
                                             text: widget.viewModel.race
                                                 ?.sessions?[index]?.name,
-                                            style: Style.paragraph,
+                                            style: Style.subtitle,
                                             align: TextAlign.start,
                                           ),
                                         ],
@@ -195,7 +196,6 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
                                     )
                                   ],
                                 ),
-                                const SpacingWidget(LayoutSize.size16),
                                 sessionSettings(index),
                                 const SpacingWidget(LayoutSize.size16),
                               ],
@@ -212,21 +212,25 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
   }
 
   Widget sessionSettings(int sessionIndex) {
-    return widget.viewModel.race?.sessions?[sessionIndex]?.settings == null
+    return widget.viewModel.race?.sessions?[sessionIndex]?.settings?.isEmpty ==
+            true
         ? Container()
-        : Wrap(
-            children: widget.viewModel.race?.sessions?[sessionIndex]?.settings
-                ?.map((e) {
-                  return Row(
-                    children: [
-                      TextWidget(style: Style.paragraph, text: "${e?.name}:"),
-                      const SpacingWidget(LayoutSize.size8),
-                      TextWidget(style: Style.paragraph, text: e?.name),
-                    ],
-                  );
-                })
-                .toList()
-                .cast<Widget>() as List<Widget>,
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Wrap(
+              children: widget.viewModel.race?.sessions?[sessionIndex]?.settings
+                  ?.map((e) {
+                    return Row(
+                      children: [
+                        TextWidget(style: Style.paragraph, text: "${e?.name}:"),
+                        const SpacingWidget(LayoutSize.size8),
+                        TextWidget(style: Style.paragraph, text: e?.name),
+                      ],
+                    );
+                  })
+                  .toList()
+                  .cast<Widget>() as List<Widget>,
+            ),
           );
   }
 

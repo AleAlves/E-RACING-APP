@@ -2,9 +2,9 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/event/core/presentation/ui/event_flow.dart';
 
 import '../../../core/model/pair_model.dart';
+import '../../LeagueRouter.dart';
 
 class StopMembershipUseCase<T> extends BaseUseCase<T> {
   String? _leagueId;
@@ -25,7 +25,7 @@ class StopMembershipUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "You're no longer a member",
           action: "Ok",
-          route: EventFlow.eventDetail) as T);
+          route: LeagueRouter.detail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

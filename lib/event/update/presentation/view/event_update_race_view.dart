@@ -61,7 +61,7 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
     hasBroadcasting = race?.broadcasting ?? false;
     model = RaceModel(
         date: toDatetime(race?.date).toIso8601String(),
-        poster: race?.poster,
+        // poster: race?.poster,
         broadcasting: race?.broadcasting,
         broadcastLink: race?.broadcastLink,
         title: titleController.text,
@@ -175,8 +175,8 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
               child: SizedBox(
                 height: 300,
                 width: MediaQuery.of(context).size.height,
-                child:
-                    Image.memory(base64Decode(model?.poster.toString() ?? '')),
+                child: Image.memory(
+                    base64Decode(widget.viewModel.racePoster?.image ?? '')),
               ),
             ),
             ButtonWidget(
@@ -187,7 +187,7 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
                   var im = await _picker.pickImage(source: ImageSource.gallery);
                   var base64Poster = File(im?.path ?? '');
                   setState(() {
-                    model?.poster =
+                    widget.viewModel.racePoster?.image =
                         base64Encode(base64Poster.readAsBytesSync());
                   });
                 })

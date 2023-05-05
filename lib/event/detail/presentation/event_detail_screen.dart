@@ -26,19 +26,14 @@ class _EventDetailScreenState extends State<EventDetailScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: const Text('Events'),
-      ),
-      body: Stack(
-        children: [
-          Observer(builder: (_) {
-            return navigate();
-          })
-        ],
-      ),
-    );
+    return Observer(builder: (_) {
+      return Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBar(
+            title: const Text('Events'),
+          ),
+          body: navigate());
+    });
   }
 
   @override

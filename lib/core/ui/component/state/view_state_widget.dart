@@ -51,7 +51,7 @@ class ViewStateWidget extends StatelessWidget {
     return bottom == null
         ? bottom
         : Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(16),
             child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
                 child: bottom),

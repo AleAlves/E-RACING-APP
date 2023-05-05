@@ -5,7 +5,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../event/core/presentation/ui/model/session_race_model.dart';
+import '../../../../event/core/data/session_race_model.dart';
 import 'event_races_session_widget.dart';
 
 class EventEditRacesWidget extends StatefulWidget {

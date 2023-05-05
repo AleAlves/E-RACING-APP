@@ -2,9 +2,9 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
+import 'package:e_racing_app/event/event_router.dart';
 
 import '../../core/data/remove_subscription_model.dart';
-import '../../core/presentation/ui/event_flow.dart';
 
 class RemoveRegisterUseCase<T> extends BaseUseCase<T> {
   late String? _classId;
@@ -36,7 +36,7 @@ class RemoveRegisterUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "Subscription removed from the event",
           action: "Ok",
-          route: EventFlow.manager) as T);
+          route: EventRouter.detail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,

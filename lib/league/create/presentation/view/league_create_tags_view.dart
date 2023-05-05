@@ -113,7 +113,7 @@ class _LeagueCreateTagsViewState extends State<LeagueCreateTagsView>
 
   Widget button() {
     return ButtonWidget(
-      enabled: true,
+      enabled: tags.isNotEmpty == true,
       type: ButtonType.primary,
       onPressed: () {
         widget.viewModel.onRoute(LeagueCreateNavigator.socialMedia);

@@ -5,8 +5,8 @@ import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
-import '../../core/data/event_create_model.dart';
 import '../../event_router.dart';
+import '../data/event_update_request.dart';
 
 class UpdateEventUseCase<T> extends BaseUseCase<T> {
   late MediaModel? _media;
@@ -28,7 +28,11 @@ class UpdateEventUseCase<T> extends BaseUseCase<T> {
         endpoint: "api/v1/event",
         verb: HTTPVerb.put,
         params: HTTPRequesParams(
-            data: EventCreateModel(_media, _event, _leagueId))));
+            data: EventUpdateRequest(
+          _leagueId,
+          _event,
+          _media,
+        ))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
           message: "Event Updated",

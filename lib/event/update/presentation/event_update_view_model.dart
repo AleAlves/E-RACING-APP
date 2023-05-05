@@ -51,7 +51,10 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
   String? title = "";
 
   @observable
-  MediaModel? media;
+  MediaModel? banner;
+
+  @observable
+  MediaModel? racePoster;
 
   @override
   @observable
@@ -108,7 +111,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
     _getEventUseCase.params(eventId: Session.instance.getEventId()).invoke(
         success: (data) {
           event = data?.event;
-          _getMedia(event?.id);
+          _getEventBanner(event?.id);
           titleController.text = event?.title ?? "";
           rulesController.text = event?.rules ?? "";
           settingsEdit = [];
@@ -131,12 +134,28 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
         error: onError);
   }
 
-  _getMedia(String? id) async {
-    await _getMediaUC.params(id: id).invoke(
+  _getEventBanner(String? leagueId) async {
+    await _getMediaUC.params(id: leagueId).invoke(
         success: (data) {
-          media = data;
+          banner = data;
         },
         error: onError);
+  }
+
+  _getRacePoster(String? raceId) async {
+    state = state = ViewState.loading;
+    await _getMediaUC.params(id: raceId).invoke(
+        success: (data) {
+          racePoster = data;
+          state = ViewState.ready;
+        },
+        error: onError);
+  }
+
+  goToRaceDetail(RaceModel? raceModel) {
+    Session.instance.setRaceId(raceModel?.id);
+    onRoute(EventUpdateRouter.race);
+    _getRacePoster(raceModel?.id);
   }
 
   getStandings() async {
@@ -216,7 +235,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
       settings?.name = settingsEdit[index].first?.text;
       settings?.value = settingsEdit[index].second?.text;
     });
-    var mediaClone = media;
+    var mediaClone = banner;
     if (bannerFile.path.isNotEmpty) {
       mediaClone?.image = base64Encode(bannerFile.readAsBytesSync());
     }
@@ -232,7 +251,10 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
   updateRace(RaceModel? model) async {
     state = ViewState.loading;
     _updateRaceUC
-        .build(raceModel: model, eventId: Session.instance.getEventId())
+        .build(
+            raceModel: model,
+            eventId: Session.instance.getEventId(),
+            media: racePoster)
         .invoke(
             success: (data) {
               status = data;

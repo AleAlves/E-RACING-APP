@@ -1,14 +1,18 @@
+import 'package:e_racing_app/core/model/link_model.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../list/data/league_model.dart';
 
 part 'league_create_model.g.dart';
 
 @JsonSerializable()
 class LeagueCreateModel {
-  late LeagueModel league;
+  final String? name;
+  final String? banner;
+  final String? description;
+  final List<String?>? tags;
+  late List<LinkModel?>? links;
 
-  LeagueCreateModel(this.league);
+  LeagueCreateModel(
+      {this.tags, this.name, this.banner, this.links, this.description});
 
   factory LeagueCreateModel.fromJson(Map<String, dynamic> json) =>
       _$LeagueCreateModelFromJson(json);

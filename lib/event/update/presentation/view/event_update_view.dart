@@ -11,7 +11,6 @@ import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/stepper_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/event/update/presentation/router/event_update_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -19,7 +18,6 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/ext/dialog_extension.dart';
 import '../../../../core/model/race_model.dart';
-import '../../../../core/tools/session.dart';
 import '../../../../core/ui/component/ui/card_widget.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../../core/ui/component/ui/icon_widget.dart';
@@ -196,7 +194,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
                 width: MediaQuery.of(context).size.height,
                 child: widget.viewModel.bannerFile.path == ''
                     ? Image.memory(
-                        base64Decode(widget.viewModel.media?.image ?? ""),
+                        base64Decode(widget.viewModel.banner?.image ?? ""),
                         fit: BoxFit.fill,
                       )
                     : Image.file(
@@ -456,8 +454,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
   Widget raceCard(RaceModel? raceModel) {
     return CardWidget(
       onPressed: () {
-        Session.instance.setRaceId(raceModel?.id);
-        widget.viewModel.onRoute(EventUpdateRouter.race);
+        widget.viewModel.goToRaceDetail(raceModel);
       },
       ready: true,
       child: Stack(

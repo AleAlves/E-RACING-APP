@@ -54,7 +54,13 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
   StatusModel? status;
 
   @observable
-  MediaModel? media;
+  bool? noRacePoster;
+
+  @observable
+  MediaModel? eventBanner;
+
+  @observable
+  MediaModel? racePoster;
 
   @observable
   ShareModel? share;
@@ -96,7 +102,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
 
   getEvent() async {
     state = ViewState.loading;
-    media = null;
+    eventBanner = null;
     _getEventUseCase
         .params(eventId: Session.instance.getEventId() ?? '')
         .invoke(
@@ -109,7 +115,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
                   name: event?.title,
                   message: "Check out this racing event");
               users = ObservableList.of(data?.users ?? []);
-              getMedia(data?.event.id ?? '');
+              _getEventBanner(data?.event.id ?? '');
               _getStandings();
               state = ViewState.ready;
             },
@@ -121,6 +127,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
     await _raceStandingsUC.build(id: race?.id ?? '').invoke(
         success: (data) {
           raceStandings = data;
+          _getRacePoster(race?.id);
         },
         error: onError);
   }
@@ -134,10 +141,23 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
         error: onError);
   }
 
-  void getMedia(String id) async {
-    await _getMediaUC.params(id: id).invoke(
+  _getEventBanner(String eventId) async {
+    await _getMediaUC.params(id: eventId).invoke(
         success: (data) {
-          media = data;
+          eventBanner = data;
+        },
+        error: onError);
+  }
+
+  _getRacePoster(String? raceId) async {
+    noRacePoster = false;
+    racePoster = null;
+    await _getMediaUC.params(id: raceId).invoke(
+        success: (data) {
+          racePoster = data;
+          if (data.image == null) {
+            noRacePoster = true;
+          }
         },
         error: onError);
   }
@@ -224,6 +244,8 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
   }
 
   goToRace(String id) {
+    noRacePoster = false;
+    racePoster = null;
     race = event?.races?.firstWhere((element) => element?.id == id);
     onRoute(EventDetailRouter.race);
   }

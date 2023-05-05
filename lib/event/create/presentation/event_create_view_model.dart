@@ -1,19 +1,19 @@
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
-import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/base_view_model.dart';
+import 'package:e_racing_app/event/core/data/event_create_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../core/model/event_model.dart';
 import '../../../core/model/status_model.dart';
 import '../../../core/model/tag_model.dart';
 import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
 import '../../../shared/tag/get_tag_usecase.dart';
-import '../../core/presentation/ui/model/session_race_model.dart';
+import '../../core/data/session_race_model.dart';
 import '../domain/create_event_usecase.dart';
+import '../domain/model/race_create_model.dart';
 import 'navigation/event_create_flow.dart';
 
 part 'event_create_view_model.g.dart';
@@ -165,7 +165,7 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   void createEvent() async {
     state = ViewState.loading;
 
-    var races = racesModel.map((race) => RaceModel(
+    var races = racesModel.map((race) => RaceCreateModel(
         date: race?.eventDate,
         title: race?.title,
         poster: race?.poster,
@@ -173,7 +173,7 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
         broadcasting: race?.hasBroadcasting,
         broadcastLink: race?.broadcastLink));
 
-    var event = EventModel(
+    var event = EventCreateModel(
         races: races.toList(),
         tags: eventTags,
         settings: eventSettings,
@@ -182,7 +182,8 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
         membersOnly: eventAllowMembersOnly,
         title: eventName,
         rules: eventRules,
-        scoring: eventScore);
+        scoring: eventScore,
+        leagueId: Session.instance.getLeagueId());
 
     var media = MediaModel(eventBanner.toString());
 

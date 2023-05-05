@@ -7,6 +7,7 @@ import 'package:e_racing_app/core/ui/component/ui/profile_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/event/event_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -156,7 +157,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: EventsCardWidget(onPressed: () {
-            Modular.to.pushNamed(Routes.eventFilter);
+            Modular.to.pushNamed(EventRouter.list);
           }),
         ),
       ],

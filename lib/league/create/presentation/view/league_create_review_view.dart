@@ -60,13 +60,13 @@ class _LeagueCreateReviewViewState extends State<LeagueCreateReviewView>
           leagueReviewTitle(),
           const SpacingWidget(LayoutSize.size32),
           leagueBannerWidget(),
-          const SpacingWidget(LayoutSize.size16),
+          const SpacingWidget(LayoutSize.size32),
           leagueNameWidget(),
-          const SpacingWidget(LayoutSize.size16),
+          const SpacingWidget(LayoutSize.size32),
           leagueDescriptionsWidget(),
-          const SpacingWidget(LayoutSize.size16),
+          const SpacingWidget(LayoutSize.size32),
           tagsWidget(),
-          const SpacingWidget(LayoutSize.size16),
+          const SpacingWidget(LayoutSize.size32),
           socialWidget(),
           const SpacingWidget(LayoutSize.size16),
         ],
@@ -87,7 +87,6 @@ class _LeagueCreateReviewViewState extends State<LeagueCreateReviewView>
   Widget leagueNameWidget() {
     return Row(
       children: [
-        const SpacingWidget(LayoutSize.size32),
         TextWidget(text: widget.viewModel.name, style: Style.subtitle)
       ],
     );
@@ -96,40 +95,49 @@ class _LeagueCreateReviewViewState extends State<LeagueCreateReviewView>
   Widget leagueDescriptionsWidget() {
     return Row(
       children: [
-        const SpacingWidget(LayoutSize.size32),
         TextWidget(text: widget.viewModel.description, style: Style.subtitle)
       ],
     );
   }
 
   Widget tagsWidget() {
-    return TagCollectionWidget(
-      tagIds: widget.viewModel.leagueTags,
-      tags: widget.viewModel.tags,
-      singleLined: false,
-    );
-  }
-
-  Widget socialWidget() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.all(4.0),
+      child: Row(
         children: [
-          const SpacingWidget(LayoutSize.size16),
-          const Padding(
-            padding: EdgeInsets.only(left: 8.0),
-            child: TextWidget(text: "Social media", style: Style.paragraph),
-          ),
-          const SpacingWidget(LayoutSize.size4),
-          SocialCollectionWidget(
-            hide: widget.viewModel.linkModels == null,
-            links: widget.viewModel.linkModels,
-            socialPlatforms: widget.viewModel.socialMedias,
+          TagCollectionWidget(
+            tagIds: widget.viewModel.leagueTags,
+            tags: widget.viewModel.tags,
+            singleLined: false,
           ),
         ],
       ),
     );
+  }
+
+  Widget socialWidget() {
+    return widget.viewModel.linkModels?.isEmpty == true
+        ? Container()
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SpacingWidget(LayoutSize.size16),
+                const Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child:
+                      TextWidget(text: "Social media", style: Style.paragraph),
+                ),
+                const SpacingWidget(LayoutSize.size4),
+                SocialCollectionWidget(
+                  hide: widget.viewModel.linkModels == null,
+                  links: widget.viewModel.linkModels,
+                  socialPlatforms: widget.viewModel.socialMedias,
+                ),
+              ],
+            ),
+          );
   }
 
   Widget statusMessage() {

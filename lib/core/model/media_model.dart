@@ -4,7 +4,7 @@ part 'media_model.g.dart';
 
 @JsonSerializable()
 class MediaModel {
-  late String image;
+  late String? image;
   late String? url;
   late String? origin;
 

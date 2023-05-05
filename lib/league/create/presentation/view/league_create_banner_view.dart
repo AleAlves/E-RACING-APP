@@ -121,10 +121,7 @@ class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
                 bannerFile = File(image?.path ?? '');
 
                 var raw = base64Encode(bannerFile.readAsBytesSync());
-                List<int> binary = base64.decode(raw);
-                List<int> compressedData = gzip.encode(binary);
-                String ziped = base64.encode(compressedData);
-                widget.viewModel.setBanner(ziped);
+                widget.viewModel.setBanner(raw);
               });
             })
       ],

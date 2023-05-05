@@ -13,7 +13,7 @@ import '../../../../../core/ui/component/ui/input_text_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
-import '../../../../core/presentation/ui/model/session_race_model.dart';
+import '../../../../core/data/session_race_model.dart';
 import '../../event_create_view_model.dart';
 import '../../navigation/event_create_flow.dart';
 
@@ -184,7 +184,7 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
             enabled: true,
             type: ButtonType.iconButton,
             onPressed: () {
-              _datePickerRoute(context);
+              _callDatePicker();
               // DatePicker.showDateTimePicker(context,
               //     showTitleActions: false,
               //     minTime: DateTime.now(), onChanged: (date) {
@@ -197,19 +197,19 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
     );
   }
 
-  static Route<DateTime> _datePickerRoute(BuildContext context) {
-    return DialogRoute<DateTime>(
-      context: context,
-      builder: (BuildContext context) {
-        return DatePickerDialog(
-          restorationId: 'date_picker_dialog',
-          initialEntryMode: DatePickerEntryMode.calendarOnly,
-          initialDate: DateTime.now(),
-          firstDate: DateTime(2021),
-          lastDate: DateTime(2022),
-        );
-      },
-    );
+  _callDatePicker() async {
+    var date = await getDate();
+    setState(() {
+      eventDate = date;
+    });
+  }
+
+  Future<DateTime?> getDate() {
+    return showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2099));
   }
 
   Widget posterBanner() {

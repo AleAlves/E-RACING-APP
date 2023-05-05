@@ -11,7 +11,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../shared/social/get_social_media_usecase.dart';
 import '../../../shared/tag/get_tag_usecase.dart';
-import '../../list/data/league_model.dart';
+import '../domain/model/league_create_model.dart';
 
 part 'league_create_view_model.g.dart';
 
@@ -125,7 +125,7 @@ abstract class _LeagueCreateViewModel
   Future<void> create() async {
     await _createUseCase
         .build(
-            league: LeagueModel(
+            league: LeagueCreateModel(
                 name: name,
                 description: description,
                 banner: banner,

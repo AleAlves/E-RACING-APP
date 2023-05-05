@@ -71,6 +71,8 @@ class _EventDetailStandingsViewState extends State<EventDetailStandingsView>
   }
 
   Widget teamsStandings() {
-    return TeamsStandingsWidget(standings: widget.viewModel.teamsStandings);
+    return widget.viewModel.event?.teamsEnabled == true
+        ? TeamsStandingsWidget(standings: widget.viewModel.teamsStandings)
+        : Container();
   }
 }

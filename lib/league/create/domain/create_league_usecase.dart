@@ -3,14 +3,14 @@ import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/league/LeagueRouter.dart';
-import 'package:e_racing_app/league/create/data/league_create_model.dart';
 
-import '../../list/data/league_model.dart';
+import '../data/league_create_request.dart';
+import 'model/league_create_model.dart';
 
 class CreateLeagueUseCase<T> extends BaseUseCase<T> {
-  late LeagueModel _league;
+  late LeagueCreateModel _league;
 
-  CreateLeagueUseCase<T> build({required LeagueModel league}) {
+  CreateLeagueUseCase<T> build({required LeagueCreateModel league}) {
     _league = league;
     return this;
   }
@@ -21,7 +21,7 @@ class CreateLeagueUseCase<T> extends BaseUseCase<T> {
     var response = await super.remote(Request(
         endpoint: "api/v1/league",
         verb: HTTPVerb.post,
-        params: HTTPRequesParams(data: LeagueCreateModel(_league))));
+        params: HTTPRequesParams(data: LeagueCreateRequest(_league))));
     if (response.isSuccessfully) {
       success.call(StatusModel(
           message: "League Created",

@@ -6,8 +6,6 @@ import 'package:e_racing_app/league/detail/di/league_detail_di.dart';
 import 'package:e_racing_app/profile/di/profile_di.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../event/core/di/event_di.dart';
-import '../../event/core/presentation/ui/event_flow.dart';
 import '../../event/create/di/event_create_di.dart';
 import '../../event/detail/di/event_detail_di.dart';
 import '../../event/manage/di/event_manage_di.dart';
@@ -59,6 +57,7 @@ class AppMainModule extends Module {
         ModuleRoute(LoginRouter.recovery,
             module: LoginPasswordRecoveryModule()),
 
+        //Home
         ModuleRoute(Routes.home, module: HomeModule()),
 
         //League
@@ -117,13 +116,7 @@ class AppMainModule extends Module {
           transition: primaryTransition,
         ),
 
-        ModuleRoute(Routes.event,
-            module: EventModule(flow: EventFlow.eventDetail)),
-        ModuleRoute(Routes.eventFilter,
-            module: EventModule(flow: EventFlow.listFiltered)),
-        ModuleRoute(Routes.eventCreate, module: EventCreateModule()),
-        ModuleRoute(Routes.events, module: EventModule()),
-
+        //Push
         ModuleRoute(Routes.notifications, module: NotificationModule()),
       ];
 }

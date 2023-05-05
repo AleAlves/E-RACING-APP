@@ -2,7 +2,7 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/event/core/presentation/ui/event_flow.dart';
+import 'package:e_racing_app/league/LeagueRouter.dart';
 
 import '../../../core/model/pair_model.dart';
 
@@ -25,7 +25,7 @@ class StartMembershipUseCase<T> extends BaseUseCase<T> {
       success.call(StatusModel(
           message: "You've became a member",
           action: "Ok",
-          route: EventFlow.eventDetail) as T);
+          route: LeagueRouter.detail) as T);
     } else {
       error.call(ApiException(
           message: response.response?.status,
