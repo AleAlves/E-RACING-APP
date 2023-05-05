@@ -1,23 +1,22 @@
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/home/presentation/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'league_detail_view_model.dart';
-import 'navigation/league_detail_navigation.dart';
+import '../../core/ui/view_state.dart';
+import 'router/home_router.dart';
 
-class LeagueDetailScreen extends StatefulWidget {
-  const LeagueDetailScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _LeagueDetailScreenState createState() => _LeagueDetailScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _LeagueDetailScreenState extends State<LeagueDetailScreen>
-    implements BaseScreen {
+class _HomeScreenState extends State<HomeScreen> implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final viewModel = Modular.get<LeagueDetailViewModel>();
+  final viewModel = Modular.get<HomeViewModel>();
 
   @override
   void initState() {
@@ -32,7 +31,7 @@ class _LeagueDetailScreenState extends State<LeagueDetailScreen>
         appBar: AppBar(
           title: TextWidget(
             text: viewModel.title,
-            style: Style.caption,
+            style: Style.subtitle,
           ),
         ),
         body: navigate(),
@@ -42,6 +41,6 @@ class _LeagueDetailScreenState extends State<LeagueDetailScreen>
 
   @override
   Widget navigate() {
-    return LeagueDetailNavigation.flow(viewModel);
+    return HomeNavigation.flow(viewModel);
   }
 }

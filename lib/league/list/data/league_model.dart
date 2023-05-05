@@ -11,7 +11,6 @@ class LeagueModel {
   final String? id;
   final String? owner;
   final String? name;
-  final String? banner;
   final String? description;
   final List<MembershipModel?>? members;
   final List<String?>? tags;
@@ -23,7 +22,6 @@ class LeagueModel {
       this.owner,
       this.tags,
       this.name,
-      this.banner,
       this.links,
       this.description,
       this.capacity,

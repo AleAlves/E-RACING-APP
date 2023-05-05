@@ -50,7 +50,6 @@ class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
     return ViewStateWidget(
       body: content(),
       bottom: button(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: ViewState.ready,
     );
@@ -58,20 +57,17 @@ class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
 
   @override
   Widget content() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          guideLines(),
-          const SpacingWidget(LayoutSize.size48),
-          bannerPicker(),
-          const SpacingWidget(LayoutSize.size16),
-          imageSizeHint()
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SpacingWidget(LayoutSize.size128),
+        guideLines(),
+        const SpacingWidget(LayoutSize.size48),
+        bannerPicker(),
+        const SpacingWidget(LayoutSize.size16),
+        imageSizeHint()
+      ],
     );
   }
 
@@ -133,6 +129,7 @@ class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
       enabled: bannerFile.path.isNotEmpty || widget.viewModel.banner != null,
       type: ButtonType.primary,
       onPressed: () {
+        widget.viewModel.increaseStep();
         widget.viewModel.onRoute(LeagueCreateNavigator.tags);
       },
       label: "Next",
@@ -144,6 +141,7 @@ class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(LeagueCreateNavigator.description);
     return false;
   }

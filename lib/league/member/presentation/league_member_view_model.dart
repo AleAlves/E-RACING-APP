@@ -44,7 +44,7 @@ abstract class _LeagueMemberViewModel
 
   final _removeMemberUC = Modular.get<RemoveMemberUseCase<StatusModel>>();
   final _fetchMembersUC =
-      Modular.get<FetchMembersUseCase<List<LeagueMembersModel?>>>();
+      Modular.get<GetMembersUseCase<List<LeagueMembersModel?>>>();
 
   fetchMembers() {
     var leagueId = Session.instance.getLeagueId();

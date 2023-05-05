@@ -51,7 +51,6 @@ class _LeagueCreateDescriptionViewState
     return ViewStateWidget(
       body: content(),
       bottom: button(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: ViewState.ready,
     );
@@ -59,21 +58,18 @@ class _LeagueCreateDescriptionViewState
 
   @override
   Widget content() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          guideLines(),
-          const SpacingWidget(LayoutSize.size48),
-          Form(
-            child: leagueNameForm(),
-            key: _formKey,
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SpacingWidget(LayoutSize.size128),
+        guideLines(),
+        const SpacingWidget(LayoutSize.size48),
+        Form(
+          child: leagueNameForm(),
+          key: _formKey,
+        ),
+      ],
     );
   }
 
@@ -117,6 +113,7 @@ class _LeagueCreateDescriptionViewState
       enabled: isValid,
       type: ButtonType.primary,
       onPressed: () {
+        widget.viewModel.increaseStep();
         widget.viewModel.setDescription(_descriptionController.text);
       },
       label: "Next",
@@ -125,6 +122,7 @@ class _LeagueCreateDescriptionViewState
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(LeagueCreateNavigator.name);
     return false;
   }

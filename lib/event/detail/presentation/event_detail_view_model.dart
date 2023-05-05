@@ -54,7 +54,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
   StatusModel? status;
 
   @observable
-  bool? noRacePoster;
+  bool? shouldLoadDefaultPoster;
 
   @observable
   MediaModel? eventBanner;
@@ -150,13 +150,13 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
   }
 
   _getRacePoster(String? raceId) async {
-    noRacePoster = false;
+    shouldLoadDefaultPoster = false;
     racePoster = null;
     await _getMediaUC.params(id: raceId).invoke(
         success: (data) {
           racePoster = data;
           if (data.image == null) {
-            noRacePoster = true;
+            shouldLoadDefaultPoster = true;
           }
         },
         error: onError);
@@ -244,7 +244,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
   }
 
   goToRace(String id) {
-    noRacePoster = false;
+    shouldLoadDefaultPoster = false;
     racePoster = null;
     race = event?.races?.firstWhere((element) => element?.id == id);
     onRoute(EventDetailRouter.race);

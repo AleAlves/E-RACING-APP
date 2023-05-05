@@ -63,16 +63,24 @@ abstract class _LeagueCreateViewModel
   List<LinkModel?>? linkModels;
 
   @observable
-  double? maxSteps = 8;
+  int maxSteps = 7;
 
   @observable
-  double? currentStep;
+  int currentStep = 1;
 
   final _createUseCase = Modular.get<CreateLeagueUseCase<StatusModel>>();
   final _getTagUseCase = Modular.get<GetTagUseCase>();
   final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
 
   void fetchTerms() {}
+
+  increaseStep() {
+    currentStep++;
+  }
+
+  decreaseStep() {
+    currentStep--;
+  }
 
   void setAgreement(bool termsAgreement) {
     this.termsAgreement = termsAgreement;
@@ -123,6 +131,7 @@ abstract class _LeagueCreateViewModel
   }
 
   Future<void> create() async {
+    state = ViewState.loading;
     await _createUseCase
         .build(
             league: LeagueCreateModel(
@@ -134,8 +143,8 @@ abstract class _LeagueCreateViewModel
         .invoke(
             success: (data) {
               status = data;
-              state = ViewState.ready;
               onRoute(LeagueCreateNavigator.status);
+              state = ViewState.ready;
             },
             error: onError);
   }

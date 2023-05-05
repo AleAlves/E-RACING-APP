@@ -17,7 +17,7 @@ class LeagueMemberModule extends Module {
   List<Bind> get binds => [
         Bind.factory((i) => LeagueMemberViewModel()),
         Bind.factory((i) => RemoveMemberUseCase<StatusModel>()),
-        Bind.factory((i) => FetchMembersUseCase<List<LeagueMembersModel>>())
+        Bind.factory((i) => GetMembersUseCase<List<LeagueMembersModel>>())
       ];
 
   @override

@@ -5,10 +5,10 @@ import 'package:e_racing_app/core/service/api_exception.dart';
 import '../../../core/model/pair_model.dart';
 import '../data/league_members_model.dart';
 
-class FetchMembersUseCase<T> extends BaseUseCase<T> {
+class GetMembersUseCase<T> extends BaseUseCase<T> {
   late String _id;
 
-  FetchMembersUseCase<T> req({required String id}) {
+  GetMembersUseCase<T> req({required String id}) {
     _id = id;
     return this;
   }

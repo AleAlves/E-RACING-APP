@@ -12,29 +12,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../core/tools/session.dart';
 import '../../../core/ui/component/state/loading_shimmer.dart';
 import '../../../core/ui/component/ui/icon_widget.dart';
 import '../../../core/ui/component/ui/league_card_small_widget.dart';
 import '../../../league/LeagueRouter.dart';
 import '../home_view_model.dart';
 
-class HomeWidget extends StatefulWidget {
-  final HomeViewModel vm;
+class HomeView extends StatefulWidget {
+  final HomeViewModel viewModel;
 
-  const HomeWidget(this.vm, {Key? key}) : super(key: key);
+  const HomeView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _HomeWidgetState createState() => _HomeWidgetState();
+  _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
+class _HomeViewState extends State<HomeView> implements BaseSateWidget {
   @override
   void initState() {
-    widget.vm.fetchProfile();
-    widget.vm.fetchPlayerLeagues();
-    widget.vm.fetchNotificationsCount();
     super.initState();
+    observers();
   }
 
   @override
@@ -44,15 +41,18 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
   Observer mainObserver() => Observer(builder: (_) => viewState());
 
   @override
-  observers() {}
+  observers() {
+    widget.viewModel.getProfile();
+    widget.viewModel.getPlayerLeagues();
+    widget.viewModel.getNotificationsCount();
+  }
 
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
         body: content(),
-        state: widget.vm.state,
-        onBackPressed: onBackPressed,
-        scrollable: true);
+        state: widget.viewModel.state,
+        onBackPressed: onBackPressed);
   }
 
   @override
@@ -88,8 +88,8 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
                   const TextWidget(text: "Notifications", style: Style.title),
                 ],
               ),
-              widget.vm.notificationsCount == null ||
-                      widget.vm.notificationsCount == "0"
+              widget.viewModel.notificationsCount == null ||
+                      widget.viewModel.notificationsCount == "0"
                   ? const IconWidget(
                       icon: Icons.chevron_right,
                       borderless: false,
@@ -105,7 +105,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(100.0),
                               child: TextWidget(
-                                text: widget.vm.notificationsCount,
+                                text: widget.viewModel.notificationsCount,
                                 style: Style.paragraph,
                                 color:
                                     Theme.of(context).colorScheme.onSecondary,
@@ -134,7 +134,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
         onPressed: () {
           Modular.to.pushNamed(Routes.profile);
         },
-        profileModel: widget.vm.profileModel,
+        profileModel: widget.viewModel.profileModel,
       ),
     );
   }
@@ -169,7 +169,7 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        widget.vm.leagues == null
+        widget.viewModel.leagues.isEmpty
             ? const LoadingShimmer()
             : const Padding(
                 padding: EdgeInsets.all(16),
@@ -178,20 +178,12 @@ class _HomeWidgetState extends State<HomeWidget> implements BaseSateWidget {
               ),
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: widget.vm.leagues?.length,
-            itemBuilder: (context, index) {
-              return LeagueCardSmallWidget(
-                  label: widget.vm.leagues?[index]?.name,
-                  emblem: widget.vm.leagues?[index]?.banner,
-                  onPressed: () {
-                    Session.instance.setLeagueId(widget.vm.leagues?[index]?.id);
-                    Modular.to.pushNamed(LeagueRouter.detail);
-                  });
-            },
-          ),
+          child: LeagueCardSmallWidget(
+              leagues: widget.viewModel.leagues,
+              onPressed: () {
+                // Session.instance.setLeagueId(widget.viewModel.leagues?[index]?.id);
+                Modular.to.pushNamed(LeagueRouter.detail);
+              }),
         ),
       ],
     );

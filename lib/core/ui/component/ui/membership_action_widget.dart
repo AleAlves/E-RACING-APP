@@ -17,10 +17,6 @@ class MembershipActionWidget extends StatefulWidget {
       Key? key})
       : super(key: key);
 
-  Widget loading(BuildContext context) {
-    return const Card(child: LoadingShimmer());
-  }
-
   @override
   _MembershipActionWidgetState createState() => _MembershipActionWidgetState();
 }

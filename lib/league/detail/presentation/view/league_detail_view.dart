@@ -19,6 +19,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../core/ext/dialog_extension.dart';
 import '../league_detail_view_model.dart';
+import '../navigation/league_detail_navigation.dart';
 
 class LeagueDetailView extends StatefulWidget {
   final LeagueDetailViewModel viewModel;
@@ -59,7 +60,7 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
         icon: Icons.build,
         title: "Edit",
         onPressed: () {
-          // widget.viewModel.setFlow(LeagueFlow.edit);
+          widget.viewModel.onRoute(LeagueDetailNavigationSet.update);
         },
       ),
     );
@@ -98,6 +99,7 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
         children: [
           BannerWidget(
             media: widget.viewModel.media,
+            loadDefault: widget.viewModel.shouldLoadDefaultPoster,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 24, bottom: 8),
@@ -227,7 +229,7 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
               const Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: TextWidget(
-                    text: "Your competitions", style: Style.paragraph),
+                    text: "Your current competitions", style: Style.paragraph),
               ),
               const SpacingWidget(LayoutSize.size4),
               ListView.builder(
@@ -254,7 +256,6 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
 
   @override
   Future<bool> onBackPressed() async {
-    // widget.viewModel.setFlow(LeagueFlow.list);
     return true;
   }
 }

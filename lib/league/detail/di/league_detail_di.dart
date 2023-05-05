@@ -13,9 +13,9 @@ import '../../member/domain/get_members_usecase.dart';
 import '../../member/domain/remove_member_usecase.dart';
 import '../../update/domain/delete_league_usecase.dart';
 import '../../update/domain/upate_league_usecase.dart';
-import '../domain/fetch_league_menu_usecase.dart';
 import '../domain/fetch_player_events_use_case.dart';
 import '../domain/get_league_usecase.dart';
+import '../domain/get_menu_usecase.dart';
 import '../domain/start_membership_usecase.dart';
 import '../domain/stop_membership_usecase.dart';
 import '../presentation/league_detail_screen.dart';
@@ -40,9 +40,9 @@ class LeagueDetailModule extends Module {
         Bind.factory((i) => GetTagUseCase()),
         Bind.factory((i) => GetSocialMediaUseCase()),
         Bind.factory((i) => GetLeagueUseCase<LeagueModel>()),
-        Bind.factory((i) => FetchMembersUseCase<List<LeagueMembersModel>>()),
+        Bind.factory((i) => GetMembersUseCase<List<LeagueMembersModel>>()),
         Bind.factory((i) => DeleteLeagueUseCase<StatusModel>()),
-        Bind.factory((i) => FetchLeagueMenuUseCase<List<ShortcutModel>>()),
+        Bind.factory((i) => GetMenuUseCase<List<ShortcutModel>>()),
       ];
 
   @override

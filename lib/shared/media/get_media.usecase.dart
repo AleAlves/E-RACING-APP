@@ -21,7 +21,9 @@ class GetMediaUseCase<T> extends BaseUseCase<T> {
         verb: HTTPVerb.get,
         params: HTTPRequesParams(query: Pair("id", _id))));
     if (response.isSuccessfully) {
-      success(MediaModel.fromJson(response.data) as T);
+      try {
+        success(MediaModel.fromJson(response.data) as T);
+      } catch (e) {}
     } else {
       error.call(ApiException(
           message: response.response?.status,

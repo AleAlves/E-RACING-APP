@@ -70,7 +70,6 @@ class _LeagueListViewState extends State<LeagueListView>
         itemBuilder: (context, index) {
           return LeagueCardWidget(
               label: widget.viewModel.leagues?[index]?.name,
-              emblem: widget.viewModel.leagues?[index]?.banner,
               members: widget.viewModel.leagues?[index]?.members?.length,
               capacity: widget.viewModel.leagues?[index]?.capacity,
               hasMembership:

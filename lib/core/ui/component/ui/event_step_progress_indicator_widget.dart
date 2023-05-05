@@ -4,12 +4,12 @@ import '../../../model/event_model.dart';
 
 enum StatusOrientation { vertical, horizontal }
 
-class StatusWidget extends StatefulWidget {
+class EventStepProgressIndicatorWidget extends StatefulWidget {
   final EventState? state;
   final StatusOrientation? orientation;
   final VoidCallback? onPressed;
 
-  const StatusWidget(
+  const EventStepProgressIndicatorWidget(
       {required this.state,
       required this.orientation,
       this.onPressed,
@@ -17,10 +17,10 @@ class StatusWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  _StatusWidgetState createState() => _StatusWidgetState();
+  _EventStepProgressIndicatorWidgetState createState() => _EventStepProgressIndicatorWidgetState();
 }
 
-class _StatusWidgetState extends State<StatusWidget> {
+class _EventStepProgressIndicatorWidgetState extends State<EventStepProgressIndicatorWidget> {
   @override
   void initState() {
     super.initState();

@@ -1,50 +1,78 @@
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
+import 'package:e_racing_app/league/list/data/league_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../model/media_model.dart';
+import '../../../model/pair_model.dart';
 import 'banner_widget.dart';
 
-class LeagueCardSmallWidget extends StatelessWidget {
-  final String? label;
-  final String? emblem;
+class LeagueCardSmallWidget extends StatefulWidget {
+  final List<Pair<LeagueModel?, MediaModel>?> leagues;
   final VoidCallback? onPressed;
 
   const LeagueCardSmallWidget(
-      {this.label, this.emblem, this.onPressed, Key? key})
+      {required this.leagues, required this.onPressed, Key? key})
       : super(key: key);
 
   @override
+  _LeagueCardSmallWidgetState createState() => _LeagueCardSmallWidgetState();
+}
+
+class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    return content();
+  }
+
+  Widget content() {
+    var index = -1;
+    return Wrap(
+      children: widget.leagues
+          .map((element) {
+            index++;
+            return cardWidget(index, element?.first);
+          })
+          .toList()
+          .cast<Widget>(),
+    );
+  }
+
+  Widget cardWidget(int index, LeagueModel? league) {
     return Column(
       children: [
         CardWidget(
           padding: EdgeInsets.zero,
-          onPressed: onPressed,
-          child: header(),
-          ready: label != null,
+          onPressed: widget.onPressed,
+          child: header(index, league),
+          ready: widget.leagues.isNotEmpty == true,
         ),
         const SpacingWidget(LayoutSize.size16),
       ],
     );
   }
 
-  Widget header() {
+  Widget header(int index, LeagueModel? league) {
     return Column(
       children: [
         BannerWidget(
-          media: MediaModel(emblem ?? ''),
+          media: widget.leagues[index]?.second,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8, bottom: 8),
-          child: titleWidget(),
+          child: titleWidget(league),
         ),
       ],
     );
   }
 
-  Widget titleWidget() {
+  Widget titleWidget(LeagueModel? league) {
     return Row(
       children: [
         Wrap(
@@ -52,7 +80,7 @@ class LeagueCardSmallWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextWidget(
-                text: label,
+                text: league?.name,
                 style: Style.title,
                 align: TextAlign.left,
               ),

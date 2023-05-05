@@ -64,18 +64,15 @@ class _LeagueCreateSocialMediaViewState
 
   @override
   Widget content() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          guideLines(),
-          const SpacingWidget(LayoutSize.size48),
-          socialPicker()
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SpacingWidget(LayoutSize.size128),
+        guideLines(),
+        const SpacingWidget(LayoutSize.size48),
+        socialPicker()
+      ],
     );
   }
 
@@ -181,6 +178,7 @@ class _LeagueCreateSocialMediaViewState
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
+        widget.viewModel.increaseStep();
         widget.viewModel.setSocialMedia(links);
       },
       label: widget.viewModel.linkModels?.isEmpty == true ? "Skip" : "Next",
@@ -189,6 +187,7 @@ class _LeagueCreateSocialMediaViewState
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(LeagueCreateNavigator.tags);
     return false;
   }

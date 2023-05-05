@@ -84,7 +84,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
           children: [
             PosterWidget(
               post: widget.viewModel.racePoster?.image,
-              loadDefault: widget.viewModel.noRacePoster,
+              loadDefault: widget.viewModel.shouldLoadDefaultPoster,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 24),

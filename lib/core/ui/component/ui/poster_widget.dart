@@ -41,12 +41,12 @@ class _PosterWidgetState extends State<PosterWidget> {
     }
     return widget.post == null && widget.loadDefault == false
         ? LoadingShimmer(
-            height: MediaQuery.of(context).size.height * 0.35,
+            height: MediaQuery.of(context).size.height * 0.4,
           )
         : ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: SizedBox(
-                height: MediaQuery.of(context).size.height / 2.5,
+                height: MediaQuery.of(context).size.height * .4,
                 width: MediaQuery.of(context).size.width,
                 child: image),
           );

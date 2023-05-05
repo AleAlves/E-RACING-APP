@@ -1,7 +1,7 @@
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/chip_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/status_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/event_step_progress_indicator_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +32,7 @@ class EventCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
-      childLeft: StatusWidget(
+      childLeft: EventStepProgressIndicatorWidget(
         state: event?.state,
         orientation: StatusOrientation.vertical,
       ),

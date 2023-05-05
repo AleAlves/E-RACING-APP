@@ -46,7 +46,6 @@ class _LeagueCreateTagsViewState extends State<LeagueCreateTagsView>
     return ViewStateWidget(
       body: content(),
       bottom: button(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
@@ -54,18 +53,15 @@ class _LeagueCreateTagsViewState extends State<LeagueCreateTagsView>
 
   @override
   Widget content() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          guideLines(),
-          const SpacingWidget(LayoutSize.size48),
-          tagPicker()
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SpacingWidget(LayoutSize.size128),
+        guideLines(),
+        const SpacingWidget(LayoutSize.size48),
+        tagPicker()
+      ],
     );
   }
 
@@ -116,6 +112,7 @@ class _LeagueCreateTagsViewState extends State<LeagueCreateTagsView>
       enabled: tags.isNotEmpty == true,
       type: ButtonType.primary,
       onPressed: () {
+        widget.viewModel.increaseStep();
         widget.viewModel.onRoute(LeagueCreateNavigator.socialMedia);
       },
       label: widget.viewModel.leagueTags?.isEmpty == true ? "Skip" : "Next",
@@ -124,6 +121,7 @@ class _LeagueCreateTagsViewState extends State<LeagueCreateTagsView>
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(LeagueCreateNavigator.banner);
     return false;
   }

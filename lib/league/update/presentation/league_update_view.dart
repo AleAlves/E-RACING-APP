@@ -39,7 +39,6 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
   final _descriptionController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   File bannerFile = File('');
-  File emblemFile = File('');
   List<String?> tags = [];
   List<Pair<LinkModel?, TextEditingController?>> links = [];
   bool isEditingTags = false;
@@ -49,8 +48,9 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
 
   @override
   void initState() {
-    widget.viewModel.getLeague();
     super.initState();
+    observers();
+    widget.viewModel.getLeague();
   }
 
   @override
@@ -77,11 +77,12 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
   }
 
   @override
-  observers() {}
+  observers() {
+    setupProperties();
+  }
 
   @override
   Widget content() {
-    setupProperties();
     return Form(
       child: updateForm(),
       key: _formKey,
@@ -117,10 +118,6 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
           Step(
             title: const StepWidget(title: 'Basic Info'),
             content: basic(),
-          ),
-          Step(
-            title: const StepWidget(title: 'Thumbnail'),
-            content: emblem(),
           ),
           Step(
             title: const StepWidget(title: 'Banner'),
@@ -210,57 +207,6 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
                 .toList()
                 .cast<Widget>(),
           );
-  }
-
-  Widget emblem() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Column(
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(4.0),
-                  child: SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: emblemFile.path.isEmpty
-                        ? Image.memory(
-                            base64Decode(widget.viewModel.league?.banner ?? ''),
-                            fit: BoxFit.fill,
-                          )
-                        : Image.file(
-                            emblemFile,
-                            fit: BoxFit.fill,
-                          ),
-                  ),
-                ),
-                ButtonWidget(
-                  enabled: true,
-                  type: ButtonType.iconButton,
-                  icon: Icons.image_search,
-                  onPressed: () async {
-                    var image =
-                        await _picker.pickImage(source: ImageSource.gallery);
-                    setState(() {
-                      emblemFile = File(image?.path ?? '');
-                    });
-                  },
-                )
-              ],
-            ),
-            const TextWidget(
-              text: "Thumbnail: 100x100",
-              style: Style.caption,
-              align: TextAlign.start,
-            )
-          ],
-        )
-      ],
-    );
   }
 
   Widget banner() {
@@ -409,16 +355,11 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
       onPressed: () {
         if (_formKey.currentState?.validate() == true) {
           List<int> bannerBytes = [];
-          List<int> emblemBytes = [];
           List<LinkModel?> linksList = [];
           try {
             bannerBytes = bannerFile.readAsBytesSync();
           } catch (e) {}
-          try {
-            emblemBytes = emblemFile.readAsBytesSync();
-          } catch (e) {}
           String bannerImage = base64Encode(bannerBytes);
-          String emblem64Image = base64Encode(emblemBytes);
           for (var element in links) {
             element.first?.link = element.second?.text ?? '';
             linksList.add(element.first);
@@ -428,7 +369,6 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
               owner: widget.viewModel.league?.owner,
               name: _nameController.text,
               description: _descriptionController.text,
-              banner: emblem64Image,
               capacity: widget.viewModel.league?.capacity,
               members: widget.viewModel.league?.members,
               tags: tags,

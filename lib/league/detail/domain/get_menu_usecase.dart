@@ -4,7 +4,7 @@ import 'package:e_racing_app/event/event_router.dart';
 import 'package:e_racing_app/league/LeagueRouter.dart';
 import 'package:flutter/material.dart';
 
-class FetchLeagueMenuUseCase<T> extends BaseUseCase<T?> {
+class GetMenuUseCase<T> extends BaseUseCase<T?> {
   @override
   void invoke({required Function(T?) success, required Function error}) async {
     List<ShortcutModel> menu = [];

@@ -15,9 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../core/ui/component/ui/event_step_progress_indicator_widget.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../../core/ui/component/ui/share_widget.dart';
-import '../../../../core/ui/component/ui/status_widget.dart';
 import '../event_detail_view_model.dart';
 
 class EventDetailView extends StatefulWidget {
@@ -106,9 +106,7 @@ class _EventDetailViewState extends State<EventDetailView>
         children: [
           Stack(
             children: [
-              BannerWidget(
-                media: widget.viewModel.eventBanner,
-              ),
+              BannerWidget(media: widget.viewModel.eventBanner),
               Positioned(
                 top: 0,
                 right: 0,
@@ -167,7 +165,7 @@ class _EventDetailViewState extends State<EventDetailView>
                       text: "Event",
                       style: Style.subtitle,
                     ),
-                    StatusWidget(
+                    EventStepProgressIndicatorWidget(
                       state: widget.viewModel.event?.state,
                       orientation: StatusOrientation.horizontal,
                     ),

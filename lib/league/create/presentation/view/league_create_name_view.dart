@@ -59,7 +59,6 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
     return ViewStateWidget(
       body: content(),
       bottom: button(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );
@@ -67,21 +66,18 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
 
   @override
   Widget content() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          guideLines(),
-          const SpacingWidget(LayoutSize.size48),
-          Form(
-            child: leagueNameForm(),
-            key: _formKey,
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SpacingWidget(LayoutSize.size128),
+        guideLines(),
+        const SpacingWidget(LayoutSize.size48),
+        Form(
+          child: leagueNameForm(),
+          key: _formKey,
+        ),
+      ],
     );
   }
 
@@ -113,6 +109,7 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
       enabled: _nameController.value.text.isNotEmpty,
       type: ButtonType.primary,
       onPressed: () {
+        widget.viewModel.increaseStep();
         widget.viewModel.setName(_nameController.text);
       },
       label: "Next",
@@ -121,6 +118,7 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(LeagueCreateNavigator.terms);
     return false;
   }

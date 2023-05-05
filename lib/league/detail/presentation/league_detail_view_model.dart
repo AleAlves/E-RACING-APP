@@ -16,15 +16,14 @@ import '../../../core/domain/share_model.dart';
 import '../../../core/ext/access_extension.dart';
 import '../../../shared/media/get_media.usecase.dart';
 import '../../../shared/social/get_social_media_usecase.dart';
-import '../../../shared/tag/get_tag_usecase.dart';
 import '../../LeagueRouter.dart';
 import '../../list/data/league_model.dart';
 import '../../member/data/league_members_model.dart';
 import '../../member/domain/get_members_usecase.dart';
 import '../../member/domain/remove_member_usecase.dart';
-import '../domain/fetch_league_menu_usecase.dart';
 import '../domain/fetch_player_events_use_case.dart';
 import '../domain/get_league_usecase.dart';
+import '../domain/get_menu_usecase.dart';
 import '../domain/start_membership_usecase.dart';
 import '../domain/stop_membership_usecase.dart';
 import 'navigation/league_detail_navigation.dart';
@@ -61,6 +60,9 @@ abstract class _LeagueDetailViewModel
   @observable
   bool membershipIsReady = false;
 
+  @observable
+  bool? shouldLoadDefaultPoster;
+
   @override
   @observable
   LeagueDetailNavigationSet? flow = LeagueDetailNavigationSet.main;
@@ -87,27 +89,21 @@ abstract class _LeagueDetailViewModel
   @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
 
-  final updateUseCase = Modular.get<UpdateLeagueUseCase<StatusModel>>();
-  final removeMemberUseCase = Modular.get<RemoveMemberUseCase<StatusModel>>();
-  final getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
-  final getTagUseCase = Modular.get<GetTagUseCase>();
-  final getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
-  final getLeagueMediaUseCase = Modular.get<GetLeagueUseCase<LeagueModel>>();
-  final deleteUseCase = Modular.get<DeleteLeagueUseCase<StatusModel>>();
-  final startMembershipUseCase =
-      Modular.get<StartMembershipUseCase<StatusModel>>();
-  final stopMembershipUseCase =
-      Modular.get<StopMembershipUseCase<StatusModel>>();
-  final fetchMenuUsecase =
-      Modular.get<FetchLeagueMenuUseCase<List<ShortcutModel>>>();
-  final fetchMemberUseCase =
-      Modular.get<FetchMembersUseCase<List<LeagueMembersModel?>>>();
-  final fetchPlayersEventUseCase =
-      Modular.get<FetchPlayerEventsUseCase<List<EventModel>>>();
+  final _getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
+  final _getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
+  final _getMenuUC = Modular.get<GetMenuUseCase<List<ShortcutModel>>>();
+  final _getLeagueUseCase = Modular.get<GetLeagueUseCase<LeagueModel>>();
+  final _deleteUseCase = Modular.get<DeleteLeagueUseCase<StatusModel>>();
+  final _updateUseCase = Modular.get<UpdateLeagueUseCase<StatusModel>>();
+  final _startMemberUC = Modular.get<StartMembershipUseCase<StatusModel>>();
+  final _stopMembershipUC = Modular.get<StopMembershipUseCase<StatusModel>>();
+  final _removeMemberUseCase = Modular.get<RemoveMemberUseCase<StatusModel>>();
+  final _memberUC = Modular.get<GetMembersUseCase<List<LeagueMembersModel?>>>();
+  final _myEventsUC = Modular.get<FetchPlayerEventsUseCase<List<EventModel>>>();
 
   void update(LeagueModel league, MediaModel media) async {
     state = ViewState.loading;
-    await updateUseCase.params(league: league, media: media).invoke(
+    await _updateUseCase.params(league: league, media: media).invoke(
         success: (data) {
           status = data;
           onRoute(LeagueDetailNavigationSet.status);
@@ -115,17 +111,21 @@ abstract class _LeagueDetailViewModel
         error: onError);
   }
 
-  void getMedia(String id) async {
-    await getMediaUseCase.params(id: id).invoke(
+  void getBanner(String? id) async {
+    shouldLoadDefaultPoster = false;
+    await _getMediaUseCase.params(id: id).invoke(
         success: (data) {
           media = data;
+          if (media?.image == null) {
+            shouldLoadDefaultPoster = true;
+          }
         },
         error: onError);
   }
 
   void fetchSocialMedias() async {
     state = ViewState.loading;
-    await getSocialMediaUseCase.invoke(
+    await _getSocialMediaUseCase.invoke(
         success: (data) {
           socialMedias = ObservableList.of(data);
           state = ViewState.ready;
@@ -138,10 +138,11 @@ abstract class _LeagueDetailViewModel
     league = null;
     media = null;
     fetchSocialMedias();
-    await getLeagueMediaUseCase
+    await _getLeagueUseCase
         .params(id: Session.instance.getLeagueId().toString())
         .invoke(
             success: (data) {
+              getBanner(data?.id);
               league = data;
               membershipIsReady = true;
               hasMembership = hasLeagueMembership(league);
@@ -150,24 +151,23 @@ abstract class _LeagueDetailViewModel
                   leagueId: league?.id,
                   message: "Check out this community",
                   name: league?.name);
-              // getMedia(data?.id ?? '');
               state = ViewState.ready;
             },
             error: onError);
   }
 
-  Future<void> delete() async {
+  delete() async {
     state = ViewState.loading;
-    deleteUseCase.params(id: Session.instance.getLeagueId().toString()).invoke(
+    _deleteUseCase.params(id: Session.instance.getLeagueId().toString()).invoke(
         success: (data) {
           status = data;
         },
         error: onError);
   }
 
-  Future<void> startMembership() async {
+  startMembership() async {
     membershipIsReady = false;
-    startMembershipUseCase
+    _startMemberUC
         .build(leagueId: Session.instance.getLeagueId().toString())
         .invoke(
             success: (data) {
@@ -179,7 +179,7 @@ abstract class _LeagueDetailViewModel
 
   Future<void> stopMembership() async {
     membershipIsReady = false;
-    stopMembershipUseCase
+    _stopMembershipUC
         .build(leagueId: Session.instance.getLeagueId().toString())
         .invoke(
             success: (data) {
@@ -195,7 +195,7 @@ abstract class _LeagueDetailViewModel
   }
 
   void getMenu() {
-    fetchMenuUsecase.invoke(
+    _getMenuUC.invoke(
         success: (data) {
           menus = ObservableList.of(data!);
         },
@@ -204,7 +204,7 @@ abstract class _LeagueDetailViewModel
 
   void fetchMembers() {
     state = ViewState.loading;
-    fetchMemberUseCase.req(id: league?.id ?? '').invoke(
+    _memberUC.req(id: league?.id ?? '').invoke(
         success: (data) {
           members = ObservableList.of(data!);
           state = ViewState.ready;
@@ -214,7 +214,7 @@ abstract class _LeagueDetailViewModel
 
   void removeMember(String id) {
     state = ViewState.loading;
-    removeMemberUseCase.req(memberId: id, leagueId: league?.id ?? '').invoke(
+    _removeMemberUseCase.req(memberId: id, leagueId: league?.id ?? '').invoke(
         success: (data) {
           status = data;
           onRoute(LeagueDetailNavigationSet.status);
@@ -231,7 +231,7 @@ abstract class _LeagueDetailViewModel
   }
 
   Future<void> getPlayerEvents() async {
-    await fetchPlayersEventUseCase
+    await _myEventsUC
         .params(leagueId: Session.instance.getLeagueId().toString())
         .invoke(
             success: (data) {

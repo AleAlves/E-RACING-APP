@@ -5,13 +5,10 @@ import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../model/media_model.dart';
-import 'banner_widget.dart';
 import 'icon_widget.dart';
 
 class LeagueCardWidget extends StatelessWidget {
   final String? label;
-  final String? emblem;
   final int? members;
   final int? capacity;
   final bool hasMembership;
@@ -22,7 +19,6 @@ class LeagueCardWidget extends StatelessWidget {
 
   const LeagueCardWidget(
       {this.label,
-      this.emblem,
       required this.capacity,
       required this.members,
       required this.hasMembership,
@@ -51,9 +47,6 @@ class LeagueCardWidget extends StatelessWidget {
   Widget header() {
     return Column(
       children: [
-        BannerWidget(
-          media: MediaModel(emblem ?? ''),
-        ),
         Padding(
           padding: const EdgeInsets.only(top: 8, bottom: 8),
           child: description(),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/ui/component/ui/step_progress_indicator_widget.dart';
 import 'league_create_view_model.dart';
 import 'navigation/league_create_flow.dart';
 
@@ -28,9 +29,29 @@ class _LeagueScreenState extends State<LeagueCreateScreen>
         appBar: AppBar(
           title: const Text('League Creation'),
         ),
-        body: navigate(),
+        body: Stack(
+          children: [
+            progressIndicator(),
+            Padding(
+              padding: const EdgeInsets.only(top: 32),
+              child: navigate(),
+            ),
+          ],
+        ),
       );
     });
+  }
+
+  Widget progressIndicator() {
+    return Positioned(
+      child: StepProgressIndicatorWidget(
+        maxSteps: viewModel.maxSteps,
+        currentStep: viewModel.currentStep,
+      ),
+      left: 0,
+      right: 0,
+      top: 0,
+    );
   }
 
   @override

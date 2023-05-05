@@ -1,7 +1,6 @@
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
@@ -54,6 +53,12 @@ class _LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
   Widget content() {
     return Column(
       children: [
+        const SpacingWidget(LayoutSize.size32),
+        const TextWidget(
+          text: "Terms",
+          style: Style.title,
+          align: TextAlign.start,
+        ),
         const Padding(
           padding: EdgeInsets.all(24.0),
           child: TextWidget(
@@ -104,7 +109,7 @@ class _LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
             align: TextAlign.justify,
           ),
         ),
-        const SpacingWidget(LayoutSize.size48),
+        const SpacingWidget(LayoutSize.size32),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -137,6 +142,7 @@ class _LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
         label: "Accept and continue",
         type: ButtonType.primary,
         onPressed: () {
+          widget.viewModel.increaseStep();
           widget.viewModel.setAgreement(termsAccepted);
         });
   }
@@ -146,7 +152,7 @@ class _LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
 
   @override
   Future<bool> onBackPressed() async {
-    Modular.to.pop();
-    return false;
+    widget.viewModel.decreaseStep();
+    return true;
   }
 }

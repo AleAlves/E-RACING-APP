@@ -101,17 +101,14 @@ class _LeagueCreateReviewViewState extends State<LeagueCreateReviewView>
   }
 
   Widget tagsWidget() {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Row(
-        children: [
-          TagCollectionWidget(
-            tagIds: widget.viewModel.leagueTags,
-            tags: widget.viewModel.tags,
-            singleLined: false,
-          ),
-        ],
-      ),
+    return Wrap(
+      children: [
+        TagCollectionWidget(
+          tagIds: widget.viewModel.leagueTags,
+          tags: widget.viewModel.tags,
+          singleLined: false,
+        ),
+      ],
     );
   }
 
@@ -178,6 +175,7 @@ class _LeagueCreateReviewViewState extends State<LeagueCreateReviewView>
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(LeagueCreateNavigator.socialMedia);
     return false;
   }

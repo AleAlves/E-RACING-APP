@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 
 class BannerWidget extends StatefulWidget {
   final MediaModel? media;
+  final bool? loadDefault;
 
-  const BannerWidget({required this.media, Key? key}) : super(key: key);
+  const BannerWidget({required this.media, this.loadDefault = false, Key? key})
+      : super(key: key);
 
   Widget loading(BuildContext context) {
     return const Card(child: LoadingShimmer());
@@ -18,7 +20,6 @@ class BannerWidget extends StatefulWidget {
 }
 
 class _BannerWidgetState extends State<BannerWidget> {
-  bool loaded = false;
   Image? image;
 
   @override
@@ -28,16 +29,19 @@ class _BannerWidgetState extends State<BannerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    loaded = widget.media?.image == null;
-
-    if (!loaded && image == null) {
+    if (widget.media != null) {
       image = Image.memory(
         base64Decode(widget.media?.image ?? ''),
         fit: BoxFit.fill,
       );
+    } else if (widget.loadDefault == true) {
+      image = Image.asset(
+        "assets/images/poster.jpg",
+        fit: BoxFit.fill,
+      );
     }
 
-    return loaded
+    return widget.media == null && widget.loadDefault == false
         ? const Padding(
             padding: EdgeInsets.only(left: 2, right: 2),
             child: LoadingShimmer(
