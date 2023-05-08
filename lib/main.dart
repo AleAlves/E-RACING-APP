@@ -1,4 +1,3 @@
-import 'package:e_racing_app/core/navigation/routes.dart';
 import 'package:e_racing_app/event/event_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';

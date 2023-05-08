@@ -45,14 +45,16 @@ abstract class _NotificationViewModel with Store {
   }
 
   fetchNotifications() {
+    state = ViewState.loading;
     _getNotificationsUC.invoke(
         success: (data) {
           notifications = ObservableList.of(data!);
+          state = ViewState.ready;
         },
         error: onError);
   }
 
-  doNavigate(document) {
+  goToPushDeeplink(document) {
     _getNotificationsFlowUC.params(document: document).invoke(
         success: (flow) {
           Modular.to.pushNamed(flow ?? '');

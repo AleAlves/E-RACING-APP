@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 
+import '../../core/tools/session.dart';
+
 class GetNotificationsCountUseCase<T> extends BaseUseCase<T?> {
   @override
   Future<void> invoke(
       {required Function(T?) success, required Function error}) async {
     FirebaseFirestore.instance
         .collection('notifications')
-        .doc("id")
+        .doc(Session.instance.getUser()?.id)
         .collection("inbox")
         .snapshots()
         .forEach((element) {
@@ -19,4 +21,3 @@ class GetNotificationsCountUseCase<T> extends BaseUseCase<T?> {
     });
   }
 }
-

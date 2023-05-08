@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 
+import '../../core/tools/session.dart';
+
 class GetNotificationsUseCase<T> extends BaseUseCase<T?> {
   GetNotificationsUseCase<T> params(
       {required String code, required String token}) {
@@ -12,7 +14,7 @@ class GetNotificationsUseCase<T> extends BaseUseCase<T?> {
       {required Function(T?) success, required Function error}) async {
     FirebaseFirestore.instance
         .collection('notifications')
-        .doc("id")
+        .doc(Session.instance.getUser()?.id)
         .collection("inbox")
         .orderBy('date', descending: true)
         .snapshots()

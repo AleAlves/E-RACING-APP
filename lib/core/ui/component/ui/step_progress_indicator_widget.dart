@@ -25,42 +25,33 @@ class _StepProgressIndicatorWidgetState
 
   Widget content() {
     return Center(
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * .8,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * .75,
-              child: Divider(
-                color: Theme.of(context).colorScheme.primary,
-                thickness: 1,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                for (var i = 0; i < widget.maxSteps; i++)
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Icon(
-                        Icons.circle,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 16,
-                      ),
-                      Icon(
-                        Icons.circle,
-                        color: i >= widget.currentStep
-                            ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context).colorScheme.secondary,
-                        size: 12,
-                      ),
-                    ],
-                  ),
-              ],
-            )
-          ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * .8,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  for (var i = 0; i < widget.maxSteps; i++)
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.1,
+                          height: MediaQuery.of(context).size.height * 0.002,
+                          color: i >= widget.currentStep
+                              ? Theme.of(context).focusColor
+                              : Theme.of(context).colorScheme.primary,
+                        )
+                      ],
+                    ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

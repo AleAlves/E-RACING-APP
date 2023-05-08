@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -63,25 +64,22 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
   }
 
   Widget emptyBoxWidget() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const TextWidget(
-            text: "Inbox empty",
-            style: Style.title,
-          ),
-          const SpacingWidget(LayoutSize.size24),
-          Icon(
-            Icons.manage_search_outlined,
-            size: 56,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SpacingWidget(LayoutSize.size128),
+        const TextWidget(
+          text: "Inbox empty",
+          style: Style.title,
+        ),
+        const SpacingWidget(LayoutSize.size24),
+        Icon(
+          Icons.manage_search_outlined,
+          size: 56,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      ],
     );
   }
 
@@ -99,7 +97,28 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                   });
                 });
               },
-              background: Container(color: Colors.red),
+              background: Container(
+                color: Colors.red,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: IconWidget(
+                        icon: Icons.delete,
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: IconWidget(
+                        icon: Icons.delete,
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               child: CardWidget(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -115,22 +134,13 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                       ),
                       element?['action'].toString().isEmpty == true
                           ? Container()
-                          : Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  TextWidget(
-                                      text: element?['action'],
-                                      style: Style.subtitle),
-                                  const SpacingWidget(LayoutSize.size8),
-                                  IconWidget(
-                                    icon: Icons.arrow_forward,
-                                    size: 20,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  )
-                                ],
-                              ),
+                          : ButtonWidget(
+                              label: element?['action'],
+                              type: ButtonType.link,
+                              onPressed: () {
+                                widget.vm.goToPushDeeplink(element?['source']);
+                              },
+                              enabled: true,
                             ),
                       Row(
                         children: [
@@ -146,7 +156,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                     ],
                   ),
                   onPressed: () {
-                    widget.vm.doNavigate(element?['source']);
+                    widget.vm.goToPushDeeplink(element?['source']);
                   },
                   ready: true),
             ))
