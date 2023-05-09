@@ -4,9 +4,9 @@ import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
-import 'package:e_racing_app/profile/data/profile_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../profile/domain/model/profile_model.dart';
 import '../../../ext/dialog_extension.dart';
 
 class EventSubscribersWidget extends StatefulWidget {
@@ -115,7 +115,7 @@ class _EventSubscribersWidgetState extends State<EventSubscribersWidget> {
                               children: [
                                 TextWidget(
                                     text:
-                                        "${profile?.name} ${profile?.surname}",
+                                        "${profile?.firstName} ${profile?.surName}",
                                     style: Style.subtitle),
                               ],
                             ),

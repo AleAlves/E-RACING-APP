@@ -4,13 +4,13 @@ import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/home/presentation/router/home_router.dart';
-import 'package:e_racing_app/profile/data/profile_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../league/LeagueRouter.dart';
 import '../../league/list/data/league_model.dart';
 import '../../profile/ProfileRouter.dart';
+import '../../profile/domain/model/profile_model.dart';
 import '../../push/PushRouter.dart';
 import '../../push/domain/get_notifications_count_usecase.dart';
 import '../../shared/media/get_media.usecase.dart';
@@ -39,6 +39,9 @@ abstract class _HomeViewModel extends BaseViewModel<HomeRouter> with Store {
   String? notificationsCount;
 
   @observable
+  MediaModel? picture;
+
+  @observable
   ObservableList<CommunityCardVO?> leagues = ObservableList();
 
   @override
@@ -49,13 +52,15 @@ abstract class _HomeViewModel extends BaseViewModel<HomeRouter> with Store {
   @observable
   String? title = "E-Racing";
 
-  final _getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
+  final _getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel?>>();
   final _notificationUC = Modular.get<GetNotificationsCountUseCase<String>>();
   final _leagueUseCase = Modular.get<GetUserLeagueUseCase<List<LeagueModel>>>();
 
   getProfile() {
-    profileModel = Session.instance.getUser()?.profile;
+    var user = Session.instance.getUser();
+    profileModel = user?.profile;
     state = ViewState.ready;
+    _getMedia(user?.id);
   }
 
   getPlayerLeagues() {
@@ -65,7 +70,7 @@ abstract class _HomeViewModel extends BaseViewModel<HomeRouter> with Store {
           ObservableList.of(data!).asMap().forEach((index, element) {
             leagues.add(CommunityCardVO(
                 leagueId: element.id, name: element.name, media: null));
-            _getMedia(index, element.id);
+            _getLeaguesMedia(index, element.id);
           });
         },
         error: () {});
@@ -79,13 +84,21 @@ abstract class _HomeViewModel extends BaseViewModel<HomeRouter> with Store {
         error: () {});
   }
 
-  _getMedia(int index, String? id) async {
+  _getLeaguesMedia(int index, String? id) async {
     await _getMediaUseCase.params(id: id).invoke(
         success: (data) {
           var name = leagues[index]?.name;
           var id = leagues[index]?.leagueId;
           leagues[index] =
               CommunityCardVO(leagueId: id, name: name, media: data);
+        },
+        error: () {});
+  }
+
+  _getMedia(String? id) async {
+    await _getMediaUseCase.params(id: id).invoke(
+        success: (data) {
+          picture = data;
         },
         error: () {});
   }

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/country_picker_widget.dart';
@@ -7,10 +10,9 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:e_racing_app/profile/presentation/profile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../core/ui/component/ui/tag_collection_widget.dart';
-import '../../../core/ui/component/ui/text_widget.dart';
 
 class ProfileUpdateView extends StatefulWidget {
   final ProfileViewModel viewModel;
@@ -28,15 +30,18 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
   final _surnameController = TextEditingController();
   late String password = "";
   late String? country = "BR";
+  late String? picture = "";
   bool hasChanges = false;
+  File bannerFile = File('');
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
     widget.viewModel.fetchProfile();
     _nameController.addListener(observers);
     _surnameController.addListener(observers);
-    _nameController.text = widget.viewModel.profileModel?.name ?? '';
-    _surnameController.text = widget.viewModel.profileModel?.surname ?? '';
+    _nameController.text = widget.viewModel.profileModel?.firstName ?? '';
+    _surnameController.text = widget.viewModel.profileModel?.surName ?? '';
     super.initState();
   }
 
@@ -59,9 +64,9 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
   Widget content() {
     return Column(
       children: [
-        const SpacingWidget(LayoutSize.size128),
-        titleWidget(),
-        const SpacingWidget(LayoutSize.size48),
+        const SpacingWidget(LayoutSize.size256),
+        pictureWidget(),
+        const SpacingWidget(LayoutSize.size16),
         Form(
           child: profileForm(),
           key: _formKey,
@@ -69,11 +74,6 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
         tagsWidget()
       ],
     );
-  }
-
-  Widget titleWidget() {
-    return const TextWidget(
-        text: "You can update your basic information", style: Style.subtitle);
   }
 
   Widget profileForm() {
@@ -84,6 +84,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
         children: [
           Column(
             children: [
+              const SpacingWidget(LayoutSize.size16),
               InputTextWidget(
                   enabled: true,
                   label: 'Name',
@@ -134,14 +135,58 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
     );
   }
 
+  Widget pictureWidget() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        CircleAvatar(
+          radius: 50,
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          child: Padding(
+            padding: const EdgeInsets.all(1.0),
+            child: ClipOval(
+              child: SizedBox.fromSize(
+                size: const Size.fromRadius(48), // Image radius
+                child: bannerFile.path.isEmpty
+                    ? widget.viewModel.picture == null
+                        ? Container()
+                        : Image.memory(
+                            base64Decode(widget.viewModel.picture?.image ?? ''),
+                            fit: BoxFit.fill,
+                          )
+                    : Image.file(
+                        bannerFile,
+                        fit: BoxFit.fill,
+                      ),
+              ),
+            ),
+          ),
+        ),
+        ButtonWidget(
+            type: ButtonType.iconButton,
+            icon: Icons.add_a_photo,
+            enabled: true,
+            onPressed: () async {
+              var image = await _picker.pickImage(source: ImageSource.gallery);
+              setState(() {
+                bannerFile = File(image?.path ?? '');
+                widget.viewModel
+                    .setPicture(base64Encode(bannerFile.readAsBytesSync()));
+                hasChanges = true;
+              });
+            })
+      ],
+    );
+  }
+
   Widget buttonUpdateWidget() {
     return ButtonWidget(
       enabled: hasChanges,
       type: ButtonType.primary,
       onPressed: () {
         if (_formKey.currentState?.validate() == true) {
-          widget.viewModel.update(
-              _nameController.text, _surnameController.text, country ?? '');
+          widget.viewModel.update(_nameController.text, _surnameController.text,
+              country ?? '', base64Encode(bannerFile.readAsBytesSync()));
         }
       },
       label: "Update",
@@ -149,8 +194,8 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
   }
 
   bool hasAnyChange() {
-    return widget.viewModel.profileModel?.name != _nameController.text ||
-        widget.viewModel.profileModel?.surname != _surnameController.text ||
+    return widget.viewModel.profileModel?.firstName != _nameController.text ||
+        widget.viewModel.profileModel?.surName != _surnameController.text ||
         widget.viewModel.profileModel?.country != country;
   }
 
@@ -170,7 +215,6 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
 
   @override
   Future<bool> onBackPressed() async {
-    Modular.to.pop();
-    return false;
+    return true;
   }
 }

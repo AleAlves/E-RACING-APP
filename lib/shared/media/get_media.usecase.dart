@@ -23,7 +23,9 @@ class GetMediaUseCase<T> extends BaseUseCase<T> {
     if (response.isSuccessfully) {
       try {
         success(MediaModel.fromJson(response.data) as T);
-      } catch (e) {}
+      } catch (e) {
+        success(null as T);
+      }
     } else {
       error.call(ApiException(
           message: response.response?.status,

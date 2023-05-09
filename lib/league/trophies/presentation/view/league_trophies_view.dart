@@ -130,7 +130,7 @@ class _LeagueTrophiesViewState extends State<LeagueTrophiesView>
                 const SpacingWidget(LayoutSize.size16),
                 TextWidget(
                   text:
-                      "${podium?.firstPlace?.profile?.name} ${podium?.firstPlace?.profile?.surname}",
+                      "${podium?.firstPlace?.profile?.firstName} ${podium?.firstPlace?.profile?.surName}",
                   style: Style.paragraph,
                   align: TextAlign.start,
                 ),
@@ -166,7 +166,7 @@ class _LeagueTrophiesViewState extends State<LeagueTrophiesView>
                 const SpacingWidget(LayoutSize.size16),
                 TextWidget(
                   text:
-                      "${podium?.secondPlace?.profile?.name} ${podium?.secondPlace?.profile?.surname}",
+                      "${podium?.secondPlace?.profile?.firstName} ${podium?.secondPlace?.profile?.surName}",
                   style: Style.paragraph,
                   align: TextAlign.start,
                 ),
@@ -202,7 +202,7 @@ class _LeagueTrophiesViewState extends State<LeagueTrophiesView>
                 const SpacingWidget(LayoutSize.size16),
                 TextWidget(
                   text:
-                      "${podium?.thirdPlace?.profile?.name} ${podium?.thirdPlace?.profile?.surname}",
+                      "${podium?.thirdPlace?.profile?.firstName} ${podium?.thirdPlace?.profile?.surName}",
                   style: Style.paragraph,
                   align: TextAlign.start,
                 ),

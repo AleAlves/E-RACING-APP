@@ -235,7 +235,7 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
                     children: [
                       TextWidget(
                         text:
-                            "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
+                            "${standing?.user?.profile?.firstName?[0]}. ${standing?.user?.profile?.surName}",
                         style: Style.subtitle,
                         align: TextAlign.center,
                       ),
@@ -298,7 +298,7 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                   text:
-                                      "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
+                                      "${standing?.user?.profile?.firstName} ${standing?.user?.profile?.surName}",
                                   style: Style.subtitle,
                                   align: TextAlign.start,
                                 ),

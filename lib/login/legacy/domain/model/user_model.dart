@@ -1,6 +1,6 @@
-import 'package:e_racing_app/profile/data/profile_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../profile/domain/model/profile_model.dart';
 import 'auth_model.dart';
 
 part 'user_model.g.dart';

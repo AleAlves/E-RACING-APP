@@ -77,10 +77,11 @@ class LeagueMemberCardWidget extends StatelessWidget {
             Row(
               children: [
                 TextWidget(
-                    text: member?.user.profile?.name, style: Style.paragraph),
+                    text: member?.user.profile?.firstName,
+                    style: Style.paragraph),
                 const SpacingWidget(LayoutSize.size4),
                 TextWidget(
-                    text: member?.user.profile?.surname,
+                    text: member?.user.profile?.surName,
                     style: Style.paragraph),
               ],
             ),

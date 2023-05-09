@@ -156,7 +156,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                     children: [
                       TextWidget(
                         text:
-                            "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
+                            "${standing?.user?.profile?.firstName?[0]}. ${standing?.user?.profile?.surName}",
                         style: Style.paragraph,
                         align: TextAlign.center,
                       ),

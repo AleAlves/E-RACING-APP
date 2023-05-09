@@ -293,6 +293,6 @@ class _EventDetailTeamWidgetState extends State<EventDetailTeamWidget>
     var user = widget.viewModel.users
         ?.firstWhere((element) => element?.id == id)
         ?.profile;
-    return "${user?.name} ${user?.surname}";
+    return "${user?.firstName} ${user?.surName}";
   }
 }

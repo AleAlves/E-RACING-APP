@@ -14,7 +14,7 @@ class HomeModule extends Module {
         Bind.factory((i) => HomeViewModel()),
         Bind.factory((i) => GetUserLeagueUseCase<List<LeagueModel>>()),
         Bind.factory((i) => GetNotificationsCountUseCase<String>()),
-        Bind.factory((i) => GetMediaUseCase<MediaModel>()),
+        Bind.factory((i) => GetMediaUseCase<MediaModel?>()),
       ];
 
   @override

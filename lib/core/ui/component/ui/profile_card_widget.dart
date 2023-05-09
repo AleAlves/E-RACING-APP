@@ -1,80 +1,89 @@
-import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
+import 'dart:convert';
+
+import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
-import 'package:e_racing_app/profile/data/profile_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../home/presentation/home_view_model.dart';
+import '../state/loading_rounded_shimmer.dart';
+
 class ProfileCardWidget extends StatelessWidget {
-  final ProfileModel? profileModel;
+  final HomeViewModel? viewModel;
   final VoidCallback? onPressed;
 
-  const ProfileCardWidget(
-      {required this.profileModel, this.onPressed, Key? key})
+  const ProfileCardWidget({required this.viewModel, this.onPressed, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CardWidget(
-      child: content(context),
-      onPressed: onPressed,
-      ready: true,
-    );
+    return content(context);
   }
 
   Widget content(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 0, right: 8, top: 8, bottom: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                children: [
-                  const IconWidget(
-                    icon: Icons.account_circle,
-                    size: 48,
-                    borderless: false,
-                  ),
-                  const SpacingWidget(LayoutSize.size8),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SpacingWidget(LayoutSize.size16),
-                      TextWidget(
-                        text: profileModel?.name,
-                        style: Style.title,
-                      ),
-                      const SpacingWidget(LayoutSize.size8),
-                      TextWidget(
-                        text: profileModel?.email,
-                        style: Style.paragraph,
-                      ),
-                      const SpacingWidget(LayoutSize.size16),
-                    ],
-                  ),
-                ],
-              ),
+              const SpacingWidget(LayoutSize.size8),
+              viewModel?.picture == null
+                  ? const LoadingRoundedShimmer()
+                  : pictureWidget(context),
+              const SpacingWidget(LayoutSize.size24),
               Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: const [
-                      IconWidget(
-                        icon: Icons.settings,
-                        borderless: true,
-                      ),
-                    ],
+                  TextWidget(
+                    text: viewModel?.profileModel?.firstName,
+                    style: Style.title,
                   ),
+                  const SpacingWidget(LayoutSize.size8),
+                  TextWidget(
+                    text: viewModel?.profileModel?.email,
+                    style: Style.paragraph,
+                  ),
+                  const SpacingWidget(LayoutSize.size16),
                 ],
               ),
             ],
           ),
+          ButtonWidget(
+              enabled: true,
+              type: ButtonType.iconBorderless,
+              icon: Icons.settings,
+              onPressed: onPressed),
         ],
       ),
+    );
+  }
+
+  Widget pictureWidget(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        CircleAvatar(
+          radius: 50,
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          child: Padding(
+            padding: const EdgeInsets.all(1.0),
+            child: ClipOval(
+              child: SizedBox.fromSize(
+                size: const Size.fromRadius(48), // Image radius
+                child: Image.memory(
+                  base64Decode(viewModel?.picture?.image ?? ''),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

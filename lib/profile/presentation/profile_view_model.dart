@@ -2,14 +2,16 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/profile/data/profile_model.dart';
 import 'package:e_racing_app/profile/presentation/navigation/profile_navigation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../core/model/media_model.dart';
 import '../../core/model/tag_model.dart';
 import '../../login/legacy/domain/model/user_model.dart';
+import '../../shared/media/get_media.usecase.dart';
 import '../../shared/tag/get_tag_usecase.dart';
+import '../domain/model/profile_model.dart';
 import '../domain/update_profile_usecase.dart';
 
 part 'profile_view_model.g.dart';
@@ -34,6 +36,9 @@ abstract class _ProfileViewModel extends BaseViewModel<ProfileNavigationSet>
   @observable
   ProfileModel? profileModel;
 
+  @observable
+  MediaModel? picture;
+
   @override
   @observable
   StatusModel? status;
@@ -42,7 +47,8 @@ abstract class _ProfileViewModel extends BaseViewModel<ProfileNavigationSet>
   String? title = "";
 
   final _getTagUseCase = Modular.get<GetTagUseCase>();
-  final profile = Modular.get<UpdateProfileUseCase<UserModel>>();
+  final _profile = Modular.get<UpdateProfileUseCase<UserModel>>();
+  final _getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel?>>();
 
   fetchProfile() {
     profileModel = Session.instance.getUser()?.profile;
@@ -54,27 +60,39 @@ abstract class _ProfileViewModel extends BaseViewModel<ProfileNavigationSet>
     await _getTagUseCase.invoke(
         success: (data) {
           tags = ObservableList.of(data);
-          state = ViewState.ready;
+          _getMedia(Session.instance.getUser()?.id);
         },
         error: onError);
   }
 
-  update(String name, String surname, String country) async {
+  void setPicture(String picture) {
+    this.picture?.image = picture;
+  }
+
+  update(String name, String surname, String country, String picture) async {
     state = ViewState.loading;
-    await profile.params(name: name, surname: surname, country: country).invoke(
-        success: (data) {
-          Session.instance.setUser(data);
-          status = StatusModel(
-              message: "Profile updated",
-              action: "Ok",
-              route: ProfileNavigationSet.home);
-          state = ViewState.ready;
-          flow = ProfileNavigationSet.status;
-        },
-        error: onError);
+    await _profile
+        .params(
+            name: name, surname: surname, country: country, picture: picture)
+        .invoke(
+            success: (data) {
+              Session.instance.setUser(data);
+              status = StatusModel(
+                  message: "Profile updated",
+                  action: "Ok",
+                  route: ProfileNavigationSet.home);
+              state = ViewState.ready;
+              flow = ProfileNavigationSet.status;
+            },
+            error: onError);
   }
 
-  void retry() {
-    state = ViewState.ready;
+  _getMedia(String? id) async {
+    await _getMediaUseCase.params(id: id).invoke(
+        success: (data) {
+          picture = data;
+          state = ViewState.ready;
+        },
+        error: () {});
   }
 }

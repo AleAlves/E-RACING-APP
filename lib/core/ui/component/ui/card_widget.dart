@@ -9,6 +9,7 @@ class CardWidget extends StatelessWidget {
   final Widget? childRight;
   final bool ready;
   final bool arrowed;
+  final bool highlight;
   final Color? color;
   final Color? childLeftColor;
   final bool shapeLess;
@@ -25,7 +26,8 @@ class CardWidget extends StatelessWidget {
       required this.ready,
       this.color,
       this.childLeftColor,
-      this.padding = const EdgeInsets.all(4.0),
+      this.padding = const EdgeInsets.all(8),
+      this.highlight = false,
       this.shapeLess = false,
       this.arrowed = false,
       this.placeholderHeight = 100,
@@ -42,7 +44,7 @@ class CardWidget extends StatelessWidget {
                   ? null
                   : RoundedRectangleBorder(
                       side: BorderSide(
-                          width: 0.1, color: Theme.of(context).focusColor),
+                          width: 0.2, color: Theme.of(context).focusColor),
                       borderRadius: BorderRadius.circular(5),
                     ),
               color: color,

@@ -349,7 +349,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
                     children: [
                       TextWidget(
                         text:
-                            "${standing?.user?.profile?.name?[0]}. ${standing?.user?.profile?.surname}",
+                            "${standing?.user?.profile?.firstName?[0]}. ${standing?.user?.profile?.surName}",
                         style: Style.paragraph,
                         align: TextAlign.center,
                       ),
@@ -400,7 +400,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
                                 const SpacingWidget(LayoutSize.size8),
                                 TextWidget(
                                   text:
-                                      "${standing?.user?.profile?.name} ${standing?.user?.profile?.surname}",
+                                      "${standing?.user?.profile?.firstName} ${standing?.user?.profile?.surName}",
                                   style: Style.paragraph,
                                   align: TextAlign.start,
                                 ),

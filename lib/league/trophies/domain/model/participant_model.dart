@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../../profile/data/profile_model.dart';
+import '../../../../profile/domain/model/profile_model.dart';
 
 part 'participant_model.g.dart';
 

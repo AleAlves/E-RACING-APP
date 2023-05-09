@@ -205,7 +205,7 @@ class _TeamsStandingsWidgetState extends State<TeamsStandingsWidget> {
             const SpacingWidget(LayoutSize.size8),
             TextWidget(
               text:
-                  "${users?[index]?.profile?.name} ${users?[index]?.profile?.surname}",
+                  "${users?[index]?.profile?.firstName} ${users?[index]?.profile?.surName}",
               style: Style.paragraph,
             ),
           ],

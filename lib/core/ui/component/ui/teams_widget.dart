@@ -208,6 +208,6 @@ class _TeamsWidgetState extends State<TeamsWidget> {
   String getName(String? id) {
     var user =
         widget.users?.firstWhere((element) => element?.id == id)?.profile;
-    return "${user?.name} ${user?.surname}";
+    return "${user?.firstName} ${user?.surName}";
   }
 }

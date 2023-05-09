@@ -1,8 +1,9 @@
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
+
+import 'button_widget.dart';
 
 class EventsCardWidget extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -21,40 +22,44 @@ class EventsCardWidget extends StatelessWidget {
 
   Widget content(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 16, bottom: 16, left: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      padding: const EdgeInsets.only(top: 8, bottom: 4, left: 8),
+      child: Wrap(
+        direction: Axis.horizontal,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const IconWidget(
-                icon: Icons.sports_score_outlined,
-                borderless: true,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.only(left: 16),
-                    child: TextWidget(
-                      text: "Events",
-                      style: Style.title,
+              ButtonWidget(
+                  enabled: true,
+                  icon: Icons.sports_score_sharp,
+                  type: ButtonType.iconButton,
+                  onPressed: onPressed),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Wrap(
+                  children: const [
+                    TextWidget(
+                      text: "Racing events",
+                      style: Style.subtitle,
                     ),
-                  ),
-                  SpacingWidget(LayoutSize.size8),
-                  Padding(
-                    padding: EdgeInsets.only(left: 16),
-                    child: TextWidget(
-                      text: "Drivers needed",
+                  ],
+                ),
+                const SpacingWidget(LayoutSize.size16),
+                Wrap(
+                  children: const [
+                    TextWidget(
+                      text: "Find the ideal racing activities for you",
                       style: Style.paragraph,
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
