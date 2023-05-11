@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ext/color_extensions.dart';
 import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
@@ -51,11 +52,8 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
           ],
         ),
         const SpacingWidget(LayoutSize.size16),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: classesList(context),
-          ),
+        Column(
+          children: classesList(context),
         ),
         const SpacingWidget(LayoutSize.size16),
         SizedBox(
@@ -177,6 +175,16 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                     ),
                   ],
                 ),
+                CountryCodePicker(
+                  onChanged: print,
+                  showCountryOnly: true,
+                  padding: EdgeInsets.zero,
+                  enabled: false,
+                  initialSelection: standing?.user?.profile?.country,
+                  hideMainText: true,
+                  showFlagMain: true,
+                  showFlag: false,
+                )
               ],
             ),
           ],

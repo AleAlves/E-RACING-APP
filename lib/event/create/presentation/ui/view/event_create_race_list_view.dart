@@ -119,7 +119,7 @@ class _EventCreateRaceListViewState extends State<EventCreateRaceListView>
   Widget removeWidget(EventRaceModel? racesModel) {
     return ButtonWidget(
         enabled: true,
-        type: ButtonType.iconBorderless,
+        type: ButtonType.iconShapeless,
         icon: Icons.delete,
         onPressed: () {
           setState(() {
@@ -131,7 +131,7 @@ class _EventCreateRaceListViewState extends State<EventCreateRaceListView>
   Widget addRaceWidget() {
     return ButtonWidget(
         enabled: true,
-        type: ButtonType.iconButton,
+        type: ButtonType.icon,
         icon: Icons.add,
         onPressed: () {
           widget.viewModel.onCreateNewRace();

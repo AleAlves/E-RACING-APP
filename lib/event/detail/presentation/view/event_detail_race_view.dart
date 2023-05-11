@@ -327,11 +327,11 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
     return CardWidget(
       ready: true,
       arrowed: true,
-      childLeftColor: getPodiumColor(standing?.summary?.position).first,
+      childLeftColor: getPodiumColor(position).first,
       childLeft: TextWidget(
         text: "$position",
         style: Style.paragraph,
-        color: getPodiumColor(standing?.summary?.position).second,
+        color: getPodiumColor(position).second,
       ),
       padding: EdgeInsets.zero,
       onPressed: () {

@@ -33,7 +33,7 @@ class _ErrorWidgetState extends State<DefaultErrorWidget> {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: ButtonWidget(
-                      type: ButtonType.iconButton,
+                      type: ButtonType.icon,
                       icon: Icons.refresh,
                       onPressed: () {
                         Modular.to.pushNamed(LoginRouter.signIn);

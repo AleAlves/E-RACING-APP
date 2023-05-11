@@ -163,7 +163,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                       alreadyInTeam
                           ? ButtonWidget(
                               label: "Leave",
-                              type: ButtonType.iconButton,
+                              type: ButtonType.icon,
                               icon: Icons.exit_to_app,
                               onPressed: () {
                                 widget.onLeave(team.id);
@@ -174,7 +174,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                       !alreadyInTeam && isSubscriber(widget.classes)
                           ? ButtonWidget(
                               label: "Join",
-                              type: ButtonType.iconButton,
+                              type: ButtonType.icon,
                               icon: Icons.person_add,
                               onPressed: () {
                                 widget.onJoin(team.id);
@@ -186,7 +186,7 @@ class _TeamsWidgetState extends State<TeamsWidget> {
                       widget.isHost || alreadyInTeam
                           ? ButtonWidget(
                               label: "Delete",
-                              type: ButtonType.iconButton,
+                              type: ButtonType.icon,
                               icon: Icons.delete,
                               onPressed: () {
                                 widget.onDelete(team.id);

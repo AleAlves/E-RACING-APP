@@ -108,7 +108,7 @@ class _LeagueCreateBannerViewState extends State<LeagueCreateBannerView>
           ),
         ),
         ButtonWidget(
-            type: ButtonType.iconButton,
+            type: ButtonType.icon,
             icon: Icons.image_search,
             enabled: true,
             onPressed: () async {

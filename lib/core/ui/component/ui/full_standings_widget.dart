@@ -30,29 +30,26 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
 
   Widget raceList(BuildContext context) {
     _index = 0;
-    return CardWidget(
-      ready: widget.standings != null,
-      child: Column(
-        children: [
-          const SpacingWidget(LayoutSize.size16),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              SpacingWidget(LayoutSize.size8),
-              TextWidget(
-                text: "General",
-                style: Style.subtitle,
-                align: TextAlign.start,
-              ),
-            ],
-          ),
-          const SpacingWidget(LayoutSize.size16),
-          Column(
-            children: classesList(context),
-          ),
-          const SpacingWidget(LayoutSize.size8),
-        ],
-      ),
+    return Column(
+      children: [
+        const SpacingWidget(LayoutSize.size16),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            SpacingWidget(LayoutSize.size8),
+            TextWidget(
+              text: "General",
+              style: Style.subtitle,
+              align: TextAlign.start,
+            ),
+          ],
+        ),
+        const SpacingWidget(LayoutSize.size16),
+        Column(
+          children: classesList(context),
+        ),
+        const SpacingWidget(LayoutSize.size8),
+      ],
     );
   }
 

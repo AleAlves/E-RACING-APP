@@ -181,7 +181,7 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
             ),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.iconButton,
+                type: ButtonType.icon,
                 icon: Icons.image_search,
                 onPressed: () async {
                   var im = await _picker.pickImage(source: ImageSource.gallery);
@@ -215,7 +215,7 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
         ButtonWidget(
             icon: Icons.date_range,
             enabled: true,
-            type: ButtonType.iconButton,
+            type: ButtonType.icon,
             onPressed: () {
               _callDatePicker();
             }),
@@ -282,7 +282,7 @@ class _EventUpdateRaceViewState extends State<EventUpdateRaceView>
                 padding: const EdgeInsets.all(16.0),
                 child: ButtonWidget(
                     enabled: true,
-                    type: ButtonType.iconButton,
+                    type: ButtonType.icon,
                     onPressed: () async {
                       Clipboard.getData(Clipboard.kTextPlain).then((value) {});
                     },

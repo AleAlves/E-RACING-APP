@@ -70,7 +70,7 @@ class _EventDetailTeamWidgetState extends State<EventDetailTeamWidget>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const TextWidget(text: "Team", style: Style.title),
+          const TextWidget(text: "Team Up", style: Style.title),
           stepper(),
           const SpacingWidget(LayoutSize.size48),
         ],
@@ -155,7 +155,7 @@ class _EventDetailTeamWidgetState extends State<EventDetailTeamWidget>
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonWidget(
                       enabled: true,
-                      type: ButtonType.iconButton,
+                      type: ButtonType.icon,
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
@@ -178,7 +178,7 @@ class _EventDetailTeamWidgetState extends State<EventDetailTeamWidget>
     if (drivers.length < max) {
       return ButtonWidget(
         enabled: true,
-        type: ButtonType.iconButton,
+        type: ButtonType.icon,
         icon: Icons.add,
         label: "Add driver",
         onPressed: () {
@@ -193,7 +193,7 @@ class _EventDetailTeamWidgetState extends State<EventDetailTeamWidget>
   Widget finish() {
     return ButtonWidget(
       enabled: true,
-      type: ButtonType.important,
+      type: ButtonType.primary,
       onPressed: () {
         if (_formKey.currentState?.validate() == true) {
           widget.viewModel.createTeam(_nameController.text, drivers);
@@ -253,7 +253,7 @@ class _EventDetailTeamWidgetState extends State<EventDetailTeamWidget>
                                 ),
                                 ButtonWidget(
                                   enabled: true,
-                                  type: ButtonType.iconButton,
+                                  type: ButtonType.icon,
                                   icon: Icons.add,
                                   onPressed: () {
                                     setState(() {

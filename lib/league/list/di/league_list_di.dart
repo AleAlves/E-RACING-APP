@@ -1,8 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../shared/tag/get_tag_usecase.dart';
-import '../data/league_model.dart';
+import '../../core/league_model.dart';
 import '../domain/fetch_league_usecase.dart';
+import '../domain/search_league_usecase.dart';
 import '../presentation/league_list_screen.dart';
 import '../presentation/league_list_view_model.dart';
 import '../presentation/navigation/league_list_navigation.dart';
@@ -17,6 +18,7 @@ class LeagueListModule extends Module {
         Bind.factory((i) => LeagueListViewModel()),
         Bind.factory((i) => GetTagUseCase()),
         Bind.factory((i) => FetchLeagueUseCase<List<LeagueModel>>()),
+        Bind.factory((i) => SearchLeagueUseCase<List<LeagueModel>>()),
       ];
 
   @override

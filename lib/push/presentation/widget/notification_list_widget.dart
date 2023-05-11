@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/ext/date_extensions.dart';
 import '../../../core/ui/component/state/view_state_widget.dart';
 import '../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../core/ui/view_state.dart';
@@ -147,7 +148,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextWidget(
-                              text: element?['date'],
+                              text: formatDate(element?['date']),
                               style: Style.caption,
                             ),
                           ),

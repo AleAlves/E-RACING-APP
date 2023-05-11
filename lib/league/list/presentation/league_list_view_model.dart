@@ -1,4 +1,5 @@
 import 'package:e_racing_app/core/ui/base_view_model.dart';
+import 'package:e_racing_app/league/list/domain/search_league_usecase.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -6,7 +7,7 @@ import '../../../core/model/status_model.dart';
 import '../../../core/model/tag_model.dart';
 import '../../../core/ui/view_state.dart';
 import '../../../shared/tag/get_tag_usecase.dart';
-import '../data/league_model.dart';
+import '../../core/league_model.dart';
 import '../domain/fetch_league_usecase.dart';
 import 'navigation/league_list_navigation.dart';
 
@@ -38,18 +39,31 @@ abstract class _LeagueListViewModel
   bool loginAutomatically = true;
 
   @observable
+  List<String>? searchTags = [];
+
+  @observable
   ObservableList<TagModel?>? tags = ObservableList();
 
   @observable
   ObservableList<LeagueModel?>? leagues = ObservableList();
 
-  final fetchTagsUC = Modular.get<GetTagUseCase>();
-  final fetchListUC = Modular.get<FetchLeagueUseCase<List<LeagueModel>>>();
+  final _fetchTagsUC = Modular.get<GetTagUseCase>();
+  final _fetchListUC = Modular.get<FetchLeagueUseCase<List<LeagueModel>>>();
+  final _searchListUC = Modular.get<SearchLeagueUseCase<List<LeagueModel>>>();
 
   fetchLeagues() async {
     state = ViewState.loading;
-    _fetchTags();
-    fetchListUC.invoke(
+    _fetchListUC.invoke(
+        success: (data) {
+          leagues = ObservableList.of(data!);
+          _fetchTags();
+        },
+        error: onError);
+  }
+
+  searchEvents() async {
+    state = ViewState.loading;
+    _searchListUC.build(tagIds: searchTags).invoke(
         success: (data) {
           leagues = ObservableList.of(data!);
           state = ViewState.ready;
@@ -59,7 +73,7 @@ abstract class _LeagueListViewModel
 
   _fetchTags() async {
     state = ViewState.loading;
-    await fetchTagsUC.invoke(
+    await _fetchTagsUC.invoke(
         success: (data) {
           tags = ObservableList.of(data);
           state = ViewState.ready;

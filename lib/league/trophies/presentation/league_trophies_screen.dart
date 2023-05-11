@@ -32,7 +32,7 @@ class _LeagueTrophiesScreenState extends State<LeagueTrophiesScreen>
       appBar: AppBar(
         title: TextWidget(
           text: viewModel.title,
-          style: Style.paragraph,
+          style: Style.caption,
         ),
       ),
       body: navigate(),

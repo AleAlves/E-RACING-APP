@@ -32,7 +32,7 @@ class LeagueMemberCardWidget extends StatelessWidget {
               ? Row(children: [
                   ButtonWidget(
                     enabled: true,
-                    type: ButtonType.iconBorderless,
+                    type: ButtonType.iconShapeless,
                     icon: Icons.delete,
                     onPressed: () {
                       confirmationDialogExt(

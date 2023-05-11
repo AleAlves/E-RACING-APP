@@ -64,7 +64,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
   Widget content() {
     return Column(
       children: [
-        const SpacingWidget(LayoutSize.size256),
+        const SpacingWidget(LayoutSize.size128),
         pictureWidget(),
         const SpacingWidget(LayoutSize.size16),
         Form(
@@ -163,7 +163,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
           ),
         ),
         ButtonWidget(
-            type: ButtonType.iconButton,
+            type: ButtonType.icon,
             icon: Icons.add_a_photo,
             enabled: true,
             onPressed: () async {

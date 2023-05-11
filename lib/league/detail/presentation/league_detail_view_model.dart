@@ -18,7 +18,7 @@ import '../../../core/ext/access_extension.dart';
 import '../../../shared/media/get_media.usecase.dart';
 import '../../../shared/social/get_social_media_usecase.dart';
 import '../../LeagueRouter.dart';
-import '../../list/data/league_model.dart';
+import '../../core/league_model.dart';
 import '../../member/data/league_members_model.dart';
 import '../../member/domain/get_members_usecase.dart';
 import '../../member/domain/remove_member_usecase.dart';
@@ -57,9 +57,6 @@ abstract class _LeagueDetailViewModel
 
   @observable
   bool hasMembership = false;
-
-  @observable
-  bool membershipIsReady = false;
 
   @observable
   bool? shouldLoadDefaultPoster;
@@ -145,8 +142,7 @@ abstract class _LeagueDetailViewModel
             success: (data) {
               getBanner(data?.id);
               league = data;
-              membershipIsReady = true;
-              hasMembership = hasLeagueMembership(league);
+              hasMembership = isLeagueMember(league);
               share = ShareModel(
                   route: LeagueRouter.detail,
                   leagueId: league?.id,
@@ -167,32 +163,35 @@ abstract class _LeagueDetailViewModel
   }
 
   startMembership() async {
-    membershipIsReady = false;
+    state = ViewState.loading;
     _startMemberUC
         .build(leagueId: Session.instance.getLeagueId().toString())
         .invoke(
             success: (data) {
               status = data;
+              hasMembership = true;
               _updateMembership(true);
+              state = ViewState.ready;
             },
             error: onError);
   }
 
   Future<void> stopMembership() async {
-    membershipIsReady = false;
+    state = ViewState.loading;
     _stopMembershipUC
         .build(leagueId: Session.instance.getLeagueId().toString())
         .invoke(
             success: (data) {
               status = data;
+              hasMembership = false;
               _updateMembership(false);
+              state = ViewState.ready;
             },
             error: onError);
   }
 
   _updateMembership(bool isMember) {
     hasMembership = isMember;
-    membershipIsReady = true;
   }
 
   void getMenu() {

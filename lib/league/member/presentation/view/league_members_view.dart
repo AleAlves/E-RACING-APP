@@ -21,6 +21,7 @@ class _LeagueMembersViewState extends State<LeagueMembersView>
   @override
   void initState() {
     widget.viewModel.fetchMembers();
+    widget.viewModel.title = "Members";
     super.initState();
   }
 

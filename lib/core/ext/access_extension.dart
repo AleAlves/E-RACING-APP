@@ -2,7 +2,7 @@ import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 
-import '../../league/list/data/league_model.dart';
+import '../../league/core/league_model.dart';
 
 bool isSubscriber(List<ClassesModel?>? classes) {
   if (classes == null) return false;
@@ -20,11 +20,11 @@ bool isEventHost(EventModel? event) {
   return event?.hostId == Session.instance.getUser()?.id;
 }
 
-bool isLeagueManager(LeagueModel? league) {
+bool isLeagueHost(LeagueModel? league) {
   return league?.owner == Session.instance.getUser()?.id;
 }
 
-bool hasLeagueMembership(LeagueModel? league) {
+bool isLeagueMember(LeagueModel? league) {
   return league?.members
           ?.where(
               (element) => element?.memberId == Session.instance.getUser()?.id)

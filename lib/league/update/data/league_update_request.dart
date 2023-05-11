@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../core/model/media_model.dart';
-import '../../list/data/league_model.dart';
+import '../../core/league_model.dart';
 
 part 'league_update_request.g.dart';
 

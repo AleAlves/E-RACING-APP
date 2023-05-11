@@ -11,7 +11,7 @@ class GetMenuUseCase<T> extends BaseUseCase<T?> {
     menu.add(ShortcutModel(
         title: "All events",
         subtitle: "Racing events such as tournaments, cups or single races",
-        icon: Icons.emoji_events,
+        icon: Icons.sports_score_sharp,
         deepLink: EventRouter.list,
         highlight: true));
     menu.add(ShortcutModel(

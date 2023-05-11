@@ -156,7 +156,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
         ButtonWidget(
             icon: Icons.date_range,
             enabled: true,
-            type: ButtonType.iconButton,
+            type: ButtonType.icon,
             onPressed: () {
               _callDatePicker();
             }),
@@ -223,7 +223,7 @@ class _EventEditRacesWidgetState extends State<EventEditRacesWidget> {
                 padding: const EdgeInsets.all(16.0),
                 child: ButtonWidget(
                     enabled: true,
-                    type: ButtonType.iconButton,
+                    type: ButtonType.icon,
                     onPressed: () async {
                       Clipboard.getData(Clipboard.kTextPlain).then((value) {
                         _linkController.text =

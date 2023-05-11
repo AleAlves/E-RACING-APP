@@ -126,7 +126,7 @@ class _LeagueCreateSocialMediaViewState
                       const SpacingWidget(LayoutSize.size8),
                       ButtonWidget(
                           enabled: true,
-                          type: ButtonType.iconButton,
+                          type: ButtonType.icon,
                           onPressed: () async {
                             Clipboard.getData(Clipboard.kTextPlain)
                                 .then((value) {
@@ -141,7 +141,7 @@ class _LeagueCreateSocialMediaViewState
                       const SpacingWidget(LayoutSize.size8),
                       ButtonWidget(
                           enabled: true,
-                          type: ButtonType.iconButton,
+                          type: ButtonType.icon,
                           onPressed: () async {
                             setState(() {
                               links.removeAt(index);
@@ -160,7 +160,7 @@ class _LeagueCreateSocialMediaViewState
           ButtonWidget(
               enabled: true,
               icon: Icons.add,
-              type: ButtonType.iconButton,
+              type: ButtonType.icon,
               onPressed: () async {
                 setState(() {
                   links.add(LinkModel('', ''));

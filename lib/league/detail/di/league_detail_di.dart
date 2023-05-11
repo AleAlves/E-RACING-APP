@@ -7,7 +7,7 @@ import '../../../core/model/status_model.dart';
 import '../../../shared/media/get_media.usecase.dart';
 import '../../../shared/social/get_social_media_usecase.dart';
 import '../../../shared/tag/get_tag_usecase.dart';
-import '../../list/data/league_model.dart';
+import '../../core/league_model.dart';
 import '../../member/data/league_members_model.dart';
 import '../../member/domain/get_members_usecase.dart';
 import '../../member/domain/remove_member_usecase.dart';

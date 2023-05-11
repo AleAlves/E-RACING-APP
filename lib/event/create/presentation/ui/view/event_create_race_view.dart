@@ -182,7 +182,7 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
         ButtonWidget(
             icon: Icons.date_range,
             enabled: true,
-            type: ButtonType.iconButton,
+            type: ButtonType.icon,
             onPressed: () {
               _callDatePicker();
               // DatePicker.showDateTimePicker(context,
@@ -240,7 +240,7 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
             ),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.iconButton,
+                type: ButtonType.icon,
                 icon: Icons.image_search,
                 onPressed: () async {
                   var image =
@@ -307,7 +307,7 @@ class _EventCreateRaceViewState extends State<EventCreateRaceView>
                 padding: const EdgeInsets.all(16.0),
                 child: ButtonWidget(
                     enabled: true,
-                    type: ButtonType.iconButton,
+                    type: ButtonType.icon,
                     onPressed: () async {
                       Clipboard.getData(Clipboard.kTextPlain).then((value) {
                         _broadcastLinkController.text =

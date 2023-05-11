@@ -118,12 +118,12 @@ class _LeagueTrophiesViewState extends State<LeagueTrophiesView>
               children: [
                 Container(
                   alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width * 0.1,
-                  height: MediaQuery.of(context).size.width * 0.1,
+                  width: MediaQuery.of(context).size.width * 0.07,
+                  height: MediaQuery.of(context).size.width * 0.07,
                   color: getPodiumColor(1).first,
                   child: TextWidget(
                     text: "1",
-                    style: Style.subtitle,
+                    style: Style.caption,
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),
@@ -154,12 +154,12 @@ class _LeagueTrophiesViewState extends State<LeagueTrophiesView>
               children: [
                 Container(
                   alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width * 0.1,
-                  height: MediaQuery.of(context).size.width * 0.1,
+                  width: MediaQuery.of(context).size.width * 0.07,
+                  height: MediaQuery.of(context).size.width * 0.07,
                   color: getPodiumColor(2).first,
                   child: TextWidget(
                     text: "2",
-                    style: Style.subtitle,
+                    style: Style.caption,
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),
@@ -190,12 +190,12 @@ class _LeagueTrophiesViewState extends State<LeagueTrophiesView>
               children: [
                 Container(
                   alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width * 0.1,
-                  height: MediaQuery.of(context).size.width * 0.1,
+                  width: MediaQuery.of(context).size.width * 0.07,
+                  height: MediaQuery.of(context).size.width * 0.07,
                   color: getPodiumColor(3).first,
                   child: TextWidget(
                     text: "3",
-                    style: Style.subtitle,
+                    style: Style.caption,
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),

@@ -50,7 +50,7 @@ class _EventCreateRaceSessionWidgetState
                   children: [
                     ButtonWidget(
                         enabled: true,
-                        type: ButtonType.iconBorderless,
+                        type: ButtonType.iconShapeless,
                         icon: Icons.add,
                         onPressed: () async {
                           newSettings(index);
@@ -58,7 +58,7 @@ class _EventCreateRaceSessionWidgetState
                     const SpacingWidget(LayoutSize.size16),
                     ButtonWidget(
                         enabled: true,
-                        type: ButtonType.iconBorderless,
+                        type: ButtonType.iconShapeless,
                         icon: Icons.remove,
                         onPressed: () async {
                           setState(() {
@@ -124,7 +124,7 @@ class _EventCreateRaceSessionWidgetState
                 ),
                 childRight: ButtonWidget(
                     enabled: true,
-                    type: ButtonType.iconBorderless,
+                    type: ButtonType.iconShapeless,
                     icon: Icons.delete,
                     onPressed: () {
                       setState(() {
@@ -222,7 +222,7 @@ class _EventCreateRaceSessionWidgetState
                               padding: const EdgeInsets.all(8.0),
                               child: ButtonWidget(
                                   enabled: true,
-                                  type: ButtonType.iconButton,
+                                  type: ButtonType.icon,
                                   icon: Icons.done,
                                   onPressed: () {
                                     setState(() {
@@ -300,7 +300,7 @@ class _EventCreateRaceSessionWidgetState
                     padding: const EdgeInsets.all(8.0),
                     child: ButtonWidget(
                         enabled: true,
-                        type: ButtonType.iconButton,
+                        type: ButtonType.icon,
                         icon: Icons.done,
                         onPressed: () {
                           if (_formKey.currentState?.validate() == true) {

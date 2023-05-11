@@ -26,7 +26,7 @@ class CardWidget extends StatelessWidget {
       required this.ready,
       this.color,
       this.childLeftColor,
-      this.padding = const EdgeInsets.all(8),
+      this.padding = const EdgeInsets.all(4),
       this.highlight = false,
       this.shapeLess = false,
       this.arrowed = false,

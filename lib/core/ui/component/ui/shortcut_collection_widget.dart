@@ -32,7 +32,7 @@ class _ShortcutCollectionWidgetState extends State<ShortcutCollectionWidget> {
         children: widget.shortcuts
             ?.map((e) => ShortcutWidget(
                   onPressed: widget.onPressed,
-                  shortcut: e,
+                  shortcut: e as ShortcutModel,
                 ))
             .toList()
             .cast<Widget>() as List<Widget>);

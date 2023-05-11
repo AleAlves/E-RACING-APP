@@ -2,13 +2,23 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 
-import '../../league/core/league_model.dart';
+import '../../core/league_model.dart';
+import '../data/league_search_request.dart';
 
-class GetUserLeagueUseCase<T> extends BaseUseCase<T?> {
+class SearchLeagueUseCase<T> extends BaseUseCase<T?> {
+  late List<String>? _tagIds;
+
+  SearchLeagueUseCase<T> build({required List<String>? tagIds}) {
+    _tagIds = tagIds;
+    return this;
+  }
+
   @override
   void invoke({required Function(T?) success, required Function error}) async {
     var response = await super.remote(Request(
-        endpoint: "api/v1/league/list/filter/user", verb: HTTPVerb.get));
+        endpoint: "api/v1/league/search",
+        verb: HTTPVerb.post,
+        params: HTTPRequesParams(data: LeagueSearchRequest(_tagIds))));
     if (response.isSuccessfully) {
       var list = response.data == null
           ? null

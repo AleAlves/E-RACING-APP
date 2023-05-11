@@ -1,6 +1,4 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/events_card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/leagues_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/profile_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -12,6 +10,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../core/ui/component/state/loading_shimmer.dart';
 import '../../../core/ui/component/ui/league_card_small_widget.dart';
+import '../../../core/ui/component/ui/menu_card_widget.dart';
 import '../../../league/LeagueRouter.dart';
 import '../home_view_model.dart';
 
@@ -83,20 +82,27 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
       children: [
         const Padding(
           padding: EdgeInsets.all(16),
-          child: TextWidget(text: "Rolling Start", style: Style.title),
+          child: TextWidget(text: "Discover", style: Style.title),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
-          child: LeaguesCardWidget(onPressed: () {
-            Modular.to.pushNamed(LeagueRouter.list);
-          }),
+          child: MenuCardWidget(
+              icon: Icons.emoji_events_sharp,
+              title: "Community",
+              subtitle: "Join a group and start racing",
+              onPressed: () {
+                Modular.to.pushNamed(LeagueRouter.list);
+              }),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8),
-          child: EventsCardWidget(onPressed: () {
-            Modular.to.pushNamed(EventRouter.search);
-          }),
-        ),
+            padding: const EdgeInsets.only(left: 8, right: 8),
+            child: MenuCardWidget(
+                icon: Icons.sports_score_sharp,
+                title: "Racing events",
+                subtitle: "Find the ideal racing activities for you",
+                onPressed: () {
+                  Modular.to.pushNamed(EventRouter.search);
+                })),
       ],
     );
   }

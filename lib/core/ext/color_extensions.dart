@@ -115,7 +115,6 @@ Color getTeamColor(int _index) {
   }
 }
 
-
 Color randomColor(int length) {
   return Color(Random().nextInt(0xffffffff));
 }

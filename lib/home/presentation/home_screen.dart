@@ -34,7 +34,9 @@ class _HomeScreenState extends State<HomeScreen> implements BaseScreen {
           text: viewModel.title,
           style: Style.subtitle,
         ),
-        actions: [notifications()],
+        actions: [
+          notifications(),
+        ],
       ),
       body: navigate(),
     );
@@ -46,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> implements BaseScreen {
         ButtonWidget(
             enabled: true,
             icon: Icons.notifications_none,
-            type: ButtonType.iconBorderless,
+            type: ButtonType.iconShapeless,
             onPressed: () {
               viewModel.goToPushNotifications();
             }),
@@ -54,11 +56,12 @@ class _HomeScreenState extends State<HomeScreen> implements BaseScreen {
                 viewModel.notificationsCount == "0"
             ? Container()
             : Positioned(
-                right: -5,
+                left: -5,
+                top: 2,
                 child: Row(
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.03,
+                      height: MediaQuery.of(context).size.height * 0.025,
                       child: CircleAvatar(
                         backgroundColor:
                             Theme.of(context).colorScheme.secondary,

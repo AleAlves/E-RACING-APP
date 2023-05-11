@@ -5,18 +5,27 @@ import 'package:flutter/material.dart';
 
 import 'button_widget.dart';
 
-class LeaguesCardWidget extends StatelessWidget {
+class MenuCardWidget extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
   final VoidCallback? onPressed;
 
-  const LeaguesCardWidget({this.onPressed, Key? key}) : super(key: key);
+  const MenuCardWidget(
+      {required this.icon,
+      required this.title,
+      required this.subtitle,
+      this.onPressed,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CardWidget(
+      arrowed: true,
       child: content(context),
       onPressed: onPressed,
       ready: true,
-      arrowed: true,
     );
   }
 
@@ -30,8 +39,8 @@ class LeaguesCardWidget extends StatelessWidget {
             children: [
               ButtonWidget(
                   enabled: true,
-                  icon: Icons.emoji_events,
-                  type: ButtonType.iconButton,
+                  icon: icon,
+                  type: ButtonType.icon,
                   onPressed: onPressed),
             ],
           ),
@@ -42,19 +51,21 @@ class LeaguesCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Wrap(
-                  children: const [
+                  alignment: WrapAlignment.start,
+                  children: [
                     TextWidget(
-                      text: "Community",
+                      text: title,
                       style: Style.subtitle,
                     ),
                   ],
                 ),
                 const SpacingWidget(LayoutSize.size16),
                 Wrap(
-                  children: const [
+                  children: [
                     TextWidget(
-                      text: "Join a group and start racing",
-                      style: Style.paragraph,
+                      text: subtitle,
+                      style: Style.caption,
+                      align: TextAlign.start,
                     ),
                   ],
                 ),

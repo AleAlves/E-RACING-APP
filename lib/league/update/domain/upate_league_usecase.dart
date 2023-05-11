@@ -6,7 +6,7 @@ import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/league/LeagueRouter.dart';
 import 'package:e_racing_app/league/update/data/league_update_request.dart';
 
-import '../../list/data/league_model.dart';
+import '../../core/league_model.dart';
 
 class UpdateLeagueUseCase<T> extends BaseUseCase<T?> {
   late MediaModel _media;

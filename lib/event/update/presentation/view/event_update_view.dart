@@ -205,7 +205,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
             ),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.iconButton,
+                type: ButtonType.icon,
                 icon: Icons.image_search,
                 onPressed: () async {
                   var image = await widget.viewModel.picker
@@ -235,7 +235,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
           children: [
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.iconBorderless,
+                type: ButtonType.iconShapeless,
                 icon: Icons.remove,
                 onPressed: () {
                   setState(() {
@@ -245,7 +245,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
             const SpacingWidget(LayoutSize.size48),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.iconBorderless,
+                type: ButtonType.iconShapeless,
                 icon: Icons.add,
                 onPressed: () {
                   setState(() {
@@ -303,7 +303,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonWidget(
                       enabled: true,
-                      type: ButtonType.iconBorderless,
+                      type: ButtonType.iconShapeless,
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
@@ -322,7 +322,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
             const SpacingWidget(LayoutSize.size48),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.iconBorderless,
+                type: ButtonType.iconShapeless,
                 icon: Icons.remove,
                 onPressed: () {
                   setState(() {
@@ -333,7 +333,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
             const SpacingWidget(LayoutSize.size48),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.iconBorderless,
+                type: ButtonType.iconShapeless,
                 icon: Icons.add,
                 onPressed: () {
                   setState(() {
@@ -394,7 +394,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonWidget(
                       enabled: true,
-                      type: ButtonType.iconBorderless,
+                      type: ButtonType.iconShapeless,
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
@@ -413,7 +413,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
             const SpacingWidget(LayoutSize.size48),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.iconBorderless,
+                type: ButtonType.iconShapeless,
                 icon: Icons.remove,
                 onPressed: () {
                   setState(() {
@@ -424,7 +424,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
             const SpacingWidget(LayoutSize.size48),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.iconBorderless,
+                type: ButtonType.iconShapeless,
                 icon: Icons.add,
                 onPressed: () {
                   setState(() {

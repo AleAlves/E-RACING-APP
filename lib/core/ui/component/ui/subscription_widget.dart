@@ -5,8 +5,8 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../ext/dialog_extension.dart';
-import 'spacing_widget.dart';
 import 'button_widget.dart';
+import 'spacing_widget.dart';
 
 class SubscriptionWidget extends StatefulWidget {
   final List<ClassesModel?>? classes;
@@ -52,21 +52,8 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
   }
 
   Widget unsubscribedWidget() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 24, right: 24),
-        child: ButtonWidget(
-          label: "Register",
-          type: ButtonType.important,
-          icon: Icons.person_add,
-          onPressed: () {
-            handleChoice();
-          },
-          enabled: widget.classes != null,
-        ),
-      ),
-    );
+    handleChoice();
+    return Container();
   }
 
   void handleChoice() {
@@ -158,17 +145,17 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Padding(
-        padding:  const EdgeInsets.only(left: 8, right: 8),
+        padding: const EdgeInsets.only(left: 8, right: 8),
         child: ButtonWidget(
           label:
-          "Registered as ${widget.classes?.firstWhere((element) => element?.id == id)?.name} driver",
+              "Registered as ${widget.classes?.firstWhere((element) => element?.id == id)?.name} driver",
           type: ButtonType.secondary,
           icon: Icons.sports_motorsports,
           onPressed: () {
             confirmationDialogExt(
               context: context,
               issueMessage:
-              "Are you sure you want to cancel your registration?",
+                  "Are you sure you want to cancel your registration?",
               consentMessage: "Yes, I do",
               onPositive: () {
                 widget.onUnsubscribe.call(id);

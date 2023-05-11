@@ -8,7 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../league/LeagueRouter.dart';
-import '../../league/list/data/league_model.dart';
+import '../../league/core/league_model.dart';
 import '../../profile/ProfileRouter.dart';
 import '../../profile/domain/model/profile_model.dart';
 import '../../push/PushRouter.dart';

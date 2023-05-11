@@ -127,7 +127,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                             style: Style.paragraph),
                         ButtonWidget(
                             enabled: true,
-                            type: ButtonType.iconBorderless,
+                            type: ButtonType.iconShapeless,
                             icon: Icons.delete_forever,
                             label: "Delete",
                             onPressed: () async {

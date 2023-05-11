@@ -15,6 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../core/ext/dialog_extension.dart';
+import '../../../../core/tools/session.dart';
+import '../../../../core/ui/component/ui/button_widget.dart';
 import '../../../../core/ui/component/ui/event_step_progress_indicator_widget.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../../core/ui/component/ui/share_widget.dart';
@@ -31,12 +34,15 @@ class EventDetailView extends StatefulWidget {
 
 class _EventDetailViewState extends State<EventDetailView>
     implements BaseSateWidget {
+  String? classId;
+
   @override
   void initState() {
-    super.initState();
     if (widget.viewModel.event == null) {
       widget.viewModel.getEvent();
     }
+    widget.viewModel.title = "Events";
+    super.initState();
   }
 
   @override
@@ -52,10 +58,10 @@ class _EventDetailViewState extends State<EventDetailView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
       body: content(),
-      scrollable: true,
       state: widget.viewModel.state,
       onBackPressed: onBackPressed,
-      floatAction: adminOption(),
+      floatAction: actionButton(),
+      bottom: doRegisterButton(),
     );
   }
 
@@ -121,7 +127,6 @@ class _EventDetailViewState extends State<EventDetailView>
           const SpacingWidget(LayoutSize.size8),
           title(),
           const SpacingWidget(LayoutSize.size16),
-          subscription(),
         ],
       ),
     );
@@ -181,16 +186,39 @@ class _EventDetailViewState extends State<EventDetailView>
     );
   }
 
-  FloatActionButtonWidget? adminOption() {
+  FloatActionButtonWidget? actionButton() {
     return isEventHost(widget.viewModel.event)
+        ? adminOption()
+        : cancelRegistration();
+  }
+
+  FloatActionButtonWidget? cancelRegistration() {
+    return _hasRegistration()
         ? FloatActionButtonWidget(
-            icon: Icons.manage_accounts,
-            title: "Manage",
+            icon: Icons.person_remove,
+            title: "",
             onPressed: () {
-              Modular.to.pushNamed(EventRouter.manage);
+              confirmationDialogExt(
+                context: context,
+                issueMessage: "Do you want to cancel your registration?",
+                consentMessage: "Yes, I do",
+                onPositive: () {
+                  widget.viewModel.unsubscribe(classId);
+                },
+              );
             },
           )
         : null;
+  }
+
+  FloatActionButtonWidget? adminOption() {
+    return FloatActionButtonWidget(
+      icon: Icons.manage_accounts,
+      title: "Manage",
+      onPressed: () {
+        Modular.to.pushNamed(EventRouter.manage);
+      },
+    );
   }
 
   Widget status() {
@@ -198,25 +226,6 @@ class _EventDetailViewState extends State<EventDetailView>
       shapeless: true,
       event: widget.viewModel.event,
     );
-  }
-
-  Widget subscription() {
-    return widget.viewModel.event?.joinable == true
-        ? Column(
-            children: [
-              SubscriptionWidget(
-                classes: widget.viewModel.event?.classes,
-                onSubscribe: (id) {
-                  widget.viewModel.subscribe(id);
-                },
-                onUnsubscribe: (id) {
-                  widget.viewModel.unsubscribe(id);
-                },
-              ),
-              const SpacingWidget(LayoutSize.size16),
-            ],
-          )
-        : Container();
   }
 
   Widget races() {
@@ -235,5 +244,37 @@ class _EventDetailViewState extends State<EventDetailView>
         widget.viewModel.onRoute(EventDetailRouter.standings);
       },
     );
+  }
+
+  Widget? doRegisterButton() {
+    return widget.viewModel.event?.joinable == true
+        ? null
+        : ButtonWidget(
+            enabled: true,
+            type: ButtonType.secondary,
+            onPressed: () {
+              SubscriptionWidget(
+                classes: widget.viewModel.event?.classes,
+                onSubscribe: (id) {
+                  widget.viewModel.subscribe(id);
+                },
+                onUnsubscribe: (id) {
+                  widget.viewModel.unsubscribe(id);
+                },
+              );
+            },
+            label: "Registration",
+          );
+  }
+
+  _hasRegistration() {
+    return widget.viewModel.event != null
+        ? widget.viewModel.event?.classes
+            ?.map((classes) => classes?.drivers?.where((driver) {
+                  classId = classes.id;
+                  return driver?.driverId == Session.instance.getUser()?.id;
+                }))
+            .isNotEmpty
+        : false;
   }
 }

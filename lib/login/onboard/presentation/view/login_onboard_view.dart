@@ -68,7 +68,7 @@ class _LoginOnboardViewState extends State<LoginOnboardView>
             ButtonWidget(
               enabled: true,
               icon: Icons.people,
-              type: ButtonType.iconButton,
+              type: ButtonType.icon,
               onPressed: () {
                 widget.viewModel.saveTutorialExhibition(LoginRouter.signIn);
               },

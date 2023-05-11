@@ -6,6 +6,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import '../../../core/ui/component/ui/text_widget.dart';
+
 class EventDetailScreen extends StatefulWidget {
   const EventDetailScreen({Key? key}) : super(key: key);
 
@@ -29,7 +31,10 @@ class _EventDetailScreenState extends State<EventDetailScreen>
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: const Text('Events'),
+          title: TextWidget(
+            style: Style.subtitle,
+            text: viewModel.title,
+          ),
         ),
         body: navigate());
   }

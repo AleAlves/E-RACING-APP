@@ -4,7 +4,6 @@ import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_simple_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/membership_action_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/shortcut_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/social_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
@@ -14,8 +13,10 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../core/ext/dialog_extension.dart';
+import '../../../../core/ext/access_extension.dart';
+import '../../../../core/ext/dialog_extension.dart';
 import '../../../../core/tools/session.dart';
+import '../../../../core/ui/component/ui/button_widget.dart';
 import '../league_detail_view_model.dart';
 import '../navigation/league_detail_navigation.dart';
 
@@ -35,6 +36,7 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
     widget.viewModel.getLeague();
     widget.viewModel.getPlayerEvents();
     widget.viewModel.getMenu();
+    widget.viewModel.title = "Community";
     super.initState();
   }
 
@@ -50,18 +52,11 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-      body: content(),
-      state: widget.viewModel.state,
-      onBackPressed: onBackPressed,
-      scrollable: true,
-      floatAction: FloatActionButtonWidget(
-        icon: Icons.build,
-        title: "Edit",
-        onPressed: () {
-          widget.viewModel.onRoute(LeagueDetailNavigationSet.update);
-        },
-      ),
-    );
+        body: content(),
+        state: widget.viewModel.state,
+        bottom: doSubscribeButton(),
+        onBackPressed: onBackPressed,
+        floatAction: getAction());
   }
 
   @override
@@ -102,10 +97,6 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
           Padding(
             padding: const EdgeInsets.only(top: 24, bottom: 8),
             child: description(),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: membership(),
           ),
         ],
       ),
@@ -183,29 +174,6 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
     );
   }
 
-  Widget membership() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 4, bottom: 8),
-      child: MembershipActionWidget(
-        hasMembership: widget.viewModel.hasMembership,
-        isReady: widget.viewModel.membershipIsReady,
-        onStartMembership: () {
-          widget.viewModel.startMembership();
-        },
-        onStopMembership: () {
-          confirmationDialogExt(
-            context: context,
-            issueMessage: "Do you wanto to cancel your membership?",
-            consentMessage: "Yes, I do",
-            onPositive: () {
-              widget.viewModel.stopMembership();
-            },
-          );
-        },
-      ),
-    );
-  }
-
   Widget playersEvent() {
     return widget.viewModel.events == null
         ? CardWidget(
@@ -248,6 +216,46 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
                 },
               ),
             ],
+          );
+  }
+
+  FloatActionButtonWidget? getAction() {
+    return isLeagueHost(widget.viewModel.league)
+        ? FloatActionButtonWidget(
+            icon: Icons.build,
+            title: "Edit",
+            onPressed: () {
+              widget.viewModel.onRoute(LeagueDetailNavigationSet.update);
+            },
+          )
+        : widget.viewModel.hasMembership
+            ? FloatActionButtonWidget(
+                icon: Icons.workspace_premium,
+                title: "",
+                onPressed: () {
+                  confirmationDialogExt(
+                    context: context,
+                    issueMessage: "Do you wanto to cancel your membership?",
+                    consentMessage: "Yes, I do",
+                    onPositive: () {
+                      widget.viewModel.stopMembership();
+                    },
+                  );
+                },
+              )
+            : null;
+  }
+
+  Widget? doSubscribeButton() {
+    return widget.viewModel.hasMembership
+        ? null
+        : ButtonWidget(
+            enabled: true,
+            type: ButtonType.secondary,
+            onPressed: () {
+              widget.viewModel.startMembership();
+            },
+            label: "Become a member",
           );
   }
 

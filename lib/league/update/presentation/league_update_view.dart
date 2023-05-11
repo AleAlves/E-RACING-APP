@@ -19,9 +19,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../core/league_model.dart';
 import '../../detail/presentation/league_detail_view_model.dart';
 import '../../detail/presentation/navigation/league_detail_navigation.dart';
-import '../../list/data/league_model.dart';
 
 class LeagueUpdateView extends StatefulWidget {
   final LeagueDetailViewModel viewModel;
@@ -233,7 +233,7 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
             ),
             ButtonWidget(
               enabled: true,
-              type: ButtonType.iconButton,
+              type: ButtonType.icon,
               icon: Icons.image_search,
               onPressed: () async {
                 var image =
@@ -305,7 +305,7 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
                     const SpacingWidget(LayoutSize.size8),
                     ButtonWidget(
                         enabled: true,
-                        type: ButtonType.iconButton,
+                        type: ButtonType.icon,
                         onPressed: () async {
                           isEditingSocialPlatform = true;
                           Clipboard.getData(Clipboard.kTextPlain).then((value) {
@@ -318,7 +318,7 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
                     const SpacingWidget(LayoutSize.size8),
                     ButtonWidget(
                         enabled: true,
-                        type: ButtonType.iconButton,
+                        type: ButtonType.icon,
                         onPressed: () async {
                           isEditingSocialPlatform = true;
                           setState(() {

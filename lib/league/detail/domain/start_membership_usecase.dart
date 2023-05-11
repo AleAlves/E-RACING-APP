@@ -21,7 +21,7 @@ class StartMembershipUseCase<T> extends BaseUseCase<T> {
         endpoint: "api/v1/league/membership/start",
         verb: HTTPVerb.get,
         params: HTTPRequesParams(query: Pair("id", _leagueId))));
-    if (response != null && response.isSuccessfully) {
+    if (response.isSuccessfully) {
       success.call(StatusModel(
           message: "You've became a member",
           action: "Ok",

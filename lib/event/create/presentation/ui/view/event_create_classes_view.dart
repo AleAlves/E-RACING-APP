@@ -100,7 +100,7 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
                 ready: true,
                 childLeft: ButtonWidget(
                     enabled: true,
-                    type: ButtonType.iconBorderless,
+                    type: ButtonType.iconShapeless,
                     icon: Icons.delete,
                     onPressed: () {
                       setState(() {
@@ -143,7 +143,7 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
         const SpacingWidget(LayoutSize.size48),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.iconButton,
+            type: ButtonType.icon,
             icon: Icons.add,
             onPressed: () async {
               setState(() {

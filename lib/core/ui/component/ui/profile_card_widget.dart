@@ -22,42 +22,45 @@ class ProfileCardWidget extends StatelessWidget {
 
   Widget content(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 0, right: 8, top: 8, bottom: 8),
+      padding: const EdgeInsets.all(8),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          viewModel?.picture == null
+              ? const LoadingRoundedShimmer()
+              : Column(
+                  children: [
+                    pictureWidget(context),
+                    const SpacingWidget(LayoutSize.size24),
+                  ],
+                ),
+          const SpacingWidget(LayoutSize.size24),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SpacingWidget(LayoutSize.size8),
-              viewModel?.picture == null
-                  ? const LoadingRoundedShimmer()
-                  : pictureWidget(context),
-              const SpacingWidget(LayoutSize.size24),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextWidget(
-                    text: viewModel?.profileModel?.firstName,
-                    style: Style.title,
-                  ),
-                  const SpacingWidget(LayoutSize.size8),
-                  TextWidget(
-                    text: viewModel?.profileModel?.email,
-                    style: Style.paragraph,
-                  ),
-                  const SpacingWidget(LayoutSize.size16),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Wrap(
+                  direction: Axis.vertical,
+                  children: [
+                    TextWidget(
+                      text: viewModel?.profileModel?.firstName,
+                      style: Style.title,
+                    ),
+                    TextWidget(
+                      text: viewModel?.profileModel?.email,
+                      style: Style.paragraph,
+                    ),
+                  ],
+                ),
               ),
+              ButtonWidget(
+                  enabled: true,
+                  type: ButtonType.link,
+                  label: "Edit profile",
+                  onPressed: onPressed),
             ],
           ),
-          ButtonWidget(
-              enabled: true,
-              type: ButtonType.iconBorderless,
-              icon: Icons.settings,
-              onPressed: onPressed),
         ],
       ),
     );

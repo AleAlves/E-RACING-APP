@@ -88,7 +88,7 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
             return CardWidget(
                 childLeft: ButtonWidget(
                     enabled: true,
-                    type: ButtonType.iconBorderless,
+                    type: ButtonType.iconShapeless,
                     icon: Icons.delete,
                     onPressed: () {
                       setState(() {
@@ -120,7 +120,7 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
   Widget createSettingButton() {
     return ButtonWidget(
         enabled: true,
-        type: ButtonType.iconButton,
+        type: ButtonType.icon,
         icon: Icons.add,
         onPressed: () async {
           setState(() {

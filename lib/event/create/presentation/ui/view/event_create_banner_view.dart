@@ -105,7 +105,7 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
             ),
             ButtonWidget(
                 enabled: true,
-                type: ButtonType.iconButton,
+                type: ButtonType.icon,
                 icon: Icons.image_search,
                 onPressed: () async {
                   var image =

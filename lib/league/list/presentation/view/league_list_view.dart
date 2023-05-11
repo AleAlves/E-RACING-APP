@@ -6,8 +6,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/ext/access_extension.dart';
 import '../../../../core/tools/session.dart';
+import '../../../../core/ui/component/ui/button_widget.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../../core/ui/component/ui/league_card_widget.dart';
+import '../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../LeagueRouter.dart';
 import '../league_list_view_model.dart';
 
@@ -45,10 +47,10 @@ class _LeagueListViewState extends State<LeagueListView>
         state: widget.viewModel.state,
         onBackPressed: onBackPressed,
         floatAction: FloatActionButtonWidget(
-          icon: Icons.add,
-          title: "Create new",
+          icon: Icons.filter_alt,
+          title: "Search tags",
           onPressed: () {
-            Modular.to.pushNamed(LeagueRouter.create);
+            searchBottomSheet();
           },
         ));
   }
@@ -72,8 +74,7 @@ class _LeagueListViewState extends State<LeagueListView>
               label: widget.viewModel.leagues?[index]?.name,
               members: widget.viewModel.leagues?[index]?.members?.length,
               capacity: widget.viewModel.leagues?[index]?.capacity,
-              hasMembership:
-                  hasLeagueMembership(widget.viewModel.leagues?[index]),
+              hasMembership: isLeagueMember(widget.viewModel.leagues?[index]),
               tags: widget.viewModel.tags,
               leagueTags: widget.viewModel.leagues?[index]?.tags,
               onPressed: () {
@@ -84,5 +85,69 @@ class _LeagueListViewState extends State<LeagueListView>
         },
       ),
     );
+  }
+
+  searchBottomSheet() {
+    showModalBottomSheet(
+        isDismissible: true,
+        isScrollControlled: true,
+        context: context,
+        builder: (context) =>
+            StatefulBuilder(builder: (BuildContext context, myState) {
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Observer(builder: (context) {
+                  return Wrap(
+                    children: [
+                      tagWidget(myState),
+                      const SpacingWidget(LayoutSize.size32),
+                      ButtonWidget(
+                          enabled: true,
+                          label: "Search",
+                          type: ButtonType.primary,
+                          onPressed: () {
+                            widget.viewModel.searchEvents();
+                            Navigator.of(context).pop();
+                          }),
+                      const SpacingWidget(LayoutSize.size16),
+                    ],
+                  );
+                }),
+              );
+            }));
+  }
+
+  Widget tagWidget(StateSetter myState) {
+    return widget.viewModel.tags!.isEmpty
+        ? Container()
+        : Padding(
+            padding: EdgeInsets.zero,
+            child: Wrap(
+              children: widget.viewModel.tags!
+                  .map((item) {
+                    final selected =
+                        widget.viewModel.searchTags?.contains(item?.id) ??
+                            false;
+                    return ActionChip(
+                        avatar: CircleAvatar(
+                          backgroundColor: selected
+                              ? Theme.of(context).colorScheme.secondary
+                              : null,
+                          child: selected ? const Text('-') : const Text('+'),
+                        ),
+                        label: Text(item?.name ?? ''),
+                        onPressed: () {
+                          myState(() {
+                            selected
+                                ? widget.viewModel.searchTags?.remove(item?.id)
+                                : widget.viewModel.searchTags
+                                    ?.add(item?.id ?? '');
+                          });
+                        });
+                  })
+                  .toList()
+                  .cast<Widget>(),
+            ),
+          );
   }
 }

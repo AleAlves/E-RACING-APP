@@ -5,14 +5,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-enum ButtonType {
-  primary,
-  secondary,
-  important,
-  link,
-  iconButton,
-  iconBorderless
-}
+enum ButtonType { primary, secondary, link, icon, iconShapeless }
 
 class ButtonWidget extends StatefulWidget {
   final String? label;
@@ -59,11 +52,9 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         return primary(context);
       case ButtonType.link:
         return link();
-      case ButtonType.iconButton:
+      case ButtonType.icon:
         return iconButton();
-      case ButtonType.important:
-        return important(context);
-      case ButtonType.iconBorderless:
+      case ButtonType.iconShapeless:
         return iconButtonBorderless();
       case ButtonType.secondary:
         return secondary(context);
@@ -71,23 +62,20 @@ class _ButtonWidgetState extends State<ButtonWidget> {
   }
 
   Widget link() {
-    return Align(
-      alignment: Alignment.center,
-      child: TextButton(
-        onPressed: widget.enabled ? widget.onPressed : null,
-        child: Row(
-          children: [
-            TextWidget(
-              text: widget.label ?? '',
-              color: widget.labelColor ?? Theme.of(context).colorScheme.primary,
-              style: Style.caption,
-            ),
-            IconWidget(
-              icon: widget.icon ?? Icons.arrow_forward_sharp,
-              size: 14,
-            )
-          ],
-        ),
+    return TextButton(
+      onPressed: widget.enabled ? widget.onPressed : null,
+      child: Row(
+        children: [
+          TextWidget(
+            text: widget.label ?? '',
+            color: widget.labelColor ?? Theme.of(context).colorScheme.primary,
+            style: Style.caption,
+          ),
+          IconWidget(
+            icon: widget.icon ?? Icons.arrow_forward_sharp,
+            size: 14,
+          )
+        ],
       ),
     );
   }
@@ -116,70 +104,26 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     );
   }
 
-  Widget important(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width / 2,
-      child: ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
-              Theme.of(context).colorScheme.secondaryContainer),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              side: const BorderSide(
-                width: 0.1,
-              ),
+  Widget secondary(BuildContext context) {
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor:
+            MaterialStateProperty.all(Theme.of(context).colorScheme.secondary),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.0),
+            side: const BorderSide(
+              width: 0.1,
             ),
           ),
-        ),
-        onPressed: widget.enabled ? widget.onPressed : null,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(),
-            Padding(
-              padding: const EdgeInsets.only(top: 16, bottom: 16),
-              child: TextWidget(
-                text: widget.label ?? '',
-                style: Style.button,
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
-            ),
-            widget.icon == null
-                ? Container()
-                : Row(
-                    children: [
-                      const SpacingWidget(LayoutSize.size16),
-                      IconWidget(
-                          icon: widget.icon,
-                          size: 18,
-                          color: widget.iconColor ??
-                              Theme.of(context).colorScheme.onSecondary),
-                    ],
-                  )
-          ],
         ),
       ),
-    );
-  }
-
-  Widget secondary(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width / 2,
-      child: ElevatedButton(
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              side: const BorderSide(
-                width: 0.1,
-              ),
-            ),
-          ),
-        ),
-        onPressed: widget.enabled ? widget.onPressed : null,
+      onPressed: widget.enabled ? widget.onPressed : null,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
         child: TextWidget(
           text: widget.label ?? '',
+          color: widget.labelColor ?? Theme.of(context).colorScheme.onSecondary,
           style: Style.button,
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import 'button_widget.dart';
 import 'card_widget.dart';
 
@@ -51,7 +52,7 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
                               width: 50,
                               child: ButtonWidget(
                                   enabled: true,
-                                  type: ButtonType.iconButton,
+                                  type: ButtonType.icon,
                                   onPressed: () {
                                     launchUrl(Uri.parse(item?.link ?? ''));
                                   },
