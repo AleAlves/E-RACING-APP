@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/tools/session.dart';
 import '../../../core/ui/component/state/loading_shimmer.dart';
 import '../../../core/ui/component/ui/league_card_small_widget.dart';
 import '../../../core/ui/component/ui/menu_card_widget.dart';
@@ -57,6 +58,7 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
       children: [
         const SpacingWidget(LayoutSize.size24),
         profileWidget(),
+        managerWidget(),
         discoverWidget(),
         communitiesWidget()
       ],
@@ -73,6 +75,42 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
         viewModel: widget.viewModel,
       ),
     );
+  }
+
+  Widget managerWidget() {
+    return Session.instance.getUser()?.signature?.organizer == true
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(16),
+                child: TextWidget(text: "Management", style: Style.title),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8),
+                child: Column(
+                  children: [
+                    MenuCardWidget(
+                        icon: Icons.groups,
+                        title: "Create a community",
+                        subtitle: "Start a racing community",
+                        onPressed: () {
+                          Modular.to.pushNamed(LeagueRouter.create);
+                        }),
+                    MenuCardWidget(
+                        icon: Icons.settings_suggest,
+                        title: "Create an event",
+                        subtitle: "Start racing tournament",
+                        onPressed: () {
+                          Modular.to.pushNamed(EventRouter.create);
+                        })
+                  ],
+                ),
+              ),
+            ],
+          )
+        : Container();
   }
 
   Widget discoverWidget() {

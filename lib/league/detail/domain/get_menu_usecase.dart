@@ -17,7 +17,7 @@ class GetMenuUseCase<T> extends BaseUseCase<T?> {
     menu.add(ShortcutModel(
         title: "Members",
         subtitle: "Drivers of this community",
-        icon: Icons.supervised_user_circle,
+        icon: Icons.groups,
         deepLink: LeagueRouter.members));
     menu.add(ShortcutModel(
         title: "Trophy room",
