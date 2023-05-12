@@ -17,6 +17,7 @@ import '../../../core/domain/share_model.dart';
 import '../../../core/ext/access_extension.dart';
 import '../../../shared/media/get_media.usecase.dart';
 import '../../../shared/social/get_social_media_usecase.dart';
+import '../../../shared/tag/get_tag_usecase.dart';
 import '../../LeagueRouter.dart';
 import '../../core/league_model.dart';
 import '../../member/data/league_members_model.dart';
@@ -87,6 +88,7 @@ abstract class _LeagueDetailViewModel
   @observable
   ObservableList<SocialPlatformModel?>? socialMedias = ObservableList();
 
+  final _fetchTagsUC = Modular.get<GetTagUseCase>();
   final _getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel>>();
   final _getSocialMediaUseCase = Modular.get<GetSocialMediaUseCase>();
   final _getMenuUC = Modular.get<GetMenuUseCase<List<ShortcutModel>>>();
@@ -238,6 +240,16 @@ abstract class _LeagueDetailViewModel
               events = ObservableList.of(data);
             },
             error: onError);
+  }
+
+  fetchTags() async {
+    state = ViewState.loading;
+    await _fetchTagsUC.invoke(
+        success: (data) {
+          tags = ObservableList.of(data);
+          state = ViewState.ready;
+        },
+        error: onError);
   }
 
   gotToEvent() {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/ui/component/ui/share_widget.dart';
 import 'league_detail_view_model.dart';
 import 'navigation/league_detail_navigation.dart';
 
@@ -34,6 +35,13 @@ class _LeagueDetailScreenState extends State<LeagueDetailScreen>
           text: viewModel.title,
           style: Style.subtitle,
         ),
+        actions: [
+          ShareWidget(
+              size: 12.0,
+              background: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.onPrimary,
+              model: viewModel.share)
+        ],
       ),
       body: navigate(),
     );

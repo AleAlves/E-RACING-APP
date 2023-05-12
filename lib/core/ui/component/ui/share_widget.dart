@@ -47,7 +47,7 @@ class _ShareWidgetState extends State<ShareWidget> {
         icon: Icons.share,
         enabled: true,
         iconRadius: widget.size ?? 20.0,
-        iconColor: widget.color ?? Theme.of(context).cardTheme.color,
+        iconColor: widget.color,
         color: widget.background,
         type: widget.background == null
             ? ButtonType.iconShapeless

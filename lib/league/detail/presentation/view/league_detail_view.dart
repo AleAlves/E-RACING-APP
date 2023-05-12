@@ -7,7 +7,6 @@ import 'package:e_racing_app/core/ui/component/ui/float_action_button_widget.dar
 import 'package:e_racing_app/core/ui/component/ui/shortcut_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/social_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/tag_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +16,7 @@ import '../../../../core/ext/access_extension.dart';
 import '../../../../core/ext/dialog_extension.dart';
 import '../../../../core/tools/session.dart';
 import '../../../../core/ui/component/ui/button_widget.dart';
+import '../../../../core/ui/component/ui/tag_collection_widget.dart';
 import '../league_detail_view_model.dart';
 import '../navigation/league_detail_navigation.dart';
 
@@ -33,6 +33,7 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
     implements BaseSateWidget {
   @override
   void initState() {
+    widget.viewModel.fetchTags();
     widget.viewModel.getLeague();
     widget.viewModel.getPlayerEvents();
     widget.viewModel.getMenu();
@@ -73,10 +74,6 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
-          child: social(),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8),
           child: playersEvent(),
         ),
         const SpacingWidget(LayoutSize.size64),
@@ -85,47 +82,39 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
   }
 
   Widget header() {
-    return CardWidget(
-      padding: EdgeInsets.zero,
-      ready: true,
-      child: Column(
-        children: [
-          BannerWidget(
-            media: widget.viewModel.media,
-            loadDefault: widget.viewModel.shouldLoadDefaultPoster,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 24, bottom: 8),
-            child: description(),
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        BannerWidget(
+          media: widget.viewModel.media,
+          loadDefault: widget.viewModel.shouldLoadDefaultPoster,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 24, bottom: 8),
+          child: leagueTitle(),
+        ),
+        ButtonWidget(
+            enabled: true,
+            type: ButtonType.link,
+            label: "About this community",
+            onPressed: () {
+              leagueDetail();
+            }),
+        const SpacingWidget(LayoutSize.size16),
+      ],
     );
   }
 
-  Widget description() {
+  Widget leagueTitle() {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8),
-      child: Column(
+      child: Wrap(
         children: [
-          Wrap(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextWidget(
-                  text: widget.viewModel.league?.name ?? '',
-                  style: Style.title,
-                  align: TextAlign.left,
-                ),
-              ),
-            ],
-          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextWidget(
-              text: widget.viewModel.league?.description ?? '',
-              style: Style.paragraph,
-              align: TextAlign.justify,
+              text: widget.viewModel.league?.name ?? '',
+              style: Style.title,
+              align: TextAlign.left,
             ),
           ),
         ],
@@ -133,31 +122,77 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
     );
   }
 
-  Widget tags() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16),
-      child: TagCollectionWidget(
-        tagIds: widget.viewModel.league?.tags,
-        tags: widget.viewModel.tags,
-      ),
-    );
-  }
-
-  Widget social() {
+  Widget leagueSocial() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SpacingWidget(LayoutSize.size16),
-        const Padding(
-          padding: EdgeInsets.only(left: 8.0),
-          child: TextWidget(text: "Social media", style: Style.paragraph),
+        Wrap(
+          children: const [
+            TextWidget(text: "Social media", style: Style.subtitle)
+          ],
         ),
-        const SpacingWidget(LayoutSize.size4),
+        const SpacingWidget(LayoutSize.size32),
         SocialCollectionWidget(
           hide: widget.viewModel.league?.links == null,
           links: widget.viewModel.league?.links,
           socialPlatforms: widget.viewModel.socialMedias,
         ),
+        const SpacingWidget(LayoutSize.size32),
+      ],
+    );
+  }
+
+  Widget leagueDescription() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Wrap(
+          children: const [
+            TextWidget(
+              text: "Description",
+              style: Style.subtitle,
+              align: TextAlign.start,
+            ),
+          ],
+        ),
+        const SpacingWidget(LayoutSize.size32),
+        Wrap(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextWidget(
+                text: widget.viewModel.league?.description ?? '',
+                style: Style.paragraph,
+                align: TextAlign.justify,
+              ),
+            ),
+          ],
+        ),
+        const SpacingWidget(LayoutSize.size32),
+      ],
+    );
+  }
+
+  Widget leagueTags() {
+    return Wrap(
+      children: [
+        Row(
+          children: const [
+            TextWidget(
+              text: "Tags",
+              style: Style.subtitle,
+            ),
+          ],
+        ),
+        Column(
+          children: [
+            const SpacingWidget(LayoutSize.size32),
+            TagCollectionWidget(
+              tagIds: widget.viewModel.league?.tags,
+              tags: widget.viewModel.tags,
+            ),
+          ],
+        )
       ],
     );
   }
@@ -257,6 +292,28 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
             },
             label: "Become a member",
           );
+  }
+
+  leagueDetail() {
+    showModalBottomSheet(
+        isDismissible: true,
+        isScrollControlled: true,
+        context: context,
+        builder: (context) =>
+            StatefulBuilder(builder: (BuildContext context, myState) {
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Observer(builder: (context) {
+                  return Wrap(
+                    children: [
+                      leagueDescription(),
+                      leagueSocial(),
+                      leagueTags()
+                    ],
+                  );
+                }),
+              );
+            }));
   }
 
   @override

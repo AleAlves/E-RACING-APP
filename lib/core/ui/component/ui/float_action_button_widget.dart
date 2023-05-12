@@ -29,11 +29,11 @@ class _FloatActionButtonWidgetState extends State<FloatActionButtonWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // Future.delayed(const Duration(seconds: 3)).then((value) {
-    //   setState(() {
-    //     _showWidget = false;
-    //   });
-    // });
+    Future.delayed(const Duration(seconds: 3)).then((value) {
+      setState(() {
+        _showWidget = false;
+      });
+    });
     return normal(context);
   }
 

@@ -53,7 +53,7 @@ class _EventDetailInfoViewState extends State<EventDetailInfoView>
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: [settings(), teams(), scoring(), rules()],
+          children: [settings(), scoring(), teams(), rules()],
         ),
       ),
     );

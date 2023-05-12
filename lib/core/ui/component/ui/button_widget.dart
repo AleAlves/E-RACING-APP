@@ -72,8 +72,8 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             style: Style.caption,
           ),
           IconWidget(
-            icon: widget.icon ?? Icons.arrow_forward_sharp,
-            size: 14,
+            icon: widget.icon ?? Icons.arrow_forward,
+            size: 18,
           )
         ],
       ),

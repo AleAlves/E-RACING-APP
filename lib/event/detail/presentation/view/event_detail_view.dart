@@ -1,7 +1,6 @@
 import 'package:e_racing_app/core/ext/access_extension.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_race_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/simple_standings_widget.dart';
@@ -16,10 +15,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/ext/dialog_extension.dart';
+import '../../../../core/model/event_model.dart';
 import '../../../../core/tools/session.dart';
 import '../../../../core/ui/component/ui/button_widget.dart';
-import '../../../../core/ui/component/ui/event_step_progress_indicator_widget.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
+import '../../../../core/ui/component/ui/icon_widget.dart';
 import '../../../../core/ui/component/ui/share_widget.dart';
 import '../event_detail_view_model.dart';
 
@@ -85,11 +85,6 @@ class _EventDetailViewState extends State<EventDetailView>
             const SpacingWidget(LayoutSize.size2),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
-              child: eventInfo(),
-            ),
-            const SpacingWidget(LayoutSize.size2),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
               child: races(),
             ),
             const SpacingWidget(LayoutSize.size2),
@@ -105,84 +100,103 @@ class _EventDetailViewState extends State<EventDetailView>
   }
 
   Widget banner() {
-    return CardWidget(
-      padding: EdgeInsets.zero,
-      ready: true,
-      child: Column(
-        children: [
-          Stack(
+    return Column(
+      children: [
+        Stack(
+          children: [
+            BannerWidget(media: widget.viewModel.eventBanner),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: ShareWidget(
+                  size: 16.0,
+                  background: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  model: widget.viewModel.share),
+            )
+          ],
+        ),
+        const SpacingWidget(LayoutSize.size32),
+        title(),
+        const SpacingWidget(LayoutSize.size16),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              BannerWidget(media: widget.viewModel.eventBanner),
-              Positioned(
-                top: 0,
-                right: 0,
-                child: ShareWidget(
-                    size: 16.0,
-                    background: Theme.of(context).colorScheme.primary,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    model: widget.viewModel.share),
-              )
+              Row(
+                children: [
+                  const TextWidget(
+                      text: "Status: ",
+                      style: Style.subtitle,
+                      align: TextAlign.justify),
+                  eventStatusWidget(widget.viewModel.event?.state),
+                ],
+              ),
             ],
           ),
-          const SpacingWidget(LayoutSize.size8),
-          title(),
-          const SpacingWidget(LayoutSize.size16),
-        ],
-      ),
+        ),
+        const SpacingWidget(LayoutSize.size8),
+        ButtonWidget(
+            enabled: true,
+            type: ButtonType.link,
+            label: "More details",
+            onPressed: () {
+              widget.viewModel.onRoute(EventDetailRouter.info);
+            }),
+        const SpacingWidget(LayoutSize.size16),
+      ],
     );
   }
 
   Widget title() {
     return Wrap(
+      alignment: WrapAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: TextWidget(
-              text: widget.viewModel.event?.title, style: Style.title),
-        ),
+        TextWidget(
+          text: widget.viewModel.event?.title,
+          style: Style.title,
+          align: TextAlign.start,
+        )
       ],
     );
   }
 
-  Widget eventInfo() {
-    return CardWidget(
-      arrowed: true,
-      childLeft: Icon(
-        Icons.info_outline,
-        color: Theme.of(context).colorScheme.onBackground,
-      ),
-      onPressed: () {
-        widget.viewModel.onRoute(EventDetailRouter.info);
-      },
-      ready: true,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                const SpacingWidget(LayoutSize.size8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const TextWidget(
-                      text: "Event",
-                      style: Style.subtitle,
-                    ),
-                    EventStepProgressIndicatorWidget(
-                      state: widget.viewModel.event?.state,
-                      orientation: StatusOrientation.horizontal,
-                    ),
-                    Container()
-                  ],
-                ),
-                const SpacingWidget(LayoutSize.size8),
-              ],
+  Widget eventStatusWidget(EventState? state) {
+    var color;
+    var status;
+    switch (state) {
+      case EventState.idle:
+        color = Colors.grey;
+        status = "Preparing";
+        break;
+      case EventState.ready:
+        color = Colors.amber;
+        status = "Ready";
+        break;
+      case EventState.ongoing:
+        color = Colors.green;
+        status = "On going";
+        break;
+      case EventState.finished:
+        color = Colors.red;
+        status = "Finished";
+        break;
+    }
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          children: [
+            IconWidget(
+              icon: Icons.circle,
+              color: color,
             ),
-          ),
-        ],
-      ),
+            const SpacingWidget(LayoutSize.size8),
+            TextWidget(text: status, style: Style.paragraph),
+          ],
+        ),
+      ],
     );
   }
 

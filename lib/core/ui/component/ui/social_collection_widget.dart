@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'button_widget.dart';
-import 'card_widget.dart';
 
 class SocialCollectionWidget extends StatefulWidget {
   final bool hide;
@@ -35,38 +34,31 @@ class _SocialCollectionWidgetState extends State<SocialCollectionWidget> {
   Widget build(BuildContext context) {
     return widget.hide
         ? const LoadingShimmer()
-        : CardWidget(
-            padding:
-                const EdgeInsets.only(top: 16, bottom: 8, left: 8, right: 8),
-            ready: widget.links != null,
-            placeholderHeight: 100,
-            child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Wrap(
-                  spacing: 20,
-                  children: widget.links == null
-                      ? [Container()]
-                      : widget.links!
-                          .map((item) {
-                            return SizedBox(
-                              width: 50,
-                              child: ButtonWidget(
-                                  enabled: true,
-                                  type: ButtonType.icon,
-                                  onPressed: () {
-                                    launchUrl(Uri.parse(item?.link ?? ''));
-                                  },
-                                  icon: _getSocialPlatform(item?.platformId)
-                                      .first,
-                                  color: _getSocialPlatform(item?.platformId)
-                                      .second,
-                                  iconColor: Colors.white),
-                            );
-                          })
-                          .toList()
-                          .cast<Widget>(),
-                )),
-          );
+        : SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Wrap(
+              spacing: 20,
+              children: widget.links == null
+                  ? [Container()]
+                  : widget.links!
+                      .map((item) {
+                        return SizedBox(
+                          width: 50,
+                          child: ButtonWidget(
+                              enabled: true,
+                              type: ButtonType.icon,
+                              onPressed: () {
+                                launchUrl(Uri.parse(item?.link ?? ''));
+                              },
+                              icon: _getSocialPlatform(item?.platformId).first,
+                              color:
+                                  _getSocialPlatform(item?.platformId).second,
+                              iconColor: Colors.white),
+                        );
+                      })
+                      .toList()
+                      .cast<Widget>(),
+            ));
   }
 
   Pair<IconData, Color> _getSocialPlatform(String? platformId) {
