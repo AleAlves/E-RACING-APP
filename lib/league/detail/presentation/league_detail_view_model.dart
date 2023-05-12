@@ -57,7 +57,7 @@ abstract class _LeagueDetailViewModel
   String? title = "";
 
   @observable
-  bool hasMembership = false;
+  bool? hasMembership;
 
   @observable
   bool? shouldLoadDefaultPoster;

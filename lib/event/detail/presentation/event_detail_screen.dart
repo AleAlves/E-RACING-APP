@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import '../../../core/ui/component/ui/share_widget.dart';
 import '../../../core/ui/component/ui/text_widget.dart';
 
 class EventDetailScreen extends StatefulWidget {
@@ -35,6 +36,13 @@ class _EventDetailScreenState extends State<EventDetailScreen>
             style: Style.subtitle,
             text: viewModel.title,
           ),
+          actions: [
+            ShareWidget(
+                size: 18.0,
+                background: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onPrimary,
+                model: viewModel.share)
+          ],
         ),
         body: navigate());
   }

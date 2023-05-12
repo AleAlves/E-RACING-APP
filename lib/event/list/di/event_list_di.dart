@@ -11,7 +11,7 @@ import '../presentation/event_list_view_model.dart';
 class EventListModule extends Module {
   final EventListRouter router;
 
-  EventListModule({this.router = EventListRouter.list});
+  EventListModule({this.router = EventListRouter.search});
 
   @override
   List<Bind> get binds => [

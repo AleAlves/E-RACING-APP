@@ -20,7 +20,6 @@ import '../../../../core/tools/session.dart';
 import '../../../../core/ui/component/ui/button_widget.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../../core/ui/component/ui/icon_widget.dart';
-import '../../../../core/ui/component/ui/share_widget.dart';
 import '../event_detail_view_model.dart';
 
 class EventDetailView extends StatefulWidget {
@@ -105,15 +104,6 @@ class _EventDetailViewState extends State<EventDetailView>
         Stack(
           children: [
             BannerWidget(media: widget.viewModel.eventBanner),
-            Positioned(
-              top: 0,
-              right: 0,
-              child: ShareWidget(
-                  size: 16.0,
-                  background: Theme.of(context).colorScheme.primary,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  model: widget.viewModel.share),
-            )
           ],
         ),
         const SpacingWidget(LayoutSize.size32),
@@ -140,7 +130,7 @@ class _EventDetailViewState extends State<EventDetailView>
         ButtonWidget(
             enabled: true,
             type: ButtonType.link,
-            label: "More details",
+            label: "Event details",
             onPressed: () {
               widget.viewModel.onRoute(EventDetailRouter.info);
             }),

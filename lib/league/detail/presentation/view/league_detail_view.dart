@@ -232,7 +232,7 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
                 child: TextWidget(
                     text: "Your current competitions", style: Style.paragraph),
               ),
-              const SpacingWidget(LayoutSize.size4),
+              const SpacingWidget(LayoutSize.size16),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const ClampingScrollPhysics(),
@@ -263,7 +263,7 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
               widget.viewModel.onRoute(LeagueDetailNavigationSet.update);
             },
           )
-        : widget.viewModel.hasMembership
+        : widget.viewModel.hasMembership == true
             ? FloatActionButtonWidget(
                 icon: Icons.workspace_premium,
                 title: "",
@@ -282,16 +282,18 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
   }
 
   Widget? doSubscribeButton() {
-    return widget.viewModel.hasMembership
+    return widget.viewModel.hasMembership == null
         ? null
-        : ButtonWidget(
-            enabled: true,
-            type: ButtonType.secondary,
-            onPressed: () {
-              widget.viewModel.startMembership();
-            },
-            label: "Become a member",
-          );
+        : widget.viewModel.hasMembership == true
+            ? null
+            : ButtonWidget(
+                enabled: true,
+                type: ButtonType.secondary,
+                onPressed: () {
+                  widget.viewModel.startMembership();
+                },
+                label: "Become a member",
+              );
   }
 
   leagueDetail() {

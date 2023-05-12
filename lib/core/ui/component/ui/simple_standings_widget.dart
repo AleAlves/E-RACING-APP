@@ -55,19 +55,13 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
           children: classesList(context),
         ),
         const SpacingWidget(LayoutSize.size16),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: ButtonWidget(
-                enabled: true,
-                type: ButtonType.link,
-                label: "Full standings",
-                onPressed: () {
-                  widget.onFullStandingsPressed();
-                }),
-          ),
-        ),
+        ButtonWidget(
+            enabled: true,
+            type: ButtonType.link,
+            label: "Full standings",
+            onPressed: () {
+              widget.onFullStandingsPressed();
+            }),
         const SpacingWidget(LayoutSize.size16),
       ],
     );
@@ -146,6 +140,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
         child: Column(
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SpacingWidget(LayoutSize.size16),
                 Expanded(

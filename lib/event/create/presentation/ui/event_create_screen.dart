@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../core/ui/component/ui/step_progress_indicator_widget.dart';
 import '../navigation/event_create_flow.dart';
 
 class EventCreateScreen extends StatefulWidget {
@@ -33,7 +34,27 @@ class _EventCreateScreenState extends State<EventCreateScreen>
       appBar: AppBar(
         title: const Text('Event creation'),
       ),
-      body: navigate(),
+      body: Stack(
+        children: [
+          progressIndicator(),
+          Padding(
+            padding: const EdgeInsets.only(top: 32),
+            child: navigate(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget progressIndicator() {
+    return Positioned(
+      child: StepProgressIndicatorWidget(
+        maxSteps: viewModel.maxSteps,
+        currentStep: viewModel.currentStep,
+      ),
+      left: 0,
+      right: 0,
+      top: 0,
     );
   }
 

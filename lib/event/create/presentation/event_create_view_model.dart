@@ -32,6 +32,12 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   @observable
   ViewState state = ViewState.ready;
 
+  @observable
+  int maxSteps = 9;
+
+  @observable
+  int currentStep = 1;
+
   @override
   @observable
   String? title = "";

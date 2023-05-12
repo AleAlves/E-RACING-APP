@@ -120,7 +120,7 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
                     TextWidget(text: "Your communities", style: Style.subtitle),
               ),
         Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
+          padding: const EdgeInsets.all(8),
           child: LeagueCardSmallWidget(
               leagues: widget.viewModel.leagues,
               onPressed: (leagueId) {

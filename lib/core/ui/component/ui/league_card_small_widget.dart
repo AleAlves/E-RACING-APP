@@ -1,5 +1,4 @@
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +50,6 @@ class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
           child: header(index),
           ready: widget.leagues.isNotEmpty == true,
         ),
-        const SpacingWidget(LayoutSize.size16),
       ],
     );
   }
