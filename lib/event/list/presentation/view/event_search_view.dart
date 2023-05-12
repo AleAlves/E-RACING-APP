@@ -29,7 +29,7 @@ class _EventSearchViewState extends State<EventSearchView>
   @override
   void initState() {
     super.initState();
-    widget.viewModel.title = "Search";
+    widget.viewModel.title = "Events";
     widget.viewModel.getTags();
     widget.viewModel.searchEvents();
   }

@@ -231,7 +231,7 @@ class _LeagueTrophiesViewState extends State<LeagueTrophiesView>
         children: [
           const SpacingWidget(LayoutSize.size256),
           const TextWidget(
-            text: "Not trophies found",
+            text: "No trophies yet",
             style: Style.title,
           ),
           const SpacingWidget(LayoutSize.size24),

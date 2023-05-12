@@ -116,8 +116,7 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
             ? const LoadingShimmer()
             : const Padding(
                 padding: EdgeInsets.all(16),
-                child:
-                    TextWidget(text: "Your communities", style: Style.subtitle),
+                child: TextWidget(text: "Your communities", style: Style.title),
               ),
         Padding(
           padding: const EdgeInsets.all(8),

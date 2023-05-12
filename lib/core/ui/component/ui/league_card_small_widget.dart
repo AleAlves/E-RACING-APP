@@ -77,7 +77,7 @@ class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
               padding: const EdgeInsets.all(8.0),
               child: TextWidget(
                 text: widget.leagues[index]?.name,
-                style: Style.title,
+                style: Style.subtitle,
                 align: TextAlign.left,
               ),
             ),
