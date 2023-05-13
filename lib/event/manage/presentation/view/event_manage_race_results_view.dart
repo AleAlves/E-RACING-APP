@@ -143,11 +143,6 @@ class _EventManageRaceResultsViewState extends State<EventManageRaceResultsView>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextWidget(
-          text: sessions?.sessionName,
-          style: Style.subtitle,
-          align: TextAlign.start,
-        ),
         const SpacingWidget(LayoutSize.size8),
         driversContainer(sessions?.standings),
       ],

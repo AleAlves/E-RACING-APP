@@ -30,7 +30,6 @@ class _EventSearchViewState extends State<EventSearchView>
   void initState() {
     super.initState();
     widget.viewModel.title = "Events";
-    widget.viewModel.getTags();
     widget.viewModel.searchEvents();
   }
 
@@ -87,7 +86,7 @@ class _EventSearchViewState extends State<EventSearchView>
               return EventCardWidget(
                 tags: widget.viewModel.tags,
                 icon: getIcon(widget.viewModel.events?[index]?.type),
-                color: getColor(widget.viewModel.events?[index]?.type),
+                color: getColor(widget.viewModel.events?[index]?.type, context),
                 event: widget.viewModel.events?[index],
                 onPressed: () {
                   Session.instance

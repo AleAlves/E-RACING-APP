@@ -3,9 +3,9 @@ import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'icon_widget.dart';
-import 'spacing_widget.dart';
+import '../../../ext/event_iconography_extension.dart';
 import 'class_collection_widget.dart';
+import 'spacing_widget.dart';
 
 class EventSimpleCardWidget extends StatelessWidget {
   final EventModel? event;
@@ -26,6 +26,7 @@ class EventSimpleCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardWidget(
+      borderColor: getColor(event?.type, context),
       arrowed: true,
       child: content(context),
       onPressed: onPressed,
@@ -45,7 +46,7 @@ class EventSimpleCardWidget extends StatelessWidget {
               const SpacingWidget(LayoutSize.size8),
               TextWidget(
                 text: event?.title ?? event?.races?.first?.title ?? '',
-                style: Style.title,
+                style: Style.subtitle,
                 align: TextAlign.start,
               ),
               const SpacingWidget(LayoutSize.size8),
@@ -54,6 +55,7 @@ class EventSimpleCardWidget extends StatelessWidget {
                 classes: event?.classes,
               ),
               _getType(event?.type),
+              const SpacingWidget(LayoutSize.size16),
             ],
           ),
         )

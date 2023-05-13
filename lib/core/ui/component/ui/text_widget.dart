@@ -36,11 +36,11 @@ class TextWidget extends StatelessWidget {
       case Style.subtitle:
         return Theme.of(context).textTheme.headline5?.copyWith(color: color);
       case Style.paragraph:
-        return Theme.of(context).textTheme.bodyMedium?.copyWith(color: color);
+        return Theme.of(context).textTheme.bodyLarge?.copyWith(color: color);
       case Style.caption:
         return Theme.of(context)
             .textTheme
-            .overline
+            .caption
             ?.copyWith(color: color, fontSize: 14);
       case Style.button:
         return Theme.of(context)

@@ -35,13 +35,7 @@ class _LeagueDetailScreenState extends State<LeagueDetailScreen>
           text: viewModel.title,
           style: Style.subtitle,
         ),
-        actions: [
-          ShareWidget(
-              size: 12.0,
-              background: Theme.of(context).colorScheme.primary,
-              color: Theme.of(context).colorScheme.onPrimary,
-              model: viewModel.share)
-        ],
+        actions: [ShareWidget(model: viewModel.share)],
       ),
       body: navigate(),
     );

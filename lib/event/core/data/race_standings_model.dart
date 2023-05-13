@@ -4,6 +4,8 @@ import 'package:e_racing_app/core/model/team_model.dart';
 import 'package:e_racing_app/login/legacy/domain/model/user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../core/model/session_model.dart';
+
 part 'race_standings_model.g.dart';
 
 @JsonSerializable()
@@ -35,11 +37,13 @@ class RaceStandingsClassesModel {
 
 @JsonSerializable()
 class RaceStandingsSessionModel {
-  late String? sessionName;
+  late int? sessionIndex;
+  late SessionType? type;
   late List<RaceStandingsSummaryModel>? standings;
 
   RaceStandingsSessionModel({
-    required this.sessionName,
+    required this.sessionIndex,
+    required this.type,
     required this.standings,
   });
 

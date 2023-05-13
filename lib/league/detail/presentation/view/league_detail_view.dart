@@ -230,7 +230,7 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
               const Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: TextWidget(
-                    text: "Your current competitions", style: Style.paragraph),
+                    text: "Your current competitions", style: Style.subtitle),
               ),
               const SpacingWidget(LayoutSize.size16),
               ListView.builder(
@@ -240,7 +240,8 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
                 itemBuilder: (context, index) {
                   return EventSimpleCardWidget(
                     icon: getIcon(widget.viewModel.events?[index]?.type),
-                    color: getColor(widget.viewModel.events?[index]?.type),
+                    color: getColor(
+                        widget.viewModel.events?[index]?.type, context),
                     event: widget.viewModel.events?[index],
                     onPressed: () {
                       Session.instance

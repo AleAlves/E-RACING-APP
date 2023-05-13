@@ -1,6 +1,9 @@
 import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/session_model.dart';
+import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:flutter/material.dart';
+
+import '../ui/component/ui/text_widget.dart';
 
 IconData? getIcon(EventType? type) {
   switch (type) {
@@ -13,14 +16,14 @@ IconData? getIcon(EventType? type) {
   }
 }
 
-Color? getColor(EventType? type) {
+Color? getColor(EventType? type, BuildContext context) {
   switch (type) {
     case EventType.race:
-      return const Color(0xFF311AA0);
+      return Theme.of(context).colorScheme.secondaryContainer;
     case EventType.championship:
-      return const Color(0xFF1AA01C);
+      return Theme.of(context).colorScheme.primaryContainer;
     default:
-      return const Color(0xFF1AA01C);
+      return Colors.red;
   }
 }
 
@@ -39,31 +42,68 @@ String? getSesionTypeFirstLetter(SessionType? type) {
   }
 }
 
-Widget getSesionIcon(SessionType? type) {
+Widget getSesion(SessionType? type) {
   switch (type) {
     case SessionType.race:
-      return const Icon(
-        Icons.circle,
-        color: Color(0xFF378F1B),
-        size: 12,
+      return Row(
+        children: const [
+          Icon(
+            Icons.circle,
+            color: Color(0xFF378F1B),
+            size: 8,
+          ),
+          SpacingWidget(LayoutSize.size8),
+          SpacingWidget(LayoutSize.size2),
+          TextWidget(
+            text: "Race",
+            style: Style.caption,
+          )
+        ],
       );
     case SessionType.practice:
-      return const Icon(
-        Icons.circle,
-        color: Color(0xFF136091),
-        size: 12,
+      return Row(
+        children: const [
+          Icon(
+            Icons.circle,
+            color: Color(0xFF136091),
+            size: 8,
+          ),
+          SpacingWidget(LayoutSize.size8),
+          TextWidget(
+            text: "Practice",
+            style: Style.caption,
+          )
+        ],
       );
     case SessionType.qualify:
-      return const Icon(
-        Icons.circle,
-        color: Color(0xFFE06E3D),
-        size: 12,
+      return Row(
+        children: const [
+          Icon(
+            Icons.circle,
+            color: Color(0xFFE06E3D),
+            size: 8,
+          ),
+          SpacingWidget(LayoutSize.size8),
+          TextWidget(
+            text: "Qualify",
+            style: Style.caption,
+          )
+        ],
       );
     case SessionType.warmup:
-      return const Icon(
-        Icons.circle,
-        color: Color(0xFF9B2222),
-        size: 12,
+      return Row(
+        children: const [
+          Icon(
+            Icons.circle,
+            color: Color(0xFF9B2222),
+            size: 8,
+          ),
+          SpacingWidget(LayoutSize.size8),
+          TextWidget(
+            text: "Warmup",
+            style: Style.caption,
+          )
+        ],
       );
     default:
       return const Icon(Icons.error);

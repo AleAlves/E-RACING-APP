@@ -36,13 +36,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
             style: Style.subtitle,
             text: viewModel.title,
           ),
-          actions: [
-            ShareWidget(
-                size: 18.0,
-                background: Theme.of(context).colorScheme.primary,
-                color: Theme.of(context).colorScheme.onPrimary,
-                model: viewModel.share)
-          ],
+          actions: [ShareWidget(model: viewModel.share)],
         ),
         body: navigate());
   }

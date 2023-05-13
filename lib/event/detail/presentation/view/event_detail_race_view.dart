@@ -77,75 +77,73 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
   Widget banner() {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, top: 16),
-      child: CardWidget(
-        padding: EdgeInsets.zero,
-        ready: widget.viewModel.race?.title != null,
-        child: Column(
-          children: [
-            PosterWidget(
-              post: widget.viewModel.racePoster?.image,
-              loadDefault: widget.viewModel.shouldLoadDefaultPoster,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          PosterWidget(
+            post: widget.viewModel.racePoster?.image,
+            loadDefault: widget.viewModel.shouldLoadDefaultPoster,
+          ),
+          const SpacingWidget(LayoutSize.size16),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Wrap(
+              children: [
+                TextWidget(
+                  text: widget.viewModel.race?.title,
+                  style: Style.title,
+                  align: TextAlign.start,
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 24),
-              child: TextWidget(
-                  text: widget.viewModel.race?.title, style: Style.title),
-            ),
-            schedule(),
-            const SpacingWidget(LayoutSize.size16),
-          ],
-        ),
+          ),
+          const SpacingWidget(LayoutSize.size16),
+          schedule(),
+          const SpacingWidget(LayoutSize.size16),
+        ],
       ),
     );
   }
 
   Widget schedule() {
-    return CardWidget(
-      ready: true,
-      shapeLess: true,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 8, right: 8),
-        child: Column(
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Wrap(
+            children: const [
+              TextWidget(
+                text: "Schedule",
+                style: Style.subtitle,
+                align: TextAlign.start,
+              ),
+            ],
+          ),
+        ),
+        const SpacingWidget(LayoutSize.size16),
+        Row(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                TextWidget(
-                  text: "Schedule",
-                  style: Style.subtitle,
-                  align: TextAlign.start,
-                ),
-              ],
-            ),
-            const SpacingWidget(LayoutSize.size24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const IconWidget(icon: Icons.schedule),
-                    const SpacingWidget(LayoutSize.size8),
-                    TextWidget(
-                        text: formatHour(widget.viewModel.race?.date),
-                        style: Style.paragraph),
-                  ],
-                ),
-                Container(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const IconWidget(icon: Icons.date_range),
-                    const SpacingWidget(LayoutSize.size8),
-                    TextWidget(
-                        text: formatDate(widget.viewModel.race?.date),
-                        style: Style.paragraph),
-                  ],
-                ),
-              ],
-            ),
+            const SpacingWidget(LayoutSize.size8),
+            const IconWidget(icon: Icons.schedule),
+            const SpacingWidget(LayoutSize.size8),
+            TextWidget(
+                text: formatHourWithGMT(widget.viewModel.race?.date),
+                style: Style.caption),
           ],
         ),
-      ),
+        const SpacingWidget(LayoutSize.size16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SpacingWidget(LayoutSize.size8),
+            const IconWidget(icon: Icons.date_range),
+            const SpacingWidget(LayoutSize.size8),
+            TextWidget(
+                text: formatDate(widget.viewModel.race?.date),
+                style: Style.caption),
+          ],
+        )
+      ],
     );
   }
 
@@ -163,47 +161,40 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
               itemBuilder: (context, index) {
                 return Column(
                   children: [
-                    CardWidget(
-                      padding: const EdgeInsets.only(left: 16, right: 16),
-                      ready: true,
-                      childRight: const IconWidget(icon: Icons.tune),
-                      child: Row(
-                        children: [
-                          getSesionIcon(
-                              widget.viewModel.race?.sessions?[index]?.type),
-                          const SpacingWidget(LayoutSize.size24),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                const SpacingWidget(LayoutSize.size8),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          TextWidget(
-                                            text: widget.viewModel.race
-                                                ?.sessions?[index]?.name,
-                                            style: Style.subtitle,
-                                            align: TextAlign.start,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                sessionSettings(index),
-                                const SpacingWidget(LayoutSize.size16),
-                              ],
-                            ),
-                          )
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Wrap(
+                        children: const [
+                          TextWidget(
+                            text: "Sessions",
+                            style: Style.subtitle,
+                            align: TextAlign.start,
+                          ),
                         ],
                       ),
                     ),
+                    const SpacingWidget(LayoutSize.size16),
+                    Row(
+                      children: [
+                        TextWidget(
+                          text: "Session ${(index + 1)}: ",
+                          style: Style.paragraph,
+                          align: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: getSesion(
+                          widget.viewModel.race?.sessions?[index]?.type),
+                    ),
+                    Row(
+                      children: [
+                        const SpacingWidget(LayoutSize.size8),
+                        sessionSettings(index),
+                      ],
+                    ),
+                    const SpacingWidget(LayoutSize.size16),
                   ],
                 );
               },
@@ -222,9 +213,9 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
                   ?.map((e) {
                     return Row(
                       children: [
-                        TextWidget(style: Style.paragraph, text: "${e?.name}:"),
+                        TextWidget(style: Style.caption, text: "${e?.name}:"),
                         const SpacingWidget(LayoutSize.size8),
-                        TextWidget(style: Style.paragraph, text: e?.name),
+                        TextWidget(style: Style.caption, text: e?.name),
                       ],
                     );
                   })
@@ -241,32 +232,29 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
         child: LoadingShimmer(),
       );
     } else {
-      return Padding(
-        padding: const EdgeInsets.only(left: 8, right: 8),
-        child: Wrap(
-          children: widget.viewModel.raceStandings?.classes
-              ?.map((e) {
-                return Column(
-                  children: [
-                    const SpacingWidget(LayoutSize.size16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        TextWidget(
-                          text: e?.className,
-                          style: Style.subtitle,
-                          align: TextAlign.start,
-                        ),
-                      ],
-                    ),
-                    const SpacingWidget(LayoutSize.size8),
-                    classes(e?.sessions)
-                  ],
-                );
-              })
-              .toList()
-              .cast<Widget>() as List<Widget>,
-        ),
+      return Wrap(
+        children: widget.viewModel.raceStandings?.classes
+            ?.map((e) {
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SpacingWidget(LayoutSize.size8),
+                      TextWidget(
+                        text: e?.className,
+                        style: Style.subtitle,
+                        align: TextAlign.start,
+                      ),
+                    ],
+                  ),
+                  const SpacingWidget(LayoutSize.size8),
+                  classes(e?.sessions)
+                ],
+              );
+            })
+            .toList()
+            .cast<Widget>() as List<Widget>,
       );
     }
   }
@@ -285,15 +273,16 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
   Widget session(RaceStandingsSessionModel? sessions) {
     return Column(
       children: [
-        const SpacingWidget(LayoutSize.size16),
         Row(
           children: [
-            const IconWidget(icon: Icons.sports_score),
+            const SpacingWidget(LayoutSize.size8),
+            getSesion(sessions?.type),
             const SpacingWidget(LayoutSize.size8),
             TextWidget(
-              text: sessions?.sessionName,
-              style: Style.paragraph,
-            ),
+              text: "${((sessions?.sessionIndex as int) + 1)}",
+              style: Style.caption,
+              align: TextAlign.start,
+            )
           ],
         ),
         const SpacingWidget(LayoutSize.size16),

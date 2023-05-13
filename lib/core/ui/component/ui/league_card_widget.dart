@@ -70,21 +70,17 @@ class LeagueCardWidget extends StatelessWidget {
   }
 
   Widget titleWidget() {
-    return Wrap(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              TextWidget(
-                text: label,
-                style: Style.title,
-                align: TextAlign.left,
-              ),
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Wrap(
+        children: [
+          TextWidget(
+            text: label,
+            style: Style.title,
+            align: TextAlign.left,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

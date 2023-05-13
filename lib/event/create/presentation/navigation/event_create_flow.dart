@@ -7,6 +7,7 @@ import '../ui/view/event_create_banner_view.dart';
 import '../ui/view/event_create_classes_view.dart';
 import '../ui/view/event_create_name_view.dart';
 import '../ui/view/event_create_race_view.dart';
+import '../ui/view/event_create_review_view.dart';
 import '../ui/view/event_create_rules_view.dart';
 import '../ui/view/event_create_score_view.dart';
 import '../ui/view/event_create_status_view.dart';
@@ -25,6 +26,7 @@ enum EventCreateNavigator {
   eventRaceList,
   eventRaceCreation,
   eventRaceEditing,
+  eventReview,
   eventStatus
 }
 
@@ -53,6 +55,8 @@ extension EventCreateNavigation on EventCreateNavigator {
         return EventCreateRaceView(viewModel);
       case EventCreateNavigator.eventRaceEditing:
         return EventCreateRaceView(viewModel);
+      case EventCreateNavigator.eventReview:
+        return EventCreateReviewView(viewModel);
       case EventCreateNavigator.eventStatus:
         return EventCreateStatusView(viewModel);
       default:

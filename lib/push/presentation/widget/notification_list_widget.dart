@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../core/ext/date_extensions.dart';
 import '../../../core/ui/component/state/view_state_widget.dart';
+import '../../../core/ui/component/ui/button_widget.dart';
 import '../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../core/ui/view_state.dart';
 import '../notification_view_model.dart';
@@ -133,17 +133,9 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                           align: TextAlign.start,
                         ),
                       ),
-                      element?['action'].toString().isEmpty == true
-                          ? Container()
-                          : ButtonWidget(
-                              label: element?['action'],
-                              type: ButtonType.link,
-                              onPressed: () {
-                                widget.vm.goToPushDeeplink(element?['source']);
-                              },
-                              enabled: true,
-                            ),
+                      const SpacingWidget(LayoutSize.size8),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -152,6 +144,20 @@ class _NotificationListWidgetState extends State<NotificationListWidget>
                               style: Style.caption,
                             ),
                           ),
+                          element?['action'].toString().isEmpty == true
+                              ? Container()
+                              : Padding(
+                                  padding: const EdgeInsets.only(right: 16),
+                                  child: ButtonWidget(
+                                    label: element?['action'],
+                                    type: ButtonType.link,
+                                    onPressed: () {
+                                      widget.vm
+                                          .goToPushDeeplink(element?['source']);
+                                    },
+                                    enabled: true,
+                                  ),
+                                )
                         ],
                       ),
                     ],

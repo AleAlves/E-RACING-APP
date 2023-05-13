@@ -79,7 +79,7 @@ class _EventDetailViewState extends State<EventDetailView>
             const SpacingWidget(LayoutSize.size16),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
-              child: banner(),
+              child: info(),
             ),
             const SpacingWidget(LayoutSize.size2),
             Padding(
@@ -98,33 +98,19 @@ class _EventDetailViewState extends State<EventDetailView>
     );
   }
 
-  Widget banner() {
+  Widget info() {
     return Column(
       children: [
-        Stack(
-          children: [
-            BannerWidget(media: widget.viewModel.eventBanner),
-          ],
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: BannerWidget(media: widget.viewModel.eventBanner),
         ),
         const SpacingWidget(LayoutSize.size32),
         title(),
         const SpacingWidget(LayoutSize.size16),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const TextWidget(
-                      text: "Status: ",
-                      style: Style.subtitle,
-                      align: TextAlign.justify),
-                  eventStatusWidget(widget.viewModel.event?.state),
-                ],
-              ),
-            ],
-          ),
+          child: eventStatusWidget(widget.viewModel.event?.state),
         ),
         const SpacingWidget(LayoutSize.size8),
         ButtonWidget(
@@ -140,15 +126,21 @@ class _EventDetailViewState extends State<EventDetailView>
   }
 
   Widget title() {
-    return Wrap(
-      alignment: WrapAlignment.start,
-      children: [
-        TextWidget(
-          text: widget.viewModel.event?.title,
-          style: Style.title,
-          align: TextAlign.start,
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Wrap(
+          alignment: WrapAlignment.start,
+          children: [
+            TextWidget(
+              text: widget.viewModel.event?.title,
+              style: Style.title,
+              align: TextAlign.start,
+            )
+          ],
+        ),
+      ),
     );
   }
 
