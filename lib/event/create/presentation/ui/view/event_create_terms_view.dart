@@ -140,6 +140,7 @@ class _EventCreateTermsViewState extends State<EventCreateTermsView>
         label: "Accept and continue",
         type: ButtonType.primary,
         onPressed: () {
+          widget.viewModel.increaseStep();
           widget.viewModel.setAgreement(termsAccepted);
         });
   }

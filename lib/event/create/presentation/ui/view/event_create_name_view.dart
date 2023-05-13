@@ -145,6 +145,7 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
       enabled: isValid,
       type: ButtonType.primary,
       onPressed: () {
+        widget.viewModel.increaseStep();
         widget.viewModel.setEventName(_nameController.text);
       },
       label: "Next",
@@ -153,6 +154,7 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(EventCreateNavigator.eventTerms);
     return false;
   }

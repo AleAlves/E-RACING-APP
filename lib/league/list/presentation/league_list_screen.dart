@@ -1,15 +1,16 @@
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/league/list/presentation/router/league_list_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'league_list_view_model.dart';
-import 'navigation/league_list_navigation.dart';
 
 class LeagueListScreen extends StatefulWidget {
-  const LeagueListScreen({Key? key}) : super(key: key);
+  final LeagueListRouterSet? router;
+
+  const LeagueListScreen({this.router, Key? key}) : super(key: key);
 
   @override
   _LeagueListScreenState createState() => _LeagueListScreenState();
@@ -42,12 +43,12 @@ class _LeagueListScreenState extends State<LeagueListScreen>
 
   @override
   void initState() {
-    FlutterNativeSplash.remove();
+    viewModel.flow = widget.router;
     super.initState();
   }
 
   @override
   Widget navigate() {
-    return LeagueListNavigation.flow(viewModel);
+    return LeagueListRouting.flow(viewModel);
   }
 }

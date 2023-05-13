@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../core/tools/session.dart';
 import '../../../core/ui/component/state/loading_shimmer.dart';
 import '../../../core/ui/component/ui/league_card_small_widget.dart';
 import '../../../core/ui/component/ui/menu_card_widget.dart';
@@ -78,7 +77,7 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
   }
 
   Widget managerWidget() {
-    return Session.instance.getUser()?.signature?.organizer == true
+    return true
         ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +102,7 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
                         title: "Create an event",
                         subtitle: "Start racing tournament",
                         onPressed: () {
-                          Modular.to.pushNamed(EventRouter.create);
+                          Modular.to.pushNamed(LeagueRouter.owned);
                         })
                   ],
                 ),
@@ -125,7 +124,7 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: MenuCardWidget(
-              icon: Icons.emoji_events_sharp,
+              icon: Icons.group_sharp,
               title: "Community",
               subtitle: "Join a group and start racing",
               onPressed: () {
@@ -135,7 +134,7 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
         Padding(
             padding: const EdgeInsets.only(left: 8, right: 8),
             child: MenuCardWidget(
-                icon: Icons.sports_score_sharp,
+                icon: Icons.emoji_events_sharp,
                 title: "Racing events",
                 subtitle: "Find the ideal racing activities for you",
                 onPressed: () {

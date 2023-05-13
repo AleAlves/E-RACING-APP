@@ -16,6 +16,7 @@ import '../../event/update/di/event_update_di.dart';
 import '../../league/LeagueRouter.dart';
 import '../../league/create/di/league_create_di.dart';
 import '../../league/list/di/league_list_di.dart';
+import '../../league/list/presentation/router/league_list_router.dart';
 import '../../league/member/di/league_member_di.dart';
 import '../../league/trophies/di/league_trophies_di.dart';
 import '../../login/login_router.dart';
@@ -68,6 +69,11 @@ class AppMainModule extends Module {
         ModuleRoute(
           LeagueRouter.list,
           module: LeagueListModule(),
+          transition: primaryTransition,
+        ),
+        ModuleRoute(
+          LeagueRouter.owned,
+          module: LeagueListModule(router: LeagueListRouterSet.owned),
           transition: primaryTransition,
         ),
         ModuleRoute(

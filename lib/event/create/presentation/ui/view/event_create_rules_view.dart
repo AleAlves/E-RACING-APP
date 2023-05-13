@@ -107,6 +107,7 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
       enabled: isValid,
       type: ButtonType.primary,
       onPressed: () {
+        widget.viewModel.increaseStep();
         widget.viewModel.setEventRules(_descriptionController.text);
       },
       label: "Next",
@@ -115,6 +116,7 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(EventCreateNavigator.eventName);
     return false;
   }

@@ -241,6 +241,7 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
       enabled: widget.viewModel.eventClasses.isNotEmpty,
       type: ButtonType.primary,
       onPressed: () {
+        widget.viewModel.increaseStep();
         widget.viewModel.onFinishClasses();
       },
       label: "Next",
@@ -249,6 +250,7 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(EventCreateNavigator.eventBanner);
     return false;
   }

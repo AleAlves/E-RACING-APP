@@ -26,7 +26,7 @@ class _LeagueListViewState extends State<LeagueListView>
     implements BaseSateWidget {
   @override
   void initState() {
-    widget.viewModel.fetchLeagues();
+    widget.viewModel.getLeagues();
     super.initState();
   }
 

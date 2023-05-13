@@ -26,21 +26,22 @@ class _StepProgressIndicatorWidgetState
   Widget content() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16),
         child: SizedBox(
-          width: MediaQuery.of(context).size.width * .8,
+          width: MediaQuery.of(context).size.width,
           child: Stack(
             alignment: Alignment.center,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   for (var i = 0; i < widget.maxSteps; i++)
                     Stack(
                       alignment: Alignment.center,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.1,
+                          width: MediaQuery.of(context).size.width /
+                              (widget.maxSteps + 2),
                           height: MediaQuery.of(context).size.height * 0.002,
                           color: i >= widget.currentStep
                               ? Theme.of(context).focusColor

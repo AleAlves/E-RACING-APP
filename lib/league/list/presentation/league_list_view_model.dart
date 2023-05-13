@@ -1,27 +1,30 @@
+import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:e_racing_app/league/list/domain/search_league_usecase.dart';
+import 'package:e_racing_app/league/list/presentation/router/league_list_router.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/model/status_model.dart';
 import '../../../core/model/tag_model.dart';
 import '../../../core/ui/view_state.dart';
+import '../../../event/event_router.dart';
 import '../../../shared/tag/get_tag_usecase.dart';
 import '../../core/league_model.dart';
 import '../domain/fetch_league_usecase.dart';
-import 'navigation/league_list_navigation.dart';
+import '../domain/get_owned_league_usecase.dart';
 
 part 'league_list_view_model.g.dart';
 
 class LeagueListViewModel = _LeagueListViewModel with _$LeagueListViewModel;
 
-abstract class _LeagueListViewModel
-    extends BaseViewModel<LeagueListNavigationSet> with Store {
+abstract class _LeagueListViewModel extends BaseViewModel<LeagueListRouterSet>
+    with Store {
   _LeagueListViewModel();
 
   @override
   @observable
-  LeagueListNavigationSet? flow = LeagueListNavigationSet.main;
+  LeagueListRouterSet? flow = LeagueListRouterSet.main;
 
   @override
   @observable
@@ -50,13 +53,29 @@ abstract class _LeagueListViewModel
   final _fetchTagsUC = Modular.get<GetTagUseCase>();
   final _fetchListUC = Modular.get<FetchLeagueUseCase<List<LeagueModel>>>();
   final _searchListUC = Modular.get<SearchLeagueUseCase<List<LeagueModel>>>();
+  final _ownedListUC = Modular.get<GetOwnedLeagueUseCase<List<LeagueModel>>>();
 
-  fetchLeagues() async {
+  getLeagues() async {
     state = ViewState.loading;
     _fetchListUC.invoke(
         success: (data) {
           leagues = ObservableList.of(data!);
           _fetchTags();
+        },
+        error: onError);
+  }
+
+  getOwnedLeagues() async {
+    state = ViewState.loading;
+    _ownedListUC.invoke(
+        success: (data) {
+          leagues = ObservableList.of(data!);
+          if (leagues?.length == 1) {
+            skipLeagueSelection(leagues?.first?.id);
+          } else {
+            title = "Your communities";
+          }
+          state = ViewState.ready;
         },
         error: onError);
   }
@@ -81,7 +100,17 @@ abstract class _LeagueListViewModel
         error: onError);
   }
 
-  void getUser() async {
+  getUser() async {
     state = ViewState.loading;
+  }
+
+  skipLeagueSelection(String? id) {
+    Session.instance.setLeagueId(id);
+    Modular.to.popAndPushNamed(EventRouter.create);
+  }
+
+  toEventCreation(String? id) {
+    Session.instance.setLeagueId(id);
+    Modular.to.pushNamed(EventRouter.create);
   }
 }

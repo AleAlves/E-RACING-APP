@@ -106,6 +106,7 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
+        widget.viewModel.increaseStep();
         widget.viewModel.onFinishEventTags();
       },
       label: "Next",
@@ -114,6 +115,7 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(EventCreateNavigator.eventClasses);
     return false;
   }

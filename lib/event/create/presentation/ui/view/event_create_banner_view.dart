@@ -134,6 +134,7 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
           bannerFile.path.isNotEmpty || widget.viewModel.eventBanner != null,
       type: ButtonType.primary,
       onPressed: () {
+        widget.viewModel.increaseStep();
         widget.viewModel.onFinishEventBanner();
       },
       label: "Next",
@@ -142,6 +143,7 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(EventCreateNavigator.eventScore);
     return false;
   }

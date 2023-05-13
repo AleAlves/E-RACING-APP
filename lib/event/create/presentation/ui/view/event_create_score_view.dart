@@ -93,6 +93,7 @@ class _EventCreateScoreViewState extends State<EventCreateScoreView>
       enabled: widget.viewModel.eventScore.isNotEmpty,
       type: ButtonType.primary,
       onPressed: () {
+        widget.viewModel.increaseStep();
         widget.viewModel.onFinishScore();
       },
       label: "Next",
@@ -161,6 +162,7 @@ class _EventCreateScoreViewState extends State<EventCreateScoreView>
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(EventCreateNavigator.eventRules);
     return false;
   }

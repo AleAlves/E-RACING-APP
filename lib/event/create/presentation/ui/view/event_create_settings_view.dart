@@ -194,6 +194,7 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
       enabled: true,
       type: ButtonType.primary,
       onPressed: () {
+        widget.viewModel.increaseStep();
         widget.viewModel.onFinishEventSettings();
       },
       label: "Next",
@@ -202,6 +203,7 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
 
   @override
   Future<bool> onBackPressed() async {
+    widget.viewModel.decreaseStep();
     widget.viewModel.onRoute(EventCreateNavigator.eventTags);
     return false;
   }

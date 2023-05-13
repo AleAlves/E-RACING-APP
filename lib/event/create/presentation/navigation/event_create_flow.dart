@@ -56,7 +56,7 @@ extension EventCreateNavigation on EventCreateNavigator {
       case EventCreateNavigator.eventStatus:
         return EventCreateStatusView(viewModel);
       default:
-        return EventCreateNameView(viewModel);
+        return Container();
     }
   }
 }

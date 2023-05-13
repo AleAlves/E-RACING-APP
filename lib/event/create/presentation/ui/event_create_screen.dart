@@ -22,6 +22,12 @@ class _EventCreateScreenState extends State<EventCreateScreen>
   final viewModel = Modular.get<EventCreateViewModel>();
 
   @override
+  void initState() {
+    super.initState();
+    viewModel.flow = widget.flow;
+  }
+
+  @override
   Widget build(BuildContext context) => mainObserver();
 
   @override
@@ -56,11 +62,6 @@ class _EventCreateScreenState extends State<EventCreateScreen>
       right: 0,
       top: 0,
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override

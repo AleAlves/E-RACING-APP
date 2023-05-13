@@ -4,16 +4,19 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/ui/component/ui/error_view.dart';
 import '../league_list_view_model.dart';
+import '../view/league_list_owned_view.dart';
 import '../view/league_list_view.dart';
 
-enum LeagueListNavigationSet { main, status }
+enum LeagueListRouterSet { main, owned, status }
 
-extension LeagueListNavigation on LeagueListNavigationSet {
+extension LeagueListRouting on LeagueListRouterSet {
   static Widget flow(LeagueListViewModel viewModel) {
     switch (viewModel.flow) {
-      case LeagueListNavigationSet.main:
+      case LeagueListRouterSet.main:
         return LeagueListView(viewModel);
-      case LeagueListNavigationSet.status:
+      case LeagueListRouterSet.owned:
+        return LeagueListOwnedView(viewModel);
+      case LeagueListRouterSet.status:
         return StatusView(viewModel);
       default:
         return ErrorView(viewModel);

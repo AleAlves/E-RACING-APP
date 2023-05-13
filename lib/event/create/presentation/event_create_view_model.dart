@@ -33,7 +33,7 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   ViewState state = ViewState.ready;
 
   @observable
-  int maxSteps = 9;
+  int maxSteps = 10;
 
   @observable
   int currentStep = 1;
@@ -87,6 +87,14 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
 
   final _getTagUseCase = Modular.get<GetTagUseCase>();
   final _createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
+
+  increaseStep() {
+    currentStep++;
+  }
+
+  decreaseStep() {
+    currentStep--;
+  }
 
   void setAgreement(bool termsAgreement) {
     onRoute(EventCreateNavigator.eventName);
