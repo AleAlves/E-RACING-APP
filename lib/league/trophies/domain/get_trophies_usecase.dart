@@ -15,7 +15,7 @@ class GetTrophiesUseCase<T> extends BaseUseCase<T> {
 
   @override
   Future<void> invoke(
-      {required Function(T?) success, required Function error}) async {
+      {required Function(T?) success, required Function failure}) async {
     var response = await super.remote(Request(
         endpoint: "api/v1/league/trophy/list",
         params: HTTPRequesParams(query: Pair("id", _leagueId)),
@@ -28,9 +28,7 @@ class GetTrophiesUseCase<T> extends BaseUseCase<T> {
               .toList() as T;
       success.call(list);
     } else {
-      error.call(ApiException(
-          message: response.response?.status,
-          isBusinessError: response.response?.code == 422));
+      failure.call(ApiException(message: response.response?.status));
     }
   }
 }

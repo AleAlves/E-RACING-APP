@@ -4,7 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'component/state/view_state_widget.dart';
 
-enum ViewState { ready, loading, error, status }
+enum ViewState { ready, loading, failure, status }
 
 abstract class BaseScreen {
   Observer mainObserver();

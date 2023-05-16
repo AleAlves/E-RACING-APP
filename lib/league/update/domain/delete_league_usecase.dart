@@ -15,7 +15,7 @@ class DeleteLeagueUseCase<T> extends BaseUseCase {
   }
 
   @override
-  void invoke({required Function(T) success, required Function error}) async {
+  void invoke({required Function(T) success, required Function failure}) async {
     var response = await super.remote(Request(
         endpoint: "api/v1/league",
         verb: HTTPVerb.delete,
@@ -26,9 +26,7 @@ class DeleteLeagueUseCase<T> extends BaseUseCase {
           action: "Ok",
           route: LeagueRouter.detail) as T);
     } else {
-      error.call(ApiException(
-          message: response.response?.status,
-          isBusinessError: response.response?.code == 422));
+      failure.call(ApiException(message: response.response?.status));
     }
   }
 }

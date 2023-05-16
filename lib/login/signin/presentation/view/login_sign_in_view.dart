@@ -10,6 +10,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../../core/ui/component/ui/text_widget.dart';
 import '../../../login_router.dart';
 import '../login_sign_in_view_model.dart';
 
@@ -34,6 +35,7 @@ class _LoginSignInViewState extends State<LoginSignInView>
     _emailController.text = '';
     _passwordController.text = '';
     widget.viewModel.getPublicKey();
+    observers();
     super.initState();
   }
 
@@ -112,7 +114,20 @@ class _LoginSignInViewState extends State<LoginSignInView>
                 return null;
               },
               inputType: InputType.password),
-          const SpacingWidget(LayoutSize.size16),
+          const SpacingWidget(LayoutSize.size8),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: Wrap(
+                children: [
+                  TextWidget(
+                      text: widget.viewModel.errorMessage, style: Style.error),
+                ],
+              ),
+            ),
+          ),
+          const SpacingWidget(LayoutSize.size8),
           ButtonWidget(
             enabled: true,
             type: ButtonType.link,
@@ -120,6 +135,14 @@ class _LoginSignInViewState extends State<LoginSignInView>
               Modular.to.pushNamed(LoginRouter.recovery);
             },
             label: "Forgot password",
+          ),
+          ButtonWidget(
+            enabled: true,
+            type: ButtonType.link,
+            onPressed: () {
+              Modular.to.pushNamed(LoginRouter.signUp);
+            },
+            label: "Create account",
           ),
         ],
       ),

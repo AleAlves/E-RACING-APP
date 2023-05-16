@@ -36,7 +36,7 @@ abstract class _LeagueListViewModel extends BaseViewModel<LeagueListRouterSet>
 
   @override
   @observable
-  String? title = "Leagues";
+  String? title = "Communities";
 
   @observable
   bool loginAutomatically = true;
@@ -62,7 +62,7 @@ abstract class _LeagueListViewModel extends BaseViewModel<LeagueListRouterSet>
           leagues = ObservableList.of(data!);
           _fetchTags();
         },
-        error: onError);
+        failure: onError);
   }
 
   getOwnedLeagues() async {
@@ -77,7 +77,7 @@ abstract class _LeagueListViewModel extends BaseViewModel<LeagueListRouterSet>
           }
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   searchEvents() async {
@@ -87,7 +87,7 @@ abstract class _LeagueListViewModel extends BaseViewModel<LeagueListRouterSet>
           leagues = ObservableList.of(data!);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   _fetchTags() async {
@@ -97,7 +97,7 @@ abstract class _LeagueListViewModel extends BaseViewModel<LeagueListRouterSet>
           tags = ObservableList.of(data);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   getUser() async {

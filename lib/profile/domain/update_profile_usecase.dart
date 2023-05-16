@@ -9,18 +9,18 @@ import 'model/profile_model.dart';
 
 class UpdateProfileUseCase<T> extends BaseUseCase<T> {
   late String _name;
-  late String _surname;
+  late String _surName;
   late String _country;
   late String? _picture;
 
   UpdateProfileUseCase<T> params({
     required String name,
-    required String surname,
+    required String surName,
     required String country,
     required String? picture,
   }) {
     _name = name;
-    _surname = surname;
+    _surName = surName;
     _country = country;
     _picture = picture;
     return this;
@@ -28,9 +28,9 @@ class UpdateProfileUseCase<T> extends BaseUseCase<T> {
 
   @override
   Future<void> invoke(
-      {required Function(T) success, required Function error}) async {
+      {required Function(T) success, required Function failure}) async {
     var profile = ProfileModel(
-        firstName: _name, surName: _surname, email: "", country: _country);
+        firstName: _name, surName: _surName, email: "", country: _country);
     var media = MediaModel(_picture);
     var request = HTTPRequesParams(
         data: ProfileUpdateRequest(profile: profile, picture: media),
@@ -42,9 +42,7 @@ class UpdateProfileUseCase<T> extends BaseUseCase<T> {
     if (response.isSuccessfully) {
       success.call(UserModel.fromJson(response.data) as T);
     } else {
-      error.call(ApiException(
-          message: response.response?.status,
-          isBusinessError: response.response?.code == 422));
+      failure.call(ApiException(message: response.response?.status));
     }
   }
 }

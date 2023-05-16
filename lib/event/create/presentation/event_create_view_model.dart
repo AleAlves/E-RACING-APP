@@ -212,7 +212,7 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
               state = ViewState.ready;
               onRoute(EventCreateNavigator.eventStatus);
             },
-            error: onError);
+            failure: onError);
   }
 
   void fetchTags() async {
@@ -222,6 +222,6 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
           tags = ObservableList.of(data);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 }

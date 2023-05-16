@@ -10,6 +10,7 @@ import '../../../../core/ui/component/ui/button_widget.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../../core/ui/component/ui/league_card_widget.dart';
 import '../../../../core/ui/component/ui/spacing_widget.dart';
+import '../../../../core/ui/component/ui/text_widget.dart';
 import '../../../LeagueRouter.dart';
 import '../league_list_view_model.dart';
 
@@ -63,6 +64,16 @@ class _LeagueListViewState extends State<LeagueListView>
 
   @override
   Widget content() {
+    return community();
+  }
+
+  Widget community() {
+    return widget.viewModel.leagues?.isEmpty == true
+        ? emptyListWidget()
+        : communityWidget();
+  }
+
+  Widget communityWidget() {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, top: 0),
       child: ListView.builder(
@@ -83,6 +94,28 @@ class _LeagueListViewState extends State<LeagueListView>
                 Modular.to.pushNamed(LeagueRouter.detail);
               });
         },
+      ),
+    );
+  }
+
+  Widget emptyListWidget() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SpacingWidget(LayoutSize.size256),
+          const TextWidget(
+            text: "No communities found",
+            style: Style.title,
+          ),
+          const SpacingWidget(LayoutSize.size24),
+          Icon(
+            Icons.playlist_remove_outlined,
+            size: 64,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ],
       ),
     );
   }

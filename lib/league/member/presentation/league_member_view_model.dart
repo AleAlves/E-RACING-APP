@@ -54,7 +54,7 @@ abstract class _LeagueMemberViewModel
           members = ObservableList.of(data!);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   removeMember(String id) {
@@ -66,6 +66,6 @@ abstract class _LeagueMemberViewModel
           fetchMembers();
           onRoute(LeagueMemberNavigationSet.status);
         },
-        error: onError);
+        failure: onError);
   }
 }

@@ -31,12 +31,13 @@ class MenuCardWidget extends StatelessWidget {
 
   Widget content(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8, bottom: 4, left: 8),
+      padding: const EdgeInsets.all(8),
       child: Wrap(
         direction: Axis.horizontal,
         children: [
           Row(
             children: [
+              const SpacingWidget(LayoutSize.size8),
               ButtonWidget(
                   enabled: true,
                   icon: icon,

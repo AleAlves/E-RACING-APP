@@ -18,7 +18,7 @@ class SaveUserUseCase<T> extends BaseUseCase<T> {
 
   @override
   Future<void> invoke(
-      {required Function(T) success, required Function error}) async {
+      {required Function(T) success, required Function failure}) async {
     var response = await super.local(StoreRequest("user", Operation.save,
         data: UserModel(
             profile: ProfileModel(email: _email),
@@ -26,9 +26,7 @@ class SaveUserUseCase<T> extends BaseUseCase<T> {
     if (response.isSuccessfully) {
       success.call(UserModel.fromJson(response.data ?? {}) as T);
     } else {
-      error.call(ApiException(
-          message: "error trying to retrive local data",
-          isBusinessError: false));
+      failure.call(ApiException(message: "error trying to retrive local data"));
     }
   }
 }

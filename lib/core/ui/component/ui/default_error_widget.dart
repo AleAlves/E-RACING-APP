@@ -36,7 +36,7 @@ class _ErrorWidgetState extends State<DefaultErrorWidget> {
                       type: ButtonType.icon,
                       icon: Icons.refresh,
                       onPressed: () {
-                        Modular.to.pushNamed(LoginRouter.signIn);
+                        Modular.to.popAndPushNamed(LoginRouter.signIn);
                       },
                       enabled: true,
                     ),

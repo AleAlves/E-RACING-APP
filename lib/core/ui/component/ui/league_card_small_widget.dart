@@ -6,7 +6,7 @@ import '../../../../home/domain/model/community_card_vo.dart';
 import 'banner_widget.dart';
 
 class LeagueCardSmallWidget extends StatefulWidget {
-  final List<CommunityCardVO?> leagues;
+  final List<CommunityCardVO?>? leagues;
   final Function(String?) onPressed;
 
   const LeagueCardSmallWidget(
@@ -32,7 +32,7 @@ class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
     return ListView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
-      itemCount: widget.leagues.length,
+      itemCount: widget.leagues?.length,
       itemBuilder: (context, index) {
         return cardWidget(index);
       },
@@ -45,10 +45,10 @@ class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
         CardWidget(
           padding: EdgeInsets.zero,
           onPressed: () {
-            widget.onPressed.call(widget.leagues[index]?.leagueId);
+            widget.onPressed.call(widget.leagues?[index]?.leagueId);
           },
           child: header(index),
-          ready: widget.leagues.isNotEmpty == true,
+          ready: widget.leagues?.isNotEmpty == true,
         ),
       ],
     );
@@ -58,7 +58,7 @@ class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
     return Column(
       children: [
         BannerWidget(
-          media: widget.leagues[index]?.media,
+          media: widget.leagues?[index]?.media,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8, bottom: 8),
@@ -76,7 +76,7 @@ class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextWidget(
-                text: widget.leagues[index]?.name,
+                text: widget.leagues?[index]?.name,
                 style: Style.subtitle,
                 align: TextAlign.left,
               ),

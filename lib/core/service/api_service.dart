@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/data/http_response.dart';
@@ -78,7 +77,7 @@ class ApiService extends BaseService {
       print(" *** Response Head: ${response.request?.headers} \n");
       print(" *** Response Status: ${response.statusCode} \n");
       print(" *** Response body: ${response.body} \n");
-    } on SocketException {
+    } on Exception {
       return HTTPResponse();
     }
     return returnResponses(response);

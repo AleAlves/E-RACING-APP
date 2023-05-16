@@ -53,7 +53,7 @@ abstract class _LoginSignUpViewModel
           Session.instance.setRSAKey(response);
           fetchTags();
         },
-        error: onError);
+        failure: onError);
   }
 
   void fetchTags() async {
@@ -62,16 +62,16 @@ abstract class _LoginSignUpViewModel
           tags = ObservableList.of(data);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
-  signIn(String name, String surname, String mail, String password,
+  signIn(String firstName, String surName, String mail, String password,
       String country, List<String> tags) async {
     state = ViewState.loading;
     await _signUpUseCase
         .params(
-            name: name,
-            surname: surname,
+            firstName: firstName,
+            surName: surName,
             email: mail,
             password: password,
             country: country,
@@ -82,6 +82,6 @@ abstract class _LoginSignUpViewModel
               state = ViewState.ready;
               onRoute(LoginSignUpNavigationSet.status);
             },
-            error: onError);
+            failure: onError);
   }
 }

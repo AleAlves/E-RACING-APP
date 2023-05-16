@@ -17,8 +17,12 @@ abstract class BaseViewModel<Router> with Store {
   @observable
   abstract ViewState state;
 
+  @observable
+  String? error;
+
   void onError(ApiException route) {
-    state = ViewState.error;
+    error = route.message;
+    state = ViewState.failure;
   }
 
   void onRoute(Router route) {

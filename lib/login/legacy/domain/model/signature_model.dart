@@ -6,7 +6,7 @@ part 'signature_model.g.dart';
 class SignatureModel {
   @JsonKey(name: '_id')
   final String? id;
-  final bool? organizer;
+  final bool? isManager;
   final int? maxGroups;
   final int? maxLeagues;
   final int? maxEvents;
@@ -14,7 +14,7 @@ class SignatureModel {
 
   SignatureModel(
       {this.id,
-      this.organizer,
+      this.isManager,
       this.maxGroups,
       this.maxLeagues,
       this.maxEvents,

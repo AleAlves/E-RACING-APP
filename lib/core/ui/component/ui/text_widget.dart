@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum Style { title, subtitle, paragraph, caption, button }
+enum Style { title, subtitle, paragraph, caption, button, error }
 
 class TextWidget extends StatelessWidget {
   final String? text;
@@ -42,6 +42,11 @@ class TextWidget extends StatelessWidget {
             .textTheme
             .caption
             ?.copyWith(color: color, fontSize: 14);
+      case Style.error:
+        return Theme.of(context)
+            .textTheme
+            .caption
+            ?.copyWith(color: Colors.red, fontSize: 14);
       case Style.button:
         return Theme.of(context)
             .textTheme

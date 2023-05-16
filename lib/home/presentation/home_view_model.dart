@@ -42,7 +42,7 @@ abstract class _HomeViewModel extends BaseViewModel<HomeRouter> with Store {
   MediaModel? picture;
 
   @observable
-  ObservableList<CommunityCardVO?> leagues = ObservableList();
+  ObservableList<CommunityCardVO?>? communities;
 
   @override
   @observable
@@ -64,16 +64,16 @@ abstract class _HomeViewModel extends BaseViewModel<HomeRouter> with Store {
   }
 
   getPlayerLeagues() {
-    leagues.clear();
+    communities = null;
     _leagueUseCase.invoke(
         success: (data) {
           ObservableList.of(data!).asMap().forEach((index, element) {
-            leagues.add(CommunityCardVO(
+            communities?.add(CommunityCardVO(
                 leagueId: element.id, name: element.name, media: null));
             _getLeaguesMedia(index, element.id);
           });
         },
-        error: () {});
+        failure: () {});
   }
 
   getNotificationsCount() {
@@ -81,18 +81,18 @@ abstract class _HomeViewModel extends BaseViewModel<HomeRouter> with Store {
         success: (data) {
           notificationsCount = data;
         },
-        error: () {});
+        failure: () {});
   }
 
   _getLeaguesMedia(int index, String? id) async {
     await _getMediaUseCase.params(id: id).invoke(
         success: (data) {
-          var name = leagues[index]?.name;
-          var id = leagues[index]?.leagueId;
-          leagues[index] =
+          var name = communities?[index]?.name;
+          var id = communities?[index]?.leagueId;
+          communities?[index] =
               CommunityCardVO(leagueId: id, name: name, media: data);
         },
-        error: () {});
+        failure: () {});
   }
 
   _getMedia(String? id) async {
@@ -100,7 +100,7 @@ abstract class _HomeViewModel extends BaseViewModel<HomeRouter> with Store {
         success: (data) {
           picture = data;
         },
-        error: () {});
+        failure: () {});
   }
 
   goToLeague(String? leagueId) {

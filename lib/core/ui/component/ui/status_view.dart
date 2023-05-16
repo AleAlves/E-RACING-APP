@@ -53,8 +53,16 @@ class _StatusViewState extends State<StatusView> implements BaseSateWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SpacingWidget(LayoutSize.size128),
-          TextWidget(
-              text: widget.viewModel.status?.message ?? '', style: Style.title),
+          Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Wrap(
+              children: [
+                TextWidget(
+                    text: widget.viewModel.status?.message ?? '',
+                    style: Style.title),
+              ],
+            ),
+          ),
           const SpacingWidget(LayoutSize.size48),
           Icon(
             widget.viewModel.status?.error == true

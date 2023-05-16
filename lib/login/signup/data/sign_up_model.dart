@@ -5,8 +5,8 @@ part 'sign_up_model.g.dart';
 @JsonSerializable()
 class SignUpUserModel {
   final String? email;
-  final String? name;
-  final String? surname;
+  final String? firstName;
+  final String? surName;
   final String? country;
   final List<String?>? tags;
   final String? password;
@@ -14,8 +14,8 @@ class SignUpUserModel {
 
   SignUpUserModel(
       {this.email,
-      this.name,
-      this.surname,
+      this.firstName,
+      this.surName,
       this.country,
       this.tags,
       this.password,

@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/model/status_model.dart';
+import '../../../core/service/api_exception.dart';
 import '../../../core/tools/crypto/crypto_service.dart';
 import '../../../core/tools/session.dart';
 import '../../../core/ui/view_state.dart';
@@ -13,7 +14,7 @@ import '../../legacy/domain/model/user_model.dart';
 import '../../legacy/domain/usecase/get_public_key_usecase.dart';
 import '../../legacy/domain/usecase/get_user_usecase.dart';
 import '../../legacy/domain/usecase/save_user_usecase.dart';
-import '../../legacy/domain/usecase/sign_in_usecase.dart';
+import '../domain/sign_in_usecase.dart';
 import 'navigation/login_sign_in_navigation.dart';
 
 part 'login_sign_in_view_model.g.dart';
@@ -44,28 +45,32 @@ abstract class _LoginSignInViewModel
   String? title = "";
 
   @observable
+  String? errorMessage = "";
+
+  @observable
   bool loginAutomatically = true;
 
-  final publicKeyUseCase = Modular.get<GetPublicKeyUseCase<PublicKeyModel>>();
-  final getUserUseCase = Modular.get<GetUserUseCase<UserModel?>>();
-  final loginUseCase = Modular.get<LoginUseCase<LoginResponse>>();
-  final saveUserUseCase = Modular.get<SaveUserUseCase>();
+  final _publicKeyUseCase = Modular.get<GetPublicKeyUseCase<PublicKeyModel>>();
+  final _getUserUseCase = Modular.get<GetUserUseCase<UserModel?>>();
+  final _signInUseCase = Modular.get<SignInUseCase<LoginResponse>>();
+  final _saveUserUseCase = Modular.get<SaveUserUseCase>();
 
   void getPublicKey() async {
     state = ViewState.loading;
-    await publicKeyUseCase.invoke(
+    await _publicKeyUseCase.invoke(
         success: (response) {
           Session.instance
               .setKeyChain(CryptoService.instance.generateAESKeys());
           Session.instance.setRSAKey(response);
           getUser();
         },
-        error: onError);
+        failure: onError);
   }
 
   login(String email, String password) async {
     state = ViewState.loading;
-    await loginUseCase.params(email: email, password: password).invoke(
+    errorMessage = "";
+    await _signInUseCase.params(email: email, password: password).invoke(
         success: (data) {
           Session.instance.setBearerToken(data.bearerToken);
           Session.instance.setUser(data.user);
@@ -81,18 +86,23 @@ abstract class _LoginSignInViewModel
             }
           }
         },
-        error: onError);
+        failure: onLoginFailure);
+  }
+
+  void onLoginFailure(ApiException route) {
+    errorMessage = route.message;
+    state = ViewState.ready;
   }
 
   saveUser(String email, String password) async {
-    await saveUserUseCase
+    await _saveUserUseCase
         .params(email: email, password: password)
-        .invoke(success: (data) {}, error: onError);
+        .invoke(success: (data) {}, failure: onError);
   }
 
   void getUser() async {
     state = ViewState.loading;
-    await getUserUseCase.invoke(
+    await _getUserUseCase.invoke(
         success: (data) {
           if (data != null && loginAutomatically) {
             user = data;
@@ -102,6 +112,6 @@ abstract class _LoginSignInViewModel
             state = ViewState.ready;
           }
         },
-        error: onError);
+        failure: onError);
   }
 }

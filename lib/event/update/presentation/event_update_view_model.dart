@@ -131,7 +131,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
           });
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   _getEventBanner(String? leagueId) async {
@@ -139,7 +139,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
         success: (data) {
           banner = data;
         },
-        error: onError);
+        failure: onError);
   }
 
   _getRacePoster(String? raceId) async {
@@ -149,7 +149,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
           racePoster = data;
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   goToRaceDetail(RaceModel? raceModel) {
@@ -166,7 +166,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
           raceStandings = data;
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   updateStandings() async {
@@ -175,7 +175,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
         success: (data) {
           raceStandings = data;
         },
-        error: onError);
+        failure: onError);
   }
 
   Future<void> removeRegister(String? classId, String userId) async {
@@ -190,7 +190,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
               status = data;
               state = ViewState.ready;
             },
-            error: onError);
+            failure: onError);
   }
 
   setSummaryResult(SetSummaryModel? summaryModel) async {
@@ -199,7 +199,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
         success: (data) {
           getStandings();
         },
-        error: onError);
+        failure: onError);
   }
 
   toggleSubscriptions() {
@@ -210,7 +210,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
           state = ViewState.ready;
           onRoute(EventUpdateRouter.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   toggleMembersOnly() {
@@ -221,7 +221,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
           state = ViewState.ready;
           onRoute(EventUpdateRouter.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   updateEvent() async {
@@ -245,7 +245,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
           state = ViewState.ready;
           onRoute(EventUpdateRouter.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   updateRace(RaceModel? model) async {
@@ -261,6 +261,6 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
               state = ViewState.ready;
               onRoute(EventUpdateRouter.status);
             },
-            error: onError);
+            failure: onError);
   }
 }

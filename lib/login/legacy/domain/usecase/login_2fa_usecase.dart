@@ -18,7 +18,7 @@ class Login2FAUseCase<T> extends BaseUseCase<T?> {
 
   @override
   Future<void> invoke(
-      {required Function(T?) success, required Function error}) async {
+      {required Function(T?) success, required Function failure}) async {
     var response = await super.remote(Request(
         endpoint: "api/v1/auth/2fa/validate",
         verb: HTTPVerb.post,
@@ -32,9 +32,7 @@ class Login2FAUseCase<T> extends BaseUseCase<T?> {
           message: "2FA Logged successfuly", action: "ok", route: "");
       success.call(wow as T);
     } else {
-      error.call(ApiException(
-          message: response.response?.status,
-          isBusinessError: response.response?.code == 422));
+      failure.call(ApiException(message: response.response?.status));
     }
   }
 }

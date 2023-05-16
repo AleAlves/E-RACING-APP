@@ -117,7 +117,7 @@ abstract class _LeagueCreateViewModel
           tags = ObservableList.of(data);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   void fetchSocialMedias() async {
@@ -127,7 +127,7 @@ abstract class _LeagueCreateViewModel
           socialMedias = ObservableList.of(data);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   Future<void> create() async {
@@ -146,6 +146,6 @@ abstract class _LeagueCreateViewModel
               onRoute(LeagueCreateNavigator.status);
               state = ViewState.ready;
             },
-            error: onError);
+            failure: onError);
   }
 }

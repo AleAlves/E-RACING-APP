@@ -192,7 +192,7 @@ class _EventSearchViewState extends State<EventSearchView>
         children: [
           const SpacingWidget(LayoutSize.size256),
           const TextWidget(
-            text: "Not events found",
+            text: "No events found",
             style: Style.title,
           ),
           const SpacingWidget(LayoutSize.size24),

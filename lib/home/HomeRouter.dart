@@ -1,5 +1,5 @@
 import '../core/navigation/routes.dart';
 
 class HomeRouter extends Routes {
-  static String main = "/home";
+  static String main = "/home/";
 }

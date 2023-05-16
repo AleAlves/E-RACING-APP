@@ -82,7 +82,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
               users = ObservableList.of(data?.users ?? []);
               state = ViewState.ready;
             },
-            error: onError);
+            failure: onError);
   }
 
   getStandings() async {
@@ -94,7 +94,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
           state = ViewState.ready;
           title = raceStandings?.raceName;
         },
-        error: onError);
+        failure: onError);
   }
 
   updateStandings() async {
@@ -104,7 +104,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
           raceStandings = data;
           isUpdatingResults = false;
         },
-        error: onError);
+        failure: onError);
   }
 
   Future<void> removeRegister(String? classId, String userId) async {
@@ -119,7 +119,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
               status = data;
               state = ViewState.ready;
             },
-            error: onError);
+            failure: onError);
   }
 
   setSummaryResult(SetSummaryModel? summaryModel) async {
@@ -128,7 +128,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
         success: (data) {
           updateStandings();
         },
-        error: onError);
+        failure: onError);
   }
 
   toggleSubscriptions() {
@@ -139,7 +139,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
           state = ViewState.ready;
           onRoute(EventManageRouter.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   toggleMembersOnly() {
@@ -150,7 +150,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
           state = ViewState.ready;
           onRoute(EventManageRouter.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   goToRace(String id) {
@@ -167,7 +167,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
           state = ViewState.ready;
           onRoute(EventManageRouter.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   finishEvent() async {
@@ -178,7 +178,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
           state = ViewState.ready;
           onRoute(EventManageRouter.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   finishRace() async {
@@ -188,7 +188,7 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
           status = data;
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   cancelRace() async {
@@ -198,6 +198,6 @@ abstract class _EventManageViewModel extends BaseViewModel<EventManageRouter>
           status = data;
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 }

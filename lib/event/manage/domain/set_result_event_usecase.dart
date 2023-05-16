@@ -16,7 +16,7 @@ class SetSummaryUseCase<T> extends BaseUseCase<T> {
 
   @override
   Future<void> invoke(
-      {required Function(T) success, required Function error}) async {
+      {required Function(T) success, required Function failure}) async {
     var response = await super.remote(Request(
         endpoint: "api/v1/event/result",
         verb: HTTPVerb.post,
@@ -25,9 +25,7 @@ class SetSummaryUseCase<T> extends BaseUseCase<T> {
       success.call(
           StatusModel(message: "", action: "", route: EventRouter.manage) as T);
     } else {
-      error.call(ApiException(
-          message: response.response?.status,
-          isBusinessError: response.response?.code == 422));
+      failure.call(ApiException(message: response.response?.status));
     }
   }
 }

@@ -51,7 +51,7 @@ abstract class _NotificationViewModel with Store {
           notifications = ObservableList.of(data!);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   goToPushDeeplink(document) {
@@ -59,7 +59,7 @@ abstract class _NotificationViewModel with Store {
         success: (flow) {
           Modular.to.pushNamed(flow ?? '');
         },
-        error: onError);
+        failure: onError);
   }
 
   void retry() {

@@ -51,7 +51,7 @@ abstract class _LoginPasswordRecoveryViewModel
           state = ViewState.ready;
           onRoute(LoginPasswordRecoveryNavigationSet.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   forgot(String email) async {
@@ -63,7 +63,7 @@ abstract class _LoginPasswordRecoveryViewModel
           state = ViewState.ready;
           onRoute(LoginPasswordRecoveryNavigationSet.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   reset(String password, String code) async {
@@ -76,6 +76,6 @@ abstract class _LoginPasswordRecoveryViewModel
               state = ViewState.ready;
               onRoute(LoginPasswordRecoveryNavigationSet.status);
             },
-            error: onError);
+            failure: onError);
   }
 }

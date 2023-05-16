@@ -6,7 +6,7 @@ import 'package:e_racing_app/core/service/api_exception.dart';
 class GetSocialMediaUseCase<T> extends BaseUseCase<T> {
   @override
   Future<void> invoke(
-      {required Function(T) success, required Function error}) async {
+      {required Function(T) success, required Function failure}) async {
     var response = await super.remote(
         Request(endpoint: "api/v1/social-platforms", verb: HTTPVerb.get));
     if (response.isSuccessfully) {
@@ -15,9 +15,7 @@ class GetSocialMediaUseCase<T> extends BaseUseCase<T> {
               (tags) => SocialPlatformModel.fromJson(tags))
           .toList() as T);
     } else {
-      error.call(ApiException(
-          message: response.response?.status,
-          isBusinessError: response.response?.code == 422));
+      failure.call(ApiException(message: response.response?.status));
     }
   }
 }

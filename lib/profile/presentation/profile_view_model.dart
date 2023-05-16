@@ -62,18 +62,18 @@ abstract class _ProfileViewModel extends BaseViewModel<ProfileNavigationSet>
           tags = ObservableList.of(data);
           _getMedia(Session.instance.getUser()?.id);
         },
-        error: onError);
+        failure: onError);
   }
 
   void setPicture(String picture) {
     this.picture?.image = picture;
   }
 
-  update(String name, String surname, String country, String picture) async {
+  update(String name, String surName, String country, String picture) async {
     state = ViewState.loading;
     await _profile
         .params(
-            name: name, surname: surname, country: country, picture: picture)
+            name: name, surName: surName, country: country, picture: picture)
         .invoke(
             success: (data) {
               Session.instance.setUser(data);
@@ -84,7 +84,7 @@ abstract class _ProfileViewModel extends BaseViewModel<ProfileNavigationSet>
               state = ViewState.ready;
               flow = ProfileNavigationSet.status;
             },
-            error: onError);
+            failure: onError);
   }
 
   _getMedia(String? id) async {
@@ -93,6 +93,6 @@ abstract class _ProfileViewModel extends BaseViewModel<ProfileNavigationSet>
           picture = data;
           state = ViewState.ready;
         },
-        error: () {});
+        failure: () {});
   }
 }

@@ -3,7 +3,6 @@ import 'package:e_racing_app/core/ui/component/ui/button_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/country_picker_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -25,18 +24,18 @@ class _LoginSignUpViewState extends State<LoginSignUpView>
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
   final _mailController = TextEditingController();
-  final _nameController = TextEditingController();
-  final _surnameController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _surNameController = TextEditingController();
   late String password = "";
   late String? country = "BR";
   List<String> tags = [];
 
   @override
   void initState() {
-    _nameController.text = '';
+    _firstNameController.text = '';
     _mailController.text = '';
     _passwordController.text = '';
-    _surnameController.text = '';
+    _surNameController.text = '';
     widget.viewModel.getPublicKey();
     super.initState();
   }
@@ -71,13 +70,11 @@ class _LoginSignUpViewState extends State<LoginSignUpView>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SpacingWidget(LayoutSize.size48),
-          const TextWidget(text: "Create Account", style: Style.paragraph),
-          const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
               enabled: true,
               label: 'Name',
               icon: Icons.person,
-              controller: _nameController,
+              controller: _firstNameController,
               validator: (value) {
                 if (value == null || value.isEmpty == true) {
                   return 'valid name needed';
@@ -87,12 +84,12 @@ class _LoginSignUpViewState extends State<LoginSignUpView>
           const SpacingWidget(LayoutSize.size16),
           InputTextWidget(
               enabled: true,
-              label: 'Surname',
+              label: 'surName',
               icon: Icons.person,
-              controller: _surnameController,
+              controller: _surNameController,
               validator: (value) {
                 if (value == null || value.isEmpty == true) {
-                  return 'valid surname needed';
+                  return 'valid surName needed';
                 }
                 return null;
               }),
@@ -195,8 +192,8 @@ class _LoginSignUpViewState extends State<LoginSignUpView>
       type: ButtonType.primary,
       onPressed: () {
         widget.viewModel.signIn(
-            _nameController.text,
-            _surnameController.text,
+            _firstNameController.text,
+            _surNameController.text,
             _mailController.text,
             _passwordController.text,
             country ?? '',

@@ -39,6 +39,6 @@ abstract class _LoginOnboardViewModel
         success: (data) {
           Modular.to.pushNamed(route);
         },
-        error: onError);
+        failure: onError);
   }
 }

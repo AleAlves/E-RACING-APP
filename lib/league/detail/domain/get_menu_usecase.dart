@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 
 class GetMenuUseCase<T> extends BaseUseCase<T?> {
   @override
-  void invoke({required Function(T?) success, required Function error}) async {
+  void invoke(
+      {required Function(T?) success, required Function failure}) async {
     List<ShortcutModel> menu = [];
     menu.add(ShortcutModel(
         title: "All events",

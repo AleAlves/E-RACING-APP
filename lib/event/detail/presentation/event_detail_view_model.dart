@@ -119,7 +119,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
               _getStandings();
               state = ViewState.ready;
             },
-            error: onError);
+            failure: onError);
   }
 
   Future<void> getRaceStandings() async {
@@ -129,7 +129,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
           raceStandings = data;
           _getRacePoster(race?.id);
         },
-        error: onError);
+        failure: onError);
   }
 
   Future<void> getTeamsStandings() async {
@@ -138,7 +138,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
         success: (data) {
           teamsStandings = data;
         },
-        error: onError);
+        failure: onError);
   }
 
   _getEventBanner(String eventId) async {
@@ -146,7 +146,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
         success: (data) {
           eventBanner = data;
         },
-        error: onError);
+        failure: onError);
   }
 
   _getRacePoster(String? raceId) async {
@@ -159,7 +159,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
             shouldLoadDefaultPoster = true;
           }
         },
-        error: onError);
+        failure: onError);
   }
 
   _getStandings() async {
@@ -167,7 +167,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
         success: (data) {
           standings = data;
         },
-        error: onError);
+        failure: onError);
   }
 
   void subscribe(String? classId) async {
@@ -179,7 +179,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
           onRoute(EventDetailRouter.status);
           getEvent();
         },
-        error: onError);
+        failure: onError);
   }
 
   void unsubscribe(String? classId) async {
@@ -191,7 +191,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
           state = ViewState.ready;
           onRoute(EventDetailRouter.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   void createTeam(String name, List<String?> ids) async {
@@ -204,7 +204,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
           state = ViewState.ready;
           onRoute(EventDetailRouter.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   void joinTeam(String? id) async {
@@ -216,7 +216,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
           state = ViewState.ready;
           onRoute(EventDetailRouter.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   void leaveTeam(String? id) async {
@@ -228,7 +228,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
           state = ViewState.ready;
           onRoute(EventDetailRouter.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   void deleteTeam(String? id) async {
@@ -240,7 +240,7 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
           state = ViewState.ready;
           onRoute(EventDetailRouter.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   goToRace(String id) {

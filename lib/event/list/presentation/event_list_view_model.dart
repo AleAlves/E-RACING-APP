@@ -53,7 +53,7 @@ abstract class _EventListViewModel extends BaseViewModel<EventListRouter>
           events = ObservableList.of(data);
           _getTags();
         },
-        error: onError);
+        failure: onError);
   }
 
   _getTags() async {
@@ -62,6 +62,6 @@ abstract class _EventListViewModel extends BaseViewModel<EventListRouter>
           tags = ObservableList.of(data);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 }

@@ -1,5 +1,4 @@
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
-import 'package:e_racing_app/core/ui/component/ui/profile_card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
@@ -8,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/tools/session.dart';
 import '../../../core/ui/component/state/loading_shimmer.dart';
+import '../../../core/ui/component/ui/button_widget.dart';
 import '../../../core/ui/component/ui/league_card_small_widget.dart';
 import '../../../core/ui/component/ui/menu_card_widget.dart';
 import '../../../league/LeagueRouter.dart';
@@ -59,7 +60,7 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
         profileWidget(),
         managerWidget(),
         discoverWidget(),
-        communitiesWidget()
+        communities()
       ],
     );
   }
@@ -67,17 +68,12 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
   Widget profileWidget() {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-      child: ProfileCardWidget(
-        onPressed: () {
-          widget.viewModel.goToProfile();
-        },
-        viewModel: widget.viewModel,
-      ),
+      child: Container(),
     );
   }
 
   Widget managerWidget() {
-    return true
+    return Session.instance.getUser()?.signature?.isManager == true
         ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,21 +140,82 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
     );
   }
 
+  Widget communities() {
+    return widget.viewModel.communities == null
+        ? communitiesSkeleton()
+        : communitiesWidget();
+  }
+
+  Widget communitiesSkeleton() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          LoadingShimmer(
+            height: MediaQuery.of(context).size.height * 0.03,
+            width: MediaQuery.of(context).size.width * 0.5,
+          ),
+          LoadingShimmer(
+            height: MediaQuery.of(context).size.height * 0.1,
+          ),
+          LoadingShimmer(
+            height: MediaQuery.of(context).size.height * 0.1,
+          )
+        ],
+      ),
+    );
+  }
+
   Widget communitiesWidget() {
+    return widget.viewModel.communities?.isEmpty == true
+        ? communitiesEmpty()
+        : communitiesContent();
+  }
+
+  Widget communitiesEmpty() {
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        children: [
+          const SpacingWidget(LayoutSize.size48),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Wrap(
+              children: const [
+                TextWidget(
+                    text: "You're not member of any community yet",
+                    style: Style.subtitle),
+              ],
+            ),
+          ),
+          const SpacingWidget(LayoutSize.size16),
+          ButtonWidget(
+              enabled: true,
+              type: ButtonType.link,
+              label: "Start searching",
+              onPressed: () {
+                Modular.to.pushNamed(LeagueRouter.list);
+              })
+        ],
+      ),
+    );
+  }
+
+  Widget communitiesContent() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        widget.viewModel.leagues.isEmpty
-            ? const LoadingShimmer()
-            : const Padding(
-                padding: EdgeInsets.all(16),
-                child: TextWidget(text: "Your communities", style: Style.title),
-              ),
+        const Padding(
+          padding: EdgeInsets.all(16),
+          child: TextWidget(text: "Your communities", style: Style.title),
+        ),
         Padding(
           padding: const EdgeInsets.all(8),
           child: LeagueCardSmallWidget(
-              leagues: widget.viewModel.leagues,
+              leagues: widget.viewModel.communities,
               onPressed: (leagueId) {
                 widget.viewModel.goToLeague(leagueId);
               }),

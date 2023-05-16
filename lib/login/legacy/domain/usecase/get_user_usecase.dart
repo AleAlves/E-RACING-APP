@@ -7,16 +7,14 @@ import '../model/user_model.dart';
 class GetUserUseCase<T> extends BaseUseCase<T?> {
   @override
   Future<void> invoke(
-      {required Function(T?) success, required Function error}) async {
+      {required Function(T?) success, required Function failure}) async {
     var response = await super.local(StoreRequest("user", Operation.fetch));
     if (response.isSuccessfully) {
       var data =
           response.data == null ? null : UserModel.fromJson(response.data) as T;
       success.call(data);
     } else {
-      error.call(ApiException(
-          message: "error trying to retrive local data",
-          isBusinessError: false));
+      failure.call(ApiException(message: "error trying to retrive local data"));
     }
   }
 }

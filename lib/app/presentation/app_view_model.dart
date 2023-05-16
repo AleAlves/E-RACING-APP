@@ -55,6 +55,6 @@ abstract class _LoginViewModel extends BaseViewModel<AppNavigationSet>
           }
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 }

@@ -4,27 +4,28 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
 import 'package:e_racing_app/core/tools/session.dart';
+import 'package:e_racing_app/login/login_router.dart';
 
 import '../data/sign_up_model.dart';
 import '../data/sign_up_request.dart';
 
 class SignUpUseCase<T> extends BaseUseCase<T> {
-  late String _name;
-  late String _surname;
+  late String _firstName;
+  late String _surName;
   late String _email;
   late String _password;
   late String _country;
   late List<String>? _tags;
 
   SignUpUseCase<T> params(
-      {required String name,
-      required String surname,
+      {required String firstName,
+      required String surName,
       required String email,
       required String password,
       required String country,
       required List<String> tags}) {
-    _name = name;
-    _surname = surname;
+    _firstName = firstName;
+    _surName = surName;
     _email = email;
     _password = password;
     _country = country;
@@ -34,10 +35,10 @@ class SignUpUseCase<T> extends BaseUseCase<T> {
 
   @override
   Future<void> invoke(
-      {required Function(T) success, required Function error}) async {
+      {required Function(T) success, required Function failure}) async {
     var signingUp = SignUpUserModel(
-        name: _name,
-        surname: _surname,
+        firstName: _firstName,
+        surName: _surName,
         email: _email,
         country: _country,
         tags: _tags,
@@ -49,13 +50,14 @@ class SignUpUseCase<T> extends BaseUseCase<T> {
         endpoint: "api/v1/auth/signup", verb: HTTPVerb.post, params: request));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Account created\n now check your email to continue",
+          message: "Account created.\n Now check your email to continue",
           action: "Ok",
-          route: "") as T);
+          route: LoginRouter.signIn) as T);
     } else {
-      error.call(ApiException(
-          message: response.response?.status,
-          isBusinessError: response.response?.code == 422));
+      var message = response.response?.code == 422
+          ? "Email Already registered"
+          : response.response?.status;
+      failure.call(ApiException(message: message));
     }
   }
 }

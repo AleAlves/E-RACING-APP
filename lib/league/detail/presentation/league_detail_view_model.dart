@@ -108,7 +108,7 @@ abstract class _LeagueDetailViewModel
           status = data;
           onRoute(LeagueDetailNavigationSet.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   void getBanner(String? id) async {
@@ -120,7 +120,7 @@ abstract class _LeagueDetailViewModel
             shouldLoadDefaultPoster = true;
           }
         },
-        error: onError);
+        failure: onError);
   }
 
   void fetchSocialMedias() async {
@@ -130,7 +130,7 @@ abstract class _LeagueDetailViewModel
           socialMedias = ObservableList.of(data);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   Future<void> getLeague() async {
@@ -152,7 +152,7 @@ abstract class _LeagueDetailViewModel
                   name: league?.name);
               state = ViewState.ready;
             },
-            error: onError);
+            failure: onError);
   }
 
   delete() async {
@@ -161,7 +161,7 @@ abstract class _LeagueDetailViewModel
         success: (data) {
           status = data;
         },
-        error: onError);
+        failure: onError);
   }
 
   startMembership() async {
@@ -175,7 +175,7 @@ abstract class _LeagueDetailViewModel
               _updateMembership(true);
               state = ViewState.ready;
             },
-            error: onError);
+            failure: onError);
   }
 
   Future<void> stopMembership() async {
@@ -189,7 +189,7 @@ abstract class _LeagueDetailViewModel
               _updateMembership(false);
               state = ViewState.ready;
             },
-            error: onError);
+            failure: onError);
   }
 
   _updateMembership(bool isMember) {
@@ -201,7 +201,7 @@ abstract class _LeagueDetailViewModel
         success: (data) {
           menus = ObservableList.of(data!);
         },
-        error: onError);
+        failure: onError);
   }
 
   void fetchMembers() {
@@ -211,7 +211,7 @@ abstract class _LeagueDetailViewModel
           members = ObservableList.of(data!);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   void removeMember(String id) {
@@ -221,7 +221,7 @@ abstract class _LeagueDetailViewModel
           status = data;
           onRoute(LeagueDetailNavigationSet.status);
         },
-        error: onError);
+        failure: onError);
   }
 
   void deeplink(ShortcutModel? shortcut) {
@@ -239,7 +239,7 @@ abstract class _LeagueDetailViewModel
             success: (data) {
               events = ObservableList.of(data);
             },
-            error: onError);
+            failure: onError);
   }
 
   fetchTags() async {
@@ -249,7 +249,7 @@ abstract class _LeagueDetailViewModel
           tags = ObservableList.of(data);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   gotToEvent() {

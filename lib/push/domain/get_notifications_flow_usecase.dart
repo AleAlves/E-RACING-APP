@@ -19,7 +19,7 @@ class GetNotificationsFlowUseCase<T> extends BaseUseCase<T?> {
 
   @override
   Future<T?> invoke(
-      {required Function(T?) success, required Function error}) async {
+      {required Function(T?) success, required Function failure}) async {
     String? action;
     String? raceAction;
     String? eventAction;

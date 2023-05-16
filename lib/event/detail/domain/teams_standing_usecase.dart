@@ -15,7 +15,7 @@ class TeamsStandingUseCase<T> extends BaseUseCase<T> {
 
   @override
   Future<void> invoke(
-      {required Function(T) success, required Function error}) async {
+      {required Function(T) success, required Function failure}) async {
     var response = await super.remote(Request(
         endpoint: "api/v1/event/teams/standings",
         params: HTTPRequesParams(query: Pair("id", _id)),
@@ -23,9 +23,7 @@ class TeamsStandingUseCase<T> extends BaseUseCase<T> {
     if (response.isSuccessfully) {
       success.call(EventTeamsStandingsModel.fromJson(response.data) as T);
     } else {
-      error.call(ApiException(
-          message: response.response?.status,
-          isBusinessError: response.response?.code == 422));
+      failure.call(ApiException(message: response.response?.status));
     }
   }
 }

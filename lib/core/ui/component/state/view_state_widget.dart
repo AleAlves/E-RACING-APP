@@ -25,15 +25,15 @@ class ViewStateWidget extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => _content(context);
+  Widget build(BuildContext context) => _content(context) ?? Container();
 
-  Widget _content(BuildContext context) {
+  Widget? _content(BuildContext context) {
     switch (state) {
       case ViewState.ready:
         return _scaffold(context, body);
       case ViewState.loading:
         return const LoadingRipple();
-      case ViewState.error:
+      case ViewState.failure:
       default:
         return const DefaultErrorWidget();
     }
@@ -41,10 +41,9 @@ class ViewStateWidget extends StatelessWidget {
 
   Widget _scaffold(BuildContext context, Widget content) {
     return Scaffold(
-      body: _scope(context, content),
-      bottomNavigationBar: bottomSheetWidget(context),
-      floatingActionButton: floatAction,
-    );
+        body: _scope(context, content),
+        bottomNavigationBar: bottomSheetWidget(context),
+        floatingActionButton: floatAction);
   }
 
   Widget? bottomSheetWidget(BuildContext context) {

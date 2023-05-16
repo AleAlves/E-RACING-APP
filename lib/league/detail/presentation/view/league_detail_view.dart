@@ -107,17 +107,20 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
   Widget leagueTitle() {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8),
-      child: Wrap(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextWidget(
-              text: widget.viewModel.league?.name ?? '',
-              style: Style.title,
-              align: TextAlign.left,
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Wrap(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextWidget(
+                text: widget.viewModel.league?.name ?? '',
+                style: Style.title,
+                align: TextAlign.left,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -126,18 +129,11 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Wrap(
-          children: const [
-            TextWidget(text: "Social media", style: Style.subtitle)
-          ],
-        ),
-        const SpacingWidget(LayoutSize.size32),
         SocialCollectionWidget(
           hide: widget.viewModel.league?.links == null,
           links: widget.viewModel.league?.links,
           socialPlatforms: widget.viewModel.socialMedias,
         ),
-        const SpacingWidget(LayoutSize.size32),
       ],
     );
   }
@@ -149,7 +145,7 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
         Wrap(
           children: const [
             TextWidget(
-              text: "Description",
+              text: "About",
               style: Style.subtitle,
               align: TextAlign.start,
             ),
@@ -176,14 +172,6 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
   Widget leagueTags() {
     return Wrap(
       children: [
-        Row(
-          children: const [
-            TextWidget(
-              text: "Tags",
-              style: Style.subtitle,
-            ),
-          ],
-        ),
         Column(
           children: [
             const SpacingWidget(LayoutSize.size32),

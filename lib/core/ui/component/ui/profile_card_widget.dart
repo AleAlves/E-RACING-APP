@@ -30,7 +30,7 @@ class ProfileCardWidget extends StatelessWidget {
               : Column(
                   children: [
                     pictureWidget(context),
-                    const SpacingWidget(LayoutSize.size24),
+                    const SpacingWidget(LayoutSize.size16),
                   ],
                 ),
           const SpacingWidget(LayoutSize.size24),

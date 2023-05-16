@@ -27,7 +27,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
     implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _surnameController = TextEditingController();
+  final _surNameController = TextEditingController();
   late String password = "";
   late String? country = "BR";
   late String? picture = "";
@@ -39,9 +39,9 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
   void initState() {
     widget.viewModel.fetchProfile();
     _nameController.addListener(observers);
-    _surnameController.addListener(observers);
+    _surNameController.addListener(observers);
     _nameController.text = widget.viewModel.profileModel?.firstName ?? '';
-    _surnameController.text = widget.viewModel.profileModel?.surName ?? '';
+    _surNameController.text = widget.viewModel.profileModel?.surName ?? '';
     super.initState();
   }
 
@@ -99,12 +99,12 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
               const SpacingWidget(LayoutSize.size16),
               InputTextWidget(
                   enabled: true,
-                  label: 'Surname',
+                  label: 'surName',
                   icon: Icons.person,
-                  controller: _surnameController,
+                  controller: _surNameController,
                   validator: (value) {
                     if (value == null || value.isEmpty == true) {
-                      return 'valid surname needed';
+                      return 'valid surName needed';
                     }
                     return null;
                   }),
@@ -185,7 +185,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
       type: ButtonType.primary,
       onPressed: () {
         if (_formKey.currentState?.validate() == true) {
-          widget.viewModel.update(_nameController.text, _surnameController.text,
+          widget.viewModel.update(_nameController.text, _surNameController.text,
               country ?? '', base64Encode(bannerFile.readAsBytesSync()));
         }
       },
@@ -195,7 +195,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
 
   bool hasAnyChange() {
     return widget.viewModel.profileModel?.firstName != _nameController.text ||
-        widget.viewModel.profileModel?.surName != _surnameController.text ||
+        widget.viewModel.profileModel?.surName != _surNameController.text ||
         widget.viewModel.profileModel?.country != country;
   }
 
@@ -206,7 +206,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
         hasChanges = hasAnyChange();
       });
     });
-    _surnameController.addListener(() {
+    _surNameController.addListener(() {
       setState(() {
         hasChanges = hasAnyChange();
       });

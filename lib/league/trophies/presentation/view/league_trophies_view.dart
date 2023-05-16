@@ -71,10 +71,9 @@ class _LeagueTrophiesViewState extends State<LeagueTrophiesView>
       children: widget.viewModel.podiums!
           .map((podium) {
             return CardWidget(
-              child: Column(
-                children: [
-                  podiumWidget(podium),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: podiumWidget(podium),
               ),
               ready: true,
               onPressed: () {
@@ -88,23 +87,34 @@ class _LeagueTrophiesViewState extends State<LeagueTrophiesView>
   }
 
   Widget podiumWidget(PodiumModel? podium) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          TextWidget(
-            text: podium?.eventName,
-            style: Style.title,
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Wrap(
+            children: [
+              TextWidget(
+                text: podium?.eventName,
+                style: Style.subtitle,
+              ),
+            ],
           ),
-          const SpacingWidget(LayoutSize.size16),
-          TextWidget(
-            text: podium?.className,
-            style: Style.paragraph,
+        ),
+        const SpacingWidget(LayoutSize.size8),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Wrap(
+            children: [
+              TextWidget(
+                text: podium?.className,
+                style: Style.caption,
+              ),
+            ],
           ),
-          podiumIndex(podium),
-          const SpacingWidget(LayoutSize.size16),
-        ],
-      ),
+        ),
+        const SpacingWidget(LayoutSize.size16),
+        podiumIndex(podium)
+      ],
     );
   }
 
@@ -138,6 +148,7 @@ class _LeagueTrophiesViewState extends State<LeagueTrophiesView>
             ),
             CountryCodePicker(
               onChanged: print,
+              padding: EdgeInsets.zero,
               showCountryOnly: true,
               enabled: false,
               initialSelection: podium?.firstPlace?.profile?.country,
@@ -174,6 +185,7 @@ class _LeagueTrophiesViewState extends State<LeagueTrophiesView>
             ),
             CountryCodePicker(
               onChanged: print,
+              padding: EdgeInsets.zero,
               showCountryOnly: true,
               enabled: false,
               initialSelection: podium?.secondPlace?.profile?.country,
@@ -210,6 +222,7 @@ class _LeagueTrophiesViewState extends State<LeagueTrophiesView>
             ),
             CountryCodePicker(
               onChanged: print,
+              padding: EdgeInsets.zero,
               showCountryOnly: true,
               enabled: false,
               initialSelection: podium?.thirdPlace?.profile?.country,

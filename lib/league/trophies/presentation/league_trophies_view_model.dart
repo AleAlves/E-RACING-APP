@@ -51,7 +51,7 @@ abstract class _LeagueTrophiesViewModel
           podiums = ObservableList.of(data!);
           state = ViewState.ready;
         },
-        error: onError);
+        failure: onError);
   }
 
   gotToEvent(String? eventId) {
