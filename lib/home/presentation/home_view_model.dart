@@ -67,6 +67,7 @@ abstract class _HomeViewModel extends BaseViewModel<HomeRouter> with Store {
     communities = null;
     _leagueUseCase.invoke(
         success: (data) {
+          communities = ObservableList();
           ObservableList.of(data!).asMap().forEach((index, element) {
             communities?.add(CommunityCardVO(
                 leagueId: element.id, name: element.name, media: null));

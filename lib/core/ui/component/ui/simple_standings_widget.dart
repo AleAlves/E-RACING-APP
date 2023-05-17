@@ -43,6 +43,7 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
+            SpacingWidget(LayoutSize.size8),
             TextWidget(
               text: "Standings",
               style: Style.subtitle,

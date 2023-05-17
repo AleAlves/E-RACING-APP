@@ -76,9 +76,8 @@ class EventCardWidget extends StatelessWidget {
               eventStatusWidget(event?.state),
               const SpacingWidget(LayoutSize.size8),
               subscriptionsStatus(context),
-              const SpacingWidget(LayoutSize.size8),
               tagsWidget(),
-              const SpacingWidget(LayoutSize.size16),
+              const SpacingWidget(LayoutSize.size8),
             ],
           ),
         ),
@@ -225,7 +224,7 @@ class EventCardWidget extends StatelessWidget {
             const SpacingWidget(LayoutSize.size8),
             const TextWidget(
               text: "Championship",
-              style: Style.paragraph,
+              style: Style.caption,
               align: TextAlign.start,
             )
           ],
@@ -237,7 +236,7 @@ class EventCardWidget extends StatelessWidget {
             const SpacingWidget(LayoutSize.size8),
             const TextWidget(
               text: "Race",
-              style: Style.paragraph,
+              style: Style.caption,
               align: TextAlign.start,
             )
           ],
@@ -262,7 +261,7 @@ class EventCardWidget extends StatelessWidget {
         const SpacingWidget(LayoutSize.size8),
         TextWidget(
           text: '$entries/$max',
-          style: Style.paragraph,
+          style: Style.caption,
           align: TextAlign.start,
         ),
       ],
@@ -328,7 +327,7 @@ class EventCardWidget extends StatelessWidget {
               color: color,
             ),
             const SpacingWidget(LayoutSize.size8),
-            TextWidget(text: status, style: Style.paragraph),
+            TextWidget(text: status, style: Style.caption),
           ],
         ),
       ],

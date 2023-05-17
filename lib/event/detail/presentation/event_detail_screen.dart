@@ -4,7 +4,6 @@ import 'package:e_racing_app/event/detail/presentation/router/event_detail_route
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import '../../../core/ui/component/ui/share_widget.dart';
 import '../../../core/ui/component/ui/text_widget.dart';
@@ -43,7 +42,6 @@ class _EventDetailScreenState extends State<EventDetailScreen>
 
   @override
   void initState() {
-    FlutterNativeSplash.remove();
     super.initState();
   }
 

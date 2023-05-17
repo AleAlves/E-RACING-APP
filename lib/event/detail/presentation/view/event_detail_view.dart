@@ -72,28 +72,24 @@ class _EventDetailViewState extends State<EventDetailView>
 
   @override
   Widget content() {
-    return Stack(
+    return Column(
       children: [
-        Column(
-          children: [
-            const SpacingWidget(LayoutSize.size16),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: info(),
-            ),
-            const SpacingWidget(LayoutSize.size2),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: races(),
-            ),
-            const SpacingWidget(LayoutSize.size2),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: standings(),
-            ),
-            const SpacingWidget(LayoutSize.size48),
-          ],
+        const SpacingWidget(LayoutSize.size16),
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: info(),
         ),
+        const SpacingWidget(LayoutSize.size2),
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: races(),
+        ),
+        const SpacingWidget(LayoutSize.size2),
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: standings(),
+        ),
+        const SpacingWidget(LayoutSize.size48),
       ],
     );
   }
@@ -105,7 +101,7 @@ class _EventDetailViewState extends State<EventDetailView>
           padding: const EdgeInsets.all(8.0),
           child: BannerWidget(media: widget.viewModel.eventBanner),
         ),
-        const SpacingWidget(LayoutSize.size32),
+        const SpacingWidget(LayoutSize.size16),
         title(),
         const SpacingWidget(LayoutSize.size16),
         Padding(
@@ -243,7 +239,7 @@ class _EventDetailViewState extends State<EventDetailView>
   }
 
   Widget? doRegisterButton() {
-    return widget.viewModel.event?.joinable == true
+    return widget.viewModel.event?.joinable == false
         ? null
         : ButtonWidget(
             enabled: true,
@@ -259,7 +255,7 @@ class _EventDetailViewState extends State<EventDetailView>
                 },
               );
             },
-            label: "Registration",
+            label: "Register",
           );
   }
 

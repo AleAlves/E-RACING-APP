@@ -55,30 +55,23 @@ class EventRaceCollection extends StatelessWidget {
         children: [
           Row(
             children: [
+              const SpacingWidget(LayoutSize.size8),
               Expanded(
                 child: Column(
                   children: [
                     const SpacingWidget(LayoutSize.size8),
-                    Row(
-                      children: [
-                        const IconWidget(
-                          icon: Icons.sports_score,
-                        ),
-                        const SpacingWidget(LayoutSize.size8),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextWidget(
-                                text: race?.title,
-                                style: Style.paragraph,
-                                align: TextAlign.start,
-                              ),
-                            ],
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Wrap(
+                        children: [
+                          const SpacingWidget(LayoutSize.size4),
+                          TextWidget(
+                            text: race?.title,
+                            style: Style.subtitle,
+                            align: TextAlign.start,
                           ),
-                        )
-                      ],
+                        ],
+                      ),
                     ),
                     const SpacingWidget(LayoutSize.size8),
                     Row(
@@ -89,8 +82,7 @@ class EventRaceCollection extends StatelessWidget {
                         ),
                         const SpacingWidget(LayoutSize.size8),
                         TextWidget(
-                            text: formatDate(race?.date),
-                            style: Style.paragraph),
+                            text: formatDate(race?.date), style: Style.caption),
                       ],
                     ),
                     const SpacingWidget(LayoutSize.size8),
@@ -101,8 +93,7 @@ class EventRaceCollection extends StatelessWidget {
                         ),
                         const SpacingWidget(LayoutSize.size8),
                         TextWidget(
-                            text: formatHour(race?.date),
-                            style: Style.paragraph),
+                            text: formatHour(race?.date), style: Style.caption),
                       ],
                     ),
                     const SpacingWidget(LayoutSize.size8),
@@ -137,8 +128,9 @@ class EventRaceCollection extends StatelessWidget {
               icon: Icons.circle,
               color: color,
             ),
-            const SpacingWidget(LayoutSize.size16),
-            TextWidget(text: status, style: Style.paragraph),
+            const SpacingWidget(LayoutSize.size8),
+            const SpacingWidget(LayoutSize.size2),
+            TextWidget(text: status, style: Style.caption),
           ],
         ),
       ],

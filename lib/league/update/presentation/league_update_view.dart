@@ -63,7 +63,7 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
       body: content(),
-      scrollable: true,
+      bottom: buttonWidget(),
       state: widget.viewModel.state,
       onBackPressed: onBackPressed,
       floatAction: FloatActionButtonWidget(
@@ -132,7 +132,6 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
             content: social(),
           ),
         ]),
-        finish()
       ],
     );
   }
@@ -348,9 +347,9 @@ class _LeagueUpdateViewState extends State<LeagueUpdateView>
     );
   }
 
-  Widget finish() {
+  Widget buttonWidget() {
     return ButtonWidget(
-      enabled: true,
+      enabled: _formKey.currentState?.validate() == true,
       type: ButtonType.primary,
       onPressed: () {
         if (_formKey.currentState?.validate() == true) {

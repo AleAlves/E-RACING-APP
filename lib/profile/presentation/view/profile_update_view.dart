@@ -12,8 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../core/ui/component/ui/tag_collection_widget.dart';
-
 class ProfileUpdateView extends StatefulWidget {
   final ProfileViewModel viewModel;
 
@@ -34,6 +32,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
   bool hasChanges = false;
   File bannerFile = File('');
   final ImagePicker _picker = ImagePicker();
+  List<String> tags = [];
 
   @override
   void initState() {
@@ -71,7 +70,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
           child: profileForm(),
           key: _formKey,
         ),
-        tagsWidget()
+        tagPickerWidget()
       ],
     );
   }
@@ -125,14 +124,36 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
     );
   }
 
-  Widget tagsWidget() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16),
-      child: TagCollectionWidget(
-        tagIds: widget.viewModel.profileModel?.tags,
-        tags: widget.viewModel.tags,
-      ),
-    );
+  Widget tagPickerWidget() {
+    return widget.viewModel.tags!.isEmpty
+        ? Container()
+        : Padding(
+            padding: EdgeInsets.zero,
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              children: widget.viewModel.tags!
+                  .map((item) {
+                    final selected = tags.contains(item?.id);
+                    return ActionChip(
+                        avatar: CircleAvatar(
+                          backgroundColor: selected
+                              ? Theme.of(context).colorScheme.secondary
+                              : null,
+                          child: selected ? const Text('-') : const Text('+'),
+                        ),
+                        label: Text(item?.name ?? ''),
+                        onPressed: () {
+                          setState(() {
+                            selected
+                                ? tags.remove(item?.id)
+                                : tags.add(item?.id ?? '');
+                          });
+                        });
+                  })
+                  .toList()
+                  .cast<Widget>(),
+            ),
+          );
   }
 
   Widget pictureWidget() {

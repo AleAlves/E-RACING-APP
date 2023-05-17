@@ -31,40 +31,25 @@ class LeagueCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CardWidget(
-          padding: EdgeInsets.zero,
-          onPressed: onPressed,
-          child: header(),
-          ready: leagueTags != null,
-        ),
-      ],
-    );
-  }
-
-  Widget header() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 8),
-          child: description(),
-        ),
-      ],
+    return CardWidget(
+      padding: EdgeInsets.zero,
+      arrowed: true,
+      onPressed: onPressed,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: description(),
+      ),
+      ready: leagueTags != null,
     );
   }
 
   Widget description() {
     return Column(
       children: [
-        Column(
-          children: [
-            titleWidget(),
-            membersWidget(),
-            membershipWidget(),
-            tagsWidget(),
-          ],
-        ),
+        titleWidget(),
+        membersWidget(),
+        membershipWidget(),
+        tagsWidget(),
       ],
     );
   }
@@ -72,14 +57,17 @@ class LeagueCardWidget extends StatelessWidget {
   Widget titleWidget() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Wrap(
-        children: [
-          TextWidget(
-            text: label,
-            style: Style.title,
-            align: TextAlign.left,
-          ),
-        ],
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Wrap(
+          children: [
+            TextWidget(
+              text: label,
+              style: Style.subtitle,
+              align: TextAlign.left,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -89,7 +77,7 @@ class LeagueCardWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Row(
         children: [
-          const SpacingWidget(LayoutSize.size4),
+          const SpacingWidget(LayoutSize.size8),
           const IconWidget(
             icon: Icons.groups,
             borderless: true,
@@ -97,7 +85,7 @@ class LeagueCardWidget extends StatelessWidget {
           const SpacingWidget(LayoutSize.size8),
           TextWidget(
             text: "${members.toString()}/$capacity",
-            style: Style.paragraph,
+            style: Style.caption,
             align: TextAlign.start,
           )
         ],
@@ -110,7 +98,7 @@ class LeagueCardWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Row(
         children: const [
-          SpacingWidget(LayoutSize.size4),
+          SpacingWidget(LayoutSize.size8),
           IconWidget(
             icon: Icons.workspace_premium,
             borderless: true,

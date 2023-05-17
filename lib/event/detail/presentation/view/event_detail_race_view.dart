@@ -153,7 +153,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
             height: 100,
           )
         : Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
+            padding: const EdgeInsets.only(left: 16, right: 8),
             child: ListView.builder(
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
@@ -161,33 +161,8 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
               itemBuilder: (context, index) {
                 return Column(
                   children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Wrap(
-                        children: const [
-                          TextWidget(
-                            text: "Sessions",
-                            style: Style.subtitle,
-                            align: TextAlign.start,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SpacingWidget(LayoutSize.size16),
-                    Row(
-                      children: [
-                        TextWidget(
-                          text: "Session ${(index + 1)}: ",
-                          style: Style.paragraph,
-                          align: TextAlign.start,
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: getSesion(
-                          widget.viewModel.race?.sessions?[index]?.type),
-                    ),
+                    const SpacingWidget(LayoutSize.size8),
+                    getSesion(widget.viewModel.race?.sessions?[index]?.type),
                     Row(
                       children: [
                         const SpacingWidget(LayoutSize.size8),
@@ -209,6 +184,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
         : Padding(
             padding: const EdgeInsets.all(8.0),
             child: Wrap(
+              direction: Axis.vertical,
               children: widget.viewModel.race?.sessions?[sessionIndex]?.settings
                   ?.map((e) {
                     return Row(
@@ -260,26 +236,28 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
   }
 
   Widget classes(List<RaceStandingsSessionModel?>? sessions) {
+    var raceIndex = 0;
     return Wrap(
       children: sessions
           ?.map((e) {
-            return session(e);
+            raceIndex++;
+            return session(e, raceIndex);
           })
           .toList()
           .cast<Widget>() as List<Widget>,
     );
   }
 
-  Widget session(RaceStandingsSessionModel? sessions) {
+  Widget session(RaceStandingsSessionModel? sessions, int raceIndex) {
     return Column(
       children: [
         Row(
           children: [
-            const SpacingWidget(LayoutSize.size8),
+            const SpacingWidget(LayoutSize.size32),
             getSesion(sessions?.type),
             const SpacingWidget(LayoutSize.size8),
             TextWidget(
-              text: "${((sessions?.sessionIndex as int) + 1)}",
+              text: "$raceIndex",
               style: Style.caption,
               align: TextAlign.start,
             )

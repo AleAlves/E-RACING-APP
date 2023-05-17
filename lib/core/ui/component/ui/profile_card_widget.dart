@@ -33,7 +33,7 @@ class ProfileCardWidget extends StatelessWidget {
                     const SpacingWidget(LayoutSize.size16),
                   ],
                 ),
-          const SpacingWidget(LayoutSize.size24),
+          const SpacingWidget(LayoutSize.size8),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,

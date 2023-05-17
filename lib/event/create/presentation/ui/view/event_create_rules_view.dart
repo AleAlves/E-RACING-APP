@@ -89,7 +89,7 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
       padding: const EdgeInsets.all(16.0),
       child: InputTextWidget(
           enabled: true,
-          label: 'Description',
+          label: 'Rules',
           icon: Icons.person,
           inputType: InputType.multilines,
           controller: _descriptionController,

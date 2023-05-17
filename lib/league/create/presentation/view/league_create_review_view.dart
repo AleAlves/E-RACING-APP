@@ -93,10 +93,13 @@ class _LeagueCreateReviewViewState extends State<LeagueCreateReviewView>
   }
 
   Widget leagueDescriptionsWidget() {
-    return Row(
-      children: [
-        TextWidget(text: widget.viewModel.description, style: Style.subtitle)
-      ],
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Wrap(
+        children: [
+          TextWidget(text: widget.viewModel.description, style: Style.subtitle)
+        ],
+      ),
     );
   }
 

@@ -12,6 +12,7 @@ import '../../../core/ui/component/state/loading_shimmer.dart';
 import '../../../core/ui/component/ui/button_widget.dart';
 import '../../../core/ui/component/ui/league_card_small_widget.dart';
 import '../../../core/ui/component/ui/menu_card_widget.dart';
+import '../../../core/ui/component/ui/profile_card_widget.dart';
 import '../../../league/LeagueRouter.dart';
 import '../home_view_model.dart';
 
@@ -68,12 +69,17 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
   Widget profileWidget() {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-      child: Container(),
+      child: ProfileCardWidget(
+        onPressed: () {
+          widget.viewModel.goToProfile();
+        },
+        viewModel: widget.viewModel,
+      ),
     );
   }
 
   Widget managerWidget() {
-    return Session.instance.getUser()?.signature?.isManager == true
+    return Session.instance.getUser()?.signature?.level?.isManager == true
         ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
