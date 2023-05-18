@@ -57,7 +57,7 @@ class _StatusViewState extends State<StatusView> implements BaseSateWidget {
               children: [
                 TextWidget(
                     text: widget.viewModel.status?.message ?? '',
-                    style: Style.title),
+                    style: Style.subtitle),
               ],
             ),
           ),

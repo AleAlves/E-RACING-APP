@@ -115,7 +115,7 @@ class LeagueCardWidget extends StatelessWidget {
 
   Widget tagsWidget() {
     return Padding(
-      padding: const EdgeInsets.only(left: 8.0),
+      padding: const EdgeInsets.all(8),
       child: TagCollectionWidget(
         tagIds: leagueTags,
         tags: tags,

@@ -50,61 +50,63 @@ class EventRaceCollection extends StatelessWidget {
       onPressed: () {
         onRaceCardPressed.call(race?.id ?? '');
       },
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Row(
-            children: [
-              const SpacingWidget(LayoutSize.size8),
-              Expanded(
-                child: Column(
-                  children: [
-                    const SpacingWidget(LayoutSize.size8),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Wrap(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Wrap(
+                          children: [
+                            const SpacingWidget(LayoutSize.size4),
+                            TextWidget(
+                              text: race?.title,
+                              style: Style.subtitle,
+                              align: TextAlign.start,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SpacingWidget(LayoutSize.size8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const SpacingWidget(LayoutSize.size4),
-                          TextWidget(
-                            text: race?.title,
-                            style: Style.subtitle,
-                            align: TextAlign.start,
+                          const IconWidget(
+                            icon: Icons.date_range,
                           ),
+                          const SpacingWidget(LayoutSize.size8),
+                          TextWidget(
+                              text: formatDate(race?.date),
+                              style: Style.caption),
                         ],
                       ),
-                    ),
-                    const SpacingWidget(LayoutSize.size8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const IconWidget(
-                          icon: Icons.date_range,
-                        ),
-                        const SpacingWidget(LayoutSize.size8),
-                        TextWidget(
-                            text: formatDate(race?.date), style: Style.caption),
-                      ],
-                    ),
-                    const SpacingWidget(LayoutSize.size8),
-                    Row(
-                      children: [
-                        const IconWidget(
-                          icon: Icons.schedule,
-                        ),
-                        const SpacingWidget(LayoutSize.size8),
-                        TextWidget(
-                            text: formatHour(race?.date), style: Style.caption),
-                      ],
-                    ),
-                    const SpacingWidget(LayoutSize.size8),
-                    raceStatusWidget(race),
-                    const SpacingWidget(LayoutSize.size8),
-                  ],
+                      const SpacingWidget(LayoutSize.size8),
+                      Row(
+                        children: [
+                          const IconWidget(
+                            icon: Icons.schedule,
+                          ),
+                          const SpacingWidget(LayoutSize.size8),
+                          TextWidget(
+                              text: formatHour(race?.date),
+                              style: Style.caption),
+                        ],
+                      ),
+                      const SpacingWidget(LayoutSize.size8),
+                      raceStatusWidget(race),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

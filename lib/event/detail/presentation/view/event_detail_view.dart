@@ -79,15 +79,13 @@ class _EventDetailViewState extends State<EventDetailView>
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: info(),
         ),
-        const SpacingWidget(LayoutSize.size2),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8),
-          child: races(),
-        ),
-        const SpacingWidget(LayoutSize.size2),
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: standings(),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: races(),
         ),
         const SpacingWidget(LayoutSize.size48),
       ],

@@ -68,6 +68,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
       children: [
         banner(),
         sessionsWidget(),
+        const SpacingWidget(LayoutSize.size8),
         standings(),
         const SpacingWidget(LayoutSize.size8),
       ],
@@ -169,7 +170,6 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
                         sessionSettings(index),
                       ],
                     ),
-                    const SpacingWidget(LayoutSize.size16),
                   ],
                 );
               },
@@ -270,14 +270,28 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
   }
 
   Widget driversContainer(List<RaceStandingsSummaryModel>? standings) {
-    return Wrap(
-      children: standings
-          ?.map((e) {
-            return driverCard(e);
-          })
-          .toList()
-          .cast<Widget>() as List<Widget>,
-    );
+    return standings?.isEmpty == true
+        ? Align(
+            alignment: Alignment.centerLeft,
+            child: Wrap(
+              children: const [
+                SpacingWidget(LayoutSize.size32),
+                TextWidget(
+                  text: "--------------------------",
+                  style: Style.caption,
+                  align: TextAlign.start,
+                ),
+              ],
+            ),
+          )
+        : Wrap(
+            children: standings
+                ?.map((e) {
+                  return driverCard(e);
+                })
+                .toList()
+                .cast<Widget>() as List<Widget>,
+          );
   }
 
   Widget driverCard(RaceStandingsSummaryModel? standing) {

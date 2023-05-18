@@ -88,10 +88,8 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
           media: widget.viewModel.media,
           loadDefault: widget.viewModel.shouldLoadDefaultPoster,
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 24, bottom: 8),
-          child: leagueTitle(),
-        ),
+        const SpacingWidget(LayoutSize.size16),
+        leagueTitle(),
         ButtonWidget(
             enabled: true,
             type: ButtonType.link,
@@ -105,22 +103,16 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
   }
 
   Widget leagueTitle() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Wrap(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextWidget(
-                text: widget.viewModel.league?.name ?? '',
-                style: Style.title,
-                align: TextAlign.left,
-              ),
-            ),
-          ],
-        ),
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Wrap(
+        children: [
+          TextWidget(
+            text: widget.viewModel.league?.name ?? '',
+            style: Style.title,
+            align: TextAlign.left,
+          ),
+        ],
       ),
     );
   }
@@ -138,34 +130,48 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
     );
   }
 
-  Widget leagueDescription() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Wrap(
-          children: const [
-            TextWidget(
-              text: "About",
-              style: Style.subtitle,
-              align: TextAlign.start,
-            ),
-          ],
-        ),
-        const SpacingWidget(LayoutSize.size32),
-        Wrap(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextWidget(
-                text: widget.viewModel.league?.description ?? '',
-                style: Style.paragraph,
-                align: TextAlign.justify,
+  Widget leagueDescription(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Wrap(
+                children: const [
+                  TextWidget(
+                    text: "About",
+                    style: Style.subtitle,
+                    align: TextAlign.start,
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
-        const SpacingWidget(LayoutSize.size32),
-      ],
+              ButtonWidget(
+                  enabled: true,
+                  icon: Icons.cancel,
+                  type: ButtonType.iconShapeless,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  })
+            ],
+          ),
+          const SpacingWidget(LayoutSize.size32),
+          Wrap(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextWidget(
+                  text: widget.viewModel.league?.description ?? '',
+                  style: Style.paragraph,
+                  align: TextAlign.justify,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -297,7 +303,7 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
                 child: Observer(builder: (context) {
                   return Wrap(
                     children: [
-                      leagueDescription(),
+                      leagueDescription(context),
                       leagueSocial(),
                       leagueTags()
                     ],

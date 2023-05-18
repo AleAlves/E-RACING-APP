@@ -102,9 +102,25 @@ class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                 ],
               ),
               const SpacingWidget(LayoutSize.size8),
-              Column(
-                children: summaryWidget(clazz?.summaries, color),
-              )
+              clazz?.summaries?.isEmpty == true
+                  ? Column(
+                      children: [
+                        const SpacingWidget(LayoutSize.size8),
+                        Row(
+                          children: const [
+                            SpacingWidget(LayoutSize.size16),
+                            TextWidget(
+                              text: "----------------",
+                              style: Style.caption,
+                              align: TextAlign.start,
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  : Column(
+                      children: summaryWidget(clazz?.summaries, color),
+                    )
             ],
           ),
         )

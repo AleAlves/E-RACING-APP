@@ -38,7 +38,10 @@ class EventCardWidget extends StatelessWidget {
       ),
       arrowed: true,
       padding: EdgeInsets.zero,
-      child: content(context),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: content(context),
+      ),
       onPressed: onPressed,
       ready: true,
     );
