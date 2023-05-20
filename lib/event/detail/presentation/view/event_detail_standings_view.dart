@@ -39,7 +39,6 @@ class _EventDetailStandingsViewState extends State<EventDetailStandingsView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         body: content(),
-        scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }

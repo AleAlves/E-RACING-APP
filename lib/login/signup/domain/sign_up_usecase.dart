@@ -2,7 +2,6 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/login/login_router.dart';
 
@@ -10,20 +9,20 @@ import '../data/sign_up_model.dart';
 import '../data/sign_up_request.dart';
 
 class SignUpUseCase<T> extends BaseUseCase<T> {
-  late String _firstName;
-  late String _surName;
-  late String _email;
-  late String _password;
-  late String _country;
-  late List<String>? _tags;
+  late String? _firstName;
+  late String? _surName;
+  late String? _email;
+  late String? _password;
+  late String? _country;
+  late List<String?>? _tags;
 
   SignUpUseCase<T> params(
-      {required String firstName,
-      required String surName,
-      required String email,
-      required String password,
-      required String country,
-      required List<String> tags}) {
+      {required String? firstName,
+      required String? surName,
+      required String? email,
+      required String? password,
+      required String? country,
+      required List<String?>? tags}) {
     _firstName = firstName;
     _surName = surName;
     _email = email;
@@ -42,7 +41,7 @@ class SignUpUseCase<T> extends BaseUseCase<T> {
         email: _email,
         country: _country,
         tags: _tags,
-        password: CryptoService.instance.sha256(_password),
+        password: _password,
         tokenFcm: Session.instance.getFCMToken());
     var request = HTTPRequesParams(
         data: SignUpRequest(signUp: signingUp), cypherSchema: CypherSchema.rsa);

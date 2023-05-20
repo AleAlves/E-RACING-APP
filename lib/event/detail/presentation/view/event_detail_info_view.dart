@@ -42,7 +42,6 @@ class _EventDetailInfoViewState extends State<EventDetailInfoView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         body: content(),
-        scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }

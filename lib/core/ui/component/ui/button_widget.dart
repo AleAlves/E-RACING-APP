@@ -85,7 +85,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.0),
+            borderRadius: BorderRadius.circular(48),
             side: const BorderSide(
               width: 0.1,
             ),
@@ -93,8 +93,8 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         ),
       ),
       onPressed: widget.enabled ? widget.onPressed : null,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: TextWidget(
           text: widget.label ?? '',
           color: widget.labelColor ?? Theme.of(context).colorScheme.onPrimary,

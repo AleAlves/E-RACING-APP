@@ -7,29 +7,27 @@ import '../../../../../core/ui/component/ui/button_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
-import '../../event_create_view_model.dart';
+import '../login_sign_up_view_model.dart';
 
-class EventCreateTermsView extends StatefulWidget {
-  final EventCreateViewModel viewModel;
+class LoginSignUpTermsView extends StatefulWidget {
+  final LoginSignUpViewModel viewModel;
 
-  const EventCreateTermsView(this.viewModel, {Key? key}) : super(key: key);
+  const LoginSignUpTermsView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventCreateTermsViewState createState() => _EventCreateTermsViewState();
+  _LoginSignUpTermsViewState createState() => _LoginSignUpTermsViewState();
 }
 
-class _EventCreateTermsViewState extends State<EventCreateTermsView>
+class _LoginSignUpTermsViewState extends State<LoginSignUpTermsView>
     implements BaseSateWidget {
   var isValid = false;
   bool termsAccepted = false;
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
 
   @override
   void initState() {
     observers();
     super.initState();
-    _nameController.addListener(observers);
   }
 
   @override
@@ -56,6 +54,12 @@ class _EventCreateTermsViewState extends State<EventCreateTermsView>
   Widget content() {
     return Column(
       children: [
+        const SpacingWidget(LayoutSize.size32),
+        const TextWidget(
+          text: "Terms",
+          style: Style.title,
+          align: TextAlign.start,
+        ),
         const Padding(
           padding: EdgeInsets.all(24.0),
           child: TextWidget(
@@ -139,7 +143,6 @@ class _EventCreateTermsViewState extends State<EventCreateTermsView>
         label: "Accept and continue",
         type: ButtonType.primary,
         onPressed: () {
-          widget.viewModel.increaseStep();
           widget.viewModel.setAgreement(termsAccepted);
         });
   }

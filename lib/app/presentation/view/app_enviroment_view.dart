@@ -34,7 +34,7 @@ class _AppEnviromentViewState extends State<AppEnviromentView>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        scrollable: false,
+        alignment: Alignment.center,
         body: content(),
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
@@ -44,41 +44,39 @@ class _AppEnviromentViewState extends State<AppEnviromentView>
   Widget content() {
     String? group = "";
 
-    return Center(
-      child: CardWidget(
-        ready: true,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const TextWidget(text: "Enviroments", style: Style.title),
-            const SpacingWidget(LayoutSize.size48),
-            ListTile(
-              title: const Text('Local'),
-              leading: Radio<String>(
-                groupValue: group,
-                value: devLocal,
-                onChanged: (String? value) {
-                  setState(() {
-                    widget.viewModel.setUrl(value);
-                  });
-                },
-              ),
+    return CardWidget(
+      ready: true,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const TextWidget(text: "Enviroments", style: Style.title),
+          const SpacingWidget(LayoutSize.size48),
+          ListTile(
+            title: const Text('Local'),
+            leading: Radio<String>(
+              groupValue: group,
+              value: devLocal,
+              onChanged: (String? value) {
+                setState(() {
+                  widget.viewModel.setUrl(value);
+                });
+              },
             ),
-            const SpacingWidget(LayoutSize.size16),
-            ListTile(
-              title: const Text('Azure'),
-              leading: Radio<String>(
-                groupValue: group,
-                value: prod,
-                onChanged: (String? value) {
-                  setState(() {
-                    widget.viewModel.setUrl(value);
-                  });
-                },
-              ),
+          ),
+          const SpacingWidget(LayoutSize.size16),
+          ListTile(
+            title: const Text('Azure'),
+            leading: Radio<String>(
+              groupValue: group,
+              value: prod,
+              onChanged: (String? value) {
+                setState(() {
+                  widget.viewModel.setUrl(value);
+                });
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

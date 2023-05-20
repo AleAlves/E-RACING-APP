@@ -49,6 +49,7 @@ class _LoginSignInViewState extends State<LoginSignInView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
       body: content(),
+      alignment: Alignment.center,
       bottom: loginWidget(),
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
@@ -66,20 +67,12 @@ class _LoginSignInViewState extends State<LoginSignInView>
 
   @override
   Widget content() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SpacingWidget(LayoutSize.size128),
-          Form(child: loginForm(), key: _formKey),
-        ],
-      ),
-    );
+    return Form(child: signInForm(), key: _formKey);
   }
 
-  Widget loginForm() {
+  Widget signInForm() {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
           Lottie.asset('assets/checkred-flag.json',

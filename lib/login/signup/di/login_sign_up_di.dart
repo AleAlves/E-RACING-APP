@@ -7,12 +7,12 @@ import '../../legacy/domain/model/public_key_model.dart';
 import '../../legacy/domain/usecase/get_public_key_usecase.dart';
 import '../domain/sign_up_usecase.dart';
 import '../presentation/login_sign_up_screen.dart';
-import '../presentation/navigation/login_sign_up_navigation.dart';
+import '../presentation/router/login_sign_up_navigation.dart';
 
 class LoginSignUpModule extends Module {
-  final LoginSignUpNavigationSet flow;
+  final LoginSignUpRouterSet flow;
 
-  LoginSignUpModule({this.flow = LoginSignUpNavigationSet.home});
+  LoginSignUpModule({this.flow = LoginSignUpRouterSet.terms});
 
   @override
   List<Bind> get binds => [

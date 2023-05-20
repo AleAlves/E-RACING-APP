@@ -1,12 +1,13 @@
 import 'package:e_racing_app/core/ui/view_state.dart';
+import 'package:e_racing_app/login/signup/presentation/router/login_sign_up_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import '../../../core/ui/component/ui/step_progress_indicator_widget.dart';
 import '../../../core/ui/component/ui/text_widget.dart';
 import 'login_sign_up_view_model.dart';
-import 'navigation/login_sign_up_navigation.dart';
 
 class LoginSignUpScreen extends StatefulWidget {
   const LoginSignUpScreen({Key? key}) : super(key: key);
@@ -29,6 +30,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen>
   @override
   void initState() {
     FlutterNativeSplash.remove();
+    viewModel.getPublicKey();
     super.initState();
   }
 
@@ -42,12 +44,32 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen>
           style: Style.paragraph,
         ),
       ),
-      body: navigate(),
+      body: Stack(
+        children: [
+          progressIndicator(),
+          Padding(
+            padding: const EdgeInsets.only(top: 32),
+            child: navigate(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget progressIndicator() {
+    return Positioned(
+      child: StepProgressIndicatorWidget(
+        maxSteps: viewModel.maxSteps,
+        currentStep: viewModel.currentStep,
+      ),
+      left: 0,
+      right: 0,
+      top: 0,
     );
   }
 
   @override
   Widget navigate() {
-    return LoginSignUpNavigation.flow(viewModel);
+    return LoginSignUpRouter.flow(viewModel);
   }
 }

@@ -37,6 +37,7 @@ class _LoginOnboardViewState extends State<LoginOnboardView>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
+        alignment: Alignment.center,
         body: content(),
         bottom: buttonWidget(),
         state: widget.viewModel.state,
@@ -52,19 +53,18 @@ class _LoginOnboardViewState extends State<LoginOnboardView>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SpacingWidget(LayoutSize.size128),
             const TextWidget(text: "Welcome driver", style: Style.title),
             const SpacingWidget(LayoutSize.size32),
             const TextWidget(
                 text:
                     "This a platform to help connect driver in fair competitions",
                 style: Style.paragraph),
-            const SpacingWidget(LayoutSize.size128),
+            const SpacingWidget(LayoutSize.size32),
             const TextWidget(
               text: "Aready a member",
               style: Style.paragraph,
             ),
-            const SpacingWidget(LayoutSize.size16),
+            const SpacingWidget(LayoutSize.size64),
             ButtonWidget(
               enabled: true,
               icon: Icons.people,

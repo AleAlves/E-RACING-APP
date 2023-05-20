@@ -10,16 +10,16 @@ class ViewStateWidget extends StatelessWidget {
   final Widget body;
   final Widget? bottom;
   final ViewState state;
+  final AlignmentGeometry alignment;
   final FloatActionButtonWidget? floatAction;
   final WillPopCallback onBackPressed;
-  final bool scrollable;
 
   const ViewStateWidget(
       {required this.body,
       required this.state,
       required this.onBackPressed,
       this.bottom,
-      this.scrollable = true,
+      this.alignment = Alignment.topCenter,
       this.floatAction,
       Key? key})
       : super(key: key);
@@ -42,26 +42,20 @@ class ViewStateWidget extends StatelessWidget {
   Widget _scaffold(BuildContext context, Widget content) {
     return Scaffold(
         body: _scope(context, content),
-        bottomNavigationBar: bottomSheetWidget(context),
+        bottomNavigationBar: _bottomSheetWidget(context),
         floatingActionButton: floatAction);
   }
 
-  Widget? bottomSheetWidget(BuildContext context) {
-    return bottom == null
-        ? bottom
-        : Padding(
-            padding: const EdgeInsets.all(16),
-            child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.045,
-                child: bottom),
-          );
+  Widget? _bottomSheetWidget(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: bottom,
+    );
   }
 
   Widget _scope(BuildContext context, Widget content) {
-    if (scrollable) {
-      return WillPopScope(
-          child: ScrollWidget(content), onWillPop: onBackPressed);
-    }
-    return WillPopScope(child: content, onWillPop: onBackPressed);
+    return WillPopScope(
+        child: Align(alignment: alignment, child: ScrollWidget(content)),
+        onWillPop: onBackPressed);
   }
 }

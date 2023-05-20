@@ -50,7 +50,6 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         body: content(),
-        scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }
@@ -224,7 +223,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
                       ),
                     ],
                   ),
-                  const SpacingWidget(LayoutSize.size8),
+                  const SpacingWidget(LayoutSize.size16),
                   classes(e?.sessions)
                 ],
               );
@@ -253,7 +252,7 @@ class _EventDetailRaceViewState extends State<EventDetailRaceView>
       children: [
         Row(
           children: [
-            const SpacingWidget(LayoutSize.size32),
+            const SpacingWidget(LayoutSize.size16),
             getSesion(sessions?.type),
             const SpacingWidget(LayoutSize.size8),
             TextWidget(

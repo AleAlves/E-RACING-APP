@@ -38,7 +38,6 @@ class _LeagueMembersViewState extends State<LeagueMembersView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         body: content(),
-        scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
   }

@@ -42,7 +42,6 @@ class _LeagueCreateStatusViewState extends State<LeagueCreateStatusView>
     return ViewStateWidget(
       body: content(),
       bottom: buttonWidget(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );

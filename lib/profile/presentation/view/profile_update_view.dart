@@ -65,7 +65,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
       children: [
         const SpacingWidget(LayoutSize.size128),
         pictureWidget(),
-        const SpacingWidget(LayoutSize.size16),
+        const SpacingWidget(LayoutSize.size8),
         Form(
           child: profileForm(),
           key: _formKey,
@@ -77,7 +77,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
 
   Widget profileForm() {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: const EdgeInsets.only(left: 16, right: 16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -107,7 +107,7 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
                     }
                     return null;
                   }),
-              const SpacingWidget(LayoutSize.size16),
+              const SpacingWidget(LayoutSize.size8),
               CountryPickerWidget(
                 country: widget.viewModel.profileModel?.country,
                 onCountrySelected: (code) {
@@ -128,14 +128,15 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
     return widget.viewModel.tags!.isEmpty
         ? Container()
         : Padding(
-            padding: EdgeInsets.zero,
+            padding: const EdgeInsets.all(8),
             child: Wrap(
-              alignment: WrapAlignment.center,
+              alignment: WrapAlignment.spaceBetween,
               children: widget.viewModel.tags!
                   .map((item) {
                     final selected = tags.contains(item?.id);
                     return ActionChip(
                         avatar: CircleAvatar(
+                          radius: 10,
                           backgroundColor: selected
                               ? Theme.of(context).colorScheme.secondary
                               : null,

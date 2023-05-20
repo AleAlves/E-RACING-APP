@@ -42,7 +42,6 @@ class _EventCreateStatusViewState extends State<EventCreateStatusView>
     return ViewStateWidget(
       body: content(),
       bottom: buttonWidget(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );

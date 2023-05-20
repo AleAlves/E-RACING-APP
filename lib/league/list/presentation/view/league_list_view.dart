@@ -44,7 +44,6 @@ class _LeagueListViewState extends State<LeagueListView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
         body: content(),
-        scrollable: true,
         state: widget.viewModel.state,
         onBackPressed: onBackPressed,
         floatAction: FloatActionButtonWidget(

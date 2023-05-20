@@ -48,7 +48,6 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
     return ViewStateWidget(
       body: content(),
       bottom: buttonWidget(),
-      scrollable: false,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );

@@ -257,14 +257,15 @@ class _EventDetailViewState extends State<EventDetailView>
           );
   }
 
-  _hasRegistration() {
-    return widget.viewModel.event != null
-        ? widget.viewModel.event?.classes
-            ?.map((classes) => classes?.drivers?.where((driver) {
-                  classId = classes.id;
-                  return driver?.driverId == Session.instance.getUser()?.id;
-                }))
-            .isNotEmpty
-        : false;
+  bool _hasRegistration() {
+    var isRegistered = false;
+    widget.viewModel.event?.classes
+        ?.map((classes) => classes?.drivers?.forEach((driver) {
+              isRegistered = Session.instance.getUser()?.id == driver?.driverId;
+              if (isRegistered) {
+                return;
+              }
+            }));
+    return widget.viewModel.event != null ? isRegistered : false;
   }
 }

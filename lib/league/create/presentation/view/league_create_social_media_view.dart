@@ -56,7 +56,6 @@ class _LeagueCreateSocialMediaViewState
     return ViewStateWidget(
       body: content(),
       bottom: button(),
-      scrollable: true,
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
     );

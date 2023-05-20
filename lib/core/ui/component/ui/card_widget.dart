@@ -42,15 +42,8 @@ class CardWidget extends StatelessWidget {
     return ready
         ? Center(
             child: Card(
-              shape: shapeLess
-                  ? null
-                  : RoundedRectangleBorder(
-                      side: BorderSide(
-                          width: 0.2,
-                          color: borderColor ?? Theme.of(context).focusColor),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-              color: color,
+              shape: null,
+              color: shapeLess ? Colors.transparent : color,
               shadowColor: shapeLess ? Colors.transparent : null,
               child: IntrinsicHeight(
                 child: InkWell(

@@ -40,7 +40,6 @@ class _LeagueCreateNameViewState extends State<LeagueCreateNameView>
   ViewStateWidget viewState() {
     return ViewStateWidget(
       body: content(),
-      scrollable: true,
       onBackPressed: onBackPressed,
       state: ViewState.ready,
     );
