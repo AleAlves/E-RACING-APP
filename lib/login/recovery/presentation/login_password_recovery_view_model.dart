@@ -61,7 +61,7 @@ abstract class _LoginPasswordRecoveryViewModel
         success: (data) {
           status = data;
           state = ViewState.ready;
-          onRoute(LoginPasswordRecoveryNavigationSet.status);
+          onRoute(LoginPasswordRecoveryNavigationSet.reset);
         },
         failure: onError);
   }

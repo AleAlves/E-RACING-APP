@@ -28,7 +28,7 @@ class ResetPasswordUseCase<T> extends BaseUseCase<T> {
         verb: HTTPVerb.post,
         params: HTTPRequesParams(
             data: ResetRequest(
-                _email, CryptoService.instance.sha256(_password), _code),
+                _email, CryptoService.instance.getSHA256Hah(_password), _code),
             cypherSchema: CypherSchema.rsa)));
     if (response.isSuccessfully) {
       var status = StatusModel(

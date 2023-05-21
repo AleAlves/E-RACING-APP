@@ -23,11 +23,29 @@ class _LoginSignUpMailViewState extends State<LoginSignUpMailView>
     implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _mailController = TextEditingController();
+  final _emailRegex = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+  bool isValid = false;
 
   @override
   void initState() {
-    _mailController.text = '';
+    observers();
     super.initState();
+  }
+
+  @override
+  observers() {
+    _mailController.text = widget.viewModel.email ?? "";
+    _mailController.addListener(() {
+      setState(() {
+        _runValidations();
+      });
+    });
+  }
+
+  _runValidations() {
+    isValid = _mailController.text.isNotEmpty &&
+        _emailRegex.hasMatch(_mailController.text);
   }
 
   @override
@@ -97,7 +115,7 @@ class _LoginSignUpMailViewState extends State<LoginSignUpMailView>
 
   Widget buttonWidget() {
     return ButtonWidget(
-      enabled: true,
+      enabled: isValid,
       type: ButtonType.primary,
       onPressed: () {
         widget.viewModel.setEmail(_mailController.text);
@@ -105,9 +123,6 @@ class _LoginSignUpMailViewState extends State<LoginSignUpMailView>
       label: "Next",
     );
   }
-
-  @override
-  observers() {}
 
   @override
   Future<bool> onBackPressed() async {

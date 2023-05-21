@@ -24,11 +24,11 @@ class _LoginSignUpNameViewState extends State<LoginSignUpNameView>
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _surnameController = TextEditingController();
+  bool isValid = false;
 
   @override
   void initState() {
-    _nameController.text = '';
-    _surnameController.text = '';
+    observers();
     super.initState();
   }
 
@@ -45,6 +45,27 @@ class _LoginSignUpNameViewState extends State<LoginSignUpNameView>
         bottom: buttonWidget(),
         state: widget.viewModel.state,
         onBackPressed: onBackPressed);
+  }
+
+  @override
+  observers() {
+    _nameController.text = widget.viewModel.name ?? '';
+    _surnameController.text = widget.viewModel.surname ?? '';
+    _nameController.addListener(() {
+      setState(() {
+        _runValidations();
+      });
+    });
+    _surnameController.addListener(() {
+      setState(() {
+        _runValidations();
+      });
+    });
+  }
+
+  _runValidations() {
+    isValid =
+        _nameController.text.isNotEmpty && _surnameController.text.isNotEmpty;
   }
 
   @override
@@ -104,7 +125,7 @@ class _LoginSignUpNameViewState extends State<LoginSignUpNameView>
 
   Widget buttonWidget() {
     return ButtonWidget(
-      enabled: true,
+      enabled: isValid,
       type: ButtonType.primary,
       onPressed: () {
         widget.viewModel
@@ -113,9 +134,6 @@ class _LoginSignUpNameViewState extends State<LoginSignUpNameView>
       label: "Next",
     );
   }
-
-  @override
-  observers() {}
 
   @override
   Future<bool> onBackPressed() async {

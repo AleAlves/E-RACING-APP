@@ -74,7 +74,7 @@ class _LoginSignUpTagsViewState extends State<LoginSignUpTagsView>
         : Padding(
             padding: EdgeInsets.zero,
             child: Wrap(
-              alignment: WrapAlignment.spaceBetween,
+              alignment: WrapAlignment.center,
               children: widget.viewModel.tags!
                   .map((item) {
                     final selected =
@@ -109,7 +109,7 @@ class _LoginSignUpTagsViewState extends State<LoginSignUpTagsView>
       onPressed: () {
         widget.viewModel.setTags();
       },
-      label: "Next",
+      label: widget.viewModel.userTags?.isEmpty == true ? "Skip" : "Next",
     );
   }
 

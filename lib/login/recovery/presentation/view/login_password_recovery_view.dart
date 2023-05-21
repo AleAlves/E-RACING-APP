@@ -54,16 +54,23 @@ class _LoginPasswordRecoveryViewState extends State<LoginPasswordRecoveryView>
   @override
   Widget content() {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SpacingWidget(LayoutSize.size128),
           Form(
               child: Column(
                 children: [
-                  const TextWidget(
-                      text: "Password recovery", style: Style.paragraph),
+                  const SpacingWidget(LayoutSize.size48),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Wrap(
+                      children: const [
+                        TextWidget(
+                            text: "Password recovery", style: Style.subtitle),
+                      ],
+                    ),
+                  ),
                   const SpacingWidget(LayoutSize.size48),
                   InputTextWidget(
                       enabled: true,
@@ -79,11 +86,17 @@ class _LoginPasswordRecoveryViewState extends State<LoginPasswordRecoveryView>
                         return null;
                       }),
                   const SpacingWidget(LayoutSize.size48),
-                  Row(
-                    children: const [
-                      TextWidget(
-                          text: "Other problem?", style: Style.paragraph),
-                    ],
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Wrap(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: TextWidget(
+                              text: "Other problem?", style: Style.paragraph),
+                        ),
+                      ],
+                    ),
                   ),
                   ButtonWidget(
                     enabled: true,
@@ -111,7 +124,7 @@ class _LoginPasswordRecoveryViewState extends State<LoginPasswordRecoveryView>
           widget.viewModel.forgot(_emailController.text);
         }
       },
-      label: "Resend email validation",
+      label: "Recover",
     );
   }
 

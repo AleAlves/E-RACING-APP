@@ -54,7 +54,7 @@ class _LoginRetryEmailValidationViewState
   @override
   Widget content() {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -62,8 +62,16 @@ class _LoginRetryEmailValidationViewState
           Form(
               child: Column(
                 children: [
-                  const TextWidget(
-                      text: "Resend email validation", style: Style.paragraph),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Wrap(
+                      children: const [
+                        TextWidget(
+                            text: "Resend email validation",
+                            style: Style.subtitle),
+                      ],
+                    ),
+                  ),
                   const SpacingWidget(LayoutSize.size48),
                   InputTextWidget(
                       enabled: true,
@@ -95,7 +103,7 @@ class _LoginRetryEmailValidationViewState
           widget.viewModel.retryMailValidation(_emailController.text);
         }
       },
-      label: "Recover",
+      label: "Resend the validation",
     );
   }
 

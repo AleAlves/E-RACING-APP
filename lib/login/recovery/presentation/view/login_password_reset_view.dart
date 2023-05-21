@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../login_password_recovery_view_model.dart';
+import '../navigation/login_password_recovery_navigation.dart';
 
 class LoginPasswordResetView extends StatefulWidget {
   final LoginPasswordRecoveryViewModel viewModel;
@@ -138,7 +139,7 @@ class _LoginForgotWidgetState extends State<LoginPasswordResetView>
 
   @override
   Future<bool> onBackPressed() async {
-    // widget.viewModel.flow = LoginWidgetFlow.login;
+    widget.viewModel.onRoute(LoginPasswordRecoveryNavigationSet.recover);
     return false;
   }
 }

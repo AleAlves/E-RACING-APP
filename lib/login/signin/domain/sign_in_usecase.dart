@@ -1,10 +1,11 @@
 import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/core/tools/crypto/crypto_service.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/login/legacy/data/model/login_request.dart';
 import 'package:e_racing_app/login/legacy/data/model/login_response.dart';
+
+import '../../../core/tools/crypto/crypto_service.dart';
 
 class SignInUseCase<T> extends BaseUseCase<T> {
   late String _email;
@@ -23,8 +24,11 @@ class SignInUseCase<T> extends BaseUseCase<T> {
         endpoint: "api/v1/auth/signin",
         verb: HTTPVerb.post,
         params: HTTPRequesParams(
-            data: LoginRequest(_email, CryptoService.instance.sha256(_password),
-                Session.instance.getFCMToken(), Session.instance.getKeyChain()),
+            data: LoginRequest(
+                _email,
+                CryptoService.instance.getSHA256Hah(_password),
+                Session.instance.getFCMToken(),
+                Session.instance.getKeyChain()),
             cypherSchema: CypherSchema.rsa)));
     if (response.isSuccessfully) {
       success.call(LoginResponse.fromJson(response.data) as T);

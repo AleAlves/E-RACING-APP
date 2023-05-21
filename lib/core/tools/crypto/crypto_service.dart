@@ -52,7 +52,7 @@ class CryptoService {
     return "";
   }
 
-  String sha256(String data) {
-    return sha1.convert(utf8.encode(data)).toString();
+  String getSHA256Hah(String? data) {
+    return sha256.convert(utf8.encode(data ?? "")).toString();
   }
 }

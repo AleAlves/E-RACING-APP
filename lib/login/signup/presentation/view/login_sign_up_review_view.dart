@@ -1,11 +1,12 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../core/ui/component/ui/button_widget.dart';
-import '../../../../core/ui/component/ui/country_picker_widget.dart';
 import '../../../../core/ui/component/ui/spacing_widget.dart';
+import '../../../../core/ui/component/ui/tag_collection_widget.dart';
 import '../../../../core/ui/component/ui/text_widget.dart';
 import '../login_sign_up_view_model.dart';
 import '../router/login_sign_up_navigation.dart';
@@ -23,8 +24,12 @@ class _LoginSignUpReviewViewState extends State<LoginSignUpReviewView>
     implements BaseSateWidget {
   @override
   void initState() {
+    observers();
     super.initState();
   }
+
+  @override
+  observers() {}
 
   @override
   Widget build(BuildContext context) => mainObserver();
@@ -35,7 +40,6 @@ class _LoginSignUpReviewViewState extends State<LoginSignUpReviewView>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-        alignment: Alignment.topLeft,
         body: content(),
         bottom: buttonWidget(),
         state: widget.viewModel.state,
@@ -51,23 +55,38 @@ class _LoginSignUpReviewViewState extends State<LoginSignUpReviewView>
           const SpacingWidget(LayoutSize.size48),
           const TextWidget(text: "Review your account", style: Style.subtitle),
           const SpacingWidget(LayoutSize.size48),
-          TextWidget(text: widget.viewModel.name, style: Style.subtitle),
+          TextWidget(
+              text: "${widget.viewModel.name} ${widget.viewModel.surname}",
+              style: Style.paragraph),
           const SpacingWidget(LayoutSize.size16),
-          TextWidget(text: widget.viewModel.surname, style: Style.subtitle),
+          TextWidget(text: widget.viewModel.email, style: Style.paragraph),
           const SpacingWidget(LayoutSize.size16),
-          TextWidget(text: widget.viewModel.email, style: Style.subtitle),
+          CountryCodePicker(
+            onChanged: print,
+            showCountryOnly: true,
+            padding: EdgeInsets.zero,
+            enabled: false,
+            initialSelection: widget.viewModel.nationality,
+            hideMainText: true,
+            showFlagMain: true,
+            showFlag: false,
+          ),
           const SpacingWidget(LayoutSize.size16),
-          CountryPickerWidget(
-            country: widget.viewModel.nationality,
-            onCountrySelected: (code) {},
-          )
+          tagsWidget()
         ],
       ),
     );
   }
 
-  @override
-  observers() {}
+  Widget tagsWidget() {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: TagCollectionWidget(
+        tagIds: widget.viewModel.userTags,
+        tags: widget.viewModel.tags,
+      ),
+    );
+  }
 
   Widget buttonWidget() {
     return ButtonWidget(

@@ -5,6 +5,7 @@ import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/login/login_router.dart';
 
+import '../../../core/tools/crypto/crypto_service.dart';
 import '../data/sign_up_model.dart';
 import '../data/sign_up_request.dart';
 
@@ -41,7 +42,7 @@ class SignUpUseCase<T> extends BaseUseCase<T> {
         email: _email,
         country: _country,
         tags: _tags,
-        password: _password,
+        password: CryptoService.instance.getSHA256Hah(_password),
         tokenFcm: Session.instance.getFCMToken());
     var request = HTTPRequesParams(
         data: SignUpRequest(signUp: signingUp), cypherSchema: CypherSchema.rsa);
