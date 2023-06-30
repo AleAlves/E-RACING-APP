@@ -97,7 +97,11 @@ class _LeagueCreateReviewViewState extends State<LeagueCreateReviewView>
       alignment: Alignment.centerLeft,
       child: Wrap(
         children: [
-          TextWidget(text: widget.viewModel.description, style: Style.subtitle)
+          TextWidget(
+            text: widget.viewModel.description,
+            style: Style.subtitle,
+            align: TextAlign.justify,
+          )
         ],
       ),
     );

@@ -50,7 +50,7 @@ class SignUpUseCase<T> extends BaseUseCase<T> {
         endpoint: "api/v1/auth/signup", verb: HTTPVerb.post, params: request));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Account created.\n Now check your email to continue",
+          message: "Almost there!\n Now check your email to continue",
           action: "Ok",
           route: LoginRouter.signIn) as T);
     } else {

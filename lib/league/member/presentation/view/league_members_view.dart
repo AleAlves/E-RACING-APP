@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../core/ext/access_extension.dart';
 import '../league_member_view_model.dart';
 
 class LeagueMembersView extends StatefulWidget {
@@ -60,7 +61,6 @@ class _LeagueMembersViewState extends State<LeagueMembersView>
             itemBuilder: (context, index) {
               return LeagueMemberCardWidget(
                 member: widget.viewModel.members?[index],
-                isHost: true,
                 onRemove: (id) {
                   widget.viewModel.removeMember(id ?? '');
                 },

@@ -13,14 +13,10 @@ import 'spacing_widget.dart';
 
 class LeagueMemberCardWidget extends StatelessWidget {
   final LeagueMembersModel? member;
-  final bool isHost;
   final Function(String?) onRemove;
 
   const LeagueMemberCardWidget(
-      {required this.member,
-      required this.onRemove,
-      this.isHost = false,
-      Key? key})
+      {required this.member, required this.onRemove, Key? key})
       : super(key: key);
 
   @override
@@ -28,7 +24,8 @@ class LeagueMemberCardWidget extends StatelessWidget {
     return CardWidget(
       childRight: Column(
         children: [
-          isHost && Session.instance.getUser()?.id != member?.user.id
+          member?.membership.isManager == true &&
+                  Session.instance.getUser()?.id != member?.user.id
               ? Row(children: [
                   ButtonWidget(
                     enabled: true,
@@ -89,7 +86,8 @@ class LeagueMemberCardWidget extends StatelessWidget {
             TextWidget(
                 text: "Since ${formatDate(member?.membership.since)}",
                 style: Style.caption),
-            isHost && Session.instance.getUser()?.id == member?.user.id
+            member?.membership.isManager == true &&
+                    Session.instance.getUser()?.id == member?.user.id
                 ? Column(
                     children: [
                       const SpacingWidget(LayoutSize.size8),
