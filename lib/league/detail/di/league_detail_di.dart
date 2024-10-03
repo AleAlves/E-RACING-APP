@@ -28,25 +28,24 @@ class LeagueDetailModule extends Module {
   LeagueDetailModule({this.flow = LeagueDetailNavigationSet.main});
 
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => GetTagUseCase()),
-        Bind.factory((i) => LeagueDetailViewModel()),
-        Bind.factory((i) => GetUserEventUseCase<List<EventModel>>()),
-        Bind.factory((i) => UpdateLeagueUseCase<StatusModel>()),
-        Bind.factory((i) => StartMembershipUseCase<StatusModel>()),
-        Bind.factory((i) => StopMembershipUseCase<StatusModel>()),
-        Bind.factory((i) => RemoveMemberUseCase<StatusModel>()),
-        Bind.factory((i) => GetMediaUseCase<MediaModel>()),
-        Bind.factory((i) => GetTagUseCase()),
-        Bind.factory((i) => GetSocialMediaUseCase()),
-        Bind.factory((i) => GetLeagueUseCase<LeagueModel>()),
-        Bind.factory((i) => GetMembersUseCase<List<LeagueMembersModel>>()),
-        Bind.factory((i) => DeleteLeagueUseCase<StatusModel>()),
-        Bind.factory((i) => GetMenuUseCase<List<ShortcutModel>>()),
-      ];
+  void binds(i) {
+    i.add<LeagueDetailViewModel>(LeagueDetailViewModel.new);
+    i.add<GetUserEventUseCase<List<EventModel>>>(GetUserEventUseCase.new);
+    i.add<UpdateLeagueUseCase<StatusModel>>(UpdateLeagueUseCase.new);
+    i.add<StartMembershipUseCase<StatusModel>>(StartMembershipUseCase.new);
+    i.add<StopMembershipUseCase<StatusModel>>(StopMembershipUseCase.new);
+    i.add<RemoveMemberUseCase<StatusModel>>(RemoveMemberUseCase.new);
+    i.add<GetMediaUseCase<MediaModel>>(GetMediaUseCase.new);
+    i.add<GetTagUseCase>(GetTagUseCase.new);
+    i.add<GetSocialMediaUseCase>(GetSocialMediaUseCase.new);
+    i.add<GetLeagueUseCase<LeagueModel>>(GetLeagueUseCase.new);
+    i.add<GetMembersUseCase<List<LeagueMembersModel>>>(GetMembersUseCase.new);
+    i.add<DeleteLeagueUseCase<StatusModel>>(DeleteLeagueUseCase.new);
+    i.add<GetMenuUseCase<List<ShortcutModel>>>(GetMenuUseCase.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => const LeagueDetailScreen()),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => const LeagueDetailScreen());
+  }
 }

@@ -1,13 +1,10 @@
-import 'package:e_racing_app/event/event_router.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:i18n_extension/i18n_widget.dart';
 
 import './firebase_options.dart';
 import 'app/di/app_main_di.dart';
@@ -21,7 +18,7 @@ Future<void> main() async {
   await FirebaseMessaging.instance.setAutoInitEnabled(false);
   FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
     Session.instance.setFCMToken(fcmToken);
-    print("TOKEN FCM:" + fcmToken);
+    print("TOKEN FCM:$fcmToken");
   }).onError((err) {
     print(err);
   });
@@ -29,14 +26,11 @@ Future<void> main() async {
     print('Got a message whilst in the foreground!');
   });
 
-  runApp(ModularApp(
-    module: AppModule(),
-    child: I18n(initialLocale: const Locale("pt"), child: const ERacingApp()),
-  ));
+  runApp(ModularApp(module: AppMainModule(), child: const ERacingApp()));
 }
 
 class ERacingApp extends StatefulWidget {
-  const ERacingApp({Key? key}) : super(key: key);
+  const ERacingApp({super.key});
 
   @override
   State<StatefulWidget> createState() => _ERacingAppState();
@@ -44,45 +38,20 @@ class ERacingApp extends StatefulWidget {
 
 class _ERacingAppState extends State<ERacingApp> {
   final ThemeMode themeMode = ThemeMode.system;
-  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
   @override
   void initState() {
     super.initState();
-    initDynamicLinks();
-  }
-
-  Future<void> initDynamicLinks() async {
-    dynamicLinks.onLink.listen((dynamicLinkData) {
-      print('######## Dynamic Link #########');
-      print(dynamicLinkData.link);
-      print(dynamicLinkData.link.path);
-      Session.instance
-          .setLeagueId(dynamicLinkData.link.queryParameters['leagueId']);
-      Session.instance
-          .setEventId(dynamicLinkData.link.queryParameters['eventId']);
-      if (Session.instance.getBearerToken() != null) {
-        Modular.to
-            .pushNamed(dynamicLinkData.link.queryParameters['route'] ?? '');
-      } else {
-        Session.instance.setOnDeeplinkFlow(true);
-        Session.instance.setDeeplink(EventRouter.list);
-      }
-    }).onError((error) {
-      print('######## Dynamic Link Error #########');
-      print(error.message);
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
     const FlexSchemeColor colorDark = FlexSchemeColor(
       primary: Color(0xfff39012),
-      primaryVariant: Color(0xffd2821d),
+      primaryContainer: Color(0xffd2821d),
       secondary: Color(0xff44087c),
-      secondaryVariant: Color(0xff44087c),
+      secondaryContainer: Color(0xff44087c),
     );
 
     const FlexSchemeData _myFlexScheme = FlexSchemeData(
@@ -126,12 +95,4 @@ class _ERacingAppState extends State<ERacingApp> {
       routerDelegate: Modular.routerDelegate,
     );
   }
-}
-
-class AppModule extends Module {
-  @override
-  List<Bind> get binds => [];
-
-  @override
-  List<ModularRoute> get routes => [ModuleRoute("/", module: AppMainModule())];
 }

@@ -7,15 +7,16 @@ import '../presentation/notification_screen.dart';
 import '../presentation/notification_view_model.dart';
 
 class NotificationModule extends Module {
-  @override
-  List<Bind> get binds => [
-        Bind.factory((i) => NotificationViewModel()),
-        Bind.factory(
-            (i) => GetNotificationsUseCase<List<QueryDocumentSnapshot>>()),
-        Bind.factory((i) => GetNotificationsFlowUseCase<String>()),
-      ];
 
   @override
-  List<ModularRoute> get routes =>
-      [ChildRoute('/', child: (context, args) => const NotificationScreen())];
+  void binds(i) {
+    i.add<NotificationViewModel>(NotificationViewModel.new);
+    i.add<GetNotificationsUseCase<List<QueryDocumentSnapshot>>>(GetNotificationsUseCase.new);
+    i.add<GetNotificationsFlowUseCase<String>>(GetNotificationsFlowUseCase.new);
+  }
+
+  @override
+  void routes(r) {
+    r.child('/', child: (context) => const NotificationScreen());
+  }
 }

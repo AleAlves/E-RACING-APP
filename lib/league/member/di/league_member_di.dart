@@ -14,14 +14,14 @@ class LeagueMemberModule extends Module {
   LeagueMemberModule({this.flow = LeagueMemberNavigationSet.main});
 
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => LeagueMemberViewModel()),
-        Bind.factory((i) => RemoveMemberUseCase<StatusModel>()),
-        Bind.factory((i) => GetMembersUseCase<List<LeagueMembersModel>>())
-      ];
+  void binds(i) {
+    i.add<LeagueMemberViewModel>(LeagueMemberViewModel.new);
+    i.add<RemoveMemberUseCase<StatusModel>>(RemoveMemberUseCase.new);
+    i.add<GetMembersUseCase<List<LeagueMembersModel>>>(GetMembersUseCase.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => const LeagueMemberScreen()),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => const LeagueMemberScreen());
+  }
 }

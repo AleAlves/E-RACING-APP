@@ -8,11 +8,9 @@ abstract class RemoteRepository {
 }
 
 class LocalRepository {
-  final LocalStorage storage = LocalStorage('localstorage_app');
-
   Future<StoreResponse> save({@required key, @required data}) async {
     try {
-      await storage.setItem(key, data);
+      localStorage.setItem(key, data);
       return StoreResponse(null, true);
     } catch (e) {
       return StoreResponse(null, false);
@@ -21,7 +19,7 @@ class LocalRepository {
 
   Future<StoreResponse> get({@required key}) async {
     try {
-      return StoreResponse(await storage.getItem(key), true);
+      return StoreResponse(localStorage.getItem(key), true);
     } catch (e) {
       return StoreResponse(null, false);
     }
@@ -29,7 +27,7 @@ class LocalRepository {
 
   Future<StoreResponse> delete({@required key}) async {
     try {
-      await storage.deleteItem(key);
+      localStorage.removeItem(key);
       return StoreResponse(null, true);
     } catch (e) {
       return StoreResponse(null, false);
@@ -37,7 +35,6 @@ class LocalRepository {
   }
 
   call(StoreRequest query) async {
-    await storage.ready;
     switch (query.operation) {
       case Operation.fetch:
         return get(key: query.key);

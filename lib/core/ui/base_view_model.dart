@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:mobx/mobx.dart';
 
@@ -21,6 +23,7 @@ abstract class BaseViewModel<Router> with Store {
   String? error;
 
   void onError(ApiException route) {
+    log('#### ERROR : $error');
     error = route.message;
     state = ViewState.failure;
   }

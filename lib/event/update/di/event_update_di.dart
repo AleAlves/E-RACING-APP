@@ -20,20 +20,20 @@ class EventUpdateModule extends Module {
   EventUpdateModule({this.router = EventUpdateRouter.main});
 
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => EventUpdateViewModel()),
-        Bind.factory((i) => CreateTeamUseCase<StatusModel>()),
-        Bind.factory((i) => LeaveTeamUseCase<StatusModel>()),
-        Bind.factory((i) => JoinTeamUseCase<StatusModel>()),
-        Bind.factory((i) => DeleteTeamUseCase<StatusModel>()),
-        Bind.factory((i) => RemoveRegisterUseCase<StatusModel>()),
-        Bind.factory((i) => GetMediaUseCase<MediaModel>()),
-        Bind.factory((i) => UpdateEventUseCase<StatusModel>()),
-        Bind.factory((i) => UpdateRaceUseCase<StatusModel>()),
-      ];
+  void binds(i) {
+    i.add<EventUpdateViewModel>(EventUpdateViewModel.new);
+    i.add<CreateTeamUseCase<StatusModel>>(CreateTeamUseCase.new);
+    i.add<LeaveTeamUseCase<StatusModel>>(LeaveTeamUseCase.new);
+    i.add<JoinTeamUseCase<StatusModel>>(JoinTeamUseCase.new);
+    i.add<DeleteTeamUseCase<StatusModel>>(DeleteTeamUseCase.new);
+    i.add<RemoveRegisterUseCase<StatusModel>>(RemoveRegisterUseCase.new);
+    i.add<GetMediaUseCase<MediaModel>>(GetMediaUseCase.new);
+    i.add<UpdateEventUseCase<StatusModel>>(UpdateEventUseCase.new);
+    i.add<UpdateRaceUseCase<StatusModel>>(UpdateRaceUseCase.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => const EventUpdateScreen()),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => const EventUpdateScreen());
+  }
 }

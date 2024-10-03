@@ -15,16 +15,16 @@ class LoginPasswordRecoveryModule extends Module {
       {this.flow = LoginPasswordRecoveryNavigationSet.recover});
 
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => LoginPasswordRecoveryViewModel()),
-        Bind.factory((i) => ResetPasswordUseCase<StatusModel>()),
-        Bind.factory((i) => ForgotPasswordUseCase<StatusModel>()),
-        Bind.factory((i) => RetryMailValidationUseCase<StatusModel>()),
-      ];
+  void binds(i) {
+    i.add<LoginPasswordRecoveryViewModel>(LoginPasswordRecoveryViewModel.new);
+    i.add<ResetPasswordUseCase<StatusModel>>(ResetPasswordUseCase.new);
+    i.add<ForgotPasswordUseCase<StatusModel>>(ForgotPasswordUseCase.new);
+    i.add<RetryMailValidationUseCase<StatusModel>>(
+        RetryMailValidationUseCase.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/',
-            child: (context, args) => const LoginPasswordRecoveryScreen()),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => const LoginPasswordRecoveryScreen());
+  }
 }

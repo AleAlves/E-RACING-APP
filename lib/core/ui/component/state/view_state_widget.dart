@@ -21,8 +21,7 @@ class ViewStateWidget extends StatelessWidget {
       this.bottom,
       this.alignment = Alignment.topCenter,
       this.floatAction,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   @override
   Widget build(BuildContext context) => _content(context) ?? Container();
@@ -55,7 +54,7 @@ class ViewStateWidget extends StatelessWidget {
 
   Widget _scope(BuildContext context, Widget content) {
     return WillPopScope(
-        child: Align(alignment: alignment, child: ScrollWidget(content)),
-        onWillPop: onBackPressed);
+        onWillPop: onBackPressed,
+        child: Align(alignment: alignment, child: ScrollWidget(content)));
   }
 }

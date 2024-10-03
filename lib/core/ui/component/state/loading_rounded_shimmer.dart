@@ -7,12 +7,13 @@ class LoadingRoundedShimmer extends StatelessWidget {
   final Alignment align;
 
   const LoadingRoundedShimmer(
-      {this.align = Alignment.center, this.width, this.height, Key? key})
-      : super(key: key);
+      {this.align = Alignment.center, this.width, this.height, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
+        baseColor: Theme.of(context).cardColor,
+        highlightColor: Theme.of(context).focusColor,
         child: Container(
           width: 100,
           height: 100,
@@ -20,8 +21,6 @@ class LoadingRoundedShimmer extends StatelessWidget {
             shape: BoxShape.circle,
             color: Colors.white,
           ),
-        ),
-        baseColor: Theme.of(context).cardColor,
-        highlightColor: Theme.of(context).focusColor);
+        ));
   }
 }

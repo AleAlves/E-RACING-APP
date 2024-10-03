@@ -91,6 +91,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             ),
           ),
         ),
+        minimumSize: ButtonStyleButton.allOrNull<Size>(const Size(double.infinity, 0))
       ),
       onPressed: widget.enabled ? widget.onPressed : null,
       child: Padding(

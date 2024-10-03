@@ -17,16 +17,16 @@ class LoginSignInModule extends Module {
   LoginSignInModule({this.flow = LoginSignInNavigationSet.home});
 
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => LoginSignInViewModel()),
-        Bind.factory((i) => GetPublicKeyUseCase<PublicKeyModel>()),
-        Bind.factory((i) => SignInUseCase<LoginResponse>()),
-        Bind.factory((i) => GetUserUseCase<UserModel?>()),
-        Bind.factory((i) => SaveUserUseCase()),
-      ];
+  void binds(i) {
+    i.add<LoginSignInViewModel>(LoginSignInViewModel.new);
+    i.add<GetPublicKeyUseCase<PublicKeyModel>>(GetPublicKeyUseCase<PublicKeyModel>.new);
+    i.add<SignInUseCase<LoginResponse>>(SignInUseCase<LoginResponse>.new);
+    i.add<GetUserUseCase<UserModel?>>(GetUserUseCase<UserModel?>.new);
+    i.add<SaveUserUseCase<dynamic>>(SaveUserUseCase<dynamic>.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => const LoginSignInScreen()),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => const LoginSignInScreen());
+  }
 }

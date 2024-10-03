@@ -12,13 +12,13 @@ class LeagueTrophiesModule extends Module {
   LeagueTrophiesModule({this.flow = LeagueTrophiesRouter.main});
 
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => LeagueTrophiesViewModel()),
-        Bind.factory((i) => GetTrophiesUseCase<List<PodiumModel>>()),
-      ];
+  void binds(i) {
+    i.add<LeagueTrophiesViewModel>(LeagueTrophiesViewModel.new);
+    i.add<GetTrophiesUseCase<List<PodiumModel>>>(GetTrophiesUseCase.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => const LeagueTrophiesScreen()),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => const LeagueTrophiesScreen());
+  }
 }

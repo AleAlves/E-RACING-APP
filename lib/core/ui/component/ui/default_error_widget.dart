@@ -8,7 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../../../login/login_router.dart';
 
 class DefaultErrorWidget extends StatefulWidget {
-  const DefaultErrorWidget({Key? key}) : super(key: key);
+  const DefaultErrorWidget({super.key});
 
   @override
   _ErrorWidgetState createState() => _ErrorWidgetState();
@@ -18,6 +18,7 @@ class _ErrorWidgetState extends State<DefaultErrorWidget> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+        onWillPop: _onBackPressed,
         child: Observer(builder: (_) {
           return Align(
             alignment: Alignment.center,
@@ -48,8 +49,7 @@ class _ErrorWidgetState extends State<DefaultErrorWidget> {
               ],
             ),
           );
-        }),
-        onWillPop: _onBackPressed);
+        }));
   }
 
   Future<bool> _onBackPressed() async {

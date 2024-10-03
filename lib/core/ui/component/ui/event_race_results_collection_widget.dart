@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 class EventRaceResultsCollection extends StatelessWidget {
   final List<RaceModel?>? races;
   final Function(String) onRaceCardPressed;
-  final CarouselController buttonCarouselController = CarouselController();
+  // final CarouselController buttonCarouselController = CarouselController();
 
   EventRaceResultsCollection(
       {Key? key, required this.races, required this.onRaceCardPressed})

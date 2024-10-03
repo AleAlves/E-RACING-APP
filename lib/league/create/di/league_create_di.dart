@@ -14,15 +14,15 @@ class LeagueCreateModule extends Module {
   LeagueCreateModule({this.flow = LeagueCreateNavigator.terms});
 
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => LeagueCreateViewModel()),
-        Bind.factory((i) => CreateLeagueUseCase<StatusModel>()),
-        Bind.factory((i) => GetTagUseCase()),
-        Bind.factory((i) => GetSocialMediaUseCase()),
-      ];
+  void binds(i) {
+    i.add<LeagueCreateViewModel>(LeagueCreateViewModel.new);
+    i.add<CreateLeagueUseCase<StatusModel>>(CreateLeagueUseCase.new);
+    i.add<GetTagUseCase>(GetTagUseCase.new);
+    i.add<GetSocialMediaUseCase>(GetSocialMediaUseCase.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => LeagueCreateScreen(flow)),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => LeagueCreateScreen(flow));
+  }
 }

@@ -8,7 +8,7 @@ import 'app_view_model.dart';
 import 'navigation/app_navigation.dart';
 
 class AppScreen extends StatefulWidget {
-  const AppScreen({Key? key}) : super(key: key);
+  const AppScreen({super.key});
 
   @override
   _AppScreenState createState() => _AppScreenState();

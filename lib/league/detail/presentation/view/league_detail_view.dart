@@ -160,13 +160,10 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
           const SpacingWidget(LayoutSize.size32),
           Wrap(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextWidget(
-                  text: widget.viewModel.league?.description ?? '',
-                  style: Style.paragraph,
-                  align: TextAlign.justify,
-                ),
+              TextWidget(
+                text: widget.viewModel.league?.description ?? '',
+                style: Style.paragraph,
+                align: TextAlign.justify,
               ),
             ],
           ),
@@ -299,13 +296,14 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
         builder: (context) =>
             StatefulBuilder(builder: (BuildContext context, myState) {
               return Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Observer(builder: (context) {
                   return Wrap(
                     children: [
                       leagueDescription(context),
                       leagueSocial(),
-                      leagueTags()
+                      leagueTags(),
+                      const SpacingWidget(LayoutSize.size8),
                     ],
                   );
                 }),

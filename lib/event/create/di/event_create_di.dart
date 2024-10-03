@@ -13,14 +13,14 @@ class EventCreateModule extends Module {
   EventCreateModule({this.flow = EventCreateNavigator.eventTerms});
 
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => EventCreateViewModel()),
-        Bind.factory((i) => GetTagUseCase()),
-        Bind.factory((i) => CreateEventUseCase<StatusModel>()),
-      ];
+  void binds(i) {
+    i.add<EventCreateViewModel>(EventCreateViewModel.new);
+    i.add<GetTagUseCase>(GetTagUseCase.new);
+    i.add<CreateEventUseCase<StatusModel>>(CreateEventUseCase.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => EventCreateScreen(flow)),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => EventCreateScreen(flow));
+  }
 }

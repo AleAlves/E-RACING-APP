@@ -23,24 +23,24 @@ class EventManageModule extends Module {
   EventManageModule({this.router = EventManageRouter.main});
 
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => EventManageViewModel()),
-        Bind.factory((i) => CreateTeamUseCase<StatusModel>()),
-        Bind.factory((i) => LeaveTeamUseCase<StatusModel>()),
-        Bind.factory((i) => JoinTeamUseCase<StatusModel>()),
-        Bind.factory((i) => DeleteTeamUseCase<StatusModel>()),
-        Bind.factory((i) => RemoveRegisterUseCase<StatusModel>()),
-        Bind.factory((i) => SetSummaryUseCase<StatusModel>()),
-        Bind.factory((i) => ToogleSubscriptionsUseCase<StatusModel>()),
-        Bind.factory((i) => ToogleMembersOnlyUseCase<StatusModel>()),
-        Bind.factory((i) => StartEventUseCase<StatusModel>()),
-        Bind.factory((i) => FinishEventUseCase<StatusModel>()),
-        Bind.factory((i) => FinishRaceUseCase<StatusModel>()),
-        Bind.factory((i) => CancelRaceUseCase<StatusModel>()),
-      ];
+  void binds(i) {
+    i.add<EventManageViewModel>(EventManageViewModel.new);
+    i.add<CreateTeamUseCase<StatusModel>>(CreateTeamUseCase.new);
+    i.add<LeaveTeamUseCase<StatusModel>>(LeaveTeamUseCase.new);
+    i.add<JoinTeamUseCase<StatusModel>>(JoinTeamUseCase.new);
+    i.add<DeleteTeamUseCase<StatusModel>>(DeleteTeamUseCase.new);
+    i.add<RemoveRegisterUseCase<StatusModel>>(RemoveRegisterUseCase.new);
+    i.add<SetSummaryUseCase<StatusModel>>(SetSummaryUseCase.new);
+    i.add<ToogleSubscriptionsUseCase<StatusModel>>(ToogleSubscriptionsUseCase.new);
+    i.add<ToogleMembersOnlyUseCase<StatusModel>>(ToogleMembersOnlyUseCase.new);
+    i.add<StartEventUseCase<StatusModel>>(StartEventUseCase.new);
+    i.add<FinishEventUseCase<StatusModel>>(FinishEventUseCase.new);
+    i.add<FinishRaceUseCase<StatusModel>>(FinishRaceUseCase.new);
+    i.add<CancelRaceUseCase<StatusModel>>(CancelRaceUseCase.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => const EventManageScreen()),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => const EventManageScreen());
+  }
 }

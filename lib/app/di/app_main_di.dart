@@ -30,117 +30,38 @@ import '../presentation/app_screen.dart';
 import '../presentation/app_view_model.dart';
 
 class AppMainModule extends Module {
+
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => AppViewModel()),
-        Bind.factory((i) => GetTutorialExhibitionUserUseCase<bool>()),
-      ];
+  void binds(i) {
+    i.add<AppViewModel>(AppViewModel.new);
+    i.add<GetTutorialExhibitionUserUseCase<bool>>(GetTutorialExhibitionUserUseCase<bool>.new);
+  }
+
+  @override
+  void routes(r) {
+    r.child('/', child: (context) => AppScreen());
+    r.module(LoginRouter.onboard, module: LoginOnboardModule());
+    r.module(LoginRouter.signUp, module: LoginSignUpModule());
+    r.module(LoginRouter.signIn, module: LoginSignInModule());
+    r.module(LoginRouter.recovery, module: LoginPasswordRecoveryModule());
+    r.module(HomeRouter.main, module: HomeModule());
+    r.module(LeagueRouter.list, module: LeagueListModule());
+    r.module(LeagueRouter.owned, module: LeagueListModule(router: LeagueListRouterSet.owned));
+    r.module(LeagueRouter.create, module: LeagueCreateModule());
+    r.module(LeagueRouter.detail, module: LeagueDetailModule());
+    r.module(LeagueRouter.members, module: LeagueMemberModule());
+    r.module(LeagueRouter.trophies, module: LeagueTrophiesModule());
+    r.module(EventRouter.list, module: EventListModule());
+    r.module(EventRouter.search, module: EventListModule(router: EventListRouter.search));
+    r.module(EventRouter.detail, module: EventDetailModule());
+    r.module(EventRouter.create, module: EventCreateModule());
+    r.module(EventRouter.manage, module: EventManageModule());
+    r.module(EventRouter.update, module: EventUpdateModule());
+    r.module(ProfileRouter.main, module: ProfileModule());
+    r.module(PushRouter.main, module: NotificationModule());
+  }
 
   var primaryTransition = TransitionType.fadeIn;
   var secondaryTransition = TransitionType.rightToLeftWithFade;
 
-  @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => const AppScreen()),
-
-        //Login
-        ModuleRoute(
-          LoginRouter.onboard,
-          module: LoginOnboardModule(),
-          transition: primaryTransition,
-        ),
-        ModuleRoute(
-          LoginRouter.signUp,
-          module: LoginSignUpModule(),
-          transition: secondaryTransition,
-        ),
-        ModuleRoute(
-          LoginRouter.signIn,
-          module: LoginSignInModule(),
-          transition: secondaryTransition,
-        ),
-        ModuleRoute(LoginRouter.recovery,
-            module: LoginPasswordRecoveryModule()),
-
-        //Home
-        ModuleRoute(HomeRouter.main, module: HomeModule()),
-
-        //League
-        ModuleRoute(
-          LeagueRouter.list,
-          module: LeagueListModule(),
-          transition: primaryTransition,
-        ),
-        ModuleRoute(
-          LeagueRouter.owned,
-          module: LeagueListModule(router: LeagueListRouterSet.owned),
-          transition: primaryTransition,
-        ),
-        ModuleRoute(
-          LeagueRouter.create,
-          module: LeagueCreateModule(),
-          transition: secondaryTransition,
-        ),
-        ModuleRoute(
-          LeagueRouter.detail,
-          module: LeagueDetailModule(),
-          transition: secondaryTransition,
-        ),
-        ModuleRoute(
-          LeagueRouter.members,
-          module: LeagueMemberModule(),
-          transition: secondaryTransition,
-        ),
-        ModuleRoute(
-          LeagueRouter.trophies,
-          module: LeagueTrophiesModule(),
-          transition: secondaryTransition,
-        ),
-
-        //Event
-        ModuleRoute(
-          EventRouter.list,
-          module: EventListModule(),
-          transition: primaryTransition,
-        ),
-        ModuleRoute(
-          EventRouter.search,
-          module: EventListModule(router: EventListRouter.search),
-          transition: primaryTransition,
-        ),
-        ModuleRoute(
-          EventRouter.detail,
-          module: EventDetailModule(),
-          transition: secondaryTransition,
-        ),
-        ModuleRoute(
-          EventRouter.create,
-          module: EventCreateModule(),
-          transition: secondaryTransition,
-        ),
-        ModuleRoute(
-          EventRouter.manage,
-          module: EventManageModule(),
-          transition: secondaryTransition,
-        ),
-        ModuleRoute(
-          EventRouter.update,
-          module: EventUpdateModule(),
-          transition: secondaryTransition,
-        ),
-
-        //Profile
-        ModuleRoute(
-          ProfileRouter.main,
-          module: ProfileModule(),
-          transition: primaryTransition,
-        ),
-
-        //Push
-        ModuleRoute(
-          PushRouter.main,
-          module: NotificationModule(),
-          transition: primaryTransition,
-        ),
-      ];
 }

@@ -10,15 +10,16 @@ import '../domain/get_user_league_use_case.dart';
 
 class HomeModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => HomeViewModel()),
-        Bind.factory((i) => GetUserLeagueUseCase<List<LeagueModel>>()),
-        Bind.factory((i) => GetNotificationsCountUseCase<String>()),
-        Bind.factory((i) => GetMediaUseCase<MediaModel?>()),
-      ];
+  void binds(i) {
+    i.add<HomeViewModel>(HomeViewModel.new);
+    i.add<GetUserLeagueUseCase<List<LeagueModel>>>(GetUserLeagueUseCase.new);
+    i.add<GetNotificationsCountUseCase<String>>(
+        GetNotificationsCountUseCase.new);
+    i.add<GetMediaUseCase<MediaModel?>>(GetMediaUseCase.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => const HomeScreen()),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => const HomeScreen());
+  }
 }

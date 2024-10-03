@@ -112,6 +112,8 @@ abstract class _LoginSignInViewModel
             state = ViewState.ready;
           }
         },
-        failure: onError);
+        failure: (error){
+          state = ViewState.ready;
+        });
   }
 }

@@ -5,13 +5,15 @@ import '../presentation/login_onboard_screen.dart';
 import '../presentation/login_onboard_view_model.dart';
 
 class LoginOnboardModule extends Module {
-  @override
-  List<Bind> get binds => [
-        Bind.factory((i) => LoginOnboardViewModel()),
-        Bind.factory((i) => SetTutorialExhibitionUserUseCase<void>()),
-      ];
 
   @override
-  List<ModularRoute> get routes =>
-      [ChildRoute('/', child: (context, args) => const LoginOnboardScreen())];
+  void binds(i){
+    i.add<LoginOnboardViewModel>(LoginOnboardViewModel.new);
+    i.add<SetTutorialExhibitionUserUseCase<void>>(SetTutorialExhibitionUserUseCase.new);
+  }
+
+  @override
+  void routes(r) {
+    r.child('/', child: (context) => const LoginOnboardScreen());
+  }
 }

@@ -15,15 +15,15 @@ class LoginSignUpModule extends Module {
   LoginSignUpModule({this.flow = LoginSignUpRouterSet.terms});
 
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => LoginSignUpViewModel()),
-        Bind.factory((i) => GetTagUseCase()),
-        Bind.factory((i) => SignUpUseCase<StatusModel>()),
-        Bind.factory((i) => GetPublicKeyUseCase<PublicKeyModel>()),
-      ];
+  void binds(i) {
+    i.add<LoginSignUpViewModel>(LoginSignUpViewModel.new);
+    i.add<GetTagUseCase>(GetTagUseCase.new);
+    i.add<SignUpUseCase<StatusModel>>(SignUpUseCase.new);
+    i.add<GetPublicKeyUseCase<PublicKeyModel>>(GetPublicKeyUseCase.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => const LoginSignUpScreen()),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => const LoginSignUpScreen());
+  }
 }

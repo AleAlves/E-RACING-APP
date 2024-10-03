@@ -15,17 +15,16 @@ class LeagueListModule extends Module {
   LeagueListModule({this.router = LeagueListRouterSet.main});
 
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => LeagueListViewModel()),
-        Bind.factory((i) => GetTagUseCase()),
-        Bind.factory((i) => FetchLeagueUseCase<List<LeagueModel>>()),
-        Bind.factory((i) => SearchLeagueUseCase<List<LeagueModel>>()),
-        Bind.factory((i) => GetOwnedLeagueUseCase<List<LeagueModel>>()),
-      ];
+  void binds(i) {
+    i.add<LeagueListViewModel>(LeagueListViewModel.new);
+    i.add<GetTagUseCase>(GetTagUseCase.new);
+    i.add<FetchLeagueUseCase<List<LeagueModel>>>(FetchLeagueUseCase.new);
+    i.add<SearchLeagueUseCase<List<LeagueModel>>>(SearchLeagueUseCase.new);
+    i.add<GetOwnedLeagueUseCase<List<LeagueModel>>>(GetOwnedLeagueUseCase.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/',
-            child: (context, args) => LeagueListScreen(router: router)),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => LeagueListScreen(router: router));
+  }
 }

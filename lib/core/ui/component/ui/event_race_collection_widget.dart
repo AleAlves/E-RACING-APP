@@ -12,7 +12,7 @@ import 'icon_widget.dart';
 class EventRaceCollection extends StatelessWidget {
   final List<RaceModel?>? races;
   final Function(String) onRaceCardPressed;
-  final CarouselController buttonCarouselController = CarouselController();
+  // final CarouselController buttonCarouselController = CarouselController();
 
   EventRaceCollection(
       {Key? key, required this.races, required this.onRaceCardPressed})

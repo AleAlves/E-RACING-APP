@@ -8,8 +8,7 @@ class BannerWidget extends StatefulWidget {
   final MediaModel? media;
   final bool? loadDefault;
 
-  const BannerWidget({required this.media, this.loadDefault = false, Key? key})
-      : super(key: key);
+  const BannerWidget({required this.media, this.loadDefault = false, super.key});
 
   Widget loading(BuildContext context) {
     return const Card(child: LoadingShimmer());

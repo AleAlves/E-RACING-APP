@@ -14,18 +14,15 @@ class EventListModule extends Module {
   EventListModule({this.router = EventListRouter.search});
 
   @override
-  List<Bind> get binds => [
-        Bind.factory((i) => EventListViewModel()),
-        Bind.factory((i) => GetTagUseCase()),
-        Bind.factory((i) => FetchEventsUseCase<List<EventModel>>()),
-        Bind.factory((i) => SearchEventsUseCase<List<EventModel>>()),
-      ];
+  void binds(i) {
+    i.add<EventListViewModel>(EventListViewModel.new);
+    i.add<GetTagUseCase>(GetTagUseCase.new);
+    i.add<FetchEventsUseCase<List<EventModel>>>(FetchEventsUseCase.new);
+    i.add<SearchEventsUseCase<List<EventModel>>>(SearchEventsUseCase.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/',
-            child: (context, args) => EventListScreen(
-                  router: router,
-                )),
-      ];
+  void routes(r) {
+    r.child('/', child: (context) => EventListScreen(router: router));
+  }
 }

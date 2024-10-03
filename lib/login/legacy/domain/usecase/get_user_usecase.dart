@@ -10,8 +10,7 @@ class GetUserUseCase<T> extends BaseUseCase<T?> {
       {required Function(T?) success, required Function failure}) async {
     var response = await super.local(StoreRequest("user", Operation.fetch));
     if (response.isSuccessfully) {
-      var data =
-          response.data == null ? null : UserModel.fromJson(response.data) as T;
+      var data = response.data == null ? null : UserModel.fromJson(response.data) as T;
       success.call(data);
     } else {
       failure.call(ApiException(message: "error trying to retrive local data"));

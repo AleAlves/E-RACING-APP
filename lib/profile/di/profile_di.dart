@@ -9,16 +9,17 @@ import '../domain/update_profile_usecase.dart';
 import '../presentation/profile_screen.dart';
 
 class ProfileModule extends Module {
-  @override
-  List<Bind> get binds => [
-        Bind.factory((i) => ProfileViewModel()),
-        Bind.factory((i) => GetTagUseCase()),
-        Bind.factory((i) => GetMediaUseCase<MediaModel?>()),
-        Bind.factory((i) => UpdateProfileUseCase<UserModel>()),
-      ];
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute('/', child: (context, args) => const ProfileScreen()),
-      ];
+  void binds(i) {
+    i.add<ProfileViewModel>(ProfileViewModel.new);
+    i.add<GetTagUseCase>(GetTagUseCase.new);
+    i.add<GetMediaUseCase<MediaModel?>>(GetMediaUseCase.new);
+    i.add<UpdateProfileUseCase<UserModel>>(UpdateProfileUseCase.new);
+  }
+
+  @override
+  void routes(r) {
+    r.child('/', child: (context) => const ProfileScreen());
+  }
 }
