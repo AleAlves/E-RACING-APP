@@ -46,12 +46,11 @@ class _ERacingAppState extends State<ERacingApp> {
 
   @override
   Widget build(BuildContext context) {
-
     const FlexSchemeColor colorDark = FlexSchemeColor(
-      primary: Color(0xfff39012),
-      primaryContainer: Color(0xffd2821d),
-      secondary: Color(0xff44087c),
-      secondaryContainer: Color(0xff44087c),
+      primary: Color(0xff486a8f),
+      primaryContainer: Color(0xff486a8f),
+      secondary: Color(0xff537a46),
+      secondaryContainer: Color(0xff537a46),
     );
 
     const FlexSchemeData _myFlexScheme = FlexSchemeData(

@@ -130,9 +130,8 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
         : Padding(
             padding: const EdgeInsets.all(8),
             child: Wrap(
-              alignment: WrapAlignment.spaceBetween,
-              children: widget.viewModel.tags!
-                  .map((item) {
+              alignment: WrapAlignment.spaceAround,
+              children: widget.viewModel.tags!.map((item) {
                     final selected = tags.contains(item?.id);
                     return ActionChip(
                         avatar: CircleAvatar(

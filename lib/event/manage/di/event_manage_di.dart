@@ -25,18 +25,18 @@ class EventManageModule extends Module {
   @override
   void binds(i) {
     i.add<EventManageViewModel>(EventManageViewModel.new);
-    i.add<CreateTeamUseCase<StatusModel>>(CreateTeamUseCase.new);
-    i.add<LeaveTeamUseCase<StatusModel>>(LeaveTeamUseCase.new);
-    i.add<JoinTeamUseCase<StatusModel>>(JoinTeamUseCase.new);
-    i.add<DeleteTeamUseCase<StatusModel>>(DeleteTeamUseCase.new);
-    i.add<RemoveRegisterUseCase<StatusModel>>(RemoveRegisterUseCase.new);
-    i.add<SetSummaryUseCase<StatusModel>>(SetSummaryUseCase.new);
-    i.add<ToogleSubscriptionsUseCase<StatusModel>>(ToogleSubscriptionsUseCase.new);
-    i.add<ToogleMembersOnlyUseCase<StatusModel>>(ToogleMembersOnlyUseCase.new);
-    i.add<StartEventUseCase<StatusModel>>(StartEventUseCase.new);
-    i.add<FinishEventUseCase<StatusModel>>(FinishEventUseCase.new);
-    i.add<FinishRaceUseCase<StatusModel>>(FinishRaceUseCase.new);
-    i.add<CancelRaceUseCase<StatusModel>>(CancelRaceUseCase.new);
+    i.add<CreateTeamUseCase<StatusModel>>(CreateTeamUseCase<StatusModel>.new);
+    i.add<LeaveTeamUseCase<StatusModel>>(LeaveTeamUseCase<StatusModel>.new);
+    i.add<JoinTeamUseCase<StatusModel>>(JoinTeamUseCase<StatusModel>.new);
+    i.add<DeleteTeamUseCase<StatusModel>>(DeleteTeamUseCase<StatusModel>.new);
+    i.add<RemoveRegisterUseCase<StatusModel>>(RemoveRegisterUseCase<StatusModel>.new);
+    i.add<SetSummaryUseCase<StatusModel>>(SetSummaryUseCase<StatusModel>.new);
+    i.add<ToogleSubscriptionsUseCase<StatusModel>>(ToogleSubscriptionsUseCase<StatusModel>.new);
+    i.add<ToogleMembersOnlyUseCase<StatusModel>>(ToogleMembersOnlyUseCase<StatusModel>.new);
+    i.add<StartEventUseCase<StatusModel>>(StartEventUseCase<StatusModel>.new);
+    i.add<FinishEventUseCase<StatusModel>>(FinishEventUseCase<StatusModel>.new);
+    i.add<FinishRaceUseCase<StatusModel>>(FinishRaceUseCase<StatusModel>.new);
+    i.add<CancelRaceUseCase<StatusModel>>(CancelRaceUseCase<StatusModel>.new);
   }
 
   @override

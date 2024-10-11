@@ -15,8 +15,8 @@ class EventCreateModule extends Module {
   @override
   void binds(i) {
     i.add<EventCreateViewModel>(EventCreateViewModel.new);
-    i.add<GetTagUseCase>(GetTagUseCase.new);
-    i.add<CreateEventUseCase<StatusModel>>(CreateEventUseCase.new);
+    i.add<GetTagUseCase<dynamic>>(GetTagUseCase<dynamic>.new);
+    i.add<CreateEventUseCase<StatusModel>>(CreateEventUseCase<StatusModel>.new);
   }
 
   @override

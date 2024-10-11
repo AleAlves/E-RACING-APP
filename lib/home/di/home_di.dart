@@ -12,10 +12,9 @@ class HomeModule extends Module {
   @override
   void binds(i) {
     i.add<HomeViewModel>(HomeViewModel.new);
-    i.add<GetUserLeagueUseCase<List<LeagueModel>>>(GetUserLeagueUseCase.new);
-    i.add<GetNotificationsCountUseCase<String>>(
-        GetNotificationsCountUseCase.new);
-    i.add<GetMediaUseCase<MediaModel?>>(GetMediaUseCase.new);
+    i.add<GetUserLeagueUseCase<List<LeagueModel>>>(GetUserLeagueUseCase<List<LeagueModel>>.new);
+    i.add<GetNotificationsCountUseCase<String>>(GetNotificationsCountUseCase<String>.new);
+    i.add<GetMediaUseCase<MediaModel?>>(GetMediaUseCase<MediaModel?>.new);
   }
 
   @override

@@ -83,16 +83,16 @@ class _ButtonWidgetState extends State<ButtonWidget> {
   Widget primary(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(48),
-            side: const BorderSide(
-              width: 0.1,
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(48),
+              side: const BorderSide(
+                width: 0.1,
+              ),
             ),
           ),
-        ),
-        minimumSize: ButtonStyleButton.allOrNull<Size>(const Size(double.infinity, 0))
-      ),
+          minimumSize: ButtonStyleButton.allOrNull<Size>(
+              const Size(double.infinity, 0))),
       onPressed: widget.enabled ? widget.onPressed : null,
       child: Padding(
         padding: const EdgeInsets.all(16.0),

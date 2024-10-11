@@ -27,16 +27,16 @@ class EventDetailModule extends Module {
   @override
   void binds(i) {
     i.add<EventDetailViewModel>(EventDetailViewModel.new);
-    i.add<CreateTeamUseCase<StatusModel>>(CreateTeamUseCase.new);
-    i.add<LeaveTeamUseCase<StatusModel>>(LeaveTeamUseCase.new);
-    i.add<JoinTeamUseCase<StatusModel>>(JoinTeamUseCase.new);
-    i.add<DeleteTeamUseCase<StatusModel>>(DeleteTeamUseCase.new);
-    i.add<GetStandingUseCase<EventStandingsModel>>(GetStandingUseCase.new);
-    i.add<GetEventUseCase<EventHomeModel>>(GetEventUseCase.new);
-    i.add<SubscribeEventUseCase<StatusModel>>(SubscribeEventUseCase.new);
-    i.add<UnsubscribeEventUseCase<StatusModel>>(UnsubscribeEventUseCase.new);
-    i.add<GetMediaUseCase<MediaModel>>(GetMediaUseCase.new);
-    i.add<TeamsStandingUseCase<EventTeamsStandingsModel>>(TeamsStandingUseCase.new);
+    i.add<CreateTeamUseCase<StatusModel>>(CreateTeamUseCase<StatusModel>.new);
+    i.add<LeaveTeamUseCase<StatusModel>>(LeaveTeamUseCase<StatusModel>.new);
+    i.add<JoinTeamUseCase<StatusModel>>(JoinTeamUseCase<StatusModel>.new);
+    i.add<DeleteTeamUseCase<StatusModel>>(DeleteTeamUseCase<StatusModel>.new);
+    i.add<GetStandingUseCase<EventStandingsModel>>(GetStandingUseCase<StatusModel>.new);
+    i.add<GetEventUseCase<EventHomeModel>>(GetEventUseCase<EventHomeModel>.new);
+    i.add<SubscribeEventUseCase<StatusModel>>(SubscribeEventUseCase<StatusModel>.new);
+    i.add<UnsubscribeEventUseCase<StatusModel>>(UnsubscribeEventUseCase<StatusModel>.new);
+    i.add<GetMediaUseCase<MediaModel>>(GetMediaUseCase<MediaModel>.new);
+    i.add<TeamsStandingUseCase<EventTeamsStandingsModel>>(TeamsStandingUseCase<EventTeamsStandingsModel>.new);
   }
 
   @override

@@ -17,9 +17,9 @@ class LoginSignUpModule extends Module {
   @override
   void binds(i) {
     i.add<LoginSignUpViewModel>(LoginSignUpViewModel.new);
-    i.add<GetTagUseCase>(GetTagUseCase.new);
-    i.add<SignUpUseCase<StatusModel>>(SignUpUseCase.new);
-    i.add<GetPublicKeyUseCase<PublicKeyModel>>(GetPublicKeyUseCase.new);
+    i.add<GetTagUseCase<dynamic>>(GetTagUseCase<dynamic>.new);
+    i.add<SignUpUseCase<StatusModel>>(SignUpUseCase<StatusModel>.new);
+    i.add<GetPublicKeyUseCase<PublicKeyModel>>(GetPublicKeyUseCase<PublicKeyModel>.new);
   }
 
   @override

@@ -16,9 +16,9 @@ class LeagueCreateModule extends Module {
   @override
   void binds(i) {
     i.add<LeagueCreateViewModel>(LeagueCreateViewModel.new);
-    i.add<CreateLeagueUseCase<StatusModel>>(CreateLeagueUseCase.new);
-    i.add<GetTagUseCase>(GetTagUseCase.new);
-    i.add<GetSocialMediaUseCase>(GetSocialMediaUseCase.new);
+    i.add<CreateLeagueUseCase<StatusModel>>(CreateLeagueUseCase<StatusModel>.new);
+    i.add<GetTagUseCase<dynamic>>(GetTagUseCase<dynamic>.new);
+    i.add<GetSocialMediaUseCase<dynamic>>(GetSocialMediaUseCase<dynamic>.new);
   }
 
   @override

@@ -212,7 +212,7 @@ class _LoginSignUpPasswordViewState extends State<LoginSignUpPasswordView>
     } else {
       return const IconWidget(
         icon: Icons.error,
-        color: Colors.red,
+        color: Colors.amber,
       );
     }
   }

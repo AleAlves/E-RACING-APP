@@ -11,8 +11,8 @@ class NotificationModule extends Module {
   @override
   void binds(i) {
     i.add<NotificationViewModel>(NotificationViewModel.new);
-    i.add<GetNotificationsUseCase<List<QueryDocumentSnapshot>>>(GetNotificationsUseCase.new);
-    i.add<GetNotificationsFlowUseCase<String>>(GetNotificationsFlowUseCase.new);
+    i.add<GetNotificationsUseCase<List<QueryDocumentSnapshot>>>(GetNotificationsUseCase<List<QueryDocumentSnapshot>>.new);
+    i.add<GetNotificationsFlowUseCase<String>>(GetNotificationsFlowUseCase<String>.new);
   }
 
   @override

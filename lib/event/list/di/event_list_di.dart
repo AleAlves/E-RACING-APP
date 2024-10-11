@@ -16,9 +16,9 @@ class EventListModule extends Module {
   @override
   void binds(i) {
     i.add<EventListViewModel>(EventListViewModel.new);
-    i.add<GetTagUseCase>(GetTagUseCase.new);
-    i.add<FetchEventsUseCase<List<EventModel>>>(FetchEventsUseCase.new);
-    i.add<SearchEventsUseCase<List<EventModel>>>(SearchEventsUseCase.new);
+    i.add<GetTagUseCase<dynamic>>(GetTagUseCase<dynamic>.new);
+    i.add<FetchEventsUseCase<List<EventModel>>>(FetchEventsUseCase<List<EventModel>>.new);
+    i.add<SearchEventsUseCase<List<EventModel>>>(SearchEventsUseCase<List<EventModel>>.new);
   }
 
   @override

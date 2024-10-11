@@ -74,18 +74,16 @@ class _LoginSignUpTagsViewState extends State<LoginSignUpTagsView>
         : Padding(
             padding: EdgeInsets.zero,
             child: Wrap(
-              alignment: WrapAlignment.center,
+              spacing: 4,
+              alignment: WrapAlignment.spaceBetween,
               children: widget.viewModel.tags!
                   .map((item) {
                     final selected =
                         widget.viewModel.userTags?.contains(item?.id) ?? false;
                     return ActionChip(
-                        avatar: CircleAvatar(
-                          backgroundColor: selected
-                              ? Theme.of(context).colorScheme.secondary
-                              : null,
-                          child: selected ? const Text('-') : const Text('+'),
-                        ),
+                        backgroundColor: selected
+                            ? Theme.of(context).colorScheme.secondary
+                            : null,
                         label: Text(item?.name ?? ''),
                         onPressed: () {
                           setState(() {

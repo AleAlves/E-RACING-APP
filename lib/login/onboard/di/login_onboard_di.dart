@@ -9,7 +9,7 @@ class LoginOnboardModule extends Module {
   @override
   void binds(i){
     i.add<LoginOnboardViewModel>(LoginOnboardViewModel.new);
-    i.add<SetTutorialExhibitionUserUseCase<void>>(SetTutorialExhibitionUserUseCase.new);
+    i.add<SetTutorialExhibitionUserUseCase<void>>(SetTutorialExhibitionUserUseCase<void>.new);
   }
 
   @override

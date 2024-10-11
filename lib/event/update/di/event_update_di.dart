@@ -22,14 +22,14 @@ class EventUpdateModule extends Module {
   @override
   void binds(i) {
     i.add<EventUpdateViewModel>(EventUpdateViewModel.new);
-    i.add<CreateTeamUseCase<StatusModel>>(CreateTeamUseCase.new);
-    i.add<LeaveTeamUseCase<StatusModel>>(LeaveTeamUseCase.new);
-    i.add<JoinTeamUseCase<StatusModel>>(JoinTeamUseCase.new);
-    i.add<DeleteTeamUseCase<StatusModel>>(DeleteTeamUseCase.new);
-    i.add<RemoveRegisterUseCase<StatusModel>>(RemoveRegisterUseCase.new);
-    i.add<GetMediaUseCase<MediaModel>>(GetMediaUseCase.new);
-    i.add<UpdateEventUseCase<StatusModel>>(UpdateEventUseCase.new);
-    i.add<UpdateRaceUseCase<StatusModel>>(UpdateRaceUseCase.new);
+    i.add<CreateTeamUseCase<StatusModel>>(CreateTeamUseCase<StatusModel>.new);
+    i.add<LeaveTeamUseCase<StatusModel>>(LeaveTeamUseCase<StatusModel>.new);
+    i.add<JoinTeamUseCase<StatusModel>>(JoinTeamUseCase<StatusModel>.new);
+    i.add<DeleteTeamUseCase<StatusModel>>(DeleteTeamUseCase<StatusModel>.new);
+    i.add<RemoveRegisterUseCase<StatusModel>>(RemoveRegisterUseCase<StatusModel>.new);
+    i.add<GetMediaUseCase<MediaModel>>(GetMediaUseCase<StatusModel>.new);
+    i.add<UpdateEventUseCase<StatusModel>>(UpdateEventUseCase<StatusModel>.new);
+    i.add<UpdateRaceUseCase<StatusModel>>(UpdateRaceUseCase<StatusModel>.new);
   }
 
   @override

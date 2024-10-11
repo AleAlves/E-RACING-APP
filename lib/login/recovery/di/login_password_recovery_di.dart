@@ -17,10 +17,9 @@ class LoginPasswordRecoveryModule extends Module {
   @override
   void binds(i) {
     i.add<LoginPasswordRecoveryViewModel>(LoginPasswordRecoveryViewModel.new);
-    i.add<ResetPasswordUseCase<StatusModel>>(ResetPasswordUseCase.new);
-    i.add<ForgotPasswordUseCase<StatusModel>>(ForgotPasswordUseCase.new);
-    i.add<RetryMailValidationUseCase<StatusModel>>(
-        RetryMailValidationUseCase.new);
+    i.add<ResetPasswordUseCase<StatusModel>>(ResetPasswordUseCase<StatusModel>.new);
+    i.add<ForgotPasswordUseCase<StatusModel>>(ForgotPasswordUseCase<StatusModel>.new);
+    i.add<RetryMailValidationUseCase<StatusModel>>(RetryMailValidationUseCase<StatusModel>.new);
   }
 
   @override

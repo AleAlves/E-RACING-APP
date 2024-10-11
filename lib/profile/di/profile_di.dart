@@ -13,9 +13,9 @@ class ProfileModule extends Module {
   @override
   void binds(i) {
     i.add<ProfileViewModel>(ProfileViewModel.new);
-    i.add<GetTagUseCase>(GetTagUseCase.new);
-    i.add<GetMediaUseCase<MediaModel?>>(GetMediaUseCase.new);
-    i.add<UpdateProfileUseCase<UserModel>>(UpdateProfileUseCase.new);
+    i.add<GetTagUseCase<dynamic>>(GetTagUseCase<dynamic>.new);
+    i.add<GetMediaUseCase<MediaModel?>>(GetMediaUseCase<MediaModel?>.new);
+    i.add<UpdateProfileUseCase<UserModel>>(UpdateProfileUseCase<UserModel>.new);
   }
 
   @override

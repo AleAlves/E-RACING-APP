@@ -86,12 +86,6 @@ class _LoginSignUpNameViewState extends State<LoginSignUpNameView>
           const SpacingWidget(LayoutSize.size48),
           const TextWidget(
               text: "Lets start with your name", style: Style.subtitle),
-          const SpacingWidget(LayoutSize.size8),
-          const TextWidget(
-            text: "These information will be public in this platform",
-            style: Style.caption,
-            align: TextAlign.start,
-          ),
           const SpacingWidget(LayoutSize.size32),
           InputTextWidget(
               enabled: true,

@@ -34,24 +34,27 @@ class TextWidget extends StatelessWidget {
       case Style.title:
         return Theme.of(context)
             .textTheme
-            .headlineMedium
+            .titleLarge
             ?.copyWith(color: color);
       case Style.subtitle:
         return Theme.of(context)
             .textTheme
-            .headlineMedium
+            .titleLarge
             ?.copyWith(color: color);
       case Style.paragraph:
-        return Theme.of(context).textTheme.bodyLarge?.copyWith(color: color);
+        return Theme.of(context)
+            .textTheme
+            .bodyLarge
+            ?.copyWith(color: color);
       case Style.caption:
         return Theme.of(context)
             .textTheme
-            .headlineMedium
+            .labelMedium
             ?.copyWith(color: color, fontSize: 14);
       case Style.error:
         return Theme.of(context)
             .textTheme
-            .headlineMedium
+            .labelMedium
             ?.copyWith(color: Colors.red, fontSize: 14);
       case Style.button:
         return Theme.of(context)
