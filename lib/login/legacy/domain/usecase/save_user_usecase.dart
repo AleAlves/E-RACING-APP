@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:e_racing_app/core/data/store_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
@@ -19,14 +21,17 @@ class SaveUserUseCase<T> extends BaseUseCase<T> {
   @override
   Future<void> invoke(
       {required Function(T) success, required Function failure}) async {
+    var user = UserModel(
+        profile: ProfileModel(email: _email),
+        auth: AuthModel(password: _password)
+    );
     var response = await super.local(StoreRequest("user", Operation.save,
-        data: UserModel(
-            profile: ProfileModel(email: _email),
-            auth: AuthModel(password: _password))));
-    if (response.isSuccessfully) {
+        data: json.encode(user)));
+        if (response.isSuccessfully)
+    {
       success.call(UserModel.fromJson(response.data ?? {}) as T);
     } else {
-      failure.call(ApiException(message: "error trying to retrive local data"));
+    failure.call(ApiException(message: "error trying to retrive local data"));
     }
   }
 }

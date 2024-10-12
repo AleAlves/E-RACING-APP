@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'event_do_subscribe_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class EventDoSubscribeCreateModel {
   String classId;
   String eventId;

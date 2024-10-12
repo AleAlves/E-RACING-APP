@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'event_teams_standings_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class EventTeamsStandingsModel {
 
   String? eventId;
@@ -20,7 +20,7 @@ class EventTeamsStandingsModel {
   Map<String, dynamic> toJson() => _$EventTeamsStandingsModelToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class TeamsStandingsModel {
   List<UserModel?>? users;
   TeamModel? team;

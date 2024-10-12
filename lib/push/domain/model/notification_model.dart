@@ -4,7 +4,7 @@ part 'notification_model.g.dart';
 
 enum NotificationTypeModel { race, event, league, profile }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class NotificationModel {
   late String? date;
   late String? action;
@@ -26,7 +26,7 @@ class NotificationModel {
   Map<String, dynamic> toJson() => _$NotificationModelToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class NotificationSourceModel {
   late String? sourceId;
   late NotificationTypeModel type;

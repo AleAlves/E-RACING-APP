@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'race_create_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class RaceCreateModel {
   String? date;
   String? title;

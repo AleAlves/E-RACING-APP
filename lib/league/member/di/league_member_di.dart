@@ -16,8 +16,8 @@ class LeagueMemberModule extends Module {
   @override
   void binds(i) {
     i.add<LeagueMemberViewModel>(LeagueMemberViewModel.new);
-    i.add<RemoveMemberUseCase<StatusModel>>(RemoveMemberUseCase.new);
-    i.add<GetMembersUseCase<List<LeagueMembersModel>>>(GetMembersUseCase.new);
+    i.add<RemoveMemberUseCase<StatusModel>>(RemoveMemberUseCase<StatusModel>.new);
+    i.add<GetMembersUseCase<List<LeagueMembersModel?>>>(GetMembersUseCase<List<LeagueMembersModel?>>.new);
   }
 
   @override

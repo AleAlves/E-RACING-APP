@@ -72,7 +72,7 @@ class ProfileCardWidget extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 50,
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           child: Padding(
             padding: const EdgeInsets.all(1.0),
             child: ClipOval(

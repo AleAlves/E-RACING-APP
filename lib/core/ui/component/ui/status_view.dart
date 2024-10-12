@@ -82,12 +82,6 @@ class _StatusViewState extends State<StatusView> implements BaseSateWidget {
       type: ButtonType.primary,
       onPressed: () {
         Modular.to.popAndPushNamed(widget.viewModel.status?.route);
-
-        // if (widget.viewModel.status?.route is Routes) {
-        //   Modular.to.popAndPushNamed(widget.viewModel.status?.route);
-        // } else {
-        //   widget.viewModel.onRoute(widget.viewModel.status?.route);
-        // }
       },
       label: widget.viewModel.status?.action ?? '',
     );

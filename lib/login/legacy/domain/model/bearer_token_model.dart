@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'bearer_token_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class BearerTokenModel {
   late String token;
   late String scope;

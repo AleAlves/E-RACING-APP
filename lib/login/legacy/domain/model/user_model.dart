@@ -6,7 +6,7 @@ import 'auth_model.dart';
 
 part 'user_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class UserModel {
   @JsonKey(name: '_id')
   final String? id;

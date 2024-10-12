@@ -16,60 +16,49 @@ class MenuCardWidget extends StatelessWidget {
       required this.title,
       required this.subtitle,
       this.onPressed,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   @override
   Widget build(BuildContext context) {
     return CardWidget(
-      arrowed: true,
-      child: content(context),
-      onPressed: onPressed,
-      ready: true,
-    );
+        arrowed: true,
+        onPressed: onPressed,
+        ready: true,
+        child: content(context));
   }
 
   Widget content(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Wrap(
-        direction: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
         children: [
-          Row(
-            children: [
-              const SpacingWidget(LayoutSize.size8),
-              ButtonWidget(
-                  enabled: true,
-                  icon: icon,
-                  type: ButtonType.icon,
-                  onPressed: onPressed),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          ButtonWidget(
+              enabled: true,
+              icon: icon,
+              type: ButtonType.icon,
+              onPressed: onPressed),
+          const SpacingWidget(LayoutSize.size16),
+          Flexible(
+            // Wrap the Column with Flexible
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Wrap(
-                  alignment: WrapAlignment.start,
-                  children: [
-                    TextWidget(
-                      text: title,
-                      style: Style.subtitle,
-                    ),
-                  ],
+                TextWidget(
+                  text: title,
+                  style: Style.subtitle,
                 ),
-                const SpacingWidget(LayoutSize.size16),
-                Wrap(
-                  children: [
-                    TextWidget(
-                      text: subtitle,
-                      style: Style.caption,
-                      align: TextAlign.start,
-                    ),
-                  ],
-                ),
+                if (subtitle.isNotEmpty) ...[
+                  const SpacingWidget(LayoutSize.size8),
+                  TextWidget(
+                    text: subtitle,
+                    style: Style.caption,
+                    align: TextAlign.start,
+                  )
+                ]
               ],
             ),
           ),

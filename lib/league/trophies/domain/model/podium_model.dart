@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 
 part 'podium_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class PodiumModel {
   @JsonKey(name: '_id')
   final String? id;

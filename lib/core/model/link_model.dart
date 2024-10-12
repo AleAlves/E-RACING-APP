@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'link_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class LinkModel {
   late String? platformId;
   late String? link;

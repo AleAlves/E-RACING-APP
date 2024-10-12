@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'public_key_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class PublicKeyModel {
   final String? publicKey;
 

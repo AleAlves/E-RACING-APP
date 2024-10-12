@@ -32,8 +32,7 @@ import 'navigation/league_detail_navigation.dart';
 
 part 'league_detail_view_model.g.dart';
 
-class LeagueDetailViewModel = _LeagueDetailViewModel
-    with _$LeagueDetailViewModel;
+class LeagueDetailViewModel = _LeagueDetailViewModel with _$LeagueDetailViewModel;
 
 abstract class _LeagueDetailViewModel
     extends BaseViewModel<LeagueDetailNavigationSet> with Store {

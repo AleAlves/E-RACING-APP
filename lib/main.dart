@@ -47,13 +47,13 @@ class _ERacingAppState extends State<ERacingApp> {
   @override
   Widget build(BuildContext context) {
     const FlexSchemeColor colorDark = FlexSchemeColor(
-      primary: Color(0xff486a8f),
-      primaryContainer: Color(0xff486a8f),
-      secondary: Color(0xff537a46),
-      secondaryContainer: Color(0xff537a46),
+      primary: Color(0xffffb120),
+      primaryContainer: Color(0xffffb120),
+      secondary: Color(0xff3a1269),
+      secondaryContainer: Color(0xff3a1269),
     );
 
-    const FlexSchemeData _myFlexScheme = FlexSchemeData(
+    const FlexSchemeData myFlexScheme = FlexSchemeData(
       name: 'bigStone',
       description: '',
       light: colorDark,
@@ -72,7 +72,7 @@ class _ERacingAppState extends State<ERacingApp> {
       ],
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
-        colors: _myFlexScheme.dark,
+        colors: myFlexScheme.dark,
         appBarElevation: 0.1,
       ).copyWith(
           scaffoldBackgroundColor: Colors.white,
@@ -80,7 +80,7 @@ class _ERacingAppState extends State<ERacingApp> {
           cardColor: const Color(0xFFF6F6F6),
           focusColor: const Color(0xFFE5E1E1)),
       darkTheme: FlexThemeData.dark(
-        colors: _myFlexScheme.dark,
+        colors: myFlexScheme.dark,
         appBarElevation: 0.1,
         appBarBackground: Colors.black,
       ).copyWith(

@@ -15,13 +15,13 @@ import 'package:image_picker/image_picker.dart';
 class ProfileUpdateView extends StatefulWidget {
   final ProfileViewModel viewModel;
 
-  const ProfileUpdateView(this.viewModel, {Key? key}) : super(key: key);
+  const ProfileUpdateView(this.viewModel, {super.key});
 
   @override
-  _ProfileUpdateViewState createState() => _ProfileUpdateViewState();
+  ProfileUpdateViewState createState() => ProfileUpdateViewState();
 }
 
-class _ProfileUpdateViewState extends State<ProfileUpdateView>
+class ProfileUpdateViewState extends State<ProfileUpdateView>
     implements BaseSateWidget {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
@@ -67,8 +67,8 @@ class _ProfileUpdateViewState extends State<ProfileUpdateView>
         pictureWidget(),
         const SpacingWidget(LayoutSize.size8),
         Form(
-          child: profileForm(),
           key: _formKey,
+          child: profileForm(),
         ),
         tagPickerWidget()
       ],

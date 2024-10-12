@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'league_create_request.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class LeagueCreateRequest {
   late LeagueCreateModel league;
 

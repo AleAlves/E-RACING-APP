@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'social_platform_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class SocialPlatformModel {
   @JsonKey(name: '_id')
   final String? id;

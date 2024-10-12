@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'status_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class StatusModel {
   final String? message;
   final String? action;

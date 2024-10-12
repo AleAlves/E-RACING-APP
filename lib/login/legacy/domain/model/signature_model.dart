@@ -4,7 +4,7 @@ import 'level_model.dart';
 
 part 'signature_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class SignatureModel {
   @JsonKey(name: '_id')
   final String? id;

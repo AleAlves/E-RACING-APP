@@ -12,10 +12,10 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> implements BaseScreen {
+class HomeScreenState extends State<HomeScreen> implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final viewModel = Modular.get<HomeViewModel>();
 
@@ -29,57 +29,7 @@ class _HomeScreenState extends State<HomeScreen> implements BaseScreen {
   Widget scaffold() {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        title: TextWidget(
-          text: viewModel.title,
-          style: Style.subtitle,
-        ),
-        actions: [
-          notifications(),
-        ],
-      ),
       body: navigate(),
-    );
-  }
-
-  Widget notifications() {
-    return Stack(
-      children: [
-        ButtonWidget(
-            enabled: true,
-            icon: Icons.notifications_none,
-            type: ButtonType.iconShapeless,
-            onPressed: () {
-              viewModel.goToPushNotifications();
-            }),
-        viewModel.notificationsCount == null ||
-                viewModel.notificationsCount == "0"
-            ? Container()
-            : Positioned(
-                left: -5,
-                top: 2,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.025,
-                      child: CircleAvatar(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100.0),
-                          child: TextWidget(
-                            text: viewModel.notificationsCount,
-                            style: Style.paragraph,
-                            color: Theme.of(context).colorScheme.onSecondary,
-                            weight: FontWeight.w900,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-      ],
     );
   }
 

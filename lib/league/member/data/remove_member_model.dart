@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'remove_member_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class RemoveMemberModel {
   late String leagueId;
   late String memberId;

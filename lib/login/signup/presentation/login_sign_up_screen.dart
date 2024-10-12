@@ -10,13 +10,13 @@ import '../../../core/ui/component/ui/text_widget.dart';
 import 'login_sign_up_view_model.dart';
 
 class LoginSignUpScreen extends StatefulWidget {
-  const LoginSignUpScreen({Key? key}) : super(key: key);
+  const LoginSignUpScreen({super.key});
 
   @override
-  _LoginSignUpScreenState createState() => _LoginSignUpScreenState();
+  LoginSignUpScreenState createState() => LoginSignUpScreenState();
 }
 
-class _LoginSignUpScreenState extends State<LoginSignUpScreen>
+class LoginSignUpScreenState extends State<LoginSignUpScreen>
     implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final viewModel = Modular.get<LoginSignUpViewModel>();
@@ -58,13 +58,13 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen>
 
   Widget progressIndicator() {
     return Positioned(
+      left: 0,
+      right: 0,
+      top: 0,
       child: StepProgressIndicatorWidget(
         maxSteps: viewModel.maxSteps,
         currentStep: viewModel.currentStep,
       ),
-      left: 0,
-      right: 0,
-      top: 0,
     );
   }
 

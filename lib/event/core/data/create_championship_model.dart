@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'create_championship_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class CreateChampionshipModel {
   late List<MediaModel> medias;
   late EventModel event;

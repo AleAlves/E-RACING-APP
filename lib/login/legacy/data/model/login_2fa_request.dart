@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'login_2fa_request.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Login2FaRequest {
   String code;
   String token;

@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'set_summary_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class SetSummaryModel {
   late String? summaryId;
   late String? sessionId;

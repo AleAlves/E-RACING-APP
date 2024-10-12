@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'level_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class LevelModel {
   @JsonKey(name: '_id')
   final String? id;

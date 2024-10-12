@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'league_search_request.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class LeagueSearchRequest {
   late List<String>? tagIds;
 

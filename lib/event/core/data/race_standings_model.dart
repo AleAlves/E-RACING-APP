@@ -8,7 +8,7 @@ import '../../../core/model/session_model.dart';
 
 part 'race_standings_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class RaceStandingsModel {
   String? raceName;
   bool? isEditable;
@@ -22,7 +22,7 @@ class RaceStandingsModel {
   Map<String, dynamic> toJson() => _$RaceStandingsModelToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class RaceStandingsClassesModel {
   String? className;
   List<RaceStandingsSessionModel?>? sessions;
@@ -35,7 +35,7 @@ class RaceStandingsClassesModel {
   Map<String, dynamic> toJson() => _$RaceStandingsClassesModelToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class RaceStandingsSessionModel {
   late int? sessionIndex;
   late SessionType? type;
@@ -53,7 +53,7 @@ class RaceStandingsSessionModel {
   Map<String, dynamic> toJson() => _$RaceStandingsSessionModelToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class RaceStandingsSummaryModel {
   late UserModel? user;
   late TeamModel? team;

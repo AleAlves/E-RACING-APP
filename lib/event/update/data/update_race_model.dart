@@ -5,7 +5,7 @@ import '../../../core/model/media_model.dart';
 
 part 'update_race_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class UpdateRaceModel {
   late String? eventId;
   late RaceModel? raceModel;

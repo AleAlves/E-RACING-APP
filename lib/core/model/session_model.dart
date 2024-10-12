@@ -7,7 +7,7 @@ part 'session_model.g.dart';
 
 enum SessionType { warmup, practice, qualify, race }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class SessionModel {
   @JsonKey(name: '_id')
   String? id;

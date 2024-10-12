@@ -9,7 +9,7 @@ import 'league_detail_view_model.dart';
 import 'navigation/league_detail_navigation.dart';
 
 class LeagueDetailScreen extends StatefulWidget {
-  const LeagueDetailScreen({Key? key}) : super(key: key);
+  const LeagueDetailScreen({super.key});
 
   @override
   _LeagueDetailScreenState createState() => _LeagueDetailScreenState();

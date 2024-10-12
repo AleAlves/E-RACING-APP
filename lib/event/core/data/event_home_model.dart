@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'event_home_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class EventHomeModel {
   late List<UserModel?>? users;
   late EventModel event;

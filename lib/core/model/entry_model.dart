@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'entry_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class EntryModel {
   String? raceId;
   String? sessionId;

@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'summary_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class SummaryModel {
   late UserModel? user;
   late int? dnf;

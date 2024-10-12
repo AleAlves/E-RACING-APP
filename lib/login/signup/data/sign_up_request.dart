@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'sign_up_request.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class SignUpRequest {
   late SignUpUserModel signUp;
 

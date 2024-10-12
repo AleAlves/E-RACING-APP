@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'reset_request.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class ResetRequest {
   late String email;
   late String password;

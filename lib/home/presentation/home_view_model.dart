@@ -50,7 +50,7 @@ abstract class _HomeViewModel extends BaseViewModel<HomeRouter> with Store {
 
   @override
   @observable
-  String? title = "E-Racing";
+  String? title = "Pitlane Dash";
 
   final _getMediaUseCase = Modular.get<GetMediaUseCase<MediaModel?>>();
   final _notificationUC = Modular.get<GetNotificationsCountUseCase<String>>();

@@ -5,7 +5,7 @@ import '../../../../profile/domain/model/profile_model.dart';
 
 part 'participant_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class ParticipantModel {
   @JsonKey(name: '_id')
   final String? id;

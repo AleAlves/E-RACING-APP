@@ -5,7 +5,7 @@ import '../domain/model/profile_model.dart';
 
 part 'profile_update_request.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class ProfileUpdateRequest {
   late ProfileModel profile;
   late MediaModel picture;

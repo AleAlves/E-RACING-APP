@@ -57,11 +57,54 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
   Widget content() {
     return Column(
       children: [
-        const SpacingWidget(LayoutSize.size24),
+        const SpacingWidget(LayoutSize.size48),
         profileWidget(),
+        communities(),
         managerWidget(),
         discoverWidget(),
-        communities()
+        const SpacingWidget(LayoutSize.size16)
+      ],
+    );
+  }
+
+  Widget notifications() {
+    return Stack(
+      children: [
+        ButtonWidget(
+            enabled: true,
+            icon: Icons.notifications_none,
+            iconColor: Theme.of(context).colorScheme.onSurface,
+            type: ButtonType.iconShapeless,
+            onPressed: () {
+              widget.viewModel.goToPushNotifications();
+            }),
+        widget.viewModel.notificationsCount == null ||
+                widget.viewModel.notificationsCount == "0"
+            ? Container()
+            : Positioned(
+                left: -5,
+                top: 2,
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.025,
+                      child: CircleAvatar(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(100.0),
+                          child: TextWidget(
+                            text: widget.viewModel.notificationsCount,
+                            style: Style.paragraph,
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            weight: FontWeight.w900,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
       ],
     );
   }
@@ -69,11 +112,18 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
   Widget profileWidget() {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-      child: ProfileCardWidget(
-        onPressed: () {
-          widget.viewModel.goToProfile();
-        },
-        viewModel: widget.viewModel,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ProfileCardWidget(
+            onPressed: () {
+              widget.viewModel.goToProfile();
+            },
+            viewModel: widget.viewModel,
+          ),
+          notifications()
+        ],
       ),
     );
   }
@@ -95,14 +145,14 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
                     MenuCardWidget(
                         icon: Icons.groups,
                         title: "Create a community",
-                        subtitle: "Start a racing community",
+                        subtitle: "",
                         onPressed: () {
                           Modular.to.pushNamed(LeagueRouter.create);
                         }),
                     MenuCardWidget(
                         icon: Icons.settings_suggest,
                         title: "Create an event",
-                        subtitle: "Start racing tournament",
+                        subtitle: "",
                         onPressed: () {
                           Modular.to.pushNamed(LeagueRouter.owned);
                         })
@@ -211,21 +261,17 @@ class _HomeViewState extends State<HomeView> implements BaseSateWidget {
 
   Widget communitiesContent() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.all(16),
-          child: TextWidget(text: "Your communities", style: Style.title),
-        ),
         Padding(
           padding: const EdgeInsets.all(8),
-          child: LeagueCardSmallWidget(
-              leagues: widget.viewModel.communities,
-              onPressed: (leagueId) {
-                widget.viewModel.goToLeague(leagueId);
-              }),
+          child: TextWidget(text: "Your communities", style: Style.title),
         ),
+        LeagueCardSmallWidget(
+            leagues: widget.viewModel.communities,
+            onPressed: (leagueId) {
+              widget.viewModel.goToLeague(leagueId);
+            })
       ],
     );
   }

@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'settings_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class SettingsModel {
   String? name;
   String? value;

@@ -23,13 +23,13 @@ import '../navigation/league_detail_navigation.dart';
 class LeagueDetailView extends StatefulWidget {
   final LeagueDetailViewModel viewModel;
 
-  const LeagueDetailView(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueDetailView(this.viewModel, {super.key});
 
   @override
-  _LeagueDetailViewState createState() => _LeagueDetailViewState();
+  LeagueDetailViewState createState() => LeagueDetailViewState();
 }
 
-class _LeagueDetailViewState extends State<LeagueDetailView>
+class LeagueDetailViewState extends State<LeagueDetailView>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -103,16 +103,19 @@ class _LeagueDetailViewState extends State<LeagueDetailView>
   }
 
   Widget leagueTitle() {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Wrap(
-        children: [
-          TextWidget(
-            text: widget.viewModel.league?.name ?? '',
-            style: Style.title,
-            align: TextAlign.left,
-          ),
-        ],
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Wrap(
+          children: [
+            TextWidget(
+              text: widget.viewModel.league?.name ?? '',
+              style: Style.title,
+              align: TextAlign.left,
+            )
+          ],
+        ),
       ),
     );
   }

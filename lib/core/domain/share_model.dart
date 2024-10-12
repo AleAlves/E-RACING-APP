@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'share_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class ShareModel {
   final String? eventId;
   final String? leagueId;

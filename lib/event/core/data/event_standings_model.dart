@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'event_standings_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class EventStandingsModel {
   final String? eventId;
   final List<EventStandingsClassesModel?>? classes;
@@ -17,7 +17,7 @@ class EventStandingsModel {
 }
 
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class EventStandingsClassesModel {
   String? className;
   List<EventStandingSummaryModel?>? summaries;
@@ -31,7 +31,7 @@ class EventStandingsClassesModel {
 }
 
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class EventStandingSummaryModel {
   @JsonKey(name: '_id')
   final String? id;

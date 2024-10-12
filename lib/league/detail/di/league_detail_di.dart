@@ -30,18 +30,18 @@ class LeagueDetailModule extends Module {
   @override
   void binds(i) {
     i.add<LeagueDetailViewModel>(LeagueDetailViewModel.new);
-    i.add<GetUserEventUseCase<List<EventModel>>>(GetUserEventUseCase.new);
-    i.add<UpdateLeagueUseCase<StatusModel>>(UpdateLeagueUseCase.new);
-    i.add<StartMembershipUseCase<StatusModel>>(StartMembershipUseCase.new);
-    i.add<StopMembershipUseCase<StatusModel>>(StopMembershipUseCase.new);
-    i.add<RemoveMemberUseCase<StatusModel>>(RemoveMemberUseCase.new);
-    i.add<GetMediaUseCase<MediaModel>>(GetMediaUseCase.new);
-    i.add<GetTagUseCase>(GetTagUseCase.new);
-    i.add<GetSocialMediaUseCase>(GetSocialMediaUseCase.new);
-    i.add<GetLeagueUseCase<LeagueModel>>(GetLeagueUseCase.new);
-    i.add<GetMembersUseCase<List<LeagueMembersModel>>>(GetMembersUseCase.new);
-    i.add<DeleteLeagueUseCase<StatusModel>>(DeleteLeagueUseCase.new);
-    i.add<GetMenuUseCase<List<ShortcutModel>>>(GetMenuUseCase.new);
+    i.add<GetUserEventUseCase<List<EventModel>>>(GetUserEventUseCase<List<EventModel>>.new);
+    i.add<UpdateLeagueUseCase<StatusModel>>(UpdateLeagueUseCase<StatusModel>.new);
+    i.add<StartMembershipUseCase<StatusModel>>(StartMembershipUseCase<StatusModel>.new);
+    i.add<StopMembershipUseCase<StatusModel>>(StopMembershipUseCase<StatusModel>.new);
+    i.add<RemoveMemberUseCase<StatusModel>>(RemoveMemberUseCase<StatusModel>.new);
+    i.add<GetMediaUseCase<MediaModel>>(GetMediaUseCase<MediaModel>.new);
+    i.add<GetTagUseCase<dynamic>>(GetTagUseCase<dynamic>.new);
+    i.add<GetSocialMediaUseCase<dynamic>>(GetSocialMediaUseCase<dynamic>.new);
+    i.add<GetLeagueUseCase<LeagueModel>>(GetLeagueUseCase<LeagueModel>.new);
+    i.add<GetMembersUseCase<List<LeagueMembersModel?>>>(GetMembersUseCase<List<LeagueMembersModel?>>.new);
+    i.add<DeleteLeagueUseCase<StatusModel>>(DeleteLeagueUseCase<StatusModel>.new);
+    i.add<GetMenuUseCase<List<ShortcutModel>>>(GetMenuUseCase<List<ShortcutModel>>.new);
   }
 
   @override

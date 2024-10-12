@@ -4,7 +4,7 @@ import 'driver_model.dart';
 
 part 'classes_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class ClassesModel {
   @JsonKey(name: '_id')
   final String? id;

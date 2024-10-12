@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'event_update_request.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class EventUpdateRequest {
   late String? leagueId;
   late EventModel? event;

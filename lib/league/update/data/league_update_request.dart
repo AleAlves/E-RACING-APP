@@ -5,7 +5,7 @@ import '../../core/league_model.dart';
 
 part 'league_update_request.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class LeagueUpdateRequest {
   late LeagueModel league;
   late MediaModel media;

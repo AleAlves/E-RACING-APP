@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'team_create_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class TeamCreateModel {
   late String? eventId;
   late TeamModel team;

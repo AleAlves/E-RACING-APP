@@ -5,7 +5,7 @@ import '../../../core/model/media_model.dart';
 
 part 'community_card_vo.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class CommunityCardVO {
   @observable
   String? leagueId;

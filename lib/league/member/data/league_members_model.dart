@@ -5,7 +5,7 @@ import 'membership_model.dart';
 
 part 'league_members_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class LeagueMembersModel {
   late MembershipModel membership;
   late UserModel user;

@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'media_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class MediaModel {
   late String? image;
   late String? url;

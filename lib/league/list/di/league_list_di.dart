@@ -17,10 +17,10 @@ class LeagueListModule extends Module {
   @override
   void binds(i) {
     i.add<LeagueListViewModel>(LeagueListViewModel.new);
-    i.add<GetTagUseCase>(GetTagUseCase.new);
-    i.add<FetchLeagueUseCase<List<LeagueModel>>>(FetchLeagueUseCase.new);
-    i.add<SearchLeagueUseCase<List<LeagueModel>>>(SearchLeagueUseCase.new);
-    i.add<GetOwnedLeagueUseCase<List<LeagueModel>>>(GetOwnedLeagueUseCase.new);
+    i.add<GetTagUseCase<dynamic>>(GetTagUseCase<dynamic>.new);
+    i.add<FetchLeagueUseCase<List<LeagueModel>>>(FetchLeagueUseCase<List<LeagueModel>>.new);
+    i.add<SearchLeagueUseCase<List<LeagueModel>>>(SearchLeagueUseCase<List<LeagueModel>>.new);
+    i.add<GetOwnedLeagueUseCase<List<LeagueModel>>>(GetOwnedLeagueUseCase<List<LeagueModel>>.new);
   }
 
   @override

@@ -10,7 +10,7 @@ enum EventType { race, championship }
 
 enum EventState { idle, ready, ongoing, finished }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class EventModel {
   @JsonKey(name: '_id')
   String? id;

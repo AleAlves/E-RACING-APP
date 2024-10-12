@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'tag_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class TagModel {
   @JsonKey(name: '_id')
   final String? id;

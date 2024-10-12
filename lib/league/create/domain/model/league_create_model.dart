@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'league_create_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class LeagueCreateModel {
   final String? name;
   final String? banner;

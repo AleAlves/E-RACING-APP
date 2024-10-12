@@ -23,7 +23,7 @@ class TextWidget extends StatelessWidget {
     return Text(
       text ?? '',
       softWrap: true,
-      overflow: TextOverflow.fade,
+      overflow: TextOverflow.clip,
       textAlign: align,
       style: _getStyle(context),
     );

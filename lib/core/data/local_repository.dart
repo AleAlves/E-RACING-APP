@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:e_racing_app/core/data/store_request.dart';
 import 'package:e_racing_app/core/data/store_response.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,8 @@ abstract class RemoteRepository {
 class LocalRepository {
   Future<StoreResponse> save({@required key, @required data}) async {
     try {
-      localStorage.setItem(key, data);
+      await initLocalStorage();
+      localStorage.setItem(key, data.toString());
       return StoreResponse(null, true);
     } catch (e) {
       return StoreResponse(null, false);
@@ -19,7 +22,9 @@ class LocalRepository {
 
   Future<StoreResponse> get({@required key}) async {
     try {
-      return StoreResponse(localStorage.getItem(key), true);
+      await initLocalStorage();
+      var data = localStorage.getItem(key);
+      return StoreResponse(data == 'true' ? true : data, true);
     } catch (e) {
       return StoreResponse(null, false);
     }
@@ -27,6 +32,7 @@ class LocalRepository {
 
   Future<StoreResponse> delete({@required key}) async {
     try {
+      await initLocalStorage();
       localStorage.removeItem(key);
       return StoreResponse(null, true);
     } catch (e) {

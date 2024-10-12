@@ -10,14 +10,13 @@ class LeagueCardSmallWidget extends StatefulWidget {
   final Function(String?) onPressed;
 
   const LeagueCardSmallWidget(
-      {required this.leagues, required this.onPressed, Key? key})
-      : super(key: key);
+      {required this.leagues, required this.onPressed, super.key});
 
   @override
-  _LeagueCardSmallWidgetState createState() => _LeagueCardSmallWidgetState();
+  LeagueCardSmallWidgetState createState() => LeagueCardSmallWidgetState();
 }
 
-class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
+class LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
   @override
   void initState() {
     super.initState();
@@ -30,6 +29,7 @@ class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
 
   Widget content() {
     return ListView.builder(
+      padding: const EdgeInsets.all(8),
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       itemCount: widget.leagues?.length,
@@ -47,8 +47,8 @@ class _LeagueCardSmallWidgetState extends State<LeagueCardSmallWidget> {
           onPressed: () {
             widget.onPressed.call(widget.leagues?[index]?.leagueId);
           },
-          child: header(index),
           ready: widget.leagues?.isNotEmpty == true,
+          child: header(index)
         ),
       ],
     );

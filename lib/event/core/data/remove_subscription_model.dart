@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'remove_subscription_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class RemoveSubscriptionModel {
   String classId;
   String eventId;

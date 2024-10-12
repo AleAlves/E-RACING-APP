@@ -12,28 +12,22 @@ class FloatActionButtonWidget extends StatefulWidget {
       {required this.icon,
       required this.title,
       required this.onPressed,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   Widget loading(BuildContext context) {
     return const Card(child: LoadingShimmer());
   }
 
   @override
-  _FloatActionButtonWidgetState createState() =>
-      _FloatActionButtonWidgetState();
+  FloatActionButtonWidgetState createState() =>
+      FloatActionButtonWidgetState();
 }
 
-class _FloatActionButtonWidgetState extends State<FloatActionButtonWidget> {
-  bool _showWidget = true;
+class FloatActionButtonWidgetState extends State<FloatActionButtonWidget> {
+  final bool _showWidget = true;
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 3)).then((value) {
-      setState(() {
-        _showWidget = false;
-      });
-    });
     return normal(context);
   }
 

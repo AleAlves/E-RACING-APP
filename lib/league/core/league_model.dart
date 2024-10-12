@@ -5,7 +5,7 @@ import '../member/data/membership_model.dart';
 
 part 'league_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class LeagueModel {
   @JsonKey(name: '_id')
   final String? id;

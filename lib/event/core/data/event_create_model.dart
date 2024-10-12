@@ -8,7 +8,7 @@ import '../../../core/model/event_model.dart';
 
 part 'event_create_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class EventCreateModel {
   @JsonKey(name: '_id')
   String? id;
