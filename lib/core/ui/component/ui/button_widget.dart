@@ -28,18 +28,17 @@ class ButtonWidget extends StatefulWidget {
       this.labelColor,
       this.iconRadius = 24,
       this.icon,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   Widget loading(BuildContext context) {
     return const LoadingRipple();
   }
 
   @override
-  _ButtonWidgetState createState() => _ButtonWidgetState();
+  ButtonWidgetState createState() => ButtonWidgetState();
 }
 
-class _ButtonWidgetState extends State<ButtonWidget> {
+class ButtonWidgetState extends State<ButtonWidget> {
   @override
   void initState() {
     super.initState();
@@ -95,7 +94,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
               const Size(double.infinity, 0))),
       onPressed: widget.enabled ? widget.onPressed : null,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: TextWidget(
           text: widget.label ?? '',
           color: widget.labelColor ?? Theme.of(context).colorScheme.onPrimary,

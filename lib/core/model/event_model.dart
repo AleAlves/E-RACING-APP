@@ -24,6 +24,7 @@ class EventModel {
   EventState? state;
   bool? teamsEnabled;
   bool? membersOnly;
+  bool? hasFee;
   int? teamsMaxCrew;
   List<String?>? tags;
   List<int?>? scoring;
@@ -41,6 +42,7 @@ class EventModel {
     this.title,
     this.state,
     this.hostId,
+    this.hasFee,
     this.classes,
     this.scoring,
     this.joinable,

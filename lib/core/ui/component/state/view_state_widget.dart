@@ -40,6 +40,7 @@ class ViewStateWidget extends StatelessWidget {
 
   Widget _scaffold(BuildContext context, Widget content) {
     return Scaffold(
+        extendBody: true,
         body: _scope(context, content),
         bottomNavigationBar: _bottomSheetWidget(context),
         floatingActionButton: floatAction);
@@ -47,7 +48,7 @@ class ViewStateWidget extends StatelessWidget {
 
   Widget? _bottomSheetWidget(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(0.0),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal:16),
       child: bottom,
     );
   }

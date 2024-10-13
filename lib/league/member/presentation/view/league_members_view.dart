@@ -4,20 +4,18 @@ import 'package:e_racing_app/core/ui/view_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import '../../../../core/ext/access_extension.dart';
 import '../league_member_view_model.dart';
 
 class LeagueMembersView extends StatefulWidget {
   final LeagueMemberViewModel viewModel;
 
-  const LeagueMembersView(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueMembersView(this.viewModel, {super.key});
 
   @override
-  _LeagueMembersViewState createState() => _LeagueMembersViewState();
+  LeagueMembersViewState createState() => LeagueMembersViewState();
 }
 
-class _LeagueMembersViewState extends State<LeagueMembersView>
+class LeagueMembersViewState extends State<LeagueMembersView>
     implements BaseSateWidget {
   @override
   void initState() {

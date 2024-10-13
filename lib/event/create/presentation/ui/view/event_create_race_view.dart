@@ -20,13 +20,13 @@ import '../../navigation/event_create_flow.dart';
 class EventCreateRaceView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateRaceView(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateRaceView(this.viewModel, {super.key});
 
   @override
-  _EventCreateRaceViewState createState() => _EventCreateRaceViewState();
+  EventCreateRaceViewState createState() => EventCreateRaceViewState();
 }
 
-class _EventCreateRaceViewState extends State<EventCreateRaceView>
+class EventCreateRaceViewState extends State<EventCreateRaceView>
     implements BaseSateWidget {
   int _stepIndex = 0;
   var isValid = false;

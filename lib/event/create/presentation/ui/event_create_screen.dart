@@ -10,13 +10,13 @@ import '../navigation/event_create_flow.dart';
 class EventCreateScreen extends StatefulWidget {
   final EventCreateNavigator flow;
 
-  const EventCreateScreen(this.flow, {Key? key}) : super(key: key);
+  const EventCreateScreen(this.flow, {super.key});
 
   @override
-  _EventCreateScreenState createState() => _EventCreateScreenState();
+  EventCreateScreenState createState() => EventCreateScreenState();
 }
 
-class _EventCreateScreenState extends State<EventCreateScreen>
+class EventCreateScreenState extends State<EventCreateScreen>
     implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final viewModel = Modular.get<EventCreateViewModel>();
@@ -54,13 +54,13 @@ class _EventCreateScreenState extends State<EventCreateScreen>
 
   Widget progressIndicator() {
     return Positioned(
+      left: 0,
+      right: 0,
+      top: 0,
       child: StepProgressIndicatorWidget(
         maxSteps: viewModel.maxSteps,
         currentStep: viewModel.currentStep,
       ),
-      left: 0,
-      right: 0,
-      top: 0,
     );
   }
 

@@ -19,8 +19,7 @@ class FloatActionButtonWidget extends StatefulWidget {
   }
 
   @override
-  FloatActionButtonWidgetState createState() =>
-      FloatActionButtonWidgetState();
+  FloatActionButtonWidgetState createState() => FloatActionButtonWidgetState();
 }
 
 class FloatActionButtonWidgetState extends State<FloatActionButtonWidget> {

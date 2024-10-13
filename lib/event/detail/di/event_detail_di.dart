@@ -7,12 +7,14 @@ import '../../../shared/media/get_media.usecase.dart';
 import '../../core/data/event_home_model.dart';
 import '../../core/data/event_standings_model.dart';
 import '../../core/data/event_teams_standings_model.dart';
+import '../../core/data/race_standings_model.dart';
 import '../domain/create_team_usecase.dart';
 import '../domain/delete_team_usecase.dart';
 import '../domain/get_event_usecase.dart';
 import '../domain/get_standing_usecase.dart';
 import '../domain/join_team_usecase.dart';
 import '../domain/leave_team_usecase.dart';
+import '../domain/race_standing_usecase.dart';
 import '../domain/subscribe_event_usecase.dart';
 import '../domain/teams_standing_usecase.dart';
 import '../domain/unsubscribe_event_usecase.dart';
@@ -31,11 +33,12 @@ class EventDetailModule extends Module {
     i.add<LeaveTeamUseCase<StatusModel>>(LeaveTeamUseCase<StatusModel>.new);
     i.add<JoinTeamUseCase<StatusModel>>(JoinTeamUseCase<StatusModel>.new);
     i.add<DeleteTeamUseCase<StatusModel>>(DeleteTeamUseCase<StatusModel>.new);
-    i.add<GetStandingUseCase<EventStandingsModel>>(GetStandingUseCase<StatusModel>.new);
+    i.add<GetStandingUseCase<EventStandingsModel>>(GetStandingUseCase<EventStandingsModel>.new);
     i.add<GetEventUseCase<EventHomeModel>>(GetEventUseCase<EventHomeModel>.new);
     i.add<SubscribeEventUseCase<StatusModel>>(SubscribeEventUseCase<StatusModel>.new);
     i.add<UnsubscribeEventUseCase<StatusModel>>(UnsubscribeEventUseCase<StatusModel>.new);
     i.add<GetMediaUseCase<MediaModel>>(GetMediaUseCase<MediaModel>.new);
+    i.add<RaceStandingsUseCase<RaceStandingsModel>>(RaceStandingsUseCase<RaceStandingsModel>.new);
     i.add<TeamsStandingUseCase<EventTeamsStandingsModel>>(TeamsStandingUseCase<EventTeamsStandingsModel>.new);
   }
 

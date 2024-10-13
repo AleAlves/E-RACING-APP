@@ -17,20 +17,20 @@ class SubscriptionWidget extends StatefulWidget {
       {required this.classes,
       required this.onSubscribe,
       required this.onUnsubscribe,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   Widget loading(BuildContext context) {
     return const Card(child: LoadingShimmer());
   }
 
   @override
-  _SubscriptionWidgetState createState() => _SubscriptionWidgetState();
+  SubscriptionWidgetState createState() => SubscriptionWidgetState();
 }
 
-class _SubscriptionWidgetState extends State<SubscriptionWidget> {
+class SubscriptionWidgetState extends State<SubscriptionWidget> {
   bool hasSubscription = false;
   bool? acceptedTerms = false;
+  String? classId;
   String? id;
 
   @override
@@ -40,112 +40,103 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    widget.classes?.forEach((clss) {
-      clss?.drivers?.forEach((driver) {
-        if (driver?.driverId == Session.instance.getUser()?.id) {
-          hasSubscription = true;
-          id = clss.id;
-        }
-      });
-    });
-    return hasSubscription ? subscribedWidget() : unsubscribedWidget();
+    classId = widget.classes?.first?.id;
+    hasSubscription = widget.classes?.any((clazz) {
+          var driver = clazz?.drivers?.firstWhere(
+            (driver) => driver?.driverId == Session.instance.getUser()?.id,
+            orElse: () => null,
+          );
+          if (driver != null) {
+            id = clazz?.id;
+            return true;
+          }
+          return false;
+        }) ??
+        false;
+    return hasSubscription ? unsubscribedWidget() : subscribedWidget();
   }
 
-  Widget unsubscribedWidget() {
-    handleChoice();
-    return Container();
-  }
-
-  void handleChoice() {
-    var size = widget.classes?.length.toInt() ?? 0;
-    if (size > 1) {
-      actionSubscription();
-    } else {
-      widget.onSubscribe.call(widget.classes?.first?.id);
-    }
-  }
-
-  void actionSubscription() {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (BuildContext context, setState) => SizedBox(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Wrap(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SpacingWidget(LayoutSize.size24),
-                    const TextWidget(
-                        text: "Choose a class: ", style: Style.title),
-                    const SpacingWidget(LayoutSize.size32),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: widget.classes?.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              left: 64, right: 64, bottom: 24),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 10,
-                            child: ButtonWidget(
-                              label: widget.classes?[index]?.name,
-                              type: ButtonType.primary,
-                              onPressed: () {
-                                setState(() {
-                                  Navigator.of(context).pop();
-                                  widget.onSubscribe
-                                      .call(widget.classes?[index]?.id);
-                                });
-                              },
-                              enabled: acceptedTerms ?? false,
-                              icon: Icons.directions_car,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    const SpacingWidget(LayoutSize.size8),
-                    Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Row(
-                        children: [
-                          Checkbox(
-                            value: acceptedTerms,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                acceptedTerms = value;
-                              });
-                            },
-                          ),
-                          const Expanded(
-                            child: TextWidget(
-                                text:
-                                    "I did read the event's rules and settings and I agree",
-                                style: Style.caption),
-                          )
-                        ],
+  Widget subscribedWidget() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Wrap(
+        children: [
+          const SpacingWidget(LayoutSize.size24),
+          TextWidget(text: "Event registration", style: Style.title),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SpacingWidget(LayoutSize.size16),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: widget.classes?.length,
+                itemBuilder: (context, index) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Radio<String>(
+                        groupValue: classId,
+                        value: widget.classes?[index]?.id ?? "",
+                        onChanged: (String? value) {
+                          setState(() {
+                            classId = value;
+                          });
+                        },
                       ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
+                      TextWidget(
+                          text: widget.classes?[index]?.name ?? "",
+                          style: Style.caption)
+                    ],
+                  );
+                },
+              ),
+              const SpacingWidget(LayoutSize.size24),
+              Row(
+                children: [
+                  Checkbox(
+                    value: acceptedTerms,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        acceptedTerms = value;
+                      });
+                    },
+                  ),
+                  Flexible(
+                      child: TextWidget(
+                    text:
+                        "I did read the event's rules and settings and I agree",
+                    style: Style.caption,
+                    align: TextAlign.start,
+                  ))
+                ],
+              ),
+              const SpacingWidget(LayoutSize.size24),
+              ButtonWidget(
+                label: "Confirm",
+                type: ButtonType.primary,
+                onPressed: () {
+                  setState(() {
+                    Navigator.of(context).pop();
+                    widget.onSubscribe.call(classId);
+                  });
+                },
+                enabled: acceptedTerms ?? false,
+                icon: Icons.directions_car,
+              )
+            ],
+          )
+        ],
       ),
     );
   }
 
-  Widget subscribedWidget() {
+  Widget unsubscribedWidget() {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Padding(
-        padding: const EdgeInsets.only(left: 8, right: 8),
+        padding: const EdgeInsets.all(16),
         child: ButtonWidget(
           label:
               "Registered as ${widget.classes?.firstWhere((element) => element?.id == id)?.name} driver",

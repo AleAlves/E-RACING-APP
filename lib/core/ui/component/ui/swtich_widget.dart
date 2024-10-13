@@ -21,8 +21,7 @@ class SwitchWidget extends StatefulWidget {
       required this.positiveLabel,
       required this.negativeLabel,
       this.icon,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   Widget loading(BuildContext context) {
     return const LoadingRipple();

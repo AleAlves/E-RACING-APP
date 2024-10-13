@@ -18,6 +18,7 @@ import '../../../../core/ext/dialog_extension.dart';
 import '../../../../core/model/event_model.dart';
 import '../../../../core/tools/session.dart';
 import '../../../../core/ui/component/ui/button_widget.dart';
+import '../../../../core/ui/component/ui/entry_standings_widget.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../../core/ui/component/ui/icon_widget.dart';
 import '../event_detail_view_model.dart';
@@ -25,13 +26,13 @@ import '../event_detail_view_model.dart';
 class EventDetailView extends StatefulWidget {
   final EventDetailViewModel viewModel;
 
-  const EventDetailView(this.viewModel, {Key? key}) : super(key: key);
+  const EventDetailView(this.viewModel, {super.key});
 
   @override
-  _EventDetailViewState createState() => _EventDetailViewState();
+  EventDetailViewState createState() => EventDetailViewState();
 }
 
-class _EventDetailViewState extends State<EventDetailView>
+class EventDetailViewState extends State<EventDetailView>
     implements BaseSateWidget {
   String? classId;
 
@@ -87,7 +88,7 @@ class _EventDetailViewState extends State<EventDetailView>
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: races(),
         ),
-        const SpacingWidget(LayoutSize.size48),
+        const SpacingWidget(LayoutSize.size64),
       ],
     );
   }
@@ -243,14 +244,17 @@ class _EventDetailViewState extends State<EventDetailView>
             enabled: true,
             type: ButtonType.secondary,
             onPressed: () {
-              SubscriptionWidget(
-                classes: widget.viewModel.event?.classes,
-                onSubscribe: (id) {
-                  widget.viewModel.subscribe(id);
-                },
-                onUnsubscribe: (id) {
-                  widget.viewModel.unsubscribe(id);
-                },
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => SubscriptionWidget(
+                  classes: widget.viewModel.event?.classes,
+                  onSubscribe: (id) {
+                    widget.viewModel.subscribe(id);
+                  },
+                  onUnsubscribe: (id) {
+                    widget.viewModel.unsubscribe(id);
+                  },
+                ),
               );
             },
             label: "Register",

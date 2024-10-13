@@ -5,15 +5,14 @@ class StepProgressIndicatorWidget extends StatefulWidget {
   final int currentStep;
 
   const StepProgressIndicatorWidget(
-      {required this.maxSteps, required this.currentStep, Key? key})
-      : super(key: key);
+      {required this.maxSteps, required this.currentStep, super.key});
 
   @override
-  _StepProgressIndicatorWidgetState createState() =>
-      _StepProgressIndicatorWidgetState();
+  StepProgressIndicatorWidgetState createState() =>
+      StepProgressIndicatorWidgetState();
 }
 
-class _StepProgressIndicatorWidgetState
+class StepProgressIndicatorWidgetState
     extends State<StepProgressIndicatorWidget> {
   @override
   void initState() {

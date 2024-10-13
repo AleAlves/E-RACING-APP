@@ -9,6 +9,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../core/ext/access_extension.dart';
 import '../../../../core/ui/component/ui/button_widget.dart';
+import '../../../../core/ui/component/ui/entry_standings_widget.dart';
 import '../../../../core/ui/component/ui/scoring_widget.dart';
 import '../../../../core/ui/component/ui/settings_widget.dart';
 import '../../../../core/ui/component/ui/spacing_widget.dart';
@@ -21,10 +22,10 @@ class EventDetailInfoView extends StatefulWidget {
   const EventDetailInfoView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventDetailInfoViewState createState() => _EventDetailInfoViewState();
+  EventDetailInfoViewState createState() => EventDetailInfoViewState();
 }
 
-class _EventDetailInfoViewState extends State<EventDetailInfoView>
+class EventDetailInfoViewState extends State<EventDetailInfoView>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -52,7 +53,12 @@ class _EventDetailInfoViewState extends State<EventDetailInfoView>
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: [settings(), scoring(), teams(), rules()],
+          children: [
+            entries(),
+            settings(),
+            scoring(),
+            teams(),
+            rules()],
         ),
       ),
     );
@@ -225,6 +231,18 @@ class _EventDetailInfoViewState extends State<EventDetailInfoView>
             ),
           )
         : Container();
+  }
+
+  Widget entries() {
+    return EntryStandingsWidget(
+      entries: widget.viewModel.event?.classes,
+      users: widget.viewModel.users,
+      hasFee: widget.viewModel.event?.hasFee ?? false,
+      onRaceCardPressed: (id) {},
+      onFullStandingsPressed: () {
+        widget.viewModel.onRoute(EventDetailRouter.standings);
+      },
+    );
   }
 
   @override

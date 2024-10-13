@@ -14,14 +14,13 @@ import '../../navigation/event_create_flow.dart';
 class EventCreateRaceListView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateRaceListView(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateRaceListView(this.viewModel, {super.key});
 
   @override
-  _EventCreateRaceListViewState createState() =>
-      _EventCreateRaceListViewState();
+  EventCreateRaceListViewState createState() => EventCreateRaceListViewState();
 }
 
-class _EventCreateRaceListViewState extends State<EventCreateRaceListView>
+class EventCreateRaceListViewState extends State<EventCreateRaceListView>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -70,7 +69,7 @@ class _EventCreateRaceListViewState extends State<EventCreateRaceListView>
 
   Widget titleWidget() {
     return const TextWidget(
-        text: "Create at least 2 races for your competition",
+        text: "New Race",
         style: Style.subtitle);
   }
 
@@ -141,7 +140,7 @@ class _EventCreateRaceListViewState extends State<EventCreateRaceListView>
 
   Widget buttonWidget() {
     return ButtonWidget(
-      enabled: widget.viewModel.racesModel.length > 1,
+      enabled: widget.viewModel.racesModel.isNotEmpty,
       type: ButtonType.primary,
       onPressed: () {
         widget.viewModel.createEvent();

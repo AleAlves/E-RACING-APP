@@ -26,8 +26,7 @@ class EventCardWidget extends StatelessWidget {
       this.tags,
       this.onPressed,
       this.align = TextAlign.center,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +37,12 @@ class EventCardWidget extends StatelessWidget {
       ),
       arrowed: true,
       padding: EdgeInsets.zero,
+      onPressed: onPressed,
+      ready: true,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: content(context),
       ),
-      onPressed: onPressed,
-      ready: true,
     );
   }
 
@@ -76,9 +75,8 @@ class EventCardWidget extends StatelessWidget {
               const SpacingWidget(LayoutSize.size8),
               drivers(),
               const SpacingWidget(LayoutSize.size8),
-              eventStatusWidget(event?.state),
+              eventStatusWidget(event?.state, context),
               const SpacingWidget(LayoutSize.size8),
-              subscriptionsStatus(context),
               tagsWidget(),
               const SpacingWidget(LayoutSize.size8),
             ],
@@ -299,7 +297,7 @@ class EventCardWidget extends StatelessWidget {
     );
   }
 
-  Widget eventStatusWidget(EventState? state) {
+  Widget eventStatusWidget(EventState? state, BuildContext context) {
     var color;
     var status;
     switch (state) {
@@ -320,8 +318,8 @@ class EventCardWidget extends StatelessWidget {
         status = "Finished";
         break;
     }
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
@@ -333,6 +331,12 @@ class EventCardWidget extends StatelessWidget {
             TextWidget(text: status, style: Style.caption),
           ],
         ),
+        const SpacingWidget(LayoutSize.size8),
+        Row(
+          children: [
+            subscriptionsStatus(context)
+          ],
+        )
       ],
     );
   }

@@ -10,13 +10,13 @@ import 'event_list_view_model.dart';
 class EventListScreen extends StatefulWidget {
   final EventListRouter? router;
 
-  const EventListScreen({this.router, Key? key}) : super(key: key);
+  const EventListScreen({this.router, super.key});
 
   @override
-  _EventListScreenState createState() => _EventListScreenState();
+  EventListScreenState createState() => EventListScreenState();
 }
 
-class _EventListScreenState extends State<EventListScreen>
+class EventListScreenState extends State<EventListScreen>
     implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final viewModel = Modular.get<EventListViewModel>();

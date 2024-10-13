@@ -16,15 +16,14 @@ class LeagueMemberCardWidget extends StatelessWidget {
   final Function(String?) onRemove;
 
   const LeagueMemberCardWidget(
-      {required this.member, required this.onRemove, Key? key})
-      : super(key: key);
+      {required this.member, required this.onRemove, super.key});
 
   @override
   Widget build(BuildContext context) {
     return CardWidget(
       childRight: Column(
         children: [
-          member?.membership.isManager == true &&
+          member?.membership.isAdmin == false &&
                   Session.instance.getUser()?.id != member?.user.id
               ? Row(children: [
                   ButtonWidget(
@@ -45,13 +44,27 @@ class LeagueMemberCardWidget extends StatelessWidget {
                   )
                 ])
               : Container(),
+          member?.membership.isAdmin == true &&
+              Session.instance.getUser()?.id == member?.user.id
+              ? Column(
+            children: [
+              const SpacingWidget(LayoutSize.size8),
+              ChipWidget(
+                text: "Manager",
+                color: Theme.of(context).colorScheme.primary,
+                textColor: Theme.of(context).colorScheme.onPrimary,
+              ),
+              const SpacingWidget(LayoutSize.size8),
+            ],
+          )
+              : Container(),
         ],
       ),
+      ready: true,
       child: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8),
         child: content(context),
       ),
-      ready: true,
     );
   }
 
@@ -86,20 +99,6 @@ class LeagueMemberCardWidget extends StatelessWidget {
             TextWidget(
                 text: "Since ${formatDate(member?.membership.since)}",
                 style: Style.caption),
-            member?.membership.isManager == true &&
-                    Session.instance.getUser()?.id == member?.user.id
-                ? Column(
-                    children: [
-                      const SpacingWidget(LayoutSize.size8),
-                      ChipWidget(
-                        text: "Community manager",
-                        color: Theme.of(context).colorScheme.primary,
-                        textColor: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                      const SpacingWidget(LayoutSize.size8),
-                    ],
-                  )
-                : Container(),
           ],
         ),
       ],

@@ -14,18 +14,17 @@ class TagCollectionWidget extends StatefulWidget {
       {required this.tagIds,
       required this.tags,
       this.singleLined = false,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   Widget loading(BuildContext context) {
     return const Card(child: LoadingShimmer());
   }
 
   @override
-  _TagCollectionWidgetState createState() => _TagCollectionWidgetState();
+  TagCollectionWidgetState createState() => TagCollectionWidgetState();
 }
 
-class _TagCollectionWidgetState extends State<TagCollectionWidget> {
+class TagCollectionWidgetState extends State<TagCollectionWidget> {
   @override
   void initState() {
     super.initState();

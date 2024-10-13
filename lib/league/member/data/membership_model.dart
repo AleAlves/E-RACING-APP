@@ -8,9 +8,9 @@ class MembershipModel {
   final String? id;
   final String? memberId;
   final String? since;
-  final bool? isManager;
+  final bool? isAdmin;
 
-  MembershipModel({this.id, this.memberId, this.since, this.isManager});
+  MembershipModel({this.id, this.memberId, this.since, this.isAdmin});
 
   factory MembershipModel.fromJson(Map<String, dynamic> json) =>
       _$MembershipModelFromJson(json);

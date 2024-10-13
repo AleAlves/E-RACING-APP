@@ -14,17 +14,16 @@ class SimpleStandingsWidget extends StatefulWidget {
   final Function onFullStandingsPressed;
 
   const SimpleStandingsWidget(
-      {Key? key,
+      {super.key,
       required this.standings,
       required this.onRaceCardPressed,
-      required this.onFullStandingsPressed})
-      : super(key: key);
+      required this.onFullStandingsPressed});
 
   @override
-  _SimpleStandingsWidgetState createState() => _SimpleStandingsWidgetState();
+  SimpleStandingsWidgetState createState() => SimpleStandingsWidgetState();
 }
 
-class _SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
+class SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
   var _index = -1;
 
   @override
