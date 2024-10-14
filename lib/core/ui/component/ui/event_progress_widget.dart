@@ -8,14 +8,13 @@ class EventProgressWidget extends StatefulWidget {
   final EventModel? event;
   final bool shapeless;
 
-  const EventProgressWidget({this.event, this.shapeless = false, Key? key})
-      : super(key: key);
+  const EventProgressWidget({this.event, this.shapeless = false, super.key});
 
   @override
-  _EventProgressWidgetState createState() => _EventProgressWidgetState();
+  EventProgressWidgetState createState() => EventProgressWidgetState();
 }
 
-class _EventProgressWidgetState extends State<EventProgressWidget> {
+class EventProgressWidgetState extends State<EventProgressWidget> {
   @override
   void initState() {
     super.initState();

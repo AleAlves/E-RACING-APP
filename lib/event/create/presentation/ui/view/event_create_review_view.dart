@@ -13,13 +13,13 @@ import '../../navigation/event_create_flow.dart';
 class EventCreateReviewView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateReviewView(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateReviewView(this.viewModel, {super.key});
 
   @override
-  _EventCreateReviewViewState createState() => _EventCreateReviewViewState();
+  EventCreateReviewViewState createState() => EventCreateReviewViewState();
 }
 
-class _EventCreateReviewViewState extends State<EventCreateReviewView>
+class EventCreateReviewViewState extends State<EventCreateReviewView>
     implements BaseSateWidget {
   var isValid = false;
   final _formKey = GlobalKey<FormState>();
@@ -72,8 +72,8 @@ class _EventCreateReviewViewState extends State<EventCreateReviewView>
         titleWidget(),
         const SpacingWidget(LayoutSize.size48),
         Form(
-          child: nameWidget(),
           key: _formKey,
+          child: nameWidget(),
         ),
         optionsWidget()
       ],
@@ -118,7 +118,7 @@ class _EventCreateReviewViewState extends State<EventCreateReviewView>
                 },
               ),
               const TextWidget(
-                  text: "Allow racing teams", style: Style.paragraph)
+                  text: "Racing teams", style: Style.paragraph)
             ],
           ),
           Row(
@@ -132,7 +132,20 @@ class _EventCreateReviewViewState extends State<EventCreateReviewView>
                 },
               ),
               const TextWidget(
-                  text: "Allow members only", style: Style.paragraph)
+                  text: "Members only", style: Style.paragraph)
+            ],
+          ),
+          Row(
+            children: [
+              Checkbox(
+                value: widget.viewModel.hasFee,
+                onChanged: (bool? value) {
+                  setState(() {
+                    widget.viewModel.setToggleEventHasFee(value);
+                  });
+                },
+              ),
+              const TextWidget(text: "Registration fee", style: Style.paragraph)
             ],
           )
         ],

@@ -88,7 +88,7 @@ class EventDetailViewState extends State<EventDetailView>
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: races(),
         ),
-        const SpacingWidget(LayoutSize.size64),
+        const SpacingWidget(LayoutSize.size96),
       ],
     );
   }

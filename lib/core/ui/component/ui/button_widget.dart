@@ -82,7 +82,7 @@ class ButtonWidgetState extends State<ButtonWidget> {
   Widget primary(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(48),
               side: const BorderSide(
@@ -94,7 +94,7 @@ class ButtonWidgetState extends State<ButtonWidget> {
               const Size(double.infinity, 0))),
       onPressed: widget.enabled ? widget.onPressed : null,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(16.0),
         child: TextWidget(
           text: widget.label ?? '',
           color: widget.labelColor ?? Theme.of(context).colorScheme.onPrimary,
@@ -107,11 +107,10 @@ class ButtonWidgetState extends State<ButtonWidget> {
   Widget secondary(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor:
-            MaterialStateProperty.all(Theme.of(context).colorScheme.secondary),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.secondary),
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.0),
+            borderRadius: BorderRadius.circular(48.0),
             side: const BorderSide(
               width: 0.1,
             ),
@@ -119,11 +118,11 @@ class ButtonWidgetState extends State<ButtonWidget> {
         ),
       ),
       onPressed: widget.enabled ? widget.onPressed : null,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: TextWidget(
           text: widget.label ?? '',
-          color: widget.labelColor ?? Theme.of(context).colorScheme.onSecondary,
+          color: widget.labelColor ?? Theme.of(context).colorScheme.onPrimary,
           style: Style.button,
         ),
       ),

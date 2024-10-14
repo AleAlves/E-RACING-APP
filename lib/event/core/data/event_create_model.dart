@@ -16,6 +16,7 @@ class EventCreateModel {
   String? rules;
   bool? finished;
   bool? joinable;
+  bool? hasFee;
   String? hostId;
   EventType? type;
   String? leagueId;
@@ -42,6 +43,7 @@ class EventCreateModel {
     required this.races,
     required this.membersOnly,
     required this.teamsEnabled,
+    required this.hasFee
   });
 
   factory EventCreateModel.fromJson(Map<String, dynamic> json) =>

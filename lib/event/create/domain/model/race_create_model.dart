@@ -13,15 +13,14 @@ class RaceCreateModel {
   String? broadcastLink;
   List<SessionModel?>? sessions;
 
-  RaceCreateModel({
-    required this.date,
-    required this.title,
-    required this.broadcasting,
-    this.poster,
-    this.leagueId,
-    this.sessions,
-    this.broadcastLink,
-  });
+  RaceCreateModel(
+      {required this.date,
+      required this.title,
+      required this.broadcasting,
+      this.poster,
+      this.leagueId,
+      this.sessions,
+      this.broadcastLink});
 
   factory RaceCreateModel.fromJson(Map<String, dynamic> json) =>
       _$RaceCreateModelFromJson(json);

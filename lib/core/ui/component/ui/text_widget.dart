@@ -15,8 +15,7 @@ class TextWidget extends StatelessWidget {
       this.color,
       this.weight,
       this.align = TextAlign.center,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,32 +34,32 @@ class TextWidget extends StatelessWidget {
         return Theme.of(context)
             .textTheme
             .headlineSmall
-            ?.copyWith(color: color);
+            ?.copyWith(color: color, fontWeight: weight);
       case Style.subtitle:
         return Theme.of(context)
             .textTheme
             .titleLarge
-            ?.copyWith(color: color);
+            ?.copyWith(color: color, fontWeight: weight);
       case Style.paragraph:
         return Theme.of(context)
             .textTheme
             .bodyLarge
-            ?.copyWith(color: color);
+            ?.copyWith(color: color, fontWeight: weight);
       case Style.caption:
         return Theme.of(context)
             .textTheme
             .labelMedium
-            ?.copyWith(color: color, fontSize: 14);
+            ?.copyWith(color: color, fontSize: 14, fontWeight: weight);
       case Style.error:
         return Theme.of(context)
             .textTheme
             .labelMedium
-            ?.copyWith(color: Colors.red, fontSize: 14);
+            ?.copyWith(color: Colors.red, fontSize: 14, fontWeight: weight);
       case Style.button:
         return Theme.of(context)
             .textTheme
             .labelSmall
-            ?.copyWith(color: color, fontSize: 14);
+            ?.copyWith(color: color, fontSize: 16, fontWeight: FontWeight.normal, letterSpacing: 4.0);
     }
   }
 }

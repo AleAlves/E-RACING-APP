@@ -118,7 +118,7 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
                 },
               ),
               const TextWidget(
-                  text: "Allow racing teams", style: Style.paragraph)
+                  text: "Racing teams", style: Style.paragraph)
             ],
           ),
           Row(
@@ -132,7 +132,20 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
                 },
               ),
               const TextWidget(
-                  text: "Allow members only", style: Style.paragraph)
+                  text: "Members only", style: Style.paragraph)
+            ],
+          ),
+          Row(
+            children: [
+              Checkbox(
+                value: widget.viewModel.hasFee,
+                onChanged: (bool? value) {
+                  setState(() {
+                    widget.viewModel.setToggleEventHasFee(value);
+                  });
+                },
+              ),
+              const TextWidget(text: "Registration fee", style: Style.paragraph)
             ],
           )
         ],

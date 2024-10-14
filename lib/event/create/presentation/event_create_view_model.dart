@@ -59,6 +59,9 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   String? eventBanner;
 
   @observable
+  bool? hasFee = false;
+
+  @observable
   bool? eventAllowTeams = false;
 
   @observable
@@ -150,6 +153,10 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
     eventAllowMembersOnly = allowMembersOnly;
   }
 
+  void setToggleEventHasFee(bool? hasFee) {
+    this.hasFee = hasFee;
+  }
+
   void onCreateNewRace() {
     editingRaceModel = null;
     onRoute(EventCreateNavigator.eventRaceCreation);
@@ -197,6 +204,7 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
         title: eventName,
         rules: eventRules,
         scoring: eventScore,
+        hasFee: hasFee,
         leagueId: Session.instance.getLeagueId());
 
     var media = MediaModel(eventBanner.toString());

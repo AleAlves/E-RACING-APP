@@ -26,10 +26,10 @@ class EventManageRaceView extends StatefulWidget {
   const EventManageRaceView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventManageRaceViewState createState() => _EventManageRaceViewState();
+  EventManageRaceViewState createState() => EventManageRaceViewState();
 }
 
-class _EventManageRaceViewState extends State<EventManageRaceView>
+class EventManageRaceViewState extends State<EventManageRaceView>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -128,53 +128,50 @@ class _EventManageRaceViewState extends State<EventManageRaceView>
                   style: Style.title,
                   align: TextAlign.left,
                 ),
-                const SpacingWidget(LayoutSize.size8),
+                const SpacingWidget(LayoutSize.size16),
                 EventProgressWidget(
                   shapeless: true,
                   event: widget.viewModel.event,
                 ),
               ],
             ),
-            const SpacingWidget(LayoutSize.size16),
+            const SpacingWidget(LayoutSize.size32),
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: ButtonWidget(
-                  label: _getStatus()?.second,
-                  type: ButtonType.primary,
-                  onPressed: () {
-                    switch (widget.viewModel.event?.state) {
-                      case EventState.idle:
-                        confirmationDialogExt(
-                          context: context,
-                          issueMessage:
-                              "Are you sure you want to start this event? you won't be able to edit the event nor the races settings",
-                          consentMessage: "Yes, I do",
-                          onPositive: () {
-                            widget.viewModel.startEvent();
-                          },
-                        );
-                        break;
-                      case EventState.ongoing:
-                        confirmationDialogExt(
-                          context: context,
-                          issueMessage:
-                              "Are you sure you want to finish this event?",
-                          consentMessage: "Yes, I do",
-                          onPositive: () {
-                            widget.viewModel.finishEvent();
-                          },
-                        );
-                        break;
-                      case EventState.finished:
-                        break;
-                      default:
-                        break;
-                    }
-                  },
-                  enabled: _getStatus()?.first ?? false,
-                ),
+              child: ButtonWidget(
+                label: _getStatus()?.second,
+                type: ButtonType.primary,
+                onPressed: () {
+                  switch (widget.viewModel.event?.state) {
+                    case EventState.idle:
+                      confirmationDialogExt(
+                        context: context,
+                        issueMessage:
+                        "Are you sure you want to start this event? you won't be able to edit the event nor the races settings",
+                        consentMessage: "Yes, I do",
+                        onPositive: () {
+                          widget.viewModel.startEvent();
+                        },
+                      );
+                      break;
+                    case EventState.ongoing:
+                      confirmationDialogExt(
+                        context: context,
+                        issueMessage:
+                        "Are you sure you want to finish this event?",
+                        consentMessage: "Yes, I do",
+                        onPositive: () {
+                          widget.viewModel.finishEvent();
+                        },
+                      );
+                      break;
+                    case EventState.finished:
+                      break;
+                    default:
+                      break;
+                  }
+                },
+                enabled: _getStatus()?.first ?? false,
               ),
             ),
             const SpacingWidget(LayoutSize.size8),
