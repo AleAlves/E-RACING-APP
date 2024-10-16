@@ -9,13 +9,13 @@ import '../../../core/ui/component/ui/share_widget.dart';
 import '../../../core/ui/component/ui/text_widget.dart';
 
 class EventDetailScreen extends StatefulWidget {
-  const EventDetailScreen({Key? key}) : super(key: key);
+  const EventDetailScreen({super.key});
 
   @override
-  _EventDetailScreenState createState() => _EventDetailScreenState();
+  EventDetailScreenState createState() => EventDetailScreenState();
 }
 
-class _EventDetailScreenState extends State<EventDetailScreen>
+class EventDetailScreenState extends State<EventDetailScreen>
     implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final viewModel = Modular.get<EventDetailViewModel>();
@@ -32,7 +32,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
         key: _scaffoldKey,
         appBar: AppBar(
           title: TextWidget(
-            style: Style.subtitle,
+            style: Style.title,
             text: viewModel.title,
           ),
           actions: [ShareWidget(model: viewModel.share)],

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/ui/component/ui/text_widget.dart';
+
 class EventUpdateScreen extends StatefulWidget {
   const EventUpdateScreen({Key? key}) : super(key: key);
 
@@ -28,8 +30,10 @@ class _EventUpdateScreenState extends State<EventUpdateScreen>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Edit event'),
-      ),
+          title: TextWidget(
+        text: 'Edit event',
+        style: Style.title,
+      )),
       body: navigate(),
     );
   }

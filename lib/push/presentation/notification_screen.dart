@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../core/ui/component/ui/text_widget.dart';
 import 'notification_view_model.dart';
 import 'ui/notification_flow.dart';
 
@@ -26,8 +27,10 @@ class _HomeScreenState extends State<NotificationScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Notifications'),
-      ),
+          title: TextWidget(
+        text: 'Notifications',
+        style: Style.title,
+      )),
       body: Stack(
         children: [
           Observer(builder: (_) {

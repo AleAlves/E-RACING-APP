@@ -41,7 +41,7 @@ class LoginSignUpScreenState extends State<LoginSignUpScreen>
       appBar: AppBar(
         title: TextWidget(
           text: viewModel.title,
-          style: Style.paragraph,
+          style: Style.title,
         ),
       ),
       body: Stack(

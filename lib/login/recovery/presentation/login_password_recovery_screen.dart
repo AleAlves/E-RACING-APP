@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import '../../../core/ui/component/ui/text_widget.dart';
 import 'login_password_recovery_view_model.dart';
 import 'navigation/login_password_recovery_navigation.dart';
 
@@ -31,7 +32,10 @@ class _LoginPasswordRecoveryScreenState
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: const Text('Recovery'),
+            title: TextWidget(
+              text: viewModel.title,
+              style: Style.title,
+            )
         ),
         body: navigate());
   }

@@ -33,7 +33,7 @@ class _LoginSignInScreenState extends State<LoginSignInScreen>
       appBar: AppBar(
         title: TextWidget(
           text: viewModel.title,
-          style: Style.caption,
+          style: Style.title,
         ),
       ),
       body: navigate(),

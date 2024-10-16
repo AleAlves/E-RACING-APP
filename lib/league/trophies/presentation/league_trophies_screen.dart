@@ -30,10 +30,10 @@ class _LeagueTrophiesScreenState extends State<LeagueTrophiesScreen>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: TextWidget(
-          text: viewModel.title,
-          style: Style.caption,
-        ),
+          title: TextWidget(
+            text: viewModel.title,
+            style: Style.title,
+          )
       ),
       body: navigate(),
     );

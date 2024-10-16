@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/ui/component/ui/step_progress_indicator_widget.dart';
+import '../../../../core/ui/component/ui/text_widget.dart';
 import '../navigation/event_create_flow.dart';
 
 class EventCreateScreen extends StatefulWidget {
@@ -38,7 +39,10 @@ class EventCreateScreenState extends State<EventCreateScreen>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Event creation'),
+          title: TextWidget(
+            text: 'Event creation',
+            style: Style.title,
+          )
       ),
       body: Stack(
         children: [

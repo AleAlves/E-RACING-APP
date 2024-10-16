@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../core/ui/component/ui/step_progress_indicator_widget.dart';
+import '../../../core/ui/component/ui/text_widget.dart';
 import 'league_create_view_model.dart';
 import 'navigation/league_create_flow.dart';
 
@@ -32,7 +33,10 @@ class _LeagueScreenState extends State<LeagueCreateScreen>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('League Creation'),
+          title: TextWidget(
+            text: 'Community creating',
+            style: Style.title,
+          )
       ),
       body: Stack(
         children: [

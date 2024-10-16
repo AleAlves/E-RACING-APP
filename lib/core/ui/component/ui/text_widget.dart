@@ -41,25 +41,28 @@ class TextWidget extends StatelessWidget {
             .titleSmall
             ?.copyWith(color: color, fontWeight: weight, letterSpacing: 2.0);
       case Style.paragraph:
-        return Theme.of(context)
-            .textTheme
-            .bodyLarge
-            ?.copyWith(color: color, fontWeight: weight, letterSpacing: 1.5);
+        return Theme.of(context).textTheme.bodyLarge?.copyWith(
+            color: color ?? Theme.of(context).colorScheme.outline,
+            fontWeight: weight,
+            letterSpacing: 1.5);
       case Style.caption:
-        return Theme.of(context)
-            .textTheme
-            .labelMedium
-            ?.copyWith(color:  color, fontSize: 14, fontWeight: weight, letterSpacing: 2.0);
+        return Theme.of(context).textTheme.labelMedium?.copyWith(
+            color: color ?? Theme.of(context).colorScheme.outline,
+            fontSize: 14,
+            fontWeight: weight,
+            letterSpacing: 2.0);
       case Style.error:
-        return Theme.of(context)
-            .textTheme
-            .labelMedium
-            ?.copyWith(color: Colors.red, fontSize: 14, fontWeight: weight, letterSpacing: 2.0);
+        return Theme.of(context).textTheme.labelMedium?.copyWith(
+            color: Colors.red,
+            fontSize: 14,
+            fontWeight: weight,
+            letterSpacing: 2.0);
       case Style.button:
-        return Theme.of(context)
-            .textTheme
-            .labelSmall
-            ?.copyWith(color: color, fontSize: 16, fontWeight: FontWeight.normal, letterSpacing: 4.0);
+        return Theme.of(context).textTheme.labelSmall?.copyWith(
+            color: color,
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+            letterSpacing: 4.0);
     }
   }
 }

@@ -3,6 +3,8 @@ import 'package:e_racing_app/profile/presentation/profile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../core/ui/component/ui/text_widget.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -25,7 +27,10 @@ class __ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Profile'),
+          title: TextWidget(
+            text: "Profile",
+            style: Style.title,
+          )
       ),
       body: Stack(
         children: [

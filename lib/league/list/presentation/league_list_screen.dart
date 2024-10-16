@@ -34,7 +34,7 @@ class _LeagueListScreenState extends State<LeagueListScreen>
       appBar: AppBar(
         title: TextWidget(
           text: viewModel.title,
-          style: Style.subtitle,
+          style: Style.title,
         ),
       ),
       body: navigate(),

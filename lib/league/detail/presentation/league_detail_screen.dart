@@ -12,10 +12,10 @@ class LeagueDetailScreen extends StatefulWidget {
   const LeagueDetailScreen({super.key});
 
   @override
-  _LeagueDetailScreenState createState() => _LeagueDetailScreenState();
+  LeagueDetailScreenState createState() => LeagueDetailScreenState();
 }
 
-class _LeagueDetailScreenState extends State<LeagueDetailScreen>
+class LeagueDetailScreenState extends State<LeagueDetailScreen>
     implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final viewModel = Modular.get<LeagueDetailViewModel>();
@@ -33,7 +33,7 @@ class _LeagueDetailScreenState extends State<LeagueDetailScreen>
       appBar: AppBar(
         title: TextWidget(
           text: viewModel.title,
-          style: Style.subtitle,
+          style: Style.title,
         ),
         actions: [ShareWidget(model: viewModel.share)],
       ),
