@@ -165,7 +165,7 @@ class SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                       TextWidget(
                         text:
                             "${standing?.user?.profile?.firstName?[0]}. ${standing?.user?.profile?.surName}",
-                        style: Style.paragraph,
+                        style: Style.caption,
                         align: TextAlign.center,
                       ),
                     ],
@@ -179,7 +179,7 @@ class SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextWidget(
                         text: "${standing?.points} pts",
-                        style: Style.paragraph,
+                        style: Style.caption,
                         align: TextAlign.start,
                       ),
                     ),

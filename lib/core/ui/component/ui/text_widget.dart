@@ -33,28 +33,28 @@ class TextWidget extends StatelessWidget {
       case Style.title:
         return Theme.of(context)
             .textTheme
-            .headlineSmall
-            ?.copyWith(color: color, fontWeight: weight);
+            .titleLarge
+            ?.copyWith(color: color, fontWeight: weight, letterSpacing: 1.0);
       case Style.subtitle:
         return Theme.of(context)
             .textTheme
-            .titleLarge
-            ?.copyWith(color: color, fontWeight: weight);
+            .titleSmall
+            ?.copyWith(color: color, fontWeight: weight, letterSpacing: 2.0);
       case Style.paragraph:
         return Theme.of(context)
             .textTheme
             .bodyLarge
-            ?.copyWith(color: color, fontWeight: weight);
+            ?.copyWith(color: color, fontWeight: weight, letterSpacing: 1.5);
       case Style.caption:
         return Theme.of(context)
             .textTheme
             .labelMedium
-            ?.copyWith(color: color, fontSize: 14, fontWeight: weight);
+            ?.copyWith(color:  color, fontSize: 14, fontWeight: weight, letterSpacing: 2.0);
       case Style.error:
         return Theme.of(context)
             .textTheme
             .labelMedium
-            ?.copyWith(color: Colors.red, fontSize: 14, fontWeight: weight);
+            ?.copyWith(color: Colors.red, fontSize: 14, fontWeight: weight, letterSpacing: 2.0);
       case Style.button:
         return Theme.of(context)
             .textTheme

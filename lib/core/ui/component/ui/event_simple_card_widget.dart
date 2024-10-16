@@ -20,18 +20,16 @@ class EventSimpleCardWidget extends StatelessWidget {
       required this.event,
       this.onPressed,
       this.align = TextAlign.center,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   @override
   Widget build(BuildContext context) {
     return CardWidget(
-      borderColor: getColor(event?.type, context),
-      arrowed: true,
-      child: content(context),
-      onPressed: onPressed,
-      ready: true,
-    );
+        borderColor: getColor(event?.type, context),
+        arrowed: true,
+        onPressed: onPressed,
+        ready: true,
+        child: content(context));
   }
 
   Widget content(BuildContext context) {
@@ -54,7 +52,7 @@ class EventSimpleCardWidget extends StatelessWidget {
                 onPressed: (w) {},
                 classes: event?.classes,
               ),
-              _getType(event?.type),
+              _getType(event?.type, context),
               const SpacingWidget(LayoutSize.size16),
             ],
           ),
@@ -63,7 +61,7 @@ class EventSimpleCardWidget extends StatelessWidget {
     );
   }
 
-  Widget _getType(EventType? state) {
+  Widget _getType(EventType? state, BuildContext context) {
     switch (state) {
       case EventType.championship:
         return Row(
@@ -82,10 +80,11 @@ class EventSimpleCardWidget extends StatelessWidget {
           children: [
             Icon(icon),
             const SpacingWidget(LayoutSize.size8),
-            const TextWidget(
+            TextWidget(
               text: "Race",
               style: Style.paragraph,
               align: TextAlign.start,
+              color: Theme.of(context).colorScheme.outline,
             )
           ],
         );

@@ -49,7 +49,7 @@ class MenuCardWidget extends StatelessWidget {
               children: [
                 TextWidget(
                   text: title,
-                  style: Style.subtitle,
+                  style: Style.title,
                 ),
                 if (subtitle.isNotEmpty) ...[
                   const SpacingWidget(LayoutSize.size8),
@@ -57,6 +57,7 @@ class MenuCardWidget extends StatelessWidget {
                     text: subtitle,
                     style: Style.caption,
                     align: TextAlign.start,
+                    color: Theme.of(context).colorScheme.outline,
                   )
                 ]
               ],

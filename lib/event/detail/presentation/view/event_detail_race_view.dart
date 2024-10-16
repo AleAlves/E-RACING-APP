@@ -20,13 +20,13 @@ import '../router/event_detail_router.dart';
 class EventDetailRaceView extends StatefulWidget {
   final EventDetailViewModel viewModel;
 
-  const EventDetailRaceView(this.viewModel, {Key? key}) : super(key: key);
+  const EventDetailRaceView(this.viewModel, {super.key});
 
   @override
-  _EventDetailRaceViewState createState() => _EventDetailRaceViewState();
+  EventDetailRaceViewState createState() => EventDetailRaceViewState();
 }
 
-class _EventDetailRaceViewState extends State<EventDetailRaceView>
+class EventDetailRaceViewState extends State<EventDetailRaceView>
     implements BaseSateWidget {
   List<Pair<String, Color>> teamColors = [];
 

@@ -1,5 +1,3 @@
-import 'package:carousel_slider/carousel_controller.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_racing_app/core/ext/date_extensions.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
@@ -12,19 +10,15 @@ import 'icon_widget.dart';
 class EventRaceCollection extends StatelessWidget {
   final List<RaceModel?>? races;
   final Function(String) onRaceCardPressed;
-  // final CarouselController buttonCarouselController = CarouselController();
 
-  EventRaceCollection(
-      {Key? key, required this.races, required this.onRaceCardPressed})
-      : super(key: key);
+  const EventRaceCollection(
+      {super.key, required this.races, required this.onRaceCardPressed});
 
   @override
   Widget build(BuildContext context) => raceList(context);
 
   Widget raceList(BuildContext context) {
-    return Column(
-      children: racesSteps(context),
-    );
+    return Column(children: racesSteps(context));
   }
 
   List<Widget> racesSteps(BuildContext context) {
@@ -44,7 +38,7 @@ class EventRaceCollection extends StatelessWidget {
         child: TextWidget(
             color: Theme.of(context).colorScheme.onBackground,
             text: index.toString(),
-            style: Style.subtitle),
+            style: Style.caption),
       ),
       ready: true,
       onPressed: () {
@@ -82,8 +76,10 @@ class EventRaceCollection extends StatelessWidget {
                           ),
                           const SpacingWidget(LayoutSize.size8),
                           TextWidget(
-                              text: formatDate(race?.date),
-                              style: Style.caption),
+                            text: formatDate(race?.date),
+                            style: Style.caption,
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
                         ],
                       ),
                       const SpacingWidget(LayoutSize.size8),
@@ -94,12 +90,14 @@ class EventRaceCollection extends StatelessWidget {
                           ),
                           const SpacingWidget(LayoutSize.size8),
                           TextWidget(
-                              text: formatHour(race?.date),
-                              style: Style.caption),
+                            text: formatHour(race?.date),
+                            style: Style.caption,
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
                         ],
                       ),
                       const SpacingWidget(LayoutSize.size8),
-                      raceStatusWidget(race),
+                      raceStatusWidget(race, context),
                     ],
                   ),
                 ),
@@ -111,7 +109,7 @@ class EventRaceCollection extends StatelessWidget {
     );
   }
 
-  Widget raceStatusWidget(RaceModel? race) {
+  Widget raceStatusWidget(RaceModel? race, BuildContext context) {
     var color = Colors.amber;
     var status = "Scheduled";
     if (race?.finished == true) {
@@ -132,7 +130,11 @@ class EventRaceCollection extends StatelessWidget {
             ),
             const SpacingWidget(LayoutSize.size8),
             const SpacingWidget(LayoutSize.size2),
-            TextWidget(text: status, style: Style.caption),
+            TextWidget(
+              text: status,
+              style: Style.caption,
+              color: Theme.of(context).colorScheme.outline,
+            ),
           ],
         ),
       ],

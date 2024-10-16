@@ -50,7 +50,7 @@ class LeagueMemberCardWidget extends StatelessWidget {
             children: [
               const SpacingWidget(LayoutSize.size8),
               ChipWidget(
-                text: "Manager",
+                text: "Admin",
                 color: Theme.of(context).colorScheme.primary,
                 textColor: Theme.of(context).colorScheme.onPrimary,
               ),

@@ -21,10 +21,10 @@ class EventSearchView extends StatefulWidget {
   const EventSearchView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _EventSearchViewState createState() => _EventSearchViewState();
+  EventSearchViewState createState() => EventSearchViewState();
 }
 
-class _EventSearchViewState extends State<EventSearchView>
+class EventSearchViewState extends State<EventSearchView>
     implements BaseSateWidget {
   @override
   void initState() {

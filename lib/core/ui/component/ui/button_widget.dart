@@ -5,7 +5,7 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-enum ButtonType { primary, secondary, link, icon, iconShapeless }
+enum ButtonType { primary, secondary, link, icon, iconShapeless, info }
 
 class ButtonWidget extends StatefulWidget {
   final String? label;
@@ -51,6 +51,8 @@ class ButtonWidgetState extends State<ButtonWidget> {
         return primary(context);
       case ButtonType.link:
         return link();
+      case ButtonType.info:
+        return info();
       case ButtonType.icon:
         return iconButton();
       case ButtonType.iconShapeless:
@@ -58,6 +60,26 @@ class ButtonWidgetState extends State<ButtonWidget> {
       case ButtonType.secondary:
         return secondary(context);
     }
+  }
+
+  Widget info() {
+    return TextButton(
+      onPressed: widget.enabled ? widget.onPressed : null,
+      child: Row(
+        children: [
+          TextWidget(
+            text: widget.label ?? '',
+            color: widget.labelColor ?? Theme.of(context).colorScheme.primary,
+            style: Style.caption,
+          ),
+          const SpacingWidget(LayoutSize.size4),
+          IconWidget(
+            icon: widget.icon ?? Icons.info_outline,
+            size: 18,
+          )
+        ],
+      ),
+    );
   }
 
   Widget link() {
@@ -107,7 +129,8 @@ class ButtonWidgetState extends State<ButtonWidget> {
   Widget secondary(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.secondary),
+        backgroundColor:
+            WidgetStateProperty.all(Theme.of(context).colorScheme.secondary),
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(48.0),
@@ -122,7 +145,7 @@ class ButtonWidgetState extends State<ButtonWidget> {
         padding: const EdgeInsets.all(16.0),
         child: TextWidget(
           text: widget.label ?? '',
-          color: widget.labelColor ?? Theme.of(context).colorScheme.onPrimary,
+          color: widget.labelColor ?? Theme.of(context).colorScheme.onSecondary,
           style: Style.button,
         ),
       ),

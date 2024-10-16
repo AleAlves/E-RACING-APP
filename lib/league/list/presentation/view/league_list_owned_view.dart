@@ -12,13 +12,13 @@ import '../league_list_view_model.dart';
 class LeagueListOwnedView extends StatefulWidget {
   final LeagueListViewModel viewModel;
 
-  const LeagueListOwnedView(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueListOwnedView(this.viewModel, {super.key});
 
   @override
-  _LeagueListOwnedViewState createState() => _LeagueListOwnedViewState();
+  LeagueListOwnedViewState createState() => LeagueListOwnedViewState();
 }
 
-class _LeagueListOwnedViewState extends State<LeagueListOwnedView>
+class LeagueListOwnedViewState extends State<LeagueListOwnedView>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -67,6 +67,11 @@ class _LeagueListOwnedViewState extends State<LeagueListOwnedView>
       itemBuilder: (context, index) {
         return CardWidget(
           arrowed: true,
+          ready: true,
+          onPressed: () {
+            var id = widget.viewModel.leagues?[index]?.id;
+            widget.viewModel.toEventCreation(id);
+          },
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: TextWidget(
@@ -74,12 +79,6 @@ class _LeagueListOwnedViewState extends State<LeagueListOwnedView>
               style: Style.subtitle,
             ),
           ),
-          ready: true,
-          onPressed: () {
-            var id = widget.viewModel.leagues?[index]?.id;
-            widget.viewModel.toEventCreation(id);
-            print("");
-          },
         );
       },
     );

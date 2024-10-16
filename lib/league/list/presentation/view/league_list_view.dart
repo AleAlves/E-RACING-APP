@@ -17,13 +17,13 @@ import '../league_list_view_model.dart';
 class LeagueListView extends StatefulWidget {
   final LeagueListViewModel viewModel;
 
-  const LeagueListView(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueListView(this.viewModel, {super.key});
 
   @override
-  _LeagueListViewState createState() => _LeagueListViewState();
+  LeagueListViewState createState() => LeagueListViewState();
 }
 
-class _LeagueListViewState extends State<LeagueListView>
+class LeagueListViewState extends State<LeagueListView>
     implements BaseSateWidget {
   @override
   void initState() {

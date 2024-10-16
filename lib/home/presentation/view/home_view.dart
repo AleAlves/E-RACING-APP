@@ -19,13 +19,13 @@ import '../home_view_model.dart';
 class HomeView extends StatefulWidget {
   final HomeViewModel viewModel;
 
-  const HomeView(this.viewModel, {Key? key}) : super(key: key);
+  const HomeView(this.viewModel, {super.key});
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  HomeViewState createState() => HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> implements BaseSateWidget {
+class HomeViewState extends State<HomeView> implements BaseSateWidget {
   @override
   void initState() {
     observers();

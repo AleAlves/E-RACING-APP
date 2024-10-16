@@ -72,22 +72,26 @@ class _ERacingAppState extends State<ERacingApp> {
       ],
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
-        colors: myFlexScheme.dark,
-        appBarElevation: 0.1,
-      ).copyWith(
-          scaffoldBackgroundColor: Colors.white,
-          iconTheme: const IconThemeData(color: Color(0xFF1C1C1C)),
-          cardColor: const Color(0xFFF6F6F6),
-          focusColor: const Color(0xFFE5E1E1)),
+              colors: myFlexScheme.light,
+              appBarElevation: 0.1,
+              textTheme: TextTheme().apply(
+                bodyColor: const Color(0xFF1C1C1C),
+                displayColor: const Color(0xFF1C1C1C),
+              ))
+          .copyWith(
+              scaffoldBackgroundColor: Colors.white,
+              iconTheme: const IconThemeData(color: Color(0xFF1C1C1C)),
+              cardColor: const Color(0xFFF6F6F6),
+              focusColor: const Color(0xFFE5E1E1)),
       darkTheme: FlexThemeData.dark(
-        colors: myFlexScheme.dark,
-        appBarElevation: 0.1,
-        appBarBackground: Colors.black,
-      ).copyWith(
-          scaffoldBackgroundColor: Colors.black26,
-          iconTheme: const IconThemeData(color: Color(0xFF6B6B6B)),
-          cardColor: const Color(0xFF101010),
-          focusColor: const Color(0xFF262626)),
+              colors: myFlexScheme.dark,
+              appBarElevation: 0.1,
+              appBarBackground: Colors.black)
+          .copyWith(
+              scaffoldBackgroundColor: Colors.black26,
+              iconTheme: const IconThemeData(color: Color(0xFF6B6B6B)),
+              cardColor: const Color(0xFF101010),
+              focusColor: const Color(0xFF262626)),
       themeMode: themeMode,
       title: 'E-Racing',
       routeInformationParser: Modular.routeInformationParser,

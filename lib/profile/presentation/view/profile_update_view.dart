@@ -63,14 +63,15 @@ class ProfileUpdateViewState extends State<ProfileUpdateView>
   Widget content() {
     return Column(
       children: [
-        const SpacingWidget(LayoutSize.size128),
+        const SpacingWidget(LayoutSize.size48),
         pictureWidget(),
         const SpacingWidget(LayoutSize.size8),
         Form(
           key: _formKey,
           child: profileForm(),
         ),
-        tagPickerWidget()
+        tagPickerWidget(),
+        const SpacingWidget(LayoutSize.size96),
       ],
     );
   }

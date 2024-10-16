@@ -92,7 +92,7 @@ class LeagueDetailViewState extends State<LeagueDetailView>
         leagueTitle(),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.link,
+            type: ButtonType.info,
             label: "About this community",
             onPressed: () {
               leagueDetail();

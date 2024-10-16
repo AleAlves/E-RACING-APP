@@ -71,9 +71,9 @@ class EventCardWidget extends StatelessWidget {
                 onPressed: (w) {},
                 classes: event?.classes,
               ),
-              _getType(event?.type),
+              _getType(event?.type, context),
               const SpacingWidget(LayoutSize.size8),
-              drivers(),
+              drivers(context),
               const SpacingWidget(LayoutSize.size8),
               eventStatusWidget(event?.state, context),
               const SpacingWidget(LayoutSize.size8),
@@ -216,17 +216,18 @@ class EventCardWidget extends StatelessWidget {
     );
   }
 
-  Widget _getType(EventType? state) {
+  Widget _getType(EventType? state, BuildContext context) {
     switch (state) {
       case EventType.championship:
         return Row(
           children: [
             IconWidget(icon: icon),
             const SpacingWidget(LayoutSize.size8),
-            const TextWidget(
+            TextWidget(
               text: "Championship",
               style: Style.caption,
               align: TextAlign.start,
+              color: Theme.of(context).colorScheme.outline,
             )
           ],
         );
@@ -235,10 +236,11 @@ class EventCardWidget extends StatelessWidget {
           children: [
             IconWidget(icon: icon),
             const SpacingWidget(LayoutSize.size8),
-            const TextWidget(
+            TextWidget(
               text: "Race",
               style: Style.caption,
               align: TextAlign.start,
+              color: Theme.of(context).colorScheme.outline,
             )
           ],
         );
@@ -247,7 +249,7 @@ class EventCardWidget extends StatelessWidget {
     }
   }
 
-  Widget drivers() {
+  Widget drivers(BuildContext context) {
     var max = 0;
     var entries = 0;
 
@@ -261,10 +263,10 @@ class EventCardWidget extends StatelessWidget {
         const IconWidget(icon: Icons.sports_motorsports),
         const SpacingWidget(LayoutSize.size8),
         TextWidget(
-          text: '$entries/$max',
-          style: Style.caption,
-          align: TextAlign.start,
-        ),
+            text: '$entries/$max',
+            style: Style.caption,
+            align: TextAlign.start,
+            color: Theme.of(context).colorScheme.outline),
       ],
     );
   }
@@ -328,14 +330,15 @@ class EventCardWidget extends StatelessWidget {
               color: color,
             ),
             const SpacingWidget(LayoutSize.size8),
-            TextWidget(text: status, style: Style.caption),
+            TextWidget(
+                text: status,
+                style: Style.caption,
+                color: Theme.of(context).colorScheme.outline),
           ],
         ),
         const SpacingWidget(LayoutSize.size8),
         Row(
-          children: [
-            subscriptionsStatus(context)
-          ],
+          children: [subscriptionsStatus(context)],
         )
       ],
     );

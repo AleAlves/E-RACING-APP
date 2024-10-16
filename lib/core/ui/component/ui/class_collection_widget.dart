@@ -10,18 +10,17 @@ class ClassCollectionWidget extends StatefulWidget {
   final List<ClassesModel?>? classes;
 
   const ClassCollectionWidget(
-      {required this.classes, required this.onPressed, Key? key})
-      : super(key: key);
+      {required this.classes, required this.onPressed, super.key});
 
   Widget loading(BuildContext context) {
     return const Card(child: LoadingShimmer());
   }
 
   @override
-  _ClassCollectionWidgetState createState() => _ClassCollectionWidgetState();
+  ClassCollectionWidgetState createState() => ClassCollectionWidgetState();
 }
 
-class _ClassCollectionWidgetState extends State<ClassCollectionWidget> {
+class ClassCollectionWidgetState extends State<ClassCollectionWidget> {
   @override
   void initState() {
     super.initState();
@@ -50,7 +49,9 @@ class _ClassCollectionWidgetState extends State<ClassCollectionWidget> {
                               padding: const EdgeInsets.only(
                                   left: 2.0, right: 2.0, top: 2.0, bottom: 2.0),
                               child: TextWidget(
-                                  text: tag?.name ?? '', style: Style.caption),
+                                  text: tag?.name ?? '',
+                                  style: Style.caption,
+                                  color: Theme.of(context).colorScheme.outline),
                             ),
                           ),
                         );

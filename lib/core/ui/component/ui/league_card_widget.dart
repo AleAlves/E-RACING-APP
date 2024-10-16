@@ -35,20 +35,20 @@ class LeagueCardWidget extends StatelessWidget {
       padding: EdgeInsets.zero,
       arrowed: true,
       onPressed: onPressed,
+      ready: leagueTags != null,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: description(),
+        child: description(context),
       ),
-      ready: leagueTags != null,
     );
   }
 
-  Widget description() {
+  Widget description(BuildContext context) {
     return Column(
       children: [
         titleWidget(),
-        membersWidget(),
-        membershipWidget(),
+        membersWidget(context),
+        membershipWidget(context),
         tagsWidget(),
       ],
     );
@@ -72,7 +72,7 @@ class LeagueCardWidget extends StatelessWidget {
     );
   }
 
-  Widget membersWidget() {
+  Widget membersWidget(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Row(
@@ -87,17 +87,18 @@ class LeagueCardWidget extends StatelessWidget {
             text: "${members.toString()}/$capacity",
             style: Style.caption,
             align: TextAlign.start,
+            color: Theme.of(context).colorScheme.outline,
           )
         ],
       ),
     );
   }
 
-  Widget membershipWidget() {
+  Widget membershipWidget(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Row(
-        children: const [
+        children: [
           SpacingWidget(LayoutSize.size8),
           IconWidget(
             icon: Icons.workspace_premium,
@@ -107,6 +108,7 @@ class LeagueCardWidget extends StatelessWidget {
           TextWidget(
             text: "Member",
             style: Style.caption,
+            color: Theme.of(context).colorScheme.outline,
           )
         ],
       ),
