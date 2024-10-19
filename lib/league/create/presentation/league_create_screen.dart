@@ -11,13 +11,13 @@ import 'navigation/league_create_flow.dart';
 class LeagueCreateScreen extends StatefulWidget {
   final LeagueCreateNavigator flow;
 
-  const LeagueCreateScreen(this.flow, {Key? key}) : super(key: key);
+  const LeagueCreateScreen(this.flow, {super.key});
 
   @override
-  _LeagueScreenState createState() => _LeagueScreenState();
+  LeagueScreenState createState() => LeagueScreenState();
 }
 
-class _LeagueScreenState extends State<LeagueCreateScreen>
+class LeagueScreenState extends State<LeagueCreateScreen>
     implements BaseScreen {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final viewModel = Modular.get<LeagueCreateViewModel>();
@@ -52,13 +52,13 @@ class _LeagueScreenState extends State<LeagueCreateScreen>
 
   Widget progressIndicator() {
     return Positioned(
+      left: 0,
+      right: 0,
+      top: 0,
       child: StepProgressIndicatorWidget(
         maxSteps: viewModel.maxSteps,
         currentStep: viewModel.currentStep,
       ),
-      left: 0,
-      right: 0,
-      top: 0,
     );
   }
 

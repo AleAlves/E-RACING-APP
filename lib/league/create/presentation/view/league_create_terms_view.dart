@@ -11,13 +11,13 @@ import '../league_create_view_model.dart';
 class LeagueCreateTermsView extends StatefulWidget {
   final LeagueCreateViewModel viewModel;
 
-  const LeagueCreateTermsView(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueCreateTermsView(this.viewModel, {super.key});
 
   @override
-  _LeagueCreateTermsViewState createState() => _LeagueCreateTermsViewState();
+  LeagueCreateTermsViewState createState() => LeagueCreateTermsViewState();
 }
 
-class _LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
+class LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
     implements BaseSateWidget {
   bool termsAccepted = false;
 
@@ -131,7 +131,7 @@ class _LeagueCreateTermsViewState extends State<LeagueCreateTermsView>
             )
           ],
         ),
-        const SpacingWidget(LayoutSize.size48),
+        const SpacingWidget(LayoutSize.size96),
       ],
     );
   }

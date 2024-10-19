@@ -70,11 +70,11 @@ class LeagueDetailViewState extends State<LeagueDetailView>
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
-          child: panel(),
+          child: playersEvent(),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
-          child: playersEvent(),
+          child: panel(),
         ),
         const SpacingWidget(LayoutSize.size64),
       ],
@@ -206,11 +206,11 @@ class LeagueDetailViewState extends State<LeagueDetailView>
   Widget playersEvent() {
     return widget.viewModel.events == null
         ? CardWidget(
+            ready: false,
             child: SizedBox(
               height: 100,
               width: MediaQuery.of(context).size.width,
-            ),
-            ready: false)
+            ))
         : playerContentWidget();
   }
 
@@ -224,7 +224,7 @@ class LeagueDetailViewState extends State<LeagueDetailView>
               const Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: TextWidget(
-                    text: "Your current competitions", style: Style.subtitle),
+                    text: "Recent events", style: Style.subtitle),
               ),
               const SpacingWidget(LayoutSize.size16),
               ListView.builder(
