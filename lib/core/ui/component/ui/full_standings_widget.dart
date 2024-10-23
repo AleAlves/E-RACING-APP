@@ -10,14 +10,13 @@ import 'icon_widget.dart';
 class FullStandingsWidget extends StatefulWidget {
   final EventStandingsModel? standings;
 
-  const FullStandingsWidget({Key? key, required this.standings})
-      : super(key: key);
+  const FullStandingsWidget({super.key, required this.standings});
 
   @override
-  _FullStandingsWidgetState createState() => _FullStandingsWidgetState();
+  FullStandingsWidgetState createState() => FullStandingsWidgetState();
 }
 
-class _FullStandingsWidgetState extends State<FullStandingsWidget> {
+class FullStandingsWidgetState extends State<FullStandingsWidget> {
   var _index = -1;
 
   @override
@@ -136,7 +135,7 @@ class _FullStandingsWidgetState extends State<FullStandingsWidget> {
         showResume(standing);
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 0),
         child: Column(
           children: [
             Row(

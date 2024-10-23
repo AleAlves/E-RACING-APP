@@ -5,10 +5,10 @@ import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../login/legacy/domain/model/user_model.dart';
-import '../../../model/classes_model.dart';
+import '../../../model/driver_model.dart';
 
 class EntryStandingsWidget extends StatefulWidget {
-  final List<ClassesModel?>? entries;
+  final List<DriverModel?>? drivers;
   final List<UserModel?>? users;
   final bool hasFee;
   final Function(String) onRaceCardPressed;
@@ -16,7 +16,7 @@ class EntryStandingsWidget extends StatefulWidget {
 
   const EntryStandingsWidget(
       {super.key,
-      required this.entries,
+      required this.drivers,
       required this.users,
       required this.hasFee,
       required this.onRaceCardPressed,
@@ -66,26 +66,17 @@ class EntryStandingsWidgetState extends State<EntryStandingsWidget> {
   }
 
   List<Widget> classesList(BuildContext context) {
-    return widget.entries?.map((clazz) {
-          String? entry = "";
-          bool? isPaid;
-          bool? isAccepted;
-          clazz?.drivers?.map((driver) {
-            var name = widget.users
-                ?.firstWhere(
-                    (user) => clazz.drivers?.first?.driverId == user?.id)
-                ?.profile;
-            entry = "${name?.firstName} ${name?.surName}";
-            isPaid = driver?.isFeePaid;
-            isAccepted = driver?.isAccepted;
-          }).toList();
-          return Padding(
-            padding: EdgeInsets.all(16),
+    return widget.drivers?.map((driver) {
+      var user = widget.users?.firstWhere(
+          (element) => element?.id == driver?.driverId,
+          orElse: () => null);
+      return Padding(
+            padding: EdgeInsets.all(8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextWidget(
-                  text: entry ?? "",
+                  text: "${user?.profile?.firstName?[0]}. ${user?.profile?.surName}" ?? "",
                   style: Style.caption,
                   align: TextAlign.start,
                 ),
@@ -93,12 +84,12 @@ class EntryStandingsWidgetState extends State<EntryStandingsWidget> {
                   children: [
                     IconWidget(
                       icon: Icons.monetization_on,
-                      color: isPaid == true ? Colors.green : Colors.amberAccent,
+                      color: driver?.isFeePaid == true ? Colors.green : Colors.amberAccent,
                     ),
                     SpacingWidget(LayoutSize.size8),
                     IconWidget(
-                      icon: Icons.check_circle_rounded,
-                      color: isAccepted == true ? Colors.green : Colors.red,
+                      icon:  driver?.isAccepted == true ? Icons.check_circle_rounded : Icons.cancel_rounded,
+                      color: driver?.isAccepted == true ? Colors.green : Colors.red,
                     ),
                   ],
                 ),

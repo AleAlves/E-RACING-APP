@@ -1,3 +1,4 @@
+import 'package:e_racing_app/core/model/driver_model.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/icon_widget.dart';
@@ -19,7 +20,7 @@ import '../event_detail_view_model.dart';
 class EventDetailInfoView extends StatefulWidget {
   final EventDetailViewModel viewModel;
 
-  const EventDetailInfoView(this.viewModel, {Key? key}) : super(key: key);
+  const EventDetailInfoView(this.viewModel, {super.key});
 
   @override
   EventDetailInfoViewState createState() => EventDetailInfoViewState();
@@ -234,8 +235,13 @@ class EventDetailInfoViewState extends State<EventDetailInfoView>
   }
 
   Widget entries() {
+
+    List<DriverModel> drivers = widget.viewModel.event?.classes
+        ?.expand((clazz) => clazz?.drivers ?? [])
+        .whereType<DriverModel>()
+        .toList() ?? [];
     return EntryStandingsWidget(
-      entries: widget.viewModel.event?.classes,
+      drivers: drivers,
       users: widget.viewModel.users,
       hasFee: widget.viewModel.event?.hasFee ?? false,
       onRaceCardPressed: (id) {},

@@ -23,7 +23,7 @@ import '../event_manage_view_model.dart';
 class EventManageRaceView extends StatefulWidget {
   final EventManageViewModel viewModel;
 
-  const EventManageRaceView(this.viewModel, {Key? key}) : super(key: key);
+  const EventManageRaceView(this.viewModel, {super.key});
 
   @override
   EventManageRaceViewState createState() => EventManageRaceViewState();

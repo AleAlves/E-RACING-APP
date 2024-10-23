@@ -33,13 +33,21 @@ class EventRaceCollection extends StatelessWidget {
   Widget raceCard(BuildContext context, RaceModel? race, int index) {
     return CardWidget(
       arrowed: true,
-      childLeft: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TextWidget(
-            color: Theme.of(context).colorScheme.onBackground,
-            text: index.toString(),
-            style: Style.caption),
-      ),
+      childLeft: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+        const IconWidget(
+          icon: Icons.sports_score,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextWidget(
+              color: Theme.of(context).colorScheme.onBackground,
+              text: index.toString(),
+              style: Style.caption),
+        ),
+        Container()
+      ],),
       ready: true,
       onPressed: () {
         onRaceCardPressed.call(race?.id ?? '');

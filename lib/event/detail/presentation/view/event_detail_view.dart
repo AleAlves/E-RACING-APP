@@ -1,6 +1,7 @@
 import 'package:e_racing_app/core/ext/access_extension.dart';
 import 'package:e_racing_app/core/ui/component/state/view_state_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/banner_widget.dart';
+import 'package:e_racing_app/core/ui/component/ui/card_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_progress_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/event_race_collection_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/simple_standings_widget.dart';
@@ -18,7 +19,6 @@ import '../../../../core/ext/dialog_extension.dart';
 import '../../../../core/model/event_model.dart';
 import '../../../../core/tools/session.dart';
 import '../../../../core/ui/component/ui/button_widget.dart';
-import '../../../../core/ui/component/ui/entry_standings_widget.dart';
 import '../../../../core/ui/component/ui/float_action_button_widget.dart';
 import '../../../../core/ui/component/ui/icon_widget.dart';
 import '../event_detail_view_model.dart';
@@ -76,47 +76,42 @@ class EventDetailViewState extends State<EventDetailView>
     return Column(
       children: [
         const SpacingWidget(LayoutSize.size16),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8),
-          child: info(),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8),
-          child: standings(),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8),
-          child: races(),
-        ),
+        info(),
+        standings(),
+        races(),
+        registrationWidget(),
         const SpacingWidget(LayoutSize.size96),
       ],
     );
   }
 
   Widget info() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: BannerWidget(media: widget.viewModel.eventBanner),
-        ),
-        const SpacingWidget(LayoutSize.size16),
-        title(),
-        const SpacingWidget(LayoutSize.size16),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: eventStatusWidget(widget.viewModel.event?.state),
-        ),
-        const SpacingWidget(LayoutSize.size8),
-        ButtonWidget(
-            enabled: true,
-            type: ButtonType.link,
-            label: "Event details",
-            onPressed: () {
-              widget.viewModel.onRoute(EventDetailRouter.info);
-            }),
-        const SpacingWidget(LayoutSize.size16),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, right: 8),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: BannerWidget(media: widget.viewModel.eventBanner),
+          ),
+          const SpacingWidget(LayoutSize.size16),
+          title(),
+          const SpacingWidget(LayoutSize.size16),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: eventStatusWidget(widget.viewModel.event?.state),
+          ),
+          const SpacingWidget(LayoutSize.size8),
+          ButtonWidget(
+              enabled: true,
+              type: ButtonType.info,
+              label: "Event details",
+              onPressed: () {
+                widget.viewModel.onRoute(EventDetailRouter.info);
+              }),
+          const SpacingWidget(LayoutSize.size16),
+        ],
+      ),
     );
   }
 
@@ -178,28 +173,7 @@ class EventDetailViewState extends State<EventDetailView>
   }
 
   FloatActionButtonWidget? actionButton() {
-    return isEventHost(widget.viewModel.event)
-        ? adminOption()
-        : cancelRegistration();
-  }
-
-  FloatActionButtonWidget? cancelRegistration() {
-    return _hasRegistration()
-        ? FloatActionButtonWidget(
-            icon: Icons.person_remove,
-            title: "",
-            onPressed: () {
-              confirmationDialogExt(
-                context: context,
-                issueMessage: "Do you want to cancel your registration?",
-                consentMessage: "Yes, I do",
-                onPositive: () {
-                  widget.viewModel.unsubscribe(classId);
-                },
-              );
-            },
-          )
-        : null;
+    return isEventHost(widget.viewModel.event) ? adminOption() : null;
   }
 
   FloatActionButtonWidget? adminOption() {
@@ -220,56 +194,147 @@ class EventDetailViewState extends State<EventDetailView>
   }
 
   Widget races() {
-    return EventRaceCollection(
-        onRaceCardPressed: (id) {
-          widget.viewModel.goToRace(id);
-        },
-        races: widget.viewModel.event?.races);
-  }
-
-  Widget standings() {
-    return SimpleStandingsWidget(
-      standings: widget.viewModel.standings,
-      onRaceCardPressed: (id) {},
-      onFullStandingsPressed: () {
-        widget.viewModel.onRoute(EventDetailRouter.standings);
-      },
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, right: 8),
+      child: EventRaceCollection(
+          onRaceCardPressed: (id) {
+            widget.viewModel.goToRace(id);
+          },
+          races: widget.viewModel.event?.races),
     );
   }
 
+  Widget standings() {
+    return Padding(
+        padding: const EdgeInsets.only(left: 8, right: 8),
+        child: SimpleStandingsWidget(
+          standings: widget.viewModel.standings,
+          onRaceCardPressed: (id) {},
+          onFullStandingsPressed: () {
+            widget.viewModel.onRoute(EventDetailRouter.standings);
+          },
+        ));
+  }
+
+  Widget registrationWidget() {
+    var driver = widget.viewModel.event?.classes
+        ?.firstWhere(
+          (clazz) =>
+      clazz?.drivers?.any(
+            (driver) =>
+        driver?.driverId == Session.instance
+            .getUser()
+            ?.id,
+      ) ??
+          false,
+      orElse: () => null,
+    )
+        ?.drivers
+        ?.firstWhere(
+          (driver) =>
+      driver?.driverId == Session.instance
+          .getUser()
+          ?.id,
+      orElse: () => null,
+    );
+    return _hasRegistration()
+        ? Padding(
+      padding: EdgeInsets.all(8),
+      child: CardWidget(
+        arrowed: true,
+        padding: EdgeInsets.zero,
+        onPressed: () {
+          confirmationDialogExt(
+            context: context,
+            issueMessage:
+            "Do you want to cancel your registration? all your data will be lost.",
+            consentMessage: "Yes, I do",
+            onPositive: () {
+              widget.viewModel.unsubscribe(classId);
+            },
+          );
+        },
+        ready: true,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(children: [
+                  IconWidget(icon: Icons.account_box, size: 32),
+                  SpacingWidget(LayoutSize.size16),
+                  TextWidget(
+                    text: "Driver credentials",
+                    style: Style.title,
+                    align: TextAlign.start,
+                  ),
+                ],),
+                Row(
+                  children: [
+                    IconWidget(
+                      icon: Icons.monetization_on,
+                      color: driver?.isFeePaid == true ? Colors.green : Colors
+                          .amberAccent,
+                    ),
+                    SpacingWidget(LayoutSize.size8),
+                    IconWidget(
+                      icon: driver?.isAccepted == true ? Icons
+                          .check_circle_rounded : Icons.cancel_rounded,
+                      color: driver?.isAccepted == true ? Colors.green : Colors
+                          .red,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    )
+        : Container();
+  }
+
   Widget? doRegisterButton() {
-    return widget.viewModel.event?.joinable == false
+    return widget.viewModel.event?.joinable == false || _hasRegistration()
         ? null
         : ButtonWidget(
-            enabled: true,
-            type: ButtonType.secondary,
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) => SubscriptionWidget(
-                  classes: widget.viewModel.event?.classes,
-                  onSubscribe: (id) {
-                    widget.viewModel.subscribe(id);
-                  },
-                  onUnsubscribe: (id) {
-                    widget.viewModel.unsubscribe(id);
-                  },
-                ),
-              );
-            },
-            label: "Register",
-          );
+      enabled: true,
+      type: ButtonType.secondary,
+      onPressed: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) =>
+              SubscriptionWidget(
+                classes: widget.viewModel.event?.classes,
+                onSubscribe: (id) {
+                  widget.viewModel.subscribe(id);
+                },
+                onUnsubscribe: (id) {
+                  widget.viewModel.unsubscribe(id);
+                },
+              ),
+        );
+      },
+      label: "Register",
+    );
   }
 
   bool _hasRegistration() {
-    var isRegistered = false;
-    widget.viewModel.event?.classes
-        ?.map((classes) => classes?.drivers?.forEach((driver) {
-              isRegistered = Session.instance.getUser()?.id == driver?.driverId;
-              if (isRegistered) {
-                return;
-              }
-            }));
-    return widget.viewModel.event != null ? isRegistered : false;
+    return widget.viewModel.event?.classes?.any((clazz) {
+      var driver = clazz?.drivers?.firstWhere(
+            (driver) =>
+        driver?.driverId == Session.instance
+            .getUser()
+            ?.id,
+        orElse: () => null,
+      );
+      if (driver != null) {
+        return true;
+      }
+      return false;
+    }) ??
+        false;
   }
 }

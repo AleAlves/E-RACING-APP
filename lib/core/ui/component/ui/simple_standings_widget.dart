@@ -57,7 +57,7 @@ class SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
         const SpacingWidget(LayoutSize.size16),
         ButtonWidget(
             enabled: true,
-            type: ButtonType.link,
+            type: ButtonType.info,
             label: "Full standings",
             onPressed: () {
               widget.onFullStandingsPressed();
@@ -152,7 +152,7 @@ class SimpleStandingsWidgetState extends State<SimpleStandingsWidget> {
       ),
       padding: EdgeInsets.zero,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 0.0),
         child: Column(
           children: [
             Row(

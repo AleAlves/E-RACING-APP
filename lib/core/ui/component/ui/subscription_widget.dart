@@ -3,8 +3,6 @@ import 'package:e_racing_app/core/tools/session.dart';
 import 'package:e_racing_app/core/ui/component/state/loading_shimmer.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:flutter/material.dart';
-
-import '../../../ext/dialog_extension.dart';
 import 'button_widget.dart';
 import 'spacing_widget.dart';
 
@@ -28,7 +26,6 @@ class SubscriptionWidget extends StatefulWidget {
 }
 
 class SubscriptionWidgetState extends State<SubscriptionWidget> {
-  bool hasSubscription = false;
   bool? acceptedTerms = false;
   String? classId;
   String? id;
@@ -41,19 +38,7 @@ class SubscriptionWidgetState extends State<SubscriptionWidget> {
   @override
   Widget build(BuildContext context) {
     classId = widget.classes?.first?.id;
-    hasSubscription = widget.classes?.any((clazz) {
-          var driver = clazz?.drivers?.firstWhere(
-            (driver) => driver?.driverId == Session.instance.getUser()?.id,
-            orElse: () => null,
-          );
-          if (driver != null) {
-            id = clazz?.id;
-            return true;
-          }
-          return false;
-        }) ??
-        false;
-    return hasSubscription ? unsubscribedWidget() : subscribedWidget();
+    return subscribedWidget();
   }
 
   Widget subscribedWidget() {
@@ -61,7 +46,7 @@ class SubscriptionWidgetState extends State<SubscriptionWidget> {
       padding: const EdgeInsets.all(16.0),
       child: Wrap(
         children: [
-          const SpacingWidget(LayoutSize.size24),
+          const SpacingWidget(LayoutSize.size16),
           TextWidget(text: "Event registration", style: Style.title),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -92,7 +77,7 @@ class SubscriptionWidgetState extends State<SubscriptionWidget> {
                   );
                 },
               ),
-              const SpacingWidget(LayoutSize.size24),
+              const SpacingWidget(LayoutSize.size16),
               Row(
                 children: [
                   Checkbox(
@@ -128,33 +113,6 @@ class SubscriptionWidgetState extends State<SubscriptionWidget> {
             ],
           )
         ],
-      ),
-    );
-  }
-
-  Widget unsubscribedWidget() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: ButtonWidget(
-          label:
-              "Registered as ${widget.classes?.firstWhere((element) => element?.id == id)?.name} driver",
-          type: ButtonType.secondary,
-          icon: Icons.sports_motorsports,
-          onPressed: () {
-            confirmationDialogExt(
-              context: context,
-              issueMessage:
-                  "Are you sure you want to cancel your registration?",
-              consentMessage: "Yes, I do",
-              onPositive: () {
-                widget.onUnsubscribe.call(id);
-              },
-            );
-          },
-          enabled: true,
-        ),
       ),
     );
   }
