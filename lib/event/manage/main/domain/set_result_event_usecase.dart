@@ -4,7 +4,8 @@ import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
 import 'package:e_racing_app/event/event_router.dart';
 
-import '../../core/data/set_summary_model.dart';
+import '../../../core/data/set_summary_model.dart';
+
 
 class SetSummaryUseCase<T> extends BaseUseCase<T> {
   late SetSummaryModel? _summaryModel;

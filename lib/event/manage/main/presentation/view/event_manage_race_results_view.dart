@@ -11,15 +11,16 @@ import 'package:e_racing_app/core/ui/component/ui/input_text_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/spacing_widget.dart';
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/event/manage/presentation/event_manage_view_model.dart';
-import 'package:e_racing_app/event/manage/presentation/router/event_manage_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../core/tools/session.dart';
-import '../../../../core/ui/component/ui/float_action_button_widget.dart';
-import '../../../core/data/race_standings_model.dart';
-import '../../../core/data/set_summary_model.dart';
+import '../../../../../core/tools/session.dart';
+import '../../../../../core/ui/component/ui/float_action_button_widget.dart';
+import '../../../../core/data/race_standings_model.dart';
+import '../../../../core/data/set_summary_model.dart';
+import '../event_manage_view_model.dart';
+import '../router/event_manage_router.dart';
+
 
 class EventManageRaceResultsView extends StatefulWidget {
   final EventManageViewModel viewModel;

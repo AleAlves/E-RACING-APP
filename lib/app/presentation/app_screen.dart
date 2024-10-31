@@ -31,7 +31,7 @@ class _AppScreenState extends State<AppScreen> implements BaseScreen {
       key: _scaffoldKey,
       appBar: AppBar(
           title: TextWidget(
-        text: 'Pitlane Dash',
+        text: 'Race pit',
         style: Style.title,
       )),
       body: navigate(),

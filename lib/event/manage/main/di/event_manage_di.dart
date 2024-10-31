@@ -1,11 +1,11 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../core/model/status_model.dart';
-import '../../detail/domain/create_team_usecase.dart';
-import '../../detail/domain/delete_team_usecase.dart';
-import '../../detail/domain/join_team_usecase.dart';
-import '../../detail/domain/leave_team_usecase.dart';
-import '../../detail/domain/remove_subcription_usecase.dart';
+import '../../../../core/model/status_model.dart';
+import '../../../detail/domain/create_team_usecase.dart';
+import '../../../detail/domain/delete_team_usecase.dart';
+import '../../../detail/domain/join_team_usecase.dart';
+import '../../../detail/domain/leave_team_usecase.dart';
+import '../../../detail/domain/remove_subcription_usecase.dart';
 import '../domain/cancel_race_use_case.dart';
 import '../domain/finish_event_usecase.dart';
 import '../domain/finish_race_use_case.dart';

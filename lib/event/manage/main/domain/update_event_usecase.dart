@@ -4,8 +4,7 @@ import 'package:e_racing_app/core/model/event_model.dart';
 import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-
-import '../../event_router.dart';
+import '../../../event_router.dart';
 import '../data/event_update_request.dart';
 
 class UpdateEventUseCase<T> extends BaseUseCase<T> {

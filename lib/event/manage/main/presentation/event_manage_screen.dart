@@ -1,6 +1,6 @@
 import 'package:e_racing_app/core/ui/component/ui/text_widget.dart';
 import 'package:e_racing_app/core/ui/view_state.dart';
-import 'package:e_racing_app/event/manage/presentation/router/event_manage_router.dart';
+import 'package:e_racing_app/event/manage/main/presentation/router/event_manage_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';

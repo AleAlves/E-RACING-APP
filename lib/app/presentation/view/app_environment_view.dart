@@ -8,18 +8,18 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../app_view_model.dart';
 
-class AppEnviromentView extends StatefulWidget {
+class AppEnvironmentView extends StatefulWidget {
   final AppViewModel viewModel;
 
-  const AppEnviromentView(this.viewModel, {Key? key}) : super(key: key);
+  const AppEnvironmentView(this.viewModel, {Key? key}) : super(key: key);
 
   @override
-  _AppEnviromentViewState createState() => _AppEnviromentViewState();
+  AppEnvironmentViewState createState() => AppEnvironmentViewState();
 }
 
-class _AppEnviromentViewState extends State<AppEnviromentView>
+class AppEnvironmentViewState extends State<AppEnvironmentView>
     implements BaseSateWidget {
-  final String devLocal = "http://192.168.0.19:8084/";
+  final String devLocal = "http://192.168.0.12:8084/";
   final String prod = "https://e-racing-api.azurewebsites.net/";
 
   @override
@@ -49,7 +49,7 @@ class _AppEnviromentViewState extends State<AppEnviromentView>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const TextWidget(text: "Enviroments", style: Style.title),
+          const TextWidget(text: "Environments", style: Style.title),
           const SpacingWidget(LayoutSize.size48),
           ListTile(
             title: const Text('Local'),

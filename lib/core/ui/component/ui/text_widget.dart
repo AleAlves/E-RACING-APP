@@ -42,12 +42,12 @@ class TextWidget extends StatelessWidget {
             ?.copyWith(color: color, fontWeight: weight, letterSpacing: 2.0);
       case Style.paragraph:
         return Theme.of(context).textTheme.bodyLarge?.copyWith(
-            color: color ?? const Color(0xFFB0ACAC),
+            color: color ?? const Color(0xFFA9A9A9),
             fontWeight: weight,
             letterSpacing: 1.5);
       case Style.caption:
         return Theme.of(context).textTheme.labelMedium?.copyWith(
-            color: color ?? Theme.of(context).colorScheme.outline,
+            color: color ?? const Color(0xFFA9A9A9),
             fontSize: 14,
             fontWeight: weight,
             letterSpacing: 2.0);

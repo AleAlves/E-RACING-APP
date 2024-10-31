@@ -85,8 +85,7 @@ class EventRaceCollection extends StatelessWidget {
                           const SpacingWidget(LayoutSize.size8),
                           TextWidget(
                             text: formatDate(race?.date),
-                            style: Style.caption,
-                            color: Theme.of(context).colorScheme.outline,
+                            style: Style.caption
                           ),
                         ],
                       ),
@@ -99,8 +98,7 @@ class EventRaceCollection extends StatelessWidget {
                           const SpacingWidget(LayoutSize.size8),
                           TextWidget(
                             text: formatHour(race?.date),
-                            style: Style.caption,
-                            color: Theme.of(context).colorScheme.outline,
+                            style: Style.caption
                           ),
                         ],
                       ),
@@ -140,8 +138,7 @@ class EventRaceCollection extends StatelessWidget {
             const SpacingWidget(LayoutSize.size2),
             TextWidget(
               text: status,
-              style: Style.caption,
-              color: Theme.of(context).colorScheme.outline,
+              style: Style.caption
             ),
           ],
         ),

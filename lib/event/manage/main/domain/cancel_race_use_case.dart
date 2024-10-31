@@ -2,15 +2,15 @@ import 'package:e_racing_app/core/data/http_request.dart';
 import 'package:e_racing_app/core/domain/base_usecase.dart';
 import 'package:e_racing_app/core/model/status_model.dart';
 import 'package:e_racing_app/core/service/api_exception.dart';
-import 'package:e_racing_app/event/event_router.dart';
 
-import '../../../core/model/pair_model.dart';
+import '../../../../core/model/pair_model.dart';
+import '../presentation/router/event_manage_router.dart';
 
-class FinishEventUseCase<T> extends BaseUseCase<T> {
-  late String _id;
+class CancelRaceUseCase<T> extends BaseUseCase<T> {
+  late String? _raceId;
 
-  FinishEventUseCase<T> build({required String id}) {
-    _id = id;
+  CancelRaceUseCase<T> build({required String? raceId}) {
+    _raceId = raceId;
     return this;
   }
 
@@ -18,14 +18,14 @@ class FinishEventUseCase<T> extends BaseUseCase<T> {
   Future<void> invoke(
       {required Function(T?) success, required Function failure}) async {
     var response = await super.remote(Request(
-        endpoint: "api/v1/event/state/finish",
-        params: HTTPRequesParams(query: Pair("id", _id)),
-        verb: HTTPVerb.get));
+        endpoint: 'api/v1/event/race/cancel',
+        params: HTTPRequesParams(query: Pair("id", _raceId)),
+        verb: HTTPVerb.put));
     if (response.isSuccessfully) {
       success.call(StatusModel(
-          message: "Event finished",
+          message: "Race finished",
           action: "Ok",
-          route: EventRouter.manage) as T);
+          route: EventManageRouter.main) as T);
     } else {
       failure.call(ApiException(message: response.response?.status));
     }

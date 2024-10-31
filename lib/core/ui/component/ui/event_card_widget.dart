@@ -226,8 +226,7 @@ class EventCardWidget extends StatelessWidget {
             TextWidget(
               text: "Championship",
               style: Style.caption,
-              align: TextAlign.start,
-              color: Theme.of(context).colorScheme.outline,
+              align: TextAlign.start
             )
           ],
         );
@@ -239,8 +238,7 @@ class EventCardWidget extends StatelessWidget {
             TextWidget(
               text: "Race",
               style: Style.caption,
-              align: TextAlign.start,
-              color: Theme.of(context).colorScheme.outline,
+              align: TextAlign.start
             )
           ],
         );
@@ -265,8 +263,8 @@ class EventCardWidget extends StatelessWidget {
         TextWidget(
             text: '$entries/$max',
             style: Style.caption,
-            align: TextAlign.start,
-            color: Theme.of(context).colorScheme.outline),
+            align: TextAlign.start
+        )
       ],
     );
   }
@@ -332,8 +330,8 @@ class EventCardWidget extends StatelessWidget {
             const SpacingWidget(LayoutSize.size8),
             TextWidget(
                 text: status,
-                style: Style.caption,
-                color: Theme.of(context).colorScheme.outline),
+                style: Style.caption
+            )
           ],
         ),
         const SpacingWidget(LayoutSize.size8),

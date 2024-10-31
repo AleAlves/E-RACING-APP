@@ -83,8 +83,7 @@ class EventSimpleCardWidget extends StatelessWidget {
             TextWidget(
               text: "Race",
               style: Style.paragraph,
-              align: TextAlign.start,
-              color: Theme.of(context).colorScheme.outline,
+              align: TextAlign.start
             )
           ],
         );

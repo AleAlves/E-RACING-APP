@@ -56,8 +56,7 @@ class MenuCardWidget extends StatelessWidget {
                   TextWidget(
                     text: subtitle,
                     style: Style.caption,
-                    align: TextAlign.start,
-                    color: Theme.of(context).colorScheme.outline,
+                    align: TextAlign.start
                   )
                 ]
               ],

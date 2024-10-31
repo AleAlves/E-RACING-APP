@@ -20,7 +20,7 @@ abstract class _LoginViewModel extends BaseViewModel<AppNavigationSet>
 
   @override
   @observable
-  AppNavigationSet? flow = AppNavigationSet.appEnviroment;
+  AppNavigationSet? flow = AppNavigationSet.appEnvironment;
 
   @override
   @observable
@@ -35,7 +35,7 @@ abstract class _LoginViewModel extends BaseViewModel<AppNavigationSet>
 
   @override
   @observable
-  String? title = "wow";
+  String? title = "";
 
   final _getExhibition = Modular.get<GetTutorialExhibitionUserUseCase<bool>>();
 

@@ -8,7 +8,7 @@ import '../../detail/domain/delete_team_usecase.dart';
 import '../../detail/domain/join_team_usecase.dart';
 import '../../detail/domain/leave_team_usecase.dart';
 import '../../detail/domain/remove_subcription_usecase.dart';
-import '../../manage/domain/update_event_usecase.dart';
+import '../../manage/main/domain/update_event_usecase.dart';
 import '../domain/update_race_usecase.dart';
 import '../presentation/event_update_screen.dart';
 import '../presentation/event_update_view_model.dart';

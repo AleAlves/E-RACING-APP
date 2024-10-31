@@ -16,8 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../../core/ui/component/ui/float_action_button_widget.dart';
-import '../../../event_router.dart';
+import '../../../../../core/ui/component/ui/float_action_button_widget.dart';
+import '../../../../event_router.dart';
 import '../event_manage_view_model.dart';
 
 class EventManageRaceView extends StatefulWidget {

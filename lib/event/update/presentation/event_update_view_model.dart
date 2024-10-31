@@ -24,10 +24,10 @@ import '../../core/data/set_summary_model.dart';
 import '../../detail/domain/get_event_usecase.dart';
 import '../../detail/domain/race_standing_usecase.dart';
 import '../../detail/domain/remove_subcription_usecase.dart';
-import '../../manage/domain/set_result_event_usecase.dart';
-import '../../manage/domain/toogle_members_only_usecase.dart';
-import '../../manage/domain/toogle_subscriptions_usecase.dart';
-import '../../manage/domain/update_event_usecase.dart';
+import '../../manage/main/domain/set_result_event_usecase.dart';
+import '../../manage/main/domain/toogle_members_only_usecase.dart';
+import '../../manage/main/domain/toogle_subscriptions_usecase.dart';
+import '../../manage/main/domain/update_event_usecase.dart';
 import '../domain/update_race_usecase.dart';
 
 part 'event_update_view_model.g.dart';

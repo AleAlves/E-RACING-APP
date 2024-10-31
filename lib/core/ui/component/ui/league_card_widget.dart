@@ -86,8 +86,7 @@ class LeagueCardWidget extends StatelessWidget {
           TextWidget(
             text: "${members.toString()}/$capacity",
             style: Style.caption,
-            align: TextAlign.start,
-            color: Theme.of(context).colorScheme.outline,
+            align: TextAlign.start
           )
         ],
       ),
@@ -107,8 +106,7 @@ class LeagueCardWidget extends StatelessWidget {
           SpacingWidget(LayoutSize.size8),
           TextWidget(
             text: "Member",
-            style: Style.caption,
-            color: Theme.of(context).colorScheme.outline,
+            style: Style.caption
           )
         ],
       ),
