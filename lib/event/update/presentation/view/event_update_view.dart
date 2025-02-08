@@ -59,10 +59,10 @@ class _EventUpdateViewState extends State<EventUpdateView>
   @override
   observers() async {
     widget.viewModel.titleController.addListener(() {
-      widget.viewModel.event?.title = widget.viewModel.titleController.text;
+      widget.viewModel.event?.info?.title = widget.viewModel.titleController.text;
     });
     widget.viewModel.rulesController.addListener(() {
-      widget.viewModel.event?.rules = widget.viewModel.rulesController.text;
+      widget.viewModel.event?.info?.rules = widget.viewModel.rulesController.text;
     });
   }
 
@@ -110,7 +110,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
       child: Column(
         children: [
           TextWidget(
-              text: widget.viewModel.event?.title, style: Style.paragraph),
+              text: widget.viewModel.event?.info?.title, style: Style.paragraph),
           stepper(),
           const SpacingWidget(LayoutSize.size64),
         ],
@@ -229,7 +229,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
   Widget scoring() {
     return Column(
       children: [
-        ScoringWidget(editing: true, scoring: widget.viewModel.event?.scoring),
+        ScoringWidget(editing: true, scoring: widget.viewModel.event?.info?.scoring),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -239,7 +239,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
                 icon: Icons.remove,
                 onPressed: () {
                   setState(() {
-                    widget.viewModel.event?.scoring?.removeLast();
+                    widget.viewModel.event?.info?.scoring?.removeLast();
                   });
                 }),
             const SpacingWidget(LayoutSize.size48),
@@ -249,7 +249,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
                 icon: Icons.add,
                 onPressed: () {
                   setState(() {
-                    widget.viewModel.event?.scoring?.add(0);
+                    widget.viewModel.event?.info?.scoring?.add(0);
                   });
                 }),
           ],
@@ -307,7 +307,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
                       icon: Icons.delete,
                       onPressed: () {
                         setState(() {
-                          widget.viewModel.event?.settings?.removeAt(index);
+                          widget.viewModel.event?.info?.settings?.removeAt(index);
                           widget.viewModel.settingsEdit.removeAt(index);
                         });
                       }),
@@ -326,7 +326,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
                 icon: Icons.remove,
                 onPressed: () {
                   setState(() {
-                    widget.viewModel.event?.settings?.removeLast();
+                    widget.viewModel.event?.info?.settings?.removeLast();
                     widget.viewModel.settingsEdit.removeLast();
                   });
                 }),
@@ -339,7 +339,7 @@ class _EventUpdateViewState extends State<EventUpdateView>
                   setState(() {
                     widget.viewModel.settingsEdit.add(
                         Pair(TextEditingController(), TextEditingController()));
-                    widget.viewModel.event?.settings
+                    widget.viewModel.event?.info?.settings
                         ?.add(SettingsModel(name: "", value: ""));
                   });
                 }),

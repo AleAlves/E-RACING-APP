@@ -1,59 +1,29 @@
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/race_model.dart';
-import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/model/team_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../event/core/data/event_create_model.dart';
 
 part 'event_model.g.dart';
 
 enum EventType { race, championship }
 
-enum EventState { idle, ready, ongoing, finished }
+enum EventState { draft, ready, ongoing, finished }
 
 @JsonSerializable(explicitToJson: true)
 class EventModel {
   @JsonKey(name: '_id')
   String? id;
-  String? title;
-  String? rules;
-  bool? finished;
-  bool? joinable;
-  String? hostId;
   EventType? type;
-  String? leagueId;
   EventState? state;
-  bool? teamsEnabled;
-  bool? membersOnly;
-  bool? hasFee;
-  int? teamsMaxCrew;
-  List<String?>? tags;
-  List<int?>? scoring;
-  List<RaceModel?>? races;
-  List<TeamModel?>? teams;
+  EventInfoModel? info;
   List<ClassesModel?>? classes;
-  List<SettingsModel?>? settings;
+  List<RaceModel?>? races;
+  List<TeamModel>? teams;
 
-  EventModel({
-    this.id,
-    this.teams,
-    this.type,
-    this.tags,
-    this.rules,
-    this.title,
-    this.state,
-    this.hostId,
-    this.hasFee,
-    this.classes,
-    this.scoring,
-    this.joinable,
-    this.settings,
-    this.finished,
-    this.leagueId,
-    this.teamsMaxCrew,
-    required this.races,
-    required this.membersOnly,
-    required this.teamsEnabled,
-  });
+  EventModel(
+      {this.id, this.type, this.races, this.teams, this.state, this.classes});
 
   factory EventModel.fromJson(Map<String, dynamic> json) =>
       _$EventModelFromJson(json);

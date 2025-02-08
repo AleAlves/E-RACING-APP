@@ -19,7 +19,7 @@ class AppEnvironmentView extends StatefulWidget {
 
 class AppEnvironmentViewState extends State<AppEnvironmentView>
     implements BaseSateWidget {
-  final String devLocal = "http://192.168.0.12:8084/";
+  final String devLocal = "http://192.168.0.19:8084/";
   final String prod = "https://e-racing-api.azurewebsites.net/";
 
   @override

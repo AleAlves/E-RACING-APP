@@ -66,7 +66,7 @@ class EventDetailInfoViewState extends State<EventDetailInfoView>
   }
 
   Widget rules() {
-    return (widget.viewModel.event?.rules?.isNotEmpty ?? false)
+    return (widget.viewModel.event?.info?.rules?.isNotEmpty ?? false)
         ? CardWidget(
             ready: true,
             child: Padding(
@@ -89,7 +89,7 @@ class EventDetailInfoViewState extends State<EventDetailInfoView>
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: TextWidget(
-                      text: widget.viewModel.event?.rules ?? '',
+                      text: widget.viewModel.event?.info?.rules ?? '',
                       style: Style.paragraph,
                       align: TextAlign.justify,
                     ),
@@ -103,7 +103,7 @@ class EventDetailInfoViewState extends State<EventDetailInfoView>
   }
 
   Widget teams() {
-    var teams = widget.viewModel.event?.teamsEnabled ?? false;
+    var teams = widget.viewModel.event?.info?.isTeamsEnabled ?? false;
     return teams
         ? CardWidget(
             ready: true,
@@ -128,7 +128,7 @@ class EventDetailInfoViewState extends State<EventDetailInfoView>
                     isHost: isEventHost(widget.viewModel.event),
                     users: widget.viewModel.users,
                     teams: widget.viewModel.event?.teams,
-                    maxCrew: widget.viewModel.event?.teamsMaxCrew,
+                    maxCrew: widget.viewModel.event?.info?.maxTeamCrew,
                     classes: widget.viewModel.event?.classes,
                     onLeave: (id) {
                       widget.viewModel.leaveTeam(id);
@@ -194,7 +194,7 @@ class EventDetailInfoViewState extends State<EventDetailInfoView>
             ),
             const SpacingWidget(LayoutSize.size16),
             ScoringWidget(
-              scoring: widget.viewModel.event?.scoring,
+              scoring: widget.viewModel.event?.info?.scoring,
               editing: false,
             ),
             const SpacingWidget(LayoutSize.size16),
@@ -205,7 +205,7 @@ class EventDetailInfoViewState extends State<EventDetailInfoView>
   }
 
   Widget settings() {
-    var hasSettings = widget.viewModel.event?.settings?.isNotEmpty ?? false;
+    var hasSettings = widget.viewModel.event?.info?.settings?.isNotEmpty ?? false;
     return hasSettings
         ? CardWidget(
             ready: true,
@@ -226,7 +226,7 @@ class EventDetailInfoViewState extends State<EventDetailInfoView>
                     ],
                   ),
                   const SpacingWidget(LayoutSize.size16),
-                  SettingsWidget(settings: widget.viewModel.event?.settings),
+                  SettingsWidget(settings: widget.viewModel.event?.info?.settings),
                 ],
               ),
             ),
@@ -243,7 +243,7 @@ class EventDetailInfoViewState extends State<EventDetailInfoView>
     return EntryStandingsWidget(
       drivers: drivers,
       users: widget.viewModel.users,
-      hasFee: widget.viewModel.event?.hasFee ?? false,
+      hasFee: widget.viewModel.event?.info?.hasFee ?? false,
       onRaceCardPressed: (id) {},
       onFullStandingsPressed: () {
         widget.viewModel.onRoute(EventDetailRouter.standings);

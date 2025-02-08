@@ -12,13 +12,13 @@ import '../../event_create_view_model.dart';
 class EventCreateTermsView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateTermsView(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateTermsView(this.viewModel, {super.key});
 
   @override
-  _EventCreateTermsViewState createState() => _EventCreateTermsViewState();
+  EventCreateTermsViewState createState() => EventCreateTermsViewState();
 }
 
-class _EventCreateTermsViewState extends State<EventCreateTermsView>
+class EventCreateTermsViewState extends State<EventCreateTermsView>
     implements BaseSateWidget {
   var isValid = false;
   bool termsAccepted = false;
@@ -45,10 +45,30 @@ class _EventCreateTermsViewState extends State<EventCreateTermsView>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
-      body: content(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SpacingWidget(LayoutSize.size24),
+          title(),
+          const SpacingWidget(LayoutSize.size16),
+          content()
+        ],
+      ),
       bottom: acceptButtonWidget(),
       onBackPressed: onBackPressed,
       state: widget.viewModel.state,
+    );
+  }
+
+  Widget title() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: const TextWidget(
+        text: "Terms & Agreements",
+        style: Style.title,
+        align: TextAlign.start,
+      ),
     );
   }
 
@@ -107,28 +127,31 @@ class _EventCreateTermsViewState extends State<EventCreateTermsView>
           ),
         ),
         const SpacingWidget(LayoutSize.size48),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Checkbox(
-              value: termsAccepted,
-              onChanged: (bool? value) {
-                setState(() {
-                  termsAccepted = !termsAccepted;
-                });
-              },
-            ),
-            Wrap(
-              children: const [
-                TextWidget(
-                    text: "I did read the terms and I agree",
-                    style: Style.caption),
-              ],
-            )
-          ],
+        acceptanceCheckbox(),
+        const SpacingWidget(LayoutSize.size96),
+      ],
+    );
+  }
+
+  Widget acceptanceCheckbox() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Checkbox(
+          value: termsAccepted,
+          onChanged: (bool? value) {
+            setState(() {
+              termsAccepted = !termsAccepted;
+            });
+          },
         ),
-        const SpacingWidget(LayoutSize.size48),
+        Wrap(
+          children: const [
+            TextWidget(
+                text: "I did read the terms and I agree", style: Style.caption),
+          ],
+        )
       ],
     );
   }

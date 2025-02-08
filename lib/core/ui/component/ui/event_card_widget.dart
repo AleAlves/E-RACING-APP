@@ -60,7 +60,7 @@ class EventCardWidget extends StatelessWidget {
               Wrap(
                 children: [
                   TextWidget(
-                    text: event?.title ?? event?.races?.first?.title ?? '',
+                    text: event?.info?.title ?? event?.races?.first?.title ?? '',
                     style: Style.subtitle,
                     align: TextAlign.start,
                   ),
@@ -113,7 +113,7 @@ class EventCardWidget extends StatelessWidget {
     var bar2Width = 3.0;
 
     switch (event?.state) {
-      case EventState.idle:
+      case EventState.draft:
         idle = Icon(
           Icons.circle,
           color: track,
@@ -224,10 +224,9 @@ class EventCardWidget extends StatelessWidget {
             IconWidget(icon: icon),
             const SpacingWidget(LayoutSize.size8),
             TextWidget(
-              text: "Championship",
-              style: Style.caption,
-              align: TextAlign.start
-            )
+                text: "Championship",
+                style: Style.caption,
+                align: TextAlign.start)
           ],
         );
       case EventType.race:
@@ -236,10 +235,7 @@ class EventCardWidget extends StatelessWidget {
             IconWidget(icon: icon),
             const SpacingWidget(LayoutSize.size8),
             TextWidget(
-              text: "Race",
-              style: Style.caption,
-              align: TextAlign.start
-            )
+                text: "Race", style: Style.caption, align: TextAlign.start)
           ],
         );
       default:
@@ -261,16 +257,14 @@ class EventCardWidget extends StatelessWidget {
         const IconWidget(icon: Icons.sports_motorsports),
         const SpacingWidget(LayoutSize.size8),
         TextWidget(
-            text: '$entries/$max',
-            style: Style.caption,
-            align: TextAlign.start
-        )
+            text: '$entries/$max', style: Style.caption, align: TextAlign.start)
       ],
     );
   }
 
   Widget subscriptionsStatus(BuildContext context) {
-    return event?.joinable == true && event?.state != EventState.finished
+    return event?.info?.isJoinable == true &&
+            event?.state != EventState.finished
         ? Row(
             children: [
               ChipWidget(
@@ -279,7 +273,9 @@ class EventCardWidget extends StatelessWidget {
                 text: 'Drivers wanted',
               ),
               const SpacingWidget(LayoutSize.size4),
-              event?.membersOnly == true ? membership(context) : Container()
+              event?.info?.isForMembersOnly == true
+                  ? membership(context)
+                  : Container()
             ],
           )
         : Container();
@@ -301,9 +297,9 @@ class EventCardWidget extends StatelessWidget {
     var color;
     var status;
     switch (state) {
-      case EventState.idle:
+      case EventState.draft:
         color = Colors.grey;
-        status = "Preparing";
+        status = "Draft";
         break;
       case EventState.ready:
         color = Colors.amber;
@@ -317,6 +313,8 @@ class EventCardWidget extends StatelessWidget {
         color = Colors.red;
         status = "Finished";
         break;
+      case null:
+        break;
     }
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,10 +326,7 @@ class EventCardWidget extends StatelessWidget {
               color: color,
             ),
             const SpacingWidget(LayoutSize.size8),
-            TextWidget(
-                text: status,
-                style: Style.caption
-            )
+            TextWidget(text: status, style: Style.caption)
           ],
         ),
         const SpacingWidget(LayoutSize.size8),
@@ -343,10 +338,10 @@ class EventCardWidget extends StatelessWidget {
   }
 
   Widget tagsWidget() {
-    return event?.tags?.isEmpty == true
+    return event?.info?.tags?.isEmpty == true
         ? Container()
         : TagCollectionWidget(
-            tagIds: event?.tags,
+            tagIds: event?.info?.tags,
             tags: tags,
             singleLined: true,
           );

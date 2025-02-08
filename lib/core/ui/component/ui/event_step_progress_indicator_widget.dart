@@ -38,7 +38,7 @@ class _EventStepProgressIndicatorWidgetState extends State<EventStepProgressIndi
     double setp4 = 0.0;
 
     switch (widget.state) {
-      case EventState.idle:
+      case EventState.draft:
         setp1 = 5.0;
         break;
       case EventState.ready:

@@ -112,10 +112,10 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
         success: (data) {
           event = data?.event;
           _getEventBanner(event?.id);
-          titleController.text = event?.title ?? "";
-          rulesController.text = event?.rules ?? "";
+          titleController.text = event?.info?.title ?? "";
+          rulesController.text = event?.info?.rules ?? "";
           settingsEdit = [];
-          event?.settings?.forEach((element) {
+          event?.info?.settings?.forEach((element) {
             settingsEdit
                 .add(Pair(TextEditingController(), TextEditingController()));
             settingsEdit.last.first?.text = element?.name ?? "";
@@ -231,7 +231,7 @@ abstract class _EventUpdateViewModel extends BaseViewModel<EventUpdateRouter>
       classes?.name = classesEdit[index].first?.text;
       classes?.maxEntries = int.parse(classesEdit[index].second?.text ?? '0');
     });
-    eventClone?.settings?.asMap().forEach((index, settings) {
+    eventClone?.info?.settings?.asMap().forEach((index, settings) {
       settings?.name = settingsEdit[index].first?.text;
       settings?.value = settingsEdit[index].second?.text;
     });

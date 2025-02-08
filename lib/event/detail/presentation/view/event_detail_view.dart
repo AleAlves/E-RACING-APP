@@ -124,7 +124,7 @@ class EventDetailViewState extends State<EventDetailView>
           alignment: WrapAlignment.start,
           children: [
             TextWidget(
-              text: widget.viewModel.event?.title,
+              text: widget.viewModel.event?.info?.title,
               style: Style.title,
               align: TextAlign.start,
             )
@@ -138,9 +138,9 @@ class EventDetailViewState extends State<EventDetailView>
     var color;
     var status;
     switch (state) {
-      case EventState.idle:
+      case EventState.draft:
         color = Colors.grey;
-        status = "Preparing";
+        status = "Draft";
         break;
       case EventState.ready:
         color = Colors.amber;
@@ -153,6 +153,9 @@ class EventDetailViewState extends State<EventDetailView>
       case EventState.finished:
         color = Colors.red;
         status = "Finished";
+        break;
+      case null:
+        // TODO: Handle this case.
         break;
     }
     return Column(
@@ -297,7 +300,7 @@ class EventDetailViewState extends State<EventDetailView>
   }
 
   Widget? doRegisterButton() {
-    return widget.viewModel.event?.joinable == false || _hasRegistration()
+    return widget.viewModel.event?.info?.isJoinable == false || _hasRegistration()
         ? null
         : ButtonWidget(
       enabled: true,

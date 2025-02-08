@@ -10,6 +10,8 @@ abstract class BaseViewModel<Router> with Store {
   @observable
   abstract Router? flow;
 
+  List<Router?> previouslyFlow = [];
+
   @observable
   abstract String? title;
 
@@ -29,6 +31,12 @@ abstract class BaseViewModel<Router> with Store {
   }
 
   void onRoute(Router route) {
+    previouslyFlow.add(flow);
     flow = route;
+  }
+
+  void pop() {
+    flow = previouslyFlow.last;
+    previouslyFlow.removeLast();
   }
 }

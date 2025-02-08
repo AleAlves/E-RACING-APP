@@ -11,18 +11,17 @@ import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
 import '../../event_create_view_model.dart';
-import '../../navigation/event_create_flow.dart';
 
 class EventCreateClassesView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateClassesView(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateClassesView(this.viewModel, {super.key});
 
   @override
-  _EventCreateClassesViewState createState() => _EventCreateClassesViewState();
+  EventCreateClassesViewState createState() => EventCreateClassesViewState();
 }
 
-class _EventCreateClassesViewState extends State<EventCreateClassesView>
+class EventCreateClassesViewState extends State<EventCreateClassesView>
     implements BaseSateWidget {
   var hasName = false;
   var hasEntries = false;
@@ -58,9 +57,11 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
   @override
   Widget content() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SpacingWidget(LayoutSize.size128),
-        titleWidget(),
+        const SpacingWidget(LayoutSize.size24),
+        title(),
         const SpacingWidget(LayoutSize.size32),
         classesWidget()
       ],
@@ -81,9 +82,15 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
     });
   }
 
-  Widget titleWidget() {
-    return const TextWidget(
-        text: "Define the car classes", style: Style.subtitle);
+  Widget title() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: const TextWidget(
+        text: "Classes/Categories",
+        style: Style.title,
+        align: TextAlign.start,
+      ),
+    );
   }
 
   Widget classesWidget() {
@@ -114,7 +121,7 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
                       Row(
                         children: [
                           const TextWidget(
-                              text: "Class:  ", style: Style.paragraph),
+                              text: "Class/Category:  ", style: Style.paragraph),
                           TextWidget(
                               text:
                                   widget.viewModel.eventClasses[index]?.name ??
@@ -152,7 +159,7 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
                 newClassWidget();
               });
             },
-            label: 'Create class'),
+            label: 'Create new'),
       ],
     );
   }
@@ -173,7 +180,7 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const TextWidget(text: "Class", style: Style.paragraph),
+                  const TextWidget(text: "Class/Category", style: Style.paragraph),
                   const SpacingWidget(LayoutSize.size16),
                   Row(
                     children: [
@@ -251,7 +258,6 @@ class _EventCreateClassesViewState extends State<EventCreateClassesView>
   @override
   Future<bool> onBackPressed() async {
     widget.viewModel.decreaseStep();
-    widget.viewModel.onRoute(EventCreateNavigator.eventBanner);
     return false;
   }
 }

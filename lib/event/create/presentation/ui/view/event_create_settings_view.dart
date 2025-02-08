@@ -15,14 +15,13 @@ import '../../navigation/event_create_flow.dart';
 class EventCreateSettingsView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateSettingsView(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateSettingsView(this.viewModel, {super.key});
 
   @override
-  _EventCreateSettingsViewState createState() =>
-      _EventCreateSettingsViewState();
+  EventCreateSettingsViewState createState() => EventCreateSettingsViewState();
 }
 
-class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
+class EventCreateSettingsViewState extends State<EventCreateSettingsView>
     implements BaseSateWidget {
   final _settingsNameController = TextEditingController();
   final _settingsValueController = TextEditingController();
@@ -57,11 +56,11 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
   Widget content() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SpacingWidget(LayoutSize.size128),
-        guideLines(),
-        const SpacingWidget(LayoutSize.size48),
+        const SpacingWidget(LayoutSize.size24),
+        title(),
+        const SpacingWidget(LayoutSize.size16),
         settingsWidget(),
         const SpacingWidget(LayoutSize.size48),
         createSettingButton()
@@ -72,13 +71,19 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
   @override
   observers() {}
 
-  Widget guideLines() {
-    return const TextWidget(
-        text: "You can create the events settings", style: Style.subtitle);
+  Widget title() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: const TextWidget(
+        text: "Settings",
+        style: Style.title,
+        align: TextAlign.start,
+      ),
+    );
   }
 
   Widget settingsWidget() {
-    return Wrap(
+    return Center(child: Wrap(
       children: [
         ListView.builder(
           shrinkWrap: true,
@@ -96,6 +101,7 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
                         // settingsControllers.removeAt(index);
                       });
                     }),
+                ready: true,
                 child: Row(
                   children: [
                     TextWidget(
@@ -108,17 +114,16 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
                         text: widget.viewModel.eventSettings[index]?.value,
                         style: Style.caption)
                   ],
-                ),
-                ready: true);
+                ));
           },
         ),
         const SpacingWidget(LayoutSize.size48),
       ],
-    );
+    ),);
   }
 
   Widget createSettingButton() {
-    return ButtonWidget(
+    return Center(child: ButtonWidget(
         enabled: true,
         type: ButtonType.icon,
         icon: Icons.add,
@@ -127,7 +132,7 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
             createSettingBottomSheet();
           });
         },
-        label: 'New setting');
+        label: 'New setting'),);
   }
 
   createSettingBottomSheet() {
@@ -204,7 +209,6 @@ class _EventCreateSettingsViewState extends State<EventCreateSettingsView>
   @override
   Future<bool> onBackPressed() async {
     widget.viewModel.decreaseStep();
-    widget.viewModel.onRoute(EventCreateNavigator.eventTags);
     return false;
   }
 }

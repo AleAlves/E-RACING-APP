@@ -17,7 +17,7 @@ bool isSubscriber(List<ClassesModel?>? classes) {
 }
 
 bool isEventHost(EventModel? event) {
-  return event?.hostId == Session.instance.getUser()?.id;
+  return event?.info?.hostLeagueId == Session.instance.getUser()?.id;
 }
 
 bool isLeagueHost(LeagueModel? league) {

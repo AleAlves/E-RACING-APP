@@ -49,7 +49,7 @@ class EventSubscriptionsPanelWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: SwitchWidget(
-        enabled: isOnGoing ? event?.joinable : false,
+        enabled: isOnGoing ? event?.info?.isJoinable : false,
         onPressed: (value) {
           if (isOnGoing) {
             onToogle.call();
@@ -71,7 +71,7 @@ class EventSubscriptionsPanelWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: SwitchWidget(
-        enabled: event?.membersOnly,
+        enabled: event?.info?.isForMembersOnly,
         onPressed: (value) {
           onToogleMembership.call();
         },

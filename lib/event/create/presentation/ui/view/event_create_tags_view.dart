@@ -7,18 +7,17 @@ import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
 import '../../event_create_view_model.dart';
-import '../../navigation/event_create_flow.dart';
 
 class EventCreateTagsView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateTagsView(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateTagsView(this.viewModel, {super.key});
 
   @override
-  _EventCreateTagsViewState createState() => _EventCreateTagsViewState();
+  EventCreateTagsViewState createState() => EventCreateTagsViewState();
 }
 
-class _EventCreateTagsViewState extends State<EventCreateTagsView>
+class EventCreateTagsViewState extends State<EventCreateTagsView>
     implements BaseSateWidget {
   @override
   void initState() {
@@ -51,11 +50,11 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
   Widget content() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SpacingWidget(LayoutSize.size128),
-        titleWidget(),
-        const SpacingWidget(LayoutSize.size48),
+        const SpacingWidget(LayoutSize.size24),
+        title(),
+        const SpacingWidget(LayoutSize.size16),
         tagWidget()
       ],
     );
@@ -64,17 +63,24 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
   @override
   observers() {}
 
-  Widget titleWidget() {
-    return const TextWidget(
-        text: "Pick some tags for the event", style: Style.subtitle);
+  Widget title() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: const TextWidget(
+        text: "Tags",
+        style: Style.title,
+        align: TextAlign.start,
+      ),
+    );
   }
 
   Widget tagWidget() {
     return widget.viewModel.tags!.isEmpty
         ? Container()
         : Padding(
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.all(8),
             child: Wrap(
+              alignment: WrapAlignment.spaceEvenly,
               children: widget.viewModel.tags!
                   .map((item) {
                     final selected =
@@ -116,7 +122,6 @@ class _EventCreateTagsViewState extends State<EventCreateTagsView>
   @override
   Future<bool> onBackPressed() async {
     widget.viewModel.decreaseStep();
-    widget.viewModel.onRoute(EventCreateNavigator.eventClasses);
     return false;
   }
 }

@@ -3,32 +3,27 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../core/ui/component/state/view_state_widget.dart';
 import '../../../../../core/ui/component/ui/button_widget.dart';
-import '../../../../../core/ui/component/ui/input_text_widget.dart';
 import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
 import '../../event_create_view_model.dart';
 import '../../navigation/event_create_flow.dart';
 
-class EventCreateReviewView extends StatefulWidget {
+class EventOptionsView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateReviewView(this.viewModel, {super.key});
+  const EventOptionsView(this.viewModel, {super.key});
 
   @override
-  EventCreateReviewViewState createState() => EventCreateReviewViewState();
+  EventOptionsViewState createState() => EventOptionsViewState();
 }
 
-class EventCreateReviewViewState extends State<EventCreateReviewView>
+class EventOptionsViewState extends State<EventOptionsView>
     implements BaseSateWidget {
-  var isValid = false;
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
 
   @override
   void initState() {
     observers();
-    _nameController.text = widget.viewModel.eventName.toString();
     super.initState();
   }
 
@@ -43,14 +38,7 @@ class EventCreateReviewViewState extends State<EventCreateReviewView>
   }
 
   @override
-  observers() {
-    _nameController.addListener(() {
-      final String text = _nameController.text;
-      setState(() {
-        isValid = text.isNotEmpty;
-      });
-    });
-  }
+  observers() {}
 
   @override
   ViewStateWidget viewState() {
@@ -66,40 +54,22 @@ class EventCreateReviewViewState extends State<EventCreateReviewView>
   Widget content() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SpacingWidget(LayoutSize.size128),
+        const SpacingWidget(LayoutSize.size24),
         titleWidget(),
-        const SpacingWidget(LayoutSize.size48),
-        Form(
-          key: _formKey,
-          child: nameWidget(),
-        ),
+        const SpacingWidget(LayoutSize.size16),
         optionsWidget()
       ],
     );
   }
 
   Widget titleWidget() {
-    return const TextWidget(
-        text: "What is the name of the event?", style: Style.subtitle);
-  }
-
-  Widget nameWidget() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: InputTextWidget(
-          enabled: true,
-          label: 'Name',
-          icon: Icons.person,
-          controller: _nameController,
-          validator: (value) {
-            if (value == null || value.isEmpty == true) {
-              return 'valid name needed';
-            }
-            return null;
-          }),
-    );
+    return
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: const TextWidget(text: "Options", style: Style.title, align: TextAlign.start,),
+      );
   }
 
   Widget optionsWidget() {
@@ -118,7 +88,7 @@ class EventCreateReviewViewState extends State<EventCreateReviewView>
                 },
               ),
               const TextWidget(
-                  text: "Racing teams", style: Style.paragraph)
+                  text: "Allow racing teams", style: Style.paragraph)
             ],
           ),
           Row(
@@ -131,8 +101,7 @@ class EventCreateReviewViewState extends State<EventCreateReviewView>
                   });
                 },
               ),
-              const TextWidget(
-                  text: "Members only", style: Style.paragraph)
+              const TextWidget(text: "For registered members only", style: Style.paragraph)
             ],
           ),
           Row(
@@ -145,7 +114,8 @@ class EventCreateReviewViewState extends State<EventCreateReviewView>
                   });
                 },
               ),
-              const TextWidget(text: "Registration fee", style: Style.paragraph)
+              const TextWidget(
+                  text: "Has registration fee", style: Style.paragraph)
             ],
           )
         ],
@@ -155,11 +125,11 @@ class EventCreateReviewViewState extends State<EventCreateReviewView>
 
   Widget button() {
     return ButtonWidget(
-      enabled: isValid,
+      enabled: true,
       type: ButtonType.primary,
       onPressed: () {
         widget.viewModel.increaseStep();
-        widget.viewModel.setEventName(_nameController.text);
+        widget.viewModel.setOptions();
       },
       label: "Next",
     );

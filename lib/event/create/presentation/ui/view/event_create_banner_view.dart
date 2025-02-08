@@ -11,18 +11,17 @@ import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
 import '../../event_create_view_model.dart';
-import '../../navigation/event_create_flow.dart';
 
 class EventCreateBannerView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateBannerView(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateBannerView(this.viewModel, {super.key});
 
   @override
-  _EventCreateBannerViewState createState() => _EventCreateBannerViewState();
+  EventCreateBannerViewState createState() => EventCreateBannerViewState();
 }
 
-class _EventCreateBannerViewState extends State<EventCreateBannerView>
+class EventCreateBannerViewState extends State<EventCreateBannerView>
     implements BaseSateWidget {
   File bannerFile = File('');
   final ImagePicker _picker = ImagePicker();
@@ -55,27 +54,30 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
 
   @override
   Widget content() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          titleWidget(),
-          const SpacingWidget(LayoutSize.size48),
-          bannerWidget()
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SpacingWidget(LayoutSize.size24),
+        title(),
+        const SpacingWidget(LayoutSize.size16),
+        bannerWidget()
+      ],
     );
   }
 
   @override
   observers() {}
 
-  Widget titleWidget() {
-    return const TextWidget(
-        text: "What is the name of the event?", style: Style.subtitle);
+  Widget title() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: const TextWidget(
+        text: "Banner",
+        style: Style.title,
+        align: TextAlign.start,
+      ),
+    );
   }
 
   Widget bannerWidget() {
@@ -87,7 +89,7 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
             ClipRRect(
               borderRadius: BorderRadius.circular(4.0),
               child: SizedBox(
-                height: 300,
+                height: 200,
                 width: MediaQuery.of(context).size.height,
                 child: bannerFile.path.isEmpty
                     ? widget.viewModel.eventBanner == null
@@ -119,7 +121,7 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
         ),
         const SpacingWidget(LayoutSize.size32),
         const TextWidget(
-          text: "Banner: 1000x1000",
+          text: "Banner: 720x240",
           style: Style.paragraph,
           align: TextAlign.start,
         ),
@@ -143,7 +145,6 @@ class _EventCreateBannerViewState extends State<EventCreateBannerView>
   @override
   Future<bool> onBackPressed() async {
     widget.viewModel.decreaseStep();
-    widget.viewModel.onRoute(EventCreateNavigator.eventScore);
     return false;
   }
 }

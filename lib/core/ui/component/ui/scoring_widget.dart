@@ -123,7 +123,7 @@ class _ScoringWidgetState extends State<ScoringWidget> {
                       children: [
                         TextWidget(
                             text:
-                                "Set the points worthy for the ${widget.scoring?.length} position",
+                                "Points worthy for #${widget.scoring?.length} position",
                             style: Style.paragraph),
                         ButtonWidget(
                             enabled: true,

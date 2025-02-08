@@ -15,13 +15,13 @@ import '../../navigation/event_create_flow.dart';
 class EventCreateScoreView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateScoreView(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateScoreView(this.viewModel, {super.key});
 
   @override
-  _EventCreateScoreViewState createState() => _EventCreateScoreViewState();
+  EventCreateScoreViewState createState() => EventCreateScoreViewState();
 }
 
-class _EventCreateScoreViewState extends State<EventCreateScoreView>
+class EventCreateScoreViewState extends State<EventCreateScoreView>
     implements BaseSateWidget {
   final _scoreController = TextEditingController();
 
@@ -47,6 +47,7 @@ class _EventCreateScoreViewState extends State<EventCreateScoreView>
   @override
   ViewStateWidget viewState() {
     return ViewStateWidget(
+      alignment: Alignment.topLeft,
       body: content(),
       bottom: buttonWidget(),
       floatAction: FloatActionButtonWidget(
@@ -61,31 +62,31 @@ class _EventCreateScoreViewState extends State<EventCreateScoreView>
     );
   }
 
-  @override
   Widget content() {
-    return Center(
-      child: Column(
-        children: [
-          const SpacingWidget(LayoutSize.size128),
-          titleWidget(),
-          const SpacingWidget(LayoutSize.size32),
-          scoringWidget(),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SpacingWidget(LayoutSize.size24),
+        title(),
+        const SpacingWidget(LayoutSize.size48),
+        scoringWidget(),
+      ],
     );
   }
 
   @override
   observers() {}
 
-  Widget titleWidget() {
-    return const TextWidget(
-        text: "You can change the score system of your event",
-        style: Style.subtitle);
+  Widget title() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: const TextWidget(text: "Score System", style: Style.title),
+    );
   }
 
   Widget scoringWidget() {
-    return ScoringWidget(editing: true, scoring: widget.viewModel.eventScore);
+    return Center(child: ScoringWidget(editing: true, scoring: widget.viewModel.eventScore),);
   }
 
   Widget buttonWidget() {
@@ -122,7 +123,7 @@ class _EventCreateScoreViewState extends State<EventCreateScoreView>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
                         TextWidget(
-                            text: "Set the points worthy for this new position",
+                            text: "Points worthy",
                             style: Style.paragraph),
                       ],
                     ),
@@ -163,7 +164,6 @@ class _EventCreateScoreViewState extends State<EventCreateScoreView>
   @override
   Future<bool> onBackPressed() async {
     widget.viewModel.decreaseStep();
-    widget.viewModel.onRoute(EventCreateNavigator.eventRules);
     return false;
   }
 }

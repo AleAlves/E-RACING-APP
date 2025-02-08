@@ -1,10 +1,9 @@
 import 'package:e_racing_app/core/model/classes_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
-import 'package:e_racing_app/core/model/team_model.dart';
-import 'package:e_racing_app/event/create/domain/model/race_create_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../core/model/event_model.dart';
+import '../../create/data/payment_model.dart';
 
 part 'event_create_model.g.dart';
 
@@ -12,42 +11,55 @@ part 'event_create_model.g.dart';
 class EventCreateModel {
   @JsonKey(name: '_id')
   String? id;
-  String? title;
-  String? rules;
-  bool? finished;
-  bool? joinable;
-  bool? hasFee;
-  String? hostId;
-  EventType? type;
-  String? leagueId;
-  bool? teamsEnabled;
-  bool? membersOnly;
-  int? teamsMaxCrew;
-  List<String?>? tags;
-  List<int?>? scoring;
-  List<RaceCreateModel?>? races;
-  List<TeamModel?>? teams;
+  EventInfoModel info;
   List<ClassesModel?>? classes;
-  List<SettingsModel?>? settings;
 
   EventCreateModel({
-    this.type,
-    this.rules,
-    this.settings,
-    this.teamsMaxCrew,
-    required this.title,
+    required this.info,
     required this.classes,
-    required this.scoring,
-    required this.tags,
-    required this.leagueId,
-    required this.races,
-    required this.membersOnly,
-    required this.teamsEnabled,
-    required this.hasFee
   });
 
   factory EventCreateModel.fromJson(Map<String, dynamic> json) =>
       _$EventCreateModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$EventCreateModelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class EventInfoModel {
+  String? hostLeagueId;
+  String? title;
+  String? rules;
+  bool? finished;
+  bool? isJoinable;
+  bool? hasFee;
+  EventType? type;
+  String? leagueId;
+  bool? isTeamsEnabled;
+  bool? isForMembersOnly;
+  int? maxTeamCrew;
+  List<String?>? tags;
+  List<int?>? scoring;
+  List<SettingsModel?>? settings;
+  PaymentModel? payment;
+
+  EventInfoModel(
+      {this.type,
+      this.rules,
+      this.settings,
+      this.maxTeamCrew,
+      this.payment,
+      this.isJoinable,
+      required this.title,
+      required this.scoring,
+      required this.tags,
+      required this.hostLeagueId,
+      required this.isForMembersOnly,
+      required this.isTeamsEnabled,
+      required this.hasFee});
+
+  factory EventInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$EventInfoModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EventInfoModelToJson(this);
 }

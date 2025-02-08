@@ -10,26 +10,30 @@ import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
 import '../../event_create_view_model.dart';
 
-class LeagueEventRulesView extends StatefulWidget {
+class LeagueEventFeeView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const LeagueEventRulesView(this.viewModel, {Key? key}) : super(key: key);
+  const LeagueEventFeeView(this.viewModel, {super.key});
 
   @override
-  _LeagueEventRulesViewState createState() => _LeagueEventRulesViewState();
+  LeagueEventFeeViewState createState() => LeagueEventFeeViewState();
 }
 
-class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
+class LeagueEventFeeViewState extends State<LeagueEventFeeView>
     implements BaseSateWidget {
   var isValid = false;
   final _formKey = GlobalKey<FormState>();
-  final _descriptionController = TextEditingController();
+  final _valueController = TextEditingController();
+  final _keyController = TextEditingController();
+  final _notesController = TextEditingController();
 
   @override
   void initState() {
     observers();
     super.initState();
-    _descriptionController.text = widget.viewModel.eventRules ?? "";
+    _valueController.text = widget.viewModel.paymentModel?.value ?? "";
+    _keyController.text = widget.viewModel.paymentModel?.key ?? "";
+    _notesController.text = widget.viewModel.paymentModel?.notes ?? "";
   }
 
   @override
@@ -62,8 +66,14 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
         title(),
         const SpacingWidget(LayoutSize.size48),
         Form(
-          child: leagueNameForm(),
           key: _formKey,
+          child: Column(
+            children: [
+              paymentValueForm(),
+              paymentKeyForm(),
+              paymentNotesForm()
+            ],
+          ),
         ),
       ],
     );
@@ -71,8 +81,8 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
 
   @override
   observers() {
-    _descriptionController.addListener(() {
-      final String text = _descriptionController.text;
+    _valueController.addListener(() {
+      final String text = _valueController.text;
       setState(() {
         isValid = text.isNotEmpty;
       });
@@ -83,25 +93,61 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: const TextWidget(
-        text: "Rules",
+        text: "Fee",
         style: Style.title,
         align: TextAlign.start,
       ),
     );
   }
 
-  Widget leagueNameForm() {
+  Widget paymentValueForm() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: InputTextWidget(
           enabled: true,
-          label: 'Rules',
+          label: 'Value',
           icon: Icons.person,
-          inputType: InputType.multilines,
-          controller: _descriptionController,
+          inputType: InputType.number,
+          controller: _valueController,
           validator: (value) {
             if (value == null || value.isEmpty == true) {
-              return 'type something';
+              return 'cant be empty';
+            }
+            return null;
+          }),
+    );
+  }
+
+  Widget paymentKeyForm() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: InputTextWidget(
+          enabled: true,
+          label: 'Key',
+          icon: Icons.person,
+          inputType: InputType.text,
+          controller: _keyController,
+          validator: (value) {
+            if (value == null || value.isEmpty == true) {
+              return 'cant be empty';
+            }
+            return null;
+          }),
+    );
+  }
+
+  Widget paymentNotesForm() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: InputTextWidget(
+          enabled: true,
+          label: 'Notes',
+          icon: Icons.person,
+          inputType: InputType.text,
+          controller: _notesController,
+          validator: (value) {
+            if (value == null || value.isEmpty == true) {
+              return 'cant be empty';
             }
             return null;
           }),
@@ -114,7 +160,8 @@ class _LeagueEventRulesViewState extends State<LeagueEventRulesView>
       type: ButtonType.primary,
       onPressed: () {
         widget.viewModel.increaseStep();
-        widget.viewModel.setEventRules(_descriptionController.text);
+        widget.viewModel.setEventPayment(
+            _valueController.text, _keyController.text, _notesController.text);
       },
       label: "Next",
     );

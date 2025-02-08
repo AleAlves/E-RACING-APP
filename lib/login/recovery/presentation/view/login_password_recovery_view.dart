@@ -59,6 +59,7 @@ class _LoginPasswordRecoveryViewState extends State<LoginPasswordRecoveryView>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Form(
+              key: _formKey,
               child: Column(
                 children: [
                   const SpacingWidget(LayoutSize.size48),
@@ -108,8 +109,7 @@ class _LoginPasswordRecoveryViewState extends State<LoginPasswordRecoveryView>
                     label: "Resend email validation code",
                   ),
                 ],
-              ),
-              key: _formKey),
+              )),
         ],
       ),
     );

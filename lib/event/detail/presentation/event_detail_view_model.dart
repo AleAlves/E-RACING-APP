@@ -110,9 +110,9 @@ abstract class _EventDetailViewModel extends BaseViewModel<EventDetailRouter>
               event = data?.event;
               share = ShareModel(
                   route: EventRouter.detail,
-                  leagueId: event?.leagueId,
+                  leagueId: event?.info?.leagueId,
                   eventId: event?.id,
-                  name: event?.title,
+                  name: event?.info?.title,
                   message: "Check out this racing event");
               users = ObservableList.of(data?.users ?? []);
               _getEventBanner(data?.event.id ?? '');

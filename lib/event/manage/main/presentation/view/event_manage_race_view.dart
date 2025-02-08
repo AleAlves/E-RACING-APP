@@ -143,7 +143,7 @@ class EventManageRaceViewState extends State<EventManageRaceView>
                 type: ButtonType.primary,
                 onPressed: () {
                   switch (widget.viewModel.event?.state) {
-                    case EventState.idle:
+                    case EventState.draft:
                       confirmationDialogExt(
                         context: context,
                         issueMessage:
@@ -201,7 +201,7 @@ class EventManageRaceViewState extends State<EventManageRaceView>
 
   Pair<bool, String>? _getStatus() {
     switch (widget.viewModel.event?.state) {
-      case EventState.idle:
+      case EventState.draft:
         return Pair(true, "Start");
       case EventState.ongoing:
         return Pair(true, "Finish");

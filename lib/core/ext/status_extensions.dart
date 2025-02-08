@@ -20,7 +20,7 @@ String getSessionType(SessionType? type) {
 
 String? getEventStatus(EventState? state) {
   switch (state) {
-    case EventState.idle:
+    case EventState.draft:
       return "Creating";
     case EventState.ready:
       return "Ready";

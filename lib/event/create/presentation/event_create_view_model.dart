@@ -3,6 +3,7 @@ import 'package:e_racing_app/core/model/media_model.dart';
 import 'package:e_racing_app/core/model/settings_model.dart';
 import 'package:e_racing_app/core/ui/base_view_model.dart';
 import 'package:e_racing_app/event/core/data/event_create_model.dart';
+import 'package:e_racing_app/event/create/data/payment_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -13,7 +14,6 @@ import '../../../core/ui/view_state.dart';
 import '../../../shared/tag/get_tag_usecase.dart';
 import '../../core/data/session_race_model.dart';
 import '../domain/create_event_usecase.dart';
-import '../domain/model/race_create_model.dart';
 import 'navigation/event_create_flow.dart';
 
 part 'event_create_view_model.g.dart';
@@ -88,6 +88,9 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   @observable
   EventRaceModel? editingRaceModel;
 
+  @observable
+  PaymentModel? paymentModel;
+
   final _getTagUseCase = Modular.get<GetTagUseCase>();
   final _createEventUseCase = Modular.get<CreateEventUseCase<StatusModel>>();
 
@@ -97,6 +100,7 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
 
   decreaseStep() {
     currentStep--;
+    pop();
   }
 
   void setAgreement(bool termsAgreement) {
@@ -105,6 +109,21 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
 
   void setEventName(String name) {
     eventName = name;
+    onRoute(EventCreateNavigator.eventOptions);
+  }
+
+  void setOptions() {
+    if (hasFee == true) {
+      maxSteps = 11;
+      onRoute(EventCreateNavigator.eventPayment);
+    } else {
+      maxSteps = 10;
+      onRoute(EventCreateNavigator.eventRules);
+    }
+  }
+
+  void setEventPayment(String value, String key, String notes) {
+    paymentModel = PaymentModel(value, key, notes);
     onRoute(EventCreateNavigator.eventRules);
   }
 
@@ -126,7 +145,7 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   }
 
   void onFinishEventSettings() {
-    onRoute(EventCreateNavigator.eventRaceList);
+    onRoute(EventCreateNavigator.eventReview);
   }
 
   void addEventClasses(ClassesModel classesModel) {
@@ -165,7 +184,7 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   void onRaceEditing(EventRaceModel? race) {
     editingRaceModel = race;
     editingRaceIndex = racesModel.indexOf(race);
-    onRoute(EventCreateNavigator.eventRaceEditing);
+    onRoute(EventCreateNavigator.eventReview);
   }
 
   void addRace(EventRaceModel? model) {
@@ -186,26 +205,16 @@ abstract class _EventCreateViewModel extends BaseViewModel<EventCreateNavigator>
   void createEvent() async {
     state = ViewState.loading;
 
-    var races = racesModel.map((race) => RaceCreateModel(
-        date: race?.eventDate,
-        title: race?.title,
-        poster: race?.poster,
-        sessions: race?.sessions,
-        broadcasting: race?.hasBroadcasting,
-        broadcastLink: race?.broadcastLink));
-
     var event = EventCreateModel(
-        races: races.toList(),
-        tags: eventTags,
-        settings: eventSettings,
         classes: eventClasses,
-        teamsEnabled: eventAllowTeams,
-        membersOnly: eventAllowMembersOnly,
-        title: eventName,
-        rules: eventRules,
-        scoring: eventScore,
-        hasFee: hasFee,
-        leagueId: Session.instance.getLeagueId());
+        info: EventInfoModel(
+            title: title,
+            scoring: eventScore,
+            tags: eventTags,
+            hostLeagueId: Session.instance.getLeagueId(),
+            isForMembersOnly: eventAllowMembersOnly,
+            isTeamsEnabled: eventAllowTeams,
+            hasFee: hasFee));
 
     var media = MediaModel(eventBanner.toString());
 

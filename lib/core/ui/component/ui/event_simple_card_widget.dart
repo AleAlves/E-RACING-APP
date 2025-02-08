@@ -43,7 +43,7 @@ class EventSimpleCardWidget extends StatelessWidget {
             children: [
               const SpacingWidget(LayoutSize.size8),
               TextWidget(
-                text: event?.title ?? event?.races?.first?.title ?? '',
+                text: event?.info?.title ?? event?.races?.first?.title ?? '',
                 style: Style.subtitle,
                 align: TextAlign.start,
               ),

@@ -8,18 +8,17 @@ import '../../../../../core/ui/component/ui/spacing_widget.dart';
 import '../../../../../core/ui/component/ui/text_widget.dart';
 import '../../../../../core/ui/view_state.dart';
 import '../../event_create_view_model.dart';
-import '../../navigation/event_create_flow.dart';
 
 class EventCreateNameView extends StatefulWidget {
   final EventCreateViewModel viewModel;
 
-  const EventCreateNameView(this.viewModel, {Key? key}) : super(key: key);
+  const EventCreateNameView(this.viewModel, {super.key});
 
   @override
-  _EventCreateNameViewState createState() => _EventCreateNameViewState();
+  EventCreateNameViewState createState() => EventCreateNameViewState();
 }
 
-class _EventCreateNameViewState extends State<EventCreateNameView>
+class EventCreateNameViewState extends State<EventCreateNameView>
     implements BaseSateWidget {
   var isValid = false;
   final _formKey = GlobalKey<FormState>();
@@ -66,23 +65,24 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
   Widget content() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SpacingWidget(LayoutSize.size128),
+        const SpacingWidget(LayoutSize.size24),
         titleWidget(),
-        const SpacingWidget(LayoutSize.size48),
+        const SpacingWidget(LayoutSize.size16),
         Form(
-          child: nameWidget(),
           key: _formKey,
-        ),
-        optionsWidget()
+          child: nameWidget(),
+        )
       ],
     );
   }
 
   Widget titleWidget() {
-    return const TextWidget(
-        text: "What is the name of the event?", style: Style.subtitle);
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: const TextWidget(text: "Event name", style: Style.title),
+    );
   }
 
   Widget nameWidget() {
@@ -102,57 +102,6 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
     );
   }
 
-  Widget optionsWidget() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Checkbox(
-                value: widget.viewModel.eventAllowTeams,
-                onChanged: (bool? value) {
-                  setState(() {
-                    widget.viewModel.setToggleEventAllowTeamsOption(value);
-                  });
-                },
-              ),
-              const TextWidget(
-                  text: "Racing teams", style: Style.paragraph)
-            ],
-          ),
-          Row(
-            children: [
-              Checkbox(
-                value: widget.viewModel.eventAllowMembersOnly,
-                onChanged: (bool? value) {
-                  setState(() {
-                    widget.viewModel.setToggleEventAllowMembersOnly(value);
-                  });
-                },
-              ),
-              const TextWidget(
-                  text: "Members only", style: Style.paragraph)
-            ],
-          ),
-          Row(
-            children: [
-              Checkbox(
-                value: widget.viewModel.hasFee,
-                onChanged: (bool? value) {
-                  setState(() {
-                    widget.viewModel.setToggleEventHasFee(value);
-                  });
-                },
-              ),
-              const TextWidget(text: "Registration fee", style: Style.paragraph)
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
   Widget button() {
     return ButtonWidget(
       enabled: isValid,
@@ -168,7 +117,6 @@ class _EventCreateNameViewState extends State<EventCreateNameView>
   @override
   Future<bool> onBackPressed() async {
     widget.viewModel.decreaseStep();
-    widget.viewModel.onRoute(EventCreateNavigator.eventTerms);
     return false;
   }
 }

@@ -174,7 +174,7 @@ class _EventDetailTeamWidgetState extends State<EventDetailTeamWidget>
   }
 
   Widget addButton() {
-    var max = widget.viewModel.event?.teamsMaxCrew?.toInt() ?? 2;
+    var max = widget.viewModel.event?.info?.maxTeamCrew?.toInt() ?? 2;
     if (drivers.length < max) {
       return ButtonWidget(
         enabled: true,
